@@ -3451,25 +3451,6 @@ const _pm=pauseMenu;pauseMenu=function(){_pm();const box=document.querySelector(
  mk(()=>'Text size: '+(META.bigText?'large':'normal'),()=>{META.bigText=!META.bigText;applyComfort()})};
 const _rfxM=roomFX;roomFX=function(){if(META.reduceMotion){const tint=[[255,200,120,.06],null,[20,30,90,.16],[10,10,50,.28]][Math.min(S.slot,3)];if(tint){c.fillStyle=`rgba(${tint[0]},${tint[1]},${tint[2]},${tint[3]})`;c.fillRect(0,0,W,H)}try{drawFollower();drawEmote()}catch(e){}return}_rfxM()};
 
-/* ===================== STORY FRAMING ===================== */
-/* chapter cards at each turn of the story, and an opening that states the stakes */
-const INTRO={m:[['','Tokyo, the cheap side. Misaki Katsuo has a trailer, a rifle she’s very good with, and ¥9,000.'],['','She kills men the law won’t touch, for money. Rent is ¥40,000, due on day 5, and again by day 10. Miss it and she’s out.'],['','Her only friends live in a group chat full of killers. One of them, “K9”, keeps asking if she’s eaten.'],['','He’s a billionaire. He has a house full of dogs, a vault nobody is allowed into, and very good locks. She has a bobby pin.'],['hitmeuppp','ok. two goals. pay rent. find out what’s behind the round door. in that order. probably.'],['','(Every job draws attention from the families of the men you kill. Watch your heat.)']],
- v:[['','Tokyo. V runs a charity foundation in forty-one cities. At night he ruins the men it can’t reach, with paper: leaks, audits, lawyers.'],['','He has three dogs, an old one among them, and a server full of serial killers he never meant to join.'],['','One of them is Misaki. Assassin. Behind on rent. She refuses his money. Every job she takes makes her more enemies.'],['K9','This is not my concern.'],['','It is, increasingly, his concern. Keep the foundation running, keep the dogs well, and keep an eye on her. Something is coming for her.']]};
-INTRO.both=INTRO.m;
-newRun=function(p){S=NEW(p);save();drawHud();chapterCard('Chapter One · Rent Is Due',()=>cut(INTRO[p]||INTRO.m,hub))};
-const _tkM=takenM;takenM=function(){chapterCard('Chapter Two · One Bulb',_tkM)};
-const _tkV=takenV;takenV=function(){chapterCard('Chapter Two · Missing',_tkV)};
-const _aftC=after;after=function(self){chapterCard('Chapter Three · After',()=>_aftC(self))};
-const _finC=finale;finale=function(){if(S.f.finaleCard)return _finC();S.f.finaleCard=1;chapterCard('Chapter Four · It Ends Tonight',_finC)};
-/* goals: when no quest is active, always tell the player what to do next */
-const _gt=goalText;goalText=function(){const g=_gt();if(g||!S)return g;
- if(S.phase==='act2')return `Find the Mimic before the gala · clues ${S.case?S.case.found.length:0}`;
- if(S.phase==='epilogue')return 'Just live. (Side stories and dates are in the hub.)';
- const inBase=['atrium','ops','green','kennel','training','archive'].includes(S.room);
- if(inBase&&!S.f.vault&&S.visitAs!=='v'){const d=S.frag.filter(Boolean).length;return `The round door: keycard ${S.key?'✓':'?'} · code ${d}/3`}
- if(isM()&&S.paid>=2)return 'Rent’s paid. Something feels wrong.';
- if(isV())return 'Keep the foundation running. Check on Misaki.';
- return ''};
 requestAnimationFrame(frame);splash();
 
 </script></body></html>
