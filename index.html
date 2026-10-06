@@ -1710,7 +1710,7 @@ function act2Ending(){META.done++;saveMeta();const sus=SUS(),C=S.case,L=[];
  L.push((S.rivalry||0)<30?'V and Ronin are, against every law of nature, friends. V will deny this under oath.':(S.rivalry||0)>=70?'V and Ronin still cannot be in the same room for more than ten minutes. Angel times it.':'V tolerates Ronin now. Mostly. There is a crowbar hook by V’s door that nobody talks about.');
  L.push(S.morale>=60?'The server holds a movie night every Friday. Ronin picks Heathers every single time. Nobody objects.':S.morale<30?'The server is quieter than it used to be. Angel keeps posting memes into the silence, stubbornly, until someone answers.':'The server goes back to memes. Ronin posts the crowbar in a tiny hat again. Angel still hates it.');
  L.push(S.rom?romEndLine():tier()>=3?'In December, there’s a photo on the fridge. Everyone’s in it. Two people are standing very close, and neither of them is pretending otherwise.':'They stay what they are. Friends. The kind who pick up at 3am.');
- const run=S;wipeRun();const finish=()=>{S=null;go({enter(){panel(`<h2>Act II Ending — ${name}</h2>${L.map(x=>`<p>${x}</p>`).join('')}<p class="hint">Trust ${run.trust} · tension ${run.tension} · morale ${run.morale} · affection ${run.aff} · gala $${run.gala}k · clues ${run.case.found.length}</p>`,(run.lone?[]:[{t:'Keep living (epilogue)',sub:'no more endings · just them',fn:()=>{S=run;S.phase='epilogue';S.dark=0;S.slot=0;S.done={};save();hub()}}]).concat([{t:'Back to title',fn:title}]))},draw(){rect(0,0,W,H,'#05040a')}});drawHud()};
+ const run=S;wipeRun();const finish=()=>{S=null;go({enter(){panel(`<h2>Act II Ending — ${name}</h2>${L.map(x=>`<p>${x}</p>`).join('')}<p class="hint">Trust ${run.trust} · tension ${run.tension} · morale ${run.morale} · affection ${run.aff} · gala $${run.gala}k · clues ${run.case.found.length}</p>`,(run.lone?[]:[{t:'Continue to Act III: The Ledger',sub:'the last chapter · ten days',fn:()=>{S=run;startAct3()}},{t:'Keep living (epilogue)',sub:'no more endings · just them',fn:()=>{S=run;S.phase='epilogue';S.dark=0;S.slot=0;S.done={};save();hub()}}]).concat([{t:'Back to title',fn:title}]))},draw(){rect(0,0,W,H,'#05040a')}});drawHud()};
  if(tier()>=3)showCG('December.',finish);else finish()}
 function ending(kind){if(kind==='final'&&S&&S.phase==='after'){go({draw(){rect(0,0,W,H,'#05040a')}});ask('','Act I is over. The story doesn’t have to be.',[{t:'Continue to Act II: The Mimic',sub:'new plotline · ~10 more days',fn:startAct2},{t:'End here',fn:()=>endingBase('final')}]);return}endingBase(kind)}
 function sleepJ(){const L=promiseCheck();S.morale=clamp((S.morale||0)-2);if(L.length){say(L,sleepAfter);return}sleepAfter()}
@@ -3592,6 +3592,652 @@ function drink2(k){const intro={whisky:[['','He pours two fingers each into glas
   {t:'[Don’t talk. Lean against him and watch the lights.]',fn:()=>{apply({aff:4});if(S.dark)calm(8);say([['','She leans. He lets her. The glasses go warm. Somewhere below, a siren starts and stops and neither of them looks toward it.']],drinkEnd)}}]))}
 function drinkEnd(){say([['',pk(['They finish their drinks at three. Neither of them goes to bed until four.','By the end, she’s asleep against his shoulder and he’s afraid to breathe too loudly.','He carries the glasses in. She carries the bottle, and doesn’t give it back.'])]],()=>toRoom(S.room||'atrium',S.roomPos||[150,150]))}
 ROOMS.atrium.spots.splice(ROOMS.atrium.spots.length-1,0,{at:[250,160],mark:[256,150],label:'Liquor cabinet (night)',show:()=>S.slot>=2,act:()=>drinkScene('atrium'),vact:()=>drinkScene('atrium')});
+/* ===================== ACT III: THE LEDGER (engine) ===================== */
+/* Speaker tokens in Act III data: '@' = whoever you are playing, '#' = the person beside you
+   (V or Misaki, or Ronin/Angelic on a romance route). Lines can also be functions. */
+const A3P=()=>S.pov==='v'?'v':'m';
+const A3ME=()=>ME2();
+const A3PART=()=>S.rom&&A3P()==='m'?romWho():A3P()==='v'?'hitmeuppp':'K9';
+function A3L(lines){return (typeof lines==='function'?lines():lines).filter(Boolean).map(l=>{if(typeof l==='function')l=l();if(!l)return null;let [w,t]=l;if(typeof t==='function')t=t();if(w==='@')w=A3ME();else if(w==='#')w=A3PART();else if(w==='V')w='K9';else if(w==='M')w='hitmeuppp';return[w,t]}).filter(Boolean)}
+const a3d=()=>S.a3?S.day-S.a3.start+1:0;
+function startAct3(){S.phase='act3';S.dark=0;S.slot=0;S.done={};S.day++;S.a3={start:S.day,end:S.day+9,names:{},allies:{},box:0,plan:null,quiet:{},inter:{}};save();
+ chapterCard('Act III · The Ledger',()=>cut(A3L(A3_OPEN),hub,'#05040a'))}
+function a3Hub(late){if(S.phase!=='act3')return[];const A=S.a3,o=[{h:`The Ledger · day ${a3d()}/10 · names ${Object.keys(A.names).length}/${A3N().length} · allies ${Object.keys(A.allies).length}`}];
+ if(!A.box)o.push({t:'The Ginza safety deposit box',sub:S.f.ginzaKey?'you have Kaito’s key':'no key · you’ll have to get in another way',dis:late,fn:()=>{spend();a3Box()}});
+ else{const next=A3N().filter(n=>!A.names[n.id]);if(next.length)o.push({t:'Turn the page: '+next[0].n,sub:next[0].role+' · costs time',dis:late||S.done.a3page,fn:()=>{spend();S.done.a3page=1;a3Name(next[0])}})}
+ A3_ALLIES.forEach(a=>{if(A.allies[a.id]||!a.ok())return;o.push({t:'Ask '+a.n+' to stand with you',sub:a.sub(),dis:late,fn:()=>{spend();a3Ally(a)}})});
+ const q=A3_QUIET.filter(x=>!A.quiet[x.id]&&(!x.ok||x.ok()));if(q.length&&S.slot>=2)o.push({t:'A quiet night',sub:q[0].t,dis:S.done.a3quiet,fn:()=>{S.done.a3quiet=1;A.quiet[q[0].id]=1;save();cut(A3L(q[0].L),hub,'#0a0810')}});
+ o.push({t:'The Chairman',sub:a3d()>=6&&A.box?'end it · you can go early, or wait for day 10':'not yet · read the ledger first',dis:late||!(a3d()>=6&&A.box),fn:()=>a3Climax()});
+ return o}
+const _sideA3=sideHub;sideHub=function(late){return a3Hub(late).concat(_sideA3(late))};
+function a3Box(){const A=S.a3;const done=()=>{A.box=1;save();cut(A3L(A3_BOX_OPEN),hub,'#0a0a10')};
+ if(S.f.ginzaKey)return cut(A3L(A3_BOX_KEY),done,'#0a0a10');
+ cut(A3L(A3_BOX_NOKEY),()=>ask(A3ME(),'How do you get into the vault?',[
+  {t:'Pick the deposit box lock at 3am',sub:'lockpick',fn:()=>lockpick(ok=>{if(ok)return done();cut(A3L([['','The alarm doesn’t ring. Something worse happens: a polite man in a grey suit holds the door for you on the way out and says, “Next time, use the front.”'],['@','They know we’re coming now. Fine. Let them know.']]),()=>{A.heat=(A.heat||0)+1;done()},'#000')})},
+  {t:'Crack the bank’s key server',sub:'decrypt',fn:()=>simon({title:'GINZA TRUST // box 1031',rounds:[4,5,6]},ok=>{if(!ok)A.heat=(A.heat||0)+1;done()})},
+  {t:'Walk in as the heir and sign for it',sub:A3P()==='v'?'V is, legally, the heir':'Misaki forges the signature',fn:()=>cut(A3L(A3_BOX_HEIR),done,'#0a0a10')}]),'#0a0a10')}
+function a3Name(n){const A=S.a3;cut(A3L(n.intro),()=>ask(A3ME(),n.q||'What do you do about '+n.n+'?',Object.keys(n.o).filter(k=>!n.o[k].ok||n.o[k].ok()).map(k=>{const x=n.o[k];return{t:typeof x.t==='function'?x.t():x.t,sub:x.sub||'',fn:()=>{A.names[n.id]=k;if(x.e)apply(typeof x.e==='function'?x.e():x.e);if(x.f)x.f();save();const fin=()=>cut(A3L(x.L),hub,'#0a0810');if(k==='kill'){go(cutBg('#0e0a10'));return dispose(A3P()==='v'?'v':'m',1,fin)}fin()}}})),'#0a0810')}
+function a3Ally(a){S.a3.allies[a.id]=1;save();cut(A3L(a.L),hub,'#0a0810')}
+const _morA3=morningEvent;morningEvent=function(done){if(S&&S.phase==='act3'){const d=a3d();const b=A3_BEATS[d];if(b&&!S.seen['a3b'+d]){S.seen['a3b'+d]=1;save();return say(A3L(b),done)}return done()}return _morA3(done)};
+const _sbA3=sleepBase;sleepBase=function(){if(S&&S.phase==='act3'&&S.day+1>S.a3.end){S.day++;save();return nightCard([['','The tenth night. There is no more waiting.']],a3Climax)}return _sbA3()};
+function a3Climax(){const A=S.a3;const al=Object.keys(A.allies),names=Object.values(A.names);const blood=names.filter(x=>x==='kill').length,paper=names.filter(x=>x==='paper').length;
+ cut(A3L(A3_CLIMAX_OPEN),()=>ask(A3ME(),'The plan for the yacht.',A3_PLANS.filter(p=>!p.ok||p.ok()).map(p=>({t:p.t,sub:p.sub(),fn:()=>{A.plan=p.id;save();cut(A3L(p.L),()=>a3Boat(p),'#04101a')}}))),'#04101a')}
+function a3Boat(p){const A=S.a3;const al=Object.keys(A.allies).length;const guards=GALA_G.slice(0,Math.max(1,5-al-(p.id==='quiet'?1:0)));
+ stealth({map:GALA,guards,title:'The Chairman’s yacht',hint:'The Chairman is in white. Reach him and press E. Allies thin the guards.',smoke:S.smoke+(A.allies.ronin?1:0),actor:A3P()==='v'?'v':'m',takedown:true,guardCol:'#0a1a2a',killLine:'You have him.'},r=>{A.boat=r.ok?1:0;if(r.ok)S.bodies+=r.kills;save();cut(A3L(r.ok?A3_FACE:A3_FACE_BAD),()=>a3Choice(r.ok),'#04101a')})}
+function a3Choice(ok){const o=A3_FINAL.filter(f=>(!f.ok||f.ok(ok)));ask(A3ME(),ok?'The Chairman, on his knees, on his own deck.':'The deck is chaos. The Chairman is at the rail.',o.map(f=>({t:f.t,sub:f.sub||'',fn:()=>a3End(f.id)})))}
+function a3End(id){META.done++;saveMeta();const E=A3_ENDINGS[id];const NN=A3N().length;const L=E.L().concat(A3_CODA());const name=E.name;const run=S;
+ cut(A3L(E.scene),()=>{wipeRun();S=null;go({enter(){panel(`<h2>Ending — ${name}</h2>${L.map(x=>`<p>${x}</p>`).join('')}<p class="hint">Act III complete · names ${Object.keys(run.a3.names).length}/${NN} · allies ${Object.keys(run.a3.allies).length} · conscience ${run.heart} · edge ${run.edge}</p>`,[{t:'Keep living (epilogue)',sub:'after everything',fn:()=>{S=run;S.phase='epilogue';S.dark=0;S.slot=0;S.done={};S.f.a3End=id;save();hub()}},{t:'Back to title',fn:title}])},draw(){rect(0,0,W,H,'#05040a')}});drawHud()},'#05040a')}
+ACH.push(['a3','The Last Entry','Finish Act III.',()=>S.f&&S.f.a3End],['a3all','Every Name','Read every name in the second ledger.',()=>S.a3&&Object.keys(S.a3.names).length>=A3N().length],['a3allies','Nobody Comes Alone','Bring every ally to the yacht.',()=>S.a3&&Object.keys(S.a3.allies).length>=A3_ALLIES.length]);
+const _gtA3=goalText;goalText=function(){if(S&&S.phase==='act3')return S.a3.box?`The ledger · day ${a3d()}/10 · ${Object.keys(S.a3.names).length}/${A3N().length} names`:'Get into the Ginza box';return _gtA3()};
+/* ===================== ACT III content: opening, the box, the days ===================== */
+const A3_OPEN=()=>[
+ ['','November. The gala is over. The tags have stopped. The city has gone back to pretending it never noticed anything.'],
+ ['','For eleven days nothing happens, and the nothing is so loud that nobody in the house can sleep through it.'],
+ ['','Then a man in a grey suit leaves a business card in the mailbox at the bottom of V’s drive. No name. No number. Just a watermark of a ship, and a single handwritten line on the back.'],
+ ['','“Your father kept two ledgers. You burned the honest one.”'],
+ ['V','I did not burn the honest one. I burned the one that was honest about him.'],
+ ['M','v. who knows about the ledger. like actually knows.'],
+ ['V','My father. My father’s driver. A man in a bank in Ginza who has been dead for six years. And now, apparently, a man with a ship on his business card.'],
+ A3P()==='m'?['M','ok. so we’re going to ginza.']:['V','I am going to Ginza. You are going to tell me that I am not going alone.'],
+ A3P()==='m'?['V','We are going to Ginza. After breakfast. I refuse to commit a felony on an empty stomach.']:['M','ur not going alone. obviously. what’s in ginza.'],
+ ['V','A box. Number 1031. My father rented it the year I was born and paid for it a century in advance. I always assumed it held his will.'],
+ ['V','I am beginning to suspect it holds everyone else’s.'],
+ ['','That night, the card goes into the glass case in the archive, next to the collars. Nobody says it out loud, but everyone in the house knows the same thing:'],
+ ['','The ledger was never finished. Somebody has been keeping it up to date.'],
+ ['','ACT III — THE LEDGER. Ten days. Get into the box. Read the names. Decide what each of them deserves. Find out who the Chairman is before he finds out how much you know.']];
+const A3_BOX_KEY=()=>[
+ ['','Ginza Trust, nine in the morning. Marble floors, a doorman in white gloves, a vault manager who looks at Kaito’s brass key the way a priest looks at a relic.'],
+ ['Vault manager','Box 1031. We had begun to believe it would never be opened. The rent is paid until 2087.'],
+ ['@','Has anyone else asked about it?'],
+ ['Vault manager','A gentleman. Last week. Grey suit. He did not have a key. He seemed very confident that someone would bring one.'],
+ ['#',A3P()==='v'?'...so we walked into his trap with the key he wanted. cool. love that for us.':'Then we are on a clock. Good. I work better on a clock.']];
+const A3_BOX_NOKEY=()=>[
+ ['','Ginza Trust. Marble floors, white gloves, a vault manager who asks for a key you do not have.'],
+ ['Vault manager','Without the key, or the account holder, I am afraid I cannot help you. The account holder is deceased. So is his heir’s patience, I imagine.'],
+ ['#','There are other ways in. There are always other ways in.']];
+const A3_BOX_HEIR=()=>[
+ ['','V wears the suit his father was buried in. It still fits. He hates that it still fits.'],
+ ['V','My name is on the original registration as next of kin. I would like to open my father’s box.'],
+ ['Vault manager','...Of course, sir. You have his eyes.'],
+ ['V','I have been told. I try not to use them.']];
+const A3_BOX_OPEN=()=>[
+ ['','Inside box 1031: a ledger bound in black leather, a fountain pen with no ink, and a photograph of a yacht called the Constance.'],
+ ['','The ledger is not old. The first forty pages are in V’s father’s hand. The rest are in a different hand, neat and slanted and very patient, and the newest entry is dated four days ago.'],
+ ['V','Someone took over the book when he died. Someone who knew him well enough to copy his ruling lines.'],
+ ['M','who’s in it'],
+ ['V','Seven names. Seven people who owe the Chairman something. And at the very back, a page that has been left blank, with one word written at the top.'],
+ ['M','what word'],
+ ['V','“Valentin.”'],
+ ['','The photograph of the yacht is dated next Friday. Moored at Odaiba. A charity auction. The guest list is clipped to the back. The host is listed only as “the Chairman.”'],
+ ['@','Seven names. Ten days. One boat.'],
+ ['#',A3P()==='v'?'we read the names first. we figure out who’s holding the leash. then we go to the boat.':'We read every name. Then we decide what each of them is. Then we go to the boat, and we decide what he is.'],
+ ['','(Turn the pages one night at a time from the hub. What you do with each name changes who stands with you on the boat, and who stands against you.)']];
+const A3_BEATS={
+ 1:[['','The first morning of the ledger. V makes breakfast and burns the toast, which has never happened before.'],['M','u burned the toast'],['V','I was reading the guest list while it cooked. It is a very long list. Every person on it has donated to the foundation.'],['M','so the chairman’s been in ur house'],['V','The Chairman has been at my galas. Has shaken my hand. Has, very possibly, eaten my canapés.'],['M','gross'],['V','Gross, yes. I am going to wash every glass in the kitchen today, and none of them will be dirty.']],
+ 2:[['','A grey sedan parks across from the gate at dawn. It stays all day. It leaves at exactly midnight.'],['@','They want us to see them.'],['#','then let them look. we’re very boring. we’re reading a book.'],['','Biscuit spends the entire day sitting at the window with her nose against the glass, growling at a car she cannot reach. Nobody tells her to stop.']],
+ 3:[['','The server. A message from an account with no avatar.'],['???','i know what’s in the box. so does he. you have a week. use it well. — a friend of your father’s, who was never really his friend'],['@','Kaito.'],['#','or somebody who wants us to think it’s kaito. this city is full of men pretending to be other men.'],[ '','Angel screenshots it and posts a single knife emoji in the general channel. Ronin replies with a single crowbar. Neither of them asks anything.']],
+ 4:[['','Rain all day. The kind that gets into the walls.'],['V','My father used to say the rain was good for business. People stay inside and read their mail, and the mail is where he sent the threats.'],['M','ur dad sucked'],['V','My father was a very effective man. Those are different words, and I have spent my whole life learning the difference.'],['M','u did learn it. for the record. ur not him.'],['V','...Thank you. I needed to hear that from someone who is not a dog.']],
+ 5:[['','Halfway. A dead rat on the front step, laid out very neatly, tail straight, the way a cat would leave a gift. There is no cat.'],['@','That is not a threat. That is a joke. He is telling us he thinks this is funny.'],['#','i’ve met men who think this is funny. they stop laughing at the end. they always do.'],['','The rat is buried in the garden under the tomatoes. Ronin, when told, says a few words over it. They are not appropriate words. They are, somehow, moving.']],
+ 6:[['','A delivery. A box of the most expensive chocolates in Tokyo, addressed to “the girl with the star in her hair.” A card: “For your trouble. — C.”'],['M','he knows my name. he knows my hair clips.'],['V','He knew my father. He knows my house. Of course he knows you. You are the most important thing in it.'],['','The chocolates go to the shelter, untouched, after Angel has a lab she trusts test every one. They are perfectly ordinary chocolates. That is the worst part.'],['','(The ledger has given up enough. From tonight, you can go to the boat whenever you are ready.)']],
+ 7:[['','Nobody sleeps much. At three in the morning the whole house is awake in different rooms, pretending not to be.'],['@','Are you up?'],['#','obviously. are u?'],['@','Obviously.'],['','They end up in the kitchen. Tea. The okayest mug. Neither of them says what they are afraid of, which is how they both know it’s the same thing.']],
+ 8:[['','Inspector Hara calls the foundation’s public line and asks for “the man who doesn’t exist.” The receptionist, who has been trained for exactly this, transfers him.'],['Hara','I have been told not to look at a yacht at Odaiba on Friday. By my superintendent. Personally. I have been a policeman for thirty years and I have never been told not to look at a boat.'],['V','Then I suggest you do not look at it, Inspector. Very carefully.'],['Hara','...Understood. I will be very carefully not looking at it from about two hundred metres away.']],
+ 9:[['','The last night before the last night. Angel does everyone’s nails, even V’s, even Ronin’s. Black, all of them. Nobody objects.'],['Angelic','for luck. and so nobody can see what’s under them after.'],['Ronin','Angel, that’s the darkest thing you ever said.'],['Angelic','i learned from the best, babe. i learned from all of you.'],['','Later, alone on the roof, the city looks exactly the same as it did on day one. That is the thing about cities. They do not know what you are about to do.']],
+ 10:[['','Friday. The Constance is lit up like a wedding cake at the end of the Odaiba pier. Music drifts over the water. Somewhere on that boat is the man who kept the ledger.'],['@','Whatever happens tonight, I want you to know I would do every day of this again.'],['#','...don’t do the goodbye thing. we’re not saying goodbye. we’re going to a party.'],['@','Then we are going to a party.']]};
+const A3_ALLIES=[
+ {id:'angel',n:'Angelic',ok:()=>frT('a')>=1||S.morale>=40,sub:()=>frT('a')>=2?'she’s been waiting for you to ask':'she might say no',L:()=>[
+  ['','Angel’s studio, every ring light off. She’s cleaning the shotgun on the vanity like it’s a makeup brush.'],
+  ['Angelic','you’re here to ask me something. you have your asking face on. it’s the same face V makes when he’s about to apologise for something he hasn’t done yet.'],
+  ['@','There is a boat on Friday. A man on it has been keeping a list. Our names are on the list.'],
+  ['Angelic','...my name?'],
+  ['@',S.rom==='a'?'Yours. Mine. Everyone in that server, written in the same handwriting as the men who disappeared.':'Yours. Under “the vlogger.” With your old address. And your sister’s.'],
+  ['','Angel is very quiet for a long time. Then she snaps the shotgun closed.'],
+  ['Angelic','okay. i’m in. i have conditions.'],
+  ['Angelic','one: i do the guest list. i know half the people on that boat. i’ve done their wives’ makeup. i know who drinks, who cheats, who brings a gun to a charity auction.'],
+  ['Angelic','two: if it goes bad, i’m the one who goes live. two million people watching a yacht. nobody disappears on a livestream. not even them.'],
+  ['Angelic','three: afterwards, brunch. a big one. with everyone. i want everyone at the table, you hear me? everyone.'],
+  ['@','Everyone. I promise.'],
+  ['Angelic','don’t promise. promises are what people say when they’re scared. just show up.'],
+  ['','(Angelic will run the guest list and the livestream. Fewer guards will know your face.)']]},
+ {id:'ronin',n:'Ronin',ok:()=>frT('r')>=1,sub:()=>frT('r')>=2?'he already has a tarp in the car':'he owes you, sort of',L:()=>[
+  ['','Ronin’s roof. He’s smoking a cigarette he isn’t enjoying, looking at the water.'],
+  ['Ronin','Heard about the boat. Heard about the book. Heard my name’s in it under “the Butcher,” spelled wrong. That’s what hurts, darlin’. The spellin’.'],
+  ['@','I need you on the boat.'],
+  ['Ronin','You don’t need me. You want me. That’s different, and it’s better.'],
+  ['Ronin','Here’s how it goes. I don’t do quiet. You want somethin’ quiet, ask Angel. You want a door to open that ain’t supposed to, or a man to forget which way is up for twenty minutes, that’s me.'],
+  ['@','And afterwards?'],
+  ['Ronin','Afterwards I go home and watch Heathers and pretend none of it happened, same as always. Only difference is this time I get to do it knowin’ the book’s closed.'],
+  ['Ronin','...And Vee? Tell him I’m doin’ it for you. He’ll hate that. I want him to hate it a little. It’s good for his circulation.'],
+  ['','(Ronin will cause a distraction on the boat: one extra smoke, and the guards will be busy.)']]},
+ {id:'hara',n:'Inspector Hara',ok:()=>S.q&&S.q.hara>=1||S.case&&S.case.cul!=='hara',sub:()=>'a policeman who’s been told not to look',L:()=>[
+  ['','A coffee shop that has been open since 1962 and has not been cleaned since 1963. Hara is already in the booth, with two coffees.'],
+  ['Hara','I ordered for you. Black. You look like a person who takes it black because sugar feels like a concession.'],
+  ['@','We need the harbour patrol to be somewhere else on Friday.'],
+  ['Hara','Ah. You want me to do nothing. I am very good at doing nothing. My superiors have been training me for thirty years.'],
+  ['Hara','But I will tell you what I want in exchange. When this is over, I want a name. A real one. Somebody who can go to a real trial, in front of a real judge, and have it be on the news.'],
+  ['Hara','I have spent my whole career watching men like the Chairman walk out of court. I would like, once, before I retire, to watch one walk in.'],
+  ['@','If we can give you one, you will have it.'],
+  ['Hara','“If.” Yes. Everything in my life has been “if.” I will take one more.'],
+  ['','(The harbour patrol will be looking the other way. The Chairman cannot call the police for help.)']]},
+ {id:'kaito',n:'Kaito, the old driver',ok:()=>S.f.kaito==='paid',sub:()=>'he drove your father for twenty years',L:()=>[
+  ['','Kanda overpass. The pigeons are asleep. So, nearly, is Kaito.'],
+  ['Kaito','You opened the box. Good. You read the back page. Bad. Now you look like your father did the year he stopped sleeping.'],
+  ['@','Who is the Chairman?'],
+  ['Kaito','The man who bought your father’s debts when he died. All of them. Every favour, every threat, every name. He did not inherit the ledger. He purchased it, page by page, from people who were scared of the dead.'],
+  ['Kaito','I know the Constance. I drove your father to her every second Friday for nine years. There is a service door below the waterline. The lock was installed in 2004 and nobody has changed it, because nobody has ever been brave enough to try it.'],
+  ['@','Why tell us now?'],
+  ['Kaito','Because I sold you both ways, young master, and I would like, very much, to have sold you one way at least once in my life. Call it an old man’s vanity.'],
+  ['','(Kaito gives you the service door. One less guard on the route.)']]}];
+/* ===================== ACT III content: the seven names ===================== */
+const KV=()=>A3P()==='v';
+const A3N=()=>[
+ {id:'okubo',n:'Judge Okubo',role:'the first name',intro:[
+  ['','Page one. Judge Haruki Okubo, Tokyo District Court, retired. Beside his name, in the patient slanted hand: a list of nineteen case numbers, and beside each one, an amount in yen.'],
+  ['@','Nineteen cases. Nineteen men who walked out of his courtroom with a smile and an expensive lawyer.'],
+  ['#','i know one of those case numbers. that’s the guy who ran the agency. the girls who stopped going home. okubo let him walk.'],
+  ['','Okubo lives in Setagaya now, in a house with a koi pond. Every morning at six he feeds the fish by hand and talks to them by name. His neighbours say he is a lovely old man.'],
+  ['@','He is a lovely old man. That has never once been the question.']],
+  q:'Judge Okubo. Nineteen cases, nineteen payments.',
+  o:{paper:{t:'Paper: every payment, to every newspaper, the same morning',sub:'slow · permanent · +conscience',e:{heart:6},L:[['','The story runs on the front page of three papers and the evening news. Nineteen case numbers. Nineteen deposits. The Judicial Council opens an inquiry by lunchtime.'],['','By the weekend, eleven of the nineteen cases are being reopened. Two of the men he let walk are arrested in the same week.'],['@','He will keep his koi. He will lose everything else. He will spend the rest of his life knowing that every neighbour who calls him lovely has read the paper.'],['#','is that worse than dying'],['@','For a man like Okubo, I believe it is much worse. He built himself out of being respected.']]},
+   kill:{t:()=>KV()?'Visit him at six, while he feeds the fish':'Take the shot from the hill above Setagaya',sub:'quick · −conscience +edge',e:()=>KV()?{heart:-8,veng:6}:{edge:5},L:[['','Six in the morning. The koi are hungry. Nobody feeds them that day.'],['','The obituary calls him a pillar of the community. It runs on page nine, under an advertisement for hearing aids.'],['@','Nineteen cases. One morning. The arithmetic is not fair. It is the only arithmetic I have.']]},
+   leverage:{t:'Keep his payments as leverage. Let him testify.',sub:'he becomes a witness against the Chairman',f:()=>{S.a3.witness=(S.a3.witness||0)+1},L:[['','You visit him at the koi pond with a folder. He reads it standing up, very slowly, and then he sits down on the edge of the pond as though his legs have stopped working.'],['Okubo','I always wondered who would come. I thought it would be the police. I thought it would be one of the girls’ fathers. I did not think it would be you.'],['Okubo','I will tell you everything about the Chairman. Everything. Only— please do it on paper. I have spent my whole life on paper. Let me end there.'],['','(Okubo will testify. Hara will have a name for a real courtroom.)']]}}},
+ {id:'mizuno',n:'Mrs. Emi Mizuno',role:'the second name',intro:[
+  ['','Page two. Mrs. Emi Mizuno, director of the Little Sparrows children’s home in Arakawa. Beside her name, a list of first names and dates. Children. Each one marked “placed.”'],
+  ['@','Placed where.'],
+  ['','Angel finds out in an afternoon. “Placed” means sold, in the old-fashioned way: domestic work, factory dormitories, an apartment in Osaka with the windows painted over. Forty-one children over eleven years.'],
+  ['#','forty-one. that number again. this city only has the one number.'],
+  ['','The Little Sparrows home receives a large anonymous donation from the Hands On Foundation every year. V checks. He signed the last three cheques himself.'],
+  ['V','I funded it. I sat on its board for a year. I shook her hand at a Christmas party. She gave me a scarf the children had knitted.'],
+  ['V','I still have the scarf.']],
+  q:'Mrs. Mizuno. Forty-one children. Your foundation’s money.',
+  o:{paper:{t:'Paper first: get the children out, then the courts',sub:'the children come first · +conscience',e:{heart:10},L:[['','It takes three days and every favour V has ever been owed. Social workers, lawyers, two judges who are not Okubo, and a shelter that opens its doors at four in the morning.'],['','Twenty-six of the forty-one children are found. Some of them are adults now. Some of them do not want to be found, and V tells everyone to respect that, and means it.'],['','Mrs. Mizuno is arrested at the airport with a suitcase full of knitted scarves. Nobody is sure why she packed them. Maybe she thought she could start again.'],['V','I am going to read every one of their files. All forty-one. I owe them that, at the very least. I owe them a great deal more than that.']]},
+   kill:{t:()=>KV()?'Go to the home at night':'Go to the home at night',sub:'−conscience · the children still need finding',e:()=>KV()?{heart:-10,veng:10}:{edge:6},L:[['','The home is quiet at night. The children are asleep upstairs. Mrs. Mizuno is downstairs, doing the accounts, as she always does.'],['','Later, the police find her at her desk with a pen still in her hand. The ledger she was writing in is gone. Nobody ever finds it.'],['@','The children are still out there. Killing her did not bring one of them home. I knew that before I went. I went anyway.'],['#','...we find them anyway. we find them after. that’s the deal now.'],['','(Twenty of the children are found over the following year. It is fewer than it could have been. It is not nothing.)']]},
+   angel:{t:'Let Angelic expose her live, to two million viewers',ok:()=>frT('a')>=2,sub:'needs Angelic · she has to see Mizuno’s face',f:()=>fr('a',6),L:[['','Angel goes to the home as a “celebrity volunteer” with a camera crew. She smiles. She hugs Mrs. Mizuno. Then she opens the filing cabinet on camera.'],['Angelic','(live, very calm) hi everyone. today we’re doing something different. today we’re going to read some names.'],['','The stream peaks at four million viewers. By the time it ends, there are police cars outside, and Mrs. Mizuno is sitting on the floor of her own office with her hands over her face.'],['Angelic','(after, off camera, shaking) i did a whole makeup tutorial once about how to look like you haven’t been crying. i’m going to need it tomorrow. i’m going to need it for a while.']]}}},
+ {id:'tsuji',n:'Ryo Tsuji',role:'the third name',intro:[
+  ['','Page three. Ryo Tsuji. No title, no address. Just a phone number, and beside it, in the patient hand: “cleaner.”'],
+  ['','Ronin recognises the name before anyone finishes saying it.'],
+  ['Ronin','Tsuji. Yeah. He does what I do, darlin’, except he does it for money, and he does it for whoever pays, and he does it to kids if the money’s right.'],
+  ['Ronin','He’s the one who cleaned the warehouse. After you got out. I know because I went to clean it too, and somebody’d already been. Real professional. No feelin’ in it at all.'],
+  ['@','He cleaned the room with the one bulb.'],
+  ['Ronin','He cleaned the room with the one bulb. He took the bulb. Collector, see. Takes one thing from every job.']],
+  q:'Ryo Tsuji. The cleaner. He has the bulb.',
+  o:{ronin:{t:'Give him to Ronin',ok:()=>frT('r')>=1,sub:'Ronin has been waiting a long time',f:()=>fr('r',8),L:[['Ronin','I’ll be back by mornin’. Don’t wait up. Actually, wait up. Make tea. I’m gonna want tea.'],['','He comes back at six with a cardboard box. Inside, wrapped in newspaper, a single lightbulb.'],['Ronin','Figured you might want to decide what happens to it. Smash it. Keep it. Bury it under the tomatoes with the rat. Your call.'],[ '','She holds it for a long time. Then she puts it in the freezer at Ronin’s, behind the NOT SNACKS shelf, because it is the coldest place she knows and she wants it to stay off forever.']]},
+   kill:{t:'Do it yourself',sub:'−conscience +edge · it is personal',e:()=>KV()?{heart:-8,veng:10}:{edge:8},L:[['','Tsuji lives above a laundromat. He is cleaning his kitchen when you arrive. He does not seem surprised.'],['Tsuji','I wondered when. You were the one in the warehouse. The girl. I remember the tray. Nobody else ever thought to use the tray.'],['Tsuji','It’s just work, you know. It was never about you.'],['@','I know. That is why it is so easy.'],['','Afterwards, the kitchen is very clean. He would have appreciated that. Nobody else will.']]},
+   paper:{t:'Let him run, then let Hara catch him',sub:'+conscience · Hara gets his name',e:{heart:4},f:()=>{S.a3.witness=(S.a3.witness||0)+1},L:[['','You leak just enough. Tsuji panics, packs, and runs for Narita, exactly as planned.'],['','Hara is waiting at the gate, in a coat that has seen thirty years of rain, holding two coffees.'],['Hara','Mr. Tsuji. I have a warrant and a very long list of questions. One of these coffees is for you. I recommend you drink it slowly. We are going to be together for a long time.']]}}},
+ {id:'arima',n:'Councillor Arima',role:'the fourth name',intro:[
+  ['','Page four. Councillor Sayuri Arima. Housing committee. She is famous for a speech about affordable homes for young families; it went viral twice.'],
+  ['','Beside her name, a list of addresses. Every address is a building that burned down in the last six years, always in winter, always at night, always in neighbourhoods where the land was suddenly worth a great deal afterwards.'],
+  ['#','i lived in one of those. the one in kita. i was nineteen. i lost everything i owned except a rifle and a hello kitty keychain.'],
+  ['@','You never told me.'],
+  ['#','it never came up. how do you bring that up. “hey, fun fact, i’ve been homeless twice and one time was arson.”'],
+  ['','The building in Kita is a luxury tower now. Arima cut the ribbon. There is a photo. She is smiling very warmly in it.']],
+  q:'Councillor Arima. Every building, every fire.',
+  o:{paper:{t:'Paper: the land deals, the insurance payouts, every fire',sub:'+conscience · she will lose the seat and the speech',e:{heart:6,rep:4},L:[['','It takes V’s whole legal department and a weekend nobody sleeps. Every land sale. Every insurance claim. Every shell company that bought a burned lot for nothing and sold it for millions.'],['','Arima resigns on a Tuesday. On Wednesday, her viral speech is shared again, this time with a single line of commentary added by a stranger: “Ask her about Kita.”'],['#','...thanks. for doing it the slow way. i wanted it slow. i wanted her to watch it happen to her a little bit at a time, the way it happened to us.']]},
+   kill:{t:'A fire. Winter. At night.',sub:'poetic · −conscience +edge',e:()=>KV()?{heart:-10,veng:8}:{edge:6},L:[['','It takes ten minutes. The fire department arrives in nine, because her house is in a neighbourhood where they come quickly.'],['','She gets out. Barefoot, in a nightgown, on the lawn, watching. She does not die. That was never really the point.'],['@','She watched it burn. That was the point. She can live in a hotel now and remember the smell, the way everyone else in Kita does.']]},
+   home:{t:'Buy back the Kita tower and give it to the families',ok:()=>KV(),sub:'V only · −$120k · +conscience',e:{funds:-120,heart:12},L:[['','V buys the tower in Kita at an auction nobody else is allowed to win. Every unit goes to a family who lived in a burned building, at a rent of one yen a month.'],['','At the opening there is no ribbon. There is a single plaque in the lobby with a list of every address that burned. Nobody gives a speech.'],['M','(text) u bought the building. the whole building.'],['V','(text) There is a unit for you, if you want it. Fourth floor. Your old number.'],['M','(text) ...i don’t want it. i want you to know i almost wanted it. that’s a lot for me.']]}}},
+ {id:'kanzaki',n:'Detective Kanzaki',role:'the fifth name',intro:[
+  ['','Page five. Detective Shiro Kanzaki, Metropolitan Police, organised crime division. He was one of the two detectives who knocked on Misaki’s trailer door, all those weeks ago. The one who looked back.'],
+  ['','Beside his name: “informant, 2019–present. Reliable.” And a list of names he has passed along. Misaki’s is on it. So is K9’s. So is Angel’s home address.'],
+  ['#','he’s the one who told them where the trailer was. he’s the one who sent the van.'],
+  ['@','He looked back. On the step. I remember. I thought he was suspicious. He was memorising the door.'],
+  ['','Kanzaki has a daughter. She’s eleven. She has a cat named Mochi, which is either a coincidence or a cruelty depending on how you look at it.']],
+  q:'Detective Kanzaki. He sold your address.',
+  o:{hara:{t:'Give him to Hara. Dirty cop, clean arrest.',ok:()=>S.a3.allies.hara||S.q&&S.q.hara>=1,sub:'Hara has wanted this for years',f:()=>{S.a3.witness=(S.a3.witness||0)+1},L:[['Hara','Kanzaki. I trained him, you know. Twenty years ago. He was very good. He was the best I ever trained.'],['Hara','I am going to arrest him myself, in front of the whole division, at the morning briefing. I want every young officer in that room to see what it looks like.'],['','He does. Kanzaki does not resist. He asks only that someone feed his daughter’s cat.'],['','Hara feeds the cat. Every day for a month, until the girl’s aunt arrives. He never tells anyone.']]},
+   kill:{t:'He looked back. Now you look back.',sub:'−conscience +edge · he has a daughter',e:()=>KV()?{heart:-12,veng:12}:{edge:8},L:[['','A car park under a department store, Sunday afternoon. He is buying a cat toy. He sees you in the reflection of the window and he knows.'],['Kanzaki','My daughter—'],['@','Will be told that her father died in the line of duty. She will get the pension. She will never know. That is more than you gave anybody.'],['','Afterwards, there is a cat toy on the concrete, a little fish with a bell in it. Somebody picks it up and posts it to the girl, anonymously, a week later.']]},
+   spare:{t:'Let him go. Make him disappear himself.',sub:'+conscience · he has an eleven-year-old',e:{heart:6},L:[['','You meet him in a park. You show him the ledger page. You tell him he has until midnight to leave the city, the force and his old life, and that if he ever contacts anyone from it again, you will know.'],['Kanzaki','Why? Why not just—'],['@','Because your daughter has a cat named Mochi. And because I am so tired, Detective. I am so tired of people like us.'],['','He leaves that night. He takes his daughter and the cat. Nobody hears from him again. Every year, on the same day, an anonymous donation arrives at a children’s hospital in Sapporo.']]}}},
+ {id:'fumiko',n:'Fumiko Sera',role:'the sixth name',intro:[
+  ['','Page six. Fumiko Sera. A nurse at a private clinic in Minato. Beside her name, a list of dates, and for each date, a single word: “sedated.”'],
+  ['','It takes a day to understand. The clinic is where the Chairman’s people take the ones they need quiet. Fumiko keeps them quiet. Sometimes for a week. Sometimes for good.'],
+  ['','And then V finds his mother’s name in her list. The date is the night his mother died.'],
+  ['V','The police file said my mother was dead when she reached the hospital. She was not taken to a hospital. She was taken to a clinic in Minato.'],
+  ['V','Gerrit Maas was the hand. Fumiko Sera was the needle. My father knew. My father paid for the clinic’s new wing the following spring.'],
+  ['#','...V. V, look at me. you don’t have to decide tonight.'],
+  ['V','I have been deciding for twenty-six years.']],
+  q:'Fumiko Sera. The needle.',
+  o:{ask:{t:'Go and ask her about the night',sub:'you need to know what happened',f:()=>{S.f.vMotherTruth=1},L:[['','Fumiko is sixty-eight. She lives alone in a small flat with a great many plants. She opens the door, looks at V’s face, and steps back to let him in, as though she has been expecting him for twenty-six years.'],['Fumiko','You have her eyes. Not your father’s. Hers.'],['Fumiko','She was singing. When they brought her in. Something in French, under her breath. She kept singing until the medicine took her. She did not cry. She was very brave and very angry.'],['Fumiko','I have heard that song in my head every night since. I looked it up once. It is a lullaby.'],['','V does not say anything. He sits in her small kitchen among her plants and listens to her tell it all, every detail, until there is nothing left. Then he stands up.'],['V','Thank you. I needed to know she was angry. I needed to know she was not afraid.'],['','He leaves. What happens to Fumiko Sera afterwards, he never says. She is not on the news. She is not in the river. The clinic in Minato closes the following month, and its new wing is torn down.']]},
+   kill:{t:'Do not ask. End it.',sub:'−conscience · you will never know what she knew',e:()=>KV()?{heart:-14,veng:14}:{edge:6},L:[['','It is fast, and it is quiet, and it is in her small flat among her plants.'],['','Afterwards, there is a question that will never be answered, and the person who could have answered it is on the floor.'],['V','I do not want to know. I told myself that on the way here. It is true. It is also the most cowardly thing I have ever done.']]},
+   paper:{t:'Everything to Hara. The clinic, the wing, my father’s name.',sub:'+conscience · V’s father goes on the record',e:{heart:10,rep:-6},f:()=>{S.a3.witness=(S.a3.witness||0)+1},L:[['','V signs a statement. It names his father. It names the clinic. It names the donation that built the wing. It names Fumiko Sera, and Gerrit Maas, and the night in the rain.'],['','The foundation’s board calls an emergency meeting. V attends. He does not sit at the head of the table.'],['V','My father murdered my mother. He built the house I live in with the money. I am telling you so that you can decide whether you want me to keep running this foundation.'],['','They vote. It is not unanimous. It is enough.']]}}},
+ {id:'chairman',n:'The back page',role:'the seventh name',intro:[
+  ['','The last written page. No name. Just a description, in the patient hand, as if he were writing about a stranger:'],
+  ['','“Collector of debts. Keeper of the second ledger. Purchased the obligations of Mr. Viljoen, deceased, in full, and has administered them faithfully since. Requires nothing from anyone except what they owe.”'],
+  ['','And under it, a small drawing of a ship.'],
+  ['@','He wrote himself into his own book.'],
+  ['#','he thinks he’s the only honest man in it. that’s the scariest kind.'],
+  ['','The page after is blank except for one word at the top: “Valentin.” And under that, very lightly, in pencil, as if added recently: “and the girl.”']],
+  q:'The Chairman. The back page.',
+  o:{study:{t:'Study him. Learn the boat.',sub:'+1 ally slot in spirit · fewer guards',f:()=>{S.a3.studied=1},L:[['','Three nights of photographs, guest lists and harbour schedules. Angel’s contacts, Ronin’s rumours, V’s files.'],['','By the end, you know the Constance better than her crew. You know the Chairman takes his tea at eleven, alone, on the aft deck, and that he never lets anyone stand behind him.'],['@','He is afraid of exactly one thing. Somebody he cannot see.'],['#','good. i’m very good at being somebody nobody sees.']]},
+   write:{t:'Write in the ledger yourself',sub:'take the book back',f:()=>{S.a3.wrote=1},L:[['','You uncap your own pen. Under the Chairman’s description, in your own handwriting, you write a single line.'],['@',KV()?'“Account closed. — V.”':'“paid in full. — m.”'],['','It is the only entry in the whole book that is not about money. It sits there, looking very small. It looks, somehow, like the most dangerous thing in the ledger.']]}}}];
+/* ===================== ACT III content: quiet nights ===================== */
+const A3_QUIET=[
+ {id:'q1',t:'the kitchen, 2am',L:()=>[
+  ['','The kitchen at two in the morning. The only light is the one inside the fridge, which nobody has closed.'],
+  ['#','can’t sleep?'],
+  ['@','I have been reading the same page for an hour. Every time I get to the bottom I have forgotten the top.'],
+  ['#','which page'],
+  ['@','The one with your name on it.'],
+  ['','The fridge hums. Somewhere upstairs, a dog turns over in its sleep and sighs the way old dogs do.'],
+  ['#','you know what i used to do, when i couldn’t sleep? before? i’d drive to the konbini and buy the ugliest snack they had. like the weirdest flavour. squid ink pudding. wasabi kitkat.'],
+  ['#','and i’d eat it in the car and think, well. at least something tonight was worse than me.'],
+  ['@','That is the saddest thing you have ever told me.'],
+  ['#','it’s also kind of the funniest. both. it’s always both.'],
+  ['','Twenty minutes later, two people in coats are sitting in a parked car outside a konbini, eating squid ink pudding in silence. It is terrible. It helps.']]},
+ {id:'q2',t:'the dogs know',L:()=>[
+  ['','The kennel, very late. Every dog is awake, which never happens.'],
+  ['@','They know something is wrong.'],
+  ['#','dogs always know. biscuit knew before me when i was getting sick last winter. she sat on my chest for an hour. i thought she was being dramatic.'],
+  ['@','She was being a nurse. Badly. With great conviction.'],
+  ['','Mochi climbs into the nearest lap. Pancake lies across both of your feet. Biscuit, the traitor, settles in the exact middle, so nobody can leave without waking her.'],
+  ['#','okay. we live here now. this is our life. we die in the kennel.'],
+  ['@','There are worse places.'],
+  ['#','yeah. i’ve been in most of them. this isn’t one.']]},
+ {id:'q3',t:'the ledger, aloud',L:()=>[
+  ['','The archive. The second ledger is open on the desk. Neither of you wants to touch it, so you read it from a respectful distance, like a dog that might bite.'],
+  ['#','read me one. not a name. one of the boring bits.'],
+  ['@','“March fourth. Received from T. three hundred thousand, in respect of the matter at the river. Balance outstanding: nil.”'],
+  ['#','that’s so boring. that’s so boring it’s horrifying.'],
+  ['@','That is the whole secret, I think. My father was never dramatic. He was never cruel in a way anyone could photograph. He was simply very, very thorough.'],
+  ['#','so are you.'],
+  ['@','Yes. That is what frightens me.'],
+  ['#','okay but here’s the difference. you keep a drawer for every person you got out. he kept a page for every person he got in. same handwriting. opposite direction.'],
+  ['','The ledger stays open all night. In the morning, someone has put a sticky note on the first page. It says: “opposite direction.” Nobody admits to it.']]},
+ {id:'q4',t:'what if it goes wrong',ok:()=>!S.rom,L:()=>[
+  ['','The roof. Two old chairs. Two mugs gone cold.'],
+  ['#','what if it goes wrong on friday'],
+  ['@','Then it goes wrong, and we deal with it the way we always have. Badly, and together.'],
+  ['#','no but like. what if one of us doesn’t come back.'],
+  ['','A long silence. A train crosses the bridge in the distance, a line of tiny lit windows full of strangers going home.'],
+  ['@','Then the other one feeds the dogs. Every morning. Even when they do not want to. Especially then.'],
+  ['#','...that’s it? that’s the plan? feed the dogs?'],
+  ['@','It is the only plan I have ever been sure of.'],
+  ['#','okay. okay. deal. feed the dogs. and you don’t get to be noble about it. if it’s you, i get to be a mess for a whole year. i’m putting it in writing.'],
+  ['@','I would expect nothing less than a year.']]},
+ {id:'q4r',t:'what if it goes wrong',ok:()=>!!S.rom,L:()=>[
+  ['','A rooftop that isn’t V’s. Two chairs, one of them broken. '+(S.rom==='r'?'Ronin':'Angel')+' has their feet on the rail.'],
+  ['#',S.rom==='r'?'You ever think about how this ends, darlin’? Not Friday. All of it.':'do you ever think about how this ends? not friday. everything.'],
+  ['M','sometimes. mostly i think about how it doesn’t. like it just keeps going. jobs. rent. you.'],
+  ['#',S.rom==='r'?'Rent. Romantic. You say the sweetest things.':'rent. you’re so romantic. i’m going to cry.'],
+  ['M','if friday goes bad. promise me you’ll go get V. he won’t ask. he never asks. somebody has to go get him.'],
+  ['#',S.rom==='r'?'Darlin’, I been goin’ to get that man for years. He just ain’t noticed yet.':'babe i already have a plan for that. it involves brunch and emotional ambush.'],
+  ['','They stay until it gets light. It is cold. Nobody suggests going in.']]},
+ {id:'q5',t:'teach me the song',L:()=>[
+  ['','The piano nobody plays. One finger, picking out a melody that keeps going wrong in the same place.'],
+  ['#','what is that'],
+  ['V','My mother sang it. I only know the first eleven notes. After that, I have spent my whole life guessing.'],
+  ['','The twelfth note. Wrong. Again. Wrong.'],
+  ['#','here. try this one. no, the black one. yeah.'],
+  ['','It is not the right note. It is not the right song anymore. It becomes, slowly, something else: eleven notes of his mother and then a few more that are nobody’s, that belong to this room and this night.'],
+  ['V','...That is not how it goes.'],
+  ['#','it is now.']]},
+ {id:'q6',t:'the photo on the fridge',L:()=>[
+  ['','The fridge, the trailer, the photographs. The Christmas one, the dogs, the sticky note that says EAT.'],
+  ['#','there’s a space in the middle. there’s always been a space in the middle.'],
+  ['@','For what?'],
+  ['#','for the one where it’s over. where we won. i didn’t want to put anything there in case it jinxed it.'],
+  ['@','And if there is never a photograph like that?'],
+  ['#','then it stays empty. and that’s okay too. empty’s not nothing. empty’s just… waiting.'],
+  ['','Neither of you takes a photo that night. The space in the middle stays empty. For the first time, it looks like a promise instead of a wound.']]},
+ {id:'q7',t:'the call that doesn’t come',L:()=>[
+  ['','Midnight. Both phones on the table, face up. Waiting for the grey sedan to do something, anything, so the waiting can stop.'],
+  ['@','He is very good at this. The waiting is the weapon.'],
+  ['#','i know. i use it too. you sit on a roof for six hours and the guy you’re waiting for starts to feel it, even if he doesn’t know you’re there. he starts checking windows.'],
+  ['@','Are you checking windows?'],
+  ['#','...yeah.'],
+  ['@','So am I.'],
+  ['','They close every curtain in the house, one by one, together. Then they sit on the floor of the atrium, under the dark fairy lights, and play cards until the phones stop being the loudest things in the room.']]},
+ {id:'q8',t:'names for the dogs',L:()=>[
+  ['','A game, started at 3am out of desperation: what would you name a dog, if you got one tomorrow.'],
+  ['#','crowbar. obviously. ronin would cry.'],
+  ['@','Persuasion.'],
+  ['#','that’s a book.'],
+  ['@','It is a very good book about waiting eight years for something and getting it anyway.'],
+  ['#','...okay that one can stay.'],
+  ['#','what about after friday. if we get a dog after friday. what do we call it.'],
+  ['@','I would like to call it Friday. So that every time I say it, I remember that it is over.'],
+  ['#','that’s so dark. i love it. friday. good girl, friday. sit, friday.']]}];
+
+/* ===================== ACT III content: the boat ===================== */
+const A3_CLIMAX_OPEN=()=>[
+ ['','Odaiba. The Constance at the end of the pier, white and enormous, every porthole lit gold. A string quartet on the aft deck. Champagne. Laughter carrying over black water.'],
+ ['','Two hundred guests. Every one of them has, at some point, donated to the Hands On Foundation. Some of them are in the ledger. Most of them are just rich.'],
+ S.a3.allies.angel?['Angelic','(in your earpiece) i’m on the guest list as a plus-one for a senator’s wife. she thinks i’m doing her makeup for the photos. i am also doing that. multitasking.']:null,
+ S.a3.allies.ronin?['Ronin','(earpiece) I’m in the kitchen. Wearin’ an apron. Nobody’s asked me a single question. Rich folks never look at the help, darlin’. It’s their worst habit and my favourite one.']:null,
+ S.a3.allies.hara?['Hara','(on a phone, two hundred metres away) The harbour patrol has been sent to investigate a report of a suspicious duck in Shinagawa. They will be some time.']:null,
+ S.a3.allies.kaito?['Kaito','(earpiece) Service door, port side, below the waterline. The lock is a 2004 Miwa. Your father used to say it was the only honest thing on the boat.']:null,
+ ['@','Whatever the plan is, we choose it now.']];
+const A3_PLANS=[
+ {id:'quiet',t:'Go in quietly. Find him alone at eleven.',sub:()=>S.a3.studied?'you studied the boat · one fewer guard':'you didn’t study the boat · harder',L:()=>[['','Below the waterline, through the service corridors, past the engine room. The music above is muffled, like a party in another life.'],['#','eleven o’clock. aft deck. tea. alone. he never lets anyone behind him.'],['@','Then we will not be behind him. We will be beside him.']]},
+ {id:'loud',t:'Go in loud. Ronin opens the doors.',ok:()=>S.a3.allies.ronin,sub:()=>'Ronin makes a scene · more guards, more distraction',L:()=>[['','Somewhere in the kitchen, something very large catches fire. Somewhere on the main deck, a fire alarm goes off, and two hundred rich people discover how quickly they can move.'],['Ronin','(earpiece) Kitchen’s on fire. It was the soufflé. Nobody’ll ever prove it wasn’t the soufflé.'],['@','Go. Now. While they are all looking at the smoke.']]},
+ {id:'live',t:'Go in on camera. Angel goes live.',ok:()=>S.a3.allies.angel,sub:()=>'nobody disappears on a livestream · the Chairman can’t run',L:()=>[['Angelic','(live, glowing, perfect) hi everyone!! i’m on a YACHT. a charity yacht. say hi to the very important people!'],['','The view count climbs past a million in four minutes. Every guard on the boat suddenly becomes very careful about what they do with their hands.'],['@','He cannot make anyone vanish tonight. Not with a million people watching. Including us.']]}];
+const A3_FACE=()=>[
+ ['','The aft deck. Eleven o’clock. A small table, a pot of tea, one cup. A man in his seventies in a beautiful grey suit, watching the water.'],
+ ['','He does not turn around. He says:'],
+ ['The Chairman','You took the service door. Kaito always did think it was the honest thing on this boat. Sit down, both of you. There is only one cup. I did not expect company. I hoped for it.'],
+ ['@','You have our names in your book.'],
+ ['The Chairman','I have everyone’s name in my book. That is what a book is for. Your father understood that, Valentin. He understood that every person is simply a balance, and the only question is who is keeping it.'],
+ ['The Chairman','And you, Miss Katsuo. You I did not expect. You were not in his ledger. You were an entry I made myself. You disrupted a great many accounts. Okubo. Mizuno. The cleaner. You have been very expensive.'],
+ Object.keys(S.a3.names).length>=5?['The Chairman','You read every page, I see. Most people stop at the second. The second is where they realise the book is about them.']:['The Chairman','You did not read every page. That is wise. The book is not kind to people who read every page.'],
+ ['@','We are here to close it.'],
+ ['The Chairman','Close it? My dear. Books are not closed. They are inherited. The only question tonight is who inherits mine.']];
+const A3_FACE_BAD=()=>[
+ ['','It goes wrong on the stairs. A guard who was not on any list. A shout. Lights. Then everything at once.'],
+ ['','By the time you reach the aft deck, the Chairman is standing at the rail with a pistol in his old, steady hand, and two men in grey suits are coming up the stairs behind you.'],
+ ['The Chairman','Ah. There you are. I did think you would be quieter. Your father was always quieter.'],
+ ['@','We are not my father.'],
+ ['The Chairman','No. That is the whole problem with you, Valentin. You never were.']];
+const A3_FINAL=[
+ {id:'paper',t:'Hand him the pen. Make him sign the confession.',sub:'Hara gets his courtroom',ok:ok=>ok&&(S.a3.witness||0)>=2},
+ {id:'blood',t:'End it here, on his own deck',sub:'the book closes with him'},
+ {id:'burn',t:'Burn the ledger in front of him. Walk away.',sub:'leave him with nothing to hold',ok:ok=>ok},
+ {id:'inherit',t:'Take the book. Keep it. Use it.',sub:'become the Chairman',ok:ok=>ok&&S.heart<45},
+ {id:'fall',t:'Go for him anyway',sub:'there is no clean way out of this',ok:ok=>!ok},
+ {id:'live',t:'Hold on until the livestream finds you',sub:'a million witnesses',ok:ok=>!ok&&S.a3.allies.angel&&S.a3.plan==='live'}];
+/* ===================== ACT III content: endings ===================== */
+const A3_ENDINGS={
+ paper:{name:'Witnesses',scene:()=>[
+  ['','You put the pen on the table, next to the one teacup. Okubo’s statement. Tsuji’s. Fumiko’s, or the clinic’s files. Every page that Hara asked for.'],
+  ['The Chairman','You want me to sign. On paper. How very like your father.'],
+  ['@','My father never once let anyone else hold the pen.'],
+  ['','He reads for a long time. The quartet on the main deck finishes a piece; there is polite applause. He signs. His hand does not shake. Somehow that is the worst thing that happens all night.'],
+  ['','Hara comes up the gangway alone, in his old coat, carrying handcuffs he has not used in eleven years. He does not look at either of you. He looks only at the old man.'],
+  ['Hara','Sir. You will want your coat. It is cold on the water, and you are going to be outside for some time.']],
+ L:()=>['The trial lasts fourteen months. It is the most-watched trial in the country’s history. Every name from the ledger is read into the record, one at a time, in a courtroom that is always full.','Hara retires the week after the verdict. On his last day, he leaves a single folder on his desk for his replacement. Inside, on a sticky note: “Still not him. — H.”','The second ledger is entered into evidence. It lives now in a basement in Kasumigaseki, in a cardboard box with a number on it, where nobody will ever read it again. That is the best thing anyone has ever done to it.']},
+ blood:{name:'Account Closed',scene:()=>[
+  ['','He does not beg. He does not bargain. He only puts down his teacup, very carefully, so that it will not spill.'],
+  ['The Chairman','Your father would have done it with a phone call. You came yourself. I suppose that is something.'],
+  ['@',KV()?'My father would have sent someone. I do not send people anymore.':'nobody sent me. nobody’s paying me. this one’s free.'],
+  ['','The quartet is playing something by Schubert. It does not stop. Nobody on the main deck hears anything over the strings.'],
+  ['','Afterwards, the teacup is still on the table, still full, still warm. Somebody drops the ledger over the rail. It floats for a moment, open, its pages turning in the wind, and then it sinks.']],
+ L:()=>['The Constance is found the next morning, drifting, every light still on. The papers call it a heart attack at sea. The family declines an autopsy. The family declines a great many things after the lawyers explain what was in the safe.',KV()?'V never writes another name down. Not in a ledger, not on a board, not on a list. He keeps them all in his head now, where nobody can inherit them.':'Misaki never takes another job with a name she hasn’t chosen herself. She keeps the rifle. She cleans it every Sunday, like a ritual, and nobody asks her about it.','The book is at the bottom of Tokyo Bay. Sometimes, at night, the house is so quiet you can almost believe it was the only copy.']},
+ burn:{name:'Nothing To Hold',scene:()=>[
+  ['','You open the ledger on his tea table, to the back page. To your names.'],
+  ['@','You said books are not closed. They are inherited.'],
+  ['','The lighter is Ronin’s, borrowed and never returned. The pages catch slowly, the way old paper does, curling up from the edges like something trying to protect itself.'],
+  ['The Chairman','That book is forty years of my life.'],
+  ['@','Then you have nothing left. Not even us. That is the cruellest thing I could think of. I thought about it for ten days.'],
+  ['','You walk down the gangway together while the ash blows out over the water. Behind you, an old man sits alone at a tea table with one cup and no book, and for the first time in forty years, nobody owes him anything.']],
+ L:()=>['Without the ledger, the Chairman’s network comes apart in a month. Debts go uncollected. Favours go unpaid. Men who were afraid of him for decades simply stop answering his calls.','He dies the following spring, of nothing in particular, in a big house where the phone never rings.','You keep one thing from that night: a single half-burned page, the corner with your names on it. It lives in the glass case in the archive. The edges are black. The names are still legible. That seems right.']},
+ inherit:{name:'The New Chairman',scene:()=>[
+  ['','You do not burn the book. You do not drop it. You pick it up, and it is heavier than you expected, and it fits your hand exactly.'],
+  ['The Chairman','Ah. There it is. Your father’s face. I wondered when I would see it.'],
+  ['@','You will leave Tokyo tonight. You will never come back. Every account in this book is mine now.'],
+  ['The Chairman','Of course. Of course. Just remember, Valentin— the book does not belong to anyone. Everyone who holds it thinks so, at first.'],
+  ['#',KV()?'...V. put it down. please. put it down.':'Misaki. Look at me. Put it down. Please.'],
+  ['','You do not put it down.']],
+ L:()=>['The ledger has a new hand now. Neater. Faster. Nobody at the foundation knows why the donations from certain families have tripled, or why certain men keep resigning, or why the second floor of the archive is always locked.','The person beside you stays. That is the worst part. They stay, and they watch, and every year they say a little less.','Sometimes, very late, there is a light under the cellar hatch. Nobody goes down to check. Everybody knows who is down there, writing.']},
+ fall:{name:'Feed The Dogs',scene:()=>[
+  ['','You go for him anyway. There is no plan left. There is only the distance between you and the rail, and the old man’s steady hand.'],
+  ['','There is a sound like a door closing very hard. Then another.'],
+  ['','The Chairman goes over the rail into the black water and does not come up. And on the deck, one of you is sitting down very suddenly, very carefully, the way people do when their legs have made a decision without them.'],
+  ['#','hey. hey hey hey. look at me. no, at me. you’re fine. you’re fine. it’s just a— it’s fine.'],
+  ['@','Feed the dogs.'],
+  ['#','don’t. don’t do the noble thing. we talked about this. you don’t get to be noble.'],
+  ['@','Every morning. Even when they do not want to.'],
+  ['','The quartet on the main deck finishes its piece. Somebody, very far away, is clapping.']],
+ L:()=>['The papers say there was a shooting on a yacht in Odaiba, and that the host, an elderly philanthropist, drowned in the confusion. They do not name anyone else. Hara makes sure of that.','For a year, the house is very quiet. Somebody feeds the dogs every morning. Even when they do not want to. Especially then.','The space in the middle of the fridge stays empty. It does not look like a promise anymore. It looks like what it is.']},
+ live:{name:'A Million Witnesses',scene:()=>[
+  ['','You do not go for him. You do the only thing left that he has never seen anyone do: you sit down at his table, in the other chair, and you wait.'],
+  ['Angelic','(live, running, out of breath) hi everyone. sorry. bit of a situation. we’re going to the back of the boat now. stay with me. keep watching. whatever happens, KEEP WATCHING.'],
+  ['','She comes around the corner with her phone up and a million people behind it. The Chairman’s steady hand, for the first time in forty years, trembles.'],
+  ['The Chairman','Turn that off.'],
+  ['Angelic','no.'],
+  ['','He puts the pistol down on the tea table, very slowly, next to the one cup. On a million screens, an old man in a beautiful suit is suddenly just an old man with a gun on a boat, and everybody can see it.']],
+ L:()=>['The video is watched forty million times. The ledger becomes the most famous book in Japan that nobody has read. Every name in it is in the papers by the end of the week.','Angelic stops streaming for six months. When she comes back, her first video is just her, no makeup, saying “thank you for watching. i mean it. you saved my friends.” It is the only video she has never monetised.','Nobody vanishes. Not that night. That was the whole point.']}};
+function A3_CODA(){const L=[];const rom=S.rom,lone=S.lone,mar=S.f.married||S.f.romMarried;
+ if(!lone){if(rom)L.push(`Misaki and ${rom==='r'?'Ronin':'Angelic'} come out of it holding hands so hard their knuckles go white. ${S.f.romMarried?'They have been married for '+(rom==='r'?'a year and four months':'eleven months')+'. It feels like the first day, and also like they have been married forever.':'A week later, '+(rom==='r'?'he asks her to marry him with a ring pop. She says yes before he finishes the sentence.':'she proposes on the roof with no camera. She says yes before Angel finishes the sentence.')}`);
+  else if(S.f.married)L.push('V and Misaki go home to Uji for a week afterwards, to the machiya with the two futons pushed together. They do not talk about the boat. They talk about the river, and the shrine, and whether the fish have unionised.');
+  else if(tier()>=3)L.push('Three weeks later, V takes her to Kyoto on a “business trip.” There is a ring in his coat pocket. It was his mother’s. He has had it resized since March.');
+  else L.push('V and Misaki stay what they have always been: two people who pick up the phone at three in the morning. It turns out that is a great deal.');}
+ if(S.f.heartbreak&&!lone)L.push('V comes to dinner every Sunday. After the boat, he starts staying for dessert.');
+ L.push(frT('a')>=2?'Angelic hosts the brunch she was promised. Everyone is at the table. Everyone. She cries into a croissant and films none of it.':'Angelic changes her number again. She sends everyone the new one within the hour.');
+ L.push(frT('r')>=2?'Ronin buys a new crowbar and names it Friday. He says it is unrelated. It is not unrelated.':'Ronin goes quiet in the server for a month. Then he posts a picture of a crowbar in a tiny hat, and everyone breathes out.');
+ L.push(S.dogs&&S.dogs.Biscuit!==undefined?'Biscuit lives to be sixteen. She steals a sock every single day of her life, right up to the last one.':'The kennel gets a new dog in December. Her name is Friday. She is very good.');
+ if(S.f.vMotherTruth)L.push('V learns the rest of his mother’s lullaby from an old recording in a library in Lyon. He plays it on the piano nobody plays. All of it, all the way through, for the first time.');
+ if(S.a3&&S.a3.names&&S.a3.names.mizuno==='paper')L.push('Twelve of the Little Sparrows children send a card to the foundation every New Year. One of them is in law school now.');
+ L.push(S.heart>=50?'K9 keeps the mask. He takes it out sometimes and looks at it, and then he puts it back, gently, the way you put back something that still fits.':'There is no K9 anymore. There is only V, and he is fine with that. Mostly. On good days.');
+ return L}
+/* ===================== CHAPTER INTERLUDES ===================== */
+/* A short playable scene at each turn of the story, from whichever side you are playing. */
+function playInter(key,cb){S.f.inter=S.f.inter||{};if(S.f.inter[key]||isLone()){return cb()}S.f.inter[key]=1;save();const I=INTER[key];const side=A3P();const X=I[side]||I.m;
+ chapterCard(X.title,()=>cut(A3L(X.L),()=>{if(!X.o)return cb();ask(A3ME(),X.q,X.o.map(o=>({t:o.t,sub:o.sub||'',fn:()=>{if(o.e)apply(o.e);if(o.r)relApply(o.r);if(o.f)o.f();save();cut(A3L(o.L),cb,'#07060b')}})))},'#07060b'))}
+const INTER={
+ taken:{
+  m:{title:'Interlude · The Night Before',L:()=>[
+   ['','The night before it happens, nothing happens. That is the thing she will remember later: how ordinary it was.'],
+   ['','Rent paid. Twice. The receipt folded into her back pocket like a medal. A cup noodle on the counter, a horror movie on the CRT with the sound turned low, the cactus on the sill catching the streetlight.'],
+   ['M','two for two. who’s a functioning adult. me. i am. say it with me, prickles.'],
+   ['','Prickles says nothing. Prickles has never said anything. That has always been the best thing about Prickles.'],
+   ['','Her phone buzzes. The server. Angel has posted a poll about lip liner. Ronin has voted for “blood.” K9 has not voted, but he has read it; the little tick says so.'],
+   ['','Outside, a car idles at the end of the lot for a long time, then pulls away. She notices it the way she notices everything, files it under “probably nothing,” and forgets it.'],
+   ['','That is the second thing she will remember. The filing. The “probably.”'],
+   ['M','(typing) did u eat'],
+   ['','She stares at it. She has never sent him that first. It has always been his line. Her thumb hovers over send for a long time.']],
+   q:'Send it?',o:[
+    {t:'Send it.',e:{aff:3},L:()=>[['','Delivered. Read. Three dots, for a long time.'],['V','(text) I did. Thank you for asking. I did not know until this moment how much I wanted someone to.'],['M','(text) ok weirdo. night.'],['V','(text) Goodnight, Misaki. Lock the door.'],['','She locks the door. She checks it twice. It does not matter. It will never be the door.']]},
+    {t:'Delete it. Go to sleep.',L:()=>[['','She deletes it one letter at a time. Then she turns off the CRT and lies down with her boots still on, the way she always does, in case.'],['','Later, much later, in a room with one bulb, she will wish more than anything that she had pressed send. Just so there would be one more thing he had from her.']]}]},
+  v:{title:'Interlude · The Night Before',L:()=>[
+   ['','The night before it happens, V cannot sleep, and does not know why.'],
+   ['','He walks the house. The kennel: everyone breathing. The greenhouse: the misters ticking, Gerald and Also Gerald thriving in the dark. The ops deck: forty-one cities, all quiet, no red dots blinking.'],
+   ['','On the server, Misaki has posted a photo of a rent receipt with the caption “TWO FOR TWO. who’s a homeowner. me.” Eleven people have reacted to it. He has looked at it four times.'],
+   ['V','She paid it herself. Both times. She would not take a single yen from me.'],
+   ['','He is proud of her in a way that feels like grief, and he does not understand that either.'],
+   ['','On the security feed, at the edge of the trailer lot two kilometres away, a car idles under a broken streetlight. He has a camera there. He tells himself it is for the dogs he sometimes walks past. He knows it is not.'],
+   ['','The car pulls away. He zooms in on the plate a second too late.']],
+   q:'What do you do?',o:[
+    {t:'Drive over. Just to check.',e:{aff:2},L:()=>[['','He drives to the lot at one in the morning and parks where she cannot see him. The trailer’s lights are off. The door is closed. Everything is fine.'],['','He stays until three, watching nothing happen. Then he drives home, feeling ridiculous.'],['','Later he will think: I was right there. I was right there, and I left.']]},
+    {t:'Run the partial plate. Go to bed.',L:()=>[['','The partial plate comes back with eleven possible matches. He prints them, puts them in a folder labelled “probably nothing,” and goes to bed at four.'],['','The folder will still be on his desk, unopened, two days later, when he finally reads it and sees the name of the company that owns the third car on the list.']]}]}},
+ after:{
+  m:{title:'Interlude · The First Night Back',L:()=>[
+   ['','The first night back, she does not go to the trailer. She does not go anywhere. She sits on the floor of whatever room she is in with her back against the wall and watches the door.'],
+   ['','Her hands are fine. Her hands are completely fine. She has checked them eleven times. There is nothing on them. There is nothing on them.'],
+   ['','Somebody has put a glass of water on the floor next to her. She did not see who. She does not drink it. She keeps it where she can see it.'],
+   ['M','(very quietly) i got out.'],
+   ['','Nobody answers. Nobody needs to. It is the first thing she has said in six hours, and she says it to the water.']],
+   q:'(When someone finally comes in…)',o:[
+    {t:'Let them sit with you.',L:()=>[['','V comes in, slowly, from the front, with his hands where she can see them. He sits down on the floor across the room. Not close. Just there.'],['V','I am not going to say anything. I am just going to be in the room.'],['','He does exactly that, until the sky goes grey. At some point she drinks the water.']],e:{aff:3},f:()=>calm(6)},
+    {t:'Tell them to leave.',L:()=>[['M','go. please. i can’t— not tonight. go.'],['V','...I will be in the hallway. The door will be open. You can close it if you want to.'],['','She does not close it. She can hear him breathing on the other side of the wall all night, and it is the only reason she does not leave.']],f:()=>calm(2)}]},
+  v:{title:'Interlude · The First Night Back',L:()=>[
+   ['','The first night back, she sleeps in the corner of the guest room with her back to the wall and the lamp on. He knows because he checks. Every hour. From the hallway. Without opening the door.'],
+   ['','At three, he goes down to the ops deck and opens a new document. He types four lines. He reads them. He types a title above them.'],
+   ['V','The list.'],
+   ['','He has never once in his life written a list like this. A list with no paperwork attached. A list where the only column is a name.'],
+   ['','Upstairs, through the floor, he hears her wake up gasping. He is up the stairs before he has decided to move.']],
+   q:'At her door:',o:[
+    {t:'Knock. Say your name. Wait.',e:{aff:3},f:()=>calm(6),L:()=>[['V','It is V. I am outside. I am not coming in unless you ask.'],['','A long silence. Then, very small: “...come in. front of me. where i can see.”'],['','He sits on the floor by the door with his hands on his knees until she falls asleep again. He does not sleep at all. He does not want to.']]},
+    {t:'Don’t knock. Just stay in the hallway.',f:()=>calm(3),L:()=>[['','He sits in the hallway with his back against her door. She does not know he is there. In the morning she finds him asleep against it, and she does not say anything, and neither does he, and that is how they both decide it never happened.']]}]}},
+ finale:{
+  m:{title:'Interlude · Before',L:()=>[
+   ['','The night before she goes after '+(S.captor?ORG[S.captor].boss:'him')+', she cleans the rifle. She has cleaned it four times this week. It has never been cleaner.'],
+   ['','The bolt. The barrel. The scope, with a cloth Angel gave her that says “you look AMAZING” in pink thread.'],
+   ['M','the forty-one marks on the cot. somebody was there forty-one days. i was there four.'],
+   ['M','i keep thinking that’s the difference between me and them. thirty-seven days.'],
+   ['','The phone buzzes. Ronin: “u good?” Angel: “i’m awake if u are.” V: nothing. V is in the next room. She can hear him not sleeping.']],
+   q:'Before you go:',o:[
+    {t:'Go knock on his door.',e:{aff:3},L:()=>[['','He opens it before she knocks twice. He is dressed. He has been dressed all night.'],['V','I know. You are going alone. I know.'],['M','i’m going alone.'],['V','Then come back alone. That is the only thing I am asking for. Come back, by whatever door you like.'],['M','...ok. ok. i’ll come back. i’ll even use the front door. like a normal person.']]},
+    {t:'Text the server.',f:()=>relApply({morale:6}),L:()=>[['M','(server) going to do a thing tomorrow. if i don’t post a meme by friday someone feed biscuit'],['Angelic','(server) you’re going to post a meme by friday. i’m going to make it for you. it’s going to be terrible.'],['ronin.beaufort','(server) kiss or kill, darlin’. go get it.'],['K9','(server) The side door is unlocked.'],['','She reads them all until she falls asleep with the phone on her chest.']]}]},
+  v:{title:'Interlude · Before',L:()=>[
+   ['','The night before he goes after '+(S.captor?ORG[S.captor].boss:'him')+', V does paperwork. It is the only thing that keeps his hands still.'],
+   ['','He signs the dogs over to Angelic, in case. He signs the house over to a trust, in case. He writes a letter to Misaki and does not seal it, in case he gets to come back and burn it.'],
+   ['V','The letter is three lines long. I have rewritten it fourteen times. Every version is the same three lines in a different order.'],
+   ['','At midnight, Ronin’s face appears on the gate camera, waving with a crowbar.'],
+   ['ronin.beaufort','(through the intercom) Lemme in, Vee. I ain’t gonna let you go out tomorrow with nobody tellin’ you you’re an idiot first.']],
+   q:'Ronin at the gate:',o:[
+    {t:'Let him in.',r:{rivalry:-15},L:()=>[['','They sit in the kitchen. Ronin drinks V’s tea and complains about it. V lets him.'],['ronin.beaufort','You’re an idiot, pal. Brave idiot. Good idiot. But idiot.'],['V','I know.'],['ronin.beaufort','Good. Long as you know. ...Come back, yeah? Somebody’s gotta confiscate my stuff. Nobody does it like you.']]},
+    {t:'Leave him at the gate.',L:()=>[['','V does not open the gate. Ronin stands there for twenty minutes anyway, talking to the camera about nothing. Heathers, mostly. The weather.'],['','At the end, he taps the lens twice with his knuckle, the way you knock on a friend’s door, and walks away into the dark.']]}]}},
+ act2:{
+  m:{title:'Interlude · Six Weeks',L:()=>[
+   ['','Six weeks is long enough for the leaves to turn and the river to give back nothing.'],
+   ['','It is long enough for her to go back to work. The first job is easy. The second is easier. On the third, her hands do not shake at all, and that frightens her more than when they did.'],
+   ['','It is long enough for the server to start posting memes again, and for her to laugh at one without deciding to first.'],
+   ['M','six weeks. you’d think something would happen in six weeks.'],
+   ['','Something is about to. She can feel it the way you feel rain in an old wound.']]},
+  v:{title:'Interlude · Six Weeks',L:()=>[
+   ['','Six weeks. V goes back to the foundation, because the alternative is the chair by the door.'],
+   ['','The board wants a gala. The board always wants a gala. He signs the forms without reading them, which he has never done once in his life.'],
+   ['','The list is finished. Every name crossed out. He keeps the page in a drawer and takes it out sometimes and looks at the crossings-out, the way you look at stitches healing.'],
+   ['V','Done. It is done.'],
+   ['','It is not done. It is about to begin again in his own name.']]}},
+ act3:{
+  m:{title:'Interlude · November',L:()=>[
+   ['','After the gala, the city goes quiet in the way it only does in November: early dark, cold rain, everyone hurrying home with their collars up.'],
+   ['','She catches herself, one evening, standing in a konbini with two egg sandwiches in her hand. One for her. One for someone who is not there. She buys both.'],
+   ['M','old habits.'],
+   ['','On the way home, a man in a grey suit holds a door open for her. He smiles very politely. She is three streets away before she realises he said her full name.']]},
+  v:{title:'Interlude · November',L:()=>[
+   ['','November. The tags have stopped. The papers have moved on. The swan, at last, has melted.'],
+   ['','V sits in the archive among the drawers of people he got out. He opens one at random. A girl who works in a bakery now. A thank-you card shaped like a croissant.'],
+   ['V','This is what it was for. All of it. This drawer.'],
+   ['','He closes it. On his way up the stairs, he passes the round door, and stops, and looks at the place on the wall where his father’s portrait used to hang before he took it down.'],
+   ['','There is a business card in the mailbox the next morning. A ship. A line of handwriting. He has been expecting it his whole life without knowing.']]}}};
+const _tkI=takenM;takenM=function(){playInter('taken',_tkI)};
+const _tvI=takenV;takenV=function(){playInter('taken',_tvI)};
+const _afI=after;after=function(self){playInter('after',()=>_afI(self))};
+const _fiI=finale;finale=function(){playInter('finale',_fiI)};
+const _a2I=startAct2;startAct2=function(){playInter('act2',_a2I)};
+const _a3I=startAct3;startAct3=function(){playInter('act3',_a3I)};
+/* ===================== YEARS LATER (epilogue vignettes) ===================== */
+const YEARS=[
+ {id:'y1',t:'One year later · the anniversary',L:()=>[
+  ['','A year to the day since the warehouse. Nobody planned anything. Everybody shows up anyway.'],
+  ['','Angel brings a cake shaped like a lightbulb, then panics halfway up the drive, turns around, and comes back with a cake shaped like a dog instead.'],
+  ['Angelic','i realised in the car. i realised in the CAR. i am so sorry. the dog one is better anyway.'],
+  ['M','it’s ok. honestly the lightbulb one would’ve been funny. in like two more years.'],
+  ['','Ronin brings nothing, which is unlike him, and then at the end of the night quietly hands Misaki a small box. Inside: one white star clip, exactly like the one she lost.'],
+  ['ronin.beaufort','Took me eleven months to find the same kind. They stopped makin’ ’em. Had to buy a whole lot off an auction in Osaka. Got forty more in the car if you lose this one.'],
+  ['','She doesn’t put it in. Not that night. She holds it. A week later, she starts wearing two again.']]},
+ {id:'y2',t:'One year later · the trailer',L:()=>[
+  ['','The trailer still sits behind the greenhouse, on the pad V poured for it, with the little mailbox. It doesn’t move anymore. It has decided, the way old dogs decide, that this is where it lives.'],
+  ['','Misaki goes out there sometimes when the house is too big. She sits on the step with Prickles, who has grown two more arms and an air of authority.'],
+  ['M','u ever think about how we got here, prickles? like the whole thing? rent. a server. a guy with too many dogs.'],
+  ['','Prickles has no comment. Prickles has never had a comment. Prickles is the most reliable relationship she has ever been in.'],
+  ['','V comes out with two mugs and sits on the step beside her without asking. He has never once asked. He has never needed to.'],
+  ['V','The cactus is thriving.'],
+  ['M','he’s got opinions now. he’s the head of the household.'],
+  ['V','I suspected as much. I have been deferring to him on all major decisions.']]},
+ {id:'y3',t:'Two years later · the board',L:()=>[
+  ['','Two years later, the Hands On Foundation is in sixty cities. V attends board meetings exactly as rarely as the bylaws allow.'],
+  ['','At one of them, a new board member, young and sharp and furious, presents a proposal to fund legal defence for sex workers. The room goes cold. Everybody looks at V.'],
+  ['V','Approved.'],
+  ['Board member','Sir? We haven’t discussed—'],
+  ['V','I have read it. Twice. It is the best proposal this board has seen in years. It is approved, and I would like this young woman’s name on the shortlist for my seat when I retire.'],
+  ['','Afterwards, in the lift, she asks him why. He tells her the truth, which is that he knows someone who would have needed it, once, and that someone is waiting for him downstairs with a bag of crêpes.']]},
+ {id:'y4',t:'Two years later · the server',L:()=>[
+  ['','SLAUGHTERHOUSE_LOSERS_v.4.4.4.mango is still running. It is the oldest server any of them have ever been in. Nobody remembers who made it. Nobody wants to.'],
+  ['Angelic','(server) reminder that it’s movie night friday and i’m picking. not heathers. i’m begging. please not heathers.'],
+  ['ronin.beaufort','(server) it’s heathers'],
+  ['hitmeuppp','(server) it’s heathers'],
+  ['K9','(server) I am afraid it is Heathers.'],
+  ['Angelic','(server) i hate all of you. see you friday. i’m bringing a different movie and i’m going to hold it the whole time like a protest sign.'],
+  ['','She does. They watch Heathers. She mouths every line.']]},
+ {id:'y5',t:'Three years later · the shelter',L:()=>[
+  ['','The shelter in Uji — the one with the sign that says MISAKI HOUSE, or the one that just says SOMEBODY CAME, depending on how things went — has a waiting list now. That is a sad thing and a good thing at once.'],
+  ['','Misaki volunteers there on Tuesdays. She teaches self-defence, which mostly means teaching kids how to notice exits and how to scream properly.'],
+  ['M','no no no. that’s a polite scream. i want a scream that makes a guy rethink his whole life. from the gut. like ur angry at god.'],
+  ['','A girl of maybe twelve screams so loud a window in the next building opens. Misaki gives her a sticker. It is a knife with a heart on it. The staff pretend not to see.']]},
+ {id:'y6',t:'Three years later · Sergeant’s tree',ok:()=>S.f.sergeantGone,L:()=>[
+  ['','There is a tree in the garden now, planted over a small box, with a brass plate at its foot that says SERGEANT, and under it, smaller: “too gentle for the work.”'],
+  ['','Every year on the same day, V sits under it with a thermos of tea and a dog treat he leaves on the soil. Every year the treat is gone by morning. He suspects Biscuit. He is correct.'],
+  ['V','He would have been eighteen this year. Very old for a dog. Very old for anyone, in our line of work.'],
+  ['M','he had a good day. at the end. u gave him a good day.'],
+  ['V','We did. Both of us. I think about that more than I think about any of the rest.']]},
+ {id:'y7',t:'Five years later · a letter',L:()=>[
+  ['','A letter arrives, addressed to K9, care of the foundation. Handwritten. The stamp is from Sapporo.'],
+  ['','“You won’t remember me. My dad was a detective. He left the city very suddenly when I was eleven. He told me, years later, that somebody gave him a chance he didn’t deserve because I had a cat.”'],
+  ['','“I’m a lawyer now. I work for a legal aid clinic. I wanted you to know that the chance got used. The cat lived to be nineteen. Her name was Mochi.”'],
+  ['','V reads it at the kitchen table, twice. Then he puts it in a drawer in the archive, in a new drawer, with a label in his neat handwriting: “The ones I let go.”'],
+  ['V','The drawer is small. It is the one I am proudest of.']]},
+ {id:'y8',t:'Five years later · Ronin and Angel',ok:()=>!S.rom,L:()=>[
+  ['','Ronin and Angel never get married. They say marriage is for people who need the paperwork. They live three floors apart in the same building and refuse to explain the arrangement to anyone.'],
+  ['','Every Sunday, she does his eyeliner. Every Sunday, he cooks her breakfast. Every Sunday, they argue about Heathers for at least an hour.'],
+  ['Angelic','it’s a cautionary tale, ronin. it’s about how bad it is to kill people.'],
+  ['ronin.beaufort','It’s a love story, angel. It’s about findin’ the one person who’d help you blow up a school.'],
+  ['Angelic','...that’s what i said. cautionary tale.'],
+  ['','They have never once agreed. They have never once missed a Sunday.']]},
+ {id:'y9',t:'Ten years later · the window',L:()=>[
+  ['','Ten years later. The house in the city is quieter. Fewer dogs; older dogs. Gerald the Ninth on the windowsill.'],
+  ['','There is a drawer in the archive now with Misaki’s name on it. Not because anyone got her out. Because she asked for one, so the house would remember her too.'],
+  ['','Inside: a rent receipt, folded small, marked PAID twice. A star clip. A sticky note that says EAT. A photograph, finally, for the space in the middle of the fridge.'],
+  ['','In the photograph, everyone is there. Nobody is dead. Biscuit has her eyes closed. Ronin is blinking. Angel is mid-laugh. And at the back, two people are standing so close together there is no light between them, and neither of them is looking at the camera.'],
+  ['','They are looking at each other. They have been for ten years.']]},
+ {id:'y9r',t:'Ten years later · the window',ok:()=>!!S.rom,L:()=>[
+  ['','Ten years later. Misaki and '+(S.rom==='r'?'Ronin':'Angel')+' live in a place with a balcony, a freezer labelled “NOT SNACKS”, and far too many ring lights.'],
+  ['','V comes to dinner every Sunday. He has stopped bringing soup and started bringing whatever the dogs have decided is a gift that week: a sock, a leaf, once a very confused pigeon.'],
+  ['V','I have been told I am an honorary uncle to a cactus.'],
+  ['M','prickles chose u. it’s an honour. don’t make it weird.'],
+  ['','After dinner, the three of them sit on the balcony with the city below, and nobody says anything for a long time, and nobody minds.']]}];
+function yearsOpts(late){if(S.phase!=='epilogue')return[];const seen=S.f.years||{};const next=YEARS.find(y=>!seen[y.id]&&(!y.ok||y.ok()));if(!next)return[];
+ return[{h:'Years later'},{t:next.t,sub:'a glimpse ahead',dis:late||S.done.years,fn:()=>{S.done.years=1;S.f.years=seen;seen[next.id]=1;save();cut(A3L(next.L),hub,'#0a0810')}}]}
+const _epY=epiOpts;epiOpts=function(late){return _epY(late).concat(yearsOpts(late))};
+ACH.push(['years','The Long Way Home','See every “years later” glimpse.',()=>Object.keys(S.f.years||{}).length>=8]);
+/* ===================== ENDGAME CONVERSATIONS ===================== */
+const ENDV=[
+ {id:'e_ledger',label:()=>'“What would your father think of you now?”',show:()=>S.phase==='act3',run:b=>{warm('v','e_ledger',4);say([['K9','He would think I was wasting the family name on charity. He would think the dogs were a weakness. He would think you were a liability.'],['hitmeuppp',mVoice('and what do u think')],['K9','I think he was wrong about all three, and I think it took me thirty-four years to say so out loud, and I think I am going to say it to his ledger on Friday.']],()=>ask('hitmeuppp','(...)',[{t:'“say it to me first. practice.”',fn:()=>say([['K9','...My father was wrong about me.'],['hitmeuppp',mVoice('louder')],['K9','My father was wrong about me.'],['hitmeuppp',mVoice('good. now say it like u mean it')],['K9','My father was wrong. About me. About you. About everything that mattered.'],['','The dogs, who have been asleep, all lift their heads at once.']],b)},{t:'“he’d think you were him. you’re not.”',fn:()=>say([['K9','You keep saying that. I am beginning to believe it is a strategy.'],['hitmeuppp',mVoice('it is. i’m going to say it until it’s true. i’m very patient. i sat on a roof for six hours once')]],b)}]))}},
+ {id:'e_name',label:()=>'“Can I call you Valentin?”',show:()=>(S.phase==='act3'||S.phase==='epilogue')&&tier()>=2&&!S.rom,run:b=>{warm('v','e_name',5);say([['K9','Nobody has called me that since I was nineteen.'],['K9','My mother called me Valentin. My father called me “the boy.” Everybody else calls me V, or sir, or, in one memorable case, “the tall problem.”'],['hitmeuppp',mVoice('valentin.')],['','He is quiet for a very long time.'],['K9','Again. If you would.'],['hitmeuppp',mVoice('valentin. valentin valentin valentin.')],['K9','...Only you. Nobody else. I could not bear it from anybody else.']],b)}},
+ {id:'e_after',label:()=>'“What do you do when it’s over? Actually over?”',show:()=>S.phase==='act3'||S.phase==='epilogue',run:b=>{warm('v','e_after',3);say([['K9','I have a list. It is very short. It is the first list I have ever written that has nothing to do with anybody else’s crimes.'],['hitmeuppp',mVoice('read it to me')],['K9','“One: sleep eight hours, once, to see what it is like. Two: learn the rest of my mother’s song. Three: take the dogs to the sea. Four—”'],['','He stops.'],['hitmeuppp',mVoice('four?')],['K9','Four is not finished. Four depends on someone else’s answer to a question I have not yet asked.']],b)}},
+ {id:'e_mimic',label:()=>'“Do you still think about the Mimic?”',show:()=>(S.phase==='act3'||S.phase==='epilogue')&&S.case,run:b=>{warm('v','e_mimic',3);say([['K9',S.case&&S.case.solved?'Every day. He wore my name for a month. I wore it for eleven years. Some days I am not sure which of us wore it more honestly.':'Every day. He is still out there, somewhere, with a box of tags. I check the news every morning for my own name.'],['hitmeuppp',mVoice('ur name’s not k9 tho. ur name’s valentin. k9 is a coat u wear.')],['K9','...Then perhaps it is time I stopped wearing it in November. It is not a warm coat.']],b)}},
+ {id:'e_kiss',label:()=>'“Kiss or kill: us.”',show:()=>(S.phase==='act3'||S.phase==='epilogue')&&tier()>=3&&!S.rom,run:b=>{warm('v','e_kiss',6);say([['K9','That is Ronin’s game. I have refused to play it for four years on principle.'],['hitmeuppp',mVoice('play it anyway. kiss or kill. us.')],['K9','Kiss.'],['hitmeuppp',mVoice('no hesitation?')],['K9','I have been hesitating for over a year, Misaki. I have run out of hesitation. I spent it all.']],b)}}];
+const ENDM=[
+ {id:'e_mfear',label:()=>'“What are you most afraid of? Now. Not before.”',show:()=>S.phase==='act3'||S.phase==='epilogue',run:b=>{warm('m','e_mfear',4);say([['hitmeuppp',MV('nothing. i’m fearless','dogs dying. you dying. running out of egg sandwiches.','Being somewhere I can’t leave. And then, worse: being somewhere I don’t want to leave, and having to.','That this is the good part. That I’m in it right now, and that one day I’ll look back and it’ll be over, and I’ll know I didn’t hold on hard enough.')],['K9',tier()>=3?'Then hold on harder. I will not complain. I have very strong shoulders.':'Then we will make sure the good part is long. I am very good at long projects.']],b)}},
+ {id:'e_mjob',label:()=>'“Will you keep working? After the boat?”',show:()=>S.phase==='act3'||S.phase==='epilogue',run:b=>{warm('m','e_mjob',3);say([['hitmeuppp',MV('rent’s still due lol','yeah. rent doesn’t care about boats.','Yes. Differently. I want to choose every name myself. No more men in suits telling me who’s rotten.','Yes. But only the ones I would do for free. That’s my rule now. If I wouldn’t do it for nothing, I don’t do it for money.')],['K9','That is a very good rule. It is a better rule than any I have had.'],['hitmeuppp',mVoice('i know. i made it up in the shower. all my best rules happen in the shower')]],b)}},
+ {id:'e_mhome',label:()=>'“Where’s home, for you? Honestly.”',show:()=>(S.phase==='act3'||S.phase==='epilogue')&&!S.rom,run:b=>{warm('m','e_mhome',5);say([['hitmeuppp',MV('the trailer obviously','the trailer. the konbini. ur kennel, kind of.',S.f.movedIn?'Here. I didn’t notice when it happened. I just woke up one day and I wasn’t counting exits.':'The trailer. And here, a little. More than a little. I don’t know where one ends anymore.','Wherever you are when it’s three in the morning and neither of us can sleep. That’s home. Everything else is just an address.')],['K9','...I am going to need a moment.'],['hitmeuppp',mVoice('take ur time. ur home. there’s no rush at home')]],b)}},
+ {id:'e_mname',label:()=>'“Do you like your name? Katsuo?”',show:()=>S.phase==='act3'||S.phase==='epilogue',run:b=>{warm('m','e_mname',3);say([['hitmeuppp','katsuo’s the name i picked. the one on my birth certificate was somebody else’s idea of who i’d be. i didn’t like her very much.'],['hitmeuppp','misaki katsuo. beautiful sand chronicle, bonito. like a fish. i picked a fish. i was nineteen and i thought it was hilarious.'],['K9','I think it is the most perfect name I have ever heard. I think it suits you down to the ground. I think, if you ever want another, you may borrow mine.'],['hitmeuppp',mVoice(tier()>=3&&!S.rom?'...v. was that a proposal. was that a FISH proposal.':'lol. noted.')],['K9',tier()>=3&&!S.rom?'It was a test of the market. The market appears receptive.':'Noted, as they say.']],b)}}];
+ENDV.forEach(t=>TOPICS_V.splice(TOPICS_V.length-1,0,t));ENDM.forEach(t=>TOPICS_M.splice(TOPICS_M.length-1,0,t));PINNED.push('e_ledger','e_mfear');
+
+/* friends in the endgame */
+const _taE=talkAngel;talkAngel=function(){if(S.phase==='act3'&&!S.done.angelA3){S.done.angelA3=1;return say([[AN,'hey. before you say anything. i read the guest list for the boat again last night. i know eleven of those women. i’ve done their makeup for funerals, weddings, divorces.'],[AN,'one of them told me once, while i was doing her lashes, that her husband keeps a “second accounts book.” i laughed. i thought it was a cute rich-person thing. like a second wine fridge.'],[AN,'i didn’t ask. i always don’t ask. that’s my whole brand. i don’t ask, and i make you look beautiful, and you go home.'],[AN,'i’m asking now. i’m done not asking.']],_taE)}return _taE()};
+const _trE=talkRonin;talkRonin=function(){if(S.phase==='act3'&&!S.done.roninA3){S.done.roninA3=1;return say([[RN,'Sit down, '+nick()+'. I’m gonna tell you somethin’ and you’re gonna let me get to the end.'],[RN,'Before the server, I was in a book like that. Not that one. Another one. Smaller. A man in Nagoya who kept names and sold ’em. Mine was on page twelve.'],[RN,'I got off page twelve the only way you get off a page. And I been tellin’ myself ever since that I’m the one who decides what goes in books now.'],[RN,'This Friday, I want the book. Not for me. I just wanna watch it burn, or sink, or go to some courtroom where it can rot in a box. I wanna see a book end. Just once.']],_trE)}return _trE()};
+/* ===================== ACT III: nights between, and what each choice leaves behind ===================== */
+const A3_NIGHTS=[
+ ()=>[['','A storm knocks the power out at midnight. The backup generator coughs, catches, and the house comes back one room at a time, like someone waking up.'],['@','The cameras were down for forty seconds.'],['#','anything on them after?'],['@','A footprint on the wet step that is not ours. Small. A woman’s shoe, or a man who wants us to think so.'],['','Nobody sleeps after that. Biscuit patrols the hallway until dawn, nails clicking on the wood, a very small and very serious guard.']],
+ ()=>[['','The server goes quiet at exactly the same minute every night this week: 11:03. Thirty seconds of nothing, then everything resumes.'],['Angelic','(server) is anyone else seeing this? the gap? it’s like somebody’s pressing pause on us.'],['K9','(server) Somebody is reading every message. It takes them thirty seconds to copy the day.'],['ronin.beaufort','(server) hi creep. hope ur enjoyin’ the memes. that crowbar in a hat was for u specifically'],['','The next night, the gap is thirty-one seconds. Somebody laughed.']],
+ ()=>[['','A woman comes to the foundation’s front desk and asks for “the man who answers letters.” She has a child with her, maybe six, holding a stuffed dog.'],['Woman','My husband’s name is in a book. He told me so before he left. He said if he didn’t come back, I should find the man with the dogs.'],['@','What is his name?'],['','She says it. It is not one of the seven. It is in the margin of page four, crossed out in the Chairman’s patient hand, with a date beside it. The date was last month.'],['@','(quietly) We will find out what happened. I cannot promise you a good answer. I can promise you a true one.'],['','The child holds the stuffed dog out to Biscuit, who sniffs it very solemnly and approves.']],
+ ()=>[['','Three in the morning. A knock at the gate. On the camera: nobody. On the step, when somebody finally goes down: a single egg sandwich from the konbini, still cold, in its plastic wrapper.'],['#','...that’s my sandwich. that’s exactly my sandwich. the one i get every time.'],['@','He is telling us he knows what you eat.'],['#','he’s telling us he’s been to my konbini. that’s worse. that’s so much worse. that clerk is the nicest man in tokyo.'],['','The clerk is fine. They check. He remembers a polite man in a grey suit who bought one egg sandwich and paid in exact change and said “for a friend.”']],
+ ()=>[['','Angel sends a voice note at 2am. Just breathing, for nine seconds. Then: “sorry. sorry. wrong button. i’m fine. i’m in the bath with the shotgun. normal night.”'],['@','Go to her.'],['#','already putting on shoes.'],['','You find her exactly as advertised: in the bath, fully dressed, the shotgun across her knees, a face mask on. She does not explain. You do not ask. You sit on the bathroom floor until the face mask dries and she laughs at how stupid she looks.']],
+ ()=>[['','Ronin turns up at dawn with a bag of pastries and a black eye.'],['ronin.beaufort','Ran into a fella in a grey suit outside my building. Real polite. Asked if I knew where “the girl” was. Said he just wanted to talk.'],['@','And?'],['ronin.beaufort','And now he knows where my fist is. Pastry? These are the good ones. The bakery lady likes me. Thinks I’m a nice young man.'],['','He eats four pastries and falls asleep on the atrium couch with his boots on. Nobody wakes him. V puts a blanket over him and looks almost embarrassed about it.']],
+ ()=>[['','An envelope arrives with no stamp: a photograph of the two of you, taken through the greenhouse glass, from very close. On the back, in the patient hand: “The light in here is beautiful. Your father thought so too.”'],['@','He has been inside the grounds.'],['#','he wants us scared. we’re scared. ok. now what.'],['@','Now we change the locks, and the codes, and the dogs’ walking times. And then we stop being scared, because he does not get to keep anything of ours. Not even that.']],
+ ()=>[['','Hara calls at midnight. He sounds tired. He always sounds tired.'],['Hara','A man in my division asked me today, very casually, which harbour Odaiba is in. He has worked in this city for nineteen years. He knows which harbour Odaiba is in.'],['@','He is checking whether you know about Friday.'],['Hara','I told him I did not know what Odaiba was. He believed me. That is the worst part. Thirty years, and my colleagues believe I am the kind of man who does not know what Odaiba is.']]];
+const _morN=morningEvent;morningEvent=function(done){if(S&&S.phase==='act3'){const d=a3d();if(!A3_BEATS[d]||S.seen['a3b'+d]){if(!S.seen['a3n'+d]&&Math.random()<.6){S.seen['a3n'+d]=1;S.a3.nights=(S.a3.nights||0);const n=A3_NIGHTS[S.a3.nights%A3_NIGHTS.length];S.a3.nights++;save();return say(A3L(n),done)}}}return _morN(done)};
+const A3_AFTER={
+ okubo:{paper:()=>[['','A newspaper photo: Okubo, small and grey, leaving the Judicial Council with his coat over his head. Behind him, on the steps, a young woman holds a sign with nineteen case numbers on it. She is one of the girls from the agency. She is smiling.']],kill:()=>[['','The koi pond in Setagaya is drained a month later. The fish are sold to a restaurant in Ginza. Somebody posts a photo of the empty pond online with no caption. It gets four likes.']],leverage:()=>[['','Okubo calls once, from a payphone. “I told them everything. On paper. I wanted you to know I did it properly.” He hangs up before anyone can answer.']]},
+ mizuno:{paper:()=>[['','A drawing arrives at the foundation, crayon on cheap paper: a house with forty-one windows, all of them lit. It is signed “from the sparrows.”']],kill:()=>[['','The Little Sparrows home is sold. The building becomes a convenience store. Every time you pass it you look at the upstairs windows and count.']],angel:()=>[['','Angel’s livestream is nominated for an award. She declines it. In the statement she writes: “it wasn’t content. it was a crime scene. please stop clapping.”']]},
+ tsuji:{ronin:()=>[['','In Ronin’s freezer, behind NOT SNACKS, a lightbulb wrapped in newspaper. Every time anyone opens the freezer they look at it, and close the door a little more gently than before.']],kill:()=>[['','The laundromat below Tsuji’s flat gets new owners. They paint it pink. The machines still eat socks.']],paper:()=>[['','Tsuji’s trial is short. He pleads guilty to everything and asks only one question of the court: whether anyone ever found the bulb. Nobody answers him.']]},
+ arima:{paper:()=>[['','The building in Kita gets a plaque. Somebody keeps leaving flowers under it. One week, the flowers are from the trailer’s window box.']],kill:()=>[['','Arima lives in a hotel now. She keeps the window open in winter. The staff say she cannot stand the smell of the heating.']],home:()=>[['','Fourth floor, the old number. The unit stays empty. Every month the one-yen rent is paid anyway, anonymously, in an envelope with a star sticker on it.']]},
+ kanzaki:{hara:()=>[['','Hara feeds a cat for a month. He never mentions it. When the aunt comes, the cat refuses to leave him for twenty minutes. He stands very still and lets it decide.']],kill:()=>[['','A girl in a school uniform lays flowers at the department store car park every Sunday. She does not know who to be angry at. That is the worst sentence anyone could serve.']],spare:()=>[['','A postcard from Sapporo, every year, no message. Just a photograph of a cat getting older.']]},
+ fumiko:{ask:()=>[['','V plays eleven notes on the piano every night now. On the twelfth, he stops, and sits there, and listens to the silence where the rest of the song goes.']],kill:()=>[['','Fumiko’s plants are found by a neighbour, all of them dead, a week later. V pays for the funeral. He does not attend. He sends lilies, which he hates.']],paper:()=>[['','The clinic’s new wing is demolished. On the site, the city plants a small park. There is a bench with no plaque. V sits on it once, on his mother’s birthday, and never again.']]}};
+function a3Aftermath(late){if(S.phase!=='act3')return[];const out=[];const seen=S.a3.after||{};for(const id in S.a3.names){const k=S.a3.names[id];const f=A3_AFTER[id]&&A3_AFTER[id][k];if(f&&!seen[id])out.push({t:'What happened after: '+A3N().find(n=>n.id===id).n,sub:'a quiet look back',fn:()=>{S.a3.after=seen;seen[id]=1;save();cut(A3L(f),hub,'#0a0810')}})}return out.length?[{h:'Afterwards'}].concat(out.slice(0,2)):[]}
+const _a3H2=a3Hub;a3Hub=function(late){return _a3H2(late).concat(a3Aftermath(late))};
+/* ===================== ACT II: interviews with the suspects, and nights in between ===================== */
+const A2_INT={
+ dale:[()=>[['','A hotel staff canteen at four in the morning. Dale Ishikawa, night security, eating rice out of a plastic box. He looks up, sees who it is, and puts his chopsticks down very carefully.'],['Dale','You’re the ones from the letters. The ones who sent my mother a copy.'],['@','You photographed a woman while she slept.'],['Dale','I know. I know what I did. I lost everything. My job, my flat, my mother won’t answer the phone. I’m working nights in a hotel in a different ward under my cousin’s name.'],['Dale','You think I’m killing people with dog tags because of a letter? I can barely afford the bus.'],['','He is either telling the truth, or he has practised this speech a great many times in a great many canteens.']],
+  ()=>[['','Dale again, a week later, in a bus shelter in the rain. He looks worse. He looks like a man who has stopped sleeping.'],['Dale','I keep seeing the news. The tags. I keep thinking: what if they think it’s me. What if somebody wants them to think it’s me.'],['Dale','The cipher on the notes. It’s mine. I made it up in high school. I only ever used it twice. Once on the letters to Angelic. Once on a birthday card to my sister, when I was sixteen.'],['@','Who else has seen the birthday card?'],['Dale','...My sister. And whoever she showed it to. And the police, when they searched my flat. They took everything. They took the card.']]],
+ heir:[()=>[['','An accountant’s office in a building with no name on the door. Ren Aoki, thirty-four, polite, perfectly dressed, offering tea from a pot that cost more than a car.'],['Aoki','I worked for '+(S.captor?ORG[S.captor].name:'them')+' for eleven years. I kept their books. When they disappeared — and I use the word advisedly — I kept my job, because somebody has to close the accounts.'],['Aoki','I know who you are. I know what happened in the warehouse. I know what happened to everyone who was in it, afterwards.'],['@','And you are still alive.'],['Aoki','I was never in the warehouse. I have never been in any warehouse. I am an accountant. I am the most boring man you will ever meet. Please, have some tea.']],
+  ()=>[['','Aoki’s office again. The tea is the same. Aoki is not. There is a bandage on his hand he does not explain.'],['Aoki','You have been looking at me. I would like to save us both some time.'],['Aoki','Every man who has died with a K9 tag was in your paperwork. Every one of them was also in mine. I kept their accounts. I knew where they lived. I knew when they were alone.'],['Aoki','That is not a confession. That is a description of my job. If you want a confession you will have to go and find one, and I do not think you will find it with me.'],['','He refills your cup. His hand, the bandaged one, is perfectly steady.']]],
+ hara:[()=>[['','Inspector Hara’s favourite coffee shop. The one that has not been cleaned since 1963. He has ordered for you again.'],['Hara','You are wondering if it is me. I would wonder too. I have a file on K9 four years thick, and I have been mocked for it at every Christmas party since.'],['Hara','A man becomes very tired of being mocked. A man might, after enough Christmas parties, decide to make the thing he is hunting real.'],['@','Are you telling me something?'],['Hara','I am telling you what I would think, if I were you. I am a detective. I am very good at thinking what other people think.']],
+  ()=>[['','Hara’s office, after hours. The K9 file is open on his desk. Three pages are missing. He shows you the gap.'],['Hara','I noticed on Tuesday. Three pages. The three victims. Somebody in this building has been reading my file and taking notes.'],['Hara','I have narrowed it down to eleven people. Ten of them are policemen. One of them is the cleaner.'],['Hara','...It is not the cleaner. She has worked here since before I joined. She brings me mochi on my birthday.'],['','He closes the file. For the first time, he looks less tired than angry.'],['Hara','I would very much like to know who it is. I would like to know it before you do, if you do not mind. Some things a man should be allowed to find out himself.']]]};
+function a2Interviews(late){if(S.phase!=='act2'||!S.case)return[];const o=[];const seen=S.f.a2int||{};for(const k in A2_INT){const n=(seen[k]||0);if(n<A2_INT[k].length)o.push({t:`Talk to ${SUS()[k].n}`,sub:`interview ${n+1}/${A2_INT[k].length} · costs time · may turn up a clue`,dis:late||S.done['a2i'+k],fn:()=>{spend();S.done['a2i'+k]=1;S.f.a2int=seen;seen[k]=n+1;save();cut(A3L(A2_INT[k][n]),()=>{if(k===S.case.cul&&n===1)gainClue(k+'3');else if(Math.random()<.5)gainClue();hub()},'#0a0a14')}})}return o.length?[{h:'Suspects'}].concat(o):[]}
+const _a2hI=act2Hub;act2Hub=function(late){return _a2hI(late).concat(a2Interviews(late))};
+const A2_NIGHTS=[
+ ()=>[['','A third tag is found, not on a body, but nailed to the foundation’s front door. Under it, in marker: “WHO’S NEXT, VALENTIN?”'],['@','He knows my name. My real name.'],['#','so do i. and nobody gets to use it like that. nobody.']],
+ ()=>[['','The server. A new member joins, posts a single photograph of the foundation’s logo with a dog tag on top, and leaves before anyone can reply.'],['Angelic','(server) i got their IP. it’s a library. a public library in shinjuku. they’re using a library computer. that’s so creepy. that’s so smart.'],['ronin.beaufort','(server) i’ll go sit in the library. i love libraries. very quiet. good for thinkin’ about violence.']],
+ ()=>[['','The gala committee calls to say four major donors have withdrawn. One of them says, on the record, that he “cannot be associated with an organisation under police scrutiny.”'],['V','He has been under police scrutiny himself three times. I have the files. I paid for two of the lawyers.'],['M','want me to send him a fruit basket? a scary one?'],['V','...Yes. Anonymously. With a pineapple. He is afraid of pineapples. It was in one of the files.']],
+ ()=>[['','Rain on the window all night. Neither of you can sleep, so you sit in the archive with every drawer open, reading thank-you notes from people V got out.'],['#','this one says “you saved my life and also my cat”. this one is just a drawing of a sandwich.'],['@','The sandwich is from a man who now owns a restaurant. He sends me one every year. It is always too much mayonnaise.'],['#','that’s love. too much mayonnaise is love.']],
+ ()=>[['','A crowd outside the foundation’s offices. Signs. “WHO IS K9?” “VIGILANTES ARE MURDERERS.” And one, very small, held by an old woman: “K9 GOT MY SON A JOB. LEAVE HIM ALONE.”'],['@','I do not know her.'],['#','she knows you. that’s how it works. you don’t have to know them. you just have to have been there.']],
+ ()=>[['','Hara leaves a voicemail at three in the morning. He sounds like he is in a car.'],['Hara','I have been thinking about who in my building wants K9 to be real. The answer is: all of us. Every single officer who has ever watched a rich man walk out of court. That is a very long list.'],['Hara','I am going to go home now. I am going to eat something. I suggest you do the same. Goodnight, whoever you are.']]];
+const _morA2=morningEvent;morningEvent=function(done){if(S&&S.phase==='act2'&&!isLone()){const d=S.day-S.act2Start+1;if(!S.seen['a2n'+d]&&Math.random()<.45){S.seen['a2n'+d]=1;S.f.a2n=(S.f.a2n||0);const n=A2_NIGHTS[S.f.a2n%A2_NIGHTS.length];S.f.a2n++;save();return _morA2(()=>say(A3L(n),done))}}return _morA2(done)};
+/* ===================== ACT I: more mornings ===================== */
+EVENTS.push(
+ {id:'x_rain_roof',when:()=>isM()&&S.pov!=='v'&&S.day>=2&&S.phase==='normal',run:done=>say([['','A job falls through at the last second: the target cancels his dinner. She is left on a wet roof at midnight with a rifle and nowhere to point it.'],['M','six hours on a roof. for nothing. i could’ve been watching a horror movie. i could’ve been ASLEEP.'],['','She doesn’t leave. She stays another hour, watching the restaurant’s windows go dark one by one, the waiters stacking chairs, a cook smoking in the alley.'],['M','he’d have been here. right there. that table. and those guys would’ve had to clean it up.'],['','She packs up. On the way home, she buys the cook a coffee from the vending machine and leaves it on the alley step. She doesn’t know why. It just seems fair.']],done)},
+ {id:'x_v_board',when:()=>isV()&&S.day>=2&&S.phase==='normal',run:done=>say([['','A board meeting runs four hours. Somewhere around hour three, the chairman suggests that the foundation “reconsider its relationship with certain shelters in high-crime areas.”'],['V','By “high-crime,” do you mean “poor”?'],['Chairman','I mean areas where our brand is at risk.'],['V','Our brand is a dog holding a key. It was drawn by a nine-year-old who lived in one of those shelters. I will be keeping it, and the shelters, and I will be taking your suggestion home with me and putting it in a very specific drawer.'],['','The meeting ends twelve minutes early. Everyone at the table knows exactly which drawer he means. Nobody has ever seen it.']],done)},
+ {id:'x_dog_walk',when:()=>S.day>=3&&!isLone()&&S.phase!=='taken',run:done=>say([['','Six in the morning. Fog over the river. V walks the dogs along the embankment, three leads in one hand, coffee in the other.'],['','A jogger stops to pet Biscuit and asks what she is. V says “a menace.” The jogger laughs. Biscuit steals her headband.'],['V','I apologise. She is a collector.'],['','On the way back, he passes the trailer lot without meaning to. The lights are on. Through the window, a girl with a star clip is eating cereal from a pot. He does not stop. He walks a little slower.']],done)},
+ {id:'x_angel_cry',when:()=>S.day>=4&&frT('a')>=1&&S.phase!=='taken',run:done=>say([['','Angel posts a video at 4am. No makeup. No ring light. Just her face in the dark, lit by the screen.'],['Angelic','(video) hi. sorry. this isn’t a real video. i just wanted to say that sometimes the people who look happiest on camera are the ones who need you to text them. so text someone. that’s it. that’s the video.'],['','It is deleted by six. Not before eleven people from one small server have texted her. She replies to every one with a single heart.']],()=>{fr('a',2);done()})},
+ {id:'x_ronin_dentist',when:()=>S.day>=3&&frT('r')>=1&&S.phase!=='taken',run:done=>say([['ronin.beaufort','(server) so i went to the dentist'],['Angelic','(server) and??'],['ronin.beaufort','(server) and the dentist was a guy from a list. like A List. like my kinda list.'],['K9','(server) Ronin.'],['ronin.beaufort','(server) i didn’t DO anything vee. i got a cleaning. he did a real good job. i tipped. i’m just sayin’ i know where he works now'],['hitmeuppp','(server) did u floss tho'],['ronin.beaufort','(server) ...no']],done)},
+ {id:'x_cold',when:()=>S.day>=4&&weather()==='snow'&&S.phase==='normal',run:done=>say([['','The first snow. The city goes quiet the way it only does when it snows: every sound wrapped in cotton, every footstep muffled.'],[A3ME(),ME3()?'My mother used to say the snow was the city holding its breath.':mVoice('snow. ok. the trailer heater is going to die. i can feel it. it’s making the noise.')],['','The trailer heater dies at noon. By two, there is an electric heater on the step with a bow on it and no card. Everyone knows who sent it. Nobody says so.']],done)},
+ {id:'x_wrong_door',when:()=>isM()&&S.pov!=='v'&&S.day>=5&&S.phase==='normal',run:done=>say([['','A job, a hotel, a corridor. She counts the doors. 1104. 1106. 1108. She knocks on 1108, smiles at the man who opens it, and realises half a second too late that he is not the man in the photograph.'],['Stranger','Room service?'],['M','...wrong floor. sorry. have a good night.'],['','She walks to the lift very calmly. Her heart is going so fast she can hear it in her teeth. The man in 1110 will live another day because a stranger in 1108 ordered room service.'],['M','that’s the job. that’s the whole job. one wrong door and you’re somebody else.']],()=>{apply({energy:-8});done()})},
+ {id:'x_v_hospital',when:()=>isV()&&S.day>=5&&S.phase==='normal',run:done=>say([['','A hospital, children’s wing. V visits once a month, unannounced, and reads to whichever ward will have him. Today it is the oncology ward. They want a dog book.'],['V','“Max is doing his best.” He is a very small dog in a very big city, and he is doing his best.'],['','A boy with no hair asks if Max ever gets scared. V says yes. Every day. The boy nods, very seriously, as if that settles something.'],['','On the way out, a nurse asks if he is a volunteer. He says he is just a man who likes dog books. She does not believe him. She lets him have it anyway.']],()=>{apply({heart:3});done()})},
+ {id:'x_power_bill',when:()=>isM()&&S.pov!=='v'&&S.paid===1&&S.phase==='normal',run:done=>say([['','A second envelope under the rent one. The electricity bill. It has been red for a month. She has been pretending the colour is decorative.'],['M','ok. electricity. i can do electricity. electricity is like rent’s little brother.'],['','She pays it from the stash under the bed. The stash is now mostly stickers. She looks at the stickers for a long time.']],()=>{apply({yen:-3000});done()})},
+ {id:'x_v_father',when:()=>isV()&&S.day>=6&&S.phase==='normal',run:done=>say([['','The anniversary of his father’s death. V does what he does every year: nothing. He works. He does not visit the grave. He does not light a candle.'],['','At midnight, he goes down to the archive and opens the drawer where he keeps the one photograph of his father he has not burned. A man in a grey suit, at a desk, writing in a ledger.'],['V','I am not you. I check every year. I am still not you.'],['','He closes the drawer. Upstairs, Biscuit is waiting on the bottom step, as she does every night, as though he might not come back.']],done)},
+ {id:'x_misaki_mail',when:()=>isM()&&S.pov!=='v'&&S.day>=4&&tier()>=1&&S.phase==='normal',run:done=>say([['','A parcel at the trailer. Inside: a hardback copy of a dog book, the one from V’s shelves, with every margin annotated in neat handwriting.'],['','“He is doing his best.” On every page. And on the last page, in a different pen, newer: “So are you.”'],['M','...he gave me the dog book. he gave me THE dog book.'],['','She reads it in bed with a torch, like a kid. She reads every margin. She falls asleep halfway through and dreams, for once, about nothing at all.']],()=>{apply({aff:3});done()})},
+ {id:'x_ronin_body2',when:()=>S.day>=7&&frT('r')>=1&&S.phase==='normal',run:done=>say([['ronin.beaufort','(text) sorry to bug ya. this ain’t a favour. just. i had a bad one tonight. kid was in the next room. didn’t see nothin’. still.'],[A3ME(),ME3()?'(text) Are you safe?':mVoice('(text) u ok?')],['ronin.beaufort','(text) yeah. yeah. just wanted somebody to know i’m awake. go back to sleep, '+nick()+'.'],['','You don’t go back to sleep. You send him a photo of the dogs every ten minutes until he replies with a single “lol” at 4am.']],()=>{fr('r',3);done()})},
+ {id:'x_rent_kid',when:()=>isM()&&S.pov!=='v'&&S.day>=3&&S.phase==='normal',run:done=>say([['','The landlord’s nephew comes to collect the rent notice. He is about fourteen and very embarrassed.'],['Nephew','My uncle says, um. Pay or else. Sorry. He makes me say that.'],['M','does ur uncle make u do a lot of stuff'],['Nephew','...yeah.'],['M','ok. tell him i said “noted.” and here.'],['','She gives him a dorayaki from the stash. He looks at it like it might explode. Then he eats it on the step before he leaves, very quickly, like he is not allowed.']],done)},
+ {id:'x_late_text',when:()=>tier()>=2&&S.phase==='normal'&&!isLone()&&!S.rom,run:done=>say([[ME3()?'hitmeuppp':'K9',ME3()?mVoice('(text, 3:14am) r u up'):'(text, 3:14am) Are you awake?'],[A3ME(),ME3()?'(text) Yes.':mVoice('(text) yeah')],[ME3()?'hitmeuppp':'K9',ME3()?mVoice('(text) nothing. just checking'):'(text) Nothing. I only wanted to know.'],['','Neither of you says anything else. Neither of you puts the phone down. At 3:40, one of you finally types “night.” At 3:41, the other types it back.']],()=>{apply({aff:2});done()})});
 requestAnimationFrame(frame);splash();
 
 </script></body></html>
