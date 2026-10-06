@@ -3404,6 +3404,72 @@ const _help2=helpPanel;helpPanel=function(){_help2();const lb=document.querySele
 (function(){const m=['booth','Photo booth strip','Four frames. At least one is blurry.',()=>S.f.booth];Object.defineProperty(m,4,{get:()=>{const k=S&&S.f.boothWith;const me=S&&ME2()==='K9'?'v':'m';return k&&k!==me?[me,k]:[me]}});MEM.push(m);
  MEM.push(['prickles','Prickles blooms','One pink flower on a very proud cactus.',()=>S.f.prickBloom,['m']]);})();
 ACH.push(['goodboy','Good Dog','Teach one dog every trick.',()=>Object.values(S.tricks||{}).some(v=>v>=TRICKS.length)],['walkies','Walkies','Take four different dogs for a walk.',()=>Object.keys(S.f.walked||{}).length>=4],['capsule','Completionist (Plastic)','Collect every capsule toy.',()=>CAPS.every(c=>(S.f.caps||{})[c[0]])],['prickles','It Bloomed','Get Prickles the cactus to flower.',()=>S.f.prickBloom],['booth','Four Frames','Get a perfect photo-booth strip.',()=>S.f.boothPerfect],['emote','Expressive','Emote 25 times.',()=>(S.f.emotes||0)>=25]);
+/* ===================== EXPLORATION: follow camera, depth, transitions ===================== */
+/* Camera: zoomed-in view that follows the player with a small dead zone and forward focus,
+   clamped to the room so the edges never show. META.camFixed restores the old full-room view. */
+const ROOMZOOM={trailer:1.3,atrium:1.35,ops:1.35,green:1.35,kennel:1.35,training:1.35,archive:1.3,cell:1.2,mall:1.3,studio:1.3,ronin:1.3,vbath:1.3,bedroom:1.3,kyoto:1.3,uji:1.3,scene:1.3};
+let HDR=null;const _rhdr=roomHeader;roomHeader=function(n,g,b){HDR=[n,g,b]};
+const _rs=roomScene;roomScene=function(id,sp){const s=_rs(id,sp);const R=ROOMS[id];const d=s.draw,u=s.update,tt=s.tapTo,nr=s.near;
+ const Z=()=>META.camFixed?1:(R.zoom||ROOMZOOM[id]||(id.startsWith('wing_')?1.3:1.3));
+ const cam={x:sp[0],y:sp[1]-30,init:false,look:0};let lastNear=null,fade=14,bumpT=0;
+ const clampCam=()=>{const z=Z(),hw=W/(2*z),hh=H/(2*z);cam.x=clamp(cam.x,hw,W-hw);cam.y=clamp(cam.y,hh,H-hh)};
+ s.cam=cam;
+ s.update=function(){const [px0,py0]=this.pos();u.call(this);if(!scene||scene!==this)return;const [px,py]=this.pos();
+  const tryMove=held.left||held.right||held.up||held.down;if(tryMove&&Math.hypot(px-px0,py-py0)<.05){if(++bumpT%22===1)sfx('step')}else bumpT=0;
+  const n=nr.call(this);if(n!==lastNear){if(n)sfx('sel');lastNear=n}};
+ s.tapTo=function(x,y){const z=Z();return tt.call(this,(x-W/2)/z+cam.x,(y-H/2)/z+cam.y)};
+ s.draw=function(){const [px,py]=this.pos();const z=Z();const red=META.reduceMotion;
+  const vx=this.vx||0;cam.look+=((Math.abs(vx)>.2?Math.sign(vx)*18:cam.look)-cam.look)*(red?1:.04);
+  const tx=px+(red?0:cam.look),ty=py-34;
+  if(!cam.init){cam.x=tx;cam.y=ty;cam.init=true}
+  const dz=red?0:10;const ex=tx-cam.x;if(Math.abs(ex)>dz)cam.x+=(ex-Math.sign(ex)*dz)*(red?.25:.09);cam.y+=(ty-cam.y)*(red?.25:.08);clampCam();
+  HDR=null;c.save();c.translate(W/2,H/2);c.scale(z,z);c.translate(-cam.x,-cam.y);
+  try{d.call(this);if(lastNear&&!dlg&&!ctrl&&lastNear.at){const a=(Math.sin(T/8)+1)/2;c.strokeStyle=`rgba(255,236,200,${.35+.4*a})`;c.lineWidth=1;c.beginPath();c.ellipse(lastNear.at[0],lastNear.at[1]+1,8+a*2,3+a,0,0,7);c.stroke()}}finally{c.restore()}
+  if(HDR)_rhdr(HDR[0],HDR[1],HDR[2]);
+  if(fade>0){c.fillStyle=`rgba(5,4,10,${fade/14})`;c.fillRect(0,0,W,H);fade--}};
+ return s};
+/* foreground layers fade when the player walks behind them, so sprites stay readable */
+for(const k in ROOMS){const f=ROOMS[k].fg;if(!f)continue;ROOMS[k].fg=()=>{const P=scene&&scene.pos?scene.pos():[160,150];const near=P[1]>156||P[0]<56||P[0]>264;c.globalAlpha=near?.4:1;try{f()}finally{c.globalAlpha=1}}}
+/* the fountain in the square is solid now */
+ROOMS.mall.blocks=(ROOMS.mall.blocks||[]).concat([[134,142,186,156]]);
+
+/* ===================== INPUT: gamepad ===================== */
+const GP={prev:{}};
+function pollPad(){if(typeof navigator==='undefined'||!navigator.getGamepads)return;let g=null;try{g=[...navigator.getGamepads()].find(x=>x)}catch(e){return}if(!g)return;
+ const b=i=>!!(g.buttons[i]&&g.buttons[i].pressed),ax=g.axes||[];
+ const st={left:b(14)||ax[0]<-.45,right:b(15)||ax[0]>.45,up:b(12)||ax[1]<-.45,down:b(13)||ax[1]>.45,act:b(0),back:b(1),alt:b(2)||b(5),emote:b(3),pause:b(9)};
+ for(const k of ['left','right','up','down','act','back','alt']){if(st[k]&&!GP.prev[k])pressed[k]=1;if(st[k]!==!!GP.prev[k])held[k]=st[k]?1:0}
+ if(st.emote&&!GP.prev.emote)emoteMenu();if(st.pause&&!GP.prev.pause)pauseMenu();GP.prev=st}
+const _frG=frame;frame=function(){pollPad();_frG()};
+
+/* ===================== COMFORT & ACCESSIBILITY SETTINGS ===================== */
+function applyComfort(){const w=document.getElementById('wrap');if(w)w.classList.toggle('bigtext',!!META.bigText)}
+if(typeof document!=='undefined'&&document.head){const st=document.createElement('style');st.textContent=`#wrap.bigtext #ui{font-size:clamp(18px,2.9vw,27px)}#wrap.bigtext .dlg .tx{line-height:1.3}`;document.head.appendChild(st);applyComfort()}
+const _pm=pauseMenu;pauseMenu=function(){_pm();const box=document.querySelector('.pausebox .pbtns');if(!box)return;const mk=(lab,fn)=>{const b=document.createElement('button');b.textContent=lab();b.onclick=e=>{e.stopPropagation();fn();saveMeta();b.textContent=lab()};box.insertBefore(b,box.lastElementChild)};
+ mk(()=>'Camera: '+(META.camFixed?'whole room':'follow'),()=>{META.camFixed=!META.camFixed});
+ mk(()=>'Motion: '+(META.reduceMotion?'reduced':'full'),()=>{META.reduceMotion=!META.reduceMotion});
+ mk(()=>'Text size: '+(META.bigText?'large':'normal'),()=>{META.bigText=!META.bigText;applyComfort()})};
+const _rfxM=roomFX;roomFX=function(){if(META.reduceMotion){const tint=[[255,200,120,.06],null,[20,30,90,.16],[10,10,50,.28]][Math.min(S.slot,3)];if(tint){c.fillStyle=`rgba(${tint[0]},${tint[1]},${tint[2]},${tint[3]})`;c.fillRect(0,0,W,H)}try{drawFollower();drawEmote()}catch(e){}return}_rfxM()};
+
+/* ===================== STORY FRAMING ===================== */
+/* chapter cards at each turn of the story, and an opening that states the stakes */
+const INTRO={m:[['','Tokyo, the cheap side. Misaki Katsuo has a trailer, a rifle she’s very good with, and ¥9,000.'],['','She kills men the law won’t touch, for money. Rent is ¥40,000, due on day 5, and again by day 10. Miss it and she’s out.'],['','Her only friends live in a group chat full of killers. One of them, “K9”, keeps asking if she’s eaten.'],['','He’s a billionaire. He has a house full of dogs, a vault nobody is allowed into, and very good locks. She has a bobby pin.'],['hitmeuppp','ok. two goals. pay rent. find out what’s behind the round door. in that order. probably.'],['','(Every job draws attention from the families of the men you kill. Watch your heat.)']],
+ v:[['','Tokyo. V runs a charity foundation in forty-one cities. At night he ruins the men it can’t reach, with paper: leaks, audits, lawyers.'],['','He has three dogs, an old one among them, and a server full of serial killers he never meant to join.'],['','One of them is Misaki. Assassin. Behind on rent. She refuses his money. Every job she takes makes her more enemies.'],['K9','This is not my concern.'],['','It is, increasingly, his concern. Keep the foundation running, keep the dogs well, and keep an eye on her. Something is coming for her.']]};
+INTRO.both=INTRO.m;
+newRun=function(p){S=NEW(p);save();drawHud();chapterCard('Chapter One · Rent Is Due',()=>cut(INTRO[p]||INTRO.m,hub))};
+const _tkM=takenM;takenM=function(){chapterCard('Chapter Two · One Bulb',_tkM)};
+const _tkV=takenV;takenV=function(){chapterCard('Chapter Two · Missing',_tkV)};
+const _aftC=after;after=function(self){chapterCard('Chapter Three · After',()=>_aftC(self))};
+const _finC=finale;finale=function(){if(S.f.finaleCard)return _finC();S.f.finaleCard=1;chapterCard('Chapter Four · It Ends Tonight',_finC)};
+/* goals: when no quest is active, always tell the player what to do next */
+const _gt=goalText;goalText=function(){const g=_gt();if(g||!S)return g;
+ if(S.phase==='act2')return `Find the Mimic before the gala · clues ${S.case?S.case.found.length:0}`;
+ if(S.phase==='epilogue')return 'Just live. (Side stories and dates are in the hub.)';
+ const inBase=['atrium','ops','green','kennel','training','archive'].includes(S.room);
+ if(inBase&&!S.f.vault&&S.visitAs!=='v'){const d=S.frag.filter(Boolean).length;return `The round door: keycard ${S.key?'✓':'?'} · code ${d}/3`}
+ if(isM()&&S.paid>=2)return 'Rent’s paid. Something feels wrong.';
+ if(isV())return 'Keep the foundation running. Check on Misaki.';
+ return ''};
 requestAnimationFrame(frame);splash();
 
 </script></body></html>
