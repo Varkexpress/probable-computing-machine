@@ -7901,6 +7901,7 @@ function mpSync(G){if(!S||!G||!G.ch)return;S.f.mp=S.f.mp||{};let paid=0;const li
  MP_CASES.forEach(([id,n])=>{if(G.ch[id]&&G.ch[id].mission&&!S.f.mp['c'+id]){S.f.mp['c'+id]=1;paid++;lines.push(n)}});
  if(paid){S.yen+=18000*paid;apply({aff:3*paid});toast('Cartographer paid ¥'+(18000*paid).toLocaleString()+' · '+lines[lines.length-1])}
  if(G.prep&&G.prep.best!==null&&G.prep.best>=16&&!S.f.mp.prep){S.f.mp.prep=1;S.yen+=30000;apply({aff:4});toast('Practice test passed: ¥30,000 from a very smug V.')}
+ if(G.prep&&G.prep.best2!=null&&G.prep.best2>=13&&!S.f.mp.prep2){S.f.mp.prep2=1;S.yen+=20000;apply({aff:3});toast('Coordinate test passed: ¥20,000.')}
  if(G.exam&&G.exam.pass&&!S.f.mp.exam){S.f.mp.exam=1;S.yen+=60000;apply({aff:6});toast('The Ledger is closed. ¥60,000 and a very proud V.')}
  save();drawHud()}
 window.addEventListener('message',e=>{const d=e.data;if(!d||typeof d!=='object')return;if(d.type==='mp-progress')mpSync(d.G);if(d.type==='mp-close'){mpSync(d.G);mpClose()}});
@@ -8499,7 +8500,7 @@ function snRun(who,plan,fin){const T3=THREE;let alive=true;const ov=document.cre
   R.render(sc,cam)}
  build(mk(plan[0]));requestAnimationFrame(loop)}
 
-const _mpHSn=mpHub;mpHub=function(late){const o=_mpHSn(late);if(!o.length||!S)return o;o.push({t:'Study hall: practice tests, quizzes, modules',sub:'free · 20-question practice test, quick quizzes, 17 modules with stepped-out examples · pass with 16+ for ¥30,000',fn:()=>mpOpen('prep')});const m=snipeModes().map(k=>SNM[k].sec.split(' ')[0]).join(', ');
+const _mpHSn=mpHub;mpHub=function(late){const o=_mpHSn(late);if(!o.length||!S)return o;o.push({t:'Study hall: practice tests, quizzes, modules',sub:'free · two practice tests (transformations, coordinate plane), quick quizzes, 25 modules with stepped-out examples',fn:()=>mpOpen('prep')});const m=snipeModes().map(k=>SNM[k].sec.split(' ')[0]).join(', ');
  o.push({t:ME3()?'Overwatch: the Cartographer’s list (3D sniper)':'Rooftop contract (3D sniper)',sub:S.done.snipe?'done today':`costs time + energy · three targets · sections ${m}`,dis:late||S.done.snipe||S.energy<20||(!ME3()&&S.heat>=80),fn:()=>{spend();S.done.snipe=1;apply({energy:-15});save();snipeContract(ME3()?'v':'m',()=>hub())}});return o};
 requestAnimationFrame(frame);splash();
 

@@ -1052,7 +1052,7 @@ function bindGraph(root,p,i){const box=root.querySelector(`.prt[data-i="${i}"]`)
  box.querySelector('.gwc').onclick=()=>{if(box.dataset.locked)return;p._pl=[];redraw()};redraw()}
 function gradePart(p,box){const pf=box.querySelector('.pf');let s=0,shown='';
  if(p.kind==='pt'||p.kind==='rule'){const v=[...box.querySelectorAll('input')].map(x=>parseNum(x.value));s=(eq(v[0],p.ans[0])&&eq(v[1],p.ans[1]))?1:0;shown=p.kind==='pt'?P(...p.ans):`(x ${sg(p.ans[0])}, y ${sg(p.ans[1])})`}
- else if(p.kind==='num'){const v=parseNum(box.querySelector('input').value);s=eq(v,p.ans)?1:0;shown=Number.isInteger(p.ans)?fr(p.ans):`${mixed(p.ans)} (${fr(p.ans)})`}
+ else if(p.kind==='num'){const v=parseNum(box.querySelector('input').value);s=(p.tol?Math.abs(v-p.ans)<=p.tol+1e-9:eq(v,p.ans))?1:0;shown=Number.isInteger(p.ans)?fr(p.ans):`${mixed(p.ans)} (${fr(p.ans)})`}
  else if(p.kind==='sel'){s=box.querySelector('select').value===p.ans?1:0;shown=p.ans}
  else if(p.kind==='mc'){const c=box.querySelector('input:checked');s=c&&p.choices[+c.value]===p.ans?1:0;shown=p.ans}
  else if(p.kind==='multi'){const picked=[...box.querySelectorAll('input:checked')].map(c=>p.choices[+c.value]);const hits=picked.filter(x=>p.ans.includes(x)).length,wrong=picked.length-hits;s=(hits===p.ans.length&&wrong===0)?1:(hits>wrong?.5:0);shown=p.ans.join('; ')}
@@ -1068,15 +1068,24 @@ function stepsHTML(it){return`<h3>Stepped-out solution</h3><ol class="steps2">${
 function scoreTag(s){return s>=.999?'<span class="chip done">Correct · 1</span>':s>0?`<span class="chip go">Partially correct · ${s}</span>`:'<span class="chip" style="color:var(--blood);border-color:rgba(214,69,90,.5)">Incorrect · 0</span>'}
 
 /* ---------------- screens ---------------- */
-function prepHome(){clear3D();hudCh('Study hall');focusCam(38,.7);const b=G.prep.best;
- setPanel(`<div class="eyebrow">Study hall</div><h2>Practice tests, quizzes, modules</h2><p class="muted">Built from the Chapter 4 review set. Every problem gets new numbers each time.</p>
- <div class="cards"><button class="card" type="button" id="pTest"><span class="num">20</span><span class="nm"><b>Practice test</b><span>One of each review problem type, scored with partial credit like the online test. Results and solutions at the end.</span></span><span class="chip ${b!==null?'done':'go'}">${b!==null?'Best '+b+'/20':'Start'}</span></button>
- <button class="card" type="button" id="pQuiz"><span class="num">8</span><span class="nm"><b>Quick quiz</b><span>Eight mixed problems with instant feedback and steps.</span></span><span class="chip go">${G.prep.quiz.total?Math.round(G.prep.quiz.right/G.prep.quiz.total*100)+'%':'Start'}</span></button></div>
- <h3>Modules</h3><div class="cards">${MODS.map((m,i)=>`<button class="card" type="button" data-m="${m.id}"><span class="num">${i+1}</span><span class="nm"><b>${m.n}</b><span>${m.t.length} problem type${m.t.length>1?'s':''}</span></span><span class="chip ${G.prep.mods[m.id]?'done':''}">${G.prep.mods[m.id]?'Practised':'Open'}</span></button>`).join('')}</div>
+function prepHome(){clear3D();hudCh('Study hall');focusCam(38,.7);const b=G.prep.best,b2=G.prep.best2;
+ const modCards=(L)=>L.map((m,i)=>`<button class="card" type="button" data-m="${m.id}"><span class="num">${i+1}</span><span class="nm"><b>${m.n}</b><span>${m.t.length} problem type${m.t.length>1?'s':''}</span></span><span class="chip ${G.prep.mods[m.id]?'done':''}">${G.prep.mods[m.id]?'Practised':'Open'}</span></button>`).join('');
+ setPanel(`<div class="eyebrow">Study hall</div><h2>Practice tests, quizzes, modules</h2><p class="muted">Every problem gets new numbers each time.</p>
+ <h3>Set 1 · Chapter 4 transformations</h3>
+ <div class="cards"><button class="card" type="button" id="pTest"><span class="num">20</span><span class="nm"><b>Practice test</b><span>One of each Chapter 4 review problem type, scored with partial credit. Results and solutions at the end.</span></span><span class="chip ${b!==null?'done':'go'}">${b!==null?'Best '+b+'/20':'Start'}</span></button>
+ <button class="card" type="button" id="pQuiz"><span class="num">8</span><span class="nm"><b>Quick quiz</b><span>Eight mixed transformation problems with instant feedback and steps.</span></span><span class="chip go">Start</span></button></div>
+ <h3>Set 1 modules</h3><div class="cards">${modCards(MODS)}</div>
+ <h3>Set 2 · Coordinate plane toolkit</h3><p class="muted">Distance, midpoints, slope, parallel and perpendicular lines, equations of lines, partitioning segments, area, and classifying figures.</p>
+ <div class="cards"><button class="card" type="button" id="pTest2"><span class="num">16</span><span class="nm"><b>Practice test</b><span>One of each coordinate-geometry problem type, with partial credit and full solutions.</span></span><span class="chip ${b2!==null?'done':'go'}">${b2!==null?'Best '+b2+'/16':'Start'}</span></button>
+ <button class="card" type="button" id="pQuiz2"><span class="num">8</span><span class="nm"><b>Quick quiz</b><span>Eight mixed coordinate problems with instant feedback.</span></span><span class="chip go">Start</span></button></div>
+ <h3>Set 2 modules</h3><div class="cards">${modCards(MODS2)}</div>
+ <p class="muted">Overall quiz accuracy: ${G.prep.quiz.total?Math.round(G.prep.quiz.right/G.prep.quiz.total*100)+'% over '+G.prep.quiz.total+' questions':'no quizzes yet'}.</p>
  <div class="row"><button class="btn ghost sm" id="bk" type="button">Case board</button></div>`,'wide tall');
- $('#pTest').onclick=()=>startTest();$('#pQuiz').onclick=()=>startQuiz(shuffle(TEST_ORDER).slice(0,8),'Quick quiz',null);UI.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>moduleView(MBYID[b.dataset.m]));$('#bk').onclick=board}
+ $('#pTest').onclick=()=>startTest(TEST_ORDER,'best','Practice test · transformations');$('#pQuiz').onclick=()=>startQuiz(shuffle(TEST_ORDER).slice(0,8),'Quick quiz',null,TEST_ORDER);
+ $('#pTest2').onclick=()=>startTest(TEST2_ORDER,'best2','Practice test · coordinate plane');$('#pQuiz2').onclick=()=>startQuiz(shuffle(TEST2_ORDER).slice(0,8),'Coordinate quiz',null,TEST2_ORDER);
+ UI.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>moduleView(MBYID[b.dataset.m]));$('#bk').onclick=board}
 function moduleView(m){clear3D();hudCh('Module: '+m.n);
- setPanel(`<div class="eyebrow">Module ${MODS.indexOf(m)+1} of ${MODS.length}</div><h2>${m.n}</h2>${m.body}
+ const ML=MODS.includes(m)?MODS:MODS2;setPanel(`<div class="eyebrow">${ML===MODS?'Set 1':'Set 2'} · module ${ML.indexOf(m)+1} of ${ML.length}</div><h2>${m.n}</h2>${m.body}
  <div class="row"><button class="btn" id="ex" type="button">See a stepped-out example</button><button class="btn ghost" id="pr" type="button">Practice this skill (5 problems)</button></div><div id="exBox" class="col"></div>
  <div class="row"><button class="btn ghost sm" id="bk" type="button">Study hall</button></div>`,'wide tall');
  $('#bk').onclick=prepHome;$('#pr').onclick=()=>startQuiz(Array.from({length:5},(_,i)=>m.t[i%m.t.length]),m.n,m);
@@ -1084,7 +1093,7 @@ function moduleView(m){clear3D();hudCh('Module: '+m.n);
   box.innerHTML=`<div class="rule" style="border-left-color:var(--prime)"><b>Example.</b> ${it.prompt}</div>${it.fig||''}<ol class="steps2" id="stl"></ol><div class="row"><button class="btn ghost sm" id="nst" type="button">Show step 1</button></div>`;
   const next=()=>{if(k<it.steps.length){$('#stl').insertAdjacentHTML('beforeend',`<li>${it.steps[k]}</li>`);k++;$('#nst').textContent=k<it.steps.length?'Show step '+(k+1):'Done. Another example?';if(k>=it.steps.length&&it.img3d)show3D(it,true)}else $('#ex').click()};
   $('#nst').onclick=next;next();$('#nst').focus()}}
-function startQuiz(ids,title,mod){const Z={ids,i:0,score:0,title,mod};quizQ(Z)}
+function startQuiz(ids,title,mod,pool){const Z={ids,i:0,score:0,title,mod,pool};quizQ(Z)}
 function quizQ(Z){const it=TBYID[Z.ids[Z.i]].gen();hudCh(Z.title+' '+(Z.i+1)+'/'+Z.ids.length);show3D(it,false);
  setPanel(itemHTML(it,`${Z.title} · question ${Z.i+1} of ${Z.ids.length} · ${MBYID[TBYID[Z.ids[Z.i]].mod].n}`)+`<div class="row"><button class="btn" id="sub" type="button">Submit</button><button class="btn ghost sm" id="mod" type="button">Open the module</button><button class="btn ghost sm" id="bk" type="button">Quit</button></div><div id="fb"></div>`,'wide tall');
  it.parts.forEach((p,i)=>{if(p.kind==='graph')bindGraph(UI,p,i)});
@@ -1093,23 +1102,100 @@ function quizQ(Z){const it=TBYID[Z.ids[Z.i]].gen();hudCh(Z.title+' '+(Z.i+1)+'/'
   $('#fb').innerHTML=`<div class="fb ${s>=.999?'ok':'no'}"><span class="t">${s>=.999?'Correct':s>0?'Partially correct':'Incorrect'} · ${s}</span>${stepsHTML(it)}<div class="row"><button class="btn" id="nx" type="button">${Z.i+1<Z.ids.length?'Next question':'Finish'}</button></div></div>`;
   $('#nx').onclick=()=>{Z.i++;if(Z.i<Z.ids.length)return quizQ(Z);if(Z.mod){G.prep.mods[Z.mod.id]=1;save()}
    setPanel(`<div class="eyebrow">${Z.title}</div><h2>${Math.round(Z.score*100)/100} / ${Z.ids.length}</h2><p>${Z.score/Z.ids.length>=.8?'Strong. Move on or try the practice test.':'Reread the module and try the stepped-out example, then practise again.'}</p><div class="row"><button class="btn" id="again" type="button">Again</button><button class="btn ghost" id="bk" type="button">${Z.mod?'Back to module':'Study hall'}</button></div>`,'wide');
-   $('#again').onclick=()=>startQuiz(Z.mod?Z.ids:shuffle(TEST_ORDER).slice(0,8),Z.title,Z.mod);$('#bk').onclick=()=>Z.mod?moduleView(Z.mod):prepHome()};$('#nx').focus()}}
-function startTest(){const X={items:TEST_ORDER.map(id=>Object.assign(TBYID[id].gen(),{tid:id})),i:0,scores:[],snap:[]};testQ(X)}
-function testQ(X){const it=X.items[X.i];hudCh('Practice test '+(X.i+1)+'/20');show3D(it,false);
- setPanel(itemHTML(it,`Practice test · question ${X.i+1} of 20 · Understand transformations`)+`<div class="row"><button class="btn" id="sub" type="button">${X.i+1<20?'Save answer · next':'Save answer · finish'}</button><button class="btn ghost sm" id="bk" type="button">Quit test</button></div><div class="meter"><i style="width:${X.i/20*100}%"></i></div>`,'wide tall');
+   $('#again').onclick=()=>startQuiz(Z.mod?Z.ids:shuffle(Z.pool||TEST_ORDER).slice(0,8),Z.title,Z.mod,Z.pool);$('#bk').onclick=()=>Z.mod?moduleView(Z.mod):prepHome()};$('#nx').focus()}}
+function startTest(order,key,label){order=order||TEST_ORDER;key=key||'best';label=label||'Practice test';const X={order,key,label,n:order.length,items:order.map(id=>Object.assign(TBYID[id].gen(),{tid:id})),i:0,scores:[],snap:[]};testQ(X)}
+function testQ(X){const it=X.items[X.i];hudCh('Practice test '+(X.i+1)+'/'+X.n);show3D(it,false);
+ setPanel(itemHTML(it,`${X.label} · question ${X.i+1} of ${X.n}`)+`<div class="row"><button class="btn" id="sub" type="button">${X.i+1<X.n?'Save answer · next':'Save answer · finish'}</button><button class="btn ghost sm" id="bk" type="button">Quit test</button></div><div class="meter"><i style="width:${X.i/X.n*100}%"></i></div>`,'wide tall');
  it.parts.forEach((p,i)=>{if(p.kind==='graph')bindGraph(UI,p,i)});$('#bk').onclick=prepHome;
- $('#sub').onclick=()=>{const s=gradeItem(it);X.scores.push(s);X.snap.push(UI.querySelector('#parts').innerHTML);X.i++;X.i<20?testQ(X):testEnd(X)}}
-function testEnd(X){const tot=Math.round(X.scores.reduce((a,b)=>a+b,0)*100)/100;X.tot=tot;G.prep.best=G.prep.best===null?tot:Math.max(G.prep.best,tot);G.prep.tests.push({t:Date.now(),s:tot});G.stats.right+=X.scores.filter(s=>s>=.999).length;G.stats.wrong+=X.scores.filter(s=>s<.999).length;save();testResults(X)}
+ $('#sub').onclick=()=>{const s=gradeItem(it);X.scores.push(s);X.snap.push(UI.querySelector('#parts').innerHTML);X.i++;X.i<X.n?testQ(X):testEnd(X)}}
+function testEnd(X){const tot=Math.round(X.scores.reduce((a,b)=>a+b,0)*100)/100;X.tot=tot;G.prep[X.key]=G.prep[X.key]===null||G.prep[X.key]===undefined?tot:Math.max(G.prep[X.key],tot);G.prep.tests.push({t:Date.now(),s:tot,set:X.key,n:X.n});G.stats.right+=X.scores.filter(s=>s>=.999).length;G.stats.wrong+=X.scores.filter(s=>s<.999).length;save();testResults(X)}
 function testResults(X){const tot=X.tot;clear3D();hudCh('Practice test results');
  const weak={};X.items.forEach((it,i)=>{if(X.scores[i]<.999){const m=TBYID[it.tid].mod;weak[m]=(weak[m]||0)+1}});
- setPanel(`<div class="eyebrow">Practice test</div><h2>${tot} / 20 · ${Math.round(tot/20*100)}%</h2>
+ setPanel(`<div class="eyebrow">${X.label}</div><h2>${tot} / ${X.n} · ${Math.round(tot/X.n*100)}%</h2>
  ${Object.keys(weak).length?`<p>Review these modules: ${Object.keys(weak).map(m=>`<button class="btn ghost sm" type="button" data-m="${m}">${MBYID[m].n}</button>`).join(' ')}</p>`:'<p>Every question fully correct.</p>'}
  <table class="sc"><tr><th>#</th><th>Skill</th><th>Score</th><th></th></tr>${X.items.map((it,i)=>`<tr><td>${i+1}</td><td>${MBYID[TBYID[it.tid].mod].n}</td><td>${scoreTag(X.scores[i])}</td><td><button class="btn ghost sm" type="button" data-r="${i}">Review</button></td></tr>`).join('')}</table>
  <div class="row"><button class="btn" id="again" type="button">New practice test</button><button class="btn ghost" id="bk" type="button">Study hall</button></div>`,'wide tall');
- UI.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>moduleView(MBYID[b.dataset.m]));$('#again').onclick=startTest;$('#bk').onclick=prepHome;
+ UI.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>moduleView(MBYID[b.dataset.m]));$('#again').onclick=()=>startTest(X.order,X.key,X.label);$('#bk').onclick=prepHome;
  UI.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{const i=+b.dataset.r,it=X.items[i];show3D(it,true);
   setPanel(`<div class="eyebrow">Review · question ${i+1}</div>${scoreTag(X.scores[i])}<p class="q">${it.prompt}</p>${it.fig||''}<div class="col">${X.snap[i]}</div>${stepsHTML(it)}<div class="row"><button class="btn" id="bk2" type="button">Back to results</button><button class="btn ghost" id="mo" type="button">Open the module</button></div>`,'wide tall');
   UI.querySelectorAll('input,select').forEach(x=>x.disabled=true);$('#bk2').onclick=()=>testResults(X);$('#mo').onclick=()=>moduleView(MBYID[TBYID[it.tid].mod])})}
+
+/* ===================== COORDINATE PLANE TOOLKIT: distance, midpoint, slope, lines, area ===================== */
+if(G.prep.best2===undefined)G.prep.best2=null;
+const SLOPES=[2,3,-2,-3,1/2,-1/2,1/3,-1/3,2/3,-2/3,3/2,-3/2,1,-1,3/4,-3/4,4/3,-4/3];
+const denOf=m=>{for(let d=1;d<=12;d++)if(Math.abs(m*d-Math.round(m*d))<1e-9)return d;return 1};
+const lineEq=(m,b)=>`y = ${m===1?'':m===-1?'−':fr(m)}x${b?` ${b<0?'−':'+'} ${fr(Math.abs(b))}`:''}`;
+const sq=v=>v*v;
+function cpt(r=8){return[ri(-r,r),ri(-r,r)]}
+const TYPES2=[
+ {id:'c1',mod:'n1',gen(){const tri=[[3,4],[5,12],[6,8],[8,15],[9,12],[8,6]];let A=cpt(7),dx,dy,exact=Math.random()<.5;
+  if(exact){const t=pick(tri);[dx,dy]=Math.random()<.5?t:[t[1],t[0]];dx*=pick([1,-1]);dy*=pick([1,-1])}else{do{dx=nz(8);dy=nz(8)}while(Number.isInteger(Math.hypot(dx,dy)))}
+  if(Math.abs(A[0]+dx)>12)dx=-dx;if(Math.abs(A[1]+dy)>12)dy=-dy;const B=[A[0]+dx,A[1]+dy];const d=Math.hypot(dx,dy),N=dx*dx+dy*dy;
+  return{skill:'Find distances in the coordinate plane.',prompt:`Find the distance between <b>A${P(...A)}</b> and <b>B${P(...B)}</b>.${exact?'':' Round to the nearest tenth.'}`,fig:plane({pts:[{p:A,l:'A'},{p:B,l:'B',c:'#5fd4c4'}]}),
+   parts:[Object.assign(NUM('AB =',exact?d:Math.round(d*10)/10),exact?{}:{tol:.05})],
+   steps:['Distance formula: AB = √((x₂ − x₁)² + (y₂ − y₁)²).',`AB = √((${fr(B[0])} − (${fr(A[0])}))² + (${fr(B[1])} − (${fr(A[1])}))²) = √(${fr(dx)}² + ${fr(dy)}²) = √(${dx*dx} + ${dy*dy}) = √${N}.`,exact?`√${N} = <b>${d}</b>.`:`√${N} ≈ <b>${(Math.round(d*10)/10).toFixed(1)}</b>.`]}}},
+ {id:'c2',mod:'n2',gen(){const A=cpt(9),B=cpt(9);if(A+''===B+'')B[0]+=3;const M=[(A[0]+B[0])/2,(A[1]+B[1])/2];
+  return{skill:'Find the midpoint of a segment.',prompt:`Find the midpoint M of the segment with endpoints <b>A${P(...A)}</b> and <b>B${P(...B)}</b>. (Decimals like 2.5 or fractions like 5/2 are fine.)`,fig:plane({pts:[{p:A,l:'A'},{p:B,l:'B'}]}),
+   parts:[PT('M',M)],steps:['Midpoint formula: M = ((x₁ + x₂)/2, (y₁ + y₂)/2).',`M = ((${fr(A[0])} + ${fr(B[0])})/2, (${fr(A[1])} + ${fr(B[1])})/2) = <b>${P(...M)}</b>.`]}}},
+ {id:'c3',mod:'n2',gen(){let A,M,B;do{A=cpt(8);M=cpt(5);B=[2*M[0]-A[0],2*M[1]-A[1]]}while((A+''===M+'')||Math.abs(B[0])>14||Math.abs(B[1])>14);
+  return{skill:'Find an endpoint given the midpoint.',prompt:`M${P(...M)} is the midpoint of segment AB. One endpoint is <b>A${P(...A)}</b>. Find the other endpoint B.`,fig:plane({pts:[{p:A,l:'A'},{p:M,l:'M',c:'#d6455a'}]}),
+   parts:[PT('B',B)],steps:['The midpoint is the average: (x₁ + x₂)/2 = x of M, so x₂ = 2·(x of M) − x₁. Same for y.',`x = 2(${fr(M[0])}) − (${fr(A[0])}) = ${fr(B[0])}; y = 2(${fr(M[1])}) − (${fr(A[1])}) = ${fr(B[1])}.`,`<b>B${P(...B)}</b>. Check: the midpoint of A and B is M.`]}}},
+ {id:'c4',mod:'n3',gen(){let A,B;do{A=cpt(8);B=cpt(8)}while(A[0]===B[0]||A[1]===B[1]);const m=(B[1]-A[1])/(B[0]-A[0]);
+  return{skill:'Find the slope of a line.',prompt:`Find the slope of the line through <b>${P(...A)}</b> and <b>${P(...B)}</b>. Write a fraction like −3/4 if needed.`,fig:plane({pts:[{p:A},{p:B,c:'#5fd4c4'}]}),
+   parts:[NUM('m =',m)],steps:['Slope formula: m = (y₂ − y₁)/(x₂ − x₁) = rise over run.',`m = (${fr(B[1])} − (${fr(A[1])}))/(${fr(B[0])} − (${fr(A[0])})) = ${fr(B[1]-A[1])}/${fr(B[0]-A[0])} = <b>${fr(m)}</b>.`,m>0?'Positive slope: the line rises from left to right.':'Negative slope: the line falls from left to right.']}}},
+ {id:'c5',mod:'n3',gen(){const k=pick(['positive','negative','zero','undefined']);const A=cpt(7);let B;
+  if(k==='zero')B=[A[0]+nz(6),A[1]];else if(k==='undefined')B=[A[0],A[1]+nz(6)];else{const dx=ri(1,6),dy=ri(1,6);B=[A[0]+dx,A[1]+(k==='positive'?dy:-dy)]}
+  return{skill:'Classify slopes.',prompt:`A line passes through <b>${P(...A)}</b> and <b>${P(...B)}</b>. What kind of slope does it have?`,parts:[SEL('The slope is',['positive','negative','zero','undefined'],k)],
+   steps:[`Δy = ${fr(B[1]-A[1])}, Δx = ${fr(B[0]-A[0])}.`,k==='zero'?'Δy = 0, so the slope is 0: a horizontal line.':k==='undefined'?'Δx = 0, and division by zero is undefined: a vertical line.':`m = ${fr((B[1]-A[1])/(B[0]-A[0]))}, which is ${k}.`]}}},
+ {id:'c6',mod:'n4',gen(){const m=pick(SLOPES.filter(s=>Math.abs(s)!==1));const kind=pick(['parallel','perpendicular','neither']);const m2=kind==='parallel'?m:kind==='perpendicular'?-1/m:pick(SLOPES.filter(s=>!eq(s,m)&&!eq(s,-1/m)));
+  const two=(s)=>{const d=denOf(s),A=cpt(6);return[A,[A[0]+d,A[1]+s*d]]};const L1=two(m),L2=two(m2);
+  return{skill:'Identify parallel and perpendicular lines.',prompt:`Line 1 passes through <b>${P(...L1[0])}</b> and <b>${P(...L1[1])}</b>. Line 2 passes through <b>${P(...L2[0])}</b> and <b>${P(...L2[1])}</b>. Are the lines parallel, perpendicular, or neither?`,
+   parts:[SEL('The lines are',['parallel','perpendicular','neither'],kind)],steps:[`Slope of line 1 = ${fr(m)}. Slope of line 2 = ${fr(m2)}.`,'Parallel lines have equal slopes. Perpendicular lines have slopes whose product is −1 (negative reciprocals).',`${fr(m)} · ${fr(m2)} = ${fr(m*m2)}. So the lines are <b>${kind}</b>.`]}}},
+ {id:'c7',mod:'n5',gen(){const m=pick(SLOPES),b=nz(6),d=denOf(m);const x1=d*ri(-3,3);let x2;do{x2=d*ri(-3,3)}while(x2===x1);const A=[x1,m*x1+b],B=[x2,m*x2+b];
+  return{skill:'Write equations of lines in slope-intercept form.',prompt:`Write an equation in slope-intercept form, y = mx + b, of the line through <b>${P(...A)}</b> and <b>${P(...B)}</b>.`,parts:[NUM('m =',m),NUM('b =',b)],
+   steps:[`Slope: m = (${fr(B[1])} − (${fr(A[1])}))/(${fr(B[0])} − (${fr(A[0])})) = ${fr(m)}.`,`Substitute a point into y = mx + b: ${fr(A[1])} = ${fr(m)}(${fr(A[0])}) + b, so b = ${fr(b)}.`,`<b>${lineEq(m,b)}</b>.`]}}},
+ {id:'c8',mod:'n4',gen(){const m=pick(SLOPES),c=nz(5),d=denOf(m);const P0=[d*ri(-3,3),ri(-6,6)];const b=P0[1]-m*P0[0];
+  return{skill:'Write equations of parallel lines.',prompt:`Write an equation of the line through <b>${P(...P0)}</b> that is <b>parallel</b> to ${lineEq(m,c)}.`,parts:[NUM('m =',m),NUM('b =',b)],
+   steps:[`Parallel lines have the same slope, so m = ${fr(m)}.`,`Use the point: ${fr(P0[1])} = ${fr(m)}(${fr(P0[0])}) + b, so b = ${fr(b)}.`,`<b>${lineEq(m,b)}</b>.`]}}},
+ {id:'c9',mod:'n4',gen(){const m=pick(SLOPES),c=nz(5),mp=-1/m,d=denOf(mp);const P0=[d*ri(-3,3),ri(-6,6)];const b=P0[1]-mp*P0[0];
+  return{skill:'Write equations of perpendicular lines.',prompt:`Write an equation of the line through <b>${P(...P0)}</b> that is <b>perpendicular</b> to ${lineEq(m,c)}.`,parts:[NUM('m =',mp),NUM('b =',b)],
+   steps:[`The slope of the given line is ${fr(m)}. A perpendicular slope is its negative reciprocal: m = ${fr(mp)} (check: ${fr(m)} · ${fr(mp)} = −1).`,`Use the point: ${fr(P0[1])} = ${fr(mp)}(${fr(P0[0])}) + b, so b = ${fr(b)}.`,`<b>${lineEq(mp,b)}</b>.`]}}},
+ {id:'c10',mod:'n1',gen(){const t=pick([[3,4],[6,8],[5,12],[8,6],[4,3]]);const A=cpt(4);const sx=pick([1,-1]),sy=pick([1,-1]);const B=[A[0]+sx*t[0],A[1]],C=[A[0],A[1]+sy*t[1]];const h=Math.hypot(t[0],t[1]);const per=t[0]+t[1]+h;
+  return{skill:'Find perimeters of polygons in the coordinate plane.',prompt:`Find the perimeter of △ABC with vertices <b>${ptsList(NAMES3,[A,B,C])}</b>.`,fig:plane({polys:[{pts:[A,B,C],lab:NAMES3}]}),pre3d:[A,B,C],parts:[NUM('Perimeter =',per,'units')],
+   steps:[`AB is horizontal: AB = |${fr(B[0])} − (${fr(A[0])})| = ${t[0]}. AC is vertical: AC = |${fr(C[1])} − (${fr(A[1])})| = ${t[1]}.`,`BC by the distance formula: √(${t[0]}² + ${t[1]}²) = √${t[0]*t[0]+t[1]*t[1]} = ${h}.`,`Perimeter = ${t[0]} + ${t[1]} + ${h} = <b>${per}</b> units.`]}}},
+ {id:'c11',mod:'n7',gen(){const tri=randTri(7);const A=shoelace(tri);
+  return{skill:'Find areas of polygons in the coordinate plane.',prompt:`Find the area of △ABC with vertices <b>${ptsList(NAMES3,tri)}</b>.`,fig:plane({polys:[{pts:tri,lab:NAMES3}]}),pre3d:tri,parts:[NUM('Area =',A,'square units')],
+   steps:['Use the formula Area = ½|x₁(y₂ − y₃) + x₂(y₃ − y₁) + x₃(y₁ − y₂)|. (Or enclose the triangle in a rectangle and subtract the corner triangles.)',`= ½|${fr(tri[0][0])}(${fr(tri[1][1])} − (${fr(tri[2][1])})) + ${fr(tri[1][0])}(${fr(tri[2][1])} − (${fr(tri[0][1])})) + ${fr(tri[2][0])}(${fr(tri[0][1])} − (${fr(tri[1][1])}))|`,`= ½|${fr(2*A*Math.sign(1))}| = <b>${fr(A)}</b> square units.`]}}},
+ {id:'c12',mod:'n6',gen(){for(let t=0;t<300;t++){const a=ri(1,4),b=ri(1,4);if(gcd(a,b)!==1)continue;const n=a+b;const A=cpt(8);const dx=n*nz(3),dy=n*nz(3);const B=[A[0]+dx,A[1]+dy];if(Math.abs(B[0])>14||Math.abs(B[1])>14)continue;const Pp=[A[0]+dx*a/n,A[1]+dy*a/n];
+   return{skill:'Partition a directed line segment.',prompt:`Find the coordinates of point P along the directed segment from <b>A${P(...A)}</b> to <b>B${P(...B)}</b> so that the ratio of AP to PB is <b>${a} to ${b}</b>.`,fig:plane({pts:[{p:A,l:'A'},{p:B,l:'B'}]}),parts:[PT('P',Pp)],
+    steps:[`AP : PB = ${a} : ${b}, so P is ${a}/${n} of the way from A to B.`,`Rise = ${fr(dy)}, run = ${fr(dx)}. ${a}/${n} of the run = ${fr(dx*a/n)}, ${a}/${n} of the rise = ${fr(dy*a/n)}.`,`P = (${fr(A[0])} + ${fr(dx*a/n)}, ${fr(A[1])} + ${fr(dy*a/n)}) = <b>${P(...Pp)}</b>.`]}}}},
+ {id:'c13',mod:'n8',gen(){const A=cpt(5);const right=Math.random()<.5;let u=[nz(4),nz(4)],v;if(right){const k=pick([1,1,2]);v=[-u[1]*k,u[0]*k]}else{do{v=[nz(4),nz(4)]}while(u[0]*v[0]+u[1]*v[1]===0||u[0]*v[1]-u[1]*v[0]===0)}
+  const B=[A[0]+u[0],A[1]+u[1]],C=[A[0]+v[0],A[1]+v[1]];const s=[sq(B[0]-A[0])+sq(B[1]-A[1]),sq(C[0]-B[0])+sq(C[1]-B[1]),sq(C[0]-A[0])+sq(C[1]-A[1])];const iso=s[0]===s[1]||s[1]===s[2]||s[0]===s[2];
+  const mAB=u[0]?u[1]/u[0]:null,mAC=v[0]?v[1]/v[0]:null;
+  return{skill:'Classify triangles using coordinates.',prompt:`△ABC has vertices <b>${ptsList(NAMES3,[A,B,C])}</b>. Is ∠A a right angle? Classify the triangle by its sides.`,fig:plane({polys:[{pts:[A,B,C],lab:NAMES3}]}),pre3d:[A,B,C],
+   parts:[SEL('Is ∠A a right angle?',['yes','no'],right?'yes':'no'),SEL('By its sides, the triangle is',['scalene','isosceles'],iso?'isosceles':'scalene')],
+   steps:[`Slope of AB = ${mAB===null?'undefined':fr(mAB)}; slope of AC = ${mAC===null?'undefined':fr(mAC)}.`,right?'The slopes are negative reciprocals (or one is horizontal and one vertical), so AB ⟂ AC and ∠A is a right angle.':'The slopes are not negative reciprocals, so ∠A is not a right angle.',`Squared side lengths: AB² = ${s[0]}, BC² = ${s[1]}, AC² = ${s[2]}. ${iso?'Two are equal, so the triangle is isosceles.':'All are different, so the triangle is scalene.'}`]}}},
+ {id:'c14',mod:'n5',gen(){const a=pick([1,2,3,4,5,6,-2,-3]),b=pick([1,2,3,4,5,6,-2,-4]);const L=a*b/gcd(a,b)*pick([1,2,-1]);const C=Math.abs(L)||6;
+  return{skill:'Find intercepts of a line.',prompt:`Find the x-intercept and y-intercept of the line <b>${fr(a)}x ${b<0?'−':'+'} ${fr(Math.abs(b))}y = ${fr(C)}</b>.`,parts:[NUM('x-intercept',C/a),NUM('y-intercept',C/b)],
+   steps:[`x-intercept: let y = 0. ${fr(a)}x = ${fr(C)}, so x = <b>${fr(C/a)}</b>.`,`y-intercept: let x = 0. ${fr(b)}y = ${fr(C)}, so y = <b>${fr(C/b)}</b>.`]}}},
+ {id:'c15',mod:'n8',gen(){let A,B,C,D;do{A=cpt(6);B=cpt(6);C=cpt(6);D=[A[0]+C[0]-B[0],A[1]+C[1]-B[1]]}while(Math.abs((B[0]-A[0])*(C[1]-A[1])-(C[0]-A[0])*(B[1]-A[1]))<6||Math.abs(D[0])>11||Math.abs(D[1])>11);
+  return{skill:'Use coordinates to find a vertex of a parallelogram.',prompt:`Three vertices of parallelogram ABCD are <b>${ptsList(NAMES3,[A,B,C])}</b>. Find vertex D.`,fig:plane({polys:[{pts:[A,B,C],lab:NAMES3,dash:1}]}),pre3d:[A,B,C,D],parts:[PT('D',D)],
+   steps:['In parallelogram ABCD, the diagonals AC and BD bisect each other, so they share a midpoint. Equivalently, the move from B to A equals the move from C to D.',`B → A is ⟨${fr(A[0]-B[0])}, ${fr(A[1]-B[1])}⟩. Apply it to C: D = (${fr(C[0])} ${sg(A[0]-B[0])}, ${fr(C[1])} ${sg(A[1]-B[1])}) = <b>${P(...D)}</b>.`]}}},
+ {id:'c16',mod:'n5',gen(){let A,B;do{A=cpt(7);B=cpt(7)}while(A[0]===B[0]||A[1]===B[1]||(A[0]+B[0])%2||(A[1]+B[1])%2);const M=[(A[0]+B[0])/2,(A[1]+B[1])/2];const m=(B[1]-A[1])/(B[0]-A[0]),mp=-1/m,b=M[1]-mp*M[0];
+  return{skill:'Write the equation of a perpendicular bisector.',prompt:`Write an equation of the perpendicular bisector of the segment with endpoints <b>${P(...A)}</b> and <b>${P(...B)}</b>, in the form y = mx + b.`,fig:plane({pts:[{p:A},{p:B}]}),parts:[NUM('m =',mp),NUM('b =',b)],
+   steps:[`Midpoint: ${P(...M)}.`,`Slope of the segment: ${fr(m)}. Perpendicular slope: ${fr(mp)}.`,`Through the midpoint: ${fr(M[1])} = ${fr(mp)}(${fr(M[0])}) + b, so b = ${fr(b)}.`,`<b>${lineEq(mp,b)}</b>.`]}}}];
+TYPES2.forEach(t=>TBYID[t.id]=t);
+const MODS2=[
+ {id:'n1',n:'The distance formula',t:['c1','c10'],body:`<p>The distance between (x₁, y₁) and (x₂, y₂) is the length of the hypotenuse of a right triangle whose legs are the horizontal and vertical changes.</p><div class="rule"><span class="k">d = √((x₂ − x₁)² + (y₂ − y₁)²)</span></div><p>For horizontal or vertical segments, just subtract the coordinate that changes. Perimeter is the sum of all side lengths.</p>`},
+ {id:'n2',n:'Midpoints and endpoints',t:['c2','c3'],body:`<div class="rule"><span class="k">M = ((x₁ + x₂)/2, (y₁ + y₂)/2)</span></div><p>The midpoint is the average of the endpoints. To find a missing endpoint, work backwards: x₂ = 2·x<sub>M</sub> − x₁ and y₂ = 2·y<sub>M</sub> − y₁.</p>`},
+ {id:'n3',n:'Slope',t:['c4','c5'],body:`<div class="rule"><span class="k">m = (y₂ − y₁)/(x₂ − x₁)</span> = rise / run</div><p>Positive slope rises left to right; negative slope falls. A horizontal line has slope 0. A vertical line has undefined slope (the run is 0).</p>`},
+ {id:'n4',n:'Parallel and perpendicular lines',t:['c6','c8','c9'],body:`<p><b>Parallel</b> nonvertical lines have the same slope. <b>Perpendicular</b> lines have slopes whose product is −1: the slopes are negative reciprocals, like 2/3 and −3/2. A vertical line and a horizontal line are perpendicular.</p><p>To write a parallel or perpendicular line through a point, choose the slope first, then solve for b with the point.</p>`},
+ {id:'n5',n:'Equations of lines',t:['c7','c14','c16'],body:`<div class="rule">Slope-intercept form: <span class="k">y = mx + b</span><br>Standard form: Ax + By = C</div><p>From two points: find m, then substitute one point to find b. Intercepts: set y = 0 for the x-intercept and x = 0 for the y-intercept. A perpendicular bisector passes through the midpoint with the negative-reciprocal slope.</p>`},
+ {id:'n6',n:'Partitioning a segment',t:['c12'],body:`<p>To find P on the directed segment from A to B with AP : PB = a : b, P is a/(a + b) of the way from A to B.</p><div class="rule">P = (x₁ + a/(a+b)·(x₂ − x₁), y₁ + a/(a+b)·(y₂ − y₁))</div>`},
+ {id:'n7',n:'Area in the coordinate plane',t:['c11'],body:`<p>For a triangle with vertices (x₁, y₁), (x₂, y₂), (x₃, y₃):</p><div class="rule">Area = ½|x₁(y₂ − y₃) + x₂(y₃ − y₁) + x₃(y₁ − y₂)|</div><p>You can also draw a rectangle around the triangle and subtract the right triangles in the corners.</p>`},
+ {id:'n8',n:'Classifying figures with coordinates',t:['c13','c15'],body:`<p>Use slopes to test for right angles (negative reciprocals) and parallel sides (equal slopes). Use the distance formula, or squared distances, to compare side lengths.</p><p>In a parallelogram, opposite sides are parallel and congruent, and the diagonals bisect each other. The move from B to A equals the move from C to D.</p>`}];
+MODS2.forEach(m=>MBYID[m.id]=m);
+const TEST2_ORDER=TYPES2.map(t=>t.id);
 
 if(EMBED){$('#bBack').hidden=false;$('#bBack').onclick=()=>mpPost('mp-close')}
 init3D();$('#hudHeat').textContent=G.heat;if(/[?&]view=prep/.test(location.search)){G.seenIntro=true;save();prepHome()}else title();
