@@ -108,6 +108,7 @@ textarea,input{-webkit-user-select:text;user-select:text;-webkit-touch-callout:d
 <div id="pad"><button data-k="left">◀</button><button data-k="up">▲</button><button data-k="down">▼</button><button data-k="right">▶</button><button data-k="act">E</button><button data-k="alt">⇧</button><button data-k="back">Esc</button></div>
 <div class="hint">Touch: tap to walk or interact · in minigames drag left to move, tap right to act · ⇧ special · ✕ back.<br>Keyboard: Tab or ☰ menu · F fullscreen · P phone · C photo · L log · M music · H help · Move: arrows / WASD · Act / confirm: E, Space, Enter · Special (breathe, smoke, hide body): Shift or Q · Back: Esc</div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 "use strict";
 const W=320,H=180,cv=document.getElementById('cv'),c=cv.getContext('2d'),ui=document.getElementById('ui'),hud=document.getElementById('hud');
@@ -7910,6 +7911,595 @@ const _shMP=sideHub;sideHub=function(late){return _shMP(late).concat(mpHub(late)
 EVENTS.push({id:'mp_text',when:()=>S.day>=2&&S.phase!=='taken'&&!(S.f.mp&&S.f.mp.c1),run:done=>say([['','3:12 a.m. Your phone lights up. Unknown number.'],['Cartographer','(text) Contract 4.1. Preimage attached. Find the image. Payment on arrival.'],[ME2(),ME3()?'Misaki forwarded it to me with eleven question marks. I have cleared the whiteboard.':mVoice('it’s a triangle with an arrow. i hate him. (V’s whiteboard is on the day menu.)')]],done)},
  {id:'mp_v_proud',when:()=>S.f.mp&&S.f.mp.c3&&S.phase!=='taken'&&!isLone(),run:done=>say([['K9','You rotated a vault plate two hundred and seventy degrees in your head last night. In your sleep. Out loud.'],['hitmeuppp',mVoice('(a, b) goes to (b, negative a). it’s stuck in there now. forever.')],['K9','Good. Some things should be.']],()=>{apply({aff:2});done()})});
 ACH.push(['mp_all','Checked Your Work','Close all six Cartographer cases.',()=>S.f.mp&&[1,2,3,4,5,6].every(i=>S.f.mp['c'+i])],['mp_exam','The Ledger','Pass the Chapter 4 exam in Mirror Protocol.',()=>S.f.mp&&S.f.mp.exam]);
+/* ===================== GEO: Chapter 4 problem generators (shared with Mirror Protocol) ===================== */
+const GEO=(function(){'use strict';
+const ri=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const gcd=(a,b)=>{a=Math.abs(a);b=Math.abs(b);while(b){[a,b]=[b,a%b]}return a||1};
+const eq=(a,b)=>Math.abs(a-b)<1e-6;
+const nz=r=>{let v=0;while(!v)v=ri(-r,r);return v};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function fr(x){if(Math.abs(x)<1e-9)return '0';if(Number.isInteger(x))return x<0?'−'+(-x):''+x;
+ for(let d=2;d<=12;d++){const n=Math.round(x*d);if(Math.abs(n/d-x)<1e-9){const g=gcd(n,d);return(n<0?'−':'')+Math.abs(n/g)+'/'+(d/g)}}
+ return(+x.toFixed(3)).toString().replace('-','−')}
+const P=(x,y)=>`(${fr(x)}, ${fr(y)})`;
+const Vc=(a,b)=>`⟨${fr(a)}, ${fr(b)}⟩`;
+const sg=(n)=>n<0?`− ${fr(-n)}`:`+ ${fr(n)}`;
+function parseNum(s){s=String(s).trim().replace(/[−–—]/g,'-').replace(/\s+/g,'');if(!s)return NaN;
+ if(/^[-+]?(\d+\.?\d*|\.\d+)$/.test(s))return parseFloat(s);
+ const m=s.match(/^([-+]?)(\d+)\/(\d+)$/);if(m&&+m[3]!==0)return(m[1]==='-'?-1:1)*(+m[2])/(+m[3]);return NaN}
+/* ---------------- transformation math ---------------- */
+const LN={x:'the x-axis',y:'the y-axis',yx:'the line y = x',ynx:'the line y = −x'};
+function lineText(op){return op.l==='xh'?`the line x = ${fr(op.v)}`:op.l==='yk'?`the line y = ${fr(op.v)}`:LN[op.l]}
+function ap(op,p){const x=p[0],y=p[1];switch(op.k){
+ case'T':return[x+op.a,y+op.b];
+ case'R':switch(op.l){case'x':return[x,-y];case'y':return[-x,y];case'yx':return[y,x];case'ynx':return[-y,-x];case'xh':return[2*op.v-x,y];case'yk':return[x,2*op.v-y]}break;
+ case'O':return op.d===90?[-y,x]:op.d===180?[-x,-y]:[y,-x];
+ case'D':return[op.s*x,op.s*y]}
+ throw new Error('bad op')}
+const apAll=(ops,pts)=>pts.map(p=>ops.reduce((q,o)=>ap(o,q),p).map(v=>Math.abs(v)<1e-9?0:v));
+function opText(op){switch(op.k){case'T':return`Translate along ${Vc(op.a,op.b)}`;case'R':return`Reflect in ${lineText(op)}`;case'O':return`Rotate ${op.d}° counterclockwise about the origin`;case'D':return`Dilate by k = ${fr(op.s)}, centered at the origin`}}
+function opRule(op){switch(op.k){case'T':return`(x, y) → (x ${sg(op.a)}, y ${sg(op.b)})`;
+ case'R':if(op.l==='xh')return`(a, b) → (2·${fr(op.v)} − a, b)`;if(op.l==='yk')return`(a, b) → (a, 2·${fr(op.v)} − b)`;return{x:'(a, b) → (a, −b)',y:'(a, b) → (−a, b)',yx:'(a, b) → (b, a)',ynx:'(a, b) → (−b, −a)'}[op.l];
+ case'O':return{90:'(a, b) → (−b, a)',180:'(a, b) → (−a, −b)',270:'(a, b) → (b, −a)'}[op.d];
+ case'D':return`(x, y) → (${fr(op.s)}x, ${fr(op.s)}y)`}}
+const samePts=(A,B)=>A.length===B.length&&A.every((p,i)=>eq(p[0],B[i][0])&&eq(p[1],B[i][1]));
+const LBL=['A','B','C','D','E','F'];
+const primes=n=>"′".repeat(n);
+function dist(p,q){return Math.hypot(p[0]-q[0],p[1]-q[1])}
+function randTri(r=6){for(let t=0;t<500;t++){const pts=[[ri(-r,r),ri(-r,r)],[ri(-r,r),ri(-r,r)],[ri(-r,r),ri(-r,r)]];
+ const ar=Math.abs((pts[1][0]-pts[0][0])*(pts[2][1]-pts[0][1])-(pts[2][0]-pts[0][0])*(pts[1][1]-pts[0][1]));
+ const s=[dist(pts[0],pts[1]),dist(pts[1],pts[2]),dist(pts[2],pts[0])].sort((a,b)=>a-b);
+ if(ar<6||s[0]<2||eq(s[0],s[1])||eq(s[1],s[2]))continue;return pts}return[[1,1],[4,1],[1,3]]}
+
+/* ---------------- 2D diagram (SVG) ---------------- */
+function plane(o={}){const all=[];(o.pts||[]).forEach(q=>all.push(q.p));(o.polys||[]).forEach(q=>q.pts.forEach(p=>all.push(p)));(o.vecs||[]).forEach(v=>{all.push(v.from,v.to)});
+ let R=o.R||Math.max(5,Math.min(12,Math.ceil(Math.max(1,...all.map(p=>Math.max(Math.abs(p[0]),Math.abs(p[1])))))+1));
+ const u=1;let s=`<svg viewBox="${-R-.8} ${-R-.8} ${2*R+1.6} ${2*R+1.6}" role="img" aria-label="coordinate plane diagram">`;
+ s+=`<rect x="${-R-.8}" y="${-R-.8}" width="${2*R+1.6}" height="${2*R+1.6}" fill="#0b1114"/>`;
+ for(let i=-R;i<=R;i++){s+=`<line x1="${i}" y1="${-R}" x2="${i}" y2="${R}" stroke="#1d2b30" stroke-width=".05"/><line x1="${-R}" y1="${i}" x2="${R}" y2="${i}" stroke="#1d2b30" stroke-width=".05"/>`}
+ s+=`<line x1="${-R}" y1="0" x2="${R}" y2="0" stroke="#6b7c80" stroke-width=".09"/><line x1="0" y1="${-R}" x2="0" y2="${R}" stroke="#6b7c80" stroke-width=".09"/>`;
+ const fs=R>8?.75:.6;s+=`<text x="${R-.2}" y="-.35" fill="#97a39f" font-size="${fs}" font-family="monospace" text-anchor="end">x</text><text x=".3" y="${-R+.7}" fill="#97a39f" font-size="${fs}" font-family="monospace">y</text>`;
+ const step=R>8?4:2;for(let i=-R+1;i<R;i++)if(i&&i%step===0){s+=`<text x="${i}" y="${fs+.25}" fill="#6b7c80" font-size="${fs*.8}" font-family="monospace" text-anchor="middle">${fr(i)}</text><text x="-.25" y="${-i+fs*.3}" fill="#6b7c80" font-size="${fs*.8}" font-family="monospace" text-anchor="end">${fr(i)}</text>`}
+ (o.lines||[]).forEach(L=>{let a,b;const c=L.c||'#d6455a';switch(L.l){case'x':a=[-R,0];b=[R,0];break;case'y':a=[0,-R];b=[0,R];break;case'yx':a=[-R,-R];b=[R,R];break;case'ynx':a=[-R,R];b=[R,-R];break;case'xh':a=[L.v,-R];b=[L.v,R];break;case'yk':a=[-R,L.v];b=[R,L.v];break;case'ang':{const t=L.a*Math.PI/180;a=[-R*Math.cos(t),-R*Math.sin(t)];b=[R*Math.cos(t),R*Math.sin(t)];break}}
+  s+=`<line x1="${a[0]}" y1="${-a[1]}" x2="${b[0]}" y2="${-b[1]}" stroke="${c}" stroke-width=".1" stroke-dasharray=".4 .25"/>`});
+ (o.polys||[]).forEach(q=>{const c=q.c||'#e8b931';s+=`<polygon points="${q.pts.map(p=>p[0]+','+(-p[1])).join(' ')}" fill="${c}" fill-opacity="${q.dash?0.05:0.18}" stroke="${c}" stroke-width=".12" ${q.dash?'stroke-dasharray=".35 .2"':''}/>`;
+  if(q.lab)q.pts.forEach((p,i)=>{s+=`<text x="${p[0]+.3}" y="${-p[1]-.3}" fill="${c}" font-size="${fs}" font-family="monospace" font-weight="600">${q.lab[i]}</text>`})});
+ (o.vecs||[]).forEach(v=>{const c=v.c||'#5fd4c4';const[x1,y1]=v.from,[x2,y2]=v.to;const ang=Math.atan2(-(y2-y1),x2-x1);const h=.55;
+  s+=`<line x1="${x1}" y1="${-y1}" x2="${x2}" y2="${-y2}" stroke="${c}" stroke-width=".13"/><polygon points="${x2},${-y2} ${x2-h*Math.cos(ang-.45)},${-y2-h*Math.sin(ang-.45)} ${x2-h*Math.cos(ang+.45)},${-y2-h*Math.sin(ang+.45)}" fill="${c}"/>`});
+ (o.pts||[]).forEach(q=>{const c=q.c||'#e8b931';s+=`<circle cx="${q.p[0]}" cy="${-q.p[1]}" r=".22" fill="${c}"/>`;if(q.l)s+=`<text x="${q.p[0]+.3}" y="${-q.p[1]-.3}" fill="${c}" font-size="${fs}" font-family="monospace" font-weight="600">${q.l}</text>`});
+ return `<div class="fig">${s}</svg></div>`}
+
+/* ---------------- symmetry shapes ---------------- */
+function ngon(n,r=4,r2){const p=[];const m=r2?2*n:n;for(let i=0;i<m;i++){const t=Math.PI/2+i*2*Math.PI/m;const rr=r2&&i%2?r2:r;p.push([+(rr*Math.cos(t)).toFixed(4),+(rr*Math.sin(t)).toFixed(4)])}return p}
+const SYM=[
+ {n:'an equilateral triangle',pts:()=>ngon(3),lines:3,rot:120,ax:()=>[90,150,210].map(a=>a%180)},
+ {n:'a square',pts:()=>[[-3.5,-3.5],[3.5,-3.5],[3.5,3.5],[-3.5,3.5]],lines:4,rot:90,ax:()=>[0,45,90,135]},
+ {n:'a regular pentagon',pts:()=>ngon(5),lines:5,rot:72,ax:()=>[0,1,2,3,4].map(i=>(90+i*36)%180)},
+ {n:'a regular hexagon',pts:()=>ngon(6),lines:6,rot:60,ax:()=>[0,1,2,3,4,5].map(i=>(90+i*30)%180)},
+ {n:'a regular octagon',pts:()=>ngon(8),lines:8,rot:45,ax:()=>[0,1,2,3,4,5,6,7].map(i=>(90+i*22.5)%180)},
+ {n:'a rectangle that is not a square',pts:()=>[[-4.5,-2.5],[4.5,-2.5],[4.5,2.5],[-4.5,2.5]],lines:2,rot:180,ax:()=>[0,90]},
+ {n:'a rhombus that is not a square',pts:()=>[[0,4.5],[3,0],[0,-4.5],[-3,0]],lines:2,rot:180,ax:()=>[0,90]},
+ {n:'a parallelogram with no right angles and unequal sides',pts:()=>[[-4.5,-2.5],[2,-2.5],[4.5,2.5],[-2,2.5]],lines:0,rot:180,ax:()=>[]},
+ {n:'an isosceles trapezoid',pts:()=>[[-4.5,-2.5],[4.5,-2.5],[2.5,2.5],[-2.5,2.5]],lines:1,rot:0,ax:()=>[90]},
+ {n:'a kite',pts:()=>[[0,4.5],[2.8,1.5],[0,-4.5],[-2.8,1.5]],lines:1,rot:0,ax:()=>[90]},
+ {n:'a five-pointed star',pts:()=>ngon(5,4.6,1.9),lines:5,rot:72,ax:()=>[0,1,2,3,4].map(i=>(90+i*36)%180)},
+ {n:'a scalene triangle',pts:()=>[[-3,-2],[4,-1],[0,3]],lines:0,rot:0,ax:()=>[]}];
+const ROTCH=['none','45°','60°','72°','90°','120°','180°'];
+
+/* ---------------- question generators ---------------- */
+// kinds: pt (ordered pair) | vec (component form) | num | mc
+function Q(o){return Object.assign({kind:'mc'},o)}
+const VOCAB=[
+ ['vector','a quantity that has both direction and magnitude, drawn as an arrow from one point to another',1],
+ ['initial point','the starting point of a vector',1],
+ ['terminal point','the ending point of a vector',1],
+ ['horizontal component','the horizontal change from the starting point of a vector to the ending point',1],
+ ['vertical component','the vertical change from the starting point of a vector to the ending point',1],
+ ['component form','the form of a vector that combines the horizontal and vertical components, like ⟨5, 3⟩',1],
+ ['transformation','a function that moves or changes a figure in some way to produce a new figure',1],
+ ['image','the figure that results from the transformation of a geometric figure',1],
+ ['preimage','the geometric figure that is the input of a transformation',1],
+ ['translation','a transformation that moves every point of a figure the same distance in the same direction',1],
+ ['rigid motion','a transformation that preserves length and angle measure',1],
+ ['composition of transformations','the combination of two or more transformations to form a single transformation',1],
+ ['reflection','a transformation that uses a line like a mirror to reflect a figure',2],
+ ['line of reflection','the line that acts as a mirror for a reflection',2],
+ ['glide reflection','a translation followed by a reflection in a line parallel to the direction of the translation',2],
+ ['line symmetry','when a figure can be mapped onto itself by a reflection in a line',2],
+ ['line of symmetry','a line of reflection that maps a figure onto itself',2],
+ ['rotation','a transformation in which a figure is turned about a fixed point',3],
+ ['center of rotation','the fixed point in a rotation',3],
+ ['angle of rotation','the angle formed by rays drawn from the center of rotation to a point and its image',3],
+ ['rotational symmetry','when a figure can be mapped onto itself by a rotation of 180° or less about its center',3],
+ ['center of symmetry','the center of rotation in a figure that has rotational symmetry',3],
+ ['congruent figures','geometric figures that have the same size and shape',4],
+ ['congruence transformation','a transformation that preserves length and angle measure',4],
+ ['dilation','a transformation in which a figure is enlarged or reduced with respect to a fixed point',5],
+ ['center of dilation','the fixed point in a dilation',5],
+ ['scale factor','the ratio of the lengths of the corresponding sides of the image and the preimage of a dilation',5],
+ ['enlargement','a dilation in which the scale factor is greater than 1',5],
+ ['reduction','a dilation in which the scale factor is greater than 0 and less than 1',5],
+ ['similarity transformation','a dilation or a composition of rigid motions and dilations',6],
+ ['similar figures','geometric figures that have the same shape but not necessarily the same size',6]];
+function gVocab(ch){const pool=VOCAB.filter(v=>v[2]===ch);const t=pick(pool);const others=shuffle(VOCAB.filter(v=>v!==t&&Math.abs(v[2]-ch)<=1)).slice(0,3);
+ if(Math.random()<.5)return Q({skill:'vocab',prompt:`Which term means <b>${esc(t[1])}</b>?`,choices:shuffle([t,...others]).map(v=>v[0]),ans:t[0],sol:`<b>${t[0]}</b>: ${esc(t[1])}.`});
+ return Q({skill:'vocab',prompt:`What is a <b>${t[0]}</b>?`,choices:shuffle([t,...others]).map(v=>v[1]),ans:t[1],sol:`<b>${t[0]}</b>: ${esc(t[1])}.`})}
+function mcFixed(bank){return()=>{const b=pick(bank);return Q({skill:'concept',prompt:b[0],choices:shuffle(b[1]),ans:b[1][0],sol:b[2]})}}
+
+/* --- 4.1 translations --- */
+const G1={
+ vec(){let p,q;do{p=[ri(-6,6),ri(-6,6)];q=[ri(-6,6),ri(-6,6)]}while(p[0]===q[0]||p[1]===q[1]);
+  return Q({skill:'vector',kind:'vec',prompt:`A vector has initial point <b>P${P(...p)}</b> and terminal point <b>Q${P(...q)}</b>. Write the component form of <b>PQ→</b>.`,ans:[q[0]-p[0],q[1]-p[1]],fig:plane({vecs:[{from:p,to:q}],pts:[{p,l:'P'},{p:q,l:'Q',c:'#5fd4c4'}]}),
+  sol:`Horizontal component = ${fr(q[0])} − (${fr(p[0])}) = ${fr(q[0]-p[0])}. Vertical component = ${fr(q[1])} − (${fr(p[1])}) = ${fr(q[1]-p[1])}. So PQ→ = ${Vc(q[0]-p[0],q[1]-p[1])}. Always subtract initial from terminal.`})},
+ tpt(){const a=[ri(-6,6),ri(-6,6)],v=[nz(6),nz(6)];const b=[a[0]+v[0],a[1]+v[1]];
+  return Q({skill:'translate',kind:'pt',prompt:`Translate <b>A${P(...a)}</b> along the vector <b>${Vc(...v)}</b>. What are the coordinates of A′?`,ans:b,fig:plane({pts:[{p:a,l:'A'}]}),
+  sol:`Add the components: (${fr(a[0])} ${sg(v[0])}, ${fr(a[1])} ${sg(v[1])}) = ${P(...b)}.`})},
+ rule(){const v=[nz(7),nz(7)],a=[ri(-5,5),ri(-5,5)],b=[a[0]+v[0],a[1]+v[1]];
+  return Q({skill:'translate',kind:'pt',prompt:`A translation has the rule <b>(x, y) → (x ${sg(v[0])}, y ${sg(v[1])})</b>. Find the image of <b>B${P(...a)}</b>.`,ans:b,sol:`Apply the rule: x ${sg(v[0])} = ${fr(b[0])}, y ${sg(v[1])} = ${fr(b[1])}. B′${P(...b)}.`})},
+ findv(){const a=[ri(-6,6),ri(-6,6)],v=[nz(6),nz(6)],b=[a[0]+v[0],a[1]+v[1]];
+  return Q({skill:'vector',kind:'vec',prompt:`A translation maps <b>C${P(...a)}</b> to <b>C′${P(...b)}</b>. Write the translation vector in component form.`,ans:v,fig:plane({pts:[{p:a,l:'C'},{p:b,l:'C′',c:'#5fd4c4'}],vecs:[{from:a,to:b}]}),
+  sol:`The vector goes from C to C′: ⟨${fr(b[0])} − (${fr(a[0])}), ${fr(b[1])} − (${fr(a[1])})⟩ = ${Vc(...v)}. The rule is (x, y) → (x ${sg(v[0])}, y ${sg(v[1])}).`})},
+ comp(){const v=[nz(6),nz(6)],w=[nz(6),nz(6)];
+  return Q({skill:'compose',kind:'vec',prompt:`A figure is translated along <b>${Vc(...v)}</b>, then along <b>${Vc(...w)}</b>. What single translation vector has the same effect?`,ans:[v[0]+w[0],v[1]+w[1]],
+  sol:`Compositions of translations add: ⟨${fr(v[0])} ${sg(w[0])}, ${fr(v[1])} ${sg(w[1])}⟩ = ${Vc(v[0]+w[0],v[1]+w[1])}.`})},
+ comppt(){const a=[ri(-5,5),ri(-5,5)],v=[nz(5),nz(5)],w=[nz(5),nz(5)];const b=[a[0]+v[0]+w[0],a[1]+v[1]+w[1]];
+  return Q({skill:'compose',kind:'pt',prompt:`Translate <b>D${P(...a)}</b> along ${Vc(...v)} to get D′, then translate D′ along ${Vc(...w)} to get D″. Find <b>D″</b>.`,ans:b,
+  sol:`D′ = ${P(a[0]+v[0],a[1]+v[1])}. D″ = ${P(...b)}. Shortcut: add the vectors first, ${Vc(v[0]+w[0],v[1]+w[1])}.`})},
+ concept:mcFixed([
+  ['Under a translation of segment PQ to P′Q′, which statement is always true?',['PP′ = QQ′, and PP′ and QQ′ are parallel or collinear','PP′ is perpendicular to QQ′','P′Q′ = 2·PQ','P and P′ are always the same point'],'A translation moves every point the same distance in the same direction, so PP′ = QQ′ and the segments are parallel (or collinear).'],
+  ['Why is a translation called a rigid motion?',['It preserves length and angle measure','It always changes the size of the figure','It flips the orientation of the figure','It keeps one point fixed'],'Translation Postulate: a translation is a rigid motion, so lengths and angle measures stay the same.'],
+  ['The Composition Theorem says the composition of two or more rigid motions is…',['a rigid motion','a dilation','never a translation','only defined for reflections'],'Theorem 4.1: the composition of two (or more) rigid motions is a rigid motion.'],
+  ['In the notation A → A′, which point is the preimage?',['A','A′','Both','Neither'],'The preimage is the input; the image gets the prime mark.'],
+  ['Vector ⟨−4, 0⟩ moves a point…',['4 units left','4 units down','4 units right','4 units up'],'The horizontal component is −4 (left) and the vertical component is 0.']]),
+ vocab:()=>gVocab(1)};
+
+/* --- 4.2 reflections --- */
+const SYMQ=()=>{const s=pick(SYM);return Q({skill:'linesym',kind:'num',prompt:`How many lines of symmetry does <b>${s.n}</b> have?`,ans:s.lines,fig:plane({polys:[{pts:s.pts()}],R:6}),
+ sol:`${s.n[0].toUpperCase()+s.n.slice(1)} has <b>${s.lines}</b> line${s.lines===1?'':'s'} of symmetry. ${s.lines?'Each one is a line of reflection that maps the figure onto itself.':'No reflection maps it onto itself.'}`})};
+const G2={
+ refl(){const l=pick(['x','y','yx','ynx']);let a;do{a=[nz(7),nz(7)]}while(Math.abs(a[0])===Math.abs(a[1]));const b=ap({k:'R',l},a);
+  return Q({skill:'reflect',kind:'pt',prompt:`Reflect <b>A${P(...a)}</b> in <b>${LN[l]}</b>. Find A′.`,ans:b,fig:plane({pts:[{p:a,l:'A'}],lines:[{l}]}),
+  sol:`Rule for ${LN[l]}: ${opRule({k:'R',l})}. So A′ = ${P(...b)}.`})},
+ reflhk(){const l=pick(['xh','yk']),v=nz(4);let a;do{a=[ri(-6,6),ri(-6,6)]}while(l==='xh'?a[0]===v:a[1]===v);const b=ap({k:'R',l,v},a);
+  const d=l==='xh'?a[0]-v:a[1]-v;
+  return Q({skill:'reflect',kind:'pt',prompt:`Reflect <b>B${P(...a)}</b> in <b>${lineText({l,v})}</b>. Find B′.`,ans:b,fig:plane({pts:[{p:a,l:'B'}],lines:[{l,v}]}),
+  sol:`The line is the perpendicular bisector of BB′. B is ${Math.abs(d)} unit${Math.abs(d)===1?'':'s'} ${l==='xh'?(d>0?'right of':'left of'):(d>0?'above':'below')} the line, so B′ is ${Math.abs(d)} unit${Math.abs(d)===1?'':'s'} on the other side: B′${P(...b)}.`})},
+ which(){const l=pick(['x','y','yx','ynx']);let a;do{a=[nz(6),nz(6)]}while(Math.abs(a[0])===Math.abs(a[1]));const b=ap({k:'R',l},a);
+  const ch=['x','y','yx','ynx'].filter(m=>m===l||!samePts([ap({k:'R',l:m},a)],[b]));
+  return Q({skill:'reflect',prompt:`A reflection maps <b>A${P(...a)}</b> to <b>A′${P(...b)}</b>. What is the line of reflection?`,choices:shuffle(ch.map(m=>LN[m])),ans:LN[l],fig:plane({pts:[{p:a,l:'A'},{p:b,l:'A′',c:'#5fd4c4'}]}),
+  sol:`${opRule({k:'R',l})} matches, so the mirror is ${LN[l]}.`})},
+ glide(){const hz=Math.random()<.5;const t=hz?{k:'T',a:nz(5),b:0}:{k:'T',a:0,b:nz(5)};const r={k:'R',l:hz?'x':'y'};const a=[nz(5),nz(5)];const m=ap(t,a),b=ap(r,m);
+  return Q({skill:'glide',kind:'pt',prompt:`Glide reflection: translate <b>C${P(...a)}</b> along ${Vc(t.a,t.b)}, then reflect in <b>${LN[r.l]}</b>. Find the final image C″.`,ans:b,
+  sol:`Translate first: C′ = ${P(...m)}. Then reflect in ${LN[r.l]}: C″ = ${P(...b)}. The mirror line is parallel to the direction of the translation, which is what makes it a glide reflection.`})},
+ sym:SYMQ,
+ concept:mcFixed([
+  ['Point P is not on line m. After a reflection in m, how is m related to PP′?',['m is the perpendicular bisector of PP′','m is parallel to PP′','m passes through P only','m is twice as long as PP′'],'In a reflection, if P is not on m, then m is the perpendicular bisector of PP′.'],
+  ['Point P lies on the line of reflection m. Where is P′?',['P′ = P','P′ is on the opposite side of m','P′ is twice as far from m','P′ does not exist'],'Points on the line of reflection map to themselves.'],
+  ['The Reflection Postulate states that a reflection…',['is a rigid motion','changes angle measures','is a dilation with k = −1','always equals a translation'],'Postulate 4.2: a reflection is a rigid motion.'],
+  ['A glide reflection is…',['a translation followed by a reflection in a line parallel to the direction of the translation','two rotations','a dilation followed by a reflection','a reflection in two perpendicular lines'],'That is the definition from the chapter.'],
+  ['Which rule reflects (a, b) in the line y = −x?',['(a, b) → (−b, −a)','(a, b) → (b, a)','(a, b) → (−a, b)','(a, b) → (a, −b)'],'Reflection in y = −x swaps the coordinates and changes both signs.']]),
+ vocab:()=>gVocab(2)};
+
+/* --- 4.3 rotations --- */
+const G3={
+ rot(){const d=pick([90,180,270]);let a;do{a=[nz(7),nz(7)]}while(false);const b=ap({k:'O',d},a);
+  return Q({skill:'rotate',kind:'pt',prompt:`Rotate <b>A${P(...a)}</b> <b>${d}°</b> counterclockwise about the origin. Find A′.`,ans:b,fig:plane({pts:[{p:a,l:'A'}]}),
+  sol:`Rule for ${d}°: ${opRule({k:'O',d})}. With a = ${fr(a[0])}, b = ${fr(a[1])}: A′ = ${P(...b)}.`})},
+ cw(){const d=pick([90,270]);const a=[nz(6),nz(6)];const ccw=360-d;const b=ap({k:'O',d:ccw},a);
+  return Q({skill:'rotate',kind:'pt',prompt:`Rotate <b>B${P(...a)}</b> <b>${d}° clockwise</b> about the origin. Find B′.`,ans:b,
+  sol:`${d}° clockwise is the same as ${ccw}° counterclockwise. Rule: ${opRule({k:'O',d:ccw})}, so B′ = ${P(...b)}.`})},
+ comp(){const a=[nz(5),nz(5)];const d=pick([90,180,270]);const t=Math.random()<.5;const op2=t?{k:'T',a:nz(4),b:nz(4)}:{k:'R',l:pick(['x','y'])};const m=ap({k:'O',d},a),b=ap(op2,m);
+  return Q({skill:'compose',kind:'pt',prompt:`Rotate <b>C${P(...a)}</b> ${d}° counterclockwise about the origin, then ${t?`translate along ${Vc(op2.a,op2.b)}`:`reflect in ${LN[op2.l]}`}. Find C″.`,ans:b,
+  sol:`Do the steps in order. Rotation: C′ = ${P(...m)}. Then ${t?'translation':'reflection'}: C″ = ${P(...b)}.`})},
+ rotsym(){const s=pick(SYM);const ans=s.rot?s.rot+'°':'none';
+  return Q({skill:'rotsym',prompt:`Does <b>${s.n}</b> have rotational symmetry? If so, what is the smallest angle of rotation that maps it onto itself?`,choices:ROTCH,ans,fig:plane({polys:[{pts:s.pts()}],R:6}),
+  sol:s.rot?`Yes. Rotating ${s.rot}° about its center maps it onto itself${s.rot<180?` (and so do multiples of ${s.rot}°)`:''}. For a regular n-gon the smallest angle is 360°/n.`:`No rotation of 180° or less maps it onto itself, so it has no rotational symmetry.`})},
+ concept:mcFixed([
+  ['A rotation about P maps Q to Q′ (Q ≠ P). Which is always true?',['QP = Q′P','QQ′ = QP','Q′ lies on line QP','QP = 2·Q′P'],'Points stay the same distance from the center: QP = Q′P, and m∠QPQ′ equals the angle of rotation.'],
+  ['What happens to the center of rotation?',['It maps to itself','It moves along the angle','It doubles its distance','It reflects across the x-axis'],'If Q is the center P, then Q = Q′.'],
+  ['A figure has rotational symmetry when a rotation of ___ or less maps it onto itself.',['180°','90°','360°','45°'],'The definition uses 180° or less about the center of the figure.'],
+  ['Rotate 90° counterclockwise then translate ⟨3, 0⟩, versus translate first then rotate. The results are…',['usually different: order matters','always the same','always reflections','impossible to predict'],'Compositions are done in order, and changing the order usually changes the image.'],
+  ['The Rotation Postulate says a rotation is…',['a rigid motion','a dilation','not a transformation','an enlargement'],'Postulate 4.3: a rotation is a rigid motion.']]),
+ vocab:()=>gVocab(3)};
+
+/* --- 4.4 congruence --- */
+const CONGOPS=()=>[{k:'T',a:nz(5),b:nz(5)},{k:'R',l:'x'},{k:'R',l:'y'},{k:'R',l:'yx'},{k:'R',l:'ynx'},{k:'O',d:90},{k:'O',d:180},{k:'O',d:270}];
+function seqText(ops){return ops.map((o,i)=>(i?'then ':'')+opText(o).replace(/^./,c=>i?c.toLowerCase():c)).join(', ')}
+const G4={
+ par(){const vert=Math.random()<.5;let h1=nz(4),h2;do{h2=nz(5)}while(h2===h1);const a=[ri(-6,6),ri(-6,6)];
+  const k={k:'R',l:vert?'xh':'yk',v:h1},m={k:'R',l:vert?'xh':'yk',v:h2};const b=ap(m,ap(k,a));
+  if(Math.random()<.5)return Q({skill:'theorem',kind:'pt',prompt:`Reflect <b>A${P(...a)}</b> in <b>${lineText(k)}</b>, then reflect the image in <b>${lineText(m)}</b>. Find A″.`,ans:b,fig:plane({pts:[{p:a,l:'A'}],lines:[{l:k.l,v:h1},{l:m.l,v:h2,c:'#5fd4c4'}]}),
+   sol:`Theorem 4.2: reflecting in two parallel lines is a translation of 2d, perpendicular to the lines, from the first line toward the second. Here d = ${Math.abs(h2-h1)}, so the shift is ${2*(h2-h1)>0?'+':'−'}${Math.abs(2*(h2-h1))} in ${vert?'x':'y'}: A″ = ${P(...b)}. (Check: A′ = ${P(...ap(k,a))}.)`});
+  return Q({skill:'theorem',kind:'num',prompt:`Lines k: <b>${lineText(k).replace('the line ','')}</b> and m: <b>${lineText(m).replace('the line ','')}</b> are parallel. A point A is reflected in k, then in m, to get A″. What is the distance AA″?`,ans:2*Math.abs(h2-h1),
+   sol:`Theorem 4.2: AA″ = 2d, where d is the distance between the lines. d = |${fr(h2)} − (${fr(h1)})| = ${Math.abs(h2-h1)}, so AA″ = ${2*Math.abs(h2-h1)}.`})},
+ inter(){const x=pick([20,25,30,35,40,45,50,55,60,65,70,75,80,85,90]);
+  return Q({skill:'theorem',kind:'num',prompt:`Lines k and m intersect at point P and form an acute or right angle of <b>${x}°</b>. A figure is reflected in k, then in m. The result is a rotation about P. What is the angle of rotation, in degrees?`,ans:2*x,fig:plane({lines:[{l:'ang',a:0},{l:'ang',a:x,c:'#5fd4c4'}],R:5}),
+  sol:`Theorem 4.3: the angle of rotation is 2x° = 2(${x}°) = ${2*x}°.`})},
+ desc(){const pre=randTri(5);for(let t=0;t<200;t++){const n=Math.random()<.5?1:2;const ops=[];for(let i=0;i<n;i++)ops.push(pick(CONGOPS()));const img=apAll(ops,pre);
+   if(img.some(p=>Math.abs(p[0])>9||Math.abs(p[1])>9)||samePts(img,pre))continue;
+   const ds=[];for(let u=0;u<60&&ds.length<3;u++){const m=Math.random()<.5?1:2;const o2=[];for(let i=0;i<m;i++)o2.push(pick(CONGOPS()));const s=seqText(o2);if(s===seqText(ops)||ds.some(d=>d[0]===s))continue;if(samePts(apAll(o2,pre),img))continue;ds.push([s,o2])}
+   if(ds.length<3)continue;
+   return Q({skill:'describe',prompt:`Describe a congruence transformation that maps △ABC to △A′B′C′ (yellow → teal).`,choices:shuffle([seqText(ops),...ds.map(d=>d[0])]),ans:seqText(ops),fig:plane({polys:[{pts:pre,lab:['A','B','C']},{pts:img,c:'#5fd4c4',lab:['A′','B′','C′']}]}),
+    sol:`${seqText(ops)}. Check one vertex: A${P(...pre[0])} → A′${P(...img[0])}. Other sequences can also work, but the listed distractors send at least one vertex somewhere else.`})}return G4.inter()},
+ congq(){const pre=randTri(4);const yes=Math.random()<.5;let img,how;
+  if(yes){const ops=[pick(CONGOPS()),{k:'T',a:nz(3),b:nz(3)}];img=apAll(ops,pre);how=seqText(ops)}else{img=apAll([{k:'D',s:2}],pre);how='a dilation with scale factor 2'}
+  const sl=t=>[dist(t[0],t[1]),dist(t[1],t[2]),dist(t[2],t[0])].map(v=>(+v.toFixed(2)));
+  return Q({skill:'congruent',prompt:`△ABC has vertices ${pre.map((p,i)=>LBL[i]+P(...p)).join(', ')}. △DEF has vertices ${img.map((p,i)=>'DEF'[i]+P(...p)).join(', ')}. Are the triangles congruent?`,choices:['Yes, corresponding sides have equal lengths','No, the side lengths are different'],ans:yes?'Yes, corresponding sides have equal lengths':'No, the side lengths are different',
+   sol:`Use the distance formula. AB, BC, CA ≈ ${sl(pre).join(', ')}. DE, EF, FD ≈ ${sl(img).join(', ')}. ${yes?'They match, so a congruence transformation ('+how+') maps one onto the other.':'They do not match (each is doubled), so the triangles are similar but not congruent.'}`})},
+ concept:mcFixed([
+  ['Which transformation is NOT a congruence transformation?',['A dilation with scale factor 3','A translation along ⟨2, −5⟩','A reflection in the y-axis','A rotation of 270° about the origin'],'Congruence transformations preserve length and angle measure. A dilation with k = 3 triples lengths.'],
+  ['A congruence transformation preserves…',['length and angle measure','only angle measure','only orientation','only area, not length'],'That is the definition, and it is why the images are congruent figures.'],
+  ['If lines k and m are parallel, a reflection in k followed by a reflection in m is the same as a…',['translation','rotation','dilation','glide reflection'],'Theorem 4.2 (Reflections in Parallel Lines).'],
+  ['If lines k and m intersect at P, a reflection in k followed by a reflection in m is the same as a…',['rotation about P','translation','dilation centered at P','reflection in P'],'Theorem 4.3 (Reflections in Intersecting Lines).'],
+  ['Two figures are congruent if and only if…',['there is a rigid motion or composition of rigid motions mapping one onto the other','they have the same perimeter','they are both triangles','one is a dilation of the other']," That is how congruence is described with transformations in this chapter."]]),
+ vocab:()=>gVocab(4)};
+
+/* --- 4.5 dilations --- */
+const KS=[2,3,1/2,-2,-1/2,3/2,-1,1/3];
+function dilPt(k){const den=k===1/2||k===-1/2||k===3/2?2:k===1/3?3:1;const r=Math.abs(k)>=2?Math.floor(8/Math.abs(k)):8;let a;do{a=[ri(-r,r),ri(-r,r)].map(v=>Math.round(v/den)*den)}while(!a[0]&&!a[1]);return a}
+const G5={
+ dil(){const k=pick(KS);const a=dilPt(k);const b=[k*a[0],k*a[1]];
+  return Q({skill:'dilate',kind:'pt',prompt:`Dilate <b>A${P(...a)}</b> using scale factor <b>k = ${fr(k)}</b> with the center of dilation at the origin. Find A′.`,ans:b,fig:plane({pts:[{p:a,l:'A'}]}),
+  sol:`Multiply each coordinate by k: (${fr(k)}·${fr(a[0])}, ${fr(k)}·${fr(a[1])}) = ${P(...b)}.${k<0?' A negative scale factor puts the image on the opposite side of the center.':''}`})},
+ findk(){const k=pick([2,3,1/2,3/2,-2,-1/2,1/3,5/2]);const a=dilPt(k===5/2?1/2:k);const b=[k*a[0],k*a[1]];
+  return Q({skill:'scale',kind:'num',prompt:`A dilation centered at the origin maps <b>P${P(...a)}</b> to <b>P′${P(...b)}</b>. What is the scale factor k? (Fractions like 3/2 are fine.)`,ans:k,
+  sol:`P′ = (kx, ky), so k = ${fr(b[0]||b[1])} ÷ ${fr(a[0]||a[1])} = ${fr(k)}.`})},
+ seg(){const pairs=[[4,10],[6,15],[8,2],[10,4],[3,12],[12,9],[5,20],[9,6],[14,7],[6,8]];const[a,b]=pick(pairs);
+  return Q({skill:'scale',kind:'num',prompt:`In a dilation with center C, <b>CP = ${a}</b> and <b>CP′ = ${b}</b>. Find the scale factor k = CP′/CP.`,ans:b/a,
+  sol:`k = CP′/CP = ${b}/${a} = ${fr(b/a)}. ${b>a?'k > 1, so this is an enlargement.':'0 < k < 1, so this is a reduction.'}`})},
+ type(){const k=pick([2,3,5/2,4/3,1/2,1/3,3/4,2/5,7/4,1/4]);const ans=k>1?'Enlargement':'Reduction';
+  return Q({skill:'scale',prompt:`A dilation has scale factor <b>k = ${fr(k)}</b>. Is it an enlargement or a reduction?`,choices:['Enlargement','Reduction','Neither: it is a rigid motion'],ans,sol:`${k>1?'k > 1':'0 < k < 1'}, so it is a${k>1?'n enlargement':' reduction'}.`})},
+ real(){const t=ri(0,2);const k=pick([2,3,4,5,6,8]);const L=pick([.5,1,1.5,2,2.5,3,4]);
+  if(t===0)return Q({skill:'reallife',kind:'num',prompt:`A rifle scope magnifies by a scale factor of <b>${k}</b>. A window frame is <b>${fr(L)} cm</b> wide in the reticle's real-world reference card. How wide does it appear through the scope, in cm?`,ans:k*L,sol:`Image length = k × actual length = ${k} × ${fr(L)} = ${fr(k*L)} cm.`});
+  if(t===1)return Q({skill:'reallife',kind:'num',prompt:`Through a magnifying glass, a fingerprint ridge that is actually <b>${fr(L)} mm</b> long appears <b>${fr(k*L)} mm</b> long. What is the scale factor?`,ans:k,sol:`k = image ÷ actual = ${fr(k*L)} ÷ ${fr(L)} = ${k}.`});
+  return Q({skill:'reallife',kind:'num',prompt:`A photo of a key is enlarged with scale factor <b>${k}</b>. In the enlargement the key is <b>${fr(k*L)} cm</b> long. How long is the real key, in cm?`,ans:L,sol:`actual = image ÷ k = ${fr(k*L)} ÷ ${k} = ${fr(L)} cm.`})},
+ concept:mcFixed([
+  ['Which property does every dilation preserve?',['Angle measure','Length','Distance from the center','Position of every point'],'Angle measures are preserved, so the image has the same shape. Lengths are multiplied by k.'],
+  ['P is not the center C. Where does its image P′ lie in a dilation with k > 0?',['On ray CP','On the perpendicular bisector of CP','On a circle around P','On the line of reflection'],'P′ lies on ray CP, with CP′ = k·CP.'],
+  ['What is the image of the center of dilation?',['The center itself','A point k units away','The origin','It has no image'],'If P is the center C, then P = P′.'],
+  ['A dilation with k = −2 centered at the origin maps (3, 1) to…',['(−6, −2)','(6, 2)','(−6, 2)','(1.5, 0.5)'],'Use (kx, ky) = (−2·3, −2·1). A negative k places the image on the opposite side of the center.'],
+  ['Is a dilation with scale factor 4 a rigid motion?',['No, it changes lengths','Yes, it preserves lengths','Yes, because angles are preserved','Only if centered at the origin'],'Rigid motions preserve length. This dilation multiplies every length by 4.']]),
+ vocab:()=>gVocab(5)};
+
+/* --- 4.6 similarity --- */
+const G6={
+ sim(){const k=pick([2,1/2,3,-2]);const a=dilPt(k===3?3:k);const rig=pick([{k:'R',l:pick(['x','y','yx'])},{k:'O',d:pick([90,180,270])},{k:'T',a:nz(4),b:nz(4)}]);
+  const m=ap({k:'D',s:k},a),b=ap(rig,m);
+  return Q({skill:'similarity',kind:'pt',prompt:`Similarity transformation: dilate <b>A${P(...a)}</b> by k = ${fr(k)} (center at the origin), then ${opText(rig).replace(/^./,c=>c.toLowerCase())}. Find A″.`,ans:b,
+  sol:`Dilation: A′ = ${P(...m)}. Then the rigid motion: A″ = ${P(...b)}.`})},
+ desc(){const pre=randTri(3);for(let t=0;t<200;t++){const k=pick([2,3,-2]);const rig=pick(CONGOPS());const ops=[{k:'D',s:k},rig];const img=apAll(ops,pre);
+   if(img.some(p=>Math.abs(p[0])>10||Math.abs(p[1])>10))continue;
+   const ds=[];for(let u=0;u<80&&ds.length<3;u++){const o2=[{k:'D',s:pick([2,3,-2,1/2])},pick(CONGOPS())];const s=seqText(o2);if(s===seqText(ops)||ds.some(d=>d[0]===s))continue;if(samePts(apAll(o2,pre),img))continue;ds.push([s,o2])}
+   if(ds.length<3)continue;
+   return Q({skill:'describe',prompt:`Describe a similarity transformation that maps △ABC to △A″B″C″.`,choices:shuffle([seqText(ops),...ds.map(d=>d[0])]),ans:seqText(ops),fig:plane({polys:[{pts:pre,lab:['A','B','C']},{pts:img,c:'#5fd4c4',lab:['A″','B″','C″']}]}),
+    sol:`${seqText(ops)}. Compare side lengths to find |k| = ${Math.abs(k)}, then compare positions and orientation to find the rigid motion. Check: A${P(...pre[0])} → A″${P(...img[0])}.`})}return G6.sim()},
+ side(){const k=pick([2,3,1/2,3/2,5/2]);const s=pick([4,6,8,10,12]);const rig=pick(['a reflection in the x-axis','a 90° rotation','a translation along ⟨4, −1⟩']);
+  return Q({skill:'similarity',kind:'num',prompt:`△XYZ has XY = <b>${s}</b>. It is dilated by k = ${fr(k)}, then mapped by ${rig}. What is X″Y″?`,ans:k*s,sol:`Dilations multiply lengths by |k|; rigid motions keep them. X″Y″ = ${fr(k)} × ${s} = ${fr(k*s)}.`})},
+ concept:mcFixed([
+  ['Which statement is true?',['Congruent figures are always similar','Similar figures are always congruent','Similar figures always have the same size','A dilation is a rigid motion'],'Congruent figures are similar with scale factor 1. Similar figures only need the same shape.'],
+  ['A similarity transformation is…',['a dilation, or a composition of rigid motions and dilations','only a rotation','any transformation that changes angles','a translation with k > 1'],'That is the definition from section 4.6.'],
+  ['To prove two figures are similar, you…',['find a similarity transformation that maps one onto the other','show they have the same area','show one angle matches','show they are both polygons'],'Figures are similar exactly when a similarity transformation maps one onto the other.'],
+  ['What do similar figures have in common?',['The same shape, but not necessarily the same size','The same size, but not necessarily the same shape','The same position','Nothing'],'Similar figures have equal corresponding angles and proportional sides.'],
+  ['△ABC is dilated by k = 1/2, then reflected. Compared to △ABC, the image has…',['congruent angles and sides half as long','sides twice as long','different angle measures','the same size'],'The dilation halves lengths; the reflection changes nothing about size or angles.']]),
+ vocab:()=>gVocab(6)};
+
+return{G1,G2,G3,G4,G5,G6,gVocab,plane,P,Vc,fr,parseNum,eq,esc,opText,ap,apAll,ri,pick,shuffle,nz,ngon,SYM,LN};})();
+/* ===================== CHAPTER 4 WOVEN INTO THE GAME: geometry checks, talks, mornings, 3D sniper jobs ===================== */
+(function(){const st=document.createElement('style');st.textContent=`
+#geoOv,#snOv{position:fixed;inset:0;z-index:9000;font-family:VT323,ui-monospace,Menlo,monospace;color:#ece4da}
+#geoOv{background:rgba(7,6,11,.86);display:flex;align-items:center;justify-content:center;padding:12px max(16px,env(safe-area-inset-left,0px))}
+.geo-card{background:#0f1418;border:2px solid #e8b931;box-shadow:0 18px 60px rgba(0,0,0,.6);max-width:760px;width:100%;max-height:100%;overflow:auto;padding:14px 18px;display:flex;flex-direction:column;gap:10px;font-size:22px;line-height:1.2}
+.geo-card h3{margin:0;font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:#e8b931;font-weight:400}
+.geo-card .who{color:#97a39f;font-size:18px}.geo-card .who b{color:#5fd4c4;font-weight:400}
+.geo-card .q b{color:#e8b931;font-weight:400}
+.geo-card .fig{align-self:flex-start;border:1px solid #2b3d43;max-width:100%}.geo-card .fig svg{display:block;width:230px;max-width:100%;height:auto}
+.geo-opts{display:flex;flex-direction:column;gap:6px}
+.geo-btn,.geo-opt{font:inherit;font-size:21px;color:#ece4da;background:#16222a;border:1px solid #2b3d43;padding:6px 10px;text-align:left;cursor:pointer;line-height:1.15}
+.geo-opt:hover,.geo-btn:hover{border-color:#97a39f}.geo-btn.main{background:#e8b931;color:#0b1114;border-color:#e8b931;text-align:center}
+.geo-opt.ok{border-color:#7fd48a;background:rgba(127,212,138,.14)}.geo-opt.no{border-color:#d6455a;background:rgba(214,69,90,.14)}
+.geo-opt:disabled,.geo-btn:disabled{opacity:.6;cursor:default}
+.geo-in{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:24px}
+.geo-in input{font:inherit;font-size:24px;width:4.6em;text-align:center;color:#ece4da;background:#0b1114;border:1px solid #2b3d43;padding:2px 6px}
+.geo-fb{border:1px solid;padding:8px 10px;display:flex;flex-direction:column;gap:6px}.geo-fb.ok{border-color:#7fd48a;background:rgba(127,212,138,.08)}.geo-fb.no{border-color:#d6455a;background:rgba(214,69,90,.08)}
+.geo-fb .t{font-size:15px;letter-spacing:.12em;text-transform:uppercase}.geo-fb.ok .t{color:#7fd48a}.geo-fb.no .t{color:#d6455a}
+.geo-rule{font-size:18px;border-left:3px solid #e8b931;padding:4px 8px;background:#0b1114;color:#c9c3b4}
+.geo-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.geo-card button:focus-visible,.geo-card input:focus-visible,#snOv button:focus-visible{outline:2px solid #5fd4c4;outline-offset:2px}
+#snOv{background:#05070a;user-select:none;-webkit-user-select:none}
+#snCv{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:crosshair}
+#snScope{position:absolute;inset:0;pointer-events:none}
+#snScope.on{background:radial-gradient(circle at 50% 50%,rgba(0,0,0,0) 0,rgba(0,0,0,0) 37vmin,rgba(0,0,0,.94) 37.4vmin,#000 60vmin)}
+#snScope i{position:absolute;background:rgba(10,10,10,.9)}
+#snScope .h{left:50%;top:50%;width:74vmin;height:2px;transform:translate(-50%,-50%)}#snScope .v{left:50%;top:50%;height:74vmin;width:2px;transform:translate(-50%,-50%)}
+#snScope:not(.on) .h{width:44px;background:rgba(232,185,49,.85)}#snScope:not(.on) .v{height:44px;background:rgba(232,185,49,.85)}
+#snScope .dot{left:50%;top:50%;width:6px;height:6px;border-radius:50%;background:#d6455a;transform:translate(-50%,-50%)}
+#snFlash{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle,rgba(255,240,200,.9),rgba(255,200,120,0) 60%);opacity:0;transition:opacity .25s}
+#snHud{position:absolute;left:0;right:0;top:0;display:flex;gap:10px;justify-content:space-between;align-items:flex-start;padding:10px max(16px,env(safe-area-inset-right,0px)) 0 max(16px,env(safe-area-inset-left,0px));pointer-events:none}
+.sn-card{pointer-events:auto;background:rgba(11,17,20,.88);border:1px solid #2b3d43;padding:8px 12px;max-width:min(430px,60vw);font-size:20px;line-height:1.15;display:flex;flex-direction:column;gap:6px}
+.sn-card h3{margin:0;font-size:14px;letter-spacing:.14em;color:#e8b931;font-weight:400;text-transform:uppercase}
+.sn-card b{color:#5fd4c4;font-weight:400}
+.sn-read{font-size:26px;color:#e8b931;text-align:right}.sn-read small{display:block;font-size:15px;color:#97a39f;letter-spacing:.1em}
+#snBar{position:absolute;left:0;right:0;bottom:0;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:0 16px calc(12px + env(safe-area-inset-bottom,0px))}
+#snBar button,.sn-card button{font:inherit;font-size:20px;color:#ece4da;background:rgba(22,34,42,.9);border:1px solid #2b3d43;padding:6px 14px;cursor:pointer}
+#snBar button.fire{background:#d6455a;border-color:#d6455a;color:#fff}#snBar button.on{border-color:#e8b931;color:#e8b931}
+.sn-breath{height:6px;background:#0b1114;border:1px solid #2b3d43}.sn-breath i{display:block;height:100%;background:#5fd4c4}
+#snMsg{position:absolute;left:50%;top:22%;transform:translateX(-50%);font-size:30px;color:#ece4da;text-shadow:0 2px 8px #000;pointer-events:none;text-align:center;white-space:nowrap}
+#snPhoto{border:1px solid #2b3d43;background:#0b1114;width:180px;height:180px;align-self:flex-start}
+@media (max-width:700px){.sn-card{max-width:62vw;font-size:17px}.sn-read{font-size:21px}#snMsg{font-size:22px}}
+@media (prefers-reduced-motion:reduce){#snFlash{transition:none}}`;document.head.appendChild(st)})();
+
+/* ---------- shared: which chapter sections the player has reached ---------- */
+const GEO_KEYS={1:['vec','tpt','rule','findv','comp','comppt','concept','vocab'],2:['refl','reflhk','which','glide','sym','concept','vocab'],3:['rot','cw','comp','rotsym','concept','vocab'],4:['par','inter','desc','congq','concept','vocab'],5:['dil','findk','seg','type','real','concept','vocab'],6:['sim','desc','side','concept','vocab']};
+const GEO_SEC={1:'4.1 Translations',2:'4.2 Reflections',3:'4.3 Rotations',4:'4.4 Congruence',5:'4.5 Dilations',6:'4.6 Similarity'};
+function geoClosed(){return S&&S.f.mp?[1,2,3,4,5,6].filter(i=>S.f.mp['c'+i]).length:0}
+function geoLevel(){if(!S)return 1;return Math.min(6,Math.max(1+geoClosed(),1+Math.floor(((S.day||1)-1)/2)))}
+function geoPick(ch){const lv=geoLevel();if(!ch)ch=Math.random()<.55?lv:GEO.ri(1,lv);ch=Math.max(1,Math.min(6,ch));const g=GEO['G'+ch];const q=g[GEO.pick(GEO_KEYS[ch])]();q.sec=GEO_SEC[ch];return q}
+function geoStat(ok){if(!S)return;S.f.geo=S.f.geo||{r:0,w:0,streak:0,best:0};if(ok){S.f.geo.r++;S.f.geo.streak++;S.f.geo.best=Math.max(S.f.geo.best,S.f.geo.streak)}else{S.f.geo.w++;S.f.geo.streak=0}save();drawHud()}
+const GEO_RULES='Translation ⟨a, b⟩: (x, y) → (x + a, y + b)<br>Reflect: x-axis (a, −b) · y-axis (−a, b) · y = x (b, a) · y = −x (−b, −a)<br>Rotate about origin (counterclockwise): 90° (−b, a) · 180° (−a, −b) · 270° (b, −a)<br>Dilate (center origin): (kx, ky) · k = CP′/CP<br>Parallel mirrors → translation of 2d · intersecting mirrors at x° → rotation of 2x°';
+
+/* ---------- input capture while an overlay is open ---------- */
+let OV=null; // {key(e)} handler of the active overlay
+addEventListener('keydown',e=>{if(!OV)return;e.stopImmediatePropagation();if(OV.key)OV.key(e,true)},true);
+addEventListener('keyup',e=>{if(!OV)return;e.stopImmediatePropagation();if(OV.key)OV.key(e,false)},true);
+function ovOpen(h){OV=h;for(const k in held)held[k]=0;for(const k in pressed)pressed[k]=0}
+function ovClose(){OV=null;for(const k in held)held[k]=0;for(const k in pressed)pressed[k]=0}
+
+/* ---------- a geometry question overlay ---------- */
+function geoAsk(o,cb){o=o||{};const q=o.q||geoPick(o.ch);let done=false;
+ const ov=document.createElement('div');ov.id='geoOv';ov.setAttribute('role','dialog');ov.setAttribute('aria-modal','true');
+ const ansUI=q.kind==='mc'?`<div class="geo-opts">${q.choices.map((c,i)=>`<button class="geo-opt" type="button" data-i="${i}">${i+1}. ${c}</button>`).join('')}</div>`
+  :`<form class="geo-in" autocomplete="off">${q.kind==='pt'?'( <input id="gA" aria-label="x-coordinate"> , <input id="gB" aria-label="y-coordinate"> )':q.kind==='vec'?'⟨ <input id="gA" aria-label="horizontal component"> , <input id="gB" aria-label="vertical component"> ⟩':'<input id="gA" aria-label="answer">'} <button class="geo-btn main" type="submit">Submit</button></form>`;
+ ov.innerHTML=`<div class="geo-card"><h3>${o.title||'Geometry check'} · ${q.sec}</h3>${o.line?`<div class="who"><b>${o.who||ME2()}</b> ${o.line}</div>`:''}${o.stakes?`<div class="who">${o.stakes}</div>`:''}
+  <div class="q">${q.prompt}</div>${q.fig||''}${ansUI}<div class="geo-fb-slot"></div><div class="geo-row"><button class="geo-btn" type="button" data-rule>Show the rule sheet</button>${o.skip?'<button class="geo-btn" type="button" data-skip>'+o.skip+'</button>':''}</div></div>`;
+ document.body.appendChild(ov);
+ const finish=ok=>{if(done)return;done=true;geoStat(ok);const sol=`<div class="geo-fb ${ok?'ok':'no'}"><span class="t">${ok?'Correct':'Incorrect · answer '+GEO.esc(ansText(q))}</span><span>${q.sol}</span><div class="geo-row"><button class="geo-btn main" type="button" data-cont>Continue</button></div></div>`;
+  ov.querySelector('.geo-fb-slot').innerHTML=sol;ov.querySelectorAll('.geo-opt,.geo-in input,.geo-in button').forEach(b=>b.disabled=true);const c=ov.querySelector('[data-cont]');c.focus();c.onclick=()=>{ov.remove();ovClose();cb&&cb(ok)}};
+ function ansText(q){return q.kind==='mc'?q.ans:q.kind==='pt'?GEO.P(...q.ans):q.kind==='vec'?GEO.Vc(...q.ans):GEO.fr(q.ans)}
+ if(q.kind==='mc')ov.querySelectorAll('.geo-opt').forEach(b=>b.onclick=()=>{const v=q.choices[+b.dataset.i];ov.querySelectorAll('.geo-opt').forEach(x=>{if(q.choices[+x.dataset.i]===q.ans)x.classList.add('ok')});if(v!==q.ans)b.classList.add('no');finish(v===q.ans)});
+ else{const f=ov.querySelector('form');f.onsubmit=e=>{e.preventDefault();const a=GEO.parseNum(ov.querySelector('#gA').value),b=q.kind==='num'?0:GEO.parseNum(ov.querySelector('#gB').value);
+  if(isNaN(a)||isNaN(b)){const s=ov.querySelector('.geo-fb-slot');s.innerHTML='<div class="geo-fb no"><span>Type numbers like 3, −2 or 5/2.</span></div>';return}
+  finish(q.kind==='num'?GEO.eq(a,q.ans):GEO.eq(a,q.ans[0])&&GEO.eq(b,q.ans[1]))}}
+ ov.querySelector('[data-rule]').onclick=e=>{e.target.outerHTML=`<div class="geo-rule">${GEO_RULES}</div>`};
+ const sk=ov.querySelector('[data-skip]');if(sk)sk.onclick=()=>{if(done)return;done=true;ov.remove();ovClose();cb&&cb(null)};
+ ovOpen({key:(e,down)=>{if(!down||done)return;if(q.kind==='mc'&&/^[1-9]$/.test(e.key)){const b=ov.querySelectorAll('.geo-opt')[+e.key-1];if(b){e.preventDefault();b.click()}}}});
+ setTimeout(()=>{const f=ov.querySelector('#gA')||ov.querySelector('.geo-opt');f&&f.focus()},30)}
+
+/* ---------- HUD: study record ---------- */
+const _dhGeo=drawHud;drawHud=function(){_dhGeo();try{if(S&&S.f&&S.f.geo&&hud){const g=S.f.geo,t=g.r+g.w;const sp=document.createElement('span');sp.className='pill';sp.title='Chapter 4 answers right / total';sp.textContent='Geo '+g.r+'/'+t;hud.appendChild(sp)}}catch(e){}};
+
+/* ---------- contracts: every job comes with the Cartographer's brief ---------- */
+const _ctrGeo=contracts;contracts=function(){if(S.done.geoBrief)return _ctrGeo();S.done.geoBrief=1;save();
+ geoAsk({title:'The Cartographer’s brief',who:'Cartographer',line:'(text) The client’s address is written the way I write everything. Solve it and I pay an advance.',stakes:'Correct: ¥4,000 advance and less heat. Wrong: the job gets noisier.'},ok=>{
+  if(ok){S.yen+=4000;S.heat=clamp(S.heat-3);toast('Advance received: ¥4,000')}else{S.heat=clamp(S.heat+4);toast('You misread the brief. Heat +4')}save();drawHud();
+  if(S.energy>=25&&!S.done.snipe&&S.heat<80)panel(`<h2>Two envelopes</h2><p>${mVoice('the job board, or the Cartographer’s rooftop contract.')}</p>`,[{t:'The job board',sub:'the usual contracts',fn:_ctrGeo},{t:'The rooftop contract (3D sniper)',sub:'three targets · ¥12,000 a hit · uses today’s job',fn:()=>{S.done.job=1;S.done.snipe=1;apply({energy:-15});save();snipeContract('m',()=>hub())}}]);else _ctrGeo()})};
+
+/* ---------- lockpicks and decrypts: the math is a second way in ---------- */
+const _lpGeo=lockpick;lockpick=function(cb){panel(`<h2>The lock</h2><p>${ME3()?'The lock has a rotation cipher stamped on it. The Cartographer’s work.':mVoice('the lock’s got a little coordinate grid scratched into it. cartographer stuff.')}</p>`,[{t:'Pick it',sub:'minigame',fn:()=>_lpGeo(cb)},{t:'Solve the cipher on the lock',sub:'geometry · right answer opens it, wrong answer means picking it anyway',fn:()=>geoAsk({ch:Math.min(geoLevel(),3),title:'Lock cipher'},ok=>ok?cb(true):_lpGeo(cb))}])};
+const _smGeo=simon;simon=function(cfg,cb){if(S&&!S.done.geoSimon){S.done.geoSimon=1;save();return geoAsk({title:(cfg&&cfg.title?cfg.title:'Decrypt')+' — key exchange',who:ME3()?'K9':'hitmeuppp',line:ME3()?'The file is keyed with a transformation. Solve it and the cipher shortens.':mVoice('the file’s locked with one of his transformations.'),stakes:'Correct: one fewer round to decrypt.'},ok=>{const c=Object.assign({},cfg);if(ok&&c.rounds&&c.rounds.length>1)c.rounds=c.rounds.slice(1);_smGeo(c,cb)})}return _smGeo(cfg,cb)};
+const _stGeo=stealth;stealth=function(cfg,cb){if(S&&!S.done.geoRoute&&cfg&&cfg.map){S.done.geoRoute=1;save();return geoAsk({ch:1,title:'Plan the route',who:ME2(),line:ME3()?'Floor plan first. Every route is a composition of translations.':mVoice('route first. every hallway is a vector.'),stakes:'Correct: you start rested (+10 energy, heat −3).'},ok=>{if(ok){apply({energy:10});S.heat=clamp(S.heat-3);save()}_stGeo(cfg,cb)})}return _stGeo(cfg,cb)};
+
+/* ---------- talk topics: V teaches, and Misaki teaches it back ---------- */
+const GEO_TALK_V=[
+ {id:'g_trans',ch:1,label:'“Teach me translations. Properly.”',L:()=>[['K9','A translation moves every point the same distance in the same direction. The vector says how far: ⟨a, b⟩ means a across, b up.'],['hitmeuppp',mVoice('so it’s just adding')],['K9','It is just adding. Which is why people get it wrong: they subtract in the wrong order. Terminal minus initial. Always.']]},
+ {id:'g_refl',ch:2,label:'“Why is the mirror line a perpendicular bisector?”',L:()=>[['K9','Because a mirror is fair. Every point lands the same distance on the other side, straight across.'],['K9','So the line cuts PP′ in half, at a right angle. That is the whole definition of a perpendicular bisector.'],['hitmeuppp',mVoice('angel does this with eyeliner')],['K9','Angel is a geometer and does not know it.']]},
+ {id:'g_rot',ch:3,label:'“Rotations. Which way is counterclockwise again?”',L:()=>[['K9','Against the clock. Ninety degrees counterclockwise about the origin sends (a, b) to (−b, a).'],['K9','Clockwise ninety is counterclockwise two hundred seventy. Same answer, different name.'],['hitmeuppp',mVoice('why does everything have two names')],['K9','So that you have to understand it instead of memorising it.']]},
+ {id:'g_cong',ch:4,label:'“Two mirrors make a turn? Explain that.”',L:()=>[['K9','Reflect in one line, then another that crosses it at x degrees. Each flip reverses orientation. Two flips restore it.'],['K9','What is left is a rotation about the crossing point, through 2x degrees. If the mirrors are parallel, it is a translation of twice the gap instead.'],['hitmeuppp',mVoice('that’s actually kind of beautiful')],['K9','It is the most beautiful thing in the chapter. I will fight anyone who disagrees.']]},
+ {id:'g_dil',ch:5,label:'“How does a scope actually work, in math?”',L:()=>[['K9','It is a dilation. The scale factor is the ratio image over actual. A 4× scope makes a two-centimetre ridge look eight.'],['K9','Angles stay the same. Only lengths change. That is why the window looks bigger but is still a window.'],['hitmeuppp',mVoice('so the scope lies about size but not shape')],['K9','Yes. The most honest kind of lie.']]},
+ {id:'g_sim',ch:6,label:'“Similar versus congruent. Go.”',L:()=>[['K9','Congruent: same shape, same size. Similar: same shape, any size.'],['K9','Every congruent pair is similar, with scale factor one. Not every similar pair is congruent.'],['hitmeuppp',mVoice('so we’re similar. not congruent.')],['K9','…We are something. I will think about which.']]}];
+GEO_TALK_V.forEach(t=>{const T={id:t.id,label:()=>t.label,show:()=>S.phase!=='taken'&&geoLevel()>=t.ch,run:b=>{warm('v',t.id,3);say(t.L(),()=>geoAsk({ch:t.ch,title:'V’s whiteboard',who:'K9',line:'Show me.'},ok=>{if(ok)apply({aff:2});say([['K9',ok?pk(['Correct. Noted.','Correct. You are better at this than I was.','Yes. Exactly that.']):pk(['Close. Read the solution again, then tell me why.','No. But now you know where the mistake lives.'])]],b)}))}};TOPICS_V.splice(TOPICS_V.length-1,0,T)});
+const GEO_TALK_M=[
+ {id:'g_mteach',ch:1,label:'“Quiz me. Your turn to teach.”',L:()=>[['hitmeuppp',mVoice('ok professor. i’m gonna ask u one and u have to get it right or u owe me crêpes')],['K9','Agreed. I have never owed anyone crêpes.']]},
+ {id:'g_mwhy',ch:2,label:'“Why are you good at this now?”',L:()=>[['hitmeuppp',MV('because the cartographer pays','because it’s a job thing','Because it stopped being homework. It’s just how things move.','Because you taught it like it mattered. Nobody ever did that.')],['K9','You were always good at it. You aim for a living. Every shot is a vector.']]}];
+GEO_TALK_M.forEach(t=>{const T={id:t.id,label:()=>t.label,show:()=>S.phase!=='taken'&&geoLevel()>=t.ch,run:b=>{warm('m',t.id,3);say(t.L(),()=>geoAsk({title:'Misaki’s quiz',who:'hitmeuppp',line:mVoice('answer this one, big guy')},ok=>{if(ok)apply({aff:2});say([['hitmeuppp',ok?mVoice('ugh. correct. crêpes are safe'):mVoice('WRONG. crêpes. tomorrow. i’ll write the solution on ur hand')]],b)}))}};TOPICS_M.splice(TOPICS_M.length-1,0,T)});
+
+/* ---------- rooms: the whiteboard, the envelope, the intel terminal ---------- */
+function geoHomework(back){if(S.done.geoHW){say([[ME2(),ME3()?'Today’s envelope is already solved and filed.':mVoice('already did today’s envelope. look at me. doing homework.')]],back);return}
+ S.done.geoHW=1;save();geoAsk({title:'Envelope under the door',who:'Cartographer',line:'(note) A small job. Show your work.',stakes:'Correct: ¥2,500.'},ok=>{if(ok){S.yen+=2500;drawHud()}say([[ME2(),ok?(ME3()?'Correct. The envelope also contains a cheque. He is very confident.':mVoice('¥2,500 for one triangle. best job i’ve ever had')):(ME3()?'Wrong. I will be thinking about that one in the shower.':mVoice('wrong. the solution’s in the envelope too. he KNEW.'))]],back)})}
+(function(){const add=(room,spot)=>{const R=ROOMS[room];if(!R||!R.spots)return;R.spots.splice(R.spots.length-1,0,spot)};
+ add('atrium',{at:[214,130],mark:[214,60],label:'V’s whiteboard (Chapter 4 cases, 3D)',act:()=>mpOpen(),vact:()=>mpOpen()});
+ add('trailer',{at:[118,160],mark:[118,148],label:'Envelope under the door',act:()=>geoHomework(()=>{}),vact:()=>geoHomework(()=>{})});
+ add('ops',{at:[100,160],mark:[100,148],label:'Overwatch terminal (3D sniper)',act:()=>snipeFromRoom(),vact:()=>snipeFromRoom()})})();
+function snipeFromRoom(){if(S.done.snipe){say([[ME2(),ME3()?'One overwatch a night. My hands need to be steady tomorrow too.':mVoice('one rooftop a day. my shoulder still hurts from the last one.')]]);return}
+ if(S.energy<20){say([[ME2(),ME3()?'Too tired to hold a rifle still.':mVoice('too tired. i’d miss the building.')]]);return}
+ S.done.snipe=1;apply({energy:-15});save();const r=S.room,p=S.roomPos||[160,150];snipeContract(ME3()?'v':'m',()=>toRoom(r,p))}
+
+/* ---------- mornings and story beats ---------- */
+EVENTS.push(
+ {id:'geo_hara',when:()=>S.day>=3&&S.phase!=='taken'&&(S.f.geo&&S.f.geo.r>=3),run:done=>say([['Hara','(voicemail) Inspector Hara. Three crime scenes this month, and at each one somebody left a drawing. A triangle, and the same triangle moved. Reflected. Turned.'],['Hara','My nephew is fifteen. He looked at them and said “that’s just chapter four.” I would like very much to know who is doing chapter four in my city.']],done)},
+ {id:'geo_angel',when:()=>S.day>=4&&frT('a')>=1&&S.phase!=='taken',run:done=>say([['Angelic','(server) ok i need everyone to know that makeup is literally line symmetry'],['Angelic','(server) the face has ONE line of symmetry. one. and every influencer ignores it. that’s why their wings look like a dilation gone wrong'],['ronin.beaufort','(server) angel did u just say dilation'],['Angelic','(server) misaki’s been leaving her homework in my studio. it’s contagious. k = 2 on the lashes, babe.']],done)},
+ {id:'geo_ronin',when:()=>S.day>=5&&frT('r')>=1&&S.phase!=='taken',run:done=>say([['ronin.beaufort','So I been thinkin’ about the translation thing. Movin’ a fella from one spot to another without turnin’ him.'],['ronin.beaufort','That’s just a fireman’s carry, darlin’. I been doin’ vectors my whole life.'],[ME2(),ME3()?'Please do not describe body transport as homework, Ronin.':mVoice('ronin that is NOT what the textbook means')]],done)},
+ {id:'geo_v_board',when:()=>S.day>=3&&S.phase!=='taken'&&!isLone(),run:done=>say([['','The whiteboard in V’s kitchen has grown. It covers a wall now. Six columns: translations, reflections, rotations, congruence, dilations, similarity.'],['','Under each one, in two handwritings, worked problems. His are neat. Hers have little skulls in the margins next to the ones she got right.']],()=>{apply({aff:1});done()})},
+ {id:'geo_ledger',when:()=>S.phase==='act3',run:done=>say([['','The Chairman’s ledger arrives in photocopy. Every entry is a triangle and a list of moves.'],[ME2(),ME3()?'This is the Cartographer’s notation. He kept my father’s books too.':mVoice('it’s HIS notation. the cartographer did the chairman’s books.')],['','Seven names. Seven figures. Each one moved somewhere else on the page, the way you move a person when you want them gone.']],()=>geoAsk({ch:geoLevel(),title:'Decode a ledger entry',who:ME2(),line:'One entry at a time.'},ok=>{if(ok)apply({aff:2});done()}))},
+ {id:'geo_homework2',when:()=>S.day>=6&&S.phase!=='taken'&&geoLevel()>=4,run:done=>say([['','A postcard with no stamp. On the front: a bank vault. On the back, in a patient hand:'],['Cartographer','“Two mirrors make a turn. You knew that already. I just wanted to see if you would remember.”']],done)});
+const _morGeo=morningEvent;morningEvent=function(done){if(S&&S.phase!=='taken'&&!S.seen['geoAM'+S.day]&&S.day>=2&&Math.random()<.3){S.seen['geoAM'+S.day]=1;save();
+  return _morGeo(()=>say([['',pk(['The kettle clicks off. Next to it, a sticky note in V’s handwriting with one problem on it.','Your phone buzzes. Unknown number. Just a coordinate grid.','A paper airplane on the pillow. Unfolded, it is a worked example with one blank.'])]],()=>geoAsk({title:'Morning problem',stakes:'Correct: +5 energy.'},ok=>{if(ok)apply({energy:5});done()})))}
+ return _morGeo(done)};
+ACH.push(['geo25','Show Your Work','Answer 25 Chapter 4 questions correctly in the main game.',()=>S.f.geo&&S.f.geo.r>=25],['geostreak','On a Roll','Get 8 Chapter 4 questions right in a row.',()=>S.f.geo&&S.f.geo.best>=8],['snipe4','Every Transformation','Land a shot in all four rooftop contract types.',()=>S.f.snipe&&['lead','water','turn','drone'].every(k=>S.f.snipe[k])],['snipeperf','Clean Sheet','Hit all three targets in one rooftop contract.',()=>S.f.snipe&&S.f.snipe.perfect]);
+
+/* ===================== 3D SNIPER CONTRACTS ===================== */
+const SNM={lead:{n:'Lead the shot',sec:'4.1 translations'},water:{n:'The canal',sec:'4.2 reflections'},turn:{n:'The turntable',sec:'4.3 rotations'},drone:{n:'The drone photo',sec:'4.5 dilations'}};
+function snipeModes(){const lv=geoLevel(),m=['lead'];if(lv>=2)m.push('water');if(lv>=3)m.push('turn');if(lv>=5)m.push('drone');return m}
+function snipeContract(who,back){const modes=snipeModes();const plan=[GEO.pick(modes),GEO.pick(modes),modes[modes.length-1]];
+ const hasGL=(()=>{if(!window.THREE)return false;try{const c=document.createElement('canvas');return!!(c.getContext('webgl')||c.getContext('experimental-webgl'))}catch(e){return false}})();
+ const fin=res=>{S.f.snipe=S.f.snipe||{};res.hitModes.forEach(k=>S.f.snipe[k]=1);if(res.hits===res.shots)S.f.snipe.perfect=1;
+  if(who==='v'){apply({rep:2*res.hits,funds:15*res.hits,heart:res.hits?1:0})}else{S.yen+=12000*res.hits;S.heat=clamp(S.heat+6*(res.shots-res.hits));apply({energy:0})}save();drawHud();
+  say([[who==='v'?'K9':'hitmeuppp',res.hits===res.shots?(who==='v'?'Three for three. The Cartographer’s list is three names shorter.':mVoice('three for three. ¥36,000. i’m buying a better scope and a worse dinner')):res.hits?(who==='v'?res.hits+' of '+res.shots+'. The others will run. They always run somewhere the math can find them.':mVoice(res.hits+' of '+res.shots+'. the others saw the flash. heat’s up.')):(who==='v'?'Nothing. I will check my work.':mVoice('zero. i missed a whole building. a WHOLE building.'))]],back)};
+ if(!hasGL){let i=0,hits=0;const next=()=>{if(i>=3)return fin({hits,shots:3,hitModes:hits?['lead']:[]});i++;geoAsk({ch:geoLevel(),title:'Rooftop contract (3D unavailable) · target '+i},ok=>{if(ok)hits++;next()})};next();return}
+ snRun(who,plan,fin)}
+
+function snRun(who,plan,fin){const T3=THREE;let alive=true;const ov=document.createElement('div');ov.id='snOv';
+ ov.innerHTML=`<canvas id="snCv" aria-label="3D sniper view"></canvas><div id="snFlash"></div><div id="snScope"><i class="h"></i><i class="v"></i><i class="dot"></i></div><div id="snMsg"></div>
+ <div id="snHud"><div class="sn-card" id="snIntel"></div><div class="sn-card" style="min-width:150px"><div class="sn-read" id="snRead">—<small>RANGEFINDER</small></div><div class="sn-breath" title="breath"><i id="snBr" style="width:100%"></i></div><div id="snTime" style="font-size:18px;color:#97a39f;text-align:right"></div></div></div>
+ <div id="snBar"><button type="button" id="snZoom">Zoom (Z)</button><button type="button" id="snHold">Hold breath (Shift)</button><button type="button" class="fire" id="snFire">Fire (Space)</button><button type="button" id="snAbort">Abort (Esc)</button></div>`;
+ document.body.appendChild(ov);const cv=ov.querySelector('#snCv');let R;
+ try{R=new T3.WebGLRenderer({canvas:cv,antialias:true});}catch(e){ov.remove();ovClose();let i=0,hits=0;const next=()=>{if(i>=3)return fin({hits,shots:3,hitModes:[]});i++;geoAsk({ch:geoLevel(),title:'Rooftop contract · target '+i},ok=>{if(ok)hits++;next()})};next();return}
+ R.setPixelRatio(Math.min(2,devicePixelRatio||1));if(T3.sRGBEncoding)R.outputEncoding=T3.sRGBEncoding;
+ const $o=s=>ov.querySelector(s);const intel=$o('#snIntel'),read=$o('#snRead'),msg=$o('#snMsg'),scope=$o('#snScope'),flash=$o('#snFlash'),brBar=$o('#snBr'),timeEl=$o('#snTime');
+ // ---- audio (starts on the first click inside the job) ----
+ let AC=null,wind=null;function audio(){if(AC)return;try{AC=new (window.AudioContext||window.webkitAudioContext)();const b=AC.createBuffer(1,AC.sampleRate*2,AC.sampleRate),d=b.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;
+  wind={buf:b};const src=AC.createBufferSource();src.buffer=b;src.loop=true;const f=AC.createBiquadFilter();f.type='lowpass';f.frequency.value=380;const g=AC.createGain();g.gain.value=.05;src.connect(f).connect(g).connect(AC.destination);src.start();wind.src=src}catch(e){AC=null}}
+ function sfxShot(){if(!AC)return;const t=AC.currentTime;const s=AC.createBufferSource();s.buffer=wind.buf;const f=AC.createBiquadFilter();f.type='lowpass';f.frequency.setValueAtTime(2400,t);f.frequency.exponentialRampToValueAtTime(200,t+.35);const g=AC.createGain();g.gain.setValueAtTime(.9,t);g.gain.exponentialRampToValueAtTime(.001,t+.5);s.connect(f).connect(g).connect(AC.destination);s.start(t);s.stop(t+.55);
+  const o=AC.createOscillator();o.type='sine';o.frequency.setValueAtTime(110,t);o.frequency.exponentialRampToValueAtTime(38,t+.25);const g2=AC.createGain();g2.gain.setValueAtTime(.8,t);g2.gain.exponentialRampToValueAtTime(.001,t+.3);o.connect(g2).connect(AC.destination);o.start(t);o.stop(t+.32);
+  [.55,.68,.76].forEach((dt,i)=>{const p=AC.createOscillator();p.type='triangle';p.frequency.value=2600+i*400;const pg=AC.createGain();pg.gain.setValueAtTime(.0001,t+dt);pg.gain.exponentialRampToValueAtTime(.06,t+dt+.005);pg.gain.exponentialRampToValueAtTime(.0001,t+dt+.09);p.connect(pg).connect(AC.destination);p.start(t+dt);p.stop(t+dt+.1)})}
+ function sfxTone(fq,dur,vol=.08,type='sine'){if(!AC)return;const t=AC.currentTime,o=AC.createOscillator();o.type=type;o.frequency.value=fq;const g=AC.createGain();g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(.0001,t+dur);o.connect(g).connect(AC.destination);o.start(t);o.stop(t+dur+.02)}
+ // ---- scene ----
+ const sc=new T3.Scene();const cam=new T3.PerspectiveCamera(38,1,.1,600);cam.rotation.order='YXZ';
+ let W0=0,H0=0;function rs(){W0=innerWidth;H0=innerHeight;R.setSize(W0,H0,false);cam.aspect=W0/H0;cam.updateProjectionMatrix()}addEventListener('resize',rs);rs();
+ const SX=2.4,SY=3.2;let job=null,shotI=0,hits=0,hitModes=[];const results=[];
+ const ctl={yaw:0,pitch:0,vy:0,vp:0,zoom:false,fov:38,breath:1,hold:false,exhaust:0,kick:0,drag:null,t:0};
+ function clearScene(){while(sc.children.length){const o=sc.children.pop();o.traverse&&o.traverse(x=>{x.geometry&&x.geometry.dispose();if(x.material)(Array.isArray(x.material)?x.material:[x.material]).forEach(m=>{m.map&&m.map.dispose();m.dispose()})})}}
+ const person=()=>{const g=new T3.Group();const m=new T3.MeshBasicMaterial({color:0x050506});const b=new T3.Mesh(new T3.CylinderGeometry(.34,.42,1.3,10),m);b.position.y=.65;const h=new T3.Mesh(new T3.SphereGeometry(.27,12,10),m);h.position.y=1.55;g.add(b,h);return g};
+ function city(back){const n=70,geo=new T3.BoxGeometry(1,1,1),mat=new T3.MeshStandardMaterial({color:0x0b0f16,roughness:1});const im=new T3.InstancedMesh(geo,mat,n);const m4=new T3.Matrix4();
+  for(let i=0;i<n;i++){const w=6+Math.random()*12,h=12+Math.random()*60,x=(Math.random()-.5)*260,z=back-20-Math.random()*120;m4.compose(new T3.Vector3(x,h/2-2,z),new T3.Quaternion(),new T3.Vector3(w,h,w));im.setMatrixAt(i,m4)}sc.add(im);
+  const pts=[];for(let i=0;i<900;i++){pts.push((Math.random()-.5)*260,Math.random()*55,back-22-Math.random()*120)}const pg=new T3.BufferGeometry();pg.setAttribute('position',new T3.Float32BufferAttribute(pts,3));sc.add(new T3.Points(pg,new T3.PointsMaterial({color:0xf2d07a,size:.35,transparent:true,opacity:.7})));
+  const moon=new T3.Mesh(new T3.SphereGeometry(6,24,16),new T3.MeshBasicMaterial({color:0xe8e2cc}));moon.position.set(-90,90,back-160);sc.add(moon)}
+ // facade with windows at integer coordinates; returns handles
+ function facade(rows,opt={}){const g=new T3.Group();const wallM=new T3.MeshStandardMaterial({color:opt.tint||0x2a2d33,roughness:.9,side:T3.DoubleSide});const x0=-7,x1=7,y0=rows[0],y1=rows[1];
+  const top=(y1+.5)*SY+.6,base=opt.base!==undefined?opt.base:-1.6;
+  for(let k=x0-.5;k<=x1+.5;k+=1){const p=new T3.Mesh(new T3.BoxGeometry(.8,top-base,1),wallM);p.position.set(k*SX,(top+base)/2,-.4);g.add(p)}
+  for(let j=y0-.5;j<=y1+.5;j+=1){const yb=j*SY;let lo=yb-.6,hi=yb+.6;if(j===y0-.5)lo=base;if(j===y1+.5)hi=top+1.2;const b=new T3.Mesh(new T3.BoxGeometry((x1-x0+1)*SX+.8,hi-lo,1),wallM);b.position.set(0,(lo+hi)/2,-.4);g.add(b)}
+  const cnt=(x1-x0+1)*(y1-y0+1);const back=new T3.InstancedMesh(new T3.PlaneGeometry(2,2.6),new T3.MeshBasicMaterial({side:T3.DoubleSide}),cnt);const glass=new T3.InstancedMesh(new T3.PlaneGeometry(1.6,2),new T3.MeshBasicMaterial({color:0x9ab8d0,transparent:true,opacity:.1,side:T3.DoubleSide,depthWrite:false}),cnt);
+  const idx={};let i=0;const m4=new T3.Matrix4(),col=new T3.Color();for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++){idx[x+','+y]=i;m4.makeTranslation(x*SX,y*SY,-2.2);back.setMatrixAt(i,m4);m4.makeTranslation(x*SX,y*SY,.08);glass.setMatrixAt(i,m4);
+   const r=Math.random();col.setHex(r<.35?0xf2c27a:r<.55?0x6a7c8c:0x0c0e12);col.multiplyScalar(opt.dim||1);back.setColorAt(i,col);i++}
+  back.instanceColor.needsUpdate=true;g.add(back,glass);
+  const roof=new T3.Mesh(new T3.BoxGeometry((x1-x0+1)*SX+2,1,6),wallM);roof.position.set(0,top+1.7,-2.5);g.add(roof);
+  const sideL=new T3.Mesh(new T3.BoxGeometry(1,top-base,8),wallM);sideL.position.set((x0-1)*SX,(top+base)/2,-4);const sideR=sideL.clone();sideR.position.x=(x1+1)*SX;g.add(sideL,sideR);
+  sc.add(g);return{g,back,idx,set(x,y,hex){const k=idx[x+','+y];if(k===undefined)return;col.setHex(hex);back.setColorAt(k,col);back.instanceColor.needsUpdate=true},dark(f){for(const k in idx){if(Math.random()<f){col.setHex(0x07080a);back.setColorAt(idx[k],col)}}back.instanceColor.needsUpdate=true}}}
+ function lamp(x,y,z){const l=new T3.PointLight(0xff3040,1.4,16);l.position.set(x*SX,y*SY,z);const s=new T3.Mesh(new T3.SphereGeometry(.35,12,8),new T3.MeshBasicMaterial({color:0xff4050}));s.position.copy(l.position);sc.add(l,s);return s}
+ // ---- job generators ----
+ const pk2=a=>a[Math.floor(Math.random()*a.length)];
+ function genLead(){for(let t=0;t<400;t++){const A=[GEO.ri(-6,6),GEO.ri(1,6)];const n=GEO.ri(2,3);const mv=[];let p=A.slice();let ok=true;
+   for(let i=0;i<n;i++){const hz=i%2===0?Math.random()<.7:Math.random()<.3;const v=hz?[GEO.nz(5),0]:[0,GEO.nz(3)];p=[p[0]+v[0],p[1]+v[1]];if(Math.abs(p[0])>7||p[1]<1||p[1]>6){ok=false;break}mv.push(v)}
+   if(!ok||(p[0]===A[0]&&p[1]===A[1]))continue;return{mode:'lead',A,mv,ans:p}}return{mode:'lead',A:[-3,2],mv:[[4,0],[0,2]],ans:[1,4]}}
+ function genWater(){const T=[GEO.nz(7),GEO.ri(1,6)];return{mode:'water',T,ans:T,refl:[T[0],-T[1]]}}
+ function genTurn(){for(let t=0;t<200;t++){const A=[GEO.ri(-4,4),GEO.ri(-4,4)];if(!A[0]&&!A[1])continue;const d=pk2([90,180,270]);const B=GEO.ap({k:'O',d},A);if(B[0]===A[0]&&B[1]===A[1])continue;return{mode:'turn',A,d,ans:B}}}
+ function genDrone(){const k=pk2([2,3,1/2,2,3]);let T;for(let t=0;t<200;t++){T=[GEO.nz(7),GEO.ri(1,6)];if(k===1/2&&(T[0]%2||T[1]%2))continue;break}return{mode:'drone',k,T,ans:T,img:[k*T[0],k*T[1]]}}
+ const spot=who==='v'?'hitmeuppp':'ronin.beaufort';
+ function build(j){clearScene();job=j;job.phase='brief';job.t=0;job.fired=false;
+  sc.background=new T3.Color(0x070a12);sc.fog=new T3.Fog(0x070a12,90,320);sc.add(new T3.HemisphereLight(0x5a6a8a,0x0a0a10,.55));const moonL=new T3.DirectionalLight(0xbfcfff,.35);moonL.position.set(-40,60,30);sc.add(moonL);
+  if(j.mode==='turn'){city(-40);
+   const deck=document.createElement('canvas');deck.width=deck.height=1024;const g=deck.getContext('2d');g.fillStyle='#14171c';g.fillRect(0,0,1024,1024);const U=1024/30,Cx=v=>512+v*2*U,Cy=v=>512-v*2*U;
+   g.strokeStyle='#2c333c';g.lineWidth=2;for(let i=-7;i<=7;i++){g.beginPath();g.moveTo(Cx(i),0);g.lineTo(Cx(i),1024);g.stroke();g.beginPath();g.moveTo(0,Cy(i));g.lineTo(1024,Cy(i));g.stroke()}
+   g.strokeStyle='#8c9a9c';g.lineWidth=4;g.beginPath();g.moveTo(0,512);g.lineTo(1024,512);g.moveTo(512,0);g.lineTo(512,1024);g.stroke();g.fillStyle='#c9c3b4';g.font='bold 26px monospace';g.textAlign='center';g.textBaseline='middle';
+   for(let i=-6;i<=6;i++)if(i){g.fillText(String(i).replace('-','−'),Cx(i),Cy(0)+22);g.fillText(String(i).replace('-','−'),Cx(0)-24,Cy(i))}g.fillText('x',1000,540);g.fillText('y',540,22);
+   const tex=new T3.CanvasTexture(deck);const plane=new T3.Mesh(new T3.PlaneGeometry(60,60),new T3.MeshStandardMaterial({map:tex,roughness:1}));plane.rotation.x=-Math.PI/2;sc.add(plane);
+   const disc=new T3.Group();const dm=new T3.Mesh(new T3.CylinderGeometry(12.2,12.2,.3,64),new T3.MeshStandardMaterial({color:0x3a2a22,roughness:.7,transparent:true,opacity:.55}));dm.position.y=.15;disc.add(dm);
+   const tm=new T3.MeshStandardMaterial({color:0xd8d2c4,roughness:.6}),cm=new T3.MeshBasicMaterial({color:0xffc070});j.cands=[];
+   for(let x=-4;x<=4;x++)for(let y=-4;y<=4;y++){if(!x&&!y)continue;if(Math.hypot(x,y)*2>11.6)continue;const t=new T3.Mesh(new T3.CylinderGeometry(.55,.55,.9,14),tm);t.position.set(x*2,.75,-y*2);disc.add(t);const c=new T3.Mesh(new T3.SphereGeometry(.12,8,6),cm.clone());c.position.set(x*2,1.3,-y*2);disc.add(c);j.cands.push(c)}
+   const pillar=new T3.Mesh(new T3.CylinderGeometry(.5,.5,6,12),new T3.MeshStandardMaterial({color:0x555a60}));pillar.position.y=3;sc.add(pillar);
+   const p=person();p.position.set(j.A[0]*2+.0,.5,-j.A[1]*2-.9);p.scale.setScalar(.9);disc.add(p);j.target=p;sc.add(disc);j.disc=disc;
+   const flood=new T3.PointLight(0xffd090,1.2,60);flood.position.set(0,14,4);sc.add(flood);j.flood=flood;
+   cam.position.set(0,30,26);j.look=new T3.Vector3(0,0,-2);j.plane=new T3.Plane(new T3.Vector3(0,1,0),-.9);j.fovW=46;j.fovZ=11}
+  else{city(-6);const water=j.mode==='water';
+   const rows=water?[1,6]:[0,6];const F=facade(rows,{base:water?0:-1.6});j.F=F;
+   if(water){const M=facade(rows,{base:0,dim:.55,tint:0x1a1d22});M.g.scale.y=-1;j.M=M;
+    const wm=new T3.MeshStandardMaterial({color:0x0b1a24,transparent:true,opacity:.62,roughness:.15,metalness:.4,depthWrite:false});const w=new T3.Mesh(new T3.PlaneGeometry(400,140),wm);w.rotation.x=-Math.PI/2;w.position.set(0,0,60);sc.add(w);j.water=w;
+    lamp(0,0,1.5);for(let x=-7;x<=7;x++)for(let y=1;y<=6;y++){F.set(x,y,0x090a0d)}
+    j.M.set(j.T[0],j.T[1],0xf2c27a);const pr=person();pr.position.set(j.T[0]*SX,j.T[1]*SY-1.0,-1.1);M.g.add(pr);j.ghost=pr;
+    const realP=person();realP.position.set(j.T[0]*SX,j.T[1]*SY-1.0,-1.1);realP.visible=false;sc.add(realP);j.target=realP;
+    cam.position.set(0,5,64);j.look=new T3.Vector3(0,-1,0);j.fovW=44;j.fovZ=10}
+   else{const street=new T3.Mesh(new T3.PlaneGeometry(400,80),new T3.MeshStandardMaterial({color:0x101216,roughness:1}));street.rotation.x=-Math.PI/2;street.position.set(0,-1.6,30);sc.add(street);
+    j.cars=[];for(let i=0;i<4;i++){const c=new T3.Mesh(new T3.SphereGeometry(.25,8,6),new T3.MeshBasicMaterial({color:i%2?0xff3030:0xfff2c0}));c.position.set(-80+i*40,-1.2,8+i*3);c.userData.v=(i%2?-1:1)*(12+i*3);sc.add(c);j.cars.push(c)}
+    lamp(0,0,.6);
+    const p=person();const at=j.mode==='lead'?j.A:j.T;p.position.set(at[0]*SX,at[1]*SY-1.0,-1.1);sc.add(p);j.target=p;
+    if(j.mode==='lead')F.set(j.A[0],j.A[1],0xf2c27a);else{for(let x=-7;x<=7;x++)for(let y=0;y<=6;y++)if(Math.random()<.5)F.set(x,y,0x15181d);F.set(j.T[0],j.T[1],0x15181d);p.visible=false}
+    cam.position.set(0,9.5,54);j.look=new T3.Vector3(0,9,0);j.fovW=40;j.fovZ=9}
+   j.plane=new T3.Plane(new T3.Vector3(0,0,1),0)}
+  const d=j.look.clone().sub(cam.position);ctl.baseYaw=Math.atan2(-d.x,-d.z);ctl.basePitch=Math.atan2(d.y,Math.hypot(d.x,d.z));ctl.yaw=0;ctl.pitch=0;ctl.zoom=false;ctl.fov=j.fovW;ctl.kick=0;
+  j.shards=null;renderIntel();msg.textContent=''}
+ function renderIntel(){const j=job,me=who==='v'?'K9':'hitmeuppp';let h=`<h3>Target ${shotI+1} of ${plan.length} · ${SNM[j.mode].n} · ${SNM[j.mode].sec}</h3>`;
+  if(j.mode==='lead')h+=`<div>Origin: the <b>red lamp</b> by the door. One unit = one window.</div><div>${spot==='hitmeuppp'?'Misaki':'Ronin'}’s bug: he starts at his desk <b>${GEO.P(...j.A)}</b>. When the power cuts, he moves ${j.mv.map(v=>'<b>'+GEO.Vc(...v)+'</b>').join(', then ')}. He lights a cigarette at the last window.</div><div>Aim where he will end up, then fire when the match flares.</div>`;
+  if(j.mode==='water')h+=`<div>Every window on his side is curtained. You can only see him <b>reflected in the canal</b>.</div><div>The waterline is the <b>x-axis</b>; origin is the red buoy. His reflection is at <b>${GEO.P(...j.refl)}</b>.</div><div>Shoot the real window, not the reflection. 20 seconds.</div>`;
+  if(j.mode==='turn')h+=`<div>Rooftop restaurant on a turntable. The fixed deck grid is painted around it; origin is the center pillar.</div><div>He sits at table <b>${GEO.P(...j.A)}</b>. At blackout the floor turns <b>${j.d}° counterclockwise</b> about the origin. Lightning will show you the room for a moment.</div>`;
+  if(j.mode==='drone')h+=`<div>The spotter’s drone photo is a <b>dilation</b> of the facade with center at the red lamp and scale factor <b>k = ${GEO.fr(j.k)}</b>.</div><div>In the photo he is at <b>${GEO.P(...j.img)}</b>. Every blind is down. Find the real window. 20 seconds.</div><canvas id="snPhoto" width="180" height="180"></canvas>`;
+  h+=`<div class="geo-row" style="display:flex;gap:8px;flex-wrap:wrap">${j.phase==='brief'?'<button type="button" id="snGo">Begin</button>':''}<button type="button" id="snRule">Rule sheet</button></div>`;
+  intel.innerHTML=h;const go=intel.querySelector('#snGo');if(go){go.onclick=()=>{audio();start()};setTimeout(()=>go.focus(),20)}
+  intel.querySelector('#snRule').onclick=e=>{e.target.outerHTML=`<div class="geo-rule" style="font-size:16px">${GEO_RULES}</div>`};
+  if(j.mode==='drone'){const c=intel.querySelector('#snPhoto').getContext('2d');const Rr=Math.max(8,Math.ceil(Math.max(Math.abs(j.img[0]),Math.abs(j.img[1])))+2),s=180/(2*Rr);c.fillStyle='#0b1114';c.fillRect(0,0,180,180);c.strokeStyle='#1d2b30';for(let i=-Rr;i<=Rr;i++){c.beginPath();c.moveTo(90+i*s,0);c.lineTo(90+i*s,180);c.moveTo(0,90-i*s);c.lineTo(180,90-i*s);c.stroke()}
+   c.strokeStyle='#6b7c80';c.beginPath();c.moveTo(0,90);c.lineTo(180,90);c.moveTo(90,0);c.lineTo(90,180);c.stroke();c.fillStyle='#ff4050';c.beginPath();c.arc(90,90,3,0,7);c.fill();c.fillStyle='#e8b931';c.beginPath();c.arc(90+j.img[0]*s,90-j.img[1]*s,4,0,7);c.fill();c.font='13px monospace';c.fillText('T* '+GEO.P(...j.img),Math.min(110,Math.max(4,90+j.img[0]*s+6)),Math.max(14,90-j.img[1]*s-6))}}
+ function start(){const j=job;j.phase=j.mode==='water'||j.mode==='drone'?'window':'watch';j.t=0;j.limit=j.phase==='window'?20:0;renderIntel();
+  say2(j.mode==='lead'?'He’s at his desk. Watch.':j.mode==='turn'?'Table '+GEO.P(...j.A)+'. Watch him.':'Clock’s running.')}
+ function say2(t){msg.textContent=t}
+ // ---- input ----
+ const keys={};
+ ovOpen({key:(e,down)=>{const k=e.key.toLowerCase();if(['arrowup','arrowdown','arrowleft','arrowright','w','a','s','d',' ','shift','z','enter','e','escape'].includes(k))e.preventDefault();
+  if(k==='shift'){ctl.hold=down;return}keys[k]=down;if(!down)return;const nb=intel.querySelector('#snNext,#snGo');if((k==='enter'||k===' '||k==='e')&&nb){nb.click();return}if(k==='z')toggleZoom();if(k===' '||k==='enter'||k==='e')fire();if(k==='escape')abort()}});
+ cv.addEventListener('pointerdown',e=>{ctl.drag={x:e.clientX,y:e.clientY};cv.setPointerCapture(e.pointerId)});
+ cv.addEventListener('pointermove',e=>{if(!ctl.drag)return;const s=ctl.fov/38*.0026;ctl.yaw+= (e.clientX-ctl.drag.x)*s;ctl.pitch-=(e.clientY-ctl.drag.y)*s;ctl.drag={x:e.clientX,y:e.clientY};clampAim()});
+ const up=()=>ctl.drag=null;cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
+ cv.addEventListener('wheel',e=>{e.preventDefault();if(e.deltaY<0&&!ctl.zoom)toggleZoom();if(e.deltaY>0&&ctl.zoom)toggleZoom()},{passive:false});
+ const hb=$o('#snHold');hb.addEventListener('pointerdown',e=>{e.preventDefault();ctl.hold=true;hb.classList.add('on')});['pointerup','pointerleave','pointercancel'].forEach(t=>hb.addEventListener(t,()=>{ctl.hold=false;hb.classList.remove('on')}));
+ $o('#snZoom').onclick=()=>{audio();toggleZoom()};$o('#snFire').onclick=()=>{audio();fire()};$o('#snAbort').onclick=abort;
+ function toggleZoom(){ctl.zoom=!ctl.zoom;scope.classList.toggle('on',ctl.zoom);$o('#snZoom').classList.toggle('on',ctl.zoom);sfxTone(ctl.zoom?900:600,.05,.04,'square')}
+ function clampAim(){ctl.yaw=Math.max(-.62,Math.min(.62,ctl.yaw));ctl.pitch=Math.max(-.5,Math.min(.5,ctl.pitch))}
+ // ---- aim & rangefinder ----
+ const ray=new T3.Raycaster(),hitPt=new T3.Vector3();
+ function aimCell(){ray.setFromCamera({x:0,y:0},cam);if(!ray.ray.intersectPlane(job.plane,hitPt))return null;
+  if(job.mode==='turn'){const x=Math.round(hitPt.x/2),y=Math.round(-hitPt.z/2);if(Math.hypot(hitPt.x-x*2,-hitPt.z-y*2)>.95)return{cell:null,pt:hitPt.clone()};return{cell:[x,y],pt:hitPt.clone()}}
+  const x=Math.round(hitPt.x/SX),y=Math.round(hitPt.y/SY);if(Math.abs(hitPt.x-x*SX)>.8||Math.abs(hitPt.y-y*SY)>1.0||Math.abs(x)>7)return{cell:null,pt:hitPt.clone()};return{cell:[x,y],pt:hitPt.clone()}}
+ // ---- firing ----
+ let tracer=null;
+ function fire(){const j=job;if(!j||j.fired)return;if(j.phase==='brief'){say2('Press Begin first.');return}
+  if(j.phase!=='window'){say2(spot==='ronin.beaufort'?'Ronin: “Hold fire, darlin’. Wait for the light.”':'Misaki: “not yet. wait for the light.”');sfxTone(220,.12,.05);return}
+  j.fired=true;audio();sfxShot();ctl.kick=ctl.zoom?.06:.035;flash.style.opacity='1';setTimeout(()=>flash.style.opacity='0',60);
+  const a=aimCell();const ok=!!(a&&a.cell&&a.cell[0]===j.ans[0]&&a.cell[1]===j.ans[1]);const end=a?a.pt:cam.position.clone().add(new T3.Vector3(0,0,-80).applyQuaternion(cam.quaternion));
+  const startP=cam.position.clone().add(new T3.Vector3(.4,-.5,-1.5).applyQuaternion(cam.quaternion));
+  tracer=new T3.Mesh(new T3.SphereGeometry(.12,8,6),new T3.MeshBasicMaterial({color:0xffe0a0}));tracer.position.copy(startP);sc.add(tracer);tracer.userData={a:startP,b:end,t:0,ok,cell:a&&a.cell};j.phase='flight'}
+ function impact(ok,pt,cell){const j=job;j.phase='done';sc.remove(tracer);tracer=null;
+  const n=60,pos=new Float32Array(n*3),vel=[];for(let i=0;i<n;i++){pos.set([pt.x,pt.y,pt.z],i*3);vel.push(new T3.Vector3((Math.random()-.5)*6,Math.random()*5,Math.random()*5))}
+  const pg=new T3.BufferGeometry();pg.setAttribute('position',new T3.BufferAttribute(pos,3));const shards=new T3.Points(pg,new T3.PointsMaterial({color:ok?0xd6455a:0xc9d6e0,size:.18,transparent:true}));shards.userData={vel,t:0};sc.add(shards);j.shards=shards;
+  sfxTone(ok?160:1800,ok?.4:.25,.12,ok?'sine':'triangle');
+  if(ok){hits++;hitModes.push(j.mode);j.target.visible=true;j.fall=0;if(j.F&&j.mode!=='water'&&cell)j.F.set(cell[0],cell[1],0x3a0a10);if(j.mode==='water'&&j.F){j.F.set(j.ans[0],j.ans[1],0x3a0a10);j.M.set(j.ans[0],j.ans[1],0x07080a);j.ghost.visible=false}say2('Target down.')}
+  else{say2(j.mode==='water'&&cell&&cell[0]===j.refl[0]&&cell[1]===j.refl[1]?'You shot the reflection. The water ripples.':'Miss. He’s running.');if(j.target){j.flee=0}if(j.F)j.F.dark(.0);sfxTone(520,.6,.05,'sawtooth')}
+  setTimeout(()=>showResult(ok,cell),1300)}
+ function solution(j){if(j.mode==='lead'){const s=j.mv.reduce((a,v)=>[a[0]+v[0],a[1]+v[1]],[0,0]);return`Add the vectors: ${j.mv.map(v=>GEO.Vc(...v)).join(' + ')} = ${GEO.Vc(...s)}. Then ${GEO.P(...j.A)} + ${GEO.Vc(...s)} = <b>${GEO.P(...j.ans)}</b>. A composition of translations is one translation.`}
+  if(j.mode==='water')return`The canal reflects in the x-axis: (a, b) → (a, −b). Reflect the reflection back: ${GEO.P(...j.refl)} → <b>${GEO.P(...j.ans)}</b>. The waterline is the perpendicular bisector between him and his image.`;
+  if(j.mode==='turn')return`A ${j.d}° counterclockwise rotation about the origin uses ${{90:'(a, b) → (−b, a)',180:'(a, b) → (−a, −b)',270:'(a, b) → (b, −a)'}[j.d]}. So ${GEO.P(...j.A)} → <b>${GEO.P(...j.ans)}</b>.`;
+  return`The photo point is (kx, ky). Divide by k = ${GEO.fr(j.k)}: ${GEO.P(...j.img)} → <b>${GEO.P(...j.ans)}</b>. Undoing a dilation means dilating by 1/k.`}
+ function showResult(ok,cell){if(!alive)return;const j=job;results.push(ok);geoStat(ok);
+  intel.innerHTML=`<h3>${ok?'Target down':'Missed'} · ${SNM[j.mode].sec}</h3><div>${cell?'You fired at window '+GEO.P(...cell)+'.':'Your shot hit wall, not a window.'} The target was at <b>${GEO.P(...j.ans)}</b>.</div><div>${solution(j)}</div><div style="display:flex;gap:8px"><button type="button" id="snNext">${shotI+1<plan.length?'Next target':'Finish the contract'}</button></div>`;
+  const b=intel.querySelector('#snNext');b.focus();b.onclick=()=>{shotI++;if(shotI<plan.length)build(mk(plan[shotI]));else close(true)}}
+ function abort(){close(false)}
+ function close(done){if(!alive)return;alive=false;removeEventListener('resize',rs);try{wind&&wind.src&&wind.src.stop();AC&&AC.close()}catch(e){}clearScene();R.dispose();ov.remove();ovClose();
+  fin({hits,shots:done?plan.length:Math.max(results.length,1),hitModes})}
+ const mk=m=>m==='lead'?genLead():m==='water'?genWater():m==='turn'?genTurn():genDrone();
+ // ---- loop ----
+ let last=performance.now();
+ function loop(now){if(!alive)return;requestAnimationFrame(loop);const dt=Math.min(.05,(now-last)/1000);last=now;const j=job;ctl.t+=dt;
+  // aim keys
+  const sp=(ctl.zoom?.25:.7)*dt;if(keys.arrowleft||keys.a)ctl.yaw+=sp;if(keys.arrowright||keys.d)ctl.yaw-=sp;if(keys.arrowup||keys.w)ctl.pitch+=sp;if(keys.arrowdown||keys.s)ctl.pitch-=sp;clampAim();
+  // breath
+  if(ctl.hold&&ctl.exhaust<=0){ctl.breath=Math.max(0,ctl.breath-dt/3.2);if(ctl.breath<=0)ctl.exhaust=2.2}else{ctl.breath=Math.min(1,ctl.breath+dt/4);if(ctl.exhaust>0)ctl.exhaust-=dt}
+  brBar.style.width=(ctl.breath*100)+'%';brBar.style.background=ctl.exhaust>0?'#d6455a':'#5fd4c4';
+  const steady=ctl.hold&&ctl.exhaust<=0&&ctl.breath>0?.2:ctl.exhaust>0?1.9:1;const amp=(ctl.zoom?.0032:.0018)*steady;
+  const swY=amp*(Math.sin(ctl.t*1.3)+.5*Math.sin(ctl.t*2.9+1)),swP=amp*(Math.cos(ctl.t*1.1)*.8+.4*Math.sin(ctl.t*3.7));
+  ctl.kick*=Math.pow(.02,dt);
+  const tf=ctl.zoom?j.fovZ:j.fovW;ctl.fov+=(tf-ctl.fov)*Math.min(1,dt*10);if(Math.abs(cam.fov-ctl.fov)>.01){cam.fov=ctl.fov;cam.updateProjectionMatrix()}
+  cam.rotation.y=ctl.baseYaw+ctl.yaw+swY;cam.rotation.x=ctl.basePitch+ctl.pitch+swP+ctl.kick;
+  // rangefinder
+  const a=aimCell();read.innerHTML=(a&&a.cell?GEO.P(...a.cell):'—')+'<small>RANGEFINDER</small>';
+  // timeline
+  if(j&&j.phase!=='brief'){j.t+=dt;
+   if(j.mode==='lead'){if(j.phase==='watch'&&j.t>3){j.phase='move';j.t=0;j.F.dark(.85);j.F.set(j.A[0],j.A[1],0x07080a);j.target.visible=false;say2('Power cut. He’s moving.');sfxTone(80,.6,.1,'sawtooth')}
+    if(j.phase==='move'){const per=1.6,i=Math.floor(j.t/per);timeEl.textContent='moving… '+Math.min(j.mv.length,i+1)+'/'+j.mv.length;if(i>=j.mv.length){j.phase='window';j.t=0;j.limit=2.6;j.target.visible=true;j.target.position.set(j.ans[0]*SX,j.ans[1]*SY-1.0,-1.1);j.F.set(j.ans[0],j.ans[1],0xff9a40);say2('The match flares.');sfxTone(1200,.08,.04,'square')}}}
+   if(j.mode==='turn'){if(j.phase==='watch'&&j.t>3){j.phase='move';j.t=0;j.flood.intensity=.05;j.target.visible=false;j.cands.forEach(c=>c.visible=false);say2('Blackout. The floor is turning.');sfxTone(60,3,.08,'sawtooth')}
+    if(j.phase==='move'){const k=Math.min(1,j.t/3);j.disc.rotation.y=j.d*Math.PI/180*(k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2);timeEl.textContent='rotating…';if(k>=1){j.phase='window';j.t=0;j.limit=2.6;j.flood.intensity=2.6;j.target.visible=true;j.cands.forEach(c=>c.visible=true);say2('Lightning.');sfxTone(90,.9,.12,'sawtooth')}}
+    if(j.phase==='window')j.flood.intensity=Math.max(.05,2.6-j.t*1.1)}
+   if(j.phase==='window'){const left=j.limit-j.t;timeEl.textContent=left>0?left.toFixed(1)+' s':'';if(left<=0&&!j.fired){j.fired=true;j.phase='done';say2(j.mode==='lead'?'The match goes out. He’s gone.':j.mode==='turn'?'Dark again. He’s gone.':'He’s gone.');sfxTone(300,.5,.05);setTimeout(()=>showResult(false,null),900)}}
+   if(j.water){j.water.material.opacity=.6+.04*Math.sin(ctl.t*2)}
+   if(j.ghost&&j.ghost.visible)j.ghost.position.x=j.T[0]*SX+Math.sin(ctl.t*2.3)*.12}
+  if(j&&j.cars)j.cars.forEach(c=>{c.position.x+=c.userData.v*dt;if(c.position.x>90)c.position.x=-90;if(c.position.x<-90)c.position.x=90});
+  if(tracer){const u=tracer.userData;u.t+=dt/.32;const k=Math.min(1,u.t);tracer.position.lerpVectors(u.a,u.b,k);if(k>=1)impact(u.ok,u.b,u.cell)}
+  if(j&&j.shards){const s=j.shards,p=s.geometry.attributes.position;s.userData.t+=dt;for(let i=0;i<s.userData.vel.length;i++){const v=s.userData.vel[i];v.y-=9.8*dt;p.array[i*3]+=v.x*dt;p.array[i*3+1]+=v.y*dt;p.array[i*3+2]+=v.z*dt}p.needsUpdate=true;s.material.opacity=Math.max(0,1-s.userData.t/1.4)}
+  if(j&&j.fall!==undefined&&j.target){j.fall=Math.min(1,j.fall+dt*1.6);j.target.rotation.z=-j.fall*1.4;j.target.position.y-= j.fall<1?dt*.3:0}
+  if(j&&j.flee!==undefined&&j.target&&j.target.visible){j.flee+=dt;j.target.position.x+=dt*4;if(j.flee>1.2)j.target.visible=false}
+  R.render(sc,cam)}
+ build(mk(plan[0]));requestAnimationFrame(loop)}
+
+const _mpHSn=mpHub;mpHub=function(late){const o=_mpHSn(late);if(!o.length||!S)return o;const m=snipeModes().map(k=>SNM[k].sec.split(' ')[0]).join(', ');
+ o.push({t:ME3()?'Overwatch: the Cartographer’s list (3D sniper)':'Rooftop contract (3D sniper)',sub:S.done.snipe?'done today':`costs time + energy · three targets · sections ${m}`,dis:late||S.done.snipe||S.energy<20||(!ME3()&&S.heat>=80),fn:()=>{spend();S.done.snipe=1;apply({energy:-15});save();snipeContract(ME3()?'v':'m',()=>hub())}});return o};
 requestAnimationFrame(frame);splash();
 
 </script></body></html>
