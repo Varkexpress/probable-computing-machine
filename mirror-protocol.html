@@ -689,7 +689,7 @@ function fresh(){G={v:1,heat:0,ch:{},exam:null,missionFinal:false,seenIntro:fals
 if(!G||G.v!==1)fresh();
 function mpPost(type){if(EMBED)try{window.parent.postMessage({type,G:JSON.parse(JSON.stringify(G))},'*')}catch(e){}}
 function save(){store.set(G);$('#hudHeat').textContent=G.heat;mpPost('mp-progress')}
-function unlocked(id){return id===1||G.ch[id-1].mission}
+function unlocked(id){return true}
 function setPanel(html,cls=''){PANEL.className=cls;UI.innerHTML=html;UI.scrollTop=0}
 function hudCh(t){$('#hudCh').textContent=t}
 
@@ -711,12 +711,12 @@ function title(){clear3D();hudCh('Chapter 4: Transformations');focusCam(34,.9);
   ['v','Then you will find the place he is writing them from. Come. I have a whiteboard.']],board,'Open the case board')};
  const r=$('#reset');if(r)r.onclick=()=>{r.outerHTML='<span class="row"><span class="muted">Erase all progress?</span><button class="btn red sm" id="r2" type="button">Erase</button><button class="btn ghost sm" id="r3" type="button">Keep</button></span>';$('#r2').onclick=()=>{fresh();title()};$('#r3').onclick=title}}
 
-function chStatus(c){const s=G.ch[c.id];if(s.mission)return['done','Closed'];if(!unlocked(c.id))return['','Locked'];if(s.mastery>=100)return['go','Mission ready'];if(s.lessonDone)return['go','Practice '+s.mastery+'%'];return['go','Open']}
+function chStatus(c){const s=G.ch[c.id];if(s.mission)return['done','Closed'];if(!unlocked(c.id))return['','Locked'];return['go','Open']}
 function board(){clear3D();hudCh('Case board');focusCam(36,.75);
  const all=CH.every(c=>G.ch[c.id].mission);
- let h=`<div class="eyebrow">Case board</div><h2>The Cartographer’s contracts</h2><p class="muted">Each case unlocks when the one before it is closed.</p><div class="cards">`;
+ let h=`<div class="eyebrow">Case board</div><h2>The Cartographer’s contracts</h2><p class="muted">Every case is open. Take them in any order.</p><div class="cards">`;
  CH.forEach(c=>{const[st,lab]=chStatus(c);h+=`<button class="card" type="button" data-ch="${c.id}" ${unlocked(c.id)?'':'disabled'}><span class="num">${c.sec}</span><span class="nm"><b>${c.name}</b><span>Case: ${c.case}</span></span><span class="chip ${st}">${lab}</span></button>`});
- h+=`<button class="card" type="button" data-ch="final" ${all?'':'disabled'}><span class="num">4.✱</span><span class="nm"><b>The Ledger</b><span>Final mission and chapter exam</span></span><span class="chip ${G.exam&&G.exam.pass?'done':all?'go':''}">${G.exam&&G.exam.pass?'Closed '+G.exam.best+'/20':all?'Open':'Locked'}</span></button></div>
+ h+=`<button class="card" type="button" data-ch="final"><span class="num">4.✱</span><span class="nm"><b>The Ledger</b><span>Final mission and chapter exam</span></span><span class="chip ${G.exam&&G.exam.pass?'done':'go'}">${G.exam&&G.exam.pass?'Closed '+G.exam.best+'/20':'Open'}</span></button></div>
  <div class="row"><button class="btn ghost sm" id="bStats" type="button">Record</button><button class="btn ghost sm" id="bTitle" type="button">Title screen</button></div>`;
  setPanel(h);
  UI.querySelectorAll('.card').forEach(b=>b.onclick=()=>{const id=b.dataset.ch;if(id==='final')return finalCase();caseMenu(CH[+id-1])});
@@ -732,8 +732,8 @@ function caseMenu(c){hudCh(c.sec+' '+c.name);const s=G.ch[c.id];
  if(!s.introSeen){s.introSeen=true;save();return showDlg(c.name,'Case '+c.sec+': '+c.case,c.intro,()=>caseMenu(c))}
  clear3D();focusCam(32,.9);
  const steps=[['Lesson','Read, watch the demos, answer each check.',s.lessonDone?'done':'go',s.lessonDone?'Done':'Start',()=>lesson(c,s.lessonDone?0:s.lesson)],
-  ['Practice drill','Reach 100% mastery. Right answers +20, wrong −10.',s.mastery>=100?'done':s.lessonDone?'go':'',s.mastery>=100?'Mastered':s.lessonDone?s.mastery+'%':'Locked',()=>practice(c)],
-  ['Mission',`3D case: ${c.case}.`,s.mission?'done':s.mastery>=100?'go':'',s.mission?'Closed':s.mastery>=100?'Ready':'Locked',()=>mission(c)]];
+  ['Practice drill','Reach 100% mastery. Right answers +20, wrong −10.',s.mastery>=100?'done':'go',s.mastery>=100?'Mastered':s.mastery+'%',()=>practice(c)],
+  ['Mission',`3D case: ${c.case}.`,s.mission?'done':'go',s.mission?'Closed':'Ready',()=>mission(c)]];
  setPanel(`<div class="eyebrow">Case ${c.sec}</div><h2>${c.case}</h2><p class="muted">${c.name}</p><div class="cards">${steps.map((t,i)=>`<button class="card" type="button" data-i="${i}" ${t[2]===''?'disabled':''}><span class="num">${i+1}</span><span class="nm"><b>${t[0]}</b><span>${t[1]}</span></span><span class="chip ${t[2]}">${t[3]}</span></button>`).join('')}</div>
  <div class="row"><button class="btn ghost sm" id="bk" type="button">Case board</button>${s.lessonDone?'<button class="btn ghost sm" id="rv" type="button">Review lesson</button>':''}</div>`);
  UI.querySelectorAll('.card').forEach(b=>b.onclick=()=>steps[+b.dataset.i][4]());$('#bk').onclick=board;const rv=$('#rv');if(rv)rv.onclick=()=>lesson(c,0)}
