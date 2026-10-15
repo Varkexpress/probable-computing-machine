@@ -1,0 +1,895 @@
+<title>Mirror Protocol</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Barlow:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: full-bleed 3D evidence table behind a docked case-file panel (right on desktop, bottom sheet on phones). Single deliberate dark look. */
+:root{
+ --ink:#0b1114;        /* the room */
+ --slate:#121c20;      /* panel ground: blackboard slate */
+ --slate2:#1a272c;
+ --line:#2b3d43;
+ --chalk:#e7e2d4;      /* text */
+ --dim:#97a39f;
+ --tape:#e8b931;       /* preimage, evidence tape */
+ --prime:#5fd4c4;      /* image (prime) figures */
+ --blood:#d6455a;      /* errors, heat */
+ --ok:#7fd48a;
+ --f-disp:'Special Elite','Courier New',monospace;
+ --f-body:'Barlow','Segoe UI',system-ui,sans-serif;
+ --f-mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+ color-scheme:dark;
+}
+html,body{height:100%}
+body{margin:0;background:var(--ink);color:var(--chalk);font:16px/1.5 var(--f-body);overflow:hidden}
+#gl{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none}
+#labels{position:fixed;inset:0;pointer-events:none;overflow:hidden}
+.vl{position:absolute;transform:translate(-50%,-120%);font:600 13px var(--f-mono);color:var(--tape);text-shadow:0 0 3px #000,0 0 6px #000;white-space:nowrap}
+.vl.p{color:var(--prime)} .vl.g{color:var(--dim);font-weight:400}
+#hud{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;display:flex;gap:10px;align-items:center;flex-wrap:wrap;
+ padding-block:10px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));pointer-events:none;z-index:3}
+#hud .brand{font:20px var(--f-disp);letter-spacing:.04em;color:var(--chalk);text-shadow:0 2px 8px #000}
+#hud .pill{pointer-events:auto;font:12px var(--f-mono);background:rgba(11,17,20,.8);border:1px solid var(--line);border-radius:3px;padding:3px 8px;color:var(--dim);font-variant-numeric:tabular-nums}
+#hud .pill b{color:var(--chalk);font-weight:600}
+#hud .grow{flex:1}
+#hud button{pointer-events:auto}
+#panel{position:fixed;z-index:4;top:calc(env(safe-area-inset-top,0px) + 56px);right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));
+ width:min(440px,42vw);background:linear-gradient(180deg,rgba(18,28,32,.96),rgba(14,22,25,.97));border:1px solid var(--line);border-radius:6px;
+ box-shadow:0 18px 50px rgba(0,0,0,.55);display:flex;flex-direction:column;min-width:0}
+#panel .scroll{overflow-y:auto;padding:18px 20px 20px;display:flex;flex-direction:column;gap:14px;min-width:0}
+@media (max-width:820px){
+ #panel{left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));width:auto;top:auto;height:56%;bottom:calc(10px + env(safe-area-inset-bottom,0px))}
+ #panel.tall{height:calc(100% - 70px - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px))}
+}
+#panel.wide{width:min(720px,62vw)}
+@media (max-width:820px){#panel.wide{width:auto}}
+h1,h2,h3{margin:0;text-wrap:balance}
+h1{font:400 34px/1.1 var(--f-disp);letter-spacing:.02em}
+h2{font:400 24px/1.15 var(--f-disp);letter-spacing:.02em}
+h3{font:600 13px var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--tape)}
+p{margin:0;max-width:62ch}
+.muted{color:var(--dim)}
+.eyebrow{font:600 11px var(--f-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
+.rule{font:14px/1.6 var(--f-mono);background:var(--ink);border:1px solid var(--line);border-left:3px solid var(--tape);padding:10px 12px;border-radius:3px;overflow-x:auto}
+.rule .k{color:var(--prime)}
+.def{border-left:3px solid var(--prime);padding-left:12px}
+.btn{font:600 15px var(--f-body);color:var(--ink);background:var(--tape);border:0;border-radius:3px;padding:10px 16px;cursor:pointer;letter-spacing:.02em}
+.btn:hover{filter:brightness(1.08)} .btn:disabled{opacity:.35;cursor:not-allowed}
+.btn.ghost{background:transparent;color:var(--chalk);border:1px solid var(--line)}
+.btn.ghost:hover{border-color:var(--dim)}
+.btn.red{background:var(--blood);color:#fff}
+.btn.sm{padding:6px 10px;font-size:13px}
+button:focus-visible,input:focus-visible,select:focus-visible,.opt:focus-visible,.card:focus-visible{outline:2px solid var(--prime);outline-offset:2px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.col{display:flex;flex-direction:column;gap:10px}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{text-align:left;font:15px/1.4 var(--f-body);color:var(--chalk);background:var(--slate2);border:1px solid var(--line);border-radius:3px;padding:10px 12px;cursor:pointer}
+.opt:hover{border-color:var(--dim)}
+.opt.right{border-color:var(--ok);background:rgba(127,212,138,.12)} .opt.wrong{border-color:var(--blood);background:rgba(214,69,90,.12)}
+.inp{display:flex;align-items:center;gap:6px;font:18px var(--f-mono);flex-wrap:wrap}
+.inp input{width:5.2em;font:18px var(--f-mono);color:var(--chalk);background:var(--ink);border:1px solid var(--line);border-radius:3px;padding:6px 8px;text-align:center}
+.inp select{font:15px var(--f-mono);color:var(--chalk);background:var(--ink);border:1px solid var(--line);border-radius:3px;padding:7px 8px}
+.fb{border-radius:3px;padding:12px 14px;display:flex;flex-direction:column;gap:6px}
+.fb.ok{background:rgba(127,212,138,.1);border:1px solid rgba(127,212,138,.45)}
+.fb.no{background:rgba(214,69,90,.1);border:1px solid rgba(214,69,90,.5)}
+.fb .t{font:600 13px var(--f-mono);letter-spacing:.1em;text-transform:uppercase}
+.fb.ok .t{color:var(--ok)} .fb.no .t{color:var(--blood)}
+.meter{height:8px;background:var(--ink);border:1px solid var(--line);border-radius:2px;overflow:hidden}
+.meter i{display:block;height:100%;background:var(--prime);transition:width .4s}
+.q{font-size:17px;line-height:1.5}
+.q b{color:var(--tape);font-weight:600}
+.fig{background:var(--ink);border:1px solid var(--line);border-radius:3px;align-self:flex-start;max-width:100%}
+.fig svg{display:block;width:240px;max-width:100%;height:auto}
+.dlg{display:flex;flex-direction:column;gap:12px}
+.line{display:grid;grid-template-columns:7.4em 1fr;gap:10px;align-items:baseline}
+.line .who{font:600 12px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--dim);text-align:right}
+.line .who.m{color:#f2a0b8} .line .who.v{color:var(--prime)} .line .who.a{color:#c8a2f0} .line .who.r{color:#e8945a} .line .who.h{color:#a8b8c8} .line .who.c{color:var(--blood)}
+.line .say{min-width:0}
+.line.n{grid-template-columns:1fr} .line.n .say{font-style:italic;color:var(--dim)}
+.cards{display:grid;grid-template-columns:1fr;gap:8px}
+.card{display:grid;grid-template-columns:3.4em 1fr auto;gap:12px;align-items:center;text-align:left;background:var(--slate2);border:1px solid var(--line);border-radius:3px;padding:12px;color:var(--chalk);cursor:pointer;font:inherit}
+.card:hover:not(:disabled){border-color:var(--dim)}
+.card:disabled{opacity:.4;cursor:not-allowed}
+.card .num{font:22px var(--f-disp);color:var(--tape)}
+.card .nm{display:flex;flex-direction:column;min-width:0}
+.card .nm b{font-weight:600}
+.card .nm span{font-size:13px;color:var(--dim)}
+.chip{font:600 11px var(--f-mono);letter-spacing:.08em;text-transform:uppercase;padding:3px 7px;border-radius:2px;border:1px solid var(--line);color:var(--dim);white-space:nowrap}
+.chip.done{color:var(--ok);border-color:rgba(127,212,138,.5)} .chip.go{color:var(--tape);border-color:rgba(232,185,49,.5)}
+.steps{display:flex;flex-direction:column;gap:6px;font:14px var(--f-mono)}
+.step{display:flex;justify-content:space-between;align-items:center;gap:8px;background:var(--ink);border:1px solid var(--line);border-radius:3px;padding:6px 8px}
+.tools{display:flex;gap:6px;flex-wrap:wrap}
+.tool{font:600 13px var(--f-mono);background:var(--ink);color:var(--chalk);border:1px solid var(--line);border-radius:3px;padding:7px 10px;cursor:pointer}
+.tool.on{border-color:var(--tape);color:var(--tape)}
+.strikes{display:flex;gap:4px}.strikes i{width:12px;height:12px;border-radius:50%;border:1px solid var(--blood)}.strikes i.on{background:var(--blood)}
+.gloss dt{font-weight:600;color:var(--tape)} .gloss dd{margin:0 0 10px 0;color:var(--chalk)}
+.kbd{font:12px var(--f-mono);border:1px solid var(--line);border-bottom-width:2px;border-radius:3px;padding:0 5px;color:var(--dim)}
+.toast{position:fixed;z-index:9;left:50%;top:calc(64px + env(safe-area-inset-top,0px));transform:translateX(-50%);background:var(--slate2);border:1px solid var(--tape);color:var(--chalk);font:14px var(--f-mono);padding:8px 14px;border-radius:3px;box-shadow:0 8px 24px rgba(0,0,0,.5);animation:tin .25s ease-out}
+@keyframes tin{from{opacity:0;transform:translate(-50%,-8px)}}
+@media (prefers-reduced-motion:reduce){.toast{animation:none}.meter i{transition:none}}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font:12px var(--f-mono);color:var(--dim)}
+.legend i{display:inline-block;width:10px;height:10px;margin-right:5px;vertical-align:-1px}
+.nogl{position:fixed;left:16px;top:70px;max-width:40ch;color:var(--dim);font-size:14px}
+table.sc{border-collapse:collapse;font:14px var(--f-mono);font-variant-numeric:tabular-nums}
+table.sc td,table.sc th{border-bottom:1px solid var(--line);padding:5px 10px;text-align:left}
+</style>
+
+<canvas id="gl" aria-label="3D evidence table showing the coordinate plane"></canvas>
+<div id="labels"></div>
+<div id="hud">
+ <span class="brand">Mirror Protocol</span>
+ <span class="pill" id="hudCh">Case board</span>
+ <span class="pill" title="Mistakes on missions raise heat">Heat <b id="hudHeat">0</b></span>
+ <span class="grow"></span>
+ <button class="btn ghost sm" id="bRules" type="button">Rule sheet</button>
+ <button class="btn ghost sm" id="bGloss" type="button">Glossary</button>
+ <button class="btn ghost sm" id="bBoard" type="button">Case board</button>
+</div>
+<div id="panel"><div class="scroll" id="ui"></div></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+'use strict';
+/* =========================================================
+   Mirror Protocol — Big Ideas Geometry, Chapter 4: Transformations
+   ========================================================= */
+const $=s=>document.querySelector(s);
+const UI=$('#ui'),PANEL=$('#panel');
+const ri=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const gcd=(a,b)=>{a=Math.abs(a);b=Math.abs(b);while(b){[a,b]=[b,a%b]}return a||1};
+const eq=(a,b)=>Math.abs(a-b)<1e-6;
+const nz=r=>{let v=0;while(!v)v=ri(-r,r);return v};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function fr(x){if(Math.abs(x)<1e-9)return '0';if(Number.isInteger(x))return x<0?'−'+(-x):''+x;
+ for(let d=2;d<=12;d++){const n=Math.round(x*d);if(Math.abs(n/d-x)<1e-9){const g=gcd(n,d);return(n<0?'−':'')+Math.abs(n/g)+'/'+(d/g)}}
+ return(+x.toFixed(3)).toString().replace('-','−')}
+const P=(x,y)=>`(${fr(x)}, ${fr(y)})`;
+const Vc=(a,b)=>`⟨${fr(a)}, ${fr(b)}⟩`;
+const sg=(n)=>n<0?`− ${fr(-n)}`:`+ ${fr(n)}`;
+function parseNum(s){s=String(s).trim().replace(/[−–—]/g,'-').replace(/\s+/g,'');if(!s)return NaN;
+ if(/^[-+]?(\d+\.?\d*|\.\d+)$/.test(s))return parseFloat(s);
+ const m=s.match(/^([-+]?)(\d+)\/(\d+)$/);if(m&&+m[3]!==0)return(m[1]==='-'?-1:1)*(+m[2])/(+m[3]);return NaN}
+const store={get(){try{return JSON.parse(localStorage.getItem('mirror_protocol_v1')||'null')}catch(e){return null}},set(v){try{localStorage.setItem('mirror_protocol_v1',JSON.stringify(v))}catch(e){}}};
+const RM=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+function toast(t){const d=document.createElement('div');d.className='toast';d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),2400)}
+
+/* ---------------- transformation math ---------------- */
+const LN={x:'the x-axis',y:'the y-axis',yx:'the line y = x',ynx:'the line y = −x'};
+function lineText(op){return op.l==='xh'?`the line x = ${fr(op.v)}`:op.l==='yk'?`the line y = ${fr(op.v)}`:LN[op.l]}
+function ap(op,p){const x=p[0],y=p[1];switch(op.k){
+ case'T':return[x+op.a,y+op.b];
+ case'R':switch(op.l){case'x':return[x,-y];case'y':return[-x,y];case'yx':return[y,x];case'ynx':return[-y,-x];case'xh':return[2*op.v-x,y];case'yk':return[x,2*op.v-y]}break;
+ case'O':return op.d===90?[-y,x]:op.d===180?[-x,-y]:[y,-x];
+ case'D':return[op.s*x,op.s*y]}
+ throw new Error('bad op')}
+const apAll=(ops,pts)=>pts.map(p=>ops.reduce((q,o)=>ap(o,q),p).map(v=>Math.abs(v)<1e-9?0:v));
+function opText(op){switch(op.k){case'T':return`Translate along ${Vc(op.a,op.b)}`;case'R':return`Reflect in ${lineText(op)}`;case'O':return`Rotate ${op.d}° counterclockwise about the origin`;case'D':return`Dilate by k = ${fr(op.s)}, centered at the origin`}}
+function opRule(op){switch(op.k){case'T':return`(x, y) → (x ${sg(op.a)}, y ${sg(op.b)})`;
+ case'R':if(op.l==='xh')return`(a, b) → (2·${fr(op.v)} − a, b)`;if(op.l==='yk')return`(a, b) → (a, 2·${fr(op.v)} − b)`;return{x:'(a, b) → (a, −b)',y:'(a, b) → (−a, b)',yx:'(a, b) → (b, a)',ynx:'(a, b) → (−b, −a)'}[op.l];
+ case'O':return{90:'(a, b) → (−b, a)',180:'(a, b) → (−a, −b)',270:'(a, b) → (b, −a)'}[op.d];
+ case'D':return`(x, y) → (${fr(op.s)}x, ${fr(op.s)}y)`}}
+const samePts=(A,B)=>A.length===B.length&&A.every((p,i)=>eq(p[0],B[i][0])&&eq(p[1],B[i][1]));
+const LBL=['A','B','C','D','E','F'];
+const primes=n=>"′".repeat(n);
+function dist(p,q){return Math.hypot(p[0]-q[0],p[1]-q[1])}
+function randTri(r=6){for(let t=0;t<500;t++){const pts=[[ri(-r,r),ri(-r,r)],[ri(-r,r),ri(-r,r)],[ri(-r,r),ri(-r,r)]];
+ const ar=Math.abs((pts[1][0]-pts[0][0])*(pts[2][1]-pts[0][1])-(pts[2][0]-pts[0][0])*(pts[1][1]-pts[0][1]));
+ const s=[dist(pts[0],pts[1]),dist(pts[1],pts[2]),dist(pts[2],pts[0])].sort((a,b)=>a-b);
+ if(ar<6||s[0]<2||eq(s[0],s[1])||eq(s[1],s[2]))continue;return pts}return[[1,1],[4,1],[1,3]]}
+
+/* ---------------- 2D diagram (SVG) ---------------- */
+function plane(o={}){const all=[];(o.pts||[]).forEach(q=>all.push(q.p));(o.polys||[]).forEach(q=>q.pts.forEach(p=>all.push(p)));(o.vecs||[]).forEach(v=>{all.push(v.from,v.to)});
+ let R=o.R||Math.max(5,Math.min(12,Math.ceil(Math.max(1,...all.map(p=>Math.max(Math.abs(p[0]),Math.abs(p[1])))))+1));
+ const u=1;let s=`<svg viewBox="${-R-.8} ${-R-.8} ${2*R+1.6} ${2*R+1.6}" role="img" aria-label="coordinate plane diagram">`;
+ s+=`<rect x="${-R-.8}" y="${-R-.8}" width="${2*R+1.6}" height="${2*R+1.6}" fill="#0b1114"/>`;
+ for(let i=-R;i<=R;i++){s+=`<line x1="${i}" y1="${-R}" x2="${i}" y2="${R}" stroke="#1d2b30" stroke-width=".05"/><line x1="${-R}" y1="${i}" x2="${R}" y2="${i}" stroke="#1d2b30" stroke-width=".05"/>`}
+ s+=`<line x1="${-R}" y1="0" x2="${R}" y2="0" stroke="#6b7c80" stroke-width=".09"/><line x1="0" y1="${-R}" x2="0" y2="${R}" stroke="#6b7c80" stroke-width=".09"/>`;
+ const fs=R>8?.75:.6;s+=`<text x="${R-.2}" y="-.35" fill="#97a39f" font-size="${fs}" font-family="monospace" text-anchor="end">x</text><text x=".3" y="${-R+.7}" fill="#97a39f" font-size="${fs}" font-family="monospace">y</text>`;
+ const step=R>8?4:2;for(let i=-R+1;i<R;i++)if(i&&i%step===0){s+=`<text x="${i}" y="${fs+.25}" fill="#6b7c80" font-size="${fs*.8}" font-family="monospace" text-anchor="middle">${fr(i)}</text><text x="-.25" y="${-i+fs*.3}" fill="#6b7c80" font-size="${fs*.8}" font-family="monospace" text-anchor="end">${fr(i)}</text>`}
+ (o.lines||[]).forEach(L=>{let a,b;const c=L.c||'#d6455a';switch(L.l){case'x':a=[-R,0];b=[R,0];break;case'y':a=[0,-R];b=[0,R];break;case'yx':a=[-R,-R];b=[R,R];break;case'ynx':a=[-R,R];b=[R,-R];break;case'xh':a=[L.v,-R];b=[L.v,R];break;case'yk':a=[-R,L.v];b=[R,L.v];break;case'ang':{const t=L.a*Math.PI/180;a=[-R*Math.cos(t),-R*Math.sin(t)];b=[R*Math.cos(t),R*Math.sin(t)];break}}
+  s+=`<line x1="${a[0]}" y1="${-a[1]}" x2="${b[0]}" y2="${-b[1]}" stroke="${c}" stroke-width=".1" stroke-dasharray=".4 .25"/>`});
+ (o.polys||[]).forEach(q=>{const c=q.c||'#e8b931';s+=`<polygon points="${q.pts.map(p=>p[0]+','+(-p[1])).join(' ')}" fill="${c}" fill-opacity="${q.dash?0.05:0.18}" stroke="${c}" stroke-width=".12" ${q.dash?'stroke-dasharray=".35 .2"':''}/>`;
+  if(q.lab)q.pts.forEach((p,i)=>{s+=`<text x="${p[0]+.3}" y="${-p[1]-.3}" fill="${c}" font-size="${fs}" font-family="monospace" font-weight="600">${q.lab[i]}</text>`})});
+ (o.vecs||[]).forEach(v=>{const c=v.c||'#5fd4c4';const[x1,y1]=v.from,[x2,y2]=v.to;const ang=Math.atan2(-(y2-y1),x2-x1);const h=.55;
+  s+=`<line x1="${x1}" y1="${-y1}" x2="${x2}" y2="${-y2}" stroke="${c}" stroke-width=".13"/><polygon points="${x2},${-y2} ${x2-h*Math.cos(ang-.45)},${-y2-h*Math.sin(ang-.45)} ${x2-h*Math.cos(ang+.45)},${-y2-h*Math.sin(ang+.45)}" fill="${c}"/>`});
+ (o.pts||[]).forEach(q=>{const c=q.c||'#e8b931';s+=`<circle cx="${q.p[0]}" cy="${-q.p[1]}" r=".22" fill="${c}"/>`;if(q.l)s+=`<text x="${q.p[0]+.3}" y="${-q.p[1]-.3}" fill="${c}" font-size="${fs}" font-family="monospace" font-weight="600">${q.l}</text>`});
+ return `<div class="fig">${s}</svg></div>`}
+
+/* ---------------- symmetry shapes ---------------- */
+function ngon(n,r=4,r2){const p=[];const m=r2?2*n:n;for(let i=0;i<m;i++){const t=Math.PI/2+i*2*Math.PI/m;const rr=r2&&i%2?r2:r;p.push([+(rr*Math.cos(t)).toFixed(4),+(rr*Math.sin(t)).toFixed(4)])}return p}
+const SYM=[
+ {n:'an equilateral triangle',pts:()=>ngon(3),lines:3,rot:120,ax:()=>[90,150,210].map(a=>a%180)},
+ {n:'a square',pts:()=>[[-3.5,-3.5],[3.5,-3.5],[3.5,3.5],[-3.5,3.5]],lines:4,rot:90,ax:()=>[0,45,90,135]},
+ {n:'a regular pentagon',pts:()=>ngon(5),lines:5,rot:72,ax:()=>[0,1,2,3,4].map(i=>(90+i*36)%180)},
+ {n:'a regular hexagon',pts:()=>ngon(6),lines:6,rot:60,ax:()=>[0,1,2,3,4,5].map(i=>(90+i*30)%180)},
+ {n:'a regular octagon',pts:()=>ngon(8),lines:8,rot:45,ax:()=>[0,1,2,3,4,5,6,7].map(i=>(90+i*22.5)%180)},
+ {n:'a rectangle that is not a square',pts:()=>[[-4.5,-2.5],[4.5,-2.5],[4.5,2.5],[-4.5,2.5]],lines:2,rot:180,ax:()=>[0,90]},
+ {n:'a rhombus that is not a square',pts:()=>[[0,4.5],[3,0],[0,-4.5],[-3,0]],lines:2,rot:180,ax:()=>[0,90]},
+ {n:'a parallelogram with no right angles and unequal sides',pts:()=>[[-4.5,-2.5],[2,-2.5],[4.5,2.5],[-2,2.5]],lines:0,rot:180,ax:()=>[]},
+ {n:'an isosceles trapezoid',pts:()=>[[-4.5,-2.5],[4.5,-2.5],[2.5,2.5],[-2.5,2.5]],lines:1,rot:0,ax:()=>[90]},
+ {n:'a kite',pts:()=>[[0,4.5],[2.8,1.5],[0,-4.5],[-2.8,1.5]],lines:1,rot:0,ax:()=>[90]},
+ {n:'a five-pointed star',pts:()=>ngon(5,4.6,1.9),lines:5,rot:72,ax:()=>[0,1,2,3,4].map(i=>(90+i*36)%180)},
+ {n:'a scalene triangle',pts:()=>[[-3,-2],[4,-1],[0,3]],lines:0,rot:0,ax:()=>[]}];
+const ROTCH=['none','45°','60°','72°','90°','120°','180°'];
+
+/* ---------------- question generators ---------------- */
+// kinds: pt (ordered pair) | vec (component form) | num | mc
+function Q(o){return Object.assign({kind:'mc'},o)}
+const VOCAB=[
+ ['vector','a quantity that has both direction and magnitude, drawn as an arrow from one point to another',1],
+ ['initial point','the starting point of a vector',1],
+ ['terminal point','the ending point of a vector',1],
+ ['horizontal component','the horizontal change from the starting point of a vector to the ending point',1],
+ ['vertical component','the vertical change from the starting point of a vector to the ending point',1],
+ ['component form','the form of a vector that combines the horizontal and vertical components, like ⟨5, 3⟩',1],
+ ['transformation','a function that moves or changes a figure in some way to produce a new figure',1],
+ ['image','the figure that results from the transformation of a geometric figure',1],
+ ['preimage','the geometric figure that is the input of a transformation',1],
+ ['translation','a transformation that moves every point of a figure the same distance in the same direction',1],
+ ['rigid motion','a transformation that preserves length and angle measure',1],
+ ['composition of transformations','the combination of two or more transformations to form a single transformation',1],
+ ['reflection','a transformation that uses a line like a mirror to reflect a figure',2],
+ ['line of reflection','the line that acts as a mirror for a reflection',2],
+ ['glide reflection','a translation followed by a reflection in a line parallel to the direction of the translation',2],
+ ['line symmetry','when a figure can be mapped onto itself by a reflection in a line',2],
+ ['line of symmetry','a line of reflection that maps a figure onto itself',2],
+ ['rotation','a transformation in which a figure is turned about a fixed point',3],
+ ['center of rotation','the fixed point in a rotation',3],
+ ['angle of rotation','the angle formed by rays drawn from the center of rotation to a point and its image',3],
+ ['rotational symmetry','when a figure can be mapped onto itself by a rotation of 180° or less about its center',3],
+ ['center of symmetry','the center of rotation in a figure that has rotational symmetry',3],
+ ['congruent figures','geometric figures that have the same size and shape',4],
+ ['congruence transformation','a transformation that preserves length and angle measure',4],
+ ['dilation','a transformation in which a figure is enlarged or reduced with respect to a fixed point',5],
+ ['center of dilation','the fixed point in a dilation',5],
+ ['scale factor','the ratio of the lengths of the corresponding sides of the image and the preimage of a dilation',5],
+ ['enlargement','a dilation in which the scale factor is greater than 1',5],
+ ['reduction','a dilation in which the scale factor is greater than 0 and less than 1',5],
+ ['similarity transformation','a dilation or a composition of rigid motions and dilations',6],
+ ['similar figures','geometric figures that have the same shape but not necessarily the same size',6]];
+function gVocab(ch){const pool=VOCAB.filter(v=>v[2]===ch);const t=pick(pool);const others=shuffle(VOCAB.filter(v=>v!==t&&Math.abs(v[2]-ch)<=1)).slice(0,3);
+ if(Math.random()<.5)return Q({skill:'vocab',prompt:`Which term means <b>${esc(t[1])}</b>?`,choices:shuffle([t,...others]).map(v=>v[0]),ans:t[0],sol:`<b>${t[0]}</b>: ${esc(t[1])}.`});
+ return Q({skill:'vocab',prompt:`What is a <b>${t[0]}</b>?`,choices:shuffle([t,...others]).map(v=>v[1]),ans:t[1],sol:`<b>${t[0]}</b>: ${esc(t[1])}.`})}
+function mcFixed(bank){return()=>{const b=pick(bank);return Q({skill:'concept',prompt:b[0],choices:shuffle(b[1]),ans:b[1][0],sol:b[2]})}}
+
+/* --- 4.1 translations --- */
+const G1={
+ vec(){let p,q;do{p=[ri(-6,6),ri(-6,6)];q=[ri(-6,6),ri(-6,6)]}while(p[0]===q[0]||p[1]===q[1]);
+  return Q({skill:'vector',kind:'vec',prompt:`A vector has initial point <b>P${P(...p)}</b> and terminal point <b>Q${P(...q)}</b>. Write the component form of <b>PQ→</b>.`,ans:[q[0]-p[0],q[1]-p[1]],fig:plane({vecs:[{from:p,to:q}],pts:[{p,l:'P'},{p:q,l:'Q',c:'#5fd4c4'}]}),
+  sol:`Horizontal component = ${fr(q[0])} − (${fr(p[0])}) = ${fr(q[0]-p[0])}. Vertical component = ${fr(q[1])} − (${fr(p[1])}) = ${fr(q[1]-p[1])}. So PQ→ = ${Vc(q[0]-p[0],q[1]-p[1])}. Always subtract initial from terminal.`})},
+ tpt(){const a=[ri(-6,6),ri(-6,6)],v=[nz(6),nz(6)];const b=[a[0]+v[0],a[1]+v[1]];
+  return Q({skill:'translate',kind:'pt',prompt:`Translate <b>A${P(...a)}</b> along the vector <b>${Vc(...v)}</b>. What are the coordinates of A′?`,ans:b,fig:plane({pts:[{p:a,l:'A'}]}),
+  sol:`Add the components: (${fr(a[0])} ${sg(v[0])}, ${fr(a[1])} ${sg(v[1])}) = ${P(...b)}.`})},
+ rule(){const v=[nz(7),nz(7)],a=[ri(-5,5),ri(-5,5)],b=[a[0]+v[0],a[1]+v[1]];
+  return Q({skill:'translate',kind:'pt',prompt:`A translation has the rule <b>(x, y) → (x ${sg(v[0])}, y ${sg(v[1])})</b>. Find the image of <b>B${P(...a)}</b>.`,ans:b,sol:`Apply the rule: x ${sg(v[0])} = ${fr(b[0])}, y ${sg(v[1])} = ${fr(b[1])}. B′${P(...b)}.`})},
+ findv(){const a=[ri(-6,6),ri(-6,6)],v=[nz(6),nz(6)],b=[a[0]+v[0],a[1]+v[1]];
+  return Q({skill:'vector',kind:'vec',prompt:`A translation maps <b>C${P(...a)}</b> to <b>C′${P(...b)}</b>. Write the translation vector in component form.`,ans:v,fig:plane({pts:[{p:a,l:'C'},{p:b,l:'C′',c:'#5fd4c4'}],vecs:[{from:a,to:b}]}),
+  sol:`The vector goes from C to C′: ⟨${fr(b[0])} − (${fr(a[0])}), ${fr(b[1])} − (${fr(a[1])})⟩ = ${Vc(...v)}. The rule is (x, y) → (x ${sg(v[0])}, y ${sg(v[1])}).`})},
+ comp(){const v=[nz(6),nz(6)],w=[nz(6),nz(6)];
+  return Q({skill:'compose',kind:'vec',prompt:`A figure is translated along <b>${Vc(...v)}</b>, then along <b>${Vc(...w)}</b>. What single translation vector has the same effect?`,ans:[v[0]+w[0],v[1]+w[1]],
+  sol:`Compositions of translations add: ⟨${fr(v[0])} ${sg(w[0])}, ${fr(v[1])} ${sg(w[1])}⟩ = ${Vc(v[0]+w[0],v[1]+w[1])}.`})},
+ comppt(){const a=[ri(-5,5),ri(-5,5)],v=[nz(5),nz(5)],w=[nz(5),nz(5)];const b=[a[0]+v[0]+w[0],a[1]+v[1]+w[1]];
+  return Q({skill:'compose',kind:'pt',prompt:`Translate <b>D${P(...a)}</b> along ${Vc(...v)} to get D′, then translate D′ along ${Vc(...w)} to get D″. Find <b>D″</b>.`,ans:b,
+  sol:`D′ = ${P(a[0]+v[0],a[1]+v[1])}. D″ = ${P(...b)}. Shortcut: add the vectors first, ${Vc(v[0]+w[0],v[1]+w[1])}.`})},
+ concept:mcFixed([
+  ['Under a translation of segment PQ to P′Q′, which statement is always true?',['PP′ = QQ′, and PP′ and QQ′ are parallel or collinear','PP′ is perpendicular to QQ′','P′Q′ = 2·PQ','P and P′ are always the same point'],'A translation moves every point the same distance in the same direction, so PP′ = QQ′ and the segments are parallel (or collinear).'],
+  ['Why is a translation called a rigid motion?',['It preserves length and angle measure','It always changes the size of the figure','It flips the orientation of the figure','It keeps one point fixed'],'Translation Postulate: a translation is a rigid motion, so lengths and angle measures stay the same.'],
+  ['The Composition Theorem says the composition of two or more rigid motions is…',['a rigid motion','a dilation','never a translation','only defined for reflections'],'Theorem 4.1: the composition of two (or more) rigid motions is a rigid motion.'],
+  ['In the notation A → A′, which point is the preimage?',['A','A′','Both','Neither'],'The preimage is the input; the image gets the prime mark.'],
+  ['Vector ⟨−4, 0⟩ moves a point…',['4 units left','4 units down','4 units right','4 units up'],'The horizontal component is −4 (left) and the vertical component is 0.']]),
+ vocab:()=>gVocab(1)};
+
+/* --- 4.2 reflections --- */
+const SYMQ=()=>{const s=pick(SYM);return Q({skill:'linesym',kind:'num',prompt:`How many lines of symmetry does <b>${s.n}</b> have?`,ans:s.lines,fig:plane({polys:[{pts:s.pts()}],R:6}),
+ sol:`${s.n[0].toUpperCase()+s.n.slice(1)} has <b>${s.lines}</b> line${s.lines===1?'':'s'} of symmetry. ${s.lines?'Each one is a line of reflection that maps the figure onto itself.':'No reflection maps it onto itself.'}`})};
+const G2={
+ refl(){const l=pick(['x','y','yx','ynx']);let a;do{a=[nz(7),nz(7)]}while(Math.abs(a[0])===Math.abs(a[1]));const b=ap({k:'R',l},a);
+  return Q({skill:'reflect',kind:'pt',prompt:`Reflect <b>A${P(...a)}</b> in <b>${LN[l]}</b>. Find A′.`,ans:b,fig:plane({pts:[{p:a,l:'A'}],lines:[{l}]}),
+  sol:`Rule for ${LN[l]}: ${opRule({k:'R',l})}. So A′ = ${P(...b)}.`})},
+ reflhk(){const l=pick(['xh','yk']),v=nz(4);let a;do{a=[ri(-6,6),ri(-6,6)]}while(l==='xh'?a[0]===v:a[1]===v);const b=ap({k:'R',l,v},a);
+  const d=l==='xh'?a[0]-v:a[1]-v;
+  return Q({skill:'reflect',kind:'pt',prompt:`Reflect <b>B${P(...a)}</b> in <b>${lineText({l,v})}</b>. Find B′.`,ans:b,fig:plane({pts:[{p:a,l:'B'}],lines:[{l,v}]}),
+  sol:`The line is the perpendicular bisector of BB′. B is ${Math.abs(d)} unit${Math.abs(d)===1?'':'s'} ${l==='xh'?(d>0?'right of':'left of'):(d>0?'above':'below')} the line, so B′ is ${Math.abs(d)} unit${Math.abs(d)===1?'':'s'} on the other side: B′${P(...b)}.`})},
+ which(){const l=pick(['x','y','yx','ynx']);let a;do{a=[nz(6),nz(6)]}while(Math.abs(a[0])===Math.abs(a[1]));const b=ap({k:'R',l},a);
+  const ch=['x','y','yx','ynx'].filter(m=>m===l||!samePts([ap({k:'R',l:m},a)],[b]));
+  return Q({skill:'reflect',prompt:`A reflection maps <b>A${P(...a)}</b> to <b>A′${P(...b)}</b>. What is the line of reflection?`,choices:shuffle(ch.map(m=>LN[m])),ans:LN[l],fig:plane({pts:[{p:a,l:'A'},{p:b,l:'A′',c:'#5fd4c4'}]}),
+  sol:`${opRule({k:'R',l})} matches, so the mirror is ${LN[l]}.`})},
+ glide(){const hz=Math.random()<.5;const t=hz?{k:'T',a:nz(5),b:0}:{k:'T',a:0,b:nz(5)};const r={k:'R',l:hz?'x':'y'};const a=[nz(5),nz(5)];const m=ap(t,a),b=ap(r,m);
+  return Q({skill:'glide',kind:'pt',prompt:`Glide reflection: translate <b>C${P(...a)}</b> along ${Vc(t.a,t.b)}, then reflect in <b>${LN[r.l]}</b>. Find the final image C″.`,ans:b,
+  sol:`Translate first: C′ = ${P(...m)}. Then reflect in ${LN[r.l]}: C″ = ${P(...b)}. The mirror line is parallel to the direction of the translation, which is what makes it a glide reflection.`})},
+ sym:SYMQ,
+ concept:mcFixed([
+  ['Point P is not on line m. After a reflection in m, how is m related to PP′?',['m is the perpendicular bisector of PP′','m is parallel to PP′','m passes through P only','m is twice as long as PP′'],'In a reflection, if P is not on m, then m is the perpendicular bisector of PP′.'],
+  ['Point P lies on the line of reflection m. Where is P′?',['P′ = P','P′ is on the opposite side of m','P′ is twice as far from m','P′ does not exist'],'Points on the line of reflection map to themselves.'],
+  ['The Reflection Postulate states that a reflection…',['is a rigid motion','changes angle measures','is a dilation with k = −1','always equals a translation'],'Postulate 4.2: a reflection is a rigid motion.'],
+  ['A glide reflection is…',['a translation followed by a reflection in a line parallel to the direction of the translation','two rotations','a dilation followed by a reflection','a reflection in two perpendicular lines'],'That is the definition from the chapter.'],
+  ['Which rule reflects (a, b) in the line y = −x?',['(a, b) → (−b, −a)','(a, b) → (b, a)','(a, b) → (−a, b)','(a, b) → (a, −b)'],'Reflection in y = −x swaps the coordinates and changes both signs.']]),
+ vocab:()=>gVocab(2)};
+
+/* --- 4.3 rotations --- */
+const G3={
+ rot(){const d=pick([90,180,270]);let a;do{a=[nz(7),nz(7)]}while(false);const b=ap({k:'O',d},a);
+  return Q({skill:'rotate',kind:'pt',prompt:`Rotate <b>A${P(...a)}</b> <b>${d}°</b> counterclockwise about the origin. Find A′.`,ans:b,fig:plane({pts:[{p:a,l:'A'}]}),
+  sol:`Rule for ${d}°: ${opRule({k:'O',d})}. With a = ${fr(a[0])}, b = ${fr(a[1])}: A′ = ${P(...b)}.`})},
+ cw(){const d=pick([90,270]);const a=[nz(6),nz(6)];const ccw=360-d;const b=ap({k:'O',d:ccw},a);
+  return Q({skill:'rotate',kind:'pt',prompt:`Rotate <b>B${P(...a)}</b> <b>${d}° clockwise</b> about the origin. Find B′.`,ans:b,
+  sol:`${d}° clockwise is the same as ${ccw}° counterclockwise. Rule: ${opRule({k:'O',d:ccw})}, so B′ = ${P(...b)}.`})},
+ comp(){const a=[nz(5),nz(5)];const d=pick([90,180,270]);const t=Math.random()<.5;const op2=t?{k:'T',a:nz(4),b:nz(4)}:{k:'R',l:pick(['x','y'])};const m=ap({k:'O',d},a),b=ap(op2,m);
+  return Q({skill:'compose',kind:'pt',prompt:`Rotate <b>C${P(...a)}</b> ${d}° counterclockwise about the origin, then ${t?`translate along ${Vc(op2.a,op2.b)}`:`reflect in ${LN[op2.l]}`}. Find C″.`,ans:b,
+  sol:`Do the steps in order. Rotation: C′ = ${P(...m)}. Then ${t?'translation':'reflection'}: C″ = ${P(...b)}.`})},
+ rotsym(){const s=pick(SYM);const ans=s.rot?s.rot+'°':'none';
+  return Q({skill:'rotsym',prompt:`Does <b>${s.n}</b> have rotational symmetry? If so, what is the smallest angle of rotation that maps it onto itself?`,choices:ROTCH,ans,fig:plane({polys:[{pts:s.pts()}],R:6}),
+  sol:s.rot?`Yes. Rotating ${s.rot}° about its center maps it onto itself${s.rot<180?` (and so do multiples of ${s.rot}°)`:''}. For a regular n-gon the smallest angle is 360°/n.`:`No rotation of 180° or less maps it onto itself, so it has no rotational symmetry.`})},
+ concept:mcFixed([
+  ['A rotation about P maps Q to Q′ (Q ≠ P). Which is always true?',['QP = Q′P','QQ′ = QP','Q′ lies on line QP','QP = 2·Q′P'],'Points stay the same distance from the center: QP = Q′P, and m∠QPQ′ equals the angle of rotation.'],
+  ['What happens to the center of rotation?',['It maps to itself','It moves along the angle','It doubles its distance','It reflects across the x-axis'],'If Q is the center P, then Q = Q′.'],
+  ['A figure has rotational symmetry when a rotation of ___ or less maps it onto itself.',['180°','90°','360°','45°'],'The definition uses 180° or less about the center of the figure.'],
+  ['Rotate 90° counterclockwise then translate ⟨3, 0⟩, versus translate first then rotate. The results are…',['usually different: order matters','always the same','always reflections','impossible to predict'],'Compositions are done in order, and changing the order usually changes the image.'],
+  ['The Rotation Postulate says a rotation is…',['a rigid motion','a dilation','not a transformation','an enlargement'],'Postulate 4.3: a rotation is a rigid motion.']]),
+ vocab:()=>gVocab(3)};
+
+/* --- 4.4 congruence --- */
+const CONGOPS=()=>[{k:'T',a:nz(5),b:nz(5)},{k:'R',l:'x'},{k:'R',l:'y'},{k:'R',l:'yx'},{k:'R',l:'ynx'},{k:'O',d:90},{k:'O',d:180},{k:'O',d:270}];
+function seqText(ops){return ops.map((o,i)=>(i?'then ':'')+opText(o).replace(/^./,c=>i?c.toLowerCase():c)).join(', ')}
+const G4={
+ par(){const vert=Math.random()<.5;let h1=nz(4),h2;do{h2=nz(5)}while(h2===h1);const a=[ri(-6,6),ri(-6,6)];
+  const k={k:'R',l:vert?'xh':'yk',v:h1},m={k:'R',l:vert?'xh':'yk',v:h2};const b=ap(m,ap(k,a));
+  if(Math.random()<.5)return Q({skill:'theorem',kind:'pt',prompt:`Reflect <b>A${P(...a)}</b> in <b>${lineText(k)}</b>, then reflect the image in <b>${lineText(m)}</b>. Find A″.`,ans:b,fig:plane({pts:[{p:a,l:'A'}],lines:[{l:k.l,v:h1},{l:m.l,v:h2,c:'#5fd4c4'}]}),
+   sol:`Theorem 4.2: reflecting in two parallel lines is a translation of 2d, perpendicular to the lines, from the first line toward the second. Here d = ${Math.abs(h2-h1)}, so the shift is ${2*(h2-h1)>0?'+':'−'}${Math.abs(2*(h2-h1))} in ${vert?'x':'y'}: A″ = ${P(...b)}. (Check: A′ = ${P(...ap(k,a))}.)`});
+  return Q({skill:'theorem',kind:'num',prompt:`Lines k: <b>${lineText(k).replace('the line ','')}</b> and m: <b>${lineText(m).replace('the line ','')}</b> are parallel. A point A is reflected in k, then in m, to get A″. What is the distance AA″?`,ans:2*Math.abs(h2-h1),
+   sol:`Theorem 4.2: AA″ = 2d, where d is the distance between the lines. d = |${fr(h2)} − (${fr(h1)})| = ${Math.abs(h2-h1)}, so AA″ = ${2*Math.abs(h2-h1)}.`})},
+ inter(){const x=pick([20,25,30,35,40,45,50,55,60,65,70,75,80,85,90]);
+  return Q({skill:'theorem',kind:'num',prompt:`Lines k and m intersect at point P and form an acute or right angle of <b>${x}°</b>. A figure is reflected in k, then in m. The result is a rotation about P. What is the angle of rotation, in degrees?`,ans:2*x,fig:plane({lines:[{l:'ang',a:0},{l:'ang',a:x,c:'#5fd4c4'}],R:5}),
+  sol:`Theorem 4.3: the angle of rotation is 2x° = 2(${x}°) = ${2*x}°.`})},
+ desc(){const pre=randTri(5);for(let t=0;t<200;t++){const n=Math.random()<.5?1:2;const ops=[];for(let i=0;i<n;i++)ops.push(pick(CONGOPS()));const img=apAll(ops,pre);
+   if(img.some(p=>Math.abs(p[0])>9||Math.abs(p[1])>9)||samePts(img,pre))continue;
+   const ds=[];for(let u=0;u<60&&ds.length<3;u++){const m=Math.random()<.5?1:2;const o2=[];for(let i=0;i<m;i++)o2.push(pick(CONGOPS()));const s=seqText(o2);if(s===seqText(ops)||ds.some(d=>d[0]===s))continue;if(samePts(apAll(o2,pre),img))continue;ds.push([s,o2])}
+   if(ds.length<3)continue;
+   return Q({skill:'describe',prompt:`Describe a congruence transformation that maps △ABC to △A′B′C′ (yellow → teal).`,choices:shuffle([seqText(ops),...ds.map(d=>d[0])]),ans:seqText(ops),fig:plane({polys:[{pts:pre,lab:['A','B','C']},{pts:img,c:'#5fd4c4',lab:['A′','B′','C′']}]}),
+    sol:`${seqText(ops)}. Check one vertex: A${P(...pre[0])} → A′${P(...img[0])}. Other sequences can also work, but the listed distractors send at least one vertex somewhere else.`})}return G4.inter()},
+ congq(){const pre=randTri(4);const yes=Math.random()<.5;let img,how;
+  if(yes){const ops=[pick(CONGOPS()),{k:'T',a:nz(3),b:nz(3)}];img=apAll(ops,pre);how=seqText(ops)}else{img=apAll([{k:'D',s:2}],pre);how='a dilation with scale factor 2'}
+  const sl=t=>[dist(t[0],t[1]),dist(t[1],t[2]),dist(t[2],t[0])].map(v=>(+v.toFixed(2)));
+  return Q({skill:'congruent',prompt:`△ABC has vertices ${pre.map((p,i)=>LBL[i]+P(...p)).join(', ')}. △DEF has vertices ${img.map((p,i)=>'DEF'[i]+P(...p)).join(', ')}. Are the triangles congruent?`,choices:['Yes, corresponding sides have equal lengths','No, the side lengths are different'],ans:yes?'Yes, corresponding sides have equal lengths':'No, the side lengths are different',
+   sol:`Use the distance formula. AB, BC, CA ≈ ${sl(pre).join(', ')}. DE, EF, FD ≈ ${sl(img).join(', ')}. ${yes?'They match, so a congruence transformation ('+how+') maps one onto the other.':'They do not match (each is doubled), so the triangles are similar but not congruent.'}`})},
+ concept:mcFixed([
+  ['Which transformation is NOT a congruence transformation?',['A dilation with scale factor 3','A translation along ⟨2, −5⟩','A reflection in the y-axis','A rotation of 270° about the origin'],'Congruence transformations preserve length and angle measure. A dilation with k = 3 triples lengths.'],
+  ['A congruence transformation preserves…',['length and angle measure','only angle measure','only orientation','only area, not length'],'That is the definition, and it is why the images are congruent figures.'],
+  ['If lines k and m are parallel, a reflection in k followed by a reflection in m is the same as a…',['translation','rotation','dilation','glide reflection'],'Theorem 4.2 (Reflections in Parallel Lines).'],
+  ['If lines k and m intersect at P, a reflection in k followed by a reflection in m is the same as a…',['rotation about P','translation','dilation centered at P','reflection in P'],'Theorem 4.3 (Reflections in Intersecting Lines).'],
+  ['Two figures are congruent if and only if…',['there is a rigid motion or composition of rigid motions mapping one onto the other','they have the same perimeter','they are both triangles','one is a dilation of the other']," That is how congruence is described with transformations in this chapter."]]),
+ vocab:()=>gVocab(4)};
+
+/* --- 4.5 dilations --- */
+const KS=[2,3,1/2,-2,-1/2,3/2,-1,1/3];
+function dilPt(k){const den=k===1/2||k===-1/2||k===3/2?2:k===1/3?3:1;const r=Math.abs(k)>=2?Math.floor(8/Math.abs(k)):8;let a;do{a=[ri(-r,r),ri(-r,r)].map(v=>Math.round(v/den)*den)}while(!a[0]&&!a[1]);return a}
+const G5={
+ dil(){const k=pick(KS);const a=dilPt(k);const b=[k*a[0],k*a[1]];
+  return Q({skill:'dilate',kind:'pt',prompt:`Dilate <b>A${P(...a)}</b> using scale factor <b>k = ${fr(k)}</b> with the center of dilation at the origin. Find A′.`,ans:b,fig:plane({pts:[{p:a,l:'A'}]}),
+  sol:`Multiply each coordinate by k: (${fr(k)}·${fr(a[0])}, ${fr(k)}·${fr(a[1])}) = ${P(...b)}.${k<0?' A negative scale factor puts the image on the opposite side of the center.':''}`})},
+ findk(){const k=pick([2,3,1/2,3/2,-2,-1/2,1/3,5/2]);const a=dilPt(k===5/2?1/2:k);const b=[k*a[0],k*a[1]];
+  return Q({skill:'scale',kind:'num',prompt:`A dilation centered at the origin maps <b>P${P(...a)}</b> to <b>P′${P(...b)}</b>. What is the scale factor k? (Fractions like 3/2 are fine.)`,ans:k,
+  sol:`P′ = (kx, ky), so k = ${fr(b[0]||b[1])} ÷ ${fr(a[0]||a[1])} = ${fr(k)}.`})},
+ seg(){const pairs=[[4,10],[6,15],[8,2],[10,4],[3,12],[12,9],[5,20],[9,6],[14,7],[6,8]];const[a,b]=pick(pairs);
+  return Q({skill:'scale',kind:'num',prompt:`In a dilation with center C, <b>CP = ${a}</b> and <b>CP′ = ${b}</b>. Find the scale factor k = CP′/CP.`,ans:b/a,
+  sol:`k = CP′/CP = ${b}/${a} = ${fr(b/a)}. ${b>a?'k > 1, so this is an enlargement.':'0 < k < 1, so this is a reduction.'}`})},
+ type(){const k=pick([2,3,5/2,4/3,1/2,1/3,3/4,2/5,7/4,1/4]);const ans=k>1?'Enlargement':'Reduction';
+  return Q({skill:'scale',prompt:`A dilation has scale factor <b>k = ${fr(k)}</b>. Is it an enlargement or a reduction?`,choices:['Enlargement','Reduction','Neither: it is a rigid motion'],ans,sol:`${k>1?'k > 1':'0 < k < 1'}, so it is a${k>1?'n enlargement':' reduction'}.`})},
+ real(){const t=ri(0,2);const k=pick([2,3,4,5,6,8]);const L=pick([.5,1,1.5,2,2.5,3,4]);
+  if(t===0)return Q({skill:'reallife',kind:'num',prompt:`A rifle scope magnifies by a scale factor of <b>${k}</b>. A window frame is <b>${fr(L)} cm</b> wide in the reticle's real-world reference card. How wide does it appear through the scope, in cm?`,ans:k*L,sol:`Image length = k × actual length = ${k} × ${fr(L)} = ${fr(k*L)} cm.`});
+  if(t===1)return Q({skill:'reallife',kind:'num',prompt:`Through a magnifying glass, a fingerprint ridge that is actually <b>${fr(L)} mm</b> long appears <b>${fr(k*L)} mm</b> long. What is the scale factor?`,ans:k,sol:`k = image ÷ actual = ${fr(k*L)} ÷ ${fr(L)} = ${k}.`});
+  return Q({skill:'reallife',kind:'num',prompt:`A photo of a key is enlarged with scale factor <b>${k}</b>. In the enlargement the key is <b>${fr(k*L)} cm</b> long. How long is the real key, in cm?`,ans:L,sol:`actual = image ÷ k = ${fr(k*L)} ÷ ${k} = ${fr(L)} cm.`})},
+ concept:mcFixed([
+  ['Which property does every dilation preserve?',['Angle measure','Length','Distance from the center','Position of every point'],'Angle measures are preserved, so the image has the same shape. Lengths are multiplied by k.'],
+  ['P is not the center C. Where does its image P′ lie in a dilation with k > 0?',['On ray CP','On the perpendicular bisector of CP','On a circle around P','On the line of reflection'],'P′ lies on ray CP, with CP′ = k·CP.'],
+  ['What is the image of the center of dilation?',['The center itself','A point k units away','The origin','It has no image'],'If P is the center C, then P = P′.'],
+  ['A dilation with k = −2 centered at the origin maps (3, 1) to…',['(−6, −2)','(6, 2)','(−6, 2)','(1.5, 0.5)'],'Use (kx, ky) = (−2·3, −2·1). A negative k places the image on the opposite side of the center.'],
+  ['Is a dilation with scale factor 4 a rigid motion?',['No, it changes lengths','Yes, it preserves lengths','Yes, because angles are preserved','Only if centered at the origin'],'Rigid motions preserve length. This dilation multiplies every length by 4.']]),
+ vocab:()=>gVocab(5)};
+
+/* --- 4.6 similarity --- */
+const G6={
+ sim(){const k=pick([2,1/2,3,-2]);const a=dilPt(k===3?3:k);const rig=pick([{k:'R',l:pick(['x','y','yx'])},{k:'O',d:pick([90,180,270])},{k:'T',a:nz(4),b:nz(4)}]);
+  const m=ap({k:'D',s:k},a),b=ap(rig,m);
+  return Q({skill:'similarity',kind:'pt',prompt:`Similarity transformation: dilate <b>A${P(...a)}</b> by k = ${fr(k)} (center at the origin), then ${opText(rig).replace(/^./,c=>c.toLowerCase())}. Find A″.`,ans:b,
+  sol:`Dilation: A′ = ${P(...m)}. Then the rigid motion: A″ = ${P(...b)}.`})},
+ desc(){const pre=randTri(3);for(let t=0;t<200;t++){const k=pick([2,3,-2]);const rig=pick(CONGOPS());const ops=[{k:'D',s:k},rig];const img=apAll(ops,pre);
+   if(img.some(p=>Math.abs(p[0])>10||Math.abs(p[1])>10))continue;
+   const ds=[];for(let u=0;u<80&&ds.length<3;u++){const o2=[{k:'D',s:pick([2,3,-2,1/2])},pick(CONGOPS())];const s=seqText(o2);if(s===seqText(ops)||ds.some(d=>d[0]===s))continue;if(samePts(apAll(o2,pre),img))continue;ds.push([s,o2])}
+   if(ds.length<3)continue;
+   return Q({skill:'describe',prompt:`Describe a similarity transformation that maps △ABC to △A″B″C″.`,choices:shuffle([seqText(ops),...ds.map(d=>d[0])]),ans:seqText(ops),fig:plane({polys:[{pts:pre,lab:['A','B','C']},{pts:img,c:'#5fd4c4',lab:['A″','B″','C″']}]}),
+    sol:`${seqText(ops)}. Compare side lengths to find |k| = ${Math.abs(k)}, then compare positions and orientation to find the rigid motion. Check: A${P(...pre[0])} → A″${P(...img[0])}.`})}return G6.sim()},
+ side(){const k=pick([2,3,1/2,3/2,5/2]);const s=pick([4,6,8,10,12]);const rig=pick(['a reflection in the x-axis','a 90° rotation','a translation along ⟨4, −1⟩']);
+  return Q({skill:'similarity',kind:'num',prompt:`△XYZ has XY = <b>${s}</b>. It is dilated by k = ${fr(k)}, then mapped by ${rig}. What is X″Y″?`,ans:k*s,sol:`Dilations multiply lengths by |k|; rigid motions keep them. X″Y″ = ${fr(k)} × ${s} = ${fr(k*s)}.`})},
+ concept:mcFixed([
+  ['Which statement is true?',['Congruent figures are always similar','Similar figures are always congruent','Similar figures always have the same size','A dilation is a rigid motion'],'Congruent figures are similar with scale factor 1. Similar figures only need the same shape.'],
+  ['A similarity transformation is…',['a dilation, or a composition of rigid motions and dilations','only a rotation','any transformation that changes angles','a translation with k > 1'],'That is the definition from section 4.6.'],
+  ['To prove two figures are similar, you…',['find a similarity transformation that maps one onto the other','show they have the same area','show one angle matches','show they are both polygons'],'Figures are similar exactly when a similarity transformation maps one onto the other.'],
+  ['What do similar figures have in common?',['The same shape, but not necessarily the same size','The same size, but not necessarily the same shape','The same position','Nothing'],'Similar figures have equal corresponding angles and proportional sides.'],
+  ['△ABC is dilated by k = 1/2, then reflected. Compared to △ABC, the image has…',['congruent angles and sides half as long','sides twice as long','different angle measures','the same size'],'The dilation halves lengths; the reflection changes nothing about size or angles.']]),
+ vocab:()=>gVocab(6)};
+
+/* ---------------- 3D engine ---------------- */
+const E={ok:false,anims:[],figs:[],labels:[]};
+const FIGD=.32;
+function init3D(){if(!window.THREE){noGL('The 3D library could not load. Practice and lessons still work.');return}
+ try{const cv=$('#gl');const r=new THREE.WebGLRenderer({canvas:cv,antialias:true});r.setPixelRatio(Math.min(2,window.devicePixelRatio||1));r.shadowMap.enabled=true;r.shadowMap.type=THREE.PCFSoftShadowMap;
+  if(THREE.sRGBEncoding)r.outputEncoding=THREE.sRGBEncoding;E.r=r}catch(e){noGL('WebGL is unavailable in this browser. Practice and lessons still work; missions show a 2D map.');return}
+ const sc=new THREE.Scene();sc.background=new THREE.Color(0x0b1114);sc.fog=new THREE.Fog(0x0b1114,34,70);E.sc=sc;
+ const cam=new THREE.PerspectiveCamera(42,1,.1,200);E.cam=cam;
+ sc.add(new THREE.HemisphereLight(0x8fa8b0,0x1a1012,.55));
+ const lamp=new THREE.SpotLight(0xffe2b0,1.25,70,Math.PI/4.2,.5,1.2);lamp.position.set(2,22,6);lamp.castShadow=true;lamp.shadow.mapSize.set(1024,1024);lamp.target.position.set(0,0,0);sc.add(lamp,lamp.target);
+ const rim=new THREE.PointLight(0xd6455a,.6,40);rim.position.set(-14,6,-12);sc.add(rim);E.rim=rim;
+ const cyan=new THREE.PointLight(0x5fd4c4,.35,40);cyan.position.set(14,5,10);sc.add(cyan);
+ // table
+ const table=new THREE.Mesh(new THREE.BoxGeometry(30,1.2,30),new THREE.MeshStandardMaterial({color:0x1b1410,roughness:.85,metalness:.05}));table.position.y=-.65;table.receiveShadow=true;sc.add(table);
+ const legM=new THREE.MeshStandardMaterial({color:0x120d0a,roughness:.9});[[-13,-13],[13,-13],[-13,13],[13,13]].forEach(([x,z])=>{const l=new THREE.Mesh(new THREE.BoxGeometry(1,14,1),legM);l.position.set(x,-8,z);sc.add(l)});
+ // floor
+ const fl=new THREE.Mesh(new THREE.PlaneGeometry(200,200),new THREE.MeshStandardMaterial({color:0x090d0f,roughness:1}));fl.rotation.x=-Math.PI/2;fl.position.y=-15;fl.receiveShadow=true;sc.add(fl);
+ // board texture
+ const S=11,cv2=document.createElement('canvas');cv2.width=cv2.height=2048;const g=cv2.getContext('2d');const px=2048/(2*S+1),o=px*.5;const X=v=>o+(v+S)*px,Y=v=>o+(S-v)*px;
+ g.fillStyle='#10191c';g.fillRect(0,0,2048,2048);
+ for(let i=0;i<9000;i++){g.fillStyle=`rgba(255,255,255,${Math.random()*.018})`;g.fillRect(Math.random()*2048,Math.random()*2048,2,2)}
+ g.lineWidth=2;g.strokeStyle='#223238';for(let i=-S;i<=S;i++){g.beginPath();g.moveTo(X(i),Y(-S));g.lineTo(X(i),Y(S));g.stroke();g.beginPath();g.moveTo(X(-S),Y(i));g.lineTo(X(S),Y(i));g.stroke()}
+ g.lineWidth=5;g.strokeStyle='#8c9a9c';g.beginPath();g.moveTo(X(-S),Y(0));g.lineTo(X(S),Y(0));g.stroke();g.beginPath();g.moveTo(X(0),Y(-S));g.lineTo(X(0),Y(S));g.stroke();
+ g.fillStyle='#8c9a9c';g.font='600 34px monospace';g.textAlign='center';g.textBaseline='top';
+ for(let i=-10;i<=10;i++)if(i&&i%2===0){g.fillText(String(i).replace('-','−'),X(i),Y(0)+10);g.textAlign='right';g.textBaseline='middle';g.fillText(String(i).replace('-','−'),X(0)-12,Y(i));g.textAlign='center';g.textBaseline='top'}
+ g.font='italic 600 46px monospace';g.fillText('x',X(S)-30,Y(0)+12);g.fillText('y',X(0)+30,Y(S)+6);
+ const tex=new THREE.CanvasTexture(cv2);tex.anisotropy=Math.min(8,E.r.capabilities.getMaxAnisotropy());if(THREE.sRGBEncoding)tex.encoding=THREE.sRGBEncoding;
+ const board=new THREE.Mesh(new THREE.PlaneGeometry(2*S+1,2*S+1),new THREE.MeshStandardMaterial({map:tex,roughness:.92,metalness:0}));board.rotation.x=-Math.PI/2;board.position.y=.001;board.receiveShadow=true;sc.add(board);
+ // props: case folders, pins, a coffee cup
+ const fold=(x,z,ry,c)=>{const m=new THREE.Mesh(new THREE.BoxGeometry(5,.08,3.6),new THREE.MeshStandardMaterial({color:c,roughness:.8}));m.position.set(x,.04,z);m.rotation.y=ry;m.castShadow=m.receiveShadow=true;sc.add(m)};
+ fold(-13.2,10.5,.25,0x8a6a3a);fold(12.8,-11.5,-.3,0x6a5232);
+ const cup=new THREE.Mesh(new THREE.CylinderGeometry(.8,.65,1.6,24),new THREE.MeshStandardMaterial({color:0xd8d2c4,roughness:.5}));cup.position.set(13,.8,11);cup.castShadow=true;sc.add(cup);
+ const pinM=new THREE.MeshStandardMaterial({color:0xd6455a,roughness:.4});[[-11.5,-11.5],[11.5,-11.5],[-11.5,11.5],[11.5,11.5]].forEach(([x,z])=>{const p=new THREE.Mesh(new THREE.SphereGeometry(.28,12,8),pinM);p.position.set(x,.3,z);sc.add(p)});
+ // dust
+ const dg=new THREE.BufferGeometry(),dn=260,dp=new Float32Array(dn*3);for(let i=0;i<dn;i++){dp[i*3]=(Math.random()-.5)*36;dp[i*3+1]=Math.random()*16;dp[i*3+2]=(Math.random()-.5)*36}dg.setAttribute('position',new THREE.BufferAttribute(dp,3));
+ E.dust=new THREE.Points(dg,new THREE.PointsMaterial({color:0xffe9c0,size:.06,transparent:true,opacity:.45,depthWrite:false}));sc.add(E.dust);
+ E.root=new THREE.Group();sc.add(E.root);
+ // orbit
+ E.orb={th:-.35,ph:.95,d:30,tth:-.35,tph:.95,td:30};let drag=null;
+ cv.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY};cv.setPointerCapture(e.pointerId)});
+ cv.addEventListener('pointermove',e=>{if(!drag)return;E.orb.tth-=(e.clientX-drag.x)*.006;E.orb.tph=Math.max(.25,Math.min(1.45,E.orb.tph-(e.clientY-drag.y)*.005));drag={x:e.clientX,y:e.clientY}});
+ cv.addEventListener('pointerup',()=>drag=null);cv.addEventListener('pointercancel',()=>drag=null);
+ cv.addEventListener('wheel',e=>{e.preventDefault();E.orb.td=Math.max(16,Math.min(52,E.orb.td+e.deltaY*.02))},{passive:false});
+ E.ok=true;addEventListener('resize',resize);resize();requestAnimationFrame(loop)}
+const cv=$('#gl');
+function noGL(msg){const d=document.createElement('div');d.className='nogl';d.textContent=msg;document.body.appendChild(d)}
+function resize(){if(!E.ok)return;const w=innerWidth,h=innerHeight;E.r.setSize(w,h,false);E.cam.aspect=w/h;E.cam.updateProjectionMatrix();
+ const side=w>820;E.focusX=side?-Math.min(7,w*.0045):0;E.focusZ=side?0:4.5}
+let lastT=0;
+function loop(t){requestAnimationFrame(loop);const dt=Math.min(.05,(t-lastT)/1000||0);lastT=t;
+ const o=E.orb;o.th+=(o.tth-o.th)*.08;o.ph+=(o.tph-o.ph)*.08;o.d+=(o.td-o.d)*.08;if(!RM&&!E.anims.some(a=>a.dur<1e8))o.tth+=dt*.012;
+ const fx=E.focusX||0,fz=E.focusZ||0;E.cam.position.set(fx+o.d*Math.sin(o.ph)*Math.sin(o.th),o.d*Math.cos(o.ph),fz+o.d*Math.sin(o.ph)*Math.cos(o.th));E.cam.lookAt(fx,0,fz);
+ if(E.dust&&!RM){E.dust.rotation.y+=dt*.01}
+ E.rim.intensity=.5+.15*Math.sin(t/900);
+ for(const a of E.anims.slice()){a.t+=dt/a.dur;const k=Math.min(1,a.t);a.fn(k<.5?4*k*k*k:1-Math.pow(-2*k+2,3)/2);if(k>=1){E.anims.splice(E.anims.indexOf(a),1);a.done&&a.done()}}
+ E.r.render(E.sc,E.cam);drawLabels()}
+function anim(dur,fn,done){if(!E.ok||RM){fn(1);done&&done();return}E.anims.push({t:0,dur,fn,done})}
+function clear3D(){E.anims.length=0;if(!E.ok)return;while(E.root.children.length){const c=E.root.children.pop();c.traverse&&c.traverse(o=>{o.geometry&&o.geometry.dispose();o.material&&(Array.isArray(o.material)?o.material.forEach(m=>m.dispose()):o.material.dispose())})}E.labels=[];$('#labels').innerHTML=''}
+function shapeOf(pts){const s=new THREE.Shape();pts.forEach(([x,y],i)=>i?s.lineTo(x,y):s.moveTo(x,y));s.closePath();return s}
+function addFig(pts,color,labs,cls){if(!E.ok)return null;const g=new THREE.ExtrudeGeometry(shapeOf(pts),{depth:FIGD,bevelEnabled:true,bevelThickness:.04,bevelSize:.04,bevelSegments:2});g.rotateX(-Math.PI/2);
+ const m=new THREE.Mesh(g,new THREE.MeshStandardMaterial({color,emissive:color,emissiveIntensity:.18,roughness:.38,metalness:.15,side:THREE.DoubleSide}));m.castShadow=true;m.receiveShadow=true;
+ const ed=new THREE.LineSegments(new THREE.EdgesGeometry(g,30),new THREE.LineBasicMaterial({color:0xffffff,transparent:true,opacity:.35}));m.add(ed);
+ m.matrixAutoUpdate=false;m.userData={pts,M:new THREE.Matrix4()};E.root.add(m);
+ if(labs)pts.forEach((p,i)=>addLabel(labs[i],()=>{const v=new THREE.Vector3(p[0],FIGD+.15,-p[1]).applyMatrix4(m.matrix);return v},cls));return m}
+function addGhost(pts,color,labs){if(!E.ok)return;const pos=[];pts.forEach(p=>pos.push(p[0],.03,-p[1]));pos.push(pts[0][0],.03,-pts[0][1]);
+ const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));const ln=new THREE.Line(g,new THREE.LineDashedMaterial({color,dashSize:.35,gapSize:.2}));ln.computeLineDistances();E.root.add(ln);
+ const fg=new THREE.ShapeGeometry(shapeOf(pts));fg.rotateX(-Math.PI/2);const f=new THREE.Mesh(fg,new THREE.MeshBasicMaterial({color,transparent:true,opacity:.16,side:THREE.DoubleSide,depthWrite:false}));f.position.y=.02;E.root.add(f);
+ const ring=new THREE.Mesh(fg.clone(),new THREE.MeshBasicMaterial({color,transparent:true,opacity:.0,side:THREE.DoubleSide,depthWrite:false}));ring.position.y=.025;E.root.add(ring);
+ E.anims.push({t:0,dur:1e9,fn:()=>{ring.material.opacity=.08+.07*Math.sin(performance.now()/350)}});
+ if(labs)pts.forEach((p,i)=>addLabel(labs[i],()=>new THREE.Vector3(p[0],.1,-p[1]),'p'))}
+function addLine3D(L,color=0xd6455a){if(!E.ok)return;let a,b;const R=11;switch(L.l){case'x':a=[-R,0];b=[R,0];break;case'y':a=[0,-R];b=[0,R];break;case'yx':a=[-R,-R];b=[R,R];break;case'ynx':a=[-R,R];b=[R,-R];break;case'xh':a=[L.v,-R];b=[L.v,R];break;case'yk':a=[-R,L.v];b=[R,L.v];break;case'ang':{const t=L.a*Math.PI/180;a=[-R*Math.cos(t),-R*Math.sin(t)];b=[R*Math.cos(t),R*Math.sin(t)]}}
+ const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.Float32BufferAttribute([a[0],.05,-a[1],b[0],.05,-b[1]],3));const ln=new THREE.Line(g,new THREE.LineDashedMaterial({color,dashSize:.5,gapSize:.25}));ln.computeLineDistances();E.root.add(ln);
+ const wall=new THREE.Mesh(new THREE.PlaneGeometry(Math.hypot(b[0]-a[0],b[1]-a[1]),2.2),new THREE.MeshBasicMaterial({color,transparent:true,opacity:.07,side:THREE.DoubleSide,depthWrite:false}));
+ wall.position.set((a[0]+b[0])/2,1.1,-(a[1]+b[1])/2);wall.rotation.y=Math.atan2(b[1]-a[1],b[0]-a[0]);E.root.add(wall);return ln}
+function addLabel(text,posFn,cls){const d=document.createElement('div');d.className='vl'+(cls?' '+cls:'');d.textContent=text;$('#labels').appendChild(d);E.labels.push({d,posFn})}
+function drawLabels(){const w=innerWidth,h=innerHeight;for(const L of E.labels){const v=L.posFn().clone().project(E.cam);if(v.z>1){L.d.hidden=true;continue}L.d.hidden=false;L.d.style.left=((v.x+1)/2*w)+'px';L.d.style.top=((1-v.y)/2*h)+'px'}}
+function opMat(op,t){const m=new THREE.Matrix4();
+ if(op.k==='T')return m.makeTranslation(op.a*t,0,-op.b*t);
+ if(op.k==='O')return m.makeRotationY(op.d*t*Math.PI/180);
+ if(op.k==='D'){const s=1+(op.s-1)*t;return m.makeScale(s,1,s)}
+ let p=[0,0,0],u;switch(op.l){case'x':u=[1,0,0];break;case'y':u=[0,0,1];break;case'yx':u=[1,0,-1];break;case'ynx':u=[1,0,1];break;case'xh':p=[op.v,0,0];u=[0,0,1];break;case'yk':p=[0,0,-op.v];u=[1,0,0];break}
+ const th=Math.PI*t,ax=new THREE.Vector3(...u).normalize();
+ const T1=new THREE.Matrix4().makeTranslation(-p[0],0,-p[2]),R=new THREE.Matrix4().makeRotationAxis(ax,th),T2=new THREE.Matrix4().makeTranslation(p[0],FIGD*(1-Math.cos(th))/2,p[2]);
+ return T2.multiply(R).multiply(T1)}
+function playOps(mesh,ops,done,each){if(!mesh){ops.forEach((o,i)=>each&&each(i));done&&done();return}let i=0;
+ const next=()=>{if(i>=ops.length){done&&done();return}const op=ops[i];const base=mesh.userData.M.clone();each&&each(i);let lineObj=null;if(op.k==='R')lineObj=addLine3D(op,0xe8b931);
+  anim(op.k==='T'?1.1:1.3,k=>{mesh.matrix.copy(opMat(op,k)).multiply(base)},()=>{mesh.userData.M.copy(opMat(op,1)).multiply(base);mesh.matrix.copy(mesh.userData.M);i++;setTimeout(next,RM?0:180)})};next()}
+function focusCam(d=30,ph=.95){if(!E.ok)return;E.orb.td=d;E.orb.tph=ph}
+
+/* ---------------- story & chapters ---------------- */
+const W={m:['Misaki','m'],v:['V','v'],a:['Angel','a'],r:['Ronin','r'],h:['Hara','h'],c:['Cartographer','c'],n:null};
+function dlg(lines,next,btn='Continue'){const h=lines.map(([w,t])=>w==='n'?`<div class="line n"><span class="say">${t}</span></div>`:`<div class="line"><span class="who ${W[w][1]}">${W[w][0]}</span><span class="say">${t}</span></div>`).join('');
+ return `<div class="dlg">${h}</div><div class="row"><button class="btn" id="dNext" type="button">${btn}</button></div>`}
+function showDlg(title,eyebrow,lines,next,btn){setPanel(`<div class="eyebrow">${eyebrow}</div><h2>${title}</h2>`+dlg(lines,next,btn));$('#dNext').onclick=next;$('#dNext').focus()}
+
+const CH=[
+ {id:1,sec:'4.1',name:'Translations',case:'The Tail',gens:G1,
+  intro:[['n','Tokyo, 2:14 a.m. A text from an unknown number. No words. A coordinate grid, a triangle, and an arrow.'],
+   ['m','the cartographer’s back. every contract he sends is geometry. he thinks it keeps the cops out. it keeps ME out.'],
+   ['v','Then we learn it. Sit down. Chapter four: transformations.'],
+   ['m','u have a whiteboard in ur kitchen??'],
+   ['v','I have a whiteboard in every room. Pick up the marker. We start with the simplest move there is: sliding a thing from one place to another without turning it.']],
+  lessons:[
+   {h:'Vectors',b:`<p class="def">A <b>vector</b> is a quantity with both direction and magnitude. In the coordinate plane it is an arrow drawn from one point to another.</p>
+    <p>The arrow starts at the <b>initial point</b> and ends at the <b>terminal point</b>. Vector <b>PQ→</b> starts at P and ends at Q.</p>
+    <p>The <b>horizontal component</b> is the change in x. The <b>vertical component</b> is the change in y. <b>Component form</b> combines them: if you move 5 right and 3 up, the vector is ⟨5, 3⟩.</p>
+    <div class="rule">PQ→ = ⟨x<sub>Q</sub> − x<sub>P</sub>, y<sub>Q</sub> − y<sub>P</sub>⟩</div>`,
+    fig:()=>plane({vecs:[{from:[-2,-1],to:[3,2]}],pts:[{p:[-2,-1],l:'P'},{p:[3,2],l:'Q',c:'#5fd4c4'}],R:5}),
+    check:{prompt:'P(1, 2) is the initial point and Q(6, 5) is the terminal point. What is the component form of PQ→?',choices:['⟨5, 3⟩','⟨3, 5⟩','⟨7, 7⟩','⟨−5, −3⟩'],sol:'6 − 1 = 5 and 5 − 2 = 3, so ⟨5, 3⟩. Subtract initial from terminal.'}},
+   {h:'Translations',b:`<p class="def">A <b>translation</b> moves every point of a figure the same distance in the same direction.</p>
+    <p>A translation along ⟨a, b⟩ moves every point a units horizontally and b units vertically.</p>
+    <div class="rule"><span class="k">(x, y) → (x + a, y + b)</span></div>
+    <p>If P and Q map to P′ and Q′, then PP′ = QQ′, and PP′ ∥ QQ′ (or they are collinear). The figure that goes in is the <b>preimage</b>; the figure that comes out is the <b>image</b>, and its points get prime marks.</p>`,
+    demo:{pts:[[-6,-4],[-2,-4],[-5,-1]],ops:[{k:'T',a:7,b:5}]},
+    check:{prompt:'Translate A(2, −1) along ⟨−3, 4⟩. Where is A′?',choices:['(−1, 3)','(5, −5)','(−1, −5)','(−6, −4)'],sol:'(2 + (−3), −1 + 4) = (−1, 3).'}},
+   {h:'Transformations and rigid motions',b:`<p class="def">A <b>transformation</b> is a function that moves or changes a figure to produce a new figure.</p>
+    <p>A <b>rigid motion</b> preserves length and angle measure. The image is the same size and shape as the preimage.</p>
+    <div class="rule"><span class="k">Postulate 4.1 (Translation Postulate)</span><br>A translation is a rigid motion.</div>`,
+    check:{prompt:'△ABC is translated to △A′B′C′. AB = 7. What is A′B′?',choices:['7','14','3.5','It depends on the vector'],sol:'A translation is a rigid motion, so lengths are preserved: A′B′ = 7.'}},
+   {h:'Compositions',b:`<p class="def">A <b>composition of transformations</b> combines two or more transformations into one. Do them in order: the image of the first step is the preimage of the next.</p>
+    <div class="rule"><span class="k">Theorem 4.1 (Composition Theorem)</span><br>The composition of two (or more) rigid motions is a rigid motion.</div>
+    <p>Two translations always combine into one translation. Add the vectors:</p>
+    <div class="rule">⟨a, b⟩ then ⟨c, d⟩ = ⟨a + c, b + d⟩</div>`,
+    demo:{pts:[[-6,2],[-3,2],[-6,5]],ops:[{k:'T',a:6,b:0},{k:'T',a:1,b:-6}]},
+    check:{prompt:'Translate along ⟨2, −1⟩, then along ⟨−5, 3⟩. Which single vector does the same thing?',choices:['⟨−3, 2⟩','⟨7, −4⟩','⟨−10, −3⟩','⟨3, −2⟩'],sol:'⟨2 + (−5), −1 + 3⟩ = ⟨−3, 2⟩.'}}],
+  practice:['vec','tpt','rule','findv','comp','comppt','concept','vocab'],
+  brief:[['r','Target drives the same route every night, darlin’. Parks in the same spot. My van needs to be sittin’ exactly where his car stops.'],['m','so I slide the van. no turning, no flipping. just a vector.'],['v','Read the target outline. Find the vector from A to A′. Then check B and C.']],
+  rounds:[{tools:['T'],gen:[['T']],note:'Slide the van onto the marked space with one translation.'},{tools:['T'],gen:[['T']],note:'Same target, new street. One translation.'},{tools:['T'],gen:[['T'],['T']],exact:2,note:'The bridge is out. Get there in exactly two translations (two legs of the route).'}],
+  outro:[['n','The van is in place at 3:02. The target never looks twice at it.'],['n','At 3:05 a light on the fourth floor goes out and does not come back on.'],['m','huh. it’s just addition. it was always just addition.'],['v','Most things are. Tomorrow: mirrors.']]},
+ {id:2,sec:'4.2',name:'Reflections',case:'Hall of Mirrors',gens:G2,
+  intro:[['a','okay so the client wants it done in my studio. ring lights, mirror walls, the whole set. he thinks it’s poetic.'],['m','he wants a reflection. the cartographer always sends a mirror line.'],['v','A reflection is a flip across a line. Every point lands the same distance on the other side.'],['a','i do this every day with eyeliner, babe. left eye, right eye. same distance from the nose.'],['v','Then Angel already understands perpendicular bisectors. Let us make it formal.']],
+  lessons:[
+   {h:'Reflections',b:`<p class="def">A <b>reflection</b> uses a line like a mirror. The mirror is the <b>line of reflection</b>.</p>
+    <p>A reflection in line m maps each point P to P′ so that:</p>
+    <div class="rule">If P is not on m, then m is the <span class="k">perpendicular bisector</span> of PP′.<br>If P is on m, then P = P′.</div>
+    <div class="rule"><span class="k">Postulate 4.2 (Reflection Postulate)</span><br>A reflection is a rigid motion.</div>`,
+    demo:{pts:[[2,2],[6,2],[3,6]],ops:[{k:'R',l:'x'}],lines:[{l:'x'}]},
+    check:{prompt:'P is 3 units to the left of line m. Where is P′?',choices:['3 units to the right of m, on the perpendicular through P','6 units to the right of m','On line m','3 units to the left of m'],sol:'m is the perpendicular bisector of PP′, so P′ is the same distance on the other side.'}},
+   {h:'Coordinate rules',b:`<div class="rule">x-axis: <span class="k">(a, b) → (a, −b)</span><br>y-axis: <span class="k">(a, b) → (−a, b)</span><br>y = x: <span class="k">(a, b) → (b, a)</span><br>y = −x: <span class="k">(a, b) → (−b, −a)</span></div>
+    <p>For a vertical line x = h or a horizontal line y = k, count the distance to the line and go the same distance past it:</p>
+    <div class="rule">x = h: (a, b) → (2h − a, b)<br>y = k: (a, b) → (a, 2k − b)</div>`,
+    demo:{pts:[[1,-5],[5,-5],[5,-2]],ops:[{k:'R',l:'yx'}],lines:[{l:'yx'}]},
+    check:{prompt:'Reflect (4, −2) in the line y = x.',choices:['(−2, 4)','(2, −4)','(−4, 2)','(4, 2)'],sol:'y = x swaps the coordinates: (a, b) → (b, a) gives (−2, 4).'}},
+   {h:'Glide reflections',b:`<p class="def">A <b>glide reflection</b> is a translation followed by a reflection in a line parallel to the direction of the translation.</p>
+    <p>Footprints in sand are a glide reflection: step forward, flip left to right.</p>
+    <div class="rule">Example: translate ⟨5, 0⟩, then reflect in the x-axis.<br>(x, y) → (x + 5, y) → (x + 5, −y)</div>`,
+    demo:{pts:[[-8,1],[-5,1],[-8,4]],ops:[{k:'T',a:9,b:0},{k:'R',l:'x'}],lines:[{l:'x'}]},
+    check:{prompt:'Translate (−1, 3) along ⟨4, 0⟩, then reflect in the x-axis.',choices:['(3, −3)','(−3, 3)','(3, 3)','(−5, −3)'],sol:'(−1 + 4, 3) = (3, 3), then (3, −3).'}},
+   {h:'Line symmetry',b:`<p class="def">A figure has <b>line symmetry</b> when a reflection in a line maps it onto itself. That line is a <b>line of symmetry</b>.</p>
+    <p>A rectangle that is not a square has 2. A square has 4. A regular n-gon has n. A parallelogram with unequal sides and no right angles has 0.</p>`,
+    fig:()=>plane({polys:[{pts:ngon(6)}],lines:[0,30,60,90,120,150].map(a=>({l:'ang',a,c:'#5fd4c4'})),R:6}),
+    check:{prompt:'How many lines of symmetry does an isosceles trapezoid have?',choices:['1','2','0','4'],sol:'Only the line through the midpoints of the two parallel sides.'}}],
+  practice:['refl','reflhk','which','glide','sym','concept','vocab'],
+  brief:[['a','the client stands where the mirror line says. you set the light where his reflection lands. okay? okay.'],['v','Choose the line of reflection that sends ABC onto the target. Check orientation: a reflection reverses it.']],
+  rounds:[{tools:['R'],gen:[['Rxy']],note:'One mirror. Find the line.'},{tools:['R'],gen:[['Rdiag']],note:'The diagonal mirrors. One reflection.'},{tools:['R'],gen:[['Rhk']],note:'The mirror is not on an axis this time.'},{tools:['T','R'],gen:[['glide']],exact:2,order:['T','R'],note:'Glide reflection: translate first, then reflect in a line parallel to the translation.'},{sym:'lines'},{sym:'lines'}],
+  outro:[['n','The ring light clicks on. In the mirror wall, two men raise a glass. Only one of them is real.'],['a','i’m never doing a client in my studio again. the reshoots alone.'],['m','u were great. u were basically a perpendicular bisector.'],['a','that’s the nicest thing anyone’s ever said to me']]},
+ {id:3,sec:'4.3',name:'Rotations',case:'The Vault',gens:G3,
+  intro:[['h','Inspector Hara. Somebody keeps leaving drawings at my crime scenes. Triangles, turned. Like a clock that only knows three times.'],['m','90, 180, 270.'],['h','You say that like you’ve seen them.'],['m','i say that like i can count.'],['n','After he leaves, V unrolls the floor plan of a bank vault with a rotating dial plate.'],['v','The dial turns about a fixed point. Every pin stays the same distance from the center. That is a rotation.']],
+  lessons:[
+   {h:'Rotations',b:`<p class="def">A <b>rotation</b> turns a figure about a fixed point, the <b>center of rotation</b>. The <b>angle of rotation</b> is formed by rays from the center to a point and to its image.</p>
+    <div class="rule">Rotation about P through x° maps Q to Q′ so that<br>if Q ≠ P: <span class="k">QP = Q′P</span> and <span class="k">m∠QPQ′ = x°</span><br>if Q = P: Q = Q′</div>
+    <p>In this chapter rotations are counterclockwise unless a problem says otherwise.</p>`,
+    demo:{pts:[[2,1],[6,1],[2,4]],ops:[{k:'O',d:90}]},
+    check:{prompt:'Q is 5 units from the center of rotation P. After the rotation, how far is Q′ from P?',choices:['5 units','10 units','0 units','It depends on the angle'],sol:'Rotations keep every point the same distance from the center: QP = Q′P.'}},
+   {h:'Rules about the origin',b:`<div class="rule">90°: <span class="k">(a, b) → (−b, a)</span><br>180°: <span class="k">(a, b) → (−a, −b)</span><br>270°: <span class="k">(a, b) → (b, −a)</span></div>
+    <p>A clockwise turn of x° is the same as a counterclockwise turn of 360° − x°. So 90° clockwise uses the 270° rule.</p>
+    <div class="rule"><span class="k">Postulate 4.3 (Rotation Postulate)</span><br>A rotation is a rigid motion.</div>`,
+    demo:{pts:[[1,2],[5,2],[5,5]],ops:[{k:'O',d:180}]},
+    check:{prompt:'Rotate (3, −4) 90° counterclockwise about the origin.',choices:['(4, 3)','(−4, −3)','(−3, 4)','(4, −3)'],sol:'(a, b) → (−b, a) = (−(−4), 3) = (4, 3).'}},
+   {h:'Compositions with rotations',b:`<p>Order matters. Rotating then translating usually lands somewhere different from translating then rotating, because a rotation about the origin also moves where the translated figure sits.</p>
+    <div class="rule">Rotate 90° then translate ⟨3, 0⟩: (1, 0) → (0, 1) → (3, 1)<br>Translate ⟨3, 0⟩ then rotate 90°: (1, 0) → (4, 0) → (0, 4)</div>`,
+    demo:{pts:[[1,1],[4,1],[1,3]],ops:[{k:'O',d:90},{k:'T',a:6,b:-4}]},
+    check:{prompt:'Rotate (2, 0) 180° about the origin, then translate ⟨0, 3⟩.',choices:['(−2, 3)','(2, −3)','(−2, −3)','(2, 3)'],sol:'(2, 0) → (−2, 0) → (−2, 3).'}},
+   {h:'Rotational symmetry',b:`<p class="def">A figure has <b>rotational symmetry</b> when a rotation of 180° or less about its center maps it onto itself. That center is the <b>center of symmetry</b>.</p>
+    <p>A regular n-gon has rotational symmetry with smallest angle 360°/n. A parallelogram has 180°. An isosceles trapezoid has none.</p>`,
+    fig:()=>plane({polys:[{pts:ngon(5,4.6,1.9)}],R:6}),
+    check:{prompt:'What is the smallest angle of rotational symmetry of a regular hexagon?',choices:['60°','90°','120°','180°'],sol:'360° ÷ 6 = 60°.'}}],
+  practice:['rot','cw','comp','rotsym','concept','vocab'],
+  brief:[['v','The vault plate turns about the origin. The pins must land in the marked slots.'],['m','and if i turn it wrong?'],['v','The alarm. Three strikes and Hara has a reason to visit.']],
+  rounds:[{tools:['O'],gen:[['O']],note:'One rotation about the origin.'},{tools:['O'],gen:[['O']],note:'Again. Watch the direction: counterclockwise.'},{tools:['O','T','R'],gen:[['O'],['Tsmall']],note:'Two moves: the plate turns, then the tray slides.'},{sym:'rot'},{sym:'rot'}],
+  outro:[['n','The plate clicks home. The vault breathes out cold air. Inside: deposit box 4-3, and a single sheet of paper with nothing on it but a scale factor.'],['m','k equals three. he’s telling us what comes next.'],['v','He is telling us he wants to be seen. Men like that always do.']]},
+ {id:4,sec:'4.4',name:'Congruence and Transformations',case:'Clean Scene',gens:G4,
+  intro:[['r','So here’s the thing about cleanin’ up, pal. Ya gotta put everything back exactly how it was. Same size, same shape. Just… somewhere else.'],['v','He means congruence. A copy that a rigid motion can move onto the original.'],['m','so if i can slide, flip, or turn one onto the other, they’re congruent.'],['v','Yes. And two flips in a row are secretly something else. That is the part the Cartographer counts on.']],
+  lessons:[
+   {h:'Congruent figures',b:`<p class="def"><b>Congruent figures</b> have the same size and shape. A <b>congruence transformation</b> preserves length and angle measure.</p>
+    <p>Translations, reflections, rotations, and their compositions are congruence transformations. Two figures are congruent if and only if a rigid motion (or a composition of rigid motions) maps one onto the other.</p>
+    <p>To <b>describe</b> a congruence transformation, name each step: the vector, the line, or the angle and center.</p>`,
+    check:{prompt:'Which of these is NOT a congruence transformation?',choices:['A dilation with k = 2','A translation along ⟨1, 1⟩','A reflection in y = x','A 180° rotation'],sol:'A dilation with k = 2 doubles lengths, so it does not preserve length.'}},
+   {h:'Reflections in parallel lines',b:`<div class="rule"><span class="k">Theorem 4.2</span><br>If k ∥ m, a reflection in k followed by a reflection in m is a translation. If A″ is the image of A, then<br>1. AA″ is perpendicular to k and m<br>2. AA″ = 2d, where d is the distance between k and m.</div>
+    <p>The translation goes from the first line toward the second line. With x = h₁ then x = h₂: (x, y) → (x + 2(h₂ − h₁), y).</p>`,
+    demo:{pts:[[-7,1],[-5,1],[-7,4]],ops:[{k:'R',l:'xh',v:-3},{k:'R',l:'xh',v:1}],lines:[{l:'xh',v:-3},{l:'xh',v:1}]},
+    check:{prompt:'Lines x = 1 and x = 4. Reflect in x = 1, then x = 4. How far does every point move?',choices:['6 units right','3 units right','6 units left','It becomes a rotation'],sol:'d = 3, so AA″ = 2d = 6, in the direction from the first line to the second (right).'}},
+   {h:'Reflections in intersecting lines',b:`<div class="rule"><span class="k">Theorem 4.3</span><br>If k and m intersect at P, a reflection in k followed by a reflection in m is a rotation about P. The angle of rotation is <span class="k">2x°</span>, where x° is the acute or right angle formed by k and m.</div>
+    <p>Example: reflect in the x-axis, then in y = x. The lines meet at 45°, so the result is a 90° rotation about the origin.</p>`,
+    demo:{pts:[[2,1],[6,1],[2,3]],ops:[{k:'R',l:'x'},{k:'R',l:'yx'}],lines:[{l:'x'},{l:'yx'}]},
+    check:{prompt:'Lines k and m meet at a 35° angle. Reflecting in k then m is a rotation of…',choices:['70°','35°','17.5°','145°'],sol:'2 × 35° = 70°.'}}],
+  practice:['par','inter','desc','congq','concept','vocab'],
+  brief:[['r','Everything goes back exactly where it belongs. No funny business with the size, now.'],['v','Rigid motions only. Some jobs only give you mirrors. Remember the theorems.']],
+  rounds:[{tools:['T','R','O'],gen:[['Rxy','O'],['T']],note:'Any rigid motions. Map ABC onto the target.'},{tools:['R'],gen:[['par']],exact:2,lines:'xh',note:'Only mirrors on vertical lines x = h. Two reflections. (Theorem 4.2: you need a translation of 2d.)'},{tools:['R'],gen:[['inter']],exact:2,lines:'axes',note:'Only mirrors through the origin. Two reflections make a rotation (Theorem 4.3).'},{tools:['T','R','O'],gen:[['O','Rdiag'],['T']],note:'Clean the last room. Any rigid motions.'}],
+  outro:[['n','By dawn the room is exactly as it was. Same chairs. Same angles. A body’s worth of difference, and you could not prove it with a ruler.'],['h','(voicemail) The scene was too clean. Whoever did this measured twice.'],['m','i measured three times actually']]},
+ {id:5,sec:'4.5',name:'Dilations',case:'The Scope',gens:G5,
+  intro:[['n','The blank sheet from the vault said k = 3. A day later a second sheet arrives: k = 1/2.'],['v','Scale factors. He is enlarging and reducing. A dilation keeps the shape and changes the size.'],['m','like a scope. same window, just bigger.'],['v','Exactly like a scope. Let us zero yours.']],
+  lessons:[
+   {h:'Dilations',b:`<p class="def">A <b>dilation</b> enlarges or reduces a figure with respect to a fixed point C, the <b>center of dilation</b>, by a <b>scale factor</b> k.</p>
+    <div class="rule">If P = C, then P′ = P.<br>If P ≠ C, then P′ lies on <span class="k">ray CP</span> and <span class="k">k = CP′ / CP</span>.<br>Angle measures are preserved.</div>
+    <p>k &gt; 1 is an <b>enlargement</b>. 0 &lt; k &lt; 1 is a <b>reduction</b>.</p>`,
+    demo:{pts:[[1,1],[3,1],[1,3]],ops:[{k:'D',s:3}]},
+    check:{prompt:'CP = 4 and CP′ = 10. What is k, and what kind of dilation is it?',choices:['k = 5/2, enlargement','k = 2/5, reduction','k = 6, enlargement','k = 5/2, reduction'],sol:'k = 10/4 = 5/2 > 1, an enlargement.'}},
+   {h:'Coordinate rule',b:`<div class="rule">Center at the origin, scale factor k:<br><span class="k">P(x, y) → P′(kx, ky)</span></div>
+    <p>A dilation changes lengths (each length is multiplied by k), so it is not a rigid motion unless k = 1 or k = −1.</p>`,
+    demo:{pts:[[2,4],[6,4],[6,6]],ops:[{k:'D',s:.5}]},
+    check:{prompt:'Dilate (6, −4) by k = 1/2 centered at the origin.',choices:['(3, −2)','(12, −8)','(3, 2)','(6.5, −3.5)'],sol:'(½·6, ½·(−4)) = (3, −2).'}},
+   {h:'Negative scale factors',b:`<p>When k is negative, the rule (kx, ky) still works. The image lands on the <b>opposite side</b> of the center, as if you dilated by |k| and then rotated 180°.</p>
+    <div class="rule">k = −2: (3, 1) → (−6, −2)</div>`,
+    demo:{pts:[[1,1],[3,1],[1,2]],ops:[{k:'D',s:-2}]},
+    check:{prompt:'Dilate (−2, 5) by k = −1/2 centered at the origin.',choices:['(1, −5/2)','(−1, 5/2)','(4, −10)','(1, 5/2)'],sol:'(−½·(−2), −½·5) = (1, −5/2).'}},
+   {h:'Real life: scale factor problems',b:`<p>Magnifying glasses, scopes, photo enlargements, and blueprints all use scale factors.</p>
+    <div class="rule">image length = k × actual length<br>k = image length ÷ actual length</div>`,
+    check:{prompt:'A scope with scale factor 4 shows a 2.5 cm object. How big does it look?',choices:['10 cm','6.5 cm','0.625 cm','1.6 cm'],sol:'4 × 2.5 = 10 cm.'}}],
+  practice:['dil','findk','seg','type','real','concept','vocab'],
+  brief:[['v','The target outline is a dilation of your figure. Find k. Some are enlargements, some reductions, one is negative.'],['m','zeroing the scope.']],
+  rounds:[{tools:['D'],gen:[['Dbig']],note:'Enlarge to match the target. Center: origin.'},{tools:['D'],gen:[['Dsmall']],note:'Reduce to match.'},{tools:['D'],gen:[['Dneg']],note:'The target is on the other side of the center.'},{tools:['D','T'],gen:[['Dbig'],['Tsmall']],note:'Scale, then slide.'}],
+  outro:[['n','Through the scope the window across the canal is three times its size. A man in a grey suit is writing in a ledger. He looks up, right into the glass, and smiles.'],['m','he knew i was here.'],['v','He wanted you to see the ledger. Now we know what he is protecting.']]},
+ {id:6,sec:'4.6',name:'Similarity and Transformations',case:'Forgery',gens:G6,
+  intro:[['a','okay i need to make him a fake ID to get into the ledger room. his photo, but smaller, and flipped because the scanner reads mirrored. don’t ask.'],['v','A dilation and then a reflection. A similarity transformation.'],['a','is that bad'],['v','It is perfect. Same shape. Different size. That is what similar means.']],
+  lessons:[
+   {h:'Similarity transformations',b:`<p class="def">A <b>similarity transformation</b> is a dilation, or a composition of rigid motions and dilations.</p>
+    <p class="def"><b>Similar figures</b> have the same shape but not necessarily the same size. Angles match and sides are proportional.</p>
+    <p>Congruent figures are similar too (scale factor 1). Similar figures are not always congruent.</p>`,
+    demo:{pts:[[1,1],[3,1],[1,2]],ops:[{k:'D',s:2},{k:'R',l:'y'}],lines:[{l:'y'}]},
+    check:{prompt:'Which statement is true?',choices:['Every pair of congruent figures is similar','Every pair of similar figures is congruent','A similarity transformation always preserves length','Similar figures have different angles'],sol:'Congruent figures are similar with k = 1.'}},
+   {h:'Describing and proving similarity',b:`<p>To show two figures are similar, find a similarity transformation that maps one onto the other.</p>
+    <div class="rule">1. Compare a pair of corresponding sides to find |k|.<br>2. Dilate by k.<br>3. Find the rigid motion that finishes the job.</div>
+    <p>Do the steps in the order given. The image of each step is the input to the next.</p>`,
+    demo:{pts:[[-2,1],[-1,1],[-2,3]],ops:[{k:'D',s:3},{k:'O',d:90}]},
+    check:{prompt:'△ABC has AB = 4. A similarity transformation dilates by k = 3/2 and then rotates 90°. What is A″B″?',choices:['6','4','8/3','10'],sol:'Rigid motions keep length; the dilation multiplies by 3/2. 4 × 3/2 = 6.'}}],
+  practice:['sim','desc','side','concept','vocab'],
+  brief:[['a','photo goes from my template to the card slot. dilate, then flip or turn. the printer only takes the steps you tell it.'],['v','Build the similarity transformation. Dilation first, then the rigid motion.']],
+  rounds:[{tools:['D','R'],gen:[['Dbig'],['Rxy']],note:'Dilate, then reflect.'},{tools:['D','O'],gen:[['Dsmall'],['O']],note:'Reduce, then rotate.'},{tools:['D','T','R','O'],gen:[['Dbig','Dneg'],['T','O','Rxy']],note:'Any similarity transformation. The card is waiting.'}],
+  outro:[['n','The ID slides out of the printer warm. The face on it is his, smaller, mirrored, the same in every way that matters.'],['a','we’re in. we’re actually in. oh my god i’m so good at forgery'],['v','The ledger room is on the top floor. He will be there. He is always where the math says he is.']]}];
+
+/* round op generators: return an op given a tag */
+function genOp(tag){switch(tag){
+ case'T':return{k:'T',a:nz(7),b:nz(6)};
+ case'Tsmall':return{k:'T',a:nz(4),b:nz(4)};
+ case'Rxy':return{k:'R',l:pick(['x','y'])};
+ case'Rdiag':return{k:'R',l:pick(['yx','ynx'])};
+ case'Rhk':{const l=pick(['xh','yk']);return{k:'R',l,v:nz(3)}}
+ case'O':return{k:'O',d:pick([90,180,270])};
+ case'Dbig':return{k:'D',s:pick([2,3])};
+ case'Dsmall':return{k:'D',s:1/2};
+ case'Dneg':return{k:'D',s:pick([-2,-1/2])};
+ case'Rbasic':return{k:'R',l:pick(['x','y','yx','ynx'])}}
+ throw new Error('tag '+tag)}
+function makeRound(rd){for(let t=0;t<800;t++){let ops=[],pre;
+  if(rd.gen[0][0]==='glide'){const hz=Math.random()<.5;ops=[hz?{k:'T',a:nz(6),b:0}:{k:'T',a:0,b:nz(6)},{k:'R',l:hz?'x':'y'}]}
+  else if(rd.gen[0][0]==='par'){let h1=ri(-4,4),h2;do{h2=ri(-4,4)}while(h2===h1);ops=[{k:'R',l:'xh',v:h1},{k:'R',l:'xh',v:h2}]}
+  else if(rd.gen[0][0]==='inter'){const pairs=[['x','yx'],['x','y'],['y','x'],['yx','x'],['x','ynx'],['ynx','x'],['y','yx'],['yx','y']];const pr=pick(pairs);ops=[{k:'R',l:pr[0]},{k:'R',l:pr[1]}]}
+  else ops=rd.gen.map(g=>genOp(pick(g)));
+  const hasD=ops.find(o=>o.k==='D');
+  if(hasD&&Math.abs(hasD.s)===.5){pre=randTri(8).map(p=>p.map(v=>Math.round(v/2)*2))}else if(hasD){pre=randTri(Math.abs(hasD.s)>=3?3:4)}else pre=randTri(6);
+  const ar=Math.abs((pre[1][0]-pre[0][0])*(pre[2][1]-pre[0][1])-(pre[2][0]-pre[0][0])*(pre[1][1]-pre[0][1]));if(ar<4)continue;
+  const s3=[dist(pre[0],pre[1]),dist(pre[1],pre[2]),dist(pre[2],pre[0])].sort((a,b)=>a-b);if(eq(s3[0],s3[1])||eq(s3[1],s3[2]))continue;
+  const img=apAll(ops,pre);if(img.some(p=>Math.abs(p[0])>10||Math.abs(p[1])>10))continue;if(samePts(img,pre))continue;
+  // targets should not overlap the preimage heavily: require centroid distance >= 2
+  const cen=a=>[(a[0][0]+a[1][0]+a[2][0])/3,(a[0][1]+a[1][1]+a[2][1])/3];if(dist(cen(pre),cen(img))<2&&!hasD)continue;
+  return{pre,img,ops}}
+ return{pre:[[1,1],[4,1],[1,3]],ops:[{k:'T',a:3,b:2}],img:apAll([{k:'T',a:3,b:2}],[[1,1],[4,1],[1,3]])}}
+
+/* ---------------- save state ---------------- */
+let G=store.get()||{};
+function fresh(){G={v:1,heat:0,ch:{},exam:null,missionFinal:false,seenIntro:false,stats:{right:0,wrong:0}};CH.forEach(c=>G.ch[c.id]={lesson:0,lessonDone:false,mastery:0,mission:false,introSeen:false});save()}
+if(!G||G.v!==1)fresh();
+function save(){store.set(G);$('#hudHeat').textContent=G.heat}
+function unlocked(id){return id===1||G.ch[id-1].mission}
+function setPanel(html,cls=''){PANEL.className=cls;UI.innerHTML=html;UI.scrollTop=0}
+function hudCh(t){$('#hudCh').textContent=t}
+
+/* ---------------- screens ---------------- */
+function title(){clear3D();hudCh('Chapter 4: Transformations');focusCam(34,.9);
+ const demo=randTri(5);addFig(demo,0xe8b931,['A','B','C']);addGhost(apAll([{k:'O',d:90}],demo),0x5fd4c4,['A′','B′','C′']);
+ setPanel(`<div class="eyebrow">Big Ideas Geometry · Chapter 4</div><h1>Mirror Protocol</h1>
+ <p>Misaki is a contract killer who never finished geometry. Her new broker, the Cartographer, writes every job as a transformation. V is going to make sure she learns all of it.</p>
+ <p class="muted">Six cases follow the chapter: translations, reflections, rotations, congruence, dilations, and similarity. Each case has a lesson with checks, a practice drill you must master, and a 3D mission on the evidence table. Then the final exam.</p>
+ <div class="legend"><span><i style="background:var(--tape)"></i>preimage</span><span><i style="background:var(--prime)"></i>image / target</span><span><i style="background:var(--blood)"></i>line of reflection</span></div>
+ <div class="row"><button class="btn" id="go" type="button">${G.seenIntro?'Open the case board':'Begin'}</button>${G.seenIntro?'<button class="btn ghost" id="reset" type="button">Start over</button>':''}</div>
+ <p class="muted" style="font-size:13px">Drag the table to look around. Scroll or pinch to zoom.</p>`);
+ $('#go').onclick=()=>{if(G.seenIntro)return board();G.seenIntro=true;save();showDlg('Prologue','2:14 a.m.',[
+  ['n','A trailer at the edge of the city. Rent due in three days. One unread message.'],
+  ['c','“Contract 4.1. Preimage attached. Find the image. Payment on arrival.”'],
+  ['m','it’s a triangle. he sent me a triangle. with a little arrow.'],
+  ['v','He sent you a translation. Every job he writes will be one of six kinds of move. If you cannot read them, you cannot take the jobs.'],
+  ['m','and if i CAN read them?'],
+  ['v','Then you will find the place he is writing them from. Come. I have a whiteboard.']],board,'Open the case board')};
+ const r=$('#reset');if(r)r.onclick=()=>{r.outerHTML='<span class="row"><span class="muted">Erase all progress?</span><button class="btn red sm" id="r2" type="button">Erase</button><button class="btn ghost sm" id="r3" type="button">Keep</button></span>';$('#r2').onclick=()=>{fresh();title()};$('#r3').onclick=title}}
+
+function chStatus(c){const s=G.ch[c.id];if(s.mission)return['done','Closed'];if(!unlocked(c.id))return['','Locked'];if(s.mastery>=100)return['go','Mission ready'];if(s.lessonDone)return['go','Practice '+s.mastery+'%'];return['go','Open']}
+function board(){clear3D();hudCh('Case board');focusCam(36,.75);
+ const all=CH.every(c=>G.ch[c.id].mission);
+ let h=`<div class="eyebrow">Case board</div><h2>The Cartographer’s contracts</h2><p class="muted">Each case unlocks when the one before it is closed.</p><div class="cards">`;
+ CH.forEach(c=>{const[st,lab]=chStatus(c);h+=`<button class="card" type="button" data-ch="${c.id}" ${unlocked(c.id)?'':'disabled'}><span class="num">${c.sec}</span><span class="nm"><b>${c.name}</b><span>Case: ${c.case}</span></span><span class="chip ${st}">${lab}</span></button>`});
+ h+=`<button class="card" type="button" data-ch="final" ${all?'':'disabled'}><span class="num">4.✱</span><span class="nm"><b>The Ledger</b><span>Final mission and chapter exam</span></span><span class="chip ${G.exam&&G.exam.pass?'done':all?'go':''}">${G.exam&&G.exam.pass?'Closed '+G.exam.best+'/20':all?'Open':'Locked'}</span></button></div>
+ <div class="row"><button class="btn ghost sm" id="bStats" type="button">Record</button><button class="btn ghost sm" id="bTitle" type="button">Title screen</button></div>`;
+ setPanel(h);
+ UI.querySelectorAll('.card').forEach(b=>b.onclick=()=>{const id=b.dataset.ch;if(id==='final')return finalCase();caseMenu(CH[+id-1])});
+ $('#bStats').onclick=stats;$('#bTitle').onclick=title;
+ // decorate table with closed cases
+ CH.forEach((c,i)=>{if(G.ch[c.id].mission){const ang=i/6*Math.PI*2;const r=6;addFig(ngon(3,1.1).map(p=>[p[0]+r*Math.cos(ang),p[1]+r*Math.sin(ang)]),0x5fd4c4)}})}
+function stats(){const t=G.stats.right+G.stats.wrong;
+ setPanel(`<div class="eyebrow">Record</div><h2>Your file</h2><table class="sc"><tr><th>Section</th><th>Practice</th><th>Mission</th></tr>${CH.map(c=>`<tr><td>${c.sec} ${c.name}</td><td>${G.ch[c.id].mastery}%</td><td>${G.ch[c.id].mission?'closed':'open'}</td></tr>`).join('')}</table>
+ <p>Answers: <b>${G.stats.right}</b> right, <b>${G.stats.wrong}</b> wrong${t?` (${Math.round(G.stats.right/t*100)}% accuracy)`:''}. Heat: <b>${G.heat}</b>.</p>
+ <p>Final exam best: <b>${G.exam?G.exam.best+'/20':'not taken'}</b></p><div class="row"><button class="btn" id="bk" type="button">Back</button></div>`);$('#bk').onclick=board}
+
+function caseMenu(c){hudCh(c.sec+' '+c.name);const s=G.ch[c.id];
+ if(!s.introSeen){s.introSeen=true;save();return showDlg(c.name,'Case '+c.sec+': '+c.case,c.intro,()=>caseMenu(c))}
+ clear3D();focusCam(32,.9);
+ const steps=[['Lesson','Read, watch the demos, answer each check.',s.lessonDone?'done':'go',s.lessonDone?'Done':'Start',()=>lesson(c,s.lessonDone?0:s.lesson)],
+  ['Practice drill','Reach 100% mastery. Right answers +20, wrong −10.',s.mastery>=100?'done':s.lessonDone?'go':'',s.mastery>=100?'Mastered':s.lessonDone?s.mastery+'%':'Locked',()=>practice(c)],
+  ['Mission',`3D case: ${c.case}.`,s.mission?'done':s.mastery>=100?'go':'',s.mission?'Closed':s.mastery>=100?'Ready':'Locked',()=>mission(c)]];
+ setPanel(`<div class="eyebrow">Case ${c.sec}</div><h2>${c.case}</h2><p class="muted">${c.name}</p><div class="cards">${steps.map((t,i)=>`<button class="card" type="button" data-i="${i}" ${t[2]===''?'disabled':''}><span class="num">${i+1}</span><span class="nm"><b>${t[0]}</b><span>${t[1]}</span></span><span class="chip ${t[2]}">${t[3]}</span></button>`).join('')}</div>
+ <div class="row"><button class="btn ghost sm" id="bk" type="button">Case board</button>${s.lessonDone?'<button class="btn ghost sm" id="rv" type="button">Review lesson</button>':''}</div>`);
+ UI.querySelectorAll('.card').forEach(b=>b.onclick=()=>steps[+b.dataset.i][4]());$('#bk').onclick=board;const rv=$('#rv');if(rv)rv.onclick=()=>lesson(c,0)}
+
+/* ---------------- lessons ---------------- */
+function lesson(c,i){const s=G.ch[c.id];const L=c.lessons[i];clear3D();hudCh(c.sec+' Lesson '+(i+1)+'/'+c.lessons.length);
+ if(L.demo){addFig(L.demo.pts,0xe8b931,['A','B','C']);(L.demo.lines||[]).forEach(l=>addLine3D(l));focusCam(30,.85)}
+ const ch=L.check;const opts=shuffle(ch.choices);
+ setPanel(`<div class="eyebrow">${c.sec} ${c.name} · lesson ${i+1} of ${c.lessons.length}</div><h2>${L.h}</h2>${L.b}${L.fig?L.fig():''}
+ ${L.demo?'<div class="row"><button class="btn ghost" id="demo" type="button">Play the demo on the table</button></div>':''}
+ <h3>Check</h3><p class="q">${ch.prompt}</p><div class="opts" id="opts">${opts.map((o,k)=>`<button class="opt" type="button" data-k="${k}">${o}</button>`).join('')}</div><div id="fb"></div>
+ <div class="row"><button class="btn ghost sm" id="bk" type="button">Case menu</button>${i>0?'<button class="btn ghost sm" id="prev" type="button">Previous</button>':''}</div>`,'tall');
+ $('#bk').onclick=()=>caseMenu(c);if(i>0)$('#prev').onclick=()=>lesson(c,i-1);
+ if(L.demo){$('#demo').onclick=()=>{clear3D();const m=addFig(L.demo.pts,0xe8b931);(L.demo.lines||[]).forEach(l=>addLine3D(l));addGhost(apAll(L.demo.ops,L.demo.pts),0x5fd4c4,['A′','B′','C′']);
+   const t=L.demo.pts.map((p,j)=>['A','B','C'][j]);playOps(m,L.demo.ops,()=>toast('Demo finished: '+L.demo.ops.map(opText).join(', then ')))}}
+ UI.querySelectorAll('#opts .opt').forEach(b=>b.onclick=()=>{const v=opts[+b.dataset.k];const ok=v===ch.choices[0];
+  if(ok){UI.querySelectorAll('#opts .opt').forEach(x=>x.disabled=true);b.classList.add('right');G.stats.right++;
+   $('#fb').innerHTML=`<div class="fb ok"><span class="t">Correct</span><span>${ch.sol}</span><div class="row"><button class="btn" id="nx" type="button">${i+1<c.lessons.length?'Next lesson':'Finish lesson'}</button></div></div>`;
+   if(i+1>s.lesson)s.lesson=i+1;if(i+1>=c.lessons.length){s.lessonDone=true;s.lesson=0}save();
+   $('#nx').onclick=()=>i+1<c.lessons.length?lesson(c,i+1):(toast('Lesson complete. Practice unlocked.'),caseMenu(c));$('#nx').focus()}
+  else{b.classList.add('wrong');b.disabled=true;G.stats.wrong++;save();$('#fb').innerHTML=`<div class="fb no"><span class="t">Not quite</span><span>Reread the rule above and try another answer.</span></div>`}})}
+
+/* ---------------- practice ---------------- */
+function nextQ(c){const keys=c.practice;let gen;
+ if(c.id>1&&Math.random()<.2){const pc=CH[ri(0,c.id-2)];gen=pc.gens[pick(pc.practice)];const q=gen();q.review=pc.sec;return q}
+ gen=c.gens[pick(keys)];return gen()}
+function practice(c){clear3D();focusCam(36,.7);hudCh(c.sec+' Practice');ask(c,nextQ(c))}
+function answerUI(q){if(q.kind==='mc')return`<div class="opts" id="opts">${q.choices.map((o,k)=>`<button class="opt" type="button" data-k="${k}">${o}</button>`).join('')}</div>`;
+ if(q.kind==='pt')return`<form id="af" class="inp" autocomplete="off">( <input id="a1" aria-label="x-coordinate"> , <input id="a2" aria-label="y-coordinate"> ) <button class="btn" type="submit">Submit</button></form>`;
+ if(q.kind==='vec')return`<form id="af" class="inp" autocomplete="off">⟨ <input id="a1" aria-label="horizontal component"> , <input id="a2" aria-label="vertical component"> ⟩ <button class="btn" type="submit">Submit</button></form>`;
+ return`<form id="af" class="inp" autocomplete="off"><input id="a1" aria-label="answer"> <button class="btn" type="submit">Submit</button></form>`}
+function grade(q,get){if(q.kind==='mc')return get===q.ans;if(q.kind==='num')return eq(get[0],q.ans);return eq(get[0],q.ans[0])&&eq(get[1],q.ans[1])}
+function ansText(q){return q.kind==='mc'?q.ans:q.kind==='pt'?P(...q.ans):q.kind==='vec'?Vc(...q.ans):fr(q.ans)}
+function bindAnswer(q,cb){if(q.kind==='mc'){UI.querySelectorAll('#opts .opt').forEach(b=>b.onclick=()=>{const v=q.choices[+b.dataset.k];UI.querySelectorAll('#opts .opt').forEach(x=>{x.disabled=true;if(q.choices[+x.dataset.k]===q.ans)x.classList.add('right')});if(v!==q.ans)b.classList.add('wrong');cb(v===q.ans)})}
+ else{const f=$('#af');$('#a1').focus();f.onsubmit=e=>{e.preventDefault();const a=parseNum($('#a1').value),b=q.kind==='num'?0:parseNum($('#a2').value);
+  if(isNaN(a)||isNaN(b)){toast('Enter numbers like 3, −2, or 5/2.');return}f.querySelectorAll('input,button').forEach(x=>x.disabled=true);cb(grade(q,[a,b]))}}}
+let CURQ=null;
+function ask(c,q){CURQ=q;const s=G.ch[c.id];
+ setPanel(`<div class="row" style="justify-content:space-between"><span class="eyebrow">${c.sec} practice${q.review?` · review from ${q.review}`:''}</span><span class="eyebrow">mastery ${s.mastery}%</span></div><div class="meter"><i style="width:${s.mastery}%"></i></div>
+ <p class="q">${q.prompt}</p>${q.fig||''}${answerUI(q)}<div id="fb"></div><div class="row"><button class="btn ghost sm" id="bk" type="button">Case menu</button><button class="btn ghost sm" id="hint" type="button">Show the rule</button></div>`,'tall');
+ $('#bk').onclick=()=>caseMenu(c);$('#hint').onclick=()=>{$('#hint').outerHTML=`<div class="rule" style="width:100%">${ruleSheet(true)}</div>`};
+ bindAnswer(q,ok=>{if(ok){G.stats.right++;s.mastery=Math.min(100,s.mastery+20)}else{G.stats.wrong++;s.mastery=Math.max(0,s.mastery-10)}save();
+  const done=s.mastery>=100;
+  $('#fb').innerHTML=`<div class="fb ${ok?'ok':'no'}"><span class="t">${ok?'Correct':'Incorrect · answer '+esc(ansText(q))}</span><span>${q.sol}</span><div class="row"><button class="btn" id="nx" type="button">${done?'Mastered: back to case':'Next problem'}</button></div></div>`;
+  UI.querySelector('.meter i').style.width=s.mastery+'%';
+  $('#nx').onclick=()=>done?(toast('Practice mastered. Mission unlocked.'),caseMenu(c)):ask(c,nextQ(c));$('#nx').focus()})}
+
+/* ---------------- missions (3D) ---------------- */
+let M=null;
+function mission(c){M={c,ri:0,strikes:0,rounds:c.rounds};showDlg(c.case,'Mission briefing',c.brief,()=>startRound())}
+function startRound(){const rd=M.rounds[M.ri];M.strikes=0;M.steps=[];hudCh(M.c?M.c.sec+' Mission '+(M.ri+1)+'/'+M.rounds.length:'The Ledger '+(M.ri+1)+'/'+M.rounds.length);
+ if(rd.sym)return symRound(rd);
+ const R=makeRound(rd);M.R=R;M.tool=rd.tools[0];draw3DRound();renderMission()}
+function draw3DRound(){clear3D();focusCam(30,.88);const R=M.R;M.mesh=addFig(R.pre,0xe8b931,['A','B','C']);addGhost(R.img,0x5fd4c4,['A′','B′','C′'])}
+function toolForm(t,rd){if(t==='T')return`<div class="inp">⟨ <input id="ta" aria-label="horizontal component" value="0"> , <input id="tb" aria-label="vertical component" value="0"> ⟩</div>`;
+ if(t==='R'){const ls=rd.lines==='xh'?[['xh','x = h']]:rd.lines==='axes'?[['x','x-axis'],['y','y-axis'],['yx','y = x'],['ynx','y = −x']]:[['x','x-axis'],['y','y-axis'],['yx','y = x'],['ynx','y = −x'],['xh','x = h'],['yk','y = k']];
+  return`<div class="inp"><select id="rl" aria-label="line of reflection">${ls.map(l=>`<option value="${l[0]}">${l[1]}</option>`).join('')}</select><span id="rhw" ${ls[0][0]==='xh'?'':'hidden'}>value <input id="rv" aria-label="h or k" value="0"></span></div>`}
+ if(t==='O')return`<div class="inp"><select id="od" aria-label="angle"><option value="90">90°</option><option value="180">180°</option><option value="270">270°</option></select><span class="muted" style="font:14px var(--f-body)">counterclockwise about the origin</span></div>`;
+ return`<div class="inp">k = <input id="dk" aria-label="scale factor" value="2"><span class="muted" style="font:14px var(--f-body)">center at the origin</span></div>`}
+const TN={T:'Translate',R:'Reflect',O:'Rotate',D:'Dilate'};
+function renderMission(msg){const rd=M.rounds[M.ri],R=M.R;
+ const lim=rd.exact?`Exactly ${rd.exact} steps.`:'';
+ setPanel(`<div class="row" style="justify-content:space-between"><span class="eyebrow">${M.c?M.c.case:'The Ledger'} · job ${M.ri+1} of ${M.rounds.length}</span><span class="strikes" title="strikes">${[0,1,2].map(i=>`<i class="${i<M.strikes?'on':''}"></i>`).join('')}</span></div>
+ <p>${rd.note} <span class="muted">${lim}</span></p>
+ ${plane({polys:[{pts:R.pre,lab:['A','B','C']},{pts:R.img,c:'#5fd4c4',dash:1,lab:['A′','B′','C′']}]})}
+ <p class="muted" style="font-size:13px">A${P(...R.pre[0])} B${P(...R.pre[1])} C${P(...R.pre[2])} → A′${P(...R.img[0])} B′${P(...R.img[1])} C′${P(...R.img[2])}</p>
+ <h3>Plan</h3><div class="steps" id="steps">${M.steps.length?M.steps.map((o,i)=>`<div class="step"><span>${i+1}. ${opText(o)}</span><button class="btn ghost sm" type="button" data-rm="${i}" aria-label="remove step">✕</button></div>`).join(''):'<span class="muted" style="font-family:var(--f-body)">No steps yet. Add a transformation below.</span>'}</div>
+ <h3>Add a step</h3><div class="tools">${rd.tools.map(t=>`<button class="tool ${t===M.tool?'on':''}" type="button" data-t="${t}">${TN[t]}</button>`).join('')}</div>
+ <div id="tf">${toolForm(M.tool,rd)}</div>
+ <div class="row"><button class="btn ghost" id="add" type="button">Add step</button><button class="btn" id="run" type="button" ${M.steps.length?'':'disabled'}>Execute plan</button></div>
+ <div id="fb">${msg||''}</div><div class="row"><button class="btn ghost sm" id="bk" type="button">Abort mission</button></div>`,'tall');
+ UI.querySelectorAll('.tool').forEach(b=>b.onclick=()=>{M.tool=b.dataset.t;renderMission()});
+ const rl=$('#rl');if(rl)rl.onchange=()=>{$('#rhw').hidden=!(rl.value==='xh'||rl.value==='yk')};
+ UI.querySelectorAll('[data-rm]').forEach(b=>b.onclick=()=>{M.steps.splice(+b.dataset.rm,1);renderMission()});
+ $('#add').onclick=()=>{const op=readTool();if(!op)return;if(rd.exact&&M.steps.length>=rd.exact){toast(`This job allows exactly ${rd.exact} steps.`);return}M.steps.push(op);renderMission()};
+ $('#run').onclick=execute;$('#bk').onclick=()=>M.c?caseMenu(M.c):board()}
+function readTool(){const t=M.tool;if(t==='T'){const a=parseNum($('#ta').value),b=parseNum($('#tb').value);if(!Number.isInteger(a)||!Number.isInteger(b)){toast('Use whole numbers for the vector.');return null}if(!a&&!b){toast('⟨0, 0⟩ does not move anything.');return null}return{k:'T',a,b}}
+ if(t==='R'){const l=$('#rl').value;if(l==='xh'||l==='yk'){const v=parseNum($('#rv').value);if(isNaN(v)){toast('Enter the value of '+(l==='xh'?'h':'k')+'.');return null}return{k:'R',l,v}}return{k:'R',l}}
+ if(t==='O')return{k:'O',d:+$('#od').value};
+ const s=parseNum($('#dk').value);if(isNaN(s)||s===0){toast('Enter a nonzero scale factor, like 2 or 1/2.');return null}return{k:'D',s}}
+function execute(){const rd=M.rounds[M.ri],R=M.R;if(rd.exact&&M.steps.length!==rd.exact){toast(`Use exactly ${rd.exact} steps.`);return}
+ if(rd.order&&!rd.order.every((k,i)=>M.steps[i].k===k)){toast('Glide reflection: translation first, then reflection.');return}
+ const res=apAll(M.steps,R.pre);const ok=samePts(res,R.img);
+ let extra='';if(ok&&rd.order){const t=M.steps[0],r=M.steps[1];const par=(t.b===0&&(r.l==='x'||r.l==='yk'))||(t.a===0&&(r.l==='y'||r.l==='xh'));if(!par)extra=' (Lands on target, but the mirror line is not parallel to the translation, so it is not a glide reflection.)';if(!par)return finishExec(false,res,'The mirror must be parallel to the direction of the translation for a glide reflection.')}
+ UI.querySelectorAll('button,input,select').forEach(b=>b.disabled=true);
+ playOps(M.mesh,M.steps,()=>finishExec(ok,res),i=>{})}
+function finishExec(ok,res,why){const R=M.R;
+ if(ok){toast('On target.');const msg=`<div class="fb ok"><span class="t">Job complete</span><span>${M.steps.map(opText).join(', then ')} maps △ABC onto △A′B′C′.</span><div class="row"><button class="btn" id="nx" type="button">${M.ri+1<M.rounds.length?'Next job':'Close the case'}</button></div></div>`;
+  renderMission(msg);UI.querySelectorAll('#add,#run,.tool,[data-rm],#tf input,#tf select').forEach(b=>b.disabled=true);$('#nx').onclick=nextRound;$('#nx').focus();return}
+ M.strikes++;G.heat++;save();
+ const off=R.img.map((p,i)=>`${LBL[i]} landed at ${P(...res[i])}${samePts([res[i]],[p])?' ✓':`, target ${LBL[i]}′${P(...p)}`}`).join('; ');
+ const hint=missionHint(M.rounds[M.ri],R);
+ if(M.strikes>=3){const msg=`<div class="fb no"><span class="t">Three strikes · Hara is on the way</span><span>${why||off}.</span><span>One plan that works: ${R.ops.map(opText).join(', then ')}.</span><div class="row"><button class="btn" id="nx" type="button">Try a new job</button></div></div>`;
+  M.steps=[];draw3DRound();renderMission(msg);$('#nx').onclick=()=>startRound();return}
+ const msg=`<div class="fb no"><span class="t">Missed · strike ${M.strikes} of 3</span><span>${why||off}.</span><span>${hint}</span></div>`;
+ M.steps=[];draw3DRound();renderMission(msg)}
+function missionHint(rd,R){const a=R.pre[0],b=R.img[0];const t=rd.tools;
+ if(t.length===1&&t[0]==='T')return`Hint: the vector is ⟨x of A′ − x of A, y of A′ − y of A⟩ = ⟨${fr(b[0])} − (${fr(a[0])}), ${fr(b[1])} − (${fr(a[1])})⟩.`;
+ if(t.length===1&&t[0]==='D')return`Hint: centered at the origin, A′ = (kx, ky). Divide a coordinate of A′ by the matching coordinate of A.`;
+ if(rd.lines==='xh')return'Hint: two reflections in parallel lines translate by twice the distance between them, from the first line toward the second.';
+ if(rd.lines==='axes')return'Hint: two mirrors through the origin meeting at x° make a rotation of 2x°. The x-axis and y = x meet at 45°.';
+ if(t.includes('D'))return'Hint: compare side lengths to find |k|, then compare orientation to choose the rigid motion.';
+ return'Hint: compare orientation first. If A→B→C runs the other way around in the target, you need an odd number of reflections.'}
+function nextRound(){M.ri++;if(M.ri<M.rounds.length)return startRound();
+ if(M.c){G.ch[M.c.id].mission=true;save();const c=M.c;showDlg(c.case,'Case closed',c.outro,()=>{toast('Case '+c.sec+' closed.');board()},'Back to the case board')}else finalAfterMission()}
+/* symmetry rounds */
+function symRound(rd){const s=pick(SYM.filter(x=>rd.sym==='lines'||true));clear3D();focusCam(24,.6);const pts=s.pts();const m=addFig(pts,0xe8b931);
+ const q=rd.sym==='lines'?{kind:'num',prompt:`Lock plate: how many <b>lines of symmetry</b> does ${s.n} have?`,ans:s.lines}:{kind:'mc',prompt:`Vault dial: what is the smallest angle of <b>rotational symmetry</b> for ${s.n}? (Choose “none” if no rotation of 180° or less maps it onto itself.)`,choices:ROTCH,ans:s.rot?s.rot+'°':'none'};
+ setPanel(`<div class="row" style="justify-content:space-between"><span class="eyebrow">${M.c?M.c.case:''} · job ${M.ri+1} of ${M.rounds.length}</span><span class="strikes">${[0,1,2].map(i=>`<i class="${i<M.strikes?'on':''}"></i>`).join('')}</span></div>
+  <h3>Symmetry lock</h3><p class="q">${q.prompt}</p>${plane({polys:[{pts}],R:6})}${answerUI(q)}<div id="fb"></div><div class="row"><button class="btn ghost sm" id="bk" type="button">Abort mission</button></div>`,'tall');
+ $('#bk').onclick=()=>caseMenu(M.c);
+ bindAnswer(q,ok=>{if(ok){G.stats.right++;save();
+   if(rd.sym==='lines')s.ax().forEach(a=>addLine3D({l:'ang',a},0x5fd4c4));else if(s.rot&&m){const base=m.userData.M.clone();anim(1.4,k=>{m.matrix.copy(new THREE.Matrix4().makeRotationY(s.rot*Math.PI/180*k)).multiply(base)})}
+   $('#fb').innerHTML=`<div class="fb ok"><span class="t">The lock gives</span><span>${rd.sym==='lines'?`${s.lines} line${s.lines===1?'':'s'} of symmetry${s.lines?', drawn on the table':''}.`:s.rot?`Rotating ${s.rot}° maps it onto itself. Watch the plate.`:'Correct: no rotation of 180° or less maps it onto itself.'}</span><div class="row"><button class="btn" id="nx" type="button">${M.ri+1<M.rounds.length?'Next job':'Close the case'}</button></div></div>`;$('#nx').onclick=nextRound;$('#nx').focus()}
+  else{G.stats.wrong++;M.strikes++;G.heat++;save();
+   $('#fb').innerHTML=`<div class="fb no"><span class="t">Wrong · strike ${M.strikes} of 3</span><span>${rd.sym==='lines'?`It has ${s.lines}. ${s.lines?'Each line of symmetry is a mirror that maps the figure onto itself.':'No mirror line maps it onto itself.'}`:`The answer is ${q.ans}. For a regular n-gon use 360°/n; shapes with no rotation of 180° or less have none.`}</span><div class="row"><button class="btn" id="nx" type="button">Try another lock</button></div></div>`;
+   $('#nx').onclick=()=>{if(M.strikes>=3)M.strikes=0;symRound(rd)}}})}
+
+/* ---------------- final ---------------- */
+function finalCase(){const intro=[['n','The top floor of an office tower nobody rents. One desk. One lamp. One ledger.'],['c','Misaki. I wondered when you would learn to read.'],['m','u wrote every job like homework.'],['c','I was a teacher for twenty-two years. Nobody listened. Then I wrote the lessons as contracts, and suddenly everyone did their homework.'],['v','The ledger. Every name you sold.'],['c','Encoded, of course. Each entry is a figure and a sequence of transformations. If you can decode it, take it to whomever you like. If you cannot…'],['m','i can.']];
+ showDlg('The Ledger','Final case',intro,()=>{M={c:null,ri:0,strikes:0,rounds:[{tools:['T','R','O'],gen:[['O','Rbasic'],['T']],note:'Ledger entry 1: rigid motions.'},{tools:['T','R','O','D'],gen:[['Dbig','Dneg'],['Rbasic','O']],note:'Ledger entry 2: a similarity transformation.'},{tools:['T','R','O','D'],gen:[['Dsmall'],['O'],['Tsmall']],exact:3,note:'Ledger entry 3: three steps, in order.'}]};startRound()})}
+function finalAfterMission(){G.missionFinal=true;save();showDlg('The Ledger','Decoded',[['n','The third entry resolves. The ledger is readable now, every name in the Cartographer’s patient hand.'],['c','Impressive. One more test. Twenty questions. If you pass, the ledger is yours. If you fail, you were never really reading.'],['v','You need sixteen. You know all of it.']],exam,'Start the exam')}
+function exam(){clear3D();focusCam(38,.6);const keys=[];CH.forEach(c=>{const ks=shuffle(c.practice.filter(k=>k!=='vocab'));keys.push([c,ks[0]],[c,ks[1]],[c,ks[2%ks.length]])});
+ const qs=shuffle(keys).slice(0,18).map(([c,k])=>{const q=c.gens[k]();q.sec=c.sec;return q});qs.push(Object.assign(gVocab(ri(1,6)),{sec:'vocab'}),Object.assign(gVocab(ri(1,6)),{sec:'vocab'}));
+ const X={qs:shuffle(qs),i:0,score:0,miss:[]};examQ(X)}
+function examQ(X){const q=X.qs[X.i];CURQ=q;hudCh('Exam '+(X.i+1)+'/20');
+ setPanel(`<div class="row" style="justify-content:space-between"><span class="eyebrow">Final exam · question ${X.i+1} of 20 · section ${q.sec}</span><span class="eyebrow">score ${X.score}</span></div><div class="meter"><i style="width:${X.i/20*100}%"></i></div><p class="q">${q.prompt}</p>${q.fig||''}${answerUI(q)}<div id="fb"></div>`,'tall');
+ bindAnswer(q,ok=>{if(ok){X.score++;G.stats.right++}else{G.stats.wrong++;X.miss.push(q)}save();
+  $('#fb').innerHTML=`<div class="fb ${ok?'ok':'no'}"><span class="t">${ok?'Correct':'Incorrect · answer '+esc(ansText(q))}</span><span>${q.sol}</span><div class="row"><button class="btn" id="nx" type="button">${X.i+1<20?'Next question':'See result'}</button></div></div>`;
+  $('#nx').onclick=()=>{X.i++;X.i<20?examQ(X):examEnd(X)};$('#nx').focus()})}
+function examEnd(X){const pass=X.score>=16;G.exam={best:Math.max(X.score,G.exam?G.exam.best:0),pass:pass||(G.exam&&G.exam.pass)};save();
+ const weak={};X.miss.forEach(q=>weak[q.sec]=(weak[q.sec]||0)+1);
+ const w=Object.keys(weak).length?`<p>Missed by section: ${Object.entries(weak).map(([k,v])=>`${k} (${v})`).join(', ')}. Review those lessons before you retake it.</p>`:'';
+ if(!pass)return setPanel(`<div class="eyebrow">Final exam</div><h2>${X.score} / 20</h2><p>You need 16. The Cartographer closes the ledger and smiles.</p>${w}<div class="row"><button class="btn" id="rt" type="button">Retake the exam</button><button class="btn ghost" id="bd" type="button">Case board</button></div>`),$('#rt').onclick=exam,$('#bd').onclick=board;
+ showDlg('The Ledger','Exam passed · '+X.score+'/20',[
+  ['c','…Sixteen was the bar. You cleared it.'],['m','i did ur homework. all of it. now i’m taking the ledger.'],
+  ['c','To the police? To the papers? Or are you going to use it, like I did?'],
+  ['v','She is going to read it. That is the part you never understood. You taught people to follow rules. She learned why the rules work.'],
+  ['n','Misaki closes the ledger. A translation, a reflection, a turn of the dial, a change of scale: every name in it is a figure someone moved.'],
+  ['n','By morning the ledger is on Inspector Hara’s desk, every entry decoded in a handwriting he does not recognise, with one line at the bottom.'],
+  ['h','“Congruent figures are similar. Similar figures are not always congruent. Check your work.”'],
+  ['m','rent’s paid btw. the cartographer’s deposit cleared before they arrested him.'],
+  ['v','Of course it did. You always finish the job.']],()=>{setPanel(`<div class="eyebrow">Chapter 4 complete</div><h1>Case closed</h1><p>Best exam score: <b>${G.exam.best}/20</b>. Heat earned along the way: <b>${G.heat}</b>.</p><p class="muted">Every practice drill stays open for review. The exam can be retaken any time from the case board.</p><div class="row"><button class="btn" id="bd" type="button">Case board</button></div>`);$('#bd').onclick=board;
+  clear3D();CH.forEach((c,i)=>{const ang=i/6*Math.PI*2;addFig(ngon(3,1.3).map(p=>[p[0]+6*Math.cos(ang),p[1]+6*Math.sin(ang)]),0x5fd4c4)})},'Finish')}
+
+/* ---------------- reference panels ---------------- */
+function ruleSheet(short){return`<b>Translation</b> along ⟨a, b⟩: (x, y) → (x + a, y + b)<br>
+<b>Reflections</b>: x-axis (a, b) → (a, −b) · y-axis (a, b) → (−a, b) · y = x (a, b) → (b, a) · y = −x (a, b) → (−b, −a)<br>
+<b>Rotations</b> (counterclockwise, origin): 90° (a, b) → (−b, a) · 180° (a, b) → (−a, −b) · 270° (a, b) → (b, −a)<br>
+<b>Dilation</b> (center origin, scale factor k): (x, y) → (kx, ky); k = CP′/CP${short?'':`<br>
+<b>Theorem 4.1</b> A composition of rigid motions is a rigid motion.<br>
+<b>Theorem 4.2</b> Reflect in parallel lines k then m: a translation; AA″ ⟂ k and m, AA″ = 2d.<br>
+<b>Theorem 4.3</b> Reflect in lines meeting at P with angle x°: a rotation about P by 2x°.<br>
+<b>Postulates 4.1–4.3</b> Translations, reflections, and rotations are rigid motions.`}`}
+$('#bRules').onclick=()=>{const snap=captureScreen();setPanel(`<div class="eyebrow">Reference</div><h2>Rule sheet</h2><div class="rule">${ruleSheet(false)}</div><div class="row"><button class="btn" id="ovb" type="button">Back</button></div>`,'tall');$('#ovb').onclick=snap};
+$('#bGloss').onclick=()=>{const snap=captureScreen();setPanel(`<div class="eyebrow">Reference</div><h2>Glossary</h2><dl class="gloss">${VOCAB.map(v=>`<dt>${v[0]} <span class="muted" style="font-weight:400;font-size:12px">§4.${v[2]}</span></dt><dd>${esc(v[1])}.</dd>`).join('')}</dl><div class="row"><button class="btn" id="ovb" type="button">Back</button></div>`,'tall');$('#ovb').onclick=snap};
+$('#bBoard').onclick=()=>{if(E.anims.some(a=>a.dur<1e8)){toast('Wait for the move to finish.');return}board()};
+/* capture current panel DOM so reference sheets can return without losing state */
+function captureScreen(){const frag=document.createDocumentFragment();while(UI.firstChild)frag.appendChild(UI.firstChild);const pc=PANEL.className;return()=>{UI.innerHTML='';UI.appendChild(frag);PANEL.className=pc}}
+
+init3D();$('#hudHeat').textContent=G.heat;title();
+</script>
