@@ -113,6 +113,10 @@ button:focus-visible,input:focus-visible,select:focus-visible,.opt:focus-visible
 .nogl{position:fixed;left:16px;top:70px;max-width:40ch;color:var(--dim);font-size:14px}
 table.sc{border-collapse:collapse;font:14px var(--f-mono);font-variant-numeric:tabular-nums}
 table.sc td,table.sc th{border-bottom:1px solid var(--line);padding:5px 10px;text-align:left}
+.chk{display:flex;gap:8px;align-items:flex-start;cursor:pointer}.chk input{margin-top:4px}
+.prt{gap:8px}.pl{font:15px var(--f-body);color:var(--dim)}.pf .ok{color:var(--ok);font-weight:700}.pf .no{color:var(--blood);font-weight:700}.pf .muted{font:14px var(--f-mono)}
+.gw .fig svg{width:300px}.steps2{margin:0;padding-left:1.3em;display:flex;flex-direction:column;gap:6px}.steps2 li{max-width:62ch}
+.inp .pl{min-width:0}
 </style>
 
 <canvas id="gl" aria-label="3D evidence table showing the coordinate plane"></canvas>
@@ -151,7 +155,7 @@ function fr(x){if(Math.abs(x)<1e-9)return '0';if(Number.isInteger(x))return x<0?
 const P=(x,y)=>`(${fr(x)}, ${fr(y)})`;
 const Vc=(a,b)=>`⟨${fr(a)}, ${fr(b)}⟩`;
 const sg=(n)=>n<0?`− ${fr(-n)}`:`+ ${fr(n)}`;
-function parseNum(s){s=String(s).trim().replace(/[−–—]/g,'-').replace(/\s+/g,'');if(!s)return NaN;
+function parseNum(s){s=String(s).trim().replace(/[−–—]/g,'-');const mx=s.match(/^([-+]?)(\d+)\s+(\d+)\/(\d+)$/);if(mx&&+mx[4]!==0)return(mx[1]==='-'?-1:1)*(+mx[2]+(+mx[3])/(+mx[4]));s=s.replace(/\s+/g,'');if(!s)return NaN;
  if(/^[-+]?(\d+\.?\d*|\.\d+)$/.test(s))return parseFloat(s);
  const m=s.match(/^([-+]?)(\d+)\/(\d+)$/);if(m&&+m[3]!==0)return(m[1]==='-'?-1:1)*(+m[2])/(+m[3]);return NaN}
 const store={get(){try{return JSON.parse(localStorage.getItem('mirror_protocol_v1')||'null')}catch(e){return null}},set(v){try{localStorage.setItem('mirror_protocol_v1',JSON.stringify(v))}catch(e){}}};
@@ -716,10 +720,11 @@ function board(){clear3D();hudCh('Case board');focusCam(36,.75);
  const all=CH.every(c=>G.ch[c.id].mission);
  let h=`<div class="eyebrow">Case board</div><h2>The Cartographer’s contracts</h2><p class="muted">Every case is open. Take them in any order.</p><div class="cards">`;
  CH.forEach(c=>{const[st,lab]=chStatus(c);h+=`<button class="card" type="button" data-ch="${c.id}" ${unlocked(c.id)?'':'disabled'}><span class="num">${c.sec}</span><span class="nm"><b>${c.name}</b><span>Case: ${c.case}</span></span><span class="chip ${st}">${lab}</span></button>`});
+ h+=`<button class="card" type="button" data-ch="prep"><span class="num">✎</span><span class="nm"><b>Study hall</b><span>Practice tests, quizzes, and 17 modules with stepped-out examples</span></span><span class="chip ${G.prep&&G.prep.best!==null?'done':'go'}">${G.prep&&G.prep.best!==null?'Best '+G.prep.best+'/20':'Open'}</span></button>`;
  h+=`<button class="card" type="button" data-ch="final"><span class="num">4.✱</span><span class="nm"><b>The Ledger</b><span>Final mission and chapter exam</span></span><span class="chip ${G.exam&&G.exam.pass?'done':'go'}">${G.exam&&G.exam.pass?'Closed '+G.exam.best+'/20':'Open'}</span></button></div>
  <div class="row"><button class="btn ghost sm" id="bStats" type="button">Record</button><button class="btn ghost sm" id="bTitle" type="button">Title screen</button></div>`;
  setPanel(h);
- UI.querySelectorAll('.card').forEach(b=>b.onclick=()=>{const id=b.dataset.ch;if(id==='final')return finalCase();caseMenu(CH[+id-1])});
+ UI.querySelectorAll('.card').forEach(b=>b.onclick=()=>{const id=b.dataset.ch;if(id==='prep')return prepHome();if(id==='final')return finalCase();caseMenu(CH[+id-1])});
  $('#bStats').onclick=stats;$('#bTitle').onclick=title;
  // decorate table with closed cases
  CH.forEach((c,i)=>{if(G.ch[c.id].mission){const ang=i/6*Math.PI*2;const r=6;addFig(ngon(3,1.1).map(p=>[p[0]+r*Math.cos(ang),p[1]+r*Math.sin(ang)]),0x5fd4c4)}})}
@@ -894,6 +899,218 @@ $('#bBoard').onclick=()=>{if(E.anims.some(a=>a.dur<1e8)){toast('Wait for the mov
 /* capture current panel DOM so reference sheets can return without losing state */
 function captureScreen(){const frag=document.createDocumentFragment();while(UI.firstChild)frag.appendChild(UI.firstChild);const pc=PANEL.className;return()=>{UI.innerHTML='';UI.appendChild(frag);PANEL.className=pc}}
 
+/* ===================== TEST PREP: modules, quizzes, practice test ===================== */
+if(!G.prep)G.prep={best:null,tests:[],quiz:{right:0,total:0},mods:{}};
+const mixed=x=>{if(Number.isInteger(x))return fr(x);const w=Math.trunc(x),f=Math.abs(x-w);return w?`${fr(w)} ${fr(f)}`:fr(x)};
+const ptsList=(names,pts,pr='')=>pts.map((p,i)=>`${names[i]}${pr}${P(...p)}`).join(', ');
+function shoelace(pts){let s=0;for(let i=0;i<pts.length;i++){const a=pts[i],b=pts[(i+1)%pts.length];s+=a[0]*b[1]-b[0]*a[1]}return Math.abs(s)/2}
+function randQuad(r=7,mult=1){for(let t=0;t<600;t++){const cx=ri(-r+3,r-3),cy=ri(-r+3,r-3);const ang=[0,1,2,3].map(i=>i*Math.PI/2+Math.random()*1.1);
+  const pts=ang.map(a=>{const rr=2+Math.random()*3;return[Math.round((cx+rr*Math.cos(a))/mult)*mult,Math.round((cy+rr*Math.sin(a))/mult)*mult]});
+  if(pts.some(p=>Math.abs(p[0])>r||Math.abs(p[1])>r))continue;if(new Set(pts.map(p=>p+'')).size<4)continue;if(shoelace(pts)<6)continue;
+  let ok=true;for(let i=0;i<4;i++){const a=pts[i],b=pts[(i+1)%4],c=pts[(i+2)%4];if((b[0]-a[0])*(c[1]-a[1])-(c[0]-a[0])*(b[1]-a[1])===0)ok=false}if(!ok)continue;return pts}
+ return[[0,6],[4,4],[6,-1],[2,0]]}
+const inR=(pts,r)=>pts.every(p=>Math.abs(p[0])<=r&&Math.abs(p[1])<=r);
+function moveText(op){if(op.k==='T'){const h=op.a?`${Math.abs(op.a)} unit${Math.abs(op.a)===1?'':'s'} ${op.a>0?'right':'left'}`:'',v=op.b?`${Math.abs(op.b)} unit${Math.abs(op.b)===1?'':'s'} ${op.b>0?'up':'down'}`:'';return'a translation '+[h,v].filter(Boolean).join(' and ')}
+ if(op.k==='R')return'a reflection in '+lineText(op);if(op.k==='O')return`a rotation ${op.d}° about the origin`;return`a dilation centered at (0, 0) with scale factor ${fr(op.s)}`}
+function seqSentence(ops){const t=ops.map(moveText);return(t.length===1?t[0]:t.length===2?`${t[0]} followed by ${t[1]}`:`${t[0]} followed by ${t[1]}, and then ${t[2]}`).replace(/^a/,'A')}
+function stepsFor(ops,pre,names){const out=[];let cur=pre;ops.forEach((o,i)=>{const nx=apAll([o],cur);out.push(`<b>Step ${i+1}: ${opText(o)}.</b> Rule: ${opRule(o)}. ${cur.map((p,j)=>`${names[j]}${primes(i)}${P(...p)} → ${names[j]}${primes(i+1)}${P(...nx[j])}`).join('; ')}.`);cur=nx});return out}
+const NAMES4=['A','B','C','D'],NAMES3=['A','B','C'];
+/* each item: {mod, skill, prompt, fig, parts:[{kind,label,ans,...}], steps:[...], pre3d, img3d} */
+const PT=(label,ans)=>({kind:'pt',label,ans});
+const NUM=(label,ans,unit)=>({kind:'num',label,ans,unit});
+const SEL=(label,choices,ans)=>({kind:'sel',label,choices,ans});
+const TYPES=[
+ {id:'t1',mod:'m1',gen(){const tri=randTri(6),v=[nz(6),nz(7)],img=apAll([{k:'T',a:v[0],b:v[1]}],tri);
+  return{skill:'Translate a figure in a coordinate plane using a vector.',prompt:`Translate △ABC with vertices ${ptsList(NAMES3,tri)} using the vector <b>${Vc(...v)}</b>.`,fig:plane({polys:[{pts:tri,lab:NAMES3}]}),
+   parts:img.map((p,i)=>PT(NAMES3[i]+'′',p)),pre3d:tri,img3d:img,
+   steps:[`A vector ⟨a, b⟩ moves every point a units horizontally and b units vertically, so the rule is (x, y) → (x ${sg(v[0])}, y ${sg(v[1])}).`,...tri.map((p,i)=>`${NAMES3[i]}${P(...p)} → (${fr(p[0])} ${sg(v[0])}, ${fr(p[1])} ${sg(v[1])}) = <b>${NAMES3[i]}′${P(...img[i])}</b>`),'Check: every arrow from a vertex to its image is the same vector.']}}},
+ {id:'t2',mod:'m2',gen(){const q=randQuad(7),v=[nz(5),nz(5)],img=apAll([{k:'T',a:v[0],b:v[1]}],q),N=['M','N','P','Q'];
+  return{skill:'Translate a figure in a coordinate plane using a rule.',prompt:`Quadrilateral MNPQ has vertices ${ptsList(N,q)}. Find the coordinates of the image after the translation <b>(x, y) → (x ${sg(v[0])}, y ${sg(v[1])})</b>.`,
+   parts:img.map((p,i)=>PT(N[i]+'′',p)),pre3d:q,img3d:img,steps:[`Apply the rule to each vertex: add ${fr(v[0])} to x and ${fr(v[1])} to y.`,...q.map((p,i)=>`${N[i]}${P(...p)} → <b>${N[i]}′${P(...img[i])}</b>`)]}}},
+ {id:'t3',mod:'m3',gen(){const q=randQuad(7),t1={k:'T',a:nz(5),b:nz(5)},t2={k:'T',a:nz(5),b:nz(5)};const img=apAll([t1,t2],q);
+  return{skill:'Perform compositions of transformations in the coordinate plane.',prompt:`Quadrilateral ABCD has vertices ${ptsList(NAMES4,q)}. Find the vertices after the composition.<br>Translation: (x, y) → (x ${sg(t1.a)}, y ${sg(t1.b)})<br>Translation: (x, y) → (x ${sg(t2.a)}, y ${sg(t2.b)})`,
+   parts:img.map((p,i)=>PT(NAMES4[i]+'″',p)),pre3d:q,img3d:img,steps:[...stepsFor([t1,t2],q,NAMES4),`Shortcut: two translations make one translation. Add the vectors: ${Vc(t1.a+t2.a,t1.b+t2.b)}.`]}}},
+ {id:'t4',mod:'m4',gen(){const l=pick(['ynx','yx','x','y','ynx']);const tri=randTri(9);const img=apAll([{k:'R',l}],tri);
+  return{skill:'Reflect a figure in a line in a coordinate plane.',prompt:`Find the coordinates of the vertices of the image of △ABC after a reflection in <b>${LN[l]}</b>. ${ptsList(NAMES3,tri)}.`,lines:[{l}],
+   parts:img.map((p,i)=>PT(NAMES3[i]+'′',p)),pre3d:tri,img3d:img,steps:[`Rule for ${LN[l]}: ${opRule({k:'R',l})}.`,...tri.map((p,i)=>`${NAMES3[i]}${P(...p)} → <b>${NAMES3[i]}′${P(...img[i])}</b>`),`Each segment from a vertex to its image is perpendicular to ${LN[l]} and is cut in half by it.`]}}},
+ {id:'t5',mod:'m6',gen(){let A,B,x;for(let t=0;t<500;t++){const y1=ri(1,8),y2=ri(1,8),x1=ri(-6,6),x2=ri(-8,10);if(Math.abs(x2-x1)<3)continue;const num=(x2-x1)*y1;if(num%(y1+y2))continue;x=x1+num/(y1+y2);A=[x1,y1];B=[x2,y2];break}
+  if(!A){A=[3,6];B=[8,4];x=6}const Bp=[B[0],-B[1]];
+  return{skill:'Reflect a figure in a line in a coordinate plane.',prompt:`Consider points <b>A${P(...A)}</b> and <b>B${P(...B)}</b>. Find point C on the x-axis so that AC + BC is a minimum.`,fig:plane({pts:[{p:A,l:'A'},{p:B,l:'B'}]}),
+   parts:[PT('C',[x,0])],steps:[`Reflect B in the x-axis: B′${P(...Bp)}. For any C on the x-axis, BC = B′C, so AC + BC = AC + CB′.`,`AC + CB′ is shortest when A, C, and B′ are on one straight line.`,`Slope of AB′ = (${fr(Bp[1])} − ${fr(A[1])}) / (${fr(Bp[0])} − ${fr(A[0])}) = ${fr((Bp[1]-A[1])/(Bp[0]-A[0]))}.`,`Set y = 0 on line AB′: x = ${fr(A[0])} + ${fr(A[1])} · (${fr(Bp[0]-A[0])}) / ${fr(A[1]-Bp[1])} = ${fr(x)}.`,`<b>C${P(x,0)}</b>.`]}}},
+ {id:'t6',mod:'m7',gen(){const s=pick(SYM.filter(z=>z.n!=='a scalene triangle'));const L=[30,45,60,72,90,120,135,144,180];const corr=s.rot?L.filter(a=>a%s.rot===0):[];
+  return{skill:'Describe the rotations and reflections that carry a figure onto itself.',prompt:`The figure is <b>${s.n}</b>.`,fig:plane({polys:[{pts:s.pts()}],R:6}),
+   parts:[NUM('Number of lines of symmetry',s.lines),{kind:'multi',label:'Select the angles of rotation, if any, that map the figure onto itself (about its center).',choices:L.map(a=>a+'°').concat(['None']),ans:corr.length?corr.map(a=>a+'°'):['None']}],
+   steps:[`Lines of symmetry: ${s.lines}. ${s.lines?'Each is a mirror line that maps the figure onto itself.':'No mirror line maps it onto itself.'}`,s.rot?`The smallest rotation that works is ${s.rot}°${s.rot<180?' (360° ÷ number of matching positions)':''}. Every multiple of it up to 180° also works: ${corr.map(a=>a+'°').join(', ')}.`:'No rotation of 180° or less maps it onto itself, so choose None.']}}},
+ {id:'t7',mod:'m8',gen(){let tri,img,d;for(let t=0;t<200;t++){tri=randTri(7);d=pick([90,90,180,270]);img=apAll([{k:'O',d}],tri);if(inR(img,9))break}
+  return{skill:'Know coordinate rules for rotations in a coordinate plane.',prompt:`Graph △ABC with vertices ${ptsList(NAMES3,tri)} and its image after a <b>${d}° rotation about the origin</b>. Click the grid to place A′, B′, then C′.`,
+   parts:[{kind:'graph',label:'Place the image',labels:['A′','B′','C′'],ans:img,given:tri,givenLab:NAMES3}],pre3d:tri,img3d:img,steps:[`Rule for ${d}°: ${opRule({k:'O',d})}.`,...tri.map((p,i)=>`${NAMES3[i]}${P(...p)} → <b>${NAMES3[i]}′${P(...img[i])}</b>`)]}}},
+ {id:'t8',mod:'m9',gen(){let seg,ops,img;for(let t=0;t<200;t++){seg=[[nz(7),nz(7)],[nz(7),nz(7)]];if(seg[0]+''===seg[1]+'')continue;ops=[{k:'R',l:pick(['yx','x','y','ynx'])},{k:'O',d:pick([90,180,270])}];img=apAll(ops,seg);if(inR(img,9))break}
+  return{skill:'Perform compositions of transformations in the coordinate plane.',prompt:`Graph segment AB with endpoints <b>A${P(...seg[0])}</b> and <b>B${P(...seg[1])}</b> and its image after the composition.<br>Reflection: in ${lineText(ops[0])}<br>Rotation: ${ops[1].d}° about the origin<br>Click the grid to place A″ then B″.`,
+   parts:[{kind:'graph',label:'Place the image',labels:['A″','B″'],ans:img,given:seg,givenLab:['A','B']}],steps:stepsFor(ops,seg,['A','B'])}}},
+ {id:'t9',mod:'m10',gen(){const pool=[{k:'R',l:'x'},{k:'R',l:'y'},{k:'R',l:'yx'},{k:'O',d:90},{k:'O',d:180},{k:'O',d:270}];
+  for(let t=0;t<300;t++){const tri=randTri(4);const ans=[pick(pool),{k:'T',a:pick([0,2,-2,3,-3]),b:pick([0,-4,4,-3])}].filter(o=>!(o.k==='T'&&!o.a&&!o.b));const img=apAll(ans,tri);if(!inR(img,9)||samePts(img,tri))continue;
+   const cands=[];const seen=new Set();const add=ops=>{const s=seqSentence(ops);if(seen.has(s))return;seen.add(s);cands.push({s,ok:samePts(apAll(ops,tri),img)})};add(ans);
+   const tv=ans.find(o=>o.k==='T');
+   // look for genuinely equivalent sequences, then distractors
+   const combos=[];pool.forEach(a=>{combos.push([a]);pool.forEach(b=>combos.push([a,b]));if(tv){combos.push([a,tv],[tv,a]);pool.forEach(b=>combos.push([a,b,tv]))}});
+   shuffle(combos).forEach(c=>{if(cands.filter(x=>x.ok).length<3&&samePts(apAll(c,tri),img))add(c)});
+   shuffle(combos).forEach(c=>{if(cands.length<6&&!samePts(apAll(c,tri),img))add(c)});
+   if(cands.length<6)continue;
+   const F=['D','E','F'];
+   return{skill:'Describe a sequence of transformations between two congruent figures.',prompt:`△ABC has vertices ${ptsList(NAMES3,tri)} and △DEF has vertices ${ptsList(F,img)}. Identify <b>each</b> congruence transformation that maps △ABC to △DEF (A→D, B→E, C→F). Select all that apply.`,
+    fig:plane({polys:[{pts:tri,lab:NAMES3},{pts:img,c:'#5fd4c4',lab:F}]}),parts:[{kind:'multi',label:'Sequences',choices:shuffle(cands).map(c=>c.s),ans:cands.filter(c=>c.ok).map(c=>c.s)}],pre3d:tri,img3d:img,
+    steps:[`Test each choice on one vertex first, then check the others. A ${P(...tri[0])} must land on D${P(...img[0])}.`,...cands.map(c=>`${c.ok?'✓':'✗'} ${c.s}`),'More than one sequence can describe the same congruence transformation.']}}
+  return TYPES[0].gen()}},
+ {id:'t10',mod:'m11',gen(){if(Math.random()<.6){const d=pick([4,6,7,9,12,15,18,25]);return{skill:'Describe a sequence of transformations between two congruent figures.',prompt:`The distance between parallel lines a and b is <b>${d} millimeters</b>. A figure is reflected in line b, then in line a. Describe the single transformation that maps the preimage to the final image.`,
+   parts:[SEL('The single transformation is a',['translation','rotation','reflection','dilation'],'translation'),NUM('Distance moved (mm)',2*d),SEL('Direction',['perpendicular to the lines, from b toward a','parallel to the lines','perpendicular to the lines, from a toward b'],'perpendicular to the lines, from b toward a')],
+   steps:['Two reflections in parallel lines make a translation (Theorem 4.2).',`The distance is 2d = 2(${d}) = ${2*d} mm.`,'The translation is perpendicular to the lines, in the direction from the first line of reflection (b) toward the second (a).']}}
+  const x=pick([25,30,35,40,45,50,55,60,65,70,75,80,85,90]);return{skill:'Describe a sequence of transformations between two congruent figures.',prompt:`Lines k and m intersect at point P and form a <b>${x}°</b> angle. A figure is reflected in line k, then in line m. Describe the single transformation.`,fig:plane({lines:[{l:'ang',a:0},{l:'ang',a:x,c:'#5fd4c4'}],R:5}),
+   parts:[SEL('The single transformation is a',['translation','rotation','reflection','dilation'],'rotation'),NUM('Angle (degrees)',2*x),SEL('Center',['point P','line k','the origin, always'],'point P')],
+   steps:['Two reflections in intersecting lines make a rotation about the intersection point (Theorem 4.3).',`The angle is 2x° = 2(${x}°) = ${2*x}°.`]}}},
+ {id:'t11',mod:'m12',gen(){const k=pick([1/2,1/3,2/3,3/2,2,3,1/4,5/2,3/4]);const den=k===1/2||k===3/2||k===5/2?2:k===1/3||k===2/3?3:k===1/4||k===3/4?4:1;let p;do{p=[ri(-3,3)*den,ri(-3,3)*den]}while((!p[0]&&!p[1])||Math.max(Math.abs(p[0]*k),Math.abs(p[1]*k))>11||Math.max(Math.abs(p[0]),Math.abs(p[1]))>11);const q=[p[0]*k,p[1]*k];
+  return{skill:'Identify dilations.',prompt:`A dilation centered at C(0, 0) maps <b>P${P(...p)}</b> to <b>P′${P(...q)}</b>. Find the scale factor. Then tell whether the dilation is a reduction or an enlargement.`,fig:plane({pts:[{p:[0,0],l:'C',c:'#d6455a'},{p,l:'P'},{p:q,l:'P′',c:'#5fd4c4'}]}),
+   parts:[NUM('k =',k),SEL('The dilation is a(n)',['reduction','enlargement'],k<1?'reduction':'enlargement')],
+   steps:[`k = CP′ / CP. With the center at the origin, P′ = (kx, ky), so k = ${fr(q[0]||q[1])} ÷ ${fr(p[0]||p[1])} = ${fr(k)}.`,k<1?'0 < k < 1, so it is a reduction.':'k > 1, so it is an enlargement.']}}},
+ {id:'t12',mod:'m14',gen(){const k=pick([3/4,1/2,2/3,3/2,2]);const den={0.75:4,0.5:2}[k]||(Math.abs(k-2/3)<1e-9?3:Math.abs(k-1.5)<1e-9?2:1);
+  for(let t=0;t<400;t++){const mid=randQuad(12,den);const v=[nz(6),nz(9)];const pre=mid.map(p=>[p[0]-v[0],p[1]-v[1]]);if(!inR(pre,12))continue;const fin=mid.map(p=>[p[0]*k,p[1]*k]);if(!inR(fin,14))continue;const N=['W','X','Y','Z'];
+   return{skill:'Perform compositions of rigid and non-rigid motions in a coordinate plane.',prompt:`Quadrilateral WXYZ has vertices ${ptsList(N,pre)}. Find the vertices after each step of the similarity transformation.<br>Translation: (x, y) → (x ${sg(v[0])}, y ${sg(v[1])})<br>Dilation: (x, y) → (${fr(k)}x, ${fr(k)}y), centered at (0, 0)`,
+    parts:[...mid.map((p,i)=>PT(N[i]+'′',p)),...fin.map((p,i)=>PT(N[i]+'″',p))],pre3d:pre,img3d:fin,steps:[`Translate first: ${pre.map((p,i)=>`${N[i]}${P(...p)} → ${N[i]}′${P(...mid[i])}`).join('; ')}.`,`Then dilate each image point by ${fr(k)}: ${mid.map((p,i)=>`${N[i]}′${P(...p)} → ${N[i]}″${P(...fin[i])}`).join('; ')}.`,'Do the steps in the order given. The output of the first step is the input of the second.']}}
+  return TYPES[1].gen()}},
+ {id:'t13',mod:'m15',gen(){const rig=[['a reflection in the x-axis',{k:'R',l:'x'}],['a reflection in the y-axis',{k:'R',l:'y'}],['a 90° rotation about the origin',{k:'O',d:90}],['a 180° rotation about the origin',{k:'O',d:180}],['a 270° rotation about the origin',{k:'O',d:270}],['a reflection in the line y = x',{k:'R',l:'yx'}]];const ks=['1/3','1/2','2','3','3/2'];
+  for(let t=0;t<300;t++){const r=pick(rig),kk=pick(['2','3','1/2']),k=parseNum(kk);const den=k===1/2?2:1;const q=randQuad(k===3?3:k===2?4:8,den);const img=apAll([r[1],{k:'D',s:k}],q);if(!inR(img,12))continue;
+   if(rig.filter(z=>samePts(apAll([z[1],{k:'D',s:k}],q),img)).length>1)continue;const N=['W','X','Y','Z'];
+   return{skill:'Describe a sequence of transformations between two similar figures.',prompt:`Quadrilateral ABCD has vertices ${ptsList(NAMES4,q)}. Quadrilateral WXYZ has vertices ${ptsList(N,img)}. Describe a similarity transformation that maps ABCD to WXYZ.`,fig:plane({polys:[{pts:q,lab:NAMES4},{pts:img,c:'#5fd4c4',lab:N}]}),
+    parts:[SEL('First,',rig.map(z=>z[0]),r[0]),SEL('followed by a dilation centered at (0, 0) with scale factor',ks,kk)],pre3d:q,img3d:img,custom13:{rig,q,img,k},
+    steps:[`Compare side lengths. AB = ${(+dist(q[0],q[1]).toFixed(2))} and WX = ${(+dist(img[0],img[1]).toFixed(2))}, so k = ${kk}.`,`Compare orientation and position: ${r[0]} sends A${P(...q[0])} to ${P(...ap(r[1],q[0]))}, and dilating by ${kk} gives ${P(...img[0])} = W. Check the other vertices the same way.`]}}
+  return TYPES[10].gen()}},
+ {id:'t14',mod:'m16',gen(){const bank=[
+   ['Given rectangle ABCD with side lengths 3p and 3q and rectangle EFGH with side lengths p and q. Step 1: rotate ABCD about D so that DC′ ∥ HG. Which justification shows A′B′C′D is congruent to ABCD?',['Rotations are rigid motions.','Rectangle ABCD has rotational symmetry.','The center of rotation is a vertex of rectangle ABCD.','The two rectangles have the same side lengths.'],'A rotation is a rigid motion (Postulate 4.3), so it preserves lengths and angle measures. The image is congruent to the preimage.'],
+   ['Step 2 of the same proof: translate A′B′C′D so D maps to H. Why is the result still congruent to ABCD?',['Translations are rigid motions, and a composition of rigid motions is a rigid motion.','Translations change side lengths by the vector.','Point D is the center of dilation.','Rectangles always have line symmetry.'],'Postulate 4.1 and Theorem 4.1: translations are rigid motions, and compositions of rigid motions are rigid motions.'],
+   ['Step 3: dilate the rectangle with center H and scale factor 1/3. Why does this map it onto EFGH?',['A dilation multiplies every length by k: 3p·(1/3) = p and 3q·(1/3) = q, and angles are preserved.','Dilations are rigid motions.','Any dilation maps a rectangle onto any other rectangle.','The scale factor 1/3 is an enlargement.'],'Dilations preserve angle measure and multiply lengths by the scale factor, so the side lengths become p and q.'],
+   ['Conclusion of the proof: why is ABCD similar to EFGH?',['A similarity transformation (rigid motions and a dilation) maps ABCD onto EFGH.','The rectangles have the same area.','The rectangles have the same perimeter.','Every rectangle is congruent to every other rectangle.'],'Figures are similar when a similarity transformation maps one onto the other.'],
+   ['△ABC is reflected in line m to form △A′B′C′. Which justification proves AB = A′B′?',['Reflections are rigid motions, so they preserve length.','m is parallel to AB.','A′ is the midpoint of AB.','Reflections are dilations with k = 1/2.'],'Postulate 4.2: a reflection is a rigid motion, so it preserves length.']];
+  const b=pick(bank);return{skill:'Prove that figures are similar.',prompt:b[0],parts:[{kind:'mc',label:'Justification',choices:shuffle(b[1]),ans:b[1][0]}],steps:[b[2]]}}},
+ {id:'t15',mod:'m5',gen(){for(let t=0;t<500;t++){const q=randQuad(9);const B=q[1],C=q[2];if((B[0]+C[0])%2||B[0]===C[0])continue;const h=(B[0]+C[0])/2;const img=apAll([{k:'R',l:'xh',v:h}],q);if(!inR(img,12))continue;
+   return{skill:'Reflect a figure in a line in a coordinate plane.',prompt:`Quadrilateral ABCD has vertices ${ptsList(NAMES4,q)}. Reflect ABCD in the vertical line that passes through the midpoint of BC. Give the line of reflection and the image.`,fig:plane({polys:[{pts:q,lab:NAMES4}]}),
+    parts:[NUM('Line of reflection: x =',h),...img.map((p,i)=>PT(NAMES4[i]+'′',p))],pre3d:q,img3d:img,lines:[{l:'xh',v:h}],
+    steps:[`Midpoint of BC = ((${fr(B[0])} + ${fr(C[0])})/2, (${fr(B[1])} + ${fr(C[1])})/2) = ${P(h,(B[1]+C[1])/2)}. A vertical line through it is x = ${fr(h)}.`,`Reflecting in x = h keeps y and sends x to 2h − x = ${fr(2*h)} − x.`,...q.map((p,i)=>`${NAMES4[i]}${P(...p)} → <b>${NAMES4[i]}′${P(...img[i])}</b>`)]}}return TYPES[3].gen()}},
+ {id:'t16',mod:'m11',gen(){const x=pick([20,25,30,35,40,45,50,55,60,65,70,80]);return{skill:'Reflections in intersecting lines.',prompt:`Point A is reflected in line k to A′, then A′ is reflected in line m to A″. Lines k and m intersect at P and form a <b>${x}°</b> angle. Find the angle of rotation that maps A onto A″.`,fig:plane({lines:[{l:'ang',a:0},{l:'ang',a:x,c:'#5fd4c4'}],R:5}),
+  parts:[NUM('Angle of rotation (degrees)',2*x)],steps:['Theorem 4.3: reflecting in two intersecting lines is a rotation about their intersection.',`The angle is 2x° = 2(${x}°) = <b>${2*x}°</b>.`]}}},
+ {id:'t17',mod:'m13',gen(){const k=pick([3/2,2,1/2,3]);const den=k===3/2||k===1/2?2:1;for(let t=0;t<400;t++){const tri=randTri(k===3?3:k===2?4:8).map(p=>p.map(v=>Math.round(v/den)*den));const A=shoelace(tri);if(A<2)continue;const img=apAll([{k:'D',s:k}],tri);if(!inR(img,12))continue;
+   const D=A*(k*k-1);return{skill:'Dilate a figure in a coordinate plane. Find areas of polygons in the coordinate plane.',prompt:`Graph △DEF with vertices ${ptsList(['D','E','F'],tri)} and its image after a dilation centered at the origin with scale factor <b>${fr(k)}</b>. Then find the difference between the area of the image and the area of the preimage (image − preimage).`,
+    parts:[...img.map((p,i)=>PT('DEF'[i]+'′',p)),NUM('Area difference (square units)',D)],pre3d:tri,img3d:img,
+    steps:[`Dilate: multiply each coordinate by ${fr(k)}. ${tri.map((p,i)=>`${'DEF'[i]}${P(...p)} → ${'DEF'[i]}′${P(...img[i])}`).join('; ')}.`,`Area of △DEF = ½|x₁(y₂ − y₃) + x₂(y₃ − y₁) + x₃(y₁ − y₂)| = ${fr(A)}.`,`Lengths scale by k, so area scales by k² = ${fr(k*k)}. Image area = ${fr(k*k)} · ${fr(A)} = ${fr(k*k*A)}.`,`Difference = ${fr(k*k*A)} − ${fr(A)} = <b>${fr(D)}</b> square units.`]}}return TYPES[10].gen()}},
+ {id:'t18',mod:'m3',gen(){for(let t=0;t<200;t++){const s=[ri(1,8),ri(1,8)];const j1=[pick([2,-2]),pick([2,-2])],j2=[pick([2,-2]),pick([2,-2])];const m=[s[0]+j1[0],s[1]+j1[1]],e=[m[0]+j2[0],m[1]+j2[1]];if([m,e].some(p=>p[0]<1||p[0]>8||p[1]<1||p[1]>8))continue;if(e[0]===s[0]&&e[1]===s[1])continue;
+   let svg='<svg viewBox="0 0 8.6 8.6" role="img" aria-label="checkerboard">';for(let x=1;x<=8;x++)for(let y=1;y<=8;y++)svg+=`<rect x="${x-1+.3}" y="${8-y+.3}" width="1" height="1" fill="${(x+y)%2?'#c9b48a':'#3a2a1e'}"/>`;
+   const cxy=p=>[p[0]-.5+.3,8-p[1]+.5+.3];[[s,'#d6455a',.38],[m,'rgba(214,69,90,.35)',.3],[e,'rgba(214,69,90,.6)',.3]].forEach(([p,c,r])=>{const[x,y]=cxy(p);svg+=`<circle cx="${x}" cy="${y}" r="${r}" fill="${c}" stroke="#fff" stroke-width=".04"/>`});
+   const pth=[s,m,e].map(cxy);svg+=`<polyline points="${pth.map(p=>p.join(',')).join(' ')}" fill="none" stroke="#5fd4c4" stroke-width=".07" stroke-dasharray=".2 .1"/>`;for(let i=1;i<=8;i++){svg+=`<text x="${i-.5+.3}" y=".22" font-size=".25" fill="#97a39f" text-anchor="middle">${i}</text><text x=".12" y="${8-i+.85}" font-size=".25" fill="#97a39f">${i}</text>`}svg+='</svg>';
+   return{skill:'Describe a sequence of transformations between two congruent figures.',prompt:`In checkers, pieces move diagonally. The board shows a move with two consecutive jumps from square ${P(...s)} to ${P(...m)} to ${P(...e)} (column, row). Write a composition of translations for the move, then one single translation.`,fig:`<div class="fig">${svg}</div>`,
+    parts:[{kind:'rule',label:'First jump: (x, y) →',ans:j1},{kind:'rule',label:'Second jump: (x, y) →',ans:j2},{kind:'rule',label:'Single translation: (x, y) →',ans:[j1[0]+j2[0],j1[1]+j2[1]]}],
+    steps:[`First jump: ${P(...s)} → ${P(...m)} changes x by ${fr(j1[0])} and y by ${fr(j1[1])}: (x, y) → (x ${sg(j1[0])}, y ${sg(j1[1])}).`,`Second jump: ${P(...m)} → ${P(...e)}: (x, y) → (x ${sg(j2[0])}, y ${sg(j2[1])}).`,`Add the vectors: (x, y) → (x ${sg(j1[0]+j2[0])}, y ${sg(j1[1]+j2[1])}).`]}}}},
+ {id:'t19',mod:'m17',gen(){for(let t=0;t<200;t++){const a=pick([3,4,5,6,8]),b=a*pick([1.5,1.25,2]);if(!Number.isInteger(b))continue;const k=ri(5,12);if((a*k)%3||(b*k)%3)continue;const fa=a*k/12,fb=b*k/12;
+   return{skill:'Solve real-life problems involving scale factors and dilations.',prompt:`You are making a poster for a friend. Your original photo is <b>${a} inches by ${b} inches</b>. You want the photo on the poster to be <b>${mixed(fa)} feet by ${mixed(fb)} feet</b>. What is the scale factor of this dilation?`,parts:[NUM('k =',k)],
+    steps:['Use the same units before dividing. 1 foot = 12 inches.',`${mixed(fa)} ft = ${fr(fa)} × 12 = ${a*k} in. ${mixed(fb)} ft = ${fr(fb)} × 12 = ${b*k} in.`,`k = image ÷ original = ${a*k} ÷ ${a} = <b>${k}</b> (check: ${b*k} ÷ ${b} = ${k}).`]}}}},
+ {id:'t20',mod:'m17',gen(){const k=pick([1/8,1/12,1/4,1/16,1/6]);const w=ri(8,20),l=w+ri(1,8);
+  return{skill:'Solve real-life problems involving scale factors and dilations.',prompt:`You are making a blueprint of your bedroom using a scale factor of <b>${fr(k)}</b>. The actual width of the room is <b>${w} feet</b> and the actual length is <b>${l} feet</b>. Find the width and length on the blueprint, in feet. (Fractions like 7/4 or mixed numbers like 1 3/4 are fine.)`,
+   parts:[NUM('Width (ft)',w*k),NUM('Length (ft)',l*k)],steps:['Blueprint length = k × actual length.',`Width: ${fr(k)} × ${w} = <b>${mixed(w*k)}</b> ft (${fr(w*k)}).`,`Length: ${fr(k)} × ${l} = <b>${mixed(l*k)}</b> ft (${fr(l*k)}).`]}}}];
+const TBYID={};TYPES.forEach(t=>TBYID[t.id]=t);
+const MODS=[
+ {id:'m1',n:'Translating with a vector',t:['t1'],body:`<p>A <b>translation</b> moves every point of a figure the same distance in the same direction. A vector ⟨a, b⟩ says how: a units horizontally (right if positive) and b units vertically (up if positive).</p><div class="rule"><span class="k">(x, y) → (x + a, y + b)</span></div><p>Translate each vertex separately, then connect the images. The image is congruent to the preimage, because a translation is a rigid motion.</p>`},
+ {id:'m2',n:'Translating with a rule',t:['t2'],body:`<p>A translation rule such as <b>(x, y) → (x − 4, y + 1)</b> is the same information as the vector ⟨−4, 1⟩. Read the rule as an instruction for every point: subtract 4 from x, add 1 to y.</p><p>Watch the signs. “x − 4” moves left; “y + 1” moves up. Keep the vertex names: M maps to M′, N to N′, and so on.</p>`},
+ {id:'m3',n:'Compositions of translations',t:['t3','t18'],body:`<p>A <b>composition</b> applies one transformation, then another to the image. With two translations, apply the first rule, then apply the second rule to that result, and use double primes for the final image.</p><div class="rule">(x + a, y + b) then (x + c, y + d) = <span class="k">(x + a + c, y + b + d)</span></div><p>Any number of translations add up to one translation. This is how a checkers double jump can be written as one move.</p>`},
+ {id:'m4',n:'Reflections with coordinate rules',t:['t4'],body:`<div class="rule">x-axis: (a, b) → (a, −b)<br>y-axis: (a, b) → (−a, b)<br>y = x: (a, b) → (b, a)<br>y = −x: (a, b) → (−b, −a)</div><p>The line of reflection is the perpendicular bisector of each segment from a point to its image. A common error with y = −x is swapping without changing both signs.</p>`},
+ {id:'m5',n:'Reflecting in vertical and horizontal lines',t:['t15'],body:`<p>To reflect in a vertical line x = h, keep y and replace x by 2h − x. For a horizontal line y = k, keep x and replace y by 2k − y.</p><p>If the line passes through the midpoint of a segment BC, first find the midpoint ((x₁ + x₂)/2, (y₁ + y₂)/2). A vertical line through it is x = (x₁ + x₂)/2.</p>`},
+ {id:'m6',n:'Shortest path with a reflection',t:['t5'],body:`<p>To find C on a line so that AC + BC is as small as possible (A and B on the same side), reflect B across the line to B′. Every C on the line has BC = B′C.</p><p>So AC + BC = AC + CB′, which is shortest when A, C, and B′ are collinear. Draw line AB′ and find where it crosses the line.</p>`},
+ {id:'m7',n:'Line and rotational symmetry',t:['t6'],body:`<p>A figure has <b>line symmetry</b> if a reflection maps it onto itself. A regular n-gon has n lines of symmetry.</p><p>It has <b>rotational symmetry</b> if a rotation of 180° or less about its center maps it onto itself. For a regular n-gon the rotations that work are multiples of 360°/n up to 180°. A regular octagon: 45°, 90°, 135°, 180°.</p>`},
+ {id:'m8',n:'Rotations about the origin',t:['t7'],body:`<div class="rule">90°: (a, b) → (−b, a)<br>180°: (a, b) → (−a, −b)<br>270°: (a, b) → (b, −a)</div><p>Rotations are counterclockwise unless a problem says clockwise. 90° clockwise equals 270° counterclockwise. Every point stays the same distance from the center.</p>`},
+ {id:'m9',n:'Compositions with reflections and rotations',t:['t8'],body:`<p>Apply the transformations in the order listed. The image of the first step is the preimage of the second. Use one prime after the first step and two after the second.</p><p>Order matters: reflecting then rotating usually gives a different image than rotating then reflecting.</p>`},
+ {id:'m10',n:'Describing congruence transformations',t:['t9'],body:`<p>A <b>congruence transformation</b> (translation, reflection, rotation, or a composition of them) preserves length and angle measure.</p><p>To check whether a sequence maps △ABC to △DEF, apply it to each vertex and see whether A lands on D, B on E, and C on F. Several different sequences can produce the same result, for example a reflection in the y-axis followed by a reflection in the x-axis is the same as a 180° rotation.</p>`},
+ {id:'m11',n:'Reflections in parallel and intersecting lines',t:['t10','t16'],body:`<div class="rule"><span class="k">Theorem 4.2</span> Reflections in parallel lines k then m make a translation. The distance is 2d (d = distance between the lines), perpendicular to the lines, from k toward m.<br><span class="k">Theorem 4.3</span> Reflections in lines that intersect at P make a rotation about P. The angle is 2x°, where x° is the acute or right angle between the lines.</div>`},
+ {id:'m12',n:'Scale factor, enlargement and reduction',t:['t11'],body:`<p>In a dilation with center C, the scale factor is <b>k = CP′/CP</b>. With the center at the origin, P′ = (kx, ky), so you can divide a coordinate of P′ by the matching coordinate of P.</p><p>k &gt; 1 is an <b>enlargement</b>. 0 &lt; k &lt; 1 is a <b>reduction</b>.</p>`},
+ {id:'m13',n:'Dilations and area',t:['t17'],body:`<p>A dilation with scale factor k multiplies every length by k. Area is length times length, so area is multiplied by <b>k²</b>.</p><p>Find the preimage area with a formula or the shoelace formula ½|x₁(y₂ − y₃) + x₂(y₃ − y₁) + x₃(y₁ − y₂)|, then the image area is k² times that.</p>`},
+ {id:'m14',n:'Performing similarity transformations',t:['t12'],body:`<p>A <b>similarity transformation</b> is a dilation or a composition of rigid motions and dilations. Do each step in order. After a translation, the dilation is applied to the translated figure, not the original.</p><div class="rule">Translate (x + a, y + b), then dilate: (k(x + a), k(y + b))</div>`},
+ {id:'m15',n:'Describing similarity transformations',t:['t13'],body:`<p>To describe a similarity transformation from one figure to another: compare corresponding side lengths to find the scale factor, then compare orientation and position to find the rigid motion.</p><p>Test your description on every vertex. A reflection reverses the order of the vertices around the figure; a rotation keeps it.</p>`},
+ {id:'m16',n:'Proofs with transformations',t:['t14'],body:`<p>In a proof that two figures are similar, each step is a transformation with a justification:</p><div class="rule">Rotations, reflections, translations are rigid motions (Postulates 4.1–4.3).<br>A composition of rigid motions is a rigid motion (Theorem 4.1).<br>A dilation multiplies lengths by k and preserves angles.<br>If a similarity transformation maps one figure onto the other, they are similar.</div>`},
+ {id:'m17',n:'Scale factors in real life',t:['t19','t20'],body:`<p>Scale factor = image size ÷ actual size. <b>Convert to the same unit first</b>: 3 feet is 36 inches, not 3 inches.</p><p>For a blueprint or model, multiply the actual measurement by k. With k = 1/8, a 14-foot wall is 14/8 = 1 3/4 feet on paper.</p>`}];
+const MBYID={};MODS.forEach(m=>MBYID[m.id]=m);
+const TEST_ORDER=['t1','t2','t3','t4','t5','t6','t7','t8','t9','t10','t11','t12','t13','t14','t15','t16','t17','t18','t19','t20'];
+
+/* ---------------- rendering an item ---------------- */
+function partUI(p,i){const lab=`<span class="pl">${p.label}</span>`;
+ if(p.kind==='pt')return`<div class="inp prt" data-i="${i}">${lab} ( <input data-c="0" aria-label="${p.label} x"> , <input data-c="1" aria-label="${p.label} y"> )<span class="pf"></span></div>`;
+ if(p.kind==='rule')return`<div class="inp prt" data-i="${i}">${lab} ( x + <input data-c="0" aria-label="change in x"> , y + <input data-c="1" aria-label="change in y"> )<span class="pf"></span></div>`;
+ if(p.kind==='num')return`<div class="inp prt" data-i="${i}">${lab} <input data-c="0" aria-label="${p.label}"> ${p.unit||''}<span class="pf"></span></div>`;
+ if(p.kind==='sel')return`<div class="inp prt" data-i="${i}">${lab} <select aria-label="${p.label}"><option value="">choose…</option>${p.choices.map(c=>`<option>${c}</option>`).join('')}</select><span class="pf"></span></div>`;
+ if(p.kind==='mc'||p.kind==='multi')return`<div class="prt col" data-i="${i}">${lab}<div class="opts">${p.choices.map((c,j)=>`<label class="opt chk"><input type="${p.kind==='mc'?'radio':'checkbox'}" name="pp${i}" value="${j}"> <span>${c}</span></label>`).join('')}</div><span class="pf"></span></div>`;
+ if(p.kind==='graph'){const all=p.given.concat(p.ans);const R=Math.max(6,Math.min(12,Math.max(...all.map(q=>Math.max(Math.abs(q[0]),Math.abs(q[1]))))+1));p._R=R;
+  return`<div class="prt col" data-i="${i}">${lab}<div class="gw">${plane({polys:[{pts:p.given,lab:p.givenLab}],R})}</div><div class="row"><span class="muted gwn">Next: ${p.labels[0]}</span><button class="btn ghost sm gwc" type="button">Clear points</button></div><span class="pf"></span></div>`}}
+function bindGraph(root,p,i){const box=root.querySelector(`.prt[data-i="${i}"]`);const svg=box.querySelector('svg');p._pl=[];const g=document.createElementNS('http://www.w3.org/2000/svg','g');svg.appendChild(g);svg.style.cursor='crosshair';
+ const redraw=()=>{g.innerHTML=p._pl.map((q,j)=>q?`<circle cx="${q[0]}" cy="${-q[1]}" r=".3" fill="#5fd4c4"/><text x="${q[0]+.3}" y="${-q[1]-.3}" fill="#5fd4c4" font-size=".7" font-family="monospace" font-weight="600">${p.labels[j]}</text>`:'').join('')+(p._pl.filter(Boolean).length>1?`<polygon points="${p._pl.filter(Boolean).map(q=>q[0]+','+(-q[1])).join(' ')}" fill="#5fd4c4" fill-opacity=".15" stroke="#5fd4c4" stroke-width=".1"/>`:'');
+  const nx=p.labels.findIndex((l,j)=>!p._pl[j]);box.querySelector('.gwn').textContent=nx<0?'All points placed. Click a point to remove it.':'Next: '+p.labels[nx]};
+ svg.addEventListener('click',e=>{if(box.dataset.locked)return;const pt=svg.createSVGPoint();pt.x=e.clientX;pt.y=e.clientY;const v=pt.matrixTransform(svg.getScreenCTM().inverse());const x=Math.round(v.x),y=Math.round(-v.y);if(Math.abs(x)>p._R||Math.abs(y)>p._R)return;
+  const hitJ=p._pl.findIndex(q=>q&&q[0]===x&&q[1]===y);if(hitJ>=0){p._pl[hitJ]=null}else{const nx=p.labels.findIndex((l,j)=>!p._pl[j]);if(nx<0)return;p._pl[nx]=[x,y]}redraw()});
+ box.querySelector('.gwc').onclick=()=>{if(box.dataset.locked)return;p._pl=[];redraw()};redraw()}
+function gradePart(p,box){const pf=box.querySelector('.pf');let s=0,shown='';
+ if(p.kind==='pt'||p.kind==='rule'){const v=[...box.querySelectorAll('input')].map(x=>parseNum(x.value));s=(eq(v[0],p.ans[0])&&eq(v[1],p.ans[1]))?1:0;shown=p.kind==='pt'?P(...p.ans):`(x ${sg(p.ans[0])}, y ${sg(p.ans[1])})`}
+ else if(p.kind==='num'){const v=parseNum(box.querySelector('input').value);s=eq(v,p.ans)?1:0;shown=Number.isInteger(p.ans)?fr(p.ans):`${mixed(p.ans)} (${fr(p.ans)})`}
+ else if(p.kind==='sel'){s=box.querySelector('select').value===p.ans?1:0;shown=p.ans}
+ else if(p.kind==='mc'){const c=box.querySelector('input:checked');s=c&&p.choices[+c.value]===p.ans?1:0;shown=p.ans}
+ else if(p.kind==='multi'){const picked=[...box.querySelectorAll('input:checked')].map(c=>p.choices[+c.value]);const hits=picked.filter(x=>p.ans.includes(x)).length,wrong=picked.length-hits;s=(hits===p.ans.length&&wrong===0)?1:(hits>wrong?.5:0);shown=p.ans.join('; ')}
+ else if(p.kind==='graph'){const pl=p._pl||[];let c=0;p.ans.forEach((a,j)=>{if(pl[j]&&pl[j][0]===a[0]&&pl[j][1]===a[1])c++});s=c/p.ans.length;shown=p.ans.map((a,j)=>p.labels[j]+P(...a)).join(', ');box.dataset.locked='1';
+  const svg=box.querySelector('svg');const g=document.createElementNS('http://www.w3.org/2000/svg','g');g.innerHTML=`<polygon points="${p.ans.map(q=>q[0]+','+(-q[1])).join(' ')}" fill="none" stroke="#7fd48a" stroke-width=".12" stroke-dasharray=".3 .15"/>`;svg.appendChild(g)}
+ pf.innerHTML=s>=.999?' <span class="ok">✓</span>':` <span class="no">✗</span> <span class="muted">answer: ${shown}</span>`;box.querySelectorAll('input,select').forEach(x=>x.disabled=true);return s}
+function custom13(it,scores,root){const c=it.custom13;if(!c)return scores;const boxes=root.querySelectorAll('.prt');const rs=boxes[0].querySelector('select').value,ks=boxes[1].querySelector('select').value;const r=c.rig.find(z=>z[0]===rs);const k=parseNum(ks);
+ if(r&&!isNaN(k)&&samePts(apAll([r[1],{k:'D',s:k}],c.q),c.img)){boxes.forEach(b=>b.querySelector('.pf').innerHTML=' <span class="ok">✓</span>');return[1,1]}return scores}
+function itemHTML(it,head){window.__curItem=it;return`<div class="eyebrow">${head}</div><p class="muted" style="font-size:14px">${it.skill}</p><p class="q">${it.prompt}</p>${it.fig||''}<div class="col" id="parts">${it.parts.map(partUI).join('')}</div>`}
+function show3D(it,withImg){clear3D();if(!it.pre3d||!E.ok)return;focusCam(34,.85);addFig(it.pre3d,0xe8b931,it.pre3d.length===4?['A','B','C','D'].slice(0,4):['A','B','C']);(it.lines||[]).forEach(l=>addLine3D(l));if(withImg&&it.img3d)addGhost(it.img3d,0x5fd4c4)}
+function gradeItem(it){const boxes=[...UI.querySelectorAll('#parts .prt')];let sc=it.parts.map((p,i)=>gradePart(p,boxes[i]));sc=custom13(it,sc,UI.querySelector('#parts'));const total=sc.reduce((a,b)=>a+b,0)/sc.length;return Math.round(total*100)/100}
+function stepsHTML(it){return`<h3>Stepped-out solution</h3><ol class="steps2">${it.steps.map(s=>`<li>${s}</li>`).join('')}</ol>`}
+function scoreTag(s){return s>=.999?'<span class="chip done">Correct · 1</span>':s>0?`<span class="chip go">Partially correct · ${s}</span>`:'<span class="chip" style="color:var(--blood);border-color:rgba(214,69,90,.5)">Incorrect · 0</span>'}
+
+/* ---------------- screens ---------------- */
+function prepHome(){clear3D();hudCh('Study hall');focusCam(38,.7);const b=G.prep.best;
+ setPanel(`<div class="eyebrow">Study hall</div><h2>Practice tests, quizzes, modules</h2><p class="muted">Built from the Chapter 4 review set. Every problem gets new numbers each time.</p>
+ <div class="cards"><button class="card" type="button" id="pTest"><span class="num">20</span><span class="nm"><b>Practice test</b><span>One of each review problem type, scored with partial credit like the online test. Results and solutions at the end.</span></span><span class="chip ${b!==null?'done':'go'}">${b!==null?'Best '+b+'/20':'Start'}</span></button>
+ <button class="card" type="button" id="pQuiz"><span class="num">8</span><span class="nm"><b>Quick quiz</b><span>Eight mixed problems with instant feedback and steps.</span></span><span class="chip go">${G.prep.quiz.total?Math.round(G.prep.quiz.right/G.prep.quiz.total*100)+'%':'Start'}</span></button></div>
+ <h3>Modules</h3><div class="cards">${MODS.map((m,i)=>`<button class="card" type="button" data-m="${m.id}"><span class="num">${i+1}</span><span class="nm"><b>${m.n}</b><span>${m.t.length} problem type${m.t.length>1?'s':''}</span></span><span class="chip ${G.prep.mods[m.id]?'done':''}">${G.prep.mods[m.id]?'Practised':'Open'}</span></button>`).join('')}</div>
+ <div class="row"><button class="btn ghost sm" id="bk" type="button">Case board</button></div>`,'wide tall');
+ $('#pTest').onclick=()=>startTest();$('#pQuiz').onclick=()=>startQuiz(shuffle(TEST_ORDER).slice(0,8),'Quick quiz',null);UI.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>moduleView(MBYID[b.dataset.m]));$('#bk').onclick=board}
+function moduleView(m){clear3D();hudCh('Module: '+m.n);
+ setPanel(`<div class="eyebrow">Module ${MODS.indexOf(m)+1} of ${MODS.length}</div><h2>${m.n}</h2>${m.body}
+ <div class="row"><button class="btn" id="ex" type="button">See a stepped-out example</button><button class="btn ghost" id="pr" type="button">Practice this skill (5 problems)</button></div><div id="exBox" class="col"></div>
+ <div class="row"><button class="btn ghost sm" id="bk" type="button">Study hall</button></div>`,'wide tall');
+ $('#bk').onclick=prepHome;$('#pr').onclick=()=>startQuiz(Array.from({length:5},(_,i)=>m.t[i%m.t.length]),m.n,m);
+ $('#ex').onclick=()=>{const it=TBYID[pick(m.t)].gen();show3D(it,false);let k=0;const box=$('#exBox');
+  box.innerHTML=`<div class="rule" style="border-left-color:var(--prime)"><b>Example.</b> ${it.prompt}</div>${it.fig||''}<ol class="steps2" id="stl"></ol><div class="row"><button class="btn ghost sm" id="nst" type="button">Show step 1</button></div>`;
+  const next=()=>{if(k<it.steps.length){$('#stl').insertAdjacentHTML('beforeend',`<li>${it.steps[k]}</li>`);k++;$('#nst').textContent=k<it.steps.length?'Show step '+(k+1):'Done. Another example?';if(k>=it.steps.length&&it.img3d)show3D(it,true)}else $('#ex').click()};
+  $('#nst').onclick=next;next();$('#nst').focus()}}
+function startQuiz(ids,title,mod){const Z={ids,i:0,score:0,title,mod};quizQ(Z)}
+function quizQ(Z){const it=TBYID[Z.ids[Z.i]].gen();hudCh(Z.title+' '+(Z.i+1)+'/'+Z.ids.length);show3D(it,false);
+ setPanel(itemHTML(it,`${Z.title} · question ${Z.i+1} of ${Z.ids.length} · ${MBYID[TBYID[Z.ids[Z.i]].mod].n}`)+`<div class="row"><button class="btn" id="sub" type="button">Submit</button><button class="btn ghost sm" id="mod" type="button">Open the module</button><button class="btn ghost sm" id="bk" type="button">Quit</button></div><div id="fb"></div>`,'wide tall');
+ it.parts.forEach((p,i)=>{if(p.kind==='graph')bindGraph(UI,p,i)});
+ $('#bk').onclick=()=>Z.mod?moduleView(Z.mod):prepHome();$('#mod').onclick=()=>moduleView(MBYID[TBYID[Z.ids[Z.i]].mod]);
+ $('#sub').onclick=()=>{const s=gradeItem(it);Z.score+=s;G.prep.quiz.total++;if(s>=.999)G.prep.quiz.right++;G.stats[s>=.999?'right':'wrong']++;save();show3D(it,true);$('#sub').disabled=true;
+  $('#fb').innerHTML=`<div class="fb ${s>=.999?'ok':'no'}"><span class="t">${s>=.999?'Correct':s>0?'Partially correct':'Incorrect'} · ${s}</span>${stepsHTML(it)}<div class="row"><button class="btn" id="nx" type="button">${Z.i+1<Z.ids.length?'Next question':'Finish'}</button></div></div>`;
+  $('#nx').onclick=()=>{Z.i++;if(Z.i<Z.ids.length)return quizQ(Z);if(Z.mod){G.prep.mods[Z.mod.id]=1;save()}
+   setPanel(`<div class="eyebrow">${Z.title}</div><h2>${Math.round(Z.score*100)/100} / ${Z.ids.length}</h2><p>${Z.score/Z.ids.length>=.8?'Strong. Move on or try the practice test.':'Reread the module and try the stepped-out example, then practise again.'}</p><div class="row"><button class="btn" id="again" type="button">Again</button><button class="btn ghost" id="bk" type="button">${Z.mod?'Back to module':'Study hall'}</button></div>`,'wide');
+   $('#again').onclick=()=>startQuiz(Z.mod?Z.ids:shuffle(TEST_ORDER).slice(0,8),Z.title,Z.mod);$('#bk').onclick=()=>Z.mod?moduleView(Z.mod):prepHome()};$('#nx').focus()}}
+function startTest(){const X={items:TEST_ORDER.map(id=>Object.assign(TBYID[id].gen(),{tid:id})),i:0,scores:[],snap:[]};testQ(X)}
+function testQ(X){const it=X.items[X.i];hudCh('Practice test '+(X.i+1)+'/20');show3D(it,false);
+ setPanel(itemHTML(it,`Practice test · question ${X.i+1} of 20 · Understand transformations`)+`<div class="row"><button class="btn" id="sub" type="button">${X.i+1<20?'Save answer · next':'Save answer · finish'}</button><button class="btn ghost sm" id="bk" type="button">Quit test</button></div><div class="meter"><i style="width:${X.i/20*100}%"></i></div>`,'wide tall');
+ it.parts.forEach((p,i)=>{if(p.kind==='graph')bindGraph(UI,p,i)});$('#bk').onclick=prepHome;
+ $('#sub').onclick=()=>{const s=gradeItem(it);X.scores.push(s);X.snap.push(UI.querySelector('#parts').innerHTML);X.i++;X.i<20?testQ(X):testEnd(X)}}
+function testEnd(X){const tot=Math.round(X.scores.reduce((a,b)=>a+b,0)*100)/100;X.tot=tot;G.prep.best=G.prep.best===null?tot:Math.max(G.prep.best,tot);G.prep.tests.push({t:Date.now(),s:tot});G.stats.right+=X.scores.filter(s=>s>=.999).length;G.stats.wrong+=X.scores.filter(s=>s<.999).length;save();testResults(X)}
+function testResults(X){const tot=X.tot;clear3D();hudCh('Practice test results');
+ const weak={};X.items.forEach((it,i)=>{if(X.scores[i]<.999){const m=TBYID[it.tid].mod;weak[m]=(weak[m]||0)+1}});
+ setPanel(`<div class="eyebrow">Practice test</div><h2>${tot} / 20 · ${Math.round(tot/20*100)}%</h2>
+ ${Object.keys(weak).length?`<p>Review these modules: ${Object.keys(weak).map(m=>`<button class="btn ghost sm" type="button" data-m="${m}">${MBYID[m].n}</button>`).join(' ')}</p>`:'<p>Every question fully correct.</p>'}
+ <table class="sc"><tr><th>#</th><th>Skill</th><th>Score</th><th></th></tr>${X.items.map((it,i)=>`<tr><td>${i+1}</td><td>${MBYID[TBYID[it.tid].mod].n}</td><td>${scoreTag(X.scores[i])}</td><td><button class="btn ghost sm" type="button" data-r="${i}">Review</button></td></tr>`).join('')}</table>
+ <div class="row"><button class="btn" id="again" type="button">New practice test</button><button class="btn ghost" id="bk" type="button">Study hall</button></div>`,'wide tall');
+ UI.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>moduleView(MBYID[b.dataset.m]));$('#again').onclick=startTest;$('#bk').onclick=prepHome;
+ UI.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{const i=+b.dataset.r,it=X.items[i];show3D(it,true);
+  setPanel(`<div class="eyebrow">Review · question ${i+1}</div>${scoreTag(X.scores[i])}<p class="q">${it.prompt}</p>${it.fig||''}<div class="col">${X.snap[i]}</div>${stepsHTML(it)}<div class="row"><button class="btn" id="bk2" type="button">Back to results</button><button class="btn ghost" id="mo" type="button">Open the module</button></div>`,'wide tall');
+  UI.querySelectorAll('input,select').forEach(x=>x.disabled=true);$('#bk2').onclick=()=>testResults(X);$('#mo').onclick=()=>moduleView(MBYID[TBYID[it.tid].mod])})}
+
 if(EMBED){$('#bBack').hidden=false;$('#bBack').onclick=()=>mpPost('mp-close')}
-init3D();$('#hudHeat').textContent=G.heat;title();
+init3D();$('#hudHeat').textContent=G.heat;if(/[?&]view=prep/.test(location.search)){G.seenIntro=true;save();prepHome()}else title();
 </script>
