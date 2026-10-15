@@ -7889,6 +7889,27 @@ function gl_window(cb){cb=once(cb);
    txt(msg,160,174,'#ece4da',11,'center');
    hudBar('The window — spot what changed','round '+Math.min(round+1,5)+'/5 · '+score)}})}
 
+/* ===================== MIRROR PROTOCOL: the Cartographer's contracts (Chapter 4 study, 3D) ===================== */
+const MP_CASES=[[1,'4.1 Translations — The Tail'],[2,'4.2 Reflections — Hall of Mirrors'],[3,'4.3 Rotations — The Vault'],[4,'4.4 Congruence — Clean Scene'],[5,'4.5 Dilations — The Scope'],[6,'4.6 Similarity — Forgery']];
+function mpOpen(){if(document.getElementById('mpWrap'))return;const w=document.createElement('div');w.id='mpWrap';
+ w.style.cssText='position:fixed;inset:0;z-index:9999;background:#0b1114';
+ w.innerHTML='<iframe id="mpFrame" src="mirror-protocol.html?embed=1" title="Mirror Protocol" style="border:0;width:100%;height:100%;display:block"></iframe>';
+ document.body.appendChild(w);setTimeout(()=>{const f=document.getElementById('mpFrame');f&&f.focus()},300)}
+function mpClose(){const w=document.getElementById('mpWrap');if(w)w.remove();if(S){drawHud();hub()}}
+function mpSync(G){if(!S||!G||!G.ch)return;S.f.mp=S.f.mp||{};let paid=0;const lines=[];
+ MP_CASES.forEach(([id,n])=>{if(G.ch[id]&&G.ch[id].mission&&!S.f.mp['c'+id]){S.f.mp['c'+id]=1;paid++;lines.push(n)}});
+ if(paid){S.yen+=18000*paid;apply({aff:3*paid});toast('Cartographer paid ¥'+(18000*paid).toLocaleString()+' · '+lines[lines.length-1])}
+ if(G.exam&&G.exam.pass&&!S.f.mp.exam){S.f.mp.exam=1;S.yen+=60000;apply({aff:6});toast('The Ledger is closed. ¥60,000 and a very proud V.')}
+ save();drawHud()}
+window.addEventListener('message',e=>{const d=e.data;if(!d||typeof d!=='object')return;if(d.type==='mp-progress')mpSync(d.G);if(d.type==='mp-close'){mpSync(d.G);mpClose()}});
+function mpHub(late){if(!S||S.phase==='taken')return[];const n=MP_CASES.filter(([id])=>S.f.mp&&S.f.mp['c'+id]).length;
+ const sub=S.f.mp&&S.f.mp.exam?'all six cases and the Ledger closed · review any time':`free · Chapter 4 geometry in 3D · ${n}/6 cases closed · each pays ¥18,000`;
+ return[{h:'The Cartographer'},{t:'V’s whiteboard: the Cartographer’s contracts',sub,fn:()=>{if(S.f.mpSeen){mpOpen();return}S.f.mpSeen=1;save();
+  say([['','A text from an unknown number. No words. A coordinate grid, a triangle, and an arrow.'],['hitmeuppp',mVoice('the cartographer. every job he sends is geometry. translations, mirrors, the works. i failed this in school.')],['K9',ME3()?'Then I will teach it to her properly. Chapter four. Transformations. I have a whiteboard in every room.':'Then we learn it. Sit. I have a whiteboard in every room.'],['hitmeuppp',mVoice('of course u do')]],mpOpen)}}]}
+const _shMP=sideHub;sideHub=function(late){return _shMP(late).concat(mpHub(late))};
+EVENTS.push({id:'mp_text',when:()=>S.day>=2&&S.phase!=='taken'&&!(S.f.mp&&S.f.mp.c1),run:done=>say([['','3:12 a.m. Your phone lights up. Unknown number.'],['Cartographer','(text) Contract 4.1. Preimage attached. Find the image. Payment on arrival.'],[ME2(),ME3()?'Misaki forwarded it to me with eleven question marks. I have cleared the whiteboard.':mVoice('it’s a triangle with an arrow. i hate him. (V’s whiteboard is on the day menu.)')]],done)},
+ {id:'mp_v_proud',when:()=>S.f.mp&&S.f.mp.c3&&S.phase!=='taken'&&!isLone(),run:done=>say([['K9','You rotated a vault plate two hundred and seventy degrees in your head last night. In your sleep. Out loud.'],['hitmeuppp',mVoice('(a, b) goes to (b, negative a). it’s stuck in there now. forever.')],['K9','Good. Some things should be.']],()=>{apply({aff:2});done()})});
+ACH.push(['mp_all','Checked Your Work','Close all six Cartographer cases.',()=>S.f.mp&&[1,2,3,4,5,6].every(i=>S.f.mp['c'+i])],['mp_exam','The Ledger','Pass the Chapter 4 exam in Mirror Protocol.',()=>S.f.mp&&S.f.mp.exam]);
 requestAnimationFrame(frame);splash();
 
 </script></body></html>

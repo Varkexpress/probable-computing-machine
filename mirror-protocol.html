@@ -125,12 +125,14 @@ table.sc td,table.sc th{border-bottom:1px solid var(--line);padding:5px 10px;tex
  <button class="btn ghost sm" id="bRules" type="button">Rule sheet</button>
  <button class="btn ghost sm" id="bGloss" type="button">Glossary</button>
  <button class="btn ghost sm" id="bBoard" type="button">Case board</button>
+ <button class="btn sm" id="bBack" type="button" hidden>Back to Killer Chat</button>
 </div>
 <div id="panel"><div class="scroll" id="ui"></div></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 'use strict';
+const EMBED=window.parent!==window;
 /* =========================================================
    Mirror Protocol — Big Ideas Geometry, Chapter 4: Transformations
    ========================================================= */
@@ -685,7 +687,8 @@ function makeRound(rd){for(let t=0;t<800;t++){let ops=[],pre;
 let G=store.get()||{};
 function fresh(){G={v:1,heat:0,ch:{},exam:null,missionFinal:false,seenIntro:false,stats:{right:0,wrong:0}};CH.forEach(c=>G.ch[c.id]={lesson:0,lessonDone:false,mastery:0,mission:false,introSeen:false});save()}
 if(!G||G.v!==1)fresh();
-function save(){store.set(G);$('#hudHeat').textContent=G.heat}
+function mpPost(type){if(EMBED)try{window.parent.postMessage({type,G:JSON.parse(JSON.stringify(G))},'*')}catch(e){}}
+function save(){store.set(G);$('#hudHeat').textContent=G.heat;mpPost('mp-progress')}
 function unlocked(id){return id===1||G.ch[id-1].mission}
 function setPanel(html,cls=''){PANEL.className=cls;UI.innerHTML=html;UI.scrollTop=0}
 function hudCh(t){$('#hudCh').textContent=t}
@@ -891,5 +894,6 @@ $('#bBoard').onclick=()=>{if(E.anims.some(a=>a.dur<1e8)){toast('Wait for the mov
 /* capture current panel DOM so reference sheets can return without losing state */
 function captureScreen(){const frag=document.createDocumentFragment();while(UI.firstChild)frag.appendChild(UI.firstChild);const pc=PANEL.className;return()=>{UI.innerHTML='';UI.appendChild(frag);PANEL.className=pc}}
 
+if(EMBED){$('#bBack').hidden=false;$('#bBack').onclick=()=>mpPost('mp-close')}
 init3D();$('#hudHeat').textContent=G.heat;title();
 </script>
