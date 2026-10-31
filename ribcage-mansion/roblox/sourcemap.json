@@ -1,0 +1,146 @@
+{
+ "name": "RibcageMansion",
+ "className": "DataModel",
+ "children": [
+  {
+   "name": "ReplicatedStorage",
+   "className": "ReplicatedStorage",
+   "children": [
+    {
+     "name": "Shared",
+     "className": "Folder",
+     "children": [
+      {
+       "name": "Arch",
+       "className": "ModuleScript",
+       "filePaths": [
+        "src/ReplicatedStorage/Shared/Arch.luau"
+       ],
+       "children": []
+      },
+      {
+       "name": "Config",
+       "className": "ModuleScript",
+       "filePaths": [
+        "src/ReplicatedStorage/Shared/Config.luau"
+       ],
+       "children": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "ServerScriptService",
+   "className": "ServerScriptService",
+   "children": [
+    {
+     "name": "Main",
+     "className": "Script",
+     "filePaths": [
+      "src/ServerScriptService/Main.server.luau"
+     ],
+     "children": []
+    },
+    {
+     "name": "Modules",
+     "className": "Folder",
+     "children": [
+      {
+       "name": "Build",
+       "className": "ModuleScript",
+       "filePaths": [
+        "src/ServerScriptService/Modules/Build.luau"
+       ],
+       "children": []
+      },
+      {
+       "name": "Builder",
+       "className": "ModuleScript",
+       "filePaths": [
+        "src/ServerScriptService/Modules/Builder.luau"
+       ],
+       "children": []
+      },
+      {
+       "name": "Data",
+       "className": "ModuleScript",
+       "filePaths": [
+        "src/ServerScriptService/Modules/Data.luau"
+       ],
+       "children": []
+      },
+      {
+       "name": "Gameplay",
+       "className": "ModuleScript",
+       "filePaths": [
+        "src/ServerScriptService/Modules/Gameplay.luau"
+       ],
+       "children": []
+      },
+      {
+       "name": "Mansion",
+       "className": "ModuleScript",
+       "filePaths": [
+        "src/ServerScriptService/Modules/Mansion.luau"
+       ],
+       "children": []
+      },
+      {
+       "name": "Pets",
+       "className": "ModuleScript",
+       "filePaths": [
+        "src/ServerScriptService/Modules/Pets.luau"
+       ],
+       "children": []
+      },
+      {
+       "name": "World",
+       "className": "ModuleScript",
+       "filePaths": [
+        "src/ServerScriptService/Modules/World.luau"
+       ],
+       "children": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "StarterPlayer",
+   "className": "StarterPlayer",
+   "children": [
+    {
+     "name": "StarterPlayerScripts",
+     "className": "StarterPlayerScripts",
+     "children": [
+      {
+       "name": "Client",
+       "className": "LocalScript",
+       "filePaths": [
+        "src/StarterPlayer/StarterPlayerScripts/Client.client.luau"
+       ],
+       "children": []
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Workspace",
+   "className": "Workspace",
+   "children": []
+  },
+  {
+   "name": "ServerStorage",
+   "className": "ServerStorage",
+   "children": [
+    {
+     "name": "BlenderAssets",
+     "className": "Folder",
+     "children": []
+    }
+   ]
+  }
+ ]
+}
