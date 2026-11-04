@@ -8501,7 +8501,7 @@ function snRun(who,plan,fin){const T3=THREE;let alive=true;const ov=document.cre
   R.render(sc,cam)}
  build(mk(plan[0]));requestAnimationFrame(loop)}
 
-const _mpHSn=mpHub;mpHub=function(late){const o=_mpHSn(late);if(!o.length||!S)return o;o.push({t:'Study hall: practice tests, quizzes, modules',sub:'free · three practice tests (transformations, coordinate plane, congruent-triangle proofs), quizzes, 35 modules',fn:()=>mpOpen('prep')});const m=snipeModes().map(k=>SNM[k].sec.split(' ')[0]).join(', ');
+const _mpHSn=mpHub;mpHub=function(late){const o=_mpHSn(late);if(!o.length||!S)return o;o.push({t:'Study hall: practice tests, quizzes, modules',sub:'free · practice tests (transformations, coordinate plane, congruent-triangle proofs), an AMC 10 mock contest, quizzes, 40+ modules',fn:()=>mpOpen('prep')});const m=snipeModes().map(k=>SNM[k].sec.split(' ')[0]).join(', ');
  o.push({t:ME3()?'Overwatch: the Cartographer’s list (3D sniper)':'Rooftop contract (3D sniper)',sub:S.done.snipe?'done today':`costs time + energy · three targets · sections ${m}`,dis:late||S.done.snipe||S.energy<20||(!ME3()&&S.heat>=80),fn:()=>{spend();S.done.snipe=1;apply({energy:-15});save();snipeContract(ME3()?'v':'m',()=>hub())}});return o};
 /* ===================== WARDROBE, BACKSTORY, MORE RECIPES, TRAIN LINE ===================== */
 /* ---- outfits: palette swaps on the live sprites (shared by walk frames) ---- */
