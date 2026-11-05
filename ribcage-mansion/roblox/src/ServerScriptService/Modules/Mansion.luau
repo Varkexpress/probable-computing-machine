@@ -4,7 +4,11 @@
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
+local CollectionService = game:GetService("CollectionService")
+
 local Build = require(script.Parent.Build)
+local Furnish = require(script.Parent.Furnish)
+local Registry = require(script.Parent.Registry)
 local Arch = require(ReplicatedStorage:WaitForChild("Shared"):WaitForChild("Arch"))
 
 local Mansion = {}
@@ -129,11 +133,16 @@ local function buildRibs(folder: Instance)
 	for i = 0, Arch.RIB_COUNT - 1 do
 		local t = Arch.RIB_T_MIN + (Arch.RIB_T_MAX - Arch.RIB_T_MIN) * i / (Arch.RIB_COUNT - 1)
 		local attach, down, out = ribShape(t)
+		-- Each rib is its own model so the rib organ can light it up.
+		local ribModel = Instance.new("Model")
+		ribModel.Name = string.format("Rib%02d", i + 1)
+		ribModel:SetAttribute("RibIndex", i + 1)
+		ribModel.Parent = folder
 		if template then
 			-- Blender rib: a quarter-curve normalised to a unit box, root at the
 			-- top +Z corner and tip at the bottom -Z corner (see blender/README).
 			local center = attach + Vector3.new(0, -down / 2, -out / 2)
-			Build.placeAsset(template, folder, CFrame.new(center), Vector3.new(6, down, out), {
+			Build.placeAsset(template, ribModel, CFrame.new(center), Vector3.new(6, down, out), {
 				Material = Enum.Material.Concrete,
 				Color = C.ConcreteOut,
 			})
@@ -147,7 +156,7 @@ local function buildRibs(folder: Instance)
 				local taper = 1 - (k - 1) / SEG
 				local w = 1 + 5.5 * taper
 				local d = 1.4 + 7.5 * taper
-				local seg = Build.beam(folder, prev, p, w, d, {
+				local seg = Build.beam(ribModel, prev, p, w, d, {
 					Name = "Rib",
 					Material = Enum.Material.Concrete,
 					Color = C.ConcreteOut,
@@ -332,6 +341,8 @@ local function roomFurniture(folder: Instance, room, L: number, refs)
 		-- Bench along the glass and a parka rack on the back wall.
 		surface(refs, -108, -101, -16.6, -13.6, L + 1.8)
 		refs.catSpots.window = v(-104, 1.8, -15)
+		Furnish.note(folder, v(-102.4, 1.8, -15.2), "n1", 0.3)
+		refs.deedFrame = CFrame.new(v(-99, 0, -6)) * CFrame.Angles(0, math.pi / 2, 0)
 		plant(folder, v(-98, 0, 14), refs)
 		Build.box(folder, v(-108, 0, -16.6), v(-101, 1.8, -13.6), {
 			Name = "Bench",
@@ -353,23 +364,17 @@ local function roomFurniture(folder: Instance, room, L: number, refs)
 		end
 		refs.parkaRack = rack
 
-		-- Ladder up to a roof hatch.
+		-- A climbable steel truss up to the roof hatch.
 		local ceil = Arch.ceilingAt(-104)
-		for _, z in { 9.5, 12.5 } do
-			Build.box(folder, Vector3.new(-104.2, L, z - 0.2), Vector3.new(-103.8, ceil, z + 0.2), {
-				Name = "LadderRail",
-				Material = Enum.Material.Metal,
-				Color = C.Metal,
-			})
-		end
-		for y = L + 1, ceil - 1, 1.6 do
-			Build.box(folder, Vector3.new(-104.2, y, 9.5), Vector3.new(-103.8, y + 0.2, 12.5), {
-				Name = "Rung",
-				Material = Enum.Material.Metal,
-				Color = C.Metal,
-				CanCollide = false,
-			})
-		end
+		local trussHeight = 2 * math.floor((ceil - L) / 2)
+		local truss = Instance.new("TrussPart")
+		truss.Name = "HatchLadder"
+		truss.Size = Vector3.new(2, trussHeight, 2)
+		truss.CFrame = CFrame.new(-104, L + trussHeight / 2, 11)
+		truss.Anchored = true
+		truss.Material = Enum.Material.Metal
+		truss.Color = C.Metal
+		truss.Parent = folder
 		local hatch = Build.box(folder, Vector3.new(-106, ceil - 0.4, 8.5), Vector3.new(-102, ceil, 13.5), {
 			Name = "RoofHatch",
 			Material = Enum.Material.Metal,
@@ -408,6 +413,25 @@ local function roomFurniture(folder: Instance, room, L: number, refs)
 		paperLamp(folder, v(-84, 0, 14), 6, refs)
 		refs.glassFloorCenter = v(-76, 0, -4)
 		refs.catSpots.glassfloor = v(-68, 0, -4)
+
+		-- The rib organ: seven brass keys, one for each group of ribs outside.
+		Build.box(folder, v(-80, 0, 13.4), v(-71, 3.4, BZ), { Name = "OrganConsole", Material = Enum.Material.Concrete, Color = C.ConcreteIn })
+		local panel = Build.box(folder, v(-79.6, 3.4, 13.6), v(-71.4, 3.5, 15.8), {
+			Name = "OrganPanel",
+			Material = Enum.Material.SmoothPlastic,
+			Color = Color3.fromRGB(30, 26, 22),
+		})
+		CollectionService:AddTag(panel, "RibOrgan")
+		Registry.misc.organPanel = panel
+		for k = 0, 6 do
+			local h = 6 + k * 1.4
+			Build.cylinderY(folder, v(-79 + k * 1.2, 3.4 + h / 2, 15.6), h, 0.7, {
+				Name = "OrganPipe",
+				Material = Enum.Material.Metal,
+				Color = Color3.fromRGB(176, 140, 82),
+				CanCollide = false,
+			})
+		end
 		surface(refs, -82, -71, -15, -8, L + 1.8)
 		plant(folder, v(-83, 0, 4), refs)
 	elseif id == "pool" then
@@ -436,6 +460,7 @@ local function roomFurniture(folder: Instance, room, L: number, refs)
 		-- Towels on a bench.
 		Build.box(folder, v(-40, 0, 13), v(-30, 1.6, 15.6), { Name = "Bench", Material = Enum.Material.Wood, Color = C.Wood })
 		Build.box(folder, v(-38, 1.6, 13.4), v(-35, 2.2, 15.2), { Name = "Towels", Material = Enum.Material.Fabric, Color = Color3.fromRGB(80, 74, 70) })
+		Furnish.note(folder, v(-32.5, 1.6, 14.3), "n10", -0.2)
 	elseif id == "gallery" then
 		-- Long low sofa with its back to the glass.
 		Build.box(folder, v(-10, 0, -17.2), v(22, 1.2, -10.6), { Name = "SofaPlinth", Material = Enum.Material.Wood, Color = C.Wood })
@@ -644,6 +669,7 @@ local function roomFurniture(folder: Instance, room, L: number, refs)
 		refs.duvetMessy = duvet.CFrame * CFrame.new(1.2, 0.25, -1.5) * CFrame.Angles(0.06, 0.35, -0.05)
 		surface(refs, 70, 82, 2, BZ, L + 3.1)
 		refs.catSpots.bed = v(76, 3.1, 7)
+		Furnish.note(folder, v(85, 0, -12), "n2", 0.7)
 		plant(folder, v(68.5, 0, -15), refs)
 		for _, x in { 73, 79 } do
 			Build.box(folder, v(x - 2.2, 2.8, 12.6), v(x + 2.2, 3.9, 15)
@@ -726,7 +752,7 @@ local function buildRooms(folder: Instance, refs)
 end
 
 function Mansion.build(root: Instance)
-	local refs = { lamps = {}, doors = {}, levels = {}, plants = {}, catSpots = {}, catSurfaces = {} }
+	local refs: any = { lamps = {}, doors = {}, levels = {}, plants = {}, catSpots = {}, catSurfaces = {} }
 	local mansion = Build.folder(root, "Mansion")
 	buildSpine(Build.folder(mansion, "Spine"))
 	buildRibs(Build.folder(mansion, "Ribs"))
@@ -751,6 +777,65 @@ function Mansion.build(root: Instance)
 	telescope.Parent = mansion
 	refs.telescope = stand
 	refs.roofY = roofY
+	Furnish.note(mansion, Vector3.new(12, roofY, 3), "n3", 1.1)
+
+	-- Register everything with the shared registry so gameplay can use it.
+	Registry.addHome({
+		id = "ribcage",
+		name = "The Ribcage",
+		center = refs.galleryCenter + Vector3.new(0, 6, 0),
+		spawn = CFrame.new(refs.galleryCenter + Vector3.new(-4, 3, 4)),
+		dock = CFrame.new(-248, 11, -96),
+	})
+	Furnish.deed(mansion, refs.deedFrame, "ribcage", "The Ribcage")
+	table.insert(Registry.kitchens, {
+		home = "ribcage",
+		stove = refs.stove,
+		oven = refs.oven,
+		coffee = refs.coffee,
+		kettle = refs.kettle,
+		fridge = refs.fridge,
+		pantry = refs.pantry,
+		sink = refs.galleySink,
+		dishSpot = refs.dishSpot,
+		steam = refs.steam,
+		dirty = 0,
+		dishParts = {},
+	})
+	local f = refs.fire
+	table.insert(Registry.fires, {
+		home = "ribcage",
+		core = f.core,
+		fire = f.fire,
+		light = f.light,
+		embers = f.embers,
+		basket = refs.logBasket,
+		fuel = 80,
+		baseSize = f.fire.Size,
+	})
+	table.insert(Registry.beds, {
+		home = "ribcage",
+		mattress = refs.bed,
+		duvet = refs.duvet,
+		tidy = refs.duvetTidy,
+		messy = refs.duvetMessy,
+		messyNow = false,
+	})
+	table.insert(Registry.showers, { home = "ribcage", head = refs.showerHead, rain = refs.shower })
+	table.insert(Registry.sinks, refs.sink)
+	table.insert(Registry.bookshelves, refs.bookshelf)
+	for _, p in refs.plants do
+		table.insert(Registry.plants, p)
+	end
+	for _, l in refs.lamps do
+		table.insert(Registry.lamps, l)
+	end
+	for _, d in refs.doors do
+		table.insert(Registry.doors, d)
+	end
+	Registry.addInteriorTest("ribcage", "The Ribcage", function(pos: Vector3): boolean
+		return Arch.roomAt(pos) ~= nil
+	end)
 
 	return refs
 end

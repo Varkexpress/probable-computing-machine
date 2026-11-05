@@ -23,10 +23,14 @@ export type Profile = {
 	pets: { [string]: boolean },
 	activePet: string,
 	treats: number,
+	home: string,
+	notes: { [string]: boolean },
+	flags: { [string]: boolean },
+	title: string,
 }
 
 function Data.default(): Profile
-	return { credits = 50, discoveries = {}, upgrades = {}, fishCaught = 0, pets = {}, activePet = "", treats = 2 }
+	return { credits = 50, discoveries = {}, upgrades = {}, fishCaught = 0, pets = {}, activePet = "", treats = 2, home = "", notes = {}, flags = {}, title = "" }
 end
 
 function Data.load(userId: number): Profile
@@ -51,6 +55,14 @@ function Data.load(userId: number): Profile
 		end
 		profile.activePet = type(saved.activePet) == "string" and saved.activePet or ""
 		profile.treats = tonumber(saved.treats) or profile.treats
+		profile.home = type(saved.home) == "string" and saved.home or ""
+		profile.title = type(saved.title) == "string" and saved.title or ""
+		for _, id in saved.notes or {} do
+			profile.notes[id] = true
+		end
+		for _, id in saved.flags or {} do
+			profile.flags[id] = true
+		end
 	end
 	return profile
 end
@@ -59,7 +71,13 @@ function Data.save(userId: number, profile: Profile)
 	if not store then
 		return
 	end
-	local discoveries, upgrades, pets = {}, {}, {}
+	local discoveries, upgrades, pets, notes, flags = {}, {}, {}, {}, {}
+	for id in profile.notes do
+		table.insert(notes, id)
+	end
+	for id in profile.flags do
+		table.insert(flags, id)
+	end
 	for id in profile.pets do
 		table.insert(pets, id)
 	end
@@ -78,6 +96,10 @@ function Data.save(userId: number, profile: Profile)
 			pets = pets,
 			activePet = profile.activePet,
 			treats = profile.treats,
+			home = profile.home,
+			title = profile.title,
+			notes = notes,
+			flags = flags,
 		})
 	end)
 end

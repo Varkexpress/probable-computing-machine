@@ -11,6 +11,7 @@ local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Arch = require(Shared:WaitForChild("Arch"))
 local Config = require(Shared:WaitForChild("Config"))
 local Build = require(script.Parent.Build)
+local Registry = require(script.Parent.Registry)
 
 local Pets = {}
 
@@ -217,6 +218,17 @@ local function planPath(from: Vector3, to: Vector3): { Vector3 }
 	return pts
 end
 
+-- True if a closed door stands between two x positions (doors cross the gallery).
+local function doorBetween(x1: number, x2: number): boolean
+	for _, d in Registry.doors do
+		local bx = d.closed.Position.X
+		if not d.isOpen and math.min(x1, x2) < bx and math.max(x1, x2) > bx then
+			return true
+		end
+	end
+	return false
+end
+
 local function chooseSpot()
 	local night = workspace:GetAttribute("Night") == true
 	local weights = {
@@ -230,18 +242,29 @@ local function chooseSpot()
 		window = 2,
 	}
 	weights[spotName] = 0
+	for name in weights do
+		local spot = refs.catSpots[name]
+		if not spot or doorBetween(mochiPos.X, spot.X) then
+			weights[name] = 0
+		end
+	end
 	local total = 0
 	for _, w in weights do
 		total += w
 	end
+	if total <= 0 then
+		return nil
+	end
 	local roll = math.random() * total
 	for name, w in weights do
-		roll -= w
-		if roll <= 0 then
-			return name
+		if w > 0 then
+			roll -= w
+			if roll <= 0 then
+				return name
+			end
 		end
 	end
-	return "rug"
+	return nil
 end
 
 local function placeMochi(pos: Vector3, facing: Vector3, bob: number)
@@ -262,7 +285,13 @@ local function mochiStep(dt: number)
 		if now < idleUntil then
 			return
 		end
-		spotName = chooseSpot()
+		local nextSpot = chooseSpot()
+		if not nextSpot then
+			-- Shut in: wait by the door and try again later.
+			idleUntil = now + 10
+			return
+		end
+		spotName = nextSpot
 		local spot = refs.catSpots[spotName]
 		path = planPath(mochiPos, spot)
 		zzz.Enabled = false
@@ -357,7 +386,7 @@ local function buildMochi()
 		hooks.notify(player, "Mochi inhales the treat and follows you hopefully.")
 		-- Mochi trots over to the player.
 		local hrp = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
-		if hrp and Arch.roomAt(hrp.Position) then
+		if hrp and Arch.roomAt(hrp.Position) and not doorBetween(mochiPos.X, hrp.Position.X) then
 			path = planPath(mochiPos, hrp.Position + hrp.CFrame.LookVector * 2.5)
 			spotName = "player"
 			idleUntil = os.clock() + 20
@@ -375,8 +404,10 @@ function Pets.fillBowl(player: Player): boolean
 	hooks.completeChore(player, "feedcat")
 	hooks.notify(player, "You fill Mochi's bowl. Somewhere in the house, a cat hears it.")
 	-- The sound of kibble summons the cat.
-	path = planPath(mochiPos, refs.catSpots.bowl)
-	spotName = "bowl"
+	if not doorBetween(mochiPos.X, refs.catSpots.bowl.X) then
+		path = planPath(mochiPos, refs.catSpots.bowl)
+		spotName = "bowl"
+	end
 	return true
 end
 

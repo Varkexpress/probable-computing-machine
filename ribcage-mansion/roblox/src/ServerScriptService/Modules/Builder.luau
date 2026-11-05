@@ -1,23 +1,30 @@
 --!nonstrict
 -- Builds the whole map. Called by Main when the game starts.
 --
--- To look at the mansion in Studio without pressing Play, paste this into the
+-- To look at the homes in Studio without pressing Play, paste this into the
 -- Command Bar (View > Command Bar) and press Enter:
 --   require(game.ServerScriptService.Modules.Builder).build()
 
 local Workspace = game:GetService("Workspace")
 
+local Registry = require(script.Parent.Registry)
 local World = require(script.Parent.World)
 local Mansion = require(script.Parent.Mansion)
+local Lore = require(script.Parent.Lore)
+local Homes = script.Parent:WaitForChild("Homes")
+local Monolith = require(Homes:WaitForChild("Monolith"))
+local Vertebrae = require(Homes:WaitForChild("Vertebrae"))
+local Well = require(Homes:WaitForChild("Well"))
 
 local Builder = {}
 
 function Builder.build()
+	Registry.reset()
 	local old = Workspace:FindFirstChild("RibcageWorld")
 	if old then
 		old:Destroy()
 	end
-	-- Remove Studio's default baseplate if it is there.
+	-- Remove Studio's default baseplate and spawn if they are there.
 	local baseplate = Workspace:FindFirstChild("Baseplate")
 	if baseplate then
 		baseplate:Destroy()
@@ -37,6 +44,10 @@ function Builder.build()
 	for k, v in mansionRefs do
 		refs[k] = v
 	end
+	Monolith.build(root)
+	Vertebrae.build(root)
+	Well.build(root)
+	Lore.build(root)
 	refs.root = root
 	return refs
 end

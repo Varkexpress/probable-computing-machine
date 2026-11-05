@@ -158,8 +158,8 @@ return Arch
 
 local Config = {}
 
-Config.GAME_NAME = "The Ribcage"
-Config.TAGLINE = "A quiet life inside a concrete spine on the Southern Ocean"
+Config.GAME_NAME = "Ribcage: Homes on the Ice"
+Config.TAGLINE = "Four concrete homes. One frozen sea. A secret under the arch."
 
 -- One full day/night cycle, in real minutes.
 Config.DAY_LENGTH_MINUTES = 20
@@ -312,7 +312,7 @@ Config.PETS = {
 Config.CHORES = {
 	{ id = "coffee", name = "Make the morning coffee", reward = 10 },
 	{ id = "feedcat", name = "Feed Mochi", reward = 10 },
-	{ id = "cook", name = "Cook a proper meal", reward = 20 },
+	{ id = "cook", name = "Sit down to eat a home-cooked meal", reward = 20 },
 	{ id = "dishes", name = "Wash the dishes", reward = 10 },
 	{ id = "plants", name = "Water the plants", reward = 10 },
 	{ id = "bed", name = "Make the bed", reward = 5 },
@@ -351,6 +351,46 @@ Config.DISCOVERIES = {
 	{ id = "blizzard", name = "Storm Watcher", hint = "Sit by the glass during a blizzard.", reward = 30 },
 	{ id = "dawn", name = "Pink Dawn", hint = "Be awake when the sun comes up.", reward = 30 },
 	{ id = "whale", name = "Whale Sighting", hint = "Keep watching the sea.", reward = 50 },
+	{ id = "monolith", name = "The Monolith", hint = "A tall slab stands alone to the south.", reward = 30 },
+	{ id = "vertebrae", name = "The Vertebrae", hint = "Five bones on stilts, far to the north-west.", reward = 30 },
+	{ id = "well", name = "The Well", hint = "A ring of concrete in the north-east, open to the sky.", reward = 30 },
+	{ id = "freeze", name = "Night Crossing", hint = "When the sea freezes, walk on it.", reward = 40 },
+	{ id = "boat", name = "Captain", hint = "Take a boat out from any dock.", reward = 20 },
+	{ id = "home", name = "Moving In", hint = "Claim one of the four homes at its deed plinth.", reward = 25 },
+	{ id = "melody", name = "The Tuning", hint = "The ribs were tuned like an instrument.", reward = 60 },
+	{ id = "sternum", name = "The Sternum", hint = "Something is sealed under the arch.", reward = 100 },
+}
+
+----------------------------------------------------------------------------
+-- The four homes (names and blurbs for the ferry map)
+----------------------------------------------------------------------------
+
+Config.HOMES = {
+	{ id = "ribcage", name = "The Ribcage", blurb = "A concrete spine arching out of the sea, a glass gallery in its crown. Lap pool, glass floor, hanging fire. Mochi lives here." },
+	{ id = "monolith", name = "The Monolith", blurb = "A 220-stud slab with one slit of glass. Three stacked floors and a sunken fire pit. South." },
+	{ id = "vertebrae", name = "The Vertebrae", blurb = "Five cubes on pylons, stepping up out of the water, joined by glass bridges. North-west." },
+	{ id = "well", name = "The Well", blurb = "A concrete cylinder around a black pool, open to the sky. A spiral ramp and a hanging cube of light. North-east." },
+}
+
+----------------------------------------------------------------------------
+-- The architect's notes, and the tuning of the ribs
+----------------------------------------------------------------------------
+
+-- Keys on the rib organ, 1 (lowest) to 7 (highest).
+Config.MELODY = { 1, 4, 3, 6, 5, 7 }
+
+Config.NOTES = {
+	{ id = "n1", title = "Day one", where = "The Ribcage", text = "They asked me why a ribcage. I said a house should remember that it is holding something alive.\n\n— O.H." },
+	{ id = "n2", title = "Hollow", where = "The Ribcage", text = "The ribs are hollow. In the wind they hum. Over one long winter I tuned them, rib by rib, like an instrument nobody asked for." },
+	{ id = "n3", title = "From the spine", where = "The Ribcage", text = "From up here you can see all of it. The Monolith to the south. The Vertebrae to the north-west. The Well in the north-east. I did not build four houses. I built one body and let the sea pull it apart." },
+	{ id = "n4", title = "The tooth", where = "The Monolith", text = "The Monolith is a tooth. Patient, upright, refusing the sea. It was the first thing I poured and the last thing that will fall." },
+	{ id = "n5", title = "One line of moon", where = "The Monolith", text = "I sleep badly here. The slit lets in exactly one line of moon, and it moves across the floor like a hand on a clock." },
+	{ id = "n6", title = "Bones", where = "The Vertebrae", text = "A spine that left the body to look at the horizon. Each room a bone. Walk them in order, west to east, and the floor rises like breath." },
+	{ id = "n7", title = "The tuning", where = "The Vertebrae", text = "THE TUNING, for whoever finds it.\n\nLowest first. Then the fourth. Step down to the third. Up to the sixth, down to the fifth, and end on the highest.\n\nPlay it where the floor is made of glass." },
+	{ id = "n8", title = "The heart", where = "The Well", text = "The Well is the heart. Water at the centre that never freezes, even when the whole sea does. I hung one light over it so it would never be alone." },
+	{ id = "n9", title = "A floor of water", where = "The Well", text = "On the coldest nights the sea becomes a floor. Under the arch there is a door that only opens when the water holds still, and only for someone who knows the tuning." },
+	{ id = "n10", title = "If you are reading this", where = "The Ribcage", text = "If you are reading these, you live here now. Keep the fire going. Feed the cat. Sit down when you eat. The ice is better company than it looks." },
+	{ id = "final", title = "The Sternum", where = "Under the arch", text = "You found the sternum. Everything I built points here: four bones of one animal, lying in the ice.\n\nI am not coming back. The houses are yours. Look after them.\n\n— Oren Halvard, architect" },
 }
 
 Config.UPGRADES = {
@@ -434,6 +474,229 @@ end
         <string name="Name">Modules</string>
       </Properties>
       <Item class="ModuleScript" referent="RBX00000008">
+        <Properties>
+          <string name="Name">Boats</string>
+          <ProtectedString name="Source"><![CDATA[--!nonstrict
+-- A small concrete-grey launch at every dock. Sit in the seat: W/S (or the
+-- thumbstick) for throttle, A/D to steer. Physics: the hull floats in the
+-- terrain water; a LinearVelocity pushes it across the surface and an
+-- AlignOrientation keeps it level and pointing where you steer.
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local Workspace = game:GetService("Workspace")
+
+local Build = require(script.Parent.Build)
+local Registry = require(script.Parent.Registry)
+
+local Boats = {}
+
+local MAX_SPEED = 36
+local REVERSE = 0.4
+local TURN_RATE = 1.3 -- radians per second at full steer
+local RETURN_AFTER = 75 -- seconds unattended before a far-away boat goes home
+
+type Boat = {
+	model: Model,
+	hull: BasePart,
+	seat: VehicleSeat,
+	lv: LinearVelocity,
+	align: AlignOrientation,
+	spawn: CFrame,
+	heading: number,
+	idleSince: number,
+	warned: boolean,
+}
+
+local boats: { Boat } = {}
+local hooks
+
+local function yawOf(cf: CFrame): number
+	local _, y = cf:ToEulerAnglesYXZ()
+	return y
+end
+
+local function attachPart(model: Model, hull: BasePart, cf: CFrame, props): BasePart
+	local p = Build.part(model, props)
+	p.Anchored = false
+	p.Massless = true
+	p.CFrame = cf
+	p.CollisionGroup = "Boats"
+	local weld = Instance.new("WeldConstraint")
+	weld.Part0 = hull
+	weld.Part1 = p
+	weld.Parent = p
+	return p
+end
+
+local function buildBoat(spawn: CFrame): Boat
+	local model = Instance.new("Model")
+	model.Name = "Boat"
+	local hull = Build.part(model, {
+		Name = "Hull",
+		Size = Vector3.new(6, 1.6, 14),
+		CFrame = spawn,
+		Material = Enum.Material.Metal,
+		Color = Color3.fromRGB(64, 68, 72),
+	})
+	hull.Anchored = false
+	hull.CustomPhysicalProperties = PhysicalProperties.new(0.3, 0.3, 0.5)
+	hull.CollisionGroup = "Boats"
+
+	local grey = Color3.fromRGB(150, 150, 146)
+	for _, x in { -2.75, 2.75 } do
+		attachPart(model, hull, spawn * CFrame.new(x, 1.3, 0), { Name = "Gunwale", Size = Vector3.new(0.5, 1, 14), Material = Enum.Material.Concrete, Color = grey })
+	end
+	attachPart(model, hull, spawn * CFrame.new(0, 0.2, -7.6), { Name = "Bow", Size = Vector3.new(4, 1.2, 1.4), Material = Enum.Material.Metal, Color = Color3.fromRGB(64, 68, 72) })
+	attachPart(model, hull, spawn * CFrame.new(0, 1.3, 6.6), { Name = "Transom", Size = Vector3.new(6, 1, 0.6), Material = Enum.Material.Concrete, Color = grey })
+	attachPart(model, hull, spawn * CFrame.new(0, 1.2, -3), { Name = "Bench", Size = Vector3.new(5, 0.6, 1.6), Material = Enum.Material.Wood, Color = Build.Color.Wood })
+	local lantern = attachPart(model, hull, spawn * CFrame.new(0, 2.6, -6.4), { Name = "Lantern", Size = Vector3.new(0.6, 0.8, 0.6), Material = Enum.Material.Neon, Color = Build.Color.Warm })
+	Build.pointLight(lantern, Build.Color.Warm, 18, 1.2)
+
+	local seat = Instance.new("VehicleSeat")
+	seat.Name = "Helm"
+	seat.Size = Vector3.new(2, 0.8, 2)
+	seat.CFrame = spawn * CFrame.new(0, 1.2, 3.5)
+	seat.Material = Enum.Material.Fabric
+	seat.Color = Build.Color.Fabric
+	seat.HeadsUpDisplay = false
+	seat.MaxSpeed = 0
+	seat.Massless = true
+	seat.CollisionGroup = "Boats"
+	seat.TopSurface = Enum.SurfaceType.Smooth
+	seat.BottomSurface = Enum.SurfaceType.Smooth
+	seat.Parent = model
+	local weld = Instance.new("WeldConstraint")
+	weld.Part0 = hull
+	weld.Part1 = seat
+	weld.Parent = seat
+
+	local att = Instance.new("Attachment")
+	att.Name = "Drive"
+	att.Parent = hull
+	local lv = Instance.new("LinearVelocity")
+	lv.Attachment0 = att
+	lv.VelocityConstraintMode = Enum.VelocityConstraintMode.Plane
+	lv.PrimaryTangentAxis = Vector3.xAxis
+	lv.SecondaryTangentAxis = Vector3.zAxis
+	lv.RelativeTo = Enum.ActuatorRelativeTo.World
+	lv.MaxForce = 8000
+	lv.PlaneVelocity = Vector2.zero
+	lv.Parent = hull
+	local align = Instance.new("AlignOrientation")
+	align.Mode = Enum.OrientationAlignmentMode.OneAttachment
+	align.Attachment0 = att
+	align.MaxTorque = 60000
+	align.Responsiveness = 12
+	align.CFrame = CFrame.Angles(0, yawOf(spawn), 0)
+	align.Parent = hull
+
+	model.PrimaryPart = hull
+	model.Parent = Build.folder(Workspace:FindFirstChild("RibcageWorld") or Workspace, "Boats")
+	return {
+		model = model,
+		hull = hull,
+		seat = seat,
+		lv = lv,
+		align = align,
+		spawn = spawn,
+		heading = yawOf(spawn),
+		idleSince = os.clock(),
+		warned = false,
+	}
+end
+
+function Boats.reset(boat: Boat)
+	if boat.seat.Occupant then
+		return
+	end
+	boat.hull.AssemblyLinearVelocity = Vector3.zero
+	boat.hull.AssemblyAngularVelocity = Vector3.zero
+	boat.model:PivotTo(boat.spawn)
+	boat.heading = yawOf(boat.spawn)
+	boat.align.CFrame = CFrame.Angles(0, boat.heading, 0)
+end
+
+local function occupantPlayer(boat: Boat): Player?
+	local humanoid = boat.seat.Occupant
+	return humanoid and Players:GetPlayerFromCharacter(humanoid.Parent)
+end
+
+local function step(dt: number)
+	local frozen = Workspace:GetAttribute("Frozen") == true
+	local now = os.clock()
+	for _, b in boats do
+		local player = occupantPlayer(b)
+		local throttle, steer = 0, 0
+		if player then
+			b.idleSince = now
+			throttle = b.seat.ThrottleFloat
+			steer = b.seat.SteerFloat
+			if frozen then
+				if (throttle ~= 0 or steer ~= 0) and not b.warned then
+					b.warned = true
+					hooks.notify(player, "The boat is locked in the ice until dawn. Walk instead.", "warn")
+				end
+				throttle, steer = 0, 0
+			else
+				b.warned = false
+			end
+		elseif now - b.idleSince > RETURN_AFTER and (b.hull.Position - b.spawn.Position).Magnitude > 30 then
+			Boats.reset(b)
+			b.idleSince = now
+		end
+		if b.hull.Position.Y < -40 then
+			Boats.reset(b)
+		end
+		local turn = steer * TURN_RATE * dt
+		if throttle < -0.05 then
+			turn = -turn -- steer like a car in reverse
+		end
+		b.heading -= turn
+		local facing = CFrame.Angles(0, b.heading, 0)
+		b.align.CFrame = facing
+		local look = facing.LookVector
+		local speed = throttle >= 0 and throttle * MAX_SPEED or throttle * MAX_SPEED * REVERSE
+		b.lv.PlaneVelocity = Vector2.new(look.X * speed, look.Z * speed)
+	end
+end
+
+function Boats.start(builtHooks)
+	hooks = builtHooks
+	for _, dock in Registry.docks do
+		local boat = buildBoat(dock.boatSpawn)
+		table.insert(boats, boat)
+		dock.boat = boat
+		boat.seat:GetPropertyChangedSignal("Occupant"):Connect(function()
+			local player = occupantPlayer(boat)
+			pcall(function()
+				if player then
+					boat.hull:SetNetworkOwner(player)
+					hooks.notify(player, "W / S: throttle   ·   A / D: steer   ·   Space: hop out", "info")
+				else
+					boat.hull:SetNetworkOwnershipAuto()
+				end
+			end)
+		end)
+		local call = Build.prompt(dock.bell, "Bring the boat back", "Dock", 0.5, 10)
+		call.UIOffset = Vector2.new(0, 70)
+		call.KeyboardKeyCode = Enum.KeyCode.F
+		call.Triggered:Connect(function(player)
+			if boat.seat.Occupant then
+				hooks.notify(player, "Someone is out in it right now.", "warn")
+				return
+			end
+			Boats.reset(boat)
+		end)
+	end
+	RunService.Heartbeat:Connect(step)
+end
+
+return Boats
+]]></ProtectedString>
+        </Properties>
+      </Item>
+      <Item class="ModuleScript" referent="RBX00000009">
         <Properties>
           <string name="Name">Build</string>
           <ProtectedString name="Source"><![CDATA[--!nonstrict
@@ -624,29 +887,36 @@ return Build
 ]]></ProtectedString>
         </Properties>
       </Item>
-      <Item class="ModuleScript" referent="RBX00000009">
+      <Item class="ModuleScript" referent="RBX0000000A">
         <Properties>
           <string name="Name">Builder</string>
           <ProtectedString name="Source"><![CDATA[--!nonstrict
 -- Builds the whole map. Called by Main when the game starts.
 --
--- To look at the mansion in Studio without pressing Play, paste this into the
+-- To look at the homes in Studio without pressing Play, paste this into the
 -- Command Bar (View > Command Bar) and press Enter:
 --   require(game.ServerScriptService.Modules.Builder).build()
 
 local Workspace = game:GetService("Workspace")
 
+local Registry = require(script.Parent.Registry)
 local World = require(script.Parent.World)
 local Mansion = require(script.Parent.Mansion)
+local Lore = require(script.Parent.Lore)
+local Homes = script.Parent:WaitForChild("Homes")
+local Monolith = require(Homes:WaitForChild("Monolith"))
+local Vertebrae = require(Homes:WaitForChild("Vertebrae"))
+local Well = require(Homes:WaitForChild("Well"))
 
 local Builder = {}
 
 function Builder.build()
+	Registry.reset()
 	local old = Workspace:FindFirstChild("RibcageWorld")
 	if old then
 		old:Destroy()
 	end
-	-- Remove Studio's default baseplate if it is there.
+	-- Remove Studio's default baseplate and spawn if they are there.
 	local baseplate = Workspace:FindFirstChild("Baseplate")
 	if baseplate then
 		baseplate:Destroy()
@@ -666,6 +936,10 @@ function Builder.build()
 	for k, v in mansionRefs do
 		refs[k] = v
 	end
+	Monolith.build(root)
+	Vertebrae.build(root)
+	Well.build(root)
+	Lore.build(root)
 	refs.root = root
 	return refs
 end
@@ -674,7 +948,7 @@ return Builder
 ]]></ProtectedString>
         </Properties>
       </Item>
-      <Item class="ModuleScript" referent="RBX0000000A">
+      <Item class="ModuleScript" referent="RBX0000000B">
         <Properties>
           <string name="Name">Data</string>
           <ProtectedString name="Source"><![CDATA[--!nonstrict
@@ -702,10 +976,14 @@ export type Profile = {
 	pets: { [string]: boolean },
 	activePet: string,
 	treats: number,
+	home: string,
+	notes: { [string]: boolean },
+	flags: { [string]: boolean },
+	title: string,
 }
 
 function Data.default(): Profile
-	return { credits = 50, discoveries = {}, upgrades = {}, fishCaught = 0, pets = {}, activePet = "", treats = 2 }
+	return { credits = 50, discoveries = {}, upgrades = {}, fishCaught = 0, pets = {}, activePet = "", treats = 2, home = "", notes = {}, flags = {}, title = "" }
 end
 
 function Data.load(userId: number): Profile
@@ -730,6 +1008,14 @@ function Data.load(userId: number): Profile
 		end
 		profile.activePet = type(saved.activePet) == "string" and saved.activePet or ""
 		profile.treats = tonumber(saved.treats) or profile.treats
+		profile.home = type(saved.home) == "string" and saved.home or ""
+		profile.title = type(saved.title) == "string" and saved.title or ""
+		for _, id in saved.notes or {} do
+			profile.notes[id] = true
+		end
+		for _, id in saved.flags or {} do
+			profile.flags[id] = true
+		end
 	end
 	return profile
 end
@@ -738,7 +1024,13 @@ function Data.save(userId: number, profile: Profile)
 	if not store then
 		return
 	end
-	local discoveries, upgrades, pets = {}, {}, {}
+	local discoveries, upgrades, pets, notes, flags = {}, {}, {}, {}, {}
+	for id in profile.notes do
+		table.insert(notes, id)
+	end
+	for id in profile.flags do
+		table.insert(flags, id)
+	end
 	for id in profile.pets do
 		table.insert(pets, id)
 	end
@@ -757,6 +1049,10 @@ function Data.save(userId: number, profile: Profile)
 			pets = pets,
 			activePet = profile.activePet,
 			treats = profile.treats,
+			home = profile.home,
+			title = profile.title,
+			notes = notes,
+			flags = flags,
 		})
 	end)
 end
@@ -765,13 +1061,751 @@ return Data
 ]]></ProtectedString>
         </Properties>
       </Item>
-      <Item class="ModuleScript" referent="RBX0000000B">
+      <Item class="ModuleScript" referent="RBX0000000C">
+        <Properties>
+          <string name="Name">Food</string>
+          <ProtectedString name="Source"><![CDATA[--!nonstrict
+-- Food you can hold and eat. Every meal is a Tool whose Handle is the plate,
+-- bowl, mug or board, with the food modelled on top in parts. The Handle's
+-- local Y axis points up while held, so plates are carried flat.
+
+local Food = {}
+
+local CERAMIC = Color3.fromRGB(226, 222, 214)
+local STONEWARE = Color3.fromRGB(58, 54, 50)
+
+-- shape: "sphere" (stretched ellipsoid) or "block". Offsets are from the
+-- centre of the handle.
+type Bit = { shape: string, at: Vector3, size: Vector3, color: Color3, material: Enum.Material?, rot: Vector3? }
+type Design = { handle: string, bites: number, bits: { Bit } }
+
+local function plate(): string
+	return "plate"
+end
+
+local DESIGNS: { [string]: Design } = {
+	coffee = {
+		handle = "mug",
+		bites = 2,
+		bits = {
+			{ shape = "block", at = Vector3.new(0, 0.36, 0), size = Vector3.new(0.56, 0.05, 0.56), color = Color3.fromRGB(58, 38, 26) },
+			{ shape = "sphere", at = Vector3.new(0, 0.39, 0), size = Vector3.new(0.3, 0.02, 0.3), color = Color3.fromRGB(196, 160, 120) },
+		},
+	},
+	tea = {
+		handle = "mug",
+		bites = 2,
+		bits = {
+			{ shape = "block", at = Vector3.new(0, 0.36, 0), size = Vector3.new(0.56, 0.05, 0.56), color = Color3.fromRGB(150, 92, 40) },
+		},
+	},
+	cocoa = {
+		handle = "darkmug",
+		bites = 2,
+		bits = {
+			{ shape = "block", at = Vector3.new(0, 0.36, 0), size = Vector3.new(0.56, 0.05, 0.56), color = Color3.fromRGB(92, 58, 38) },
+			{ shape = "block", at = Vector3.new(-0.1, 0.43, 0.08), size = Vector3.new(0.16, 0.14, 0.16), color = Color3.fromRGB(246, 242, 236), rot = Vector3.new(0, 0.4, 0.2) },
+			{ shape = "block", at = Vector3.new(0.12, 0.42, -0.06), size = Vector3.new(0.16, 0.14, 0.16), color = Color3.fromRGB(246, 242, 236), rot = Vector3.new(0.3, 0.9, 0) },
+			{ shape = "block", at = Vector3.new(0.02, 0.44, -0.16), size = Vector3.new(0.15, 0.13, 0.15), color = Color3.fromRGB(240, 226, 230), rot = Vector3.new(0, 0.2, 0.3) },
+		},
+	},
+	pancakes = {
+		handle = plate(),
+		bites = 3,
+		bits = {
+			{ shape = "sphere", at = Vector3.new(0, 0.16, 0), size = Vector3.new(1.25, 0.18, 1.25), color = Color3.fromRGB(206, 150, 76) },
+			{ shape = "sphere", at = Vector3.new(0.03, 0.32, 0.02), size = Vector3.new(1.2, 0.18, 1.2), color = Color3.fromRGB(214, 160, 84) },
+			{ shape = "sphere", at = Vector3.new(-0.02, 0.48, -0.02), size = Vector3.new(1.15, 0.18, 1.15), color = Color3.fromRGB(220, 168, 90) },
+			{ shape = "sphere", at = Vector3.new(0.05, 0.57, 0.05), size = Vector3.new(0.9, 0.04, 0.8), color = Color3.fromRGB(150, 72, 20), material = Enum.Material.Glass },
+			{ shape = "block", at = Vector3.new(0, 0.66, 0), size = Vector3.new(0.3, 0.16, 0.3), color = Color3.fromRGB(250, 226, 130) },
+			{ shape = "sphere", at = Vector3.new(0.6, 0.12, 0.45), size = Vector3.new(0.18, 0.18, 0.18), color = Color3.fromRGB(150, 20, 40) },
+			{ shape = "sphere", at = Vector3.new(0.7, 0.12, 0.2), size = Vector3.new(0.17, 0.17, 0.17), color = Color3.fromRGB(50, 60, 140) },
+			{ shape = "sphere", at = Vector3.new(0.48, 0.12, 0.62), size = Vector3.new(0.17, 0.17, 0.17), color = Color3.fromRGB(50, 60, 140) },
+		},
+	},
+	miso = {
+		handle = "bowl",
+		bites = 3,
+		bits = {
+			{ shape = "sphere", at = Vector3.new(0, 0.26, 0), size = Vector3.new(1.32, 0.06, 1.32), color = Color3.fromRGB(196, 160, 104) },
+			{ shape = "block", at = Vector3.new(-0.2, 0.3, 0.15), size = Vector3.new(0.22, 0.18, 0.22), color = Color3.fromRGB(244, 238, 222) },
+			{ shape = "block", at = Vector3.new(0.25, 0.3, -0.1), size = Vector3.new(0.22, 0.18, 0.22), color = Color3.fromRGB(244, 238, 222) },
+			{ shape = "block", at = Vector3.new(0.05, 0.3, 0.32), size = Vector3.new(0.2, 0.16, 0.2), color = Color3.fromRGB(244, 238, 222) },
+			{ shape = "sphere", at = Vector3.new(0.1, 0.31, -0.3), size = Vector3.new(0.5, 0.04, 0.12), color = Color3.fromRGB(70, 120, 50) },
+			{ shape = "sphere", at = Vector3.new(-0.32, 0.31, -0.12), size = Vector3.new(0.12, 0.04, 0.4), color = Color3.fromRGB(80, 140, 60) },
+		},
+	},
+	searedfish = {
+		handle = plate(),
+		bites = 3,
+		bits = {
+			{ shape = "sphere", at = Vector3.new(-0.2, 0.18, 0.05), size = Vector3.new(1.0, 0.24, 0.48), color = Color3.fromRGB(236, 150, 116) },
+			{ shape = "sphere", at = Vector3.new(-0.2, 0.28, 0.05), size = Vector3.new(0.86, 0.06, 0.36), color = Color3.fromRGB(160, 96, 52) },
+			{ shape = "sphere", at = Vector3.new(0.45, 0.22, -0.3), size = Vector3.new(0.7, 0.38, 0.7), color = Color3.fromRGB(246, 244, 236) },
+			{ shape = "sphere", at = Vector3.new(0.5, 0.14, 0.45), size = Vector3.new(0.3, 0.16, 0.18), color = Color3.fromRGB(246, 220, 80) },
+			{ shape = "sphere", at = Vector3.new(-0.55, 0.12, -0.45), size = Vector3.new(0.18, 0.05, 0.4), color = Color3.fromRGB(70, 120, 50) },
+		},
+	},
+	stew = {
+		handle = "bowl",
+		bites = 3,
+		bits = {
+			{ shape = "sphere", at = Vector3.new(0, 0.26, 0), size = Vector3.new(1.32, 0.07, 1.32), color = Color3.fromRGB(122, 70, 38) },
+			{ shape = "block", at = Vector3.new(-0.25, 0.31, 0.1), size = Vector3.new(0.2, 0.16, 0.2), color = Color3.fromRGB(226, 120, 40), rot = Vector3.new(0.3, 0.5, 0) },
+			{ shape = "block", at = Vector3.new(0.2, 0.31, 0.25), size = Vector3.new(0.24, 0.18, 0.22), color = Color3.fromRGB(232, 214, 170), rot = Vector3.new(0, 0.9, 0.2) },
+			{ shape = "block", at = Vector3.new(0.1, 0.31, -0.28), size = Vector3.new(0.3, 0.16, 0.22), color = Color3.fromRGB(244, 236, 226), rot = Vector3.new(0.2, 0.2, 0) },
+			{ shape = "block", at = Vector3.new(-0.3, 0.31, -0.2), size = Vector3.new(0.18, 0.15, 0.18), color = Color3.fromRGB(226, 120, 40), rot = Vector3.new(0, 1.2, 0.3) },
+		},
+	},
+	bread = {
+		handle = "board",
+		bites = 3,
+		bits = {
+			{ shape = "sphere", at = Vector3.new(0, 0.38, 0), size = Vector3.new(1.4, 0.7, 0.85), color = Color3.fromRGB(176, 112, 54) },
+			{ shape = "block", at = Vector3.new(-0.3, 0.66, 0), size = Vector3.new(0.06, 0.06, 0.6), color = Color3.fromRGB(226, 186, 120), rot = Vector3.new(0, 0.5, 0) },
+			{ shape = "block", at = Vector3.new(0.1, 0.7, 0), size = Vector3.new(0.06, 0.06, 0.6), color = Color3.fromRGB(226, 186, 120), rot = Vector3.new(0, 0.5, 0) },
+			{ shape = "block", at = Vector3.new(0.45, 0.62, 0), size = Vector3.new(0.06, 0.06, 0.5), color = Color3.fromRGB(226, 186, 120), rot = Vector3.new(0, 0.5, 0) },
+		},
+	},
+	snack = {
+		handle = plate(),
+		bites = 2,
+		bits = {
+			{ shape = "block", at = Vector3.new(-0.3, 0.1, 0.1), size = Vector3.new(0.5, 0.06, 0.5), color = Color3.fromRGB(222, 184, 120), rot = Vector3.new(0, 0.3, 0) },
+			{ shape = "block", at = Vector3.new(-0.25, 0.16, -0.25), size = Vector3.new(0.5, 0.06, 0.5), color = Color3.fromRGB(222, 184, 120), rot = Vector3.new(0, 0.8, 0) },
+			{ shape = "block", at = Vector3.new(0.35, 0.18, 0), size = Vector3.new(0.5, 0.3, 0.4), color = Color3.fromRGB(248, 210, 100) },
+			{ shape = "block", at = Vector3.new(0.3, 0.17, 0.42), size = Vector3.new(0.3, 0.24, 0.3), color = Color3.fromRGB(250, 236, 200) },
+		},
+	},
+}
+
+local function newPart(name: string, size: Vector3, color: Color3, material: Enum.Material?, sphere: boolean?): BasePart
+	local p = Instance.new("Part")
+	p.Name = name
+	p.Size = size
+	p.Color = color
+	p.Material = material or Enum.Material.SmoothPlastic
+	p.TopSurface = Enum.SurfaceType.Smooth
+	p.BottomSurface = Enum.SurfaceType.Smooth
+	p.CanCollide = false
+	p.CanQuery = false
+	p.CanTouch = false
+	p.Massless = true
+	p.Anchored = false
+	if sphere then
+		local mesh = Instance.new("SpecialMesh")
+		mesh.MeshType = Enum.MeshType.Sphere
+		mesh.Parent = p
+	end
+	return p
+end
+
+local function makeHandle(kind: string): (BasePart, { BasePart })
+	local extras = {}
+	local handle: BasePart
+	if kind == "plate" then
+		handle = newPart("Handle", Vector3.new(1.9, 0.12, 1.9), CERAMIC, Enum.Material.SmoothPlastic, true)
+	elseif kind == "bowl" then
+		handle = newPart("Handle", Vector3.new(1.6, 0.66, 1.6), STONEWARE, Enum.Material.SmoothPlastic, true)
+	elseif kind == "board" then
+		handle = newPart("Handle", Vector3.new(1.9, 0.14, 1.2), Color3.fromRGB(120, 84, 54), Enum.Material.Wood)
+	else -- mug / darkmug: a square brutalist mug
+		local color = kind == "darkmug" and STONEWARE or Color3.fromRGB(214, 210, 200)
+		handle = newPart("Handle", Vector3.new(0.7, 0.8, 0.7), color, Enum.Material.SmoothPlastic)
+		local loop = newPart("MugHandle", Vector3.new(0.12, 0.45, 0.35), color, Enum.Material.SmoothPlastic)
+		loop.CFrame = CFrame.new(0.42, 0, 0)
+		table.insert(extras, loop)
+	end
+	return handle, extras
+end
+
+-- Builds the Tool for a recipe id. quality is a label like "Perfect".
+function Food.make(designId: string, displayName: string, quality: string?): Tool?
+	local design = DESIGNS[designId]
+	if not design then
+		return nil
+	end
+	local tool = Instance.new("Tool")
+	tool.Name = displayName
+	tool.CanBeDropped = false
+	tool.RequiresHandle = true
+	tool.ToolTip = (quality and (quality .. " · ") or "") .. "Click to eat. Sit down for a bonus."
+	tool:SetAttribute("Food", designId)
+	tool:SetAttribute("Bites", design.bites)
+	tool:SetAttribute("BitesTotal", design.bites)
+	tool:SetAttribute("Quality", quality or "Decent")
+
+	local handle, extras = makeHandle(design.handle)
+	handle.CFrame = CFrame.new()
+	handle.Parent = tool
+	local foodParts = {}
+	for _, e in extras do
+		e.Parent = tool
+		local w = Instance.new("WeldConstraint")
+		w.Part0 = handle
+		w.Part1 = e
+		w.Parent = e
+	end
+	for i, b in design.bits do
+		local p = newPart("Food" .. i, b.size, b.color, b.material, b.shape == "sphere")
+		local rot = b.rot or Vector3.zero
+		p.CFrame = CFrame.new(b.at) * CFrame.Angles(rot.X, rot.Y, rot.Z)
+		p.Parent = tool
+		local w = Instance.new("WeldConstraint")
+		w.Part0 = handle
+		w.Part1 = p
+		w.Parent = p
+		table.insert(foodParts, p)
+	end
+	-- Hold it a little in front of the hand.
+	tool.Grip = CFrame.new(0, 0, 0.35)
+	return tool
+end
+
+-- Shrinks the food after a bite (the plate stays the same).
+function Food.shrink(tool: Tool, fraction: number)
+	for _, p in tool:GetChildren() do
+		if p:IsA("BasePart") and string.sub(p.Name, 1, 4) == "Food" then
+			-- Resize in place, keeping the bottom of the food on the plate.
+			local old = p.Size
+			local new = old * Vector3.new(fraction ^ 0.5, fraction, fraction ^ 0.5)
+			local weld = p:FindFirstChildOfClass("WeldConstraint")
+			if weld then
+				weld.Enabled = false
+			end
+			p.Size = new
+			p.CFrame = p.CFrame * CFrame.new(0, (new.Y - old.Y) / 2, 0)
+			if weld then
+				weld.Enabled = true
+			end
+		end
+	end
+end
+
+function Food.isDrink(designId: string): boolean
+	return designId == "coffee" or designId == "tea" or designId == "cocoa"
+end
+
+return Food
+]]></ProtectedString>
+        </Properties>
+      </Item>
+      <Item class="ModuleScript" referent="RBX0000000D">
+        <Properties>
+          <string name="Name">Furnish</string>
+          <ProtectedString name="Source"><![CDATA[--!nonstrict
+-- Brutalist furniture kit shared by every home. Each function takes a frame
+-- `cf` sitting on the floor: local +X is right, local +Z is "back" (toward
+-- the wall), local -Z is the open side of the room. Everything usable is
+-- registered in Registry so gameplay finds it automatically.
+
+local CollectionService = game:GetService("CollectionService")
+
+local Build = require(script.Parent.Build)
+local Registry = require(script.Parent.Registry)
+
+local Furnish = {}
+
+local C = Build.Color
+Furnish.Color = C
+
+-- Block centred at local (x, y, z) with the given size.
+local function blk(folder: Instance, cf: CFrame, x: number, y: number, z: number, size: Vector3, props: { [string]: any }): BasePart
+	local p = table.clone(props)
+	p.Size = size
+	p.CFrame = cf * CFrame.new(x, y, z)
+	return Build.part(folder, p)
+end
+Furnish.blk = blk
+
+-- Block spanning two local corners.
+local function span(folder: Instance, cf: CFrame, a: Vector3, b: Vector3, props: { [string]: any }): BasePart
+	local minV, maxV = a:Min(b), a:Max(b)
+	local c = (minV + maxV) / 2
+	return blk(folder, cf, c.X, c.Y, c.Z, maxV - minV, props)
+end
+Furnish.span = span
+
+local function cylY(folder: Instance, cf: CFrame, x: number, y: number, z: number, height: number, diameter: number, props: { [string]: any }): BasePart
+	local p = table.clone(props)
+	p.Shape = Enum.PartType.Cylinder
+	p.Size = Vector3.new(height, diameter, diameter)
+	p.CFrame = cf * CFrame.new(x, y, z) * CFrame.Angles(0, 0, math.pi / 2)
+	return Build.part(folder, p)
+end
+Furnish.cylY = cylY
+
+-- A seat whose occupant faces local direction `look`.
+function Furnish.seat(folder: Instance, cf: CFrame, x: number, y: number, z: number, look: Vector3, size: Vector3?, color: Color3?): BasePart
+	local pos = (cf * CFrame.new(x, y, z)).Position
+	local dir = cf:VectorToWorldSpace(look)
+	return Build.part(folder, {
+		ClassName = "Seat",
+		Name = "Seat",
+		Size = size or Vector3.new(3.6, 1, 3.6),
+		CFrame = CFrame.lookAt(pos, pos + dir),
+		Material = Enum.Material.Fabric,
+		Color = color or C.Fabric,
+	})
+end
+
+local CONCRETE = { Material = Enum.Material.Concrete, Color = C.ConcreteIn }
+local MARBLE = { Material = Enum.Material.Marble, Color = C.Marble }
+local WOOD = { Material = Enum.Material.Wood, Color = C.Wood }
+local METAL = { Material = Enum.Material.Metal, Color = C.Metal }
+Furnish.CONCRETE, Furnish.MARBLE, Furnish.WOOD, Furnish.METAL = CONCRETE, MARBLE, WOOD, METAL
+
+local function steamEmitter(parent: Instance): ParticleEmitter
+	local steam = Instance.new("ParticleEmitter")
+	steam.Name = "Steam"
+	steam.Enabled = false
+	steam.Rate = 14
+	steam.Lifetime = NumberRange.new(1.5, 2.5)
+	steam.Speed = NumberRange.new(1.5, 3)
+	steam.SpreadAngle = Vector2.new(15, 15)
+	steam.EmissionDirection = Enum.NormalId.Top
+	steam.Size = NumberSequence.new({ NumberSequenceKeypoint.new(0, 0.6), NumberSequenceKeypoint.new(1, 2.4) })
+	steam.Transparency = NumberSequence.new({ NumberSequenceKeypoint.new(0, 0.6), NumberSequenceKeypoint.new(1, 1) })
+	steam.Color = ColorSequence.new(Color3.fromRGB(235, 235, 240))
+	steam.Parent = parent
+	return steam
+end
+Furnish.steamEmitter = steamEmitter
+
+----------------------------------------------------------------------------
+-- Lights
+----------------------------------------------------------------------------
+
+function Furnish.paperLamp(folder: Instance, pos: Vector3, height: number)
+	local shade = Build.cylinderY(folder, pos + Vector3.new(0, height / 2, 0), height, 1.8, {
+		Name = "PaperLamp",
+		Material = Enum.Material.Neon,
+		Color = Color3.fromRGB(255, 226, 180),
+	})
+	local light = Build.pointLight(shade, C.Warm, 22, 1.4)
+	table.insert(Registry.lamps, { part = shade, light = light })
+	return shade
+end
+
+function Furnish.cubeLamp(folder: Instance, pos: Vector3)
+	local cube = Build.part(folder, {
+		Name = "CubeLamp",
+		Size = Vector3.new(1.4, 1.4, 1.4),
+		CFrame = CFrame.new(pos),
+		Material = Enum.Material.Neon,
+		Color = Color3.fromRGB(255, 220, 170),
+	})
+	local light = Build.pointLight(cube, C.Warm, 14, 1.2)
+	table.insert(Registry.lamps, { part = cube, light = light })
+	return cube
+end
+
+-- A warm light slot (thin glowing strip) between two world corners.
+function Furnish.lightSlot(folder: Instance, a: Vector3, b: Vector3, face: Enum.NormalId?, range: number?)
+	local strip = Build.box(folder, a, b, {
+		Name = "LightSlot",
+		Material = Enum.Material.Neon,
+		Color = C.Warm,
+		CastShadow = false,
+	})
+	Build.surfaceLight(strip, face or Enum.NormalId.Bottom, C.Warm, range or 18, 0.9, 70)
+	return strip
+end
+
+----------------------------------------------------------------------------
+-- Plants, books, notes
+----------------------------------------------------------------------------
+
+function Furnish.plant(folder: Instance, base: Vector3)
+	local pot = Build.cylinderY(folder, base + Vector3.new(0, 1.2, 0), 2.4, 2.2, {
+		Name = "PlantPot",
+		Material = Enum.Material.Concrete,
+		Color = C.ConcreteIn,
+	})
+	local leaves = Instance.new("Model")
+	leaves.Name = "Leaves"
+	local rng = Random.new(math.floor(math.abs(base.X * 7 + base.Z * 3)))
+	for i = 1, 7 do
+		local a = i / 7 * math.pi * 2
+		Build.ellipsoid(leaves, CFrame.new(base + Vector3.new(math.cos(a) * 0.9, 3.2 + rng:NextNumber(0, 1.6), math.sin(a) * 0.9))
+			* CFrame.Angles(math.sin(a) * 0.6, a, math.cos(a) * 0.6), Vector3.new(0.9, 0.25, 2.6), {
+			Name = "Leaf",
+			Color = Color3.fromRGB(58, 92, 60),
+			Material = Enum.Material.Grass,
+			CanCollide = false,
+		})
+	end
+	leaves.Parent = folder
+	table.insert(Registry.plants, { pot = pot, leaves = leaves })
+	return pot
+end
+
+-- Bookshelf 10 wide, 9 tall, its back against local +Z.
+function Furnish.bookshelf(folder: Instance, cf: CFrame)
+	local shelf = span(folder, cf, Vector3.new(-5, 0, 0), Vector3.new(5, 9, 1.6), table.clone(WOOD))
+	shelf.Name = "Bookshelf"
+	local rng = Random.new(math.floor(math.abs(cf.X + cf.Z)))
+	for row = 0, 2 do
+		local y = 0.4 + row * 3
+		local x = -4.6
+		while x < 4.4 do
+			local w = rng:NextNumber(0.3, 0.6)
+			local h = rng:NextNumber(1.6, 2.4)
+			local tone = rng:NextNumber(0.25, 0.75)
+			span(folder, cf, Vector3.new(x, y + 0.2, -0.4), Vector3.new(x + w, y + 0.2 + h, 0.4), {
+				Name = "Book",
+				Color = Color3.new(tone * 0.9, tone * 0.75, tone * 0.6),
+				CanCollide = false,
+			})
+			x += w + 0.05
+		end
+	end
+	table.insert(Registry.bookshelves, shelf)
+	return shelf
+end
+
+-- One of the architect's notes: a folded sheet with a faint glow.
+function Furnish.note(folder: Instance, pos: Vector3, id: string, yaw: number?)
+	local paper = Build.part(folder, {
+		Name = "Note_" .. id,
+		Size = Vector3.new(1, 0.06, 1.3),
+		CFrame = CFrame.new(pos + Vector3.new(0, 0.03, 0)) * CFrame.Angles(0, yaw or 0.4, 0),
+		Material = Enum.Material.SmoothPlastic,
+		Color = Color3.fromRGB(236, 228, 210),
+		CanCollide = false,
+	})
+	local glow = Instance.new("PointLight")
+	glow.Color = Color3.fromRGB(255, 230, 190)
+	glow.Range = 5
+	glow.Brightness = 0.6
+	glow.Parent = paper
+	paper:SetAttribute("NoteId", id)
+	CollectionService:AddTag(paper, "ArchitectNote")
+	table.insert(Registry.notes, { id = id, part = paper })
+	return paper
+end
+
+----------------------------------------------------------------------------
+-- Kitchen (about 19 x 16 studs): counter on the back wall, island with sink
+----------------------------------------------------------------------------
+
+-- opts.pantryA / opts.pantryB: local corners for the pantry if the default
+-- spot (front-left) would block a doorway.
+function Furnish.kitchen(folder: Instance, cf: CFrame, home: string, opts: { [string]: any }?)
+	-- Back counter
+	span(folder, cf, Vector3.new(-9.6, 0, 6), Vector3.new(3.6, 3.6, 9.4), table.clone(MARBLE)).Name = "Counter"
+	local stove = span(folder, cf, Vector3.new(-8, 3.6, 6.4), Vector3.new(-4, 3.7, 9), {
+		Name = "Stove",
+		Material = Enum.Material.Glass,
+		Color = Color3.fromRGB(10, 10, 10),
+	})
+	for _, dx in { -7, -5 } do
+		cylY(folder, cf, dx, 3.72, 7.7, 0.05, 1.4, { Name = "Ring", Material = Enum.Material.Neon, Color = Color3.fromRGB(255, 60, 30), CanCollide = false })
+	end
+	local oven = span(folder, cf, Vector3.new(-8, 0.6, 5.85), Vector3.new(-4, 3, 6), {
+		Name = "Oven",
+		Material = Enum.Material.Glass,
+		Color = Color3.fromRGB(20, 18, 16),
+	})
+	span(folder, cf, Vector3.new(-7.6, 2.6, 5.7), Vector3.new(-4.4, 2.75, 5.85), {
+		Name = "OvenHandle",
+		Material = Enum.Material.Metal,
+		Color = Color3.fromRGB(150, 150, 150),
+		CanCollide = false,
+	})
+	local kettle = cylY(folder, cf, -2.5, 4.4, 7.7, 1.6, 1.4, { Name = "Kettle", Material = Enum.Material.Metal, Color = Color3.fromRGB(150, 150, 150) })
+	local coffee = span(folder, cf, Vector3.new(0, 3.6, 6.8), Vector3.new(2, 6.4, 9.2), {
+		Name = "CoffeeMachine",
+		Material = Enum.Material.Metal,
+		Color = Color3.fromRGB(30, 30, 32),
+	})
+	span(folder, cf, Vector3.new(0.3, 4.8, 6.6), Vector3.new(1.7, 5, 6.8), { Name = "CoffeeLight", Material = Enum.Material.Neon, Color = C.Warm, CanCollide = false })
+	-- Fridge and pantry
+	local fridge = span(folder, cf, Vector3.new(4, 0, 5), Vector3.new(7.6, 9, 9.4), {
+		Name = "Fridge",
+		Material = Enum.Material.Metal,
+		Color = Color3.fromRGB(40, 40, 42),
+	})
+	span(folder, cf, Vector3.new(4.4, 4, 4.8), Vector3.new(4.7, 8, 5), {
+		Name = "FridgeHandle",
+		Material = Enum.Material.Metal,
+		Color = Color3.fromRGB(160, 160, 160),
+	})
+	local pa = opts and opts.pantryA or Vector3.new(-9.6, 0, -6)
+	local pb = opts and opts.pantryB or Vector3.new(-6.8, 10, -1)
+	local pantry = span(folder, cf, pa, pb, table.clone(WOOD))
+	pantry.Name = "Pantry"
+	-- Island with sink and stools
+	span(folder, cf, Vector3.new(-4, 0, -2), Vector3.new(4, 3.6, 1.6), table.clone(MARBLE)).Name = "KitchenIsland"
+	local sink = span(folder, cf, Vector3.new(0.5, 3.6, -1.6), Vector3.new(3.5, 3.7, 1.2), {
+		Name = "KitchenSink",
+		Material = Enum.Material.Slate,
+		Color = Color3.fromRGB(36, 36, 38),
+	})
+	cylY(folder, cf, 2, 4.6, 1.4, 2, 0.25, { Name = "Tap", Material = Enum.Material.Metal, Color = Color3.fromRGB(150, 150, 150), CanCollide = false })
+	for _, x in { -2.6, 0, 2.6 } do
+		cylY(folder, cf, x, 1.2, -4, 2.4, 0.4, { Name = "StoolLeg", Material = Enum.Material.Metal, Color = C.Metal })
+		Furnish.seat(folder, cf, x, 2.7, -4, Vector3.zAxis, Vector3.new(1.8, 0.6, 1.8), C.Wood)
+	end
+	-- Pendant light
+	local pendant = Build.ellipsoid(folder, cf * CFrame.new(0, 9, 0), Vector3.new(1.6, 1.2, 1.6), {
+		Name = "Pendant",
+		Material = Enum.Material.Neon,
+		Color = C.Warm,
+	})
+	table.insert(Registry.lamps, { part = pendant, light = Build.pointLight(pendant, C.Warm, 18, 1.1) })
+
+	local kitchen = {
+		home = home,
+		stove = stove,
+		oven = oven,
+		coffee = coffee,
+		kettle = kettle,
+		fridge = fridge,
+		pantry = pantry,
+		sink = sink,
+		dishSpot = (cf * CFrame.new(-2.4, 3.6, -0.2)).Position,
+		steam = steamEmitter(stove),
+		dirty = 0,
+		dishParts = {},
+	}
+	table.insert(Registry.kitchens, kitchen)
+	return kitchen
+end
+
+----------------------------------------------------------------------------
+-- Dining table for four (about 9 x 9 studs)
+----------------------------------------------------------------------------
+
+function Furnish.dining(folder: Instance, cf: CFrame)
+	span(folder, cf, Vector3.new(-3, 2.6, -1.6), Vector3.new(3, 3, 1.6), table.clone(MARBLE)).Name = "DiningTable"
+	span(folder, cf, Vector3.new(-2.4, 0, -0.6), Vector3.new(-1.4, 2.6, 0.6), table.clone(CONCRETE)).Name = "TableLeg"
+	span(folder, cf, Vector3.new(1.4, 0, -0.6), Vector3.new(2.4, 2.6, 0.6), table.clone(CONCRETE)).Name = "TableLeg"
+	for _, x in { -1.5, 1.5 } do
+		for _, side in { -1, 1 } do
+			local z = side * 3
+			span(folder, cf, Vector3.new(x - 0.9, 0, z - 0.9), Vector3.new(x + 0.9, 1.3, z + 0.9), table.clone(WOOD)).Name = "ChairBase"
+			Furnish.seat(folder, cf, x, 1.6, z, Vector3.new(0, 0, -side), Vector3.new(1.8, 0.6, 1.8), C.Fabric)
+			span(folder, cf, Vector3.new(x - 0.9, 1.9, z + side * 0.75), Vector3.new(x + 0.9, 4.2, z + side * 0.95), table.clone(WOOD)).Name = "ChairBack"
+		end
+	end
+	-- A candle in the middle of the table.
+	local candle = cylY(folder, cf, 0, 3.4, 0, 0.8, 0.3, { Name = "Candle", Color = Color3.fromRGB(240, 234, 220), CanCollide = false })
+	local flame = Build.ellipsoid(folder, cf * CFrame.new(0, 3.95, 0), Vector3.new(0.16, 0.3, 0.16), {
+		Name = "CandleFlame",
+		Material = Enum.Material.Neon,
+		Color = Color3.fromRGB(255, 190, 110),
+		CanCollide = false,
+	})
+	table.insert(Registry.lamps, { part = flame, light = Build.pointLight(flame, Color3.fromRGB(255, 180, 100), 10, 0.8) })
+	return candle
+end
+
+----------------------------------------------------------------------------
+-- Fireplaces: "pit" (sunken square), "slot" (long wall slot), "column"
+----------------------------------------------------------------------------
+
+function Furnish.fireplace(folder: Instance, cf: CFrame, style: string, home: string)
+	local corePos: CFrame
+	if style == "pit" then
+		span(folder, cf, Vector3.new(-4.5, 0, -4.5), Vector3.new(4.5, 1, 4.5), table.clone(CONCRETE)).Name = "FirePitRim"
+		span(folder, cf, Vector3.new(-3, 0.95, -3), Vector3.new(3, 1.05, 3), { Name = "FirePitBed", Material = Enum.Material.Slate, Color = Color3.fromRGB(20, 18, 18) })
+		for i = 1, 4 do
+			local a = i * math.pi / 2 + 0.4
+			Build.beam(folder, (cf * CFrame.new(math.cos(a) * 1.4, 1.3, math.sin(a) * 1.4)).Position,
+				(cf * CFrame.new(-math.cos(a) * 1.4, 1.5, -math.sin(a) * 1.4)).Position, 0.5, 0.5,
+				{ Name = "Log", Material = Enum.Material.Wood, Color = Color3.fromRGB(96, 70, 48), CanCollide = false })
+		end
+		corePos = cf * CFrame.new(0, 1.4, 0)
+	elseif style == "slot" then
+		-- A deep concrete mass on the back wall with a long glowing slot.
+		span(folder, cf, Vector3.new(-7, 0, 5), Vector3.new(7, 6, 8), table.clone(CONCRETE)).Name = "FireMass"
+		span(folder, cf, Vector3.new(-5.5, 1.6, 4.9), Vector3.new(5.5, 3.6, 6.5), { Name = "FireSlot", Material = Enum.Material.Slate, Color = Color3.fromRGB(14, 12, 12) })
+		span(folder, cf, Vector3.new(-5.2, 1.7, 5.4), Vector3.new(5.2, 1.9, 6.2), { Name = "Embers", Material = Enum.Material.Neon, Color = Color3.fromRGB(255, 110, 40), CanCollide = false })
+		corePos = cf * CFrame.new(0, 2.2, 5.6)
+	else -- column
+		cylY(folder, cf, 0, 2, 0, 4, 4.4, table.clone(CONCRETE)).Name = "FireColumn"
+		cylY(folder, cf, 0, 4.2, 0, 0.6, 5, { Name = "FireBowl", Material = Enum.Material.Metal, Color = C.Metal })
+		cylY(folder, cf, 0, 4.45, 0, 0.1, 4.2, { Name = "Embers", Material = Enum.Material.Neon, Color = Color3.fromRGB(255, 110, 40), CanCollide = false })
+		corePos = cf * CFrame.new(0, 4.8, 0)
+	end
+	local core = Build.part(folder, {
+		Name = "FireCore",
+		Size = Vector3.new(2, 1, 2),
+		CFrame = corePos,
+		Transparency = 1,
+		CanCollide = false,
+	})
+	local fire = Instance.new("Fire")
+	fire.Size = style == "slot" and 3 or 5
+	fire.Heat = 5
+	fire.Color = Color3.fromRGB(255, 140, 50)
+	fire.SecondaryColor = Color3.fromRGB(255, 60, 10)
+	fire.Parent = core
+	local light = Build.pointLight(core, Color3.fromRGB(255, 150, 70), 30, 2.2)
+	local embers = Instance.new("ParticleEmitter")
+	embers.Rate = 6
+	embers.Lifetime = NumberRange.new(1, 2)
+	embers.Speed = NumberRange.new(2, 4)
+	embers.SpreadAngle = Vector2.new(25, 25)
+	embers.Size = NumberSequence.new(0.15, 0)
+	embers.LightEmission = 1
+	embers.Color = ColorSequence.new(Color3.fromRGB(255, 160, 60))
+	embers.Parent = core
+	-- Log basket beside it.
+	local basket = cylY(folder, cf, 7, 0.9, -2, 1.8, 2.6, { Name = "LogBasket", Material = Enum.Material.Fabric, Color = Color3.fromRGB(70, 60, 50) })
+	local entry = { home = home, core = core, fire = fire, light = light, embers = embers, basket = basket, fuel = 80, baseSize = fire.Size }
+	table.insert(Registry.fires, entry)
+	return entry
+end
+
+----------------------------------------------------------------------------
+-- Lounge: a long low sofa at local +Z facing -Z, rug in front, lamp
+----------------------------------------------------------------------------
+
+function Furnish.lounge(folder: Instance, cf: CFrame, width: number?)
+	local w = width or 12
+	span(folder, cf, Vector3.new(-w / 2, 0, 5), Vector3.new(w / 2, 1.2, 9), table.clone(WOOD)).Name = "SofaPlinth"
+	span(folder, cf, Vector3.new(-w / 2, 1.2, 8), Vector3.new(w / 2, 4.2, 9.4), { Name = "SofaBack", Material = Enum.Material.Fabric, Color = C.Fabric })
+	local n = math.floor(w / 4)
+	for i = 0, n - 1 do
+		local x = -w / 2 + 2 + i * 4
+		Furnish.seat(folder, cf, x, 1.7, 6.4, -Vector3.zAxis, Vector3.new(3.8, 1, 3), C.Fabric)
+	end
+	span(folder, cf, Vector3.new(-w / 2 - 1, 0.01, -1), Vector3.new(w / 2 + 1, 0.1, 4.6), {
+		Name = "Rug",
+		Material = Enum.Material.Fabric,
+		Color = Color3.fromRGB(58, 52, 48),
+		CanCollide = false,
+	})
+	Furnish.paperLamp(folder, (cf * CFrame.new(w / 2 + 2, 0, 7)).Position, 7)
+end
+
+----------------------------------------------------------------------------
+-- Bed: headboard at local +Z (about 15 x 14 studs with nightstands)
+----------------------------------------------------------------------------
+
+function Furnish.bed(folder: Instance, cf: CFrame, home: string)
+	span(folder, cf, Vector3.new(-6, 0, -1), Vector3.new(6, 1.4, 13), table.clone(CONCRETE)).Name = "BedPlinth"
+	local mattress = span(folder, cf, Vector3.new(-5.6, 1.4, -0.6), Vector3.new(5.6, 2.8, 12.6), {
+		Name = "Mattress",
+		Material = Enum.Material.Fabric,
+		Color = Color3.fromRGB(64, 58, 54),
+	})
+	local duvet = span(folder, cf, Vector3.new(-5.6, 2.8, -0.6), Vector3.new(5.6, 3.1, 8), {
+		Name = "Duvet",
+		Material = Enum.Material.Fabric,
+		Color = Color3.fromRGB(78, 70, 64),
+	})
+	for _, x in { -2.8, 2.8 } do
+		span(folder, cf, Vector3.new(x - 2.2, 2.8, 9.6), Vector3.new(x + 2.2, 3.9, 12), { Name = "Pillow", Material = Enum.Material.Fabric, Color = Color3.fromRGB(96, 88, 82) })
+	end
+	span(folder, cf, Vector3.new(-6, 1.4, 12.4), Vector3.new(6, 6, 13), table.clone(WOOD)).Name = "Headboard"
+	for _, x in { -7.6, 7.6 } do
+		span(folder, cf, Vector3.new(x - 0.8, 0, 10.6), Vector3.new(x + 0.8, 2.2, 12.2), table.clone(CONCRETE)).Name = "Nightstand"
+		Furnish.cubeLamp(folder, (cf * CFrame.new(x, 2.9, 11.4)).Position)
+	end
+	local tidy = duvet.CFrame
+	local entry = {
+		home = home,
+		mattress = mattress,
+		duvet = duvet,
+		tidy = tidy,
+		messy = tidy * CFrame.new(1.2, 0.25, -1.5) * CFrame.Angles(0.06, 0.35, -0.05),
+		messyNow = false,
+	}
+	table.insert(Registry.beds, entry)
+	return entry
+end
+
+----------------------------------------------------------------------------
+-- Bathroom: rain shower in the back-right corner, stone trough sink
+----------------------------------------------------------------------------
+
+function Furnish.bath(folder: Instance, cf: CFrame, home: string)
+	span(folder, cf, Vector3.new(2, 0, 2), Vector3.new(8, 0.2, 8), { Name = "ShowerTray", Material = Enum.Material.Slate, Color = Color3.fromRGB(40, 40, 42) })
+	span(folder, cf, Vector3.new(1.8, 0, 2), Vector3.new(2.2, 11, 5.5), { Name = "ShowerScreen", Material = Enum.Material.Glass, Color = C.Glass, Transparency = 0.7 })
+	local head = cylY(folder, cf, 5, 11.5, 5, 0.3, 2.4, { Name = "ShowerHead", Material = Enum.Material.Metal, Color = C.Metal })
+	local rain = Instance.new("ParticleEmitter")
+	rain.Name = "Rain"
+	rain.Enabled = false
+	rain.Rate = 160
+	rain.Lifetime = NumberRange.new(0.5, 0.6)
+	rain.Speed = NumberRange.new(20, 22)
+	rain.EmissionDirection = Enum.NormalId.Left -- the cylinder's local -X points down
+	rain.SpreadAngle = Vector2.new(6, 6)
+	rain.Size = NumberSequence.new(0.06)
+	rain.Transparency = NumberSequence.new(0.3)
+	rain.Color = ColorSequence.new(Color3.fromRGB(210, 225, 240))
+	rain.Parent = head
+	local sink = span(folder, cf, Vector3.new(-6, 3, 6), Vector3.new(-1, 4.4, 8), { Name = "Sink", Material = Enum.Material.Slate, Color = Color3.fromRGB(46, 42, 40) })
+	span(folder, cf, Vector3.new(-6, 0, 6.6), Vector3.new(-1, 3, 8), table.clone(WOOD)).Name = "Vanity"
+	table.insert(Registry.showers, { home = home, head = head, rain = rain })
+	table.insert(Registry.sinks, sink)
+end
+
+----------------------------------------------------------------------------
+-- Deed plinth: "make this your home"
+----------------------------------------------------------------------------
+
+function Furnish.deed(folder: Instance, cf: CFrame, homeId: string, title: string)
+	local plinth = span(folder, cf, Vector3.new(-1.2, 0, -0.6), Vector3.new(1.2, 3.6, 0.6), table.clone(CONCRETE))
+	plinth.Name = "DeedPlinth"
+	local plate = span(folder, cf, Vector3.new(-1, 2.2, -0.75), Vector3.new(1, 3.4, -0.6), {
+		Name = "DeedPlate",
+		Material = Enum.Material.Metal,
+		Color = Color3.fromRGB(176, 140, 82),
+	})
+	local gui = Instance.new("SurfaceGui")
+	gui.Face = Enum.NormalId.Front
+	gui.SizingMode = Enum.SurfaceGuiSizingMode.PixelsPerStud
+	gui.PixelsPerStud = 80
+	gui.LightInfluence = 1
+	gui.Parent = plate
+	local label = Instance.new("TextLabel")
+	label.Size = UDim2.fromScale(1, 1)
+	label.BackgroundTransparency = 1
+	label.TextScaled = true
+	label.Font = Enum.Font.GothamMedium
+	label.TextColor3 = Color3.fromRGB(40, 30, 16)
+	label.Text = string.upper(title) .. "\nno residents yet"
+	label.Parent = gui
+	local home = Registry.homes[homeId]
+	if home then
+		home.deed = plinth
+		home.deedLabel = label
+	end
+	return plinth
+end
+
+----------------------------------------------------------------------------
+-- Dock bell (ferry + boat)
+----------------------------------------------------------------------------
+
+function Furnish.bell(folder: Instance, pos: Vector3, home: string, boatSpawn: CFrame)
+	Build.cylinderY(folder, pos + Vector3.new(0, 2.5, 0), 5, 0.4, { Name = "BellPost", Material = Enum.Material.Metal, Color = C.Metal })
+	Build.box(folder, pos + Vector3.new(-1.2, 5, -0.2), pos + Vector3.new(1.2, 5.3, 0.2), { Name = "BellArm", Material = Enum.Material.Metal, Color = C.Metal })
+	local bell = Build.ellipsoid(folder, CFrame.new(pos + Vector3.new(1, 4.3, 0)), Vector3.new(1.1, 1.3, 1.1), {
+		Name = "FerryBell",
+		Material = Enum.Material.Metal,
+		Color = Color3.fromRGB(176, 140, 82),
+	})
+	table.insert(Registry.docks, { home = home, bell = bell, boatSpawn = boatSpawn })
+	return bell
+end
+
+return Furnish
+]]></ProtectedString>
+        </Properties>
+      </Item>
+      <Item class="ModuleScript" referent="RBX0000000E">
         <Properties>
           <string name="Name">Gameplay</string>
           <ProtectedString name="Source"><![CDATA[--!nonstrict
--- Daily life in the mansion: needs, cooking, the pantry, dishes, the bed,
--- plants, reading, the fire, pets, chores, weather, the day/night cycle,
--- fishing for dinner, upgrades and discoveries.
+-- Life on the ice: needs, cooking and eating, chores, fires, beds, plants,
+-- reading, pets, four homes with deeds, the ferry and boats, the night when
+-- the sea freezes, weather, fishing, upgrades, discoveries and the
+-- architect's mystery.
 
 local HttpService = game:GetService("HttpService")
 local Lighting = game:GetService("Lighting")
@@ -787,6 +1821,11 @@ local Config = require(Shared:WaitForChild("Config"))
 local Build = require(script.Parent.Build)
 local Data = require(script.Parent.Data)
 local Pets = require(script.Parent.Pets)
+local Registry = require(script.Parent.Registry)
+local Food = require(script.Parent.Food)
+local Boats = require(script.Parent.Boats)
+local Lore = require(script.Parent.Lore)
+local Well = require(script.Parent:WaitForChild("Homes"):WaitForChild("Well"))
 
 local Gameplay = {}
 
@@ -797,15 +1836,15 @@ local fishInventory: { [Player]: { { name: string, value: number } } } = {}
 local pantry: { [Player]: { [string]: number } } = {}
 local chores: { [Player]: { [string]: boolean } } = {}
 local fishing: { [Player]: { state: string, token: number, biteAt: number? } } = {}
-local cooking: { [Player]: { recipe: any, token: number, started: number } } = {}
+local cooking: { [Player]: { recipe: any, token: number, started: number, kitchen: any } } = {}
+local atKitchen: { [Player]: any } = {}
 local cooldowns: { [Player]: { [string]: number } } = {}
 local reading: { [Player]: number } = {}
 
-local fireFuel = 80
-local dirtyDishes = 0
-local bedMessy = true
 local day = 1
 local weather = Config.WEATHER[1]
+local frozen = false
+local FREEZE_AT, THAW_AT = 22, 4.8
 
 local discoveryById, upgradeById, recipeById, petById, choreById = {}, {}, {}, {}, {}
 for _, d in Config.DISCOVERIES do
@@ -824,16 +1863,15 @@ for _, c in Config.CHORES do
 	choreById[c.id] = c
 end
 
+-- What eating each snack/drink does (cooked meals use their recipe effects).
+local EXTRA_FOOD = {
+	tea = { name = "Mug of Tea", effects = { Warmth = 18, Fun = 4 } },
+	snack = { name = "Cheese & Crackers", effects = { Hunger = 18 } },
+}
+
 ----------------------------------------------------------------------------
 -- Helpers
 ----------------------------------------------------------------------------
-
-local function remote(name: string, class: string?): Instance
-	local r = Instance.new(class or "RemoteEvent")
-	r.Name = name
-	r.Parent = remotes
-	return r
-end
 
 local function notify(player: Player, text: string, kind: string?)
 	remotes.Notify:FireClient(player, text, kind or "info")
@@ -926,7 +1964,7 @@ local function completeChore(player: Player, id: string)
 		end
 	end
 	addCredits(player, 40)
-	notify(player, "Every part of today's routine done. A good day in the spine (+40).", "discovery")
+	notify(player, "Every part of today's routine done. A good day on the ice (+40).", "discovery")
 end
 
 local function syncFish(player: Player)
@@ -948,6 +1986,14 @@ local function syncTreats(player: Player)
 	player:SetAttribute("Treats", profile and profile.treats or 0)
 end
 
+local function syncNotes(player: Player)
+	local profile = profiles[player]
+	if profile then
+		player:SetAttribute("Notes", idList(profile.notes))
+		player:SetAttribute("Melody", profile.flags.melody == true)
+	end
+end
+
 local function restockPantry(player: Player)
 	local stock = {}
 	for _, item in Config.PANTRY do
@@ -962,13 +2008,15 @@ local function rootPart(player: Player): BasePart?
 	return character and character:FindFirstChild("HumanoidRootPart")
 end
 
-local function teleport(player: Player, cf: CFrame)
+-- Fades the screen, optionally plays a short camera "ride", then moves the player.
+local function teleport(player: Player, cf: CFrame, ride: string?)
 	local character = player.Character
 	if not character then
 		return
 	end
-	remotes.Fade:FireClient(player, 0.9)
-	task.delay(0.35, function()
+	local hold = ride and 2.8 or 0.9
+	remotes.Fade:FireClient(player, hold, ride)
+	task.delay(ride and 2.6 or 0.35, function()
 		if character.Parent then
 			character:PivotTo(cf)
 		end
@@ -985,11 +2033,196 @@ local function isNight(): boolean
 	return t >= 19.5 or t < 5.5
 end
 
+local function locationName(pos: Vector3): (string?, any)
+	local interior = Registry.locate(pos)
+	if not interior then
+		return nil, nil
+	end
+	if interior.home == "ribcage" then
+		local room = Arch.roomAt(pos)
+		return "The Ribcage · " .. (room and room.name or "Gallery"), interior
+	elseif interior.home == "well" then
+		return Well.roomName(pos), interior
+	end
+	return interior.name, interior
+end
+
 ----------------------------------------------------------------------------
--- Travel and the station
+-- Titles and homes
 ----------------------------------------------------------------------------
 
-local function setParka(player: Player, on: boolean)
+local function refreshTitle(player: Player)
+	local profile = profiles[player]
+	if not profile then
+		return
+	end
+	local home = Registry.homes[profile.home]
+	local title = profile.title ~= "" and profile.title or (home and ("Lives in " .. home.name) or "Visitor")
+	player:SetAttribute("Title", title)
+	player:SetAttribute("Home", profile.home)
+	local head = player.Character and player.Character:FindFirstChild("Head")
+	if not head then
+		return
+	end
+	local gui = head:FindFirstChild("TitleTag")
+	if not gui then
+		gui = Instance.new("BillboardGui")
+		gui.Name = "TitleTag"
+		gui.Size = UDim2.new(0, 220, 0, 22)
+		gui.StudsOffset = Vector3.new(0, 2.4, 0)
+		gui.MaxDistance = 70
+		local label = Instance.new("TextLabel")
+		label.Name = "Text"
+		label.Size = UDim2.fromScale(1, 1)
+		label.BackgroundTransparency = 1
+		label.Font = Enum.Font.GothamMedium
+		label.TextSize = 14
+		label.TextColor3 = Color3.fromRGB(255, 214, 160)
+		label.TextStrokeTransparency = 0.6
+		label.Parent = gui
+		gui.Parent = head
+	end
+	gui.Text.Text = title
+end
+
+local function updateDeeds()
+	for id, home in Registry.homes do
+		if home.deedLabel then
+			local names = {}
+			for player, profile in profiles do
+				if profile.home == id then
+					table.insert(names, player.DisplayName)
+				end
+			end
+			home.deedLabel.Text = string.upper(home.name) .. "\n" .. (#names == 0 and "no residents yet" or ("home of " .. table.concat(names, ", ")))
+		end
+	end
+end
+
+local function homeSpawn(player: Player): CFrame?
+	local profile = profiles[player]
+	local home = profile and Registry.homes[profile.home]
+	return home and home.spawn
+end
+
+local function setupHomes()
+	for id, home in Registry.homes do
+		if home.deed then
+			local claim = Build.prompt(home.deed, "Make this your home", home.name, 1, 9)
+			claim.Triggered:Connect(function(player)
+				local profile = profiles[player]
+				if not profile then
+					return
+				end
+				if profile.home == id then
+					notify(player, "You already live here.")
+					return
+				end
+				profile.home = id
+				discover(player, "home")
+				refreshTitle(player)
+				updateDeeds()
+				notify(player, "Welcome home. You'll wake up in " .. home.name .. " from now on.", "discovery")
+				task.spawn(Data.save, player.UserId, profile)
+			end)
+			local concierge = Build.prompt(home.deed, "Open concierge", "Upgrades & pets", 0, 9)
+			concierge.UIOffset = Vector2.new(0, 70)
+			concierge.KeyboardKeyCode = Enum.KeyCode.F
+			concierge.Triggered:Connect(function(player)
+				remotes.OpenPanel:FireClient(player, "shop")
+			end)
+		end
+	end
+end
+
+----------------------------------------------------------------------------
+-- Travel: funicular, lift, hatches, ferry
+----------------------------------------------------------------------------
+
+local function nearBell(player: Player): boolean
+	local hrp = rootPart(player)
+	if not hrp then
+		return false
+	end
+	for _, dock in Registry.docks do
+		if (dock.bell.Position - hrp.Position).Magnitude < 22 then
+			return true
+		end
+	end
+	return false
+end
+
+local function setupTravel()
+	local up = Build.prompt(refs.funicularBottom, "Ride up to the gallery", "Funicular", 0, 12)
+	up.Triggered:Connect(function(player)
+		teleport(player, refs.funicularTopArrive, "funicular_up")
+	end)
+	local down = Build.prompt(refs.funicularTop, "Ride down to the dock", "Funicular", 0, 12)
+	down.Triggered:Connect(function(player)
+		teleport(player, refs.funicularBottomArrive, "funicular_down")
+	end)
+
+	-- The roof hatch is only in reach from the top of the ladder.
+	local hatch = Build.prompt(refs.hatch, "Open the hatch", "Roof hatch", 0.3, 7)
+	hatch.Triggered:Connect(function(player)
+		teleport(player, refs.roofArrive)
+		notify(player, "Wind, fog and a long way down. A parka helps.", "warn")
+	end)
+	local roofHatch = Build.part(refs.root, {
+		Name = "RoofHatchOutside",
+		Size = Vector3.new(4, 0.6, 5),
+		CFrame = refs.roofArrive * CFrame.new(0, -3.6, 0) * CFrame.Angles(0, 0, math.atan(Arch.slope(refs.roofArrive.X))),
+		Material = Enum.Material.Metal,
+		Color = Build.Color.Metal,
+	})
+	local back = Build.prompt(roofHatch, "Climb back inside", "Roof hatch", 0, 10)
+	back.Triggered:Connect(function(player)
+		teleport(player, CFrame.new(-102, refs.funicularTopArrive.Y, 11) * CFrame.Angles(0, -math.pi / 2, 0))
+	end)
+
+	local lift = Registry.misc.vertebraeLift
+	if lift then
+		local liftUp = Build.prompt(lift.bottom, "Ride the lift up", "Lift", 0, 12)
+		liftUp.Triggered:Connect(function(player)
+			teleport(player, lift.topArrive, "lift_up")
+		end)
+		local liftDown = Build.prompt(lift.top, "Ride the lift down", "Lift", 0, 12)
+		liftDown.Triggered:Connect(function(player)
+			teleport(player, lift.bottomArrive, "lift_down")
+		end)
+	end
+
+	local parka = Build.prompt(refs.parkaRack, "Put on / take off parka", "Coat rack", 0, 10)
+	parka.Triggered:Connect(function(player)
+		local on = not player:GetAttribute("Parka")
+		Gameplay.setParka(player, on)
+		notify(player, on and "Parka on. The cold bites much less outside." or "Parka hung back up.")
+	end)
+
+	-- Ferry bells at every dock.
+	for _, dock in Registry.docks do
+		local bell = Build.prompt(dock.bell, "Ring for the ferry", "Ferry bell", 0, 10)
+		bell.Triggered:Connect(function(player)
+			remotes.OpenPanel:FireClient(player, "ferry")
+		end)
+	end
+	remotes.Travel.OnServerEvent:Connect(function(player, homeId, inside)
+		local home = type(homeId) == "string" and Registry.homes[homeId] or nil
+		if not home or not nearBell(player) then
+			return
+		end
+		if frozen then
+			notify(player, "The ferry can't get through the ice tonight. Walk across it!", "warn")
+			return
+		end
+		local profile = profiles[player]
+		local goInside = inside == true and profile and profile.home == homeId
+		teleport(player, goInside and home.spawn or home.dock, "ferry")
+		notify(player, "The ferry noses through the floes to " .. home.name .. ".")
+	end)
+end
+
+function Gameplay.setParka(player: Player, on: boolean)
 	player:SetAttribute("Parka", on)
 	local character = player.Character
 	if not character then
@@ -1023,88 +2256,54 @@ local function setParka(player: Player, on: boolean)
 	shell.Parent = character
 end
 
-local function setupTravel()
-	local up = Build.prompt(refs.funicularBottom, "Ride up to the mansion", "Funicular", 0, 12)
-	up.Triggered:Connect(function(player)
-		teleport(player, refs.funicularTopArrive)
-		notify(player, "The funicular hums up the inside of the spine...")
-	end)
-	local down = Build.prompt(refs.funicularTop, "Ride down to the dock", "Funicular", 0, 12)
-	down.Triggered:Connect(function(player)
-		teleport(player, refs.funicularBottomArrive)
-	end)
-
-	local hatch = Build.prompt(refs.hatch, "Climb onto the spine", "Roof hatch", 0.5, 14)
-	hatch.Triggered:Connect(function(player)
-		teleport(player, refs.roofArrive)
-		notify(player, "Wind, fog and a long way down. A parka helps.", "warn")
-	end)
-	local roofHatch = Build.part(refs.root, {
-		Name = "RoofHatchOutside",
-		Size = Vector3.new(4, 0.6, 5),
-		CFrame = refs.roofArrive * CFrame.new(0, -3.6, 0) * CFrame.Angles(0, 0, math.atan(Arch.slope(refs.roofArrive.X))),
-		Material = Enum.Material.Metal,
-		Color = Build.Color.Metal,
-	})
-	local back = Build.prompt(roofHatch, "Climb back inside", "Roof hatch", 0, 10)
-	back.Triggered:Connect(function(player)
-		teleport(player, refs.funicularTopArrive)
-	end)
-
-	local parka = Build.prompt(refs.parkaRack, "Put on / take off parka", "Coat rack", 0, 10)
-	parka.Triggered:Connect(function(player)
-		local on = not player:GetAttribute("Parka")
-		setParka(player, on)
-		notify(player, on and "Parka on. The cold bites much less outside." or "Parka hung back up.")
-	end)
-end
-
 ----------------------------------------------------------------------------
--- Fire, lamps, doors
+-- Fires, lamps, doors
 ----------------------------------------------------------------------------
 
-local firePrompts = {}
-
-local function applyFire()
-	local fire = refs.fire
-	local lit = fireFuel > 0
-	fire.fire.Enabled = lit
-	fire.light.Enabled = lit
-	fire.embers.Enabled = lit
-	local k = fireFuel / 100
-	fire.fire.Size = 2 + 4 * k
-	fire.light.Brightness = 0.8 + 2 * k
-	fire.light.Range = 18 + 16 * k
-	for _, p in firePrompts do
+local function applyFire(f)
+	local lit = f.fuel > 0
+	f.fire.Enabled = lit
+	f.light.Enabled = lit
+	f.embers.Enabled = lit
+	local k = f.fuel / 100
+	f.fire.Size = math.max(2, f.baseSize * (0.4 + 0.8 * k))
+	f.light.Brightness = 0.8 + 2 * k
+	f.light.Range = 18 + 16 * k
+	for _, p in f.prompts do
 		p.ActionText = lit and "Add a log" or "Light the fire"
 	end
-	Workspace:SetAttribute("FireFuel", fireFuel)
 end
 
-local function feedFire(player: Player)
-	if fireFuel >= 95 then
+local function feedFire(f, player: Player)
+	if f.fuel >= 95 then
 		notify(player, "The fire is roaring already.")
 		return
 	end
-	local wasOut = fireFuel <= 0
-	fireFuel = math.min(100, fireFuel + 45)
-	applyFire()
-	notify(player, wasOut and "The bowl catches. Warm light spills across the concrete." or "You lay a log on the embers.")
+	local wasOut = f.fuel <= 0
+	f.fuel = math.min(100, f.fuel + 45)
+	applyFire(f)
+	notify(player, wasOut and "The fire catches. Warm light spills across the concrete." or "You lay a log on the embers.")
 	if isNight() then
 		completeChore(player, "fire")
 	end
 end
 
-local function setupFireAndLights()
-	table.insert(firePrompts, Build.prompt(refs.fire.core, "Add a log", "Hanging fireplace", 0.4, 14))
-	table.insert(firePrompts, Build.prompt(refs.logBasket, "Add a log", "Log basket", 0.4, 10))
-	for _, p in firePrompts do
-		p.Triggered:Connect(feedFire)
+local function setupFiresLampsDoors()
+	for _, f in Registry.fires do
+		f.prompts = { Build.prompt(f.core, "Add a log", "Fire", 0.4, 14) }
+		if f.basket then
+			table.insert(f.prompts, Build.prompt(f.basket, "Add a log", "Log basket", 0.4, 10))
+		end
+		for _, p in f.prompts do
+			p.Triggered:Connect(function(player)
+				feedFire(f, player)
+			end)
+		end
+		applyFire(f)
 	end
-	applyFire()
 
-	for _, lamp in refs.lamps do
-		local p = Build.prompt(lamp.part, "Toggle lamp", "Lamp", 0, 9)
+	for _, lamp in Registry.lamps do
+		local p = Build.prompt(lamp.part, "Toggle light", "Lamp", 0, 9)
 		p.Triggered:Connect(function()
 			lamp.light.Enabled = not lamp.light.Enabled
 			lamp.part.Material = lamp.light.Enabled and Enum.Material.Neon or Enum.Material.SmoothPlastic
@@ -1112,17 +2311,17 @@ local function setupFireAndLights()
 		lamp.part.Material = Enum.Material.Neon
 	end
 
-	for _, door in refs.doors do
-		local isOpen = false
+	for _, door in Registry.doors do
+		door.isOpen = false
 		local p = Build.prompt(door.part, "Open", "Door", 0, 9)
 		p.Triggered:Connect(function()
-			isOpen = not isOpen
-			p.ActionText = isOpen and "Close" or "Open"
+			door.isOpen = not door.isOpen
+			p.ActionText = door.isOpen and "Close" or "Open"
 			local info = TweenInfo.new(0.7, Enum.EasingStyle.Quad)
-			TweenService:Create(door.part, info, { CFrame = isOpen and door.open or door.closed }):Play()
+			TweenService:Create(door.part, info, { CFrame = door.isOpen and door.open or door.closed }):Play()
 			local handle = door.part:FindFirstChild("Handle")
 			if handle then
-				local target = (isOpen and door.open or door.closed) * door.closed:ToObjectSpace(handle.CFrame)
+				local target = (door.isOpen and door.open or door.closed) * door.closed:ToObjectSpace(handle.CFrame)
 				TweenService:Create(handle, info, { CFrame = target }):Play()
 			end
 		end)
@@ -1130,30 +2329,38 @@ local function setupFireAndLights()
 end
 
 ----------------------------------------------------------------------------
--- Home life: bed, shower, plants, books, dishes, pantry, record player
+-- Dishes, beds, showers, plants, books, kitchens
 ----------------------------------------------------------------------------
 
-local dishParts = {}
-
-local function applyDishes()
-	for _, p in dishParts do
+local function applyDishes(kitchen)
+	for _, p in kitchen.dishParts do
 		p:Destroy()
 	end
-	table.clear(dishParts)
-	for i = 1, dirtyDishes do
-		local p = Build.cylinderY(refs.root, refs.dishSpot + Vector3.new((i % 2) * 1.6, 0.12 + math.floor((i - 1) / 2) * 0.22, 0), 0.2, 1.4, {
+	table.clear(kitchen.dishParts)
+	for i = 1, kitchen.dirty do
+		local col = (i - 1) % 2
+		local row = math.floor((i - 1) / 2)
+		local p = Build.cylinderY(refs.root, kitchen.dishSpot + Vector3.new(col * 1.6, 0.12 + row * 0.22, 0), 0.2, 1.4, {
 			Name = "DirtyPlate",
 			Color = Color3.fromRGB(196, 190, 182),
 			Material = Enum.Material.SmoothPlastic,
 			CanCollide = false,
 		})
-		table.insert(dishParts, p)
+		table.insert(kitchen.dishParts, p)
 	end
 end
 
-local function setBedMessy(messy: boolean)
-	bedMessy = messy
-	TweenService:Create(refs.duvet, TweenInfo.new(0.5), { CFrame = messy and refs.duvetMessy or refs.duvetTidy }):Play()
+local function addDish(kitchen)
+	if not kitchen then
+		return
+	end
+	kitchen.dirty = math.min(Config.MAX_DIRTY_DISHES, kitchen.dirty + 1)
+	applyDishes(kitchen)
+end
+
+local function setBedMessy(bed, messy: boolean)
+	bed.messyNow = messy
+	TweenService:Create(bed.duvet, TweenInfo.new(0.5), { CFrame = messy and bed.messy or bed.tidy }):Play()
 end
 
 local PLANT_FRESH = Color3.fromRGB(58, 92, 60)
@@ -1168,45 +2375,107 @@ local function setPlant(plant, watered: boolean)
 	end
 end
 
-local function setupHome()
-	local sleep = Build.prompt(refs.bed, "Sleep", "Bed", 1, 10)
-	sleep.Triggered:Connect(function(player)
-		remotes.Fade:FireClient(player, 3)
-		task.delay(1.5, function()
-			setNeed(player, "Energy", 100)
-			addNeed(player, "Warmth", 20)
-			setBedMessy(true)
-			notify(player, "You slept to the sound of ice knocking softly against the ribs.")
-		end)
-	end)
-	local make = Build.prompt(refs.duvet, "Make the bed", "Bed", 0.8, 10)
-	make.UIOffset = Vector2.new(0, 70)
-	make.KeyboardKeyCode = Enum.KeyCode.F
-	make.Triggered:Connect(function(player)
-		if not bedMessy then
-			notify(player, "The bed is already made. Crisp.")
+-- Gives a Tool of food and wires up eating it.
+local function giveFood(player: Player, designId: string, displayName: string, effects, quality: string, mult: number, kitchen, cooked: boolean)
+	local tool = Food.make(designId, displayName, quality)
+	if not tool then
+		return
+	end
+	tool:SetAttribute("Mult", mult)
+	local busy = false
+	tool.Activated:Connect(function()
+		if busy or not tool.Parent then
 			return
 		end
-		setBedMessy(false)
-		completeChore(player, "bed")
-	end)
-
-	local shower = Build.prompt(refs.showerHead, "Take a rain shower", "Shower", 0.5, 12)
-	shower.Triggered:Connect(function(player)
-		refs.shower.Enabled = true
-		task.delay(6, function()
-			refs.shower.Enabled = false
+		busy = true
+		task.delay(0.7, function()
+			busy = false
 		end)
-		setNeed(player, "Hygiene", 100)
-		addNeed(player, "Warmth", 10)
-		notify(player, "Hot water falling through a shaft of light. Clean.")
+		local character = tool.Parent
+		local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+		if not humanoid then
+			return
+		end
+		local total = tool:GetAttribute("BitesTotal") or 3
+		local bites = tool:GetAttribute("Bites") or total
+		local seated = humanoid.SeatPart ~= nil
+		local m = mult * (seated and 1.3 or 1)
+		for need, amount in effects do
+			addNeed(player, need, amount * m / total)
+		end
+		if seated then
+			addNeed(player, "Fun", 2)
+			if cooked and not Food.isDrink(designId) then
+				completeChore(player, "cook")
+			end
+		end
+		if bites == total then
+			if seated then
+				notify(player, Food.isDrink(designId) and "You sit with it in both hands." or "You sit down and eat properly. It tastes better this way.")
+			else
+				notify(player, "Eating standing up... sit down at a table for a bonus.")
+			end
+		end
+		bites -= 1
+		tool:SetAttribute("Bites", bites)
+		if bites <= 0 then
+			tool:Destroy()
+			addDish(kitchen)
+			notify(player, "All gone. The dish goes back to the sink.")
+		else
+			Food.shrink(tool, bites / (bites + 1))
+		end
 	end)
-	local sink = Build.prompt(refs.sink, "Wash up", "Stone sink", 0, 8)
-	sink.Triggered:Connect(function(player)
-		addNeed(player, "Hygiene", 15)
-	end)
+	local backpack = player:FindFirstChildOfClass("Backpack")
+	tool.Parent = backpack or player.Character
+end
 
-	for _, plant in refs.plants do
+local function setupHomeLife()
+	for _, bed in Registry.beds do
+		local sleep = Build.prompt(bed.mattress, "Sleep", "Bed", 1, 10)
+		sleep.Triggered:Connect(function(player)
+			remotes.Fade:FireClient(player, 3)
+			task.delay(1.5, function()
+				setNeed(player, "Energy", 100)
+				addNeed(player, "Warmth", 20)
+				setBedMessy(bed, true)
+				notify(player, "You slept to the sound of ice knocking softly against the concrete.")
+			end)
+		end)
+		local make = Build.prompt(bed.duvet, "Make the bed", "Bed", 0.8, 10)
+		make.UIOffset = Vector2.new(0, 70)
+		make.KeyboardKeyCode = Enum.KeyCode.F
+		make.Triggered:Connect(function(player)
+			if not bed.messyNow then
+				notify(player, "The bed is already made. Crisp.")
+				return
+			end
+			setBedMessy(bed, false)
+			completeChore(player, "bed")
+		end)
+		setBedMessy(bed, true)
+	end
+
+	for _, shower in Registry.showers do
+		local p = Build.prompt(shower.head, "Take a rain shower", "Shower", 0.5, 13)
+		p.Triggered:Connect(function(player)
+			shower.rain.Enabled = true
+			task.delay(6, function()
+				shower.rain.Enabled = false
+			end)
+			setNeed(player, "Hygiene", 100)
+			addNeed(player, "Warmth", 10)
+			notify(player, "Hot water falling through a shaft of light. Clean.")
+		end)
+	end
+	for _, sink in Registry.sinks do
+		local p = Build.prompt(sink, "Wash up", "Sink", 0, 8)
+		p.Triggered:Connect(function(player)
+			addNeed(player, "Hygiene", 15)
+		end)
+	end
+
+	for _, plant in Registry.plants do
 		setPlant(plant, false)
 		local p = Build.prompt(plant.pot, "Water plant", "Plant", 0.4, 8)
 		p.Triggered:Connect(function(player)
@@ -1220,52 +2489,57 @@ local function setupHome()
 		end)
 	end
 
-	local book = Build.prompt(refs.bookshelf, "Take a book", "Bookshelf", 0, 9)
-	book.Triggered:Connect(function(player)
-		player:SetAttribute("HasBook", true)
-		notify(player, "You pick a worn paperback. Find a seat near the fire to read.")
-	end)
-
-	local wash = Build.prompt(refs.galleySink, "Wash the dishes", "Galley sink", 1.5, 9)
-	wash.Triggered:Connect(function(player)
-		if dirtyDishes == 0 then
-			notify(player, "The sink is empty. Nothing to wash.")
-			return
-		end
-		dirtyDishes = 0
-		applyDishes()
-		addNeed(player, "Hygiene", 4)
-		completeChore(player, "dishes")
-		notify(player, "Dishes done, steam on the glass.")
-	end)
-
-	local pantryPrompt = Build.prompt(refs.pantry, "Look in the pantry", "Pantry", 0, 9)
-	pantryPrompt.Triggered:Connect(function(player)
-		remotes.OpenPanel:FireClient(player, "pantry")
-	end)
-
-	local fridge = Build.prompt(refs.fridge, "Grab a snack", "Fridge", 0, 8)
-	fridge.Triggered:Connect(function(player)
-		if onCooldown(player, "snack", 45) then
-			return
-		end
-		addNeed(player, "Hunger", 15)
-		notify(player, "Cold cheese and crackers, eaten standing up.")
-	end)
-
-	local tea = Build.prompt(refs.kettle, "Make tea", "Kettle", 0.8, 8)
-	tea.Triggered:Connect(function(player)
-		if onCooldown(player, "tea", 25) then
-			return
-		end
-		refs.steam.Enabled = true
-		task.delay(4, function()
-			refs.steam.Enabled = false
+	for _, shelf in Registry.bookshelves do
+		local p = Build.prompt(shelf, "Take a book", "Bookshelf", 0, 9)
+		p.Triggered:Connect(function(player)
+			player:SetAttribute("HasBook", true)
+			notify(player, "You pick a worn paperback. Find a seat near a fire to read.")
 		end)
-		addNeed(player, "Warmth", 15)
-		addNeed(player, "Fun", 3)
-		notify(player, "Tea. Hold the cup in both hands.")
-	end)
+	end
+
+	for _, kitchen in Registry.kitchens do
+		local wash = Build.prompt(kitchen.sink, "Wash the dishes", "Kitchen sink", 1.5, 9)
+		wash.Triggered:Connect(function(player)
+			if kitchen.dirty == 0 then
+				notify(player, "The sink is empty. Nothing to wash.")
+				return
+			end
+			kitchen.dirty = 0
+			applyDishes(kitchen)
+			addNeed(player, "Hygiene", 4)
+			completeChore(player, "dishes")
+			notify(player, "Dishes done, steam on the glass.")
+		end)
+
+		local pantryPrompt = Build.prompt(kitchen.pantry, "Look in the pantry", "Pantry", 0, 9)
+		pantryPrompt.Triggered:Connect(function(player)
+			remotes.OpenPanel:FireClient(player, "pantry")
+		end)
+
+		local fridge = Build.prompt(kitchen.fridge, "Grab a snack", "Fridge", 0, 8)
+		fridge.Triggered:Connect(function(player)
+			if onCooldown(player, "snack", 45) then
+				return
+			end
+			giveFood(player, "snack", EXTRA_FOOD.snack.name, EXTRA_FOOD.snack.effects, "Cold", 1, kitchen, false)
+			notify(player, "Cheese and crackers. Find a seat.")
+		end)
+
+		local tea = Build.prompt(kitchen.kettle, "Make tea", "Kettle", 0.8, 8)
+		tea.Triggered:Connect(function(player)
+			if onCooldown(player, "tea", 25) then
+				return
+			end
+			kitchen.steam.Enabled = true
+			task.delay(4, function()
+				if (kitchen.cooking or 0) == 0 then
+					kitchen.steam.Enabled = false
+				end
+			end)
+			giveFood(player, "tea", EXTRA_FOOD.tea.name, EXTRA_FOOD.tea.effects, "Hot", 1, kitchen, false)
+			notify(player, "Tea. Hold the mug in both hands.")
+		end)
+	end
 
 	local bowl = Build.prompt(refs.catBowl, "Fill " .. Config.RESIDENT_CAT_NAME .. "'s bowl", "Cat bowl", 0.3, 8)
 	bowl.Triggered:Connect(function(player)
@@ -1275,7 +2549,7 @@ local function setupHome()
 	local record = Build.prompt(refs.recordPlayer, "Play a record", "Record player", 0, 9)
 	record.Triggered:Connect(function(player)
 		if not ownsUpgrade(player, "RecordPlayer") then
-			notify(player, "No needle on it. Buy the Record Player at the concierge tablet.", "warn")
+			notify(player, "No needle on it. Buy the Record Player at the concierge.", "warn")
 			return
 		end
 		remotes.Music:FireClient(player)
@@ -1286,14 +2560,12 @@ end
 -- Cooking
 ----------------------------------------------------------------------------
 
-local stationParts = {}
-
 local function hasIngredients(player: Player, recipe): (boolean, string?)
 	local stock = pantry[player] or {}
 	for item, count in recipe.needs do
 		if item == "fish" then
 			if #(fishInventory[player] or {}) < count then
-				return false, string.format("You need %d fish. Try fishing off the dock.", count)
+				return false, string.format("You need %d fish. Try fishing off the Ribcage dock.", count)
 			end
 		elseif (stock[item] or 0) < count then
 			for _, p in Config.PANTRY do
@@ -1326,24 +2598,18 @@ local function consume(player: Player, recipe)
 	syncPantry(player)
 end
 
-local function anyoneCooking(): boolean
-	for _ in cooking do
-		return true
-	end
-	return false
-end
+local STATION_LABEL = { stove = "Cook on the stove", oven = "Bake in the oven", coffee = "Make coffee" }
+local STATION_NAME = { stove = "Stove", oven = "Oven", coffee = "Coffee machine" }
 
 local function setupCooking()
-	stationParts.stove = refs.stove
-	stationParts.oven = refs.oven
-	stationParts.coffee = refs.coffee
-	local labels = { stove = "Cook on the stove", oven = "Bake in the oven", coffee = "Make coffee" }
-	local names = { stove = "Stove", oven = "Oven", coffee = "Coffee machine" }
-	for station, part in stationParts do
-		local p = Build.prompt(part, labels[station], names[station], 0, 9)
-		p.Triggered:Connect(function(player)
-			remotes.OpenPanel:FireClient(player, "cook", station)
-		end)
+	for _, kitchen in Registry.kitchens do
+		for station, label in STATION_LABEL do
+			local p = Build.prompt(kitchen[station], label, STATION_NAME[station], 0, 9)
+			p.Triggered:Connect(function(player)
+				atKitchen[player] = kitchen
+				remotes.OpenPanel:FireClient(player, "cook", station)
+			end)
+		end
 	end
 
 	remotes.StartCooking.OnServerInvoke = function(player: Player, recipeId: any)
@@ -1351,9 +2617,10 @@ local function setupCooking()
 		if not recipe then
 			return false, "Unknown recipe."
 		end
+		local kitchen = atKitchen[player]
 		local hrp = rootPart(player)
-		local station = stationParts[recipe.station]
-		if not hrp or (hrp.Position - station.Position).Magnitude > 16 then
+		local station = kitchen and kitchen[recipe.station]
+		if not hrp or not station or (hrp.Position - station.Position).Magnitude > 16 then
 			return false, "Stand at the " .. recipe.station .. " to make that."
 		end
 		if cooking[player] then
@@ -1365,23 +2632,31 @@ local function setupCooking()
 		end
 		consume(player, recipe)
 		local token = math.random(1, 1e9)
-		cooking[player] = { recipe = recipe, token = token, started = os.clock() }
+		cooking[player] = { recipe = recipe, token = token, started = os.clock(), kitchen = kitchen }
 		if recipe.station ~= "coffee" then
-			refs.steam.Enabled = true
+			kitchen.cooking = (kitchen.cooking or 0) + 1
+			kitchen.steam.Enabled = true
 		end
 		return true, token
 	end
 
 	remotes.FinishCooking.OnServerInvoke = function(player: Player, token: any, scores: any)
 		local session = cooking[player]
-		cooking[player] = nil
-		if not anyoneCooking() then
-			refs.steam.Enabled = false
-		end
-		if not session or session.token ~= token or type(scores) ~= "table" then
+		if not session or session.token ~= token then
 			return nil
 		end
+		cooking[player] = nil
 		local recipe = session.recipe
+		local kitchen = session.kitchen
+		if recipe.station ~= "coffee" then
+			kitchen.cooking = math.max(0, (kitchen.cooking or 1) - 1)
+			if kitchen.cooking == 0 then
+				kitchen.steam.Enabled = false
+			end
+		end
+		if type(scores) ~= "table" then
+			scores = {}
+		end
 		local total = 0
 		for i = 1, #recipe.steps do
 			total += math.clamp(tonumber(scores[i]) or 0, 0, 1)
@@ -1393,30 +2668,24 @@ local function setupCooking()
 		end
 		local label = quality >= 0.9 and "Perfect" or quality >= 0.65 and "Delicious" or quality >= 0.35 and "Decent" or "Slightly burnt"
 		local mult = 0.55 + 0.65 * quality
-		for need, amount in recipe.effects do
-			addNeed(player, need, amount * mult)
-		end
+		discover(player, "firstmeal")
 		if recipe.makesTreats then
 			local profile = profiles[player]
 			profile.treats += recipe.makesTreats
 			syncTreats(player)
+			addDish(kitchen)
+			return { name = recipe.name, quality = label, treats = recipe.makesTreats }
 		end
 		if recipe.station == "coffee" then
 			completeChore(player, "coffee")
-		elseif not recipe.makesTreats then
-			completeChore(player, "cook")
 		end
-		if recipe.station ~= "coffee" then
-			dirtyDishes = math.min(Config.MAX_DIRTY_DISHES, dirtyDishes + (#recipe.steps >= 4 and 2 or 1))
-			applyDishes()
-		end
-		discover(player, "firstmeal")
-		return { name = recipe.name, quality = label }
+		giveFood(player, recipe.id, recipe.name, recipe.effects, label, mult, kitchen, true)
+		return { name = recipe.name, quality = label, food = true }
 	end
 end
 
 ----------------------------------------------------------------------------
--- Upgrades and pets (concierge tablet)
+-- Concierge: upgrades and pets
 ----------------------------------------------------------------------------
 
 local function setupConcierge()
@@ -1472,7 +2741,7 @@ local function setupConcierge()
 	local scope = Build.prompt(refs.telescope, "Look through telescope", "Telescope", 0, 10)
 	scope.Triggered:Connect(function(player)
 		if not ownsUpgrade(player, "Telescope") then
-			notify(player, "It's capped. Buy the Roof Telescope at the concierge tablet.", "warn")
+			notify(player, "It's capped. Buy the Roof Telescope at the concierge.", "warn")
 			return
 		end
 		remotes.Telescope:FireClient(player, refs.telescope.Position + Vector3.new(0, 4, 0))
@@ -1506,6 +2775,10 @@ local function setupFishing()
 	local cast = Build.prompt(refs.fishSpot, "Cast line", "Fishing spot", 0, 10)
 	cast.Triggered:Connect(function(player)
 		if fishing[player] then
+			return
+		end
+		if frozen then
+			notify(player, "The sea is frozen solid. Fish again after dawn.", "warn")
 			return
 		end
 		local token = math.random(1, 1e9)
@@ -1637,7 +2910,7 @@ end
 local function whaleLoop()
 	while true do
 		task.wait(math.random(Config.WHALE_MIN_INTERVAL, Config.WHALE_MAX_INTERVAL))
-		if weather.id ~= "Blizzard" then
+		if weather.id ~= "Blizzard" and not frozen then
 			local angle = math.random() * math.pi * 2
 			local dist = 220 + math.random() * 320
 			local pos = Vector3.new(math.cos(angle) * dist, 0, math.sin(angle) * dist)
@@ -1647,6 +2920,38 @@ local function whaleLoop()
 				discover(player, "whale")
 			end
 		end
+	end
+end
+
+----------------------------------------------------------------------------
+-- The freeze: at night the sea becomes a floor between the homes
+----------------------------------------------------------------------------
+
+local function setFrozen(state: boolean)
+	if frozen == state then
+		return
+	end
+	frozen = state
+	Workspace:SetAttribute("Frozen", state)
+	local ice = Registry.misc.seaIce
+	Lore.setFrozen(state)
+	if state then
+		-- Lift anyone swimming in the sea up onto the new ice.
+		for _, player in Players:GetPlayers() do
+			local hrp = rootPart(player)
+			if hrp and hrp.Position.Y < 3 and not Registry.locate(hrp.Position) then
+				player.Character:PivotTo(CFrame.new(hrp.Position.X, 4, hrp.Position.Z))
+			end
+		end
+		ice.CanCollide = true
+		ice.CanQuery = true
+		TweenService:Create(ice, TweenInfo.new(6), { Transparency = 0.12 }):Play()
+		notifyAll("The sea has frozen. Tonight you can walk between the homes.", "discovery")
+	else
+		ice.CanCollide = false
+		ice.CanQuery = false
+		TweenService:Create(ice, TweenInfo.new(4), { Transparency = 1 }):Play()
+		notifyAll("The ice cracks open with a sound like thunder. Boats and the ferry are running again.", "warn")
 	end
 end
 
@@ -1683,7 +2988,7 @@ local function weatherLoop()
 			Mist = "Sea mist rolls in and swallows the ribs.",
 			Still = "The fog thins. The sea goes perfectly still.",
 			Snow = "It starts to snow over the Southern Ocean.",
-			Blizzard = "A blizzard is coming in. Best to be inside, near the fire.",
+			Blizzard = "A blizzard is coming in. Best to be inside, near a fire.",
 		}
 		notifyAll(lines[weather.id] or weather.name, weather.id == "Blizzard" and "warn" or "info")
 	end
@@ -1692,8 +2997,10 @@ end
 local function newDay()
 	day += 1
 	Workspace:SetAttribute("Day", day)
-	setBedMessy(true)
-	for _, plant in refs.plants do
+	for _, bed in Registry.beds do
+		setBedMessy(bed, true)
+	end
+	for _, plant in Registry.plants do
 		setPlant(plant, false)
 	end
 	for _, player in Players:GetPlayers() do
@@ -1704,7 +3011,7 @@ local function newDay()
 			player:SetAttribute("Chores", "")
 		end
 	end
-	notifyAll(string.format("Morning, day %d. The pantry has been restocked and the plants are thirsty.", day), "chore")
+	notifyAll(string.format("Morning, day %d. The pantries are restocked and the plants are thirsty.", day), "chore")
 end
 
 local function inBox(pos: Vector3, minV: Vector3, maxV: Vector3): boolean
@@ -1713,8 +3020,9 @@ end
 
 local function rescue(player: Player)
 	setNeed(player, "Warmth", 45)
-	teleport(player, CFrame.new(refs.galleryCenter + Vector3.new(6, 4, -2)))
-	notify(player, "You got dangerously cold, and found your way back to the fire.", "warn")
+	local ribcageFire = Registry.fires[1]
+	teleport(player, homeSpawn(player) or CFrame.new(ribcageFire.core.Position + Vector3.new(-6, 3, 0)))
+	notify(player, "You got dangerously cold, and only just made it back inside.", "warn")
 end
 
 local function tickPlayer(player: Player)
@@ -1725,26 +3033,27 @@ local function tickPlayer(player: Player)
 		return
 	end
 	local pos = hrp.Position
-	local room = Arch.roomAt(pos)
+	local place, interior = locationName(pos)
+	local inside = interior ~= nil
 	local swimming = humanoid:GetState() == Enum.HumanoidStateType.Swimming
 	local inPool = inBox(pos, refs.poolMin - Vector3.new(1, 2, 1), refs.poolMax + Vector3.new(1, 4, 1))
-	local onRoof = room == nil
+	local onRoof = not inside
 		and math.abs(pos.Z) < Arch.W / 2 + 2
 		and math.abs(pos.X) < Arch.A * 0.95
 		and pos.Y > Arch.yAt(pos.X) + Arch.T / 2 - 2
-	local inSea = room == nil and pos.Y < 3 and swimming
-	local fireDist = (pos - refs.fireplacePos).Magnitude
-	local nearFire = fireFuel > 0 and fireDist < Config.WARMTH.fireplaceRange
+	local inSea = not inside and pos.Y < 3 and swimming
+	local fire, fireDist = Registry.nearestFire(pos)
+	local nearFire = fire ~= nil and fire.fuel > 0 and fireDist < Config.WARMTH.fireplaceRange
 	local parka = player:GetAttribute("Parka") == true
 	local W = Config.WARMTH
 	local storm = weather.id == "Blizzard" and W.blizzardMultiplier or 1
 
 	local warmth = getNeed(player, "Warmth")
 	if nearFire then
-		warmth += W.fireplaceGain * (0.4 + 0.6 * fireFuel / 100)
+		warmth += W.fireplaceGain * (0.4 + 0.6 * fire.fuel / 100)
 	elseif inPool and swimming and ownsUpgrade(player, "HeatedPool") then
 		warmth += W.heatedPoolGain
-	elseif room then
+	elseif inside then
 		if warmth < W.indoorsCap then
 			warmth = math.min(W.indoorsCap, warmth + W.indoorsGain)
 		end
@@ -1759,9 +3068,13 @@ local function tickPlayer(player: Player)
 
 	local hungerEmpty = getNeed(player, "Hunger") <= 0
 	local energyDelta = -Config.NEED_DECAY.Energy * (hungerEmpty and 2 or 1)
-	local seated = humanoid.SeatPart ~= nil
+	local seat = humanoid.SeatPart
+	local seated = seat ~= nil
 	if seated then
 		energyDelta = Config.SEAT_ENERGY_GAIN
+		if seat:IsA("VehicleSeat") then
+			discover(player, "boat")
+		end
 	end
 	addNeed(player, "Energy", energyDelta)
 	addNeed(player, "Hunger", -Config.NEED_DECAY.Hunger)
@@ -1771,8 +3084,7 @@ local function tickPlayer(player: Player)
 	if inPool and swimming then
 		fun = Config.POOL_FUN_GAIN
 	end
-	-- Reading in a seat near the fire.
-	local isReading = seated and player:GetAttribute("HasBook") == true and fireDist < 30
+	local isReading = seated and player:GetAttribute("HasBook") == true and fire ~= nil and fireDist < 30
 	player:SetAttribute("Reading", isReading)
 	if isReading then
 		fun = Config.READING_FUN_GAIN
@@ -1784,29 +3096,38 @@ local function tickPlayer(player: Player)
 	addNeed(player, "Fun", fun)
 
 	humanoid.WalkSpeed = getNeed(player, "Energy") < 10 and 10 or 16
-	player:SetAttribute("Location", room and room.name or (onRoof and "Top of the Spine" or (inSea and "In the Southern Ocean" or "Outside")))
+	local outside = frozen and pos.Y < 6 and "On the Frozen Sea" or "Outside"
+	player:SetAttribute("Location", place or (onRoof and "Top of the Spine" or (inSea and "In the Southern Ocean" or outside)))
 
 	if (pos - refs.dockCenter).Magnitude < 45 then
 		discover(player, "dock")
 	end
-	if room then
-		if room.id == "gallery" then
-			discover(player, "gallery")
-		elseif room.id == "lounge" then
-			discover(player, "glassfloor")
+	if interior then
+		if interior.home == "ribcage" then
+			local room = Arch.roomAt(pos)
+			if room and room.id == "gallery" then
+				discover(player, "gallery")
+			elseif room and room.id == "lounge" then
+				discover(player, "glassfloor")
+			end
+		elseif interior.home == "monolith" or interior.home == "vertebrae" or interior.home == "well" then
+			discover(player, interior.home)
 		end
-		if weather.id == "Blizzard" and pos.Z < -8 then
+		if weather.id == "Blizzard" then
 			discover(player, "blizzard")
 		end
 	end
 	if inPool and swimming then
 		discover(player, "pool")
 	end
-	if fireDist < 14 then
+	if fire and fire.home == "ribcage" and fireDist < 14 then
 		discover(player, "fireplace")
 	end
 	if onRoof then
 		discover(player, "roof")
+	end
+	if frozen and humanoid.FloorMaterial == Enum.Material.Glacier then
+		discover(player, "freeze")
 	end
 	local clock = Lighting.ClockTime
 	if clock > 5.6 and clock < 7.2 then
@@ -1821,13 +3142,19 @@ end
 local function secondLoop()
 	while true do
 		task.wait(1)
-		-- The fire slowly burns down.
-		if fireFuel > 0 then
-			fireFuel = math.max(0, fireFuel - 0.12)
-			if fireFuel == 0 then
-				notifyAll("The fireplace has burned down to ash. Someone add a log?", "warn")
+		for _, f in Registry.fires do
+			if f.fuel > 0 then
+				f.fuel = math.max(0, f.fuel - 0.12)
+				applyFire(f)
+				if f.fuel == 0 then
+					for _, player in Players:GetPlayers() do
+						local hrp = rootPart(player)
+						if hrp and (hrp.Position - f.core.Position).Magnitude < 80 then
+							notify(player, "The fire has burned down to ash. Add a log?", "warn")
+						end
+					end
+				end
 			end
-			applyFire()
 		end
 		for _, player in Players:GetPlayers() do
 			if profiles[player] then
@@ -1844,6 +3171,7 @@ local function dayCycle()
 	local rate = 24 / (Config.DAY_LENGTH_MINUTES * 60)
 	Lighting.ClockTime = Config.START_CLOCK_TIME
 	Workspace:SetAttribute("Day", day)
+	Workspace:SetAttribute("Frozen", false)
 	RunService.Heartbeat:Connect(function(dt)
 		local before = Lighting.ClockTime
 		local after = (before + dt * rate) % 24
@@ -1852,6 +3180,13 @@ local function dayCycle()
 		if before < 6 and after >= 6 then
 			newDay()
 		end
+		if before < FREEZE_AT - 0.6 and after >= FREEZE_AT - 0.6 then
+			notifyAll("It's getting bitterly cold. The sea is starting to freeze...", "info")
+		end
+		if before < THAW_AT - 0.6 and after >= THAW_AT - 0.6 and frozen then
+			notifyAll("The ice is groaning. Get off the sea before dawn!", "warn")
+		end
+		setFrozen(after >= FREEZE_AT or after < THAW_AT)
 	end)
 end
 
@@ -1861,6 +3196,9 @@ end
 
 local function onPlayerAdded(player: Player)
 	local profile = Data.load(player.UserId)
+	if profile.home ~= "" and not Registry.homes[profile.home] then
+		profile.home = ""
+	end
 	profiles[player] = profile
 	fishInventory[player] = {}
 	cooldowns[player] = {}
@@ -1891,16 +3229,30 @@ local function onPlayerAdded(player: Player)
 	player:SetAttribute("Discoveries", idList(profile.discoveries))
 	syncFish(player)
 	syncTreats(player)
+	syncNotes(player)
+	updateDeeds()
 
-	player.CharacterAdded:Connect(function()
+	local function onCharacter(character: Model)
 		task.wait(0.3)
+		if profiles[player] ~= profile then
+			return
+		end
+		local spawnAt = homeSpawn(player)
+		if spawnAt then
+			character:PivotTo(spawnAt)
+		end
 		if player:GetAttribute("Parka") then
-			setParka(player, true)
+			Gameplay.setParka(player, true)
 		end
 		if profile.activePet ~= "" then
 			Pets.setActive(player, profile.activePet)
 		end
-	end)
+		refreshTitle(player)
+	end
+	player.CharacterAdded:Connect(onCharacter)
+	if player.Character then
+		task.spawn(onCharacter, player.Character)
+	end
 end
 
 local function onPlayerRemoving(player: Player)
@@ -1913,15 +3265,25 @@ local function onPlayerRemoving(player: Player)
 	pantry[player] = nil
 	chores[player] = nil
 	fishing[player] = nil
-	cooking[player] = nil
 	cooldowns[player] = nil
 	reading[player] = nil
+	atKitchen[player] = nil
+	local session = cooking[player]
+	cooking[player] = nil
+	if session and session.recipe.station ~= "coffee" then
+		session.kitchen.cooking = math.max(0, (session.kitchen.cooking or 1) - 1)
+		if session.kitchen.cooking == 0 then
+			session.kitchen.steam.Enabled = false
+		end
+	end
+	updateDeeds()
 end
 
 function Gameplay.start(builtRefs)
 	refs = builtRefs
+	local ribcageFire = Registry.fires[1]
 	refs.fireLit = function()
-		return fireFuel > 0
+		return ribcageFire.fuel > 0
 	end
 
 	local old = ReplicatedStorage:FindFirstChild("Remotes")
@@ -1930,18 +3292,23 @@ function Gameplay.start(builtRefs)
 	end
 	remotes = Instance.new("Folder")
 	remotes.Name = "Remotes"
-	for _, name in { "Notify", "Fade", "Fishing", "OpenPanel", "Telescope", "Whale", "Music" } do
-		remote(name)
+	for _, name in { "Notify", "Fade", "Fishing", "OpenPanel", "Telescope", "Whale", "Music", "Organ", "Travel" } do
+		local r = Instance.new("RemoteEvent")
+		r.Name = name
+		r.Parent = remotes
 	end
 	for _, name in { "BuyUpgrade", "AdoptPet", "StartCooking", "FinishCooking" } do
-		remote(name, "RemoteFunction")
+		local r = Instance.new("RemoteFunction")
+		r.Name = name
+		r.Parent = remotes
 	end
 	remotes.Parent = ReplicatedStorage
 
 	buildWhaleTemplate()
+	setupHomes()
 	setupTravel()
-	setupFireAndLights()
-	setupHome()
+	setupFiresLampsDoors()
+	setupHomeLife()
 	setupCooking()
 	setupConcierge()
 	setupFishing()
@@ -1961,6 +3328,21 @@ function Gameplay.start(builtRefs)
 			return true
 		end,
 	})
+	Boats.start({ notify = notify })
+	Lore.start({
+		profile = function(player: Player)
+			return profiles[player]
+		end,
+		openPanel = function(player: Player, kind: string, arg: any)
+			remotes.OpenPanel:FireClient(player, kind, arg)
+		end,
+		syncNotes = syncNotes,
+		addCredits = addCredits,
+		refreshTitle = refreshTitle,
+		discover = discover,
+		notify = notify,
+		teleport = teleport,
+	}, remotes)
 
 	Players.PlayerAdded:Connect(onPlayerAdded)
 	Players.PlayerRemoving:Connect(onPlayerRemoving)
@@ -1983,7 +3365,896 @@ return Gameplay
 ]]></ProtectedString>
         </Properties>
       </Item>
-      <Item class="ModuleScript" referent="RBX0000000C">
+      <Item class="Folder" referent="RBX0000000F">
+        <Properties>
+          <string name="Name">Homes</string>
+        </Properties>
+        <Item class="ModuleScript" referent="RBX00000010">
+          <Properties>
+            <string name="Name">Monolith</string>
+            <ProtectedString name="Source"><![CDATA[--!nonstrict
+-- THE MONOLITH: a 220-stud slab of board-marked concrete standing alone on a
+-- basalt rock to the south. One glass slit runs up its face. Inside, three
+-- stacked floors joined by steep concrete ramps.
+
+local Workspace = game:GetService("Workspace")
+
+local Build = require(script.Parent.Parent.Build)
+local Furnish = require(script.Parent.Parent.Furnish)
+local Registry = require(script.Parent.Parent.Registry)
+
+local Monolith = {}
+
+local C = Build.Color
+Monolith.ORIGIN = Vector3.new(40, 0, 700)
+local O = Monolith.ORIGIN
+
+-- Interior: x -30..30, z -16..16. Floors (top of slab) at y 10, 30, 50; roof at 70.
+local FLOORS = { 10, 30, 50 }
+local TOP = 70
+
+local function box(folder, a: Vector3, b: Vector3, props)
+	return Build.box(folder, O + a, O + b, props)
+end
+
+local function concrete(name: string, color: Color3?)
+	return { Name = name, Material = Enum.Material.Concrete, Color = color or C.ConcreteOut }
+end
+
+-- A floor slab from y-2 to y with a rectangular stair hole cut out.
+local function slabWithHole(folder, y: number, hx0: number, hx1: number, hz0: number, hz1: number)
+	local p = concrete("FloorSlab", C.Floor)
+	p.Reflectance = 0.05
+	box(folder, Vector3.new(-30, y - 2, -16), Vector3.new(hx0, y, 16), p)
+	box(folder, Vector3.new(hx1, y - 2, -16), Vector3.new(30, y, 16), p)
+	box(folder, Vector3.new(hx0, y - 2, -16), Vector3.new(hx1, y, hz0), p)
+	box(folder, Vector3.new(hx0, y - 2, hz1), Vector3.new(hx1, y, 16), p)
+	-- Railing along the open side of the hole.
+	local rx = hx0 < 0 and hx1 + 0.3 or hx0 - 0.3
+	box(folder, Vector3.new(rx - 0.15, y, hz1 - 0.2), Vector3.new(rx + 0.15, y + 3.4, -12), {
+		Name = "Rail",
+		Material = Enum.Material.Glass,
+		Color = C.Glass,
+		Transparency = 0.6,
+	})
+end
+
+-- A straight concrete ramp in the lane x0..x1 from (zStart, yStart) to (zEnd, yEnd).
+local function ramp(folder, x0: number, x1: number, zStart: number, yStart: number, zEnd: number, yEnd: number)
+	local x = (x0 + x1) / 2
+	local p1 = O + Vector3.new(x, yStart - 0.55, zStart)
+	local p2 = O + Vector3.new(x, yEnd - 0.55, zEnd)
+	local r = Build.beam(folder, p1, p2, x1 - x0, 1, concrete("Ramp", C.Floor))
+	r.Size += Vector3.new(0, 0, 1.5)
+	-- Painted-on step lines (no collision) so it reads as a stair.
+	local n = 18
+	for i = 1, n - 1 do
+		local t = i / n
+		local p = p1:Lerp(p2, t) + Vector3.new(0, 0.56, 0)
+		Build.part(folder, {
+			Name = "StepLine",
+			Size = Vector3.new(x1 - x0, 0.05, 0.2),
+			CFrame = CFrame.lookAt(p, p + (p2 - p1)) ,
+			Color = Color3.fromRGB(60, 55, 50),
+			CanCollide = false,
+			CanQuery = false,
+		})
+	end
+end
+
+local function shell(folder)
+	-- Foundation and the solid upper mass.
+	box(folder, Vector3.new(-32, -24, -18), Vector3.new(32, FLOORS[1], 18), concrete("Foundation", C.ConcreteDark))
+	box(folder, Vector3.new(-32, TOP, -18), Vector3.new(32, 220, 18), concrete("Mass"))
+	-- Walls between the floors.
+	box(folder, Vector3.new(-32, FLOORS[1], 16), Vector3.new(32, TOP, 18), concrete("BackWall", C.ConcreteIn))
+	box(folder, Vector3.new(-32, FLOORS[1], -18), Vector3.new(-30, TOP, 16), concrete("SideWall", C.ConcreteIn))
+	box(folder, Vector3.new(30, FLOORS[1], -18), Vector3.new(32, TOP, 16), concrete("SideWall", C.ConcreteIn))
+	-- Front wall with the glass slit (x -6..6) and the entrance (x -3..3, first 10 studs).
+	box(folder, Vector3.new(-30, FLOORS[1], -18), Vector3.new(-6, TOP, -16), concrete("FrontWall", C.ConcreteIn))
+	box(folder, Vector3.new(6, FLOORS[1], -18), Vector3.new(30, TOP, -16), concrete("FrontWall", C.ConcreteIn))
+	local glass = { Name = "Slit", Material = Enum.Material.Glass, Color = C.Glass, Transparency = 0.78, CastShadow = false }
+	box(folder, Vector3.new(-6, FLOORS[1] + 10, -17.3), Vector3.new(6, TOP, -16.7), glass)
+	box(folder, Vector3.new(-6, FLOORS[1], -17.3), Vector3.new(-3, FLOORS[1] + 10, -16.7), glass)
+	box(folder, Vector3.new(3, FLOORS[1], -17.3), Vector3.new(6, FLOORS[1] + 10, -16.7), glass)
+	-- The slit continues up the solid mass as a thin lit groove.
+	box(folder, Vector3.new(-1, TOP, -18.3), Vector3.new(1, 210, -17.9), {
+		Name = "SlitGlow",
+		Material = Enum.Material.Neon,
+		Color = Color3.fromRGB(255, 200, 140),
+		Transparency = 0.25,
+		CastShadow = false,
+	})
+	-- Board-marking: thin darker lines across the front and back faces.
+	for y = 14, 214, 12 do
+		for _, z in { -18.05, 18.05 } do
+			box(folder, Vector3.new(-32, y, z - 0.05), Vector3.new(32, y + 0.25, z + 0.05), {
+				Name = "BoardLine",
+				Material = Enum.Material.Concrete,
+				Color = Color3.fromRGB(120, 120, 118),
+				CanCollide = false,
+				CastShadow = false,
+			})
+		end
+	end
+	-- Floor slabs with holes for the ramps (alternate sides of the building).
+	slabWithHole(folder, FLOORS[2], 22, 28, -16, -2)
+	slabWithHole(folder, FLOORS[3], -28, -22, -16, -2)
+	ramp(folder, 22, 28, 14, FLOORS[1], -14, FLOORS[2])
+	ramp(folder, -28, -22, 14, FLOORS[2], -14, FLOORS[3])
+	-- Warm light slots along the back wall of each floor.
+	for _, y in FLOORS do
+		Furnish.lightSlot(folder, O + Vector3.new(-28, y + 15, 15.6), O + Vector3.new(28, y + 15.3, 16))
+	end
+end
+
+function Monolith.build(root: Instance)
+	local folder = Build.folder(root, "TheMonolith")
+	Registry.addHome({
+		id = "monolith",
+		name = "The Monolith",
+		center = O + Vector3.new(0, 30, 0),
+		spawn = CFrame.new(O + Vector3.new(0, FLOORS[1] + 3, -8)),
+		dock = CFrame.new(O + Vector3.new(0, 8, -96)),
+	})
+
+	-- Basalt rock it stands on, with snow, and an approach ramp to the door.
+	local terrain = Workspace.Terrain
+	terrain:FillBlock(CFrame.new(O + Vector3.new(0, -20, -14)), Vector3.new(112, 48, 104), Enum.Material.Basalt)
+	terrain:FillBall(O + Vector3.new(-50, -4, 20), 26, Enum.Material.Basalt)
+	terrain:FillBall(O + Vector3.new(48, -6, -40), 22, Enum.Material.Basalt)
+	terrain:FillBlock(CFrame.new(O + Vector3.new(0, 4.5, -44)), Vector3.new(104, 1, 36), Enum.Material.Snow)
+	Build.beam(folder, O + Vector3.new(0, 4.5, -60), O + Vector3.new(0, FLOORS[1] - 0.5, -17), 8, 1, concrete("ApproachRamp", C.ConcreteOut))
+	shell(folder)
+
+	-- Ground floor: kitchen and dining.
+	local y1 = FLOORS[1]
+	Furnish.kitchen(folder, CFrame.new(O + Vector3.new(-8, y1, 6)), "monolith")
+	Furnish.dining(folder, CFrame.new(O + Vector3.new(-12, y1, -9)))
+	Furnish.deed(folder, CFrame.new(O + Vector3.new(9, y1, -12)), "monolith", "The Monolith")
+	Furnish.plant(folder, O + Vector3.new(-27, y1, -13))
+	Furnish.plant(folder, O + Vector3.new(16, y1, 13))
+	Furnish.note(folder, O + Vector3.new(-12.5, y1 + 3, -9.6), "n4", 0.2)
+
+	-- Middle floor: the fire room.
+	local y2 = FLOORS[2]
+	Furnish.fireplace(folder, CFrame.new(O + Vector3.new(-4, y2, -6)), "pit", "monolith")
+	Furnish.lounge(folder, CFrame.new(O + Vector3.new(-4, y2, -6)), 16)
+	Furnish.bookshelf(folder, CFrame.new(O + Vector3.new(-14, y2, 14.4)))
+	Furnish.plant(folder, O + Vector3.new(14, y2, 13))
+	Furnish.paperLamp(folder, O + Vector3.new(14, y2, -13), 7)
+
+	-- Top floor: sleeping and bathing.
+	local y3 = FLOORS[3]
+	Furnish.bed(folder, CFrame.new(O + Vector3.new(8, y3, 2)), "monolith")
+	Furnish.bath(folder, CFrame.new(O + Vector3.new(-12, y3, 6)), "monolith")
+	Furnish.plant(folder, O + Vector3.new(25, y3, -13))
+	Furnish.note(folder, O + Vector3.new(15.6, y3 + 2.2, 13.4), "n5", 1.2)
+
+	-- Dock with the ferry bell and a boat.
+	box(folder, Vector3.new(-5, 3, -64), Vector3.new(5, 5, -112), concrete("Pier", C.ConcreteOut))
+	for z = -70, -110, -14 do
+		Build.cylinderY(folder, O + Vector3.new(-4, -12, z), 32, 2, concrete("Pile", C.ConcreteDark))
+		Build.cylinderY(folder, O + Vector3.new(4, -12, z), 32, 2, concrete("Pile", C.ConcreteDark))
+	end
+	Furnish.bell(folder, O + Vector3.new(-3.5, 5, -108), "monolith", CFrame.new(O + Vector3.new(11, 1.2, -96)))
+	Furnish.cubeLamp(folder, O + Vector3.new(3.8, 5.7, -110))
+
+	for i, y in FLOORS do
+		local names = { "Kitchen Floor", "Fire Room", "Sleeping Floor" }
+		Registry.addInterior("monolith", "The Monolith · " .. names[i], O + Vector3.new(-30, y - 1, -16), O + Vector3.new(30, y + 19, 16))
+	end
+end
+
+return Monolith
+]]></ProtectedString>
+          </Properties>
+        </Item>
+        <Item class="ModuleScript" referent="RBX00000011">
+          <Properties>
+            <string name="Name">Vertebrae</string>
+            <ProtectedString name="Source"><![CDATA[--!nonstrict
+-- THE VERTEBRAE: five concrete cubes on tall pylons, stepping up out of the
+-- sea to the west like bones of a spine, joined by sloped glass bridges.
+-- A lift in the first pylon brings you up from the dock.
+
+local Build = require(script.Parent.Parent.Build)
+local Furnish = require(script.Parent.Parent.Furnish)
+local Registry = require(script.Parent.Parent.Registry)
+
+local Vertebrae = {}
+
+local C = Build.Color
+Vertebrae.ORIGIN = Vector3.new(-700, 0, -420)
+local V = Vertebrae.ORIGIN
+
+-- x0 = west edge, s = cube size, f = floor height.
+local CUBES = {
+	{ x0 = 0, s = 24, f = 30, name = "Entrance Hall" },
+	{ x0 = 36, s = 24, f = 38, name = "Kitchen" },
+	{ x0 = 72, s = 28, f = 46, name = "Fire Room" },
+	{ x0 = 112, s = 24, f = 54, name = "Bedroom" },
+	{ x0 = 148, s = 22, f = 62, name = "Bath & Lookout" },
+}
+local H = 16 -- interior height
+local DOOR_H = 9
+
+local function box(folder, a: Vector3, b: Vector3, props)
+	return Build.box(folder, V + a, V + b, props)
+end
+
+local function concrete(name: string, color: Color3?)
+	return { Name = name, Material = Enum.Material.Concrete, Color = color or C.ConcreteOut }
+end
+
+-- A wall slab across z at x a..b, with a centred doorway if `door`.
+local function endWall(folder, a: number, b: number, half: number, f: number, door: boolean)
+	local props = concrete("EndWall", C.ConcreteIn)
+	if not door then
+		box(folder, Vector3.new(a, f, -half), Vector3.new(b, f + H, half), props)
+		return
+	end
+	box(folder, Vector3.new(a, f, -half), Vector3.new(b, f + H, -3), props)
+	box(folder, Vector3.new(a, f, 3), Vector3.new(b, f + H, half), props)
+	box(folder, Vector3.new(a, f + DOOR_H, -3), Vector3.new(b, f + H, 3), props)
+end
+
+local function cube(folder, i: number)
+	local c = CUBES[i]
+	local x0, x1, half, f = c.x0, c.x0 + c.s, c.s / 2, c.f
+	-- Floor and roof slabs.
+	box(folder, Vector3.new(x0, f - 2, -half), Vector3.new(x1, f, half), { Name = "Floor", Material = Enum.Material.Concrete, Color = C.Floor, Reflectance = 0.05 })
+	box(folder, Vector3.new(x0, f + H, -half), Vector3.new(x1, f + H + 2, half), concrete("Roof"))
+	-- Back wall.
+	box(folder, Vector3.new(x0, f, half - 2), Vector3.new(x1, f + H, half), concrete("BackWall", C.ConcreteIn))
+	-- Front wall with a deep-set picture window.
+	local front = concrete("FrontWall", C.ConcreteIn)
+	box(folder, Vector3.new(x0, f, -half), Vector3.new(x1, f + 3, -half + 2), front)
+	box(folder, Vector3.new(x0, f + 14, -half), Vector3.new(x1, f + H, -half + 2), front)
+	box(folder, Vector3.new(x0, f + 3, -half), Vector3.new(x0 + 3, f + 14, -half + 2), front)
+	box(folder, Vector3.new(x1 - 3, f + 3, -half), Vector3.new(x1, f + 14, -half + 2), front)
+	box(folder, Vector3.new(x0 + 3, f + 3, -half + 0.7), Vector3.new(x1 - 3, f + 14, -half + 1.3), {
+		Name = "Window",
+		Material = Enum.Material.Glass,
+		Color = C.Glass,
+		Transparency = 0.8,
+		CastShadow = false,
+	})
+	-- End walls: doorways toward the neighbours; the last cube ends in glass.
+	endWall(folder, x0, x0 + 2, half - 2, f, i > 1)
+	if i < #CUBES then
+		endWall(folder, x1 - 2, x1, half - 2, f, true)
+	else
+		local frame = concrete("LookoutFrame", C.ConcreteIn)
+		box(folder, Vector3.new(x1 - 2, f, -half + 2), Vector3.new(x1, f + 1, half - 2), frame)
+		box(folder, Vector3.new(x1 - 2, f + 15, -half + 2), Vector3.new(x1, f + H, half - 2), frame)
+		box(folder, Vector3.new(x1 - 1.3, f + 1, -half + 2), Vector3.new(x1 - 0.7, f + 15, half - 2), {
+			Name = "LookoutGlass",
+			Material = Enum.Material.Glass,
+			Color = C.Glass,
+			Transparency = 0.8,
+			CastShadow = false,
+		})
+	end
+	-- Pylon down into the sea, and a "spinous process" fin on the roof.
+	local cx = (x0 + x1) / 2
+	box(folder, Vector3.new(cx - 4, -24, -4), Vector3.new(cx + 4, f - 2, 4), concrete("Pylon", C.ConcreteDark))
+	Build.part(folder, {
+		Name = "SpineFin",
+		Size = Vector3.new(2, 16, 9),
+		CFrame = CFrame.new(V + Vector3.new(cx, f + H + 8, 3)) * CFrame.Angles(-0.45, 0, 0),
+		Material = Enum.Material.Concrete,
+		Color = C.ConcreteOut,
+	})
+	-- Warm light slot along the back wall.
+	Furnish.lightSlot(folder, V + Vector3.new(x0 + 3, f + 13, half - 2.4), V + Vector3.new(x1 - 3, f + 13.3, half - 2))
+	Registry.addInterior("vertebrae", "The Vertebrae · " .. c.name, V + Vector3.new(x0 + 2, f - 1, -half + 2), V + Vector3.new(x1 - 2, f + H, half - 2))
+end
+
+local function bridge(folder, a, b)
+	local p1 = V + Vector3.new(a.x0 + a.s, a.f - 0.55, 0)
+	local p2 = V + Vector3.new(b.x0, b.f - 0.55, 0)
+	local floor = Build.beam(folder, p1, p2, 7, 1, { Name = "BridgeFloor", Material = Enum.Material.Concrete, Color = C.Floor })
+	floor.Size += Vector3.new(0, 0, 1)
+	for _, z in { -3.6, 3.6 } do
+		Build.beam(folder, p1 + Vector3.new(0, 5.4, z), p2 + Vector3.new(0, 5.4, z), 0.4, 10, {
+			Name = "BridgeGlass",
+			Material = Enum.Material.Glass,
+			Color = C.Glass,
+			Transparency = 0.75,
+			CastShadow = false,
+		})
+	end
+	Build.beam(folder, p1 + Vector3.new(0, 10.9, 0), p2 + Vector3.new(0, 10.9, 0), 8, 1, concrete("BridgeRoof"))
+	Registry.addInterior("vertebrae", "The Vertebrae · Glass Bridge",
+		V + Vector3.new(a.x0 + a.s, a.f - 1, -3.6), V + Vector3.new(b.x0, b.f + 10, 3.6))
+end
+
+function Vertebrae.build(root: Instance)
+	local folder = Build.folder(root, "TheVertebrae")
+	Registry.addHome({
+		id = "vertebrae",
+		name = "The Vertebrae",
+		center = V + Vector3.new(85, 40, 0),
+		spawn = CFrame.new(V + Vector3.new(6, CUBES[1].f + 3, -4)) * CFrame.Angles(0, -math.pi / 2, 0),
+		dock = CFrame.new(V + Vector3.new(12, 8, -50)),
+	})
+
+	for i = 1, #CUBES do
+		cube(folder, i)
+		if i < #CUBES then
+			bridge(folder, CUBES[i], CUBES[i + 1])
+		end
+	end
+
+	-- 1 Entrance hall: lift, deed, dining table.
+	local f1 = CUBES[1].f
+	local liftDoor = box(folder, Vector3.new(2, f1, -3), Vector3.new(2.6, f1 + 9, 3), { Name = "LiftDoor", Material = Enum.Material.Metal, Color = C.Metal })
+	for _, z in { -3.4, 3.4 } do
+		box(folder, Vector3.new(2, f1, z - 0.2), Vector3.new(2.8, f1 + 9.4, z + 0.2), { Name = "LiftFrame", Material = Enum.Material.Neon, Color = C.Warm })
+	end
+	Furnish.dining(folder, CFrame.new(V + Vector3.new(13, f1, 2)))
+	Furnish.deed(folder, CFrame.new(V + Vector3.new(18, f1, -7)), "vertebrae", "The Vertebrae")
+	Furnish.plant(folder, V + Vector3.new(5, f1, 8))
+	Furnish.note(folder, V + Vector3.new(13.5, f1 + 3, 2.6), "n6", -0.3)
+
+	-- 2 Kitchen (pantry moved to the front-right so it can't block a doorway).
+	local f2 = CUBES[2].f
+	Furnish.kitchen(folder, CFrame.new(V + Vector3.new(48, f2, 0)), "vertebrae", {
+		pantryA = Vector3.new(6.8, 0, -9.6),
+		pantryB = Vector3.new(9.6, 10, -5),
+	})
+
+	-- 3 Fire room: a long slot fire in the back wall, sofa facing it.
+	local f3 = CUBES[3].f
+	Furnish.fireplace(folder, CFrame.new(V + Vector3.new(86, f3, 2)), "slot", "vertebrae")
+	Furnish.lounge(folder, CFrame.new(V + Vector3.new(86, f3, -1)) * CFrame.Angles(0, math.pi, 0), 16)
+	Furnish.plant(folder, V + Vector3.new(96, f3, -10))
+
+	-- 4 Bedroom.
+	local f4 = CUBES[4].f
+	Furnish.bed(folder, CFrame.new(V + Vector3.new(124, f4, -3)), "vertebrae")
+	Furnish.plant(folder, V + Vector3.new(116, f4, -9))
+
+	-- 5 Bath and the glass lookout at the end of the spine.
+	local f5 = CUBES[5].f
+	Furnish.bath(folder, CFrame.new(V + Vector3.new(159, f5, 0)), "vertebrae")
+	box(folder, Vector3.new(163, f5, -8.4), Vector3.new(167, f5 + 1.6, -4), { Name = "LookoutBench", Material = Enum.Material.Wood, Color = C.Wood })
+	Furnish.note(folder, V + Vector3.new(165, f5 + 1.6, -6.2), "n7", 0.9)
+
+	-- Ground level: platform, lift booth, pier, bell and boat.
+	box(folder, Vector3.new(4, 3, -28), Vector3.new(20, 5, -12), concrete("Platform", C.ConcreteOut))
+	local booth = box(folder, Vector3.new(8, 5, -12.6), Vector3.new(16, 15, -12), { Name = "LiftBooth", Material = Enum.Material.Metal, Color = C.Metal })
+	box(folder, Vector3.new(8, 15, -16), Vector3.new(16, 16, -12), concrete("BoothRoof"))
+	local lamp = box(folder, Vector3.new(10, 14.6, -15), Vector3.new(14, 14.9, -13), { Name = "BoothLight", Material = Enum.Material.Neon, Color = C.Warm })
+	Build.surfaceLight(lamp, Enum.NormalId.Bottom, C.Warm, 14, 1.4)
+	box(folder, Vector3.new(9, 3, -28), Vector3.new(15, 5, -80), concrete("Pier", C.ConcreteOut))
+	for z = -34, -78, -14 do
+		Build.cylinderY(folder, V + Vector3.new(10, -12, z), 32, 1.8, concrete("Pile", C.ConcreteDark))
+		Build.cylinderY(folder, V + Vector3.new(14, -12, z), 32, 1.8, concrete("Pile", C.ConcreteDark))
+	end
+	Furnish.bell(folder, V + Vector3.new(10, 5, -76), "vertebrae", CFrame.new(V + Vector3.new(22, 1.2, -60)))
+	Furnish.cubeLamp(folder, V + Vector3.new(14.2, 5.7, -78))
+
+	Registry.misc.vertebraeLift = {
+		bottom = booth,
+		top = liftDoor,
+		bottomArrive = CFrame.new(V + Vector3.new(12, 8, -20)) * CFrame.Angles(0, math.pi, 0),
+		topArrive = CFrame.new(V + Vector3.new(6, f1 + 3, 0)) * CFrame.Angles(0, -math.pi / 2, 0),
+	}
+end
+
+return Vertebrae
+]]></ProtectedString>
+          </Properties>
+        </Item>
+        <Item class="ModuleScript" referent="RBX00000012">
+          <Properties>
+            <string name="Name">Well</string>
+            <ProtectedString name="Source"><![CDATA[--!nonstrict
+-- THE WELL: a concrete cylinder 80 studs across, sunk into a rock in the
+-- east. Rooms ring the outside; in the middle, an open shaft with a still
+-- black pool at the bottom and a single glowing cube hanging over it. A
+-- spiral ramp climbs the shaft. The roof is open, so snow falls inside.
+
+local Workspace = game:GetService("Workspace")
+
+local Build = require(script.Parent.Parent.Build)
+local Furnish = require(script.Parent.Parent.Furnish)
+local Registry = require(script.Parent.Parent.Registry)
+
+local Well = {}
+
+local C = Build.Color
+Well.ORIGIN = Vector3.new(650, 0, -480)
+local W = Well.ORIGIN
+
+local R_OUT = 40 -- outer face of the wall
+local R_WALL = 38 -- inner face of the wall
+local R_RING = 24 -- inner edge of the ring floors
+local R_RAMP = 18 -- inner edge of the spiral ramp
+local LEVELS = { 4, 24, 44 } -- top of each ring floor
+local TOP = 66
+local SEG = 48
+local RAMP_START = math.rad(-75) -- the ramp starts (and arrives) at this angle
+
+-- Position at angle a (radians) and radius r, at height y.
+local function at(a: number, r: number, y: number): Vector3
+	return W + Vector3.new(r * math.cos(a), y, r * math.sin(a))
+end
+
+-- A frame standing at (a, r) on level y, local -Z pointing at the shaft.
+local function frameAt(a: number, r: number, y: number): CFrame
+	local p = at(a, r, y)
+	local centre = Vector3.new(W.X, p.Y, W.Z)
+	return CFrame.lookAt(p, centre)
+end
+
+-- A ring of tangential slabs between radii r0..r1 and heights y0..y1.
+local function ring(folder, r0: number, r1: number, y0: number, y1: number, props, skip: ((number) -> boolean)?)
+	local mid = (r0 + r1) / 2
+	local len = 2 * math.pi * r1 / SEG + 0.6
+	for i = 0, SEG - 1 do
+		local a = (i + 0.5) / SEG * 2 * math.pi
+		if not (skip and skip(a)) then
+			local p = table.clone(props)
+			p.Size = Vector3.new(len, y1 - y0, r1 - r0)
+			p.CFrame = CFrame.lookAt(at(a, mid, (y0 + y1) / 2), Vector3.new(W.X, W.Y + (y0 + y1) / 2, W.Z))
+			Build.part(folder, p)
+		end
+	end
+end
+
+local function angleDiff(a: number, b: number): number
+	local d = (a - b) % (2 * math.pi)
+	if d > math.pi then
+		d -= 2 * math.pi
+	end
+	return math.abs(d)
+end
+
+local function shell(folder)
+	local concrete = { Name = "Wall", Material = Enum.Material.Concrete, Color = C.ConcreteOut }
+	local door = math.rad(-90)
+	for i = 0, SEG - 1 do
+		local a = i / SEG * 2 * math.pi
+		local window = i % 4 == 2
+		local isDoor = angleDiff(a, door) < 0.01
+		local len = 2 * math.pi * R_OUT / SEG + 0.6
+		local function piece(y0: number, y1: number, props)
+			local p = table.clone(props)
+			p.Size = Vector3.new(len, y1 - y0, R_OUT - R_WALL)
+			p.CFrame = CFrame.lookAt(at(a, (R_OUT + R_WALL) / 2, (y0 + y1) / 2), Vector3.new(W.X, (y0 + y1) / 2, W.Z))
+			Build.part(folder, p)
+		end
+		if isDoor then
+			piece(-24, LEVELS[1], concrete)
+			piece(LEVELS[1] + 10, TOP, concrete)
+		elseif window then
+			piece(-24, LEVELS[1] + 4, concrete)
+			piece(LEVELS[1] + 4, TOP - 6, {
+				Name = "SlitWindow",
+				Material = Enum.Material.Glass,
+				Color = C.Glass,
+				Transparency = 0.78,
+				CastShadow = false,
+			})
+			piece(TOP - 6, TOP, concrete)
+		else
+			piece(-24, TOP, concrete)
+		end
+	end
+	-- Ring floors and the roof ring (open oculus over the shaft).
+	local floorProps = { Name = "RingFloor", Material = Enum.Material.Concrete, Color = C.Floor, Reflectance = 0.05 }
+	ring(folder, R_RAMP, R_WALL, LEVELS[1] - 2, LEVELS[1], floorProps)
+	ring(folder, R_RING, R_WALL, LEVELS[2] - 2, LEVELS[2], floorProps)
+	ring(folder, R_RING, R_WALL, LEVELS[3] - 2, LEVELS[3], floorProps)
+	ring(folder, R_RAMP, R_OUT, TOP - 2, TOP, { Name = "RoofRing", Material = Enum.Material.Concrete, Color = C.ConcreteOut })
+	-- Glass balustrades along the ring edges, open where the ramp arrives.
+	local railProps = { Name = "Balustrade", Material = Enum.Material.Glass, Color = C.Glass, Transparency = 0.65, CastShadow = false }
+	for li = 2, 3 do
+		local y = LEVELS[li]
+		ring(folder, R_RING - 0.3, R_RING + 0.1, y, y + 3.4, railProps, function(a)
+			local d = (a - RAMP_START) % (2 * math.pi)
+			return d > 2 * math.pi - math.rad(32) -- the last stretch of ramp before it arrives
+		end)
+	end
+	-- Warm light slots under each ring floor's ceiling, on the outer wall.
+	for li = 1, 3 do
+		local y = LEVELS[li] + 15
+		ring(folder, R_WALL - 0.4, R_WALL, y, y + 0.3, { Name = "LightSlot", Material = Enum.Material.Neon, Color = C.Warm, CastShadow = false }, function(a)
+			return math.floor(a / (2 * math.pi) * SEG) % 3 ~= 0
+		end)
+	end
+	for li = 1, 3 do
+		for k = 0, 5 do
+			local a = k / 6 * 2 * math.pi + 0.3
+			local holder = Build.part(folder, {
+				Name = "RingLight",
+				Size = Vector3.new(0.2, 0.2, 0.2),
+				CFrame = CFrame.new(at(a, 33, LEVELS[li] + 14)),
+				Transparency = 1,
+				CanCollide = false,
+			})
+			Build.pointLight(holder, C.Warm, 24, 0.8)
+		end
+	end
+end
+
+local function spiral(folder)
+	local turns = 2
+	local steps = 36 * turns
+	local rise = LEVELS[3] - LEVELS[1]
+	local mid = (R_RAMP + R_RING) / 2
+	local function p(k: number): Vector3
+		local phi = k / steps * turns * 2 * math.pi
+		return at(RAMP_START + phi, mid, LEVELS[1] + rise * k / steps - 0.55)
+	end
+	for k = 0, steps - 1 do
+		local a, b = p(k), p(k + 1)
+		local seg = Build.beam(folder, a, b, R_RING - R_RAMP, 1, { Name = "Ramp", Material = Enum.Material.Concrete, Color = C.Floor })
+		seg.Size += Vector3.new(0.6, 0, 0.5)
+		-- Inner glass balustrade over the shaft.
+		local phiA = k / steps * turns * 2 * math.pi
+		local phiB = (k + 1) / steps * turns * 2 * math.pi
+		local ya = LEVELS[1] + rise * k / steps
+		local yb = LEVELS[1] + rise * (k + 1) / steps
+		Build.beam(folder, at(RAMP_START + phiA, R_RAMP + 0.2, ya + 1.7), at(RAMP_START + phiB, R_RAMP + 0.2, yb + 1.7), 0.3, 3.4, {
+			Name = "RampRail",
+			Material = Enum.Material.Glass,
+			Color = C.Glass,
+			Transparency = 0.65,
+			CastShadow = false,
+		})
+	end
+end
+
+function Well.build(root: Instance)
+	local folder = Build.folder(root, "TheWell")
+	local doorA = math.rad(-90)
+	Registry.addHome({
+		id = "well",
+		name = "The Well",
+		center = W + Vector3.new(0, 30, 0),
+		spawn = CFrame.lookAt(at(doorA, 32, LEVELS[1] + 3), at(doorA, 0, LEVELS[1] + 3)),
+		dock = CFrame.new(W + Vector3.new(0, 8, -92)),
+	})
+
+	-- Rock island; a dark pool in the middle of the shaft.
+	local terrain = Workspace.Terrain
+	terrain:FillCylinder(CFrame.new(W + Vector3.new(0, -18, 0)), 42, 72, Enum.Material.Basalt)
+	terrain:FillCylinder(CFrame.new(W + Vector3.new(0, 1, 0)), 4, R_RAMP - 1, Enum.Material.Water)
+	for k = 0, 5 do
+		local a = k / 6 * 2 * math.pi + 0.5
+		terrain:FillBall(at(a, 56, 1), 9, Enum.Material.Snow)
+	end
+	shell(folder)
+	spiral(folder)
+
+	-- The hanging cube of light, held by a beam across the oculus.
+	Build.box(folder, W + Vector3.new(-R_OUT, TOP - 1.5, -1), W + Vector3.new(R_OUT, TOP + 0.5, 1), { Name = "Crossbeam", Material = Enum.Material.Concrete, Color = C.ConcreteOut })
+	Build.cylinderY(folder, W + Vector3.new(0, (TOP - 1.5 + 36) / 2, 0), TOP - 1.5 - 36, 0.15, { Name = "Cable", Color = C.Metal, CanCollide = false })
+	local cubeLight = Build.box(folder, W + Vector3.new(-2.5, 31, -2.5), W + Vector3.new(2.5, 36, 2.5), {
+		Name = "LightCube",
+		Material = Enum.Material.Neon,
+		Color = Color3.fromRGB(255, 214, 160),
+	})
+	Build.pointLight(cubeLight, C.Warm, 48, 1.6)
+	Build.box(folder, W + Vector3.new(-R_RAMP, LEVELS[1] - 2.5, -R_RAMP), W + Vector3.new(R_RAMP, -1.5, R_RAMP), {
+		Name = "PoolFloor",
+		Material = Enum.Material.Slate,
+		Color = Color3.fromRGB(14, 16, 20),
+	})
+
+	-- Ground ring: entrance, deed, kitchen, dining.
+	local l1 = LEVELS[1]
+	Furnish.deed(folder, frameAt(math.rad(-106), 33, l1), "well", "The Well")
+	-- Pantry tucked beside the counter so it stays clear of the spiral ramp.
+	Furnish.kitchen(folder, frameAt(math.rad(90), 28, l1), "well", {
+		pantryA = Vector3.new(-9.6, 0, 1),
+		pantryB = Vector3.new(-6.8, 10, 5.5),
+	})
+	Furnish.dining(folder, frameAt(math.rad(180), 31, l1))
+	Furnish.plant(folder, at(math.rad(-70), 35, l1))
+	Furnish.plant(folder, at(math.rad(140), 35, l1))
+	Furnish.note(folder, at(math.rad(180), 31, l1 + 3), "n8", 0.5)
+
+	-- Fire ring.
+	local l2 = LEVELS[2]
+	local fireFrame = frameAt(0, 34, l2)
+	Furnish.fireplace(folder, fireFrame, "column", "well")
+	-- Sofa on the shaft side of the fire, facing out toward it.
+	Furnish.lounge(folder, CFrame.lookAt(fireFrame.Position, fireFrame.Position + (fireFrame.Position - Vector3.new(W.X, fireFrame.Position.Y, W.Z))), 12)
+	Furnish.bookshelf(folder, frameAt(math.rad(50), 36.4, l2))
+	Furnish.plant(folder, at(math.rad(-40), 35, l2))
+	Furnish.plant(folder, at(math.rad(150), 35, l2))
+
+	-- Sleeping ring.
+	local l3 = LEVELS[3]
+	Furnish.bed(folder, frameAt(math.rad(90), 25, l3), "well")
+	Furnish.bath(folder, frameAt(math.rad(-150), 27, l3), "well")
+	Furnish.plant(folder, at(math.rad(20), 35, l3))
+	Furnish.note(folder, at(math.rad(-30), 34, l3), "n9", 1.4)
+
+	-- Pier, bell and boat outside the door.
+	Build.box(folder, W + Vector3.new(-5, 3, -66), W + Vector3.new(5, 5, -112), { Name = "Pier", Material = Enum.Material.Concrete, Color = C.ConcreteOut })
+	Build.box(folder, W + Vector3.new(-5, 3, -R_OUT - 1), W + Vector3.new(5, LEVELS[1], -66), { Name = "Path", Material = Enum.Material.Concrete, Color = C.ConcreteOut })
+	for z = -74, -110, -12 do
+		Build.cylinderY(folder, W + Vector3.new(-4, -12, z), 32, 1.8, { Name = "Pile", Material = Enum.Material.Concrete, Color = C.ConcreteDark })
+		Build.cylinderY(folder, W + Vector3.new(4, -12, z), 32, 1.8, { Name = "Pile", Material = Enum.Material.Concrete, Color = C.ConcreteDark })
+	end
+	Furnish.bell(folder, W + Vector3.new(-3.5, 5, -108), "well", CFrame.new(W + Vector3.new(11, 1.2, -95)))
+	Furnish.cubeLamp(folder, W + Vector3.new(3.8, 5.7, -110))
+
+	Registry.addInteriorTest("well", "The Well", function(pos: Vector3): boolean
+		local d = Vector3.new(pos.X - W.X, 0, pos.Z - W.Z).Magnitude
+		return d < R_WALL and pos.Y > -2 and pos.Y < TOP
+	end)
+end
+
+-- Room name for the HUD.
+function Well.roomName(pos: Vector3): string
+	if pos.Y < LEVELS[2] - 1 then
+		return "The Well · Ground Ring"
+	elseif pos.Y < LEVELS[3] - 1 then
+		return "The Well · Fire Ring"
+	end
+	return "The Well · Sleeping Ring"
+end
+
+return Well
+]]></ProtectedString>
+          </Properties>
+        </Item>
+      </Item>
+      <Item class="ModuleScript" referent="RBX00000013">
+        <Properties>
+          <string name="Name">Lore</string>
+          <ProtectedString name="Source"><![CDATA[--!nonstrict
+-- The architect's mystery. Ten notes are hidden across the four homes. One of
+-- them gives the tuning of the ribs; playing it on the rib organ unseals a
+-- hatch under the arch. The hatch can only be reached when the sea freezes at
+-- night. Below it is the Sternum, a vault with the architect's last note.
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Workspace = game:GetService("Workspace")
+
+local Config = require(ReplicatedStorage:WaitForChild("Shared"):WaitForChild("Config"))
+local Build = require(script.Parent.Build)
+local Furnish = require(script.Parent.Furnish)
+local Registry = require(script.Parent.Registry)
+
+local Lore = {}
+
+local C = Build.Color
+local HATCH_POS = Vector3.new(0, 0, -60)
+local VAULT = Vector3.new(0, -200, -60) -- floor centre of the Sternum
+
+local hooks
+local hatch: BasePart
+local hatchPrompt: ProximityPrompt
+
+local noteById = {}
+for _, n in Config.NOTES do
+	noteById[n.id] = n
+end
+
+----------------------------------------------------------------------------
+-- Building
+----------------------------------------------------------------------------
+
+local function miniModel(folder: Instance, top: Vector3)
+	local s = 1 / 160 -- the whole sea, shrunk onto a 10-stud plinth
+	local props = { Material = Enum.Material.Concrete, Color = C.ConcreteOut, CanCollide = false }
+	-- The Ribcage arch, in miniature.
+	local prev
+	for i = 0, 16 do
+		local t = math.pi * i / 16
+		local p = top + Vector3.new(280 * math.cos(t) * s, 220 * math.sin(t) * s, 0)
+		if prev then
+			Build.beam(folder, prev, p, 0.25, 0.2, props)
+		end
+		prev = p
+	end
+	-- The Monolith, the Vertebrae and the Well, at their real bearings.
+	Build.box(folder, top + Vector3.new(40, 0, 700) * s + Vector3.new(-0.3, 0, -0.15), top + Vector3.new(40, 0, 700) * s + Vector3.new(0.3, 2, 0.15), props)
+	for k = 0, 4 do
+		local base = top + Vector3.new(-700 + 36 * k, 0, -420) * s
+		Build.box(folder, base + Vector3.new(-0.1, 0.1 + 0.05 * k, -0.1), base + Vector3.new(0.1, 0.3 + 0.05 * k, 0.1), props)
+	end
+	local well = top + Vector3.new(650, 0, -480) * s
+	Build.cylinderY(folder, well + Vector3.new(0, 0.3, 0), 0.6, 0.7, props)
+end
+
+local function buildVault(root: Instance)
+	local folder = Build.folder(root, "TheSternum")
+	local function box(a: Vector3, b: Vector3, props)
+		return Build.box(folder, VAULT + a, VAULT + b, props)
+	end
+	local concrete = { Name = "Vault", Material = Enum.Material.Concrete, Color = C.ConcreteIn }
+	box(Vector3.new(-30, -2, -14), Vector3.new(30, 0, 14), { Name = "VaultFloor", Material = Enum.Material.Concrete, Color = C.Floor, Reflectance = 0.08 })
+	box(Vector3.new(-30, 20, -14), Vector3.new(30, 22, 14), concrete)
+	box(Vector3.new(-32, -2, -14), Vector3.new(-30, 22, 14), concrete)
+	box(Vector3.new(30, -2, -14), Vector3.new(32, 22, 14), concrete)
+	box(Vector3.new(-32, -2, -16), Vector3.new(32, 22, -14), concrete)
+	box(Vector3.new(-32, -2, 14), Vector3.new(32, 22, 16), concrete)
+	-- Ribbed ceiling: concrete fins, like the inside of the chest.
+	for x = -26, 26, 4 do
+		box(Vector3.new(x - 0.4, 15, -14), Vector3.new(x + 0.4, 20, 14), concrete)
+	end
+	for _, z in { -13.6, 13.6 } do
+		Furnish.lightSlot(folder, VAULT + Vector3.new(-28, 0.2, z - 0.2), VAULT + Vector3.new(28, 0.5, z + 0.2), Enum.NormalId.Top, 20)
+	end
+	-- Plinth with the scale model and the final note.
+	box(Vector3.new(-5, 0, -5), Vector3.new(5, 3.4, 5), { Name = "Plinth", Material = Enum.Material.Marble, Color = C.Marble })
+	miniModel(folder, VAULT + Vector3.new(0, 3.4, 0))
+	local glow = Build.part(folder, {
+		Name = "ModelLight",
+		Size = Vector3.new(0.2, 0.2, 0.2),
+		CFrame = CFrame.new(VAULT + Vector3.new(0, 10, 0)),
+		Transparency = 1,
+		CanCollide = false,
+	})
+	Build.pointLight(glow, C.Warm, 24, 1.2)
+	Furnish.note(folder, VAULT + Vector3.new(3.6, 3.4, 3.6), "final", 0.6)
+	-- The way back up.
+	local exit = box(Vector3.new(-29.6, 0, -3), Vector3.new(-29, 11, 3), { Name = "VaultExit", Material = Enum.Material.Metal, Color = C.Metal })
+	for _, z in { -3.4, 3.4 } do
+		box(Vector3.new(-29.6, 0, z - 0.2), Vector3.new(-28.8, 11.4, z + 0.2), { Name = "ExitFrame", Material = Enum.Material.Neon, Color = C.Warm })
+	end
+	Registry.addInterior("sternum", "The Sternum", VAULT + Vector3.new(-30, -1, -14), VAULT + Vector3.new(30, 20, 14))
+	return exit
+end
+
+local function buildHatch(root: Instance)
+	local folder = Build.folder(root, "Hatch")
+	-- A dark ring just under the surface: visible as a shadow in daytime.
+	Build.part(folder, {
+		Name = "SunkenRing",
+		Shape = Enum.PartType.Cylinder,
+		Size = Vector3.new(1, 12, 12),
+		CFrame = CFrame.new(HATCH_POS + Vector3.new(0, -3, 0)) * CFrame.Angles(0, 0, math.pi / 2),
+		Material = Enum.Material.Metal,
+		Color = Color3.fromRGB(30, 32, 34),
+	})
+	hatch = Build.part(folder, {
+		Name = "IceHatch",
+		Size = Vector3.new(7, 0.3, 7),
+		CFrame = CFrame.new(HATCH_POS + Vector3.new(0, 0.55, 0)),
+		Material = Enum.Material.Metal,
+		Color = Color3.fromRGB(48, 50, 52),
+		Transparency = 1,
+		CanCollide = false,
+	})
+	local light = Build.pointLight(hatch, C.Warm, 14, 0)
+	light.Name = "HatchGlow"
+	hatchPrompt = Build.prompt(hatch, "Open the hatch", "Sealed hatch", 1, 10)
+	hatchPrompt.Enabled = false
+end
+
+function Lore.build(root: Instance)
+	buildHatch(root)
+	Registry.misc.vaultExit = buildVault(root)
+end
+
+----------------------------------------------------------------------------
+-- Gameplay
+----------------------------------------------------------------------------
+
+-- Called by the day cycle when the sea freezes or thaws.
+function Lore.setFrozen(frozen: boolean)
+	if not hatch then
+		return
+	end
+	hatch.Transparency = frozen and 0 or 1
+	hatch.CanCollide = frozen
+	hatchPrompt.Enabled = frozen
+	local glow = hatch:FindFirstChild("HatchGlow")
+	if glow then
+		glow.Brightness = frozen and 1.2 or 0
+	end
+end
+
+local function noteCount(profile): number
+	local n = 0
+	for id in profile.notes do
+		if id ~= "final" then
+			n += 1
+		end
+	end
+	return n
+end
+
+local function readNote(player: Player, id: string)
+	local profile = hooks.profile(player)
+	local note = noteById[id]
+	if not profile or not note then
+		return
+	end
+	hooks.openPanel(player, "note", id)
+	if profile.notes[id] then
+		return
+	end
+	profile.notes[id] = true
+	hooks.syncNotes(player)
+	if id == "final" then
+		hooks.addCredits(player, 300)
+		profile.title = "Keeper of the Ice"
+		hooks.refreshTitle(player)
+		hooks.discover(player, "sternum")
+		hooks.notify(player, "You are the Keeper of the Ice now. (+300 credits)", "discovery")
+		return
+	end
+	hooks.addCredits(player, 15)
+	local count = noteCount(profile)
+	hooks.notify(player, string.format("Architect's note %d of %d found (+15).", count, #Config.NOTES - 1), "discovery")
+	if count == #Config.NOTES - 1 then
+		hooks.notify(player, "You've found every note. Read the tuning again, and find the floor of glass.", "discovery")
+	end
+end
+
+function Lore.start(builtHooks, remotes)
+	hooks = builtHooks
+	for _, n in Registry.notes do
+		local p = Build.prompt(n.part, "Read", "A folded note", 0, 8)
+		p.Triggered:Connect(function(player)
+			readNote(player, n.id)
+		end)
+	end
+
+	-- The rib organ: the client plays it; the server checks the melody.
+	remotes.Organ.OnServerEvent:Connect(function(player, sequence)
+		if type(sequence) ~= "table" or #sequence ~= #Config.MELODY then
+			return
+		end
+		for i, key in Config.MELODY do
+			if sequence[i] ~= key then
+				return
+			end
+		end
+		local hrp = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
+		local organ = Registry.misc.organPanel
+		if not hrp or not organ or (hrp.Position - organ.Position).Magnitude > 24 then
+			return
+		end
+		local profile = hooks.profile(player)
+		if not profile or profile.flags.melody then
+			return
+		end
+		profile.flags.melody = true
+		hooks.discover(player, "melody")
+		hooks.notify(player, "Every rib answers at once. Far below the arch, something heavy unlocks.", "discovery")
+		remotes.Organ:FireAllClients("solved")
+	end)
+
+	hatchPrompt.Triggered:Connect(function(player)
+		local profile = hooks.profile(player)
+		if not profile then
+			return
+		end
+		if not profile.flags.melody then
+			hooks.notify(player, "Sealed. Cold metal, and seven grooves cut into it like the keys of an instrument.", "warn")
+			return
+		end
+		hooks.teleport(player, CFrame.new(VAULT + Vector3.new(-24, 3, 0)) * CFrame.Angles(0, -math.pi / 2, 0))
+		hooks.notify(player, "You climb down a long ladder into the dark under the arch...")
+	end)
+
+	local exitPrompt = Build.prompt(Registry.misc.vaultExit, "Climb back up", "Ladder shaft", 0.5, 10)
+	exitPrompt.Triggered:Connect(function(player)
+		if Workspace:GetAttribute("Frozen") then
+			hooks.teleport(player, CFrame.new(HATCH_POS + Vector3.new(6, 4, 0)))
+		else
+			hooks.teleport(player, Registry.homes.ribcage.dock)
+		end
+	end)
+end
+
+return Lore
+]]></ProtectedString>
+        </Properties>
+      </Item>
+      <Item class="ModuleScript" referent="RBX00000014">
         <Properties>
           <string name="Name">Mansion</string>
           <ProtectedString name="Source"><![CDATA[--!nonstrict
@@ -1992,7 +4263,11 @@ return Gameplay
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
+local CollectionService = game:GetService("CollectionService")
+
 local Build = require(script.Parent.Build)
+local Furnish = require(script.Parent.Furnish)
+local Registry = require(script.Parent.Registry)
 local Arch = require(ReplicatedStorage:WaitForChild("Shared"):WaitForChild("Arch"))
 
 local Mansion = {}
@@ -2117,11 +4392,16 @@ local function buildRibs(folder: Instance)
 	for i = 0, Arch.RIB_COUNT - 1 do
 		local t = Arch.RIB_T_MIN + (Arch.RIB_T_MAX - Arch.RIB_T_MIN) * i / (Arch.RIB_COUNT - 1)
 		local attach, down, out = ribShape(t)
+		-- Each rib is its own model so the rib organ can light it up.
+		local ribModel = Instance.new("Model")
+		ribModel.Name = string.format("Rib%02d", i + 1)
+		ribModel:SetAttribute("RibIndex", i + 1)
+		ribModel.Parent = folder
 		if template then
 			-- Blender rib: a quarter-curve normalised to a unit box, root at the
 			-- top +Z corner and tip at the bottom -Z corner (see blender/README).
 			local center = attach + Vector3.new(0, -down / 2, -out / 2)
-			Build.placeAsset(template, folder, CFrame.new(center), Vector3.new(6, down, out), {
+			Build.placeAsset(template, ribModel, CFrame.new(center), Vector3.new(6, down, out), {
 				Material = Enum.Material.Concrete,
 				Color = C.ConcreteOut,
 			})
@@ -2135,7 +4415,7 @@ local function buildRibs(folder: Instance)
 				local taper = 1 - (k - 1) / SEG
 				local w = 1 + 5.5 * taper
 				local d = 1.4 + 7.5 * taper
-				local seg = Build.beam(folder, prev, p, w, d, {
+				local seg = Build.beam(ribModel, prev, p, w, d, {
 					Name = "Rib",
 					Material = Enum.Material.Concrete,
 					Color = C.ConcreteOut,
@@ -2320,6 +4600,8 @@ local function roomFurniture(folder: Instance, room, L: number, refs)
 		-- Bench along the glass and a parka rack on the back wall.
 		surface(refs, -108, -101, -16.6, -13.6, L + 1.8)
 		refs.catSpots.window = v(-104, 1.8, -15)
+		Furnish.note(folder, v(-102.4, 1.8, -15.2), "n1", 0.3)
+		refs.deedFrame = CFrame.new(v(-99, 0, -6)) * CFrame.Angles(0, math.pi / 2, 0)
 		plant(folder, v(-98, 0, 14), refs)
 		Build.box(folder, v(-108, 0, -16.6), v(-101, 1.8, -13.6), {
 			Name = "Bench",
@@ -2341,23 +4623,17 @@ local function roomFurniture(folder: Instance, room, L: number, refs)
 		end
 		refs.parkaRack = rack
 
-		-- Ladder up to a roof hatch.
+		-- A climbable steel truss up to the roof hatch.
 		local ceil = Arch.ceilingAt(-104)
-		for _, z in { 9.5, 12.5 } do
-			Build.box(folder, Vector3.new(-104.2, L, z - 0.2), Vector3.new(-103.8, ceil, z + 0.2), {
-				Name = "LadderRail",
-				Material = Enum.Material.Metal,
-				Color = C.Metal,
-			})
-		end
-		for y = L + 1, ceil - 1, 1.6 do
-			Build.box(folder, Vector3.new(-104.2, y, 9.5), Vector3.new(-103.8, y + 0.2, 12.5), {
-				Name = "Rung",
-				Material = Enum.Material.Metal,
-				Color = C.Metal,
-				CanCollide = false,
-			})
-		end
+		local trussHeight = 2 * math.floor((ceil - L) / 2)
+		local truss = Instance.new("TrussPart")
+		truss.Name = "HatchLadder"
+		truss.Size = Vector3.new(2, trussHeight, 2)
+		truss.CFrame = CFrame.new(-104, L + trussHeight / 2, 11)
+		truss.Anchored = true
+		truss.Material = Enum.Material.Metal
+		truss.Color = C.Metal
+		truss.Parent = folder
 		local hatch = Build.box(folder, Vector3.new(-106, ceil - 0.4, 8.5), Vector3.new(-102, ceil, 13.5), {
 			Name = "RoofHatch",
 			Material = Enum.Material.Metal,
@@ -2396,6 +4672,25 @@ local function roomFurniture(folder: Instance, room, L: number, refs)
 		paperLamp(folder, v(-84, 0, 14), 6, refs)
 		refs.glassFloorCenter = v(-76, 0, -4)
 		refs.catSpots.glassfloor = v(-68, 0, -4)
+
+		-- The rib organ: seven brass keys, one for each group of ribs outside.
+		Build.box(folder, v(-80, 0, 13.4), v(-71, 3.4, BZ), { Name = "OrganConsole", Material = Enum.Material.Concrete, Color = C.ConcreteIn })
+		local panel = Build.box(folder, v(-79.6, 3.4, 13.6), v(-71.4, 3.5, 15.8), {
+			Name = "OrganPanel",
+			Material = Enum.Material.SmoothPlastic,
+			Color = Color3.fromRGB(30, 26, 22),
+		})
+		CollectionService:AddTag(panel, "RibOrgan")
+		Registry.misc.organPanel = panel
+		for k = 0, 6 do
+			local h = 6 + k * 1.4
+			Build.cylinderY(folder, v(-79 + k * 1.2, 3.4 + h / 2, 15.6), h, 0.7, {
+				Name = "OrganPipe",
+				Material = Enum.Material.Metal,
+				Color = Color3.fromRGB(176, 140, 82),
+				CanCollide = false,
+			})
+		end
 		surface(refs, -82, -71, -15, -8, L + 1.8)
 		plant(folder, v(-83, 0, 4), refs)
 	elseif id == "pool" then
@@ -2424,6 +4719,7 @@ local function roomFurniture(folder: Instance, room, L: number, refs)
 		-- Towels on a bench.
 		Build.box(folder, v(-40, 0, 13), v(-30, 1.6, 15.6), { Name = "Bench", Material = Enum.Material.Wood, Color = C.Wood })
 		Build.box(folder, v(-38, 1.6, 13.4), v(-35, 2.2, 15.2), { Name = "Towels", Material = Enum.Material.Fabric, Color = Color3.fromRGB(80, 74, 70) })
+		Furnish.note(folder, v(-32.5, 1.6, 14.3), "n10", -0.2)
 	elseif id == "gallery" then
 		-- Long low sofa with its back to the glass.
 		Build.box(folder, v(-10, 0, -17.2), v(22, 1.2, -10.6), { Name = "SofaPlinth", Material = Enum.Material.Wood, Color = C.Wood })
@@ -2632,6 +4928,7 @@ local function roomFurniture(folder: Instance, room, L: number, refs)
 		refs.duvetMessy = duvet.CFrame * CFrame.new(1.2, 0.25, -1.5) * CFrame.Angles(0.06, 0.35, -0.05)
 		surface(refs, 70, 82, 2, BZ, L + 3.1)
 		refs.catSpots.bed = v(76, 3.1, 7)
+		Furnish.note(folder, v(85, 0, -12), "n2", 0.7)
 		plant(folder, v(68.5, 0, -15), refs)
 		for _, x in { 73, 79 } do
 			Build.box(folder, v(x - 2.2, 2.8, 12.6), v(x + 2.2, 3.9, 15)
@@ -2714,7 +5011,7 @@ local function buildRooms(folder: Instance, refs)
 end
 
 function Mansion.build(root: Instance)
-	local refs = { lamps = {}, doors = {}, levels = {}, plants = {}, catSpots = {}, catSurfaces = {} }
+	local refs: any = { lamps = {}, doors = {}, levels = {}, plants = {}, catSpots = {}, catSurfaces = {} }
 	local mansion = Build.folder(root, "Mansion")
 	buildSpine(Build.folder(mansion, "Spine"))
 	buildRibs(Build.folder(mansion, "Ribs"))
@@ -2739,6 +5036,65 @@ function Mansion.build(root: Instance)
 	telescope.Parent = mansion
 	refs.telescope = stand
 	refs.roofY = roofY
+	Furnish.note(mansion, Vector3.new(12, roofY, 3), "n3", 1.1)
+
+	-- Register everything with the shared registry so gameplay can use it.
+	Registry.addHome({
+		id = "ribcage",
+		name = "The Ribcage",
+		center = refs.galleryCenter + Vector3.new(0, 6, 0),
+		spawn = CFrame.new(refs.galleryCenter + Vector3.new(-4, 3, 4)),
+		dock = CFrame.new(-248, 11, -96),
+	})
+	Furnish.deed(mansion, refs.deedFrame, "ribcage", "The Ribcage")
+	table.insert(Registry.kitchens, {
+		home = "ribcage",
+		stove = refs.stove,
+		oven = refs.oven,
+		coffee = refs.coffee,
+		kettle = refs.kettle,
+		fridge = refs.fridge,
+		pantry = refs.pantry,
+		sink = refs.galleySink,
+		dishSpot = refs.dishSpot,
+		steam = refs.steam,
+		dirty = 0,
+		dishParts = {},
+	})
+	local f = refs.fire
+	table.insert(Registry.fires, {
+		home = "ribcage",
+		core = f.core,
+		fire = f.fire,
+		light = f.light,
+		embers = f.embers,
+		basket = refs.logBasket,
+		fuel = 80,
+		baseSize = f.fire.Size,
+	})
+	table.insert(Registry.beds, {
+		home = "ribcage",
+		mattress = refs.bed,
+		duvet = refs.duvet,
+		tidy = refs.duvetTidy,
+		messy = refs.duvetMessy,
+		messyNow = false,
+	})
+	table.insert(Registry.showers, { home = "ribcage", head = refs.showerHead, rain = refs.shower })
+	table.insert(Registry.sinks, refs.sink)
+	table.insert(Registry.bookshelves, refs.bookshelf)
+	for _, p in refs.plants do
+		table.insert(Registry.plants, p)
+	end
+	for _, l in refs.lamps do
+		table.insert(Registry.lamps, l)
+	end
+	for _, d in refs.doors do
+		table.insert(Registry.doors, d)
+	end
+	Registry.addInteriorTest("ribcage", "The Ribcage", function(pos: Vector3): boolean
+		return Arch.roomAt(pos) ~= nil
+	end)
 
 	return refs
 end
@@ -2747,7 +5103,7 @@ return Mansion
 ]]></ProtectedString>
         </Properties>
       </Item>
-      <Item class="ModuleScript" referent="RBX0000000D">
+      <Item class="ModuleScript" referent="RBX00000015">
         <Properties>
           <string name="Name">Pets</string>
           <ProtectedString name="Source"><![CDATA[--!nonstrict
@@ -2763,6 +5119,7 @@ local Shared = ReplicatedStorage:WaitForChild("Shared")
 local Arch = require(Shared:WaitForChild("Arch"))
 local Config = require(Shared:WaitForChild("Config"))
 local Build = require(script.Parent.Build)
+local Registry = require(script.Parent.Registry)
 
 local Pets = {}
 
@@ -2969,6 +5326,17 @@ local function planPath(from: Vector3, to: Vector3): { Vector3 }
 	return pts
 end
 
+-- True if a closed door stands between two x positions (doors cross the gallery).
+local function doorBetween(x1: number, x2: number): boolean
+	for _, d in Registry.doors do
+		local bx = d.closed.Position.X
+		if not d.isOpen and math.min(x1, x2) < bx and math.max(x1, x2) > bx then
+			return true
+		end
+	end
+	return false
+end
+
 local function chooseSpot()
 	local night = workspace:GetAttribute("Night") == true
 	local weights = {
@@ -2982,18 +5350,29 @@ local function chooseSpot()
 		window = 2,
 	}
 	weights[spotName] = 0
+	for name in weights do
+		local spot = refs.catSpots[name]
+		if not spot or doorBetween(mochiPos.X, spot.X) then
+			weights[name] = 0
+		end
+	end
 	local total = 0
 	for _, w in weights do
 		total += w
 	end
+	if total <= 0 then
+		return nil
+	end
 	local roll = math.random() * total
 	for name, w in weights do
-		roll -= w
-		if roll <= 0 then
-			return name
+		if w > 0 then
+			roll -= w
+			if roll <= 0 then
+				return name
+			end
 		end
 	end
-	return "rug"
+	return nil
 end
 
 local function placeMochi(pos: Vector3, facing: Vector3, bob: number)
@@ -3014,7 +5393,13 @@ local function mochiStep(dt: number)
 		if now < idleUntil then
 			return
 		end
-		spotName = chooseSpot()
+		local nextSpot = chooseSpot()
+		if not nextSpot then
+			-- Shut in: wait by the door and try again later.
+			idleUntil = now + 10
+			return
+		end
+		spotName = nextSpot
 		local spot = refs.catSpots[spotName]
 		path = planPath(mochiPos, spot)
 		zzz.Enabled = false
@@ -3109,7 +5494,7 @@ local function buildMochi()
 		hooks.notify(player, "Mochi inhales the treat and follows you hopefully.")
 		-- Mochi trots over to the player.
 		local hrp = player.Character and player.Character:FindFirstChild("HumanoidRootPart")
-		if hrp and Arch.roomAt(hrp.Position) then
+		if hrp and Arch.roomAt(hrp.Position) and not doorBetween(mochiPos.X, hrp.Position.X) then
 			path = planPath(mochiPos, hrp.Position + hrp.CFrame.LookVector * 2.5)
 			spotName = "player"
 			idleUntil = os.clock() + 20
@@ -3127,8 +5512,10 @@ function Pets.fillBowl(player: Player): boolean
 	hooks.completeChore(player, "feedcat")
 	hooks.notify(player, "You fill Mochi's bowl. Somewhere in the house, a cat hears it.")
 	-- The sound of kibble summons the cat.
-	path = planPath(mochiPos, refs.catSpots.bowl)
-	spotName = "bowl"
+	if not doorBetween(mochiPos.X, refs.catSpots.bowl.X) then
+		path = planPath(mochiPos, refs.catSpots.bowl)
+		spotName = "bowl"
+	end
 	return true
 end
 
@@ -3263,17 +5650,161 @@ return Pets
 ]]></ProtectedString>
         </Properties>
       </Item>
-      <Item class="ModuleScript" referent="RBX0000000E">
+      <Item class="ModuleScript" referent="RBX00000016">
+        <Properties>
+          <string name="Name">Registry</string>
+          <ProtectedString name="Source"><![CDATA[--!nonstrict
+-- One place where every home registers the things players can use, so the
+-- gameplay code works the same in all four homes.
+
+local Registry = {}
+
+export type Kitchen = {
+	home: string,
+	stove: BasePart,
+	oven: BasePart,
+	coffee: BasePart,
+	kettle: BasePart,
+	fridge: BasePart,
+	pantry: BasePart,
+	sink: BasePart, -- where dishes are washed
+	dishSpot: Vector3, -- where dirty plates pile up
+	steam: ParticleEmitter,
+	dirty: number,
+	dishParts: { BasePart },
+}
+
+export type FireSpot = {
+	home: string,
+	core: BasePart,
+	fire: any,
+	light: PointLight,
+	embers: ParticleEmitter,
+	basket: BasePart?,
+	fuel: number,
+	baseSize: number,
+}
+
+export type Interior = {
+	home: string,
+	name: string,
+	-- Either an axis-aligned box or a custom test.
+	min: Vector3?,
+	max: Vector3?,
+	test: ((Vector3) -> boolean)?,
+}
+
+export type Home = {
+	id: string,
+	name: string,
+	center: Vector3,
+	spawn: CFrame, -- where residents wake up
+	dock: CFrame, -- where the ferry and boat arrive
+	deed: BasePart?,
+	deedLabel: TextLabel?,
+}
+
+Registry.homes = {} :: { [string]: Home }
+Registry.homeOrder = {} :: { string }
+Registry.kitchens = {} :: { Kitchen }
+Registry.fires = {} :: { FireSpot }
+Registry.beds = {} :: { { home: string, mattress: BasePart, duvet: BasePart, tidy: CFrame, messy: CFrame, messyNow: boolean } }
+Registry.showers = {} :: { { home: string, head: BasePart, rain: ParticleEmitter } }
+Registry.sinks = {} :: { BasePart }
+Registry.plants = {} :: { { pot: BasePart, leaves: Instance, watered: boolean? } }
+Registry.bookshelves = {} :: { BasePart }
+Registry.lamps = {} :: { { part: BasePart, light: Light } }
+Registry.doors = {} :: { { part: BasePart, closed: CFrame, open: CFrame, isOpen: boolean? } }
+Registry.interiors = {} :: { Interior }
+Registry.docks = {} :: { { home: string, bell: BasePart, boatSpawn: CFrame } }
+Registry.notes = {} :: { { id: string, part: BasePart } }
+Registry.misc = {} :: { [string]: any }
+
+function Registry.addHome(home: Home)
+	Registry.homes[home.id] = home
+	table.insert(Registry.homeOrder, home.id)
+end
+
+function Registry.addInterior(home: string, name: string, minV: Vector3, maxV: Vector3)
+	table.insert(Registry.interiors, { home = home, name = name, min = minV:Min(maxV), max = minV:Max(maxV) })
+end
+
+function Registry.addInteriorTest(home: string, name: string, test: (Vector3) -> boolean)
+	table.insert(Registry.interiors, { home = home, name = name, test = test })
+end
+
+-- Which home and room a position is inside, if any.
+function Registry.locate(pos: Vector3): Interior?
+	for _, i in Registry.interiors do
+		if i.test then
+			if i.test(pos) then
+				return i
+			end
+		elseif pos.X >= i.min.X and pos.X <= i.max.X and pos.Y >= i.min.Y and pos.Y <= i.max.Y and pos.Z >= i.min.Z and pos.Z <= i.max.Z then
+			return i
+		end
+	end
+	return nil
+end
+
+function Registry.nearestFire(pos: Vector3): (FireSpot?, number)
+	local best, bestDist = nil, math.huge
+	for _, f in Registry.fires do
+		local d = (f.core.Position - pos).Magnitude
+		if d < bestDist then
+			best, bestDist = f, d
+		end
+	end
+	return best, bestDist
+end
+
+function Registry.nearestKitchen(pos: Vector3): Kitchen?
+	local best, bestDist = nil, math.huge
+	for _, k in Registry.kitchens do
+		local d = (k.stove.Position - pos).Magnitude
+		if d < bestDist then
+			best, bestDist = k, d
+		end
+	end
+	return best
+end
+
+function Registry.reset()
+	table.clear(Registry.homes)
+	table.clear(Registry.homeOrder)
+	table.clear(Registry.kitchens)
+	table.clear(Registry.fires)
+	table.clear(Registry.beds)
+	table.clear(Registry.showers)
+	table.clear(Registry.sinks)
+	table.clear(Registry.plants)
+	table.clear(Registry.bookshelves)
+	table.clear(Registry.lamps)
+	table.clear(Registry.doors)
+	table.clear(Registry.interiors)
+	table.clear(Registry.docks)
+	table.clear(Registry.notes)
+	table.clear(Registry.misc)
+end
+
+return Registry
+]]></ProtectedString>
+        </Properties>
+      </Item>
+      <Item class="ModuleScript" referent="RBX00000017">
         <Properties>
           <string name="Name">World</string>
           <ProtectedString name="Source"><![CDATA[--!nonstrict
 -- The world around the mansion: the Southern Ocean, the rock the west leg
--- stands on, the dock, ice floes, lighting and fog.
+-- stands on, the dock, ice floes, the night sea ice, lighting and fog.
 
 local Lighting = game:GetService("Lighting")
+local PhysicsService = game:GetService("PhysicsService")
 local Workspace = game:GetService("Workspace")
 
 local Build = require(script.Parent.Build)
+local Furnish = require(script.Parent.Furnish)
+local Registry = require(script.Parent.Registry)
 
 local World = {}
 
@@ -3500,15 +6031,50 @@ local function setupDock(root: Instance)
 	return refs
 end
 
+-- Areas kept clear of ice floes: the Ribcage legs, island and pier, the
+-- sealed hatch under the arch, and the three other homes with their piers.
+local CLEAR_ZONES = {
+	{ -350, -190, -150, 80 }, -- west leg, island, pier
+	{ 210, 350, -60, 60 }, -- east leg
+	{ -45, 45, -105, -15 }, -- the hatch under the arch
+	{ -45, 125, 570, 775 }, -- the Monolith
+	{ -725, -505, -515, -385 }, -- the Vertebrae
+	{ 555, 745, -615, -385 }, -- the Well
+}
+
 local function floeOverlapsArch(x: number, z: number): boolean
-	-- Keep the legs, the island and the pier clear.
-	if math.abs(z) < 60 and math.abs(math.abs(x) - 280) < 70 then
-		return true
-	end
-	if x < -190 and x > -340 and z > -150 and z < 80 then
-		return true
+	for _, r in CLEAR_ZONES do
+		if x >= r[1] and x <= r[2] and z >= r[3] and z <= r[4] then
+			return true
+		end
 	end
 	return false
+end
+
+-- The night ice: an invisible sheet over the whole sea that becomes solid
+-- (and visible) when the sea freezes. Boats never collide with it.
+local function setupSeaIce(root: Instance)
+	pcall(function()
+		PhysicsService:RegisterCollisionGroup("Boats")
+		PhysicsService:RegisterCollisionGroup("SeaIce")
+	end)
+	PhysicsService:CollisionGroupSetCollidable("Boats", "SeaIce", false)
+	local ice = Build.part(root, {
+		Name = "SeaIce",
+		Size = Vector3.new(2048, 0.8, 2048),
+		CFrame = CFrame.new(0, 0, 0),
+		Material = Enum.Material.Glacier,
+		Color = Color3.fromRGB(206, 222, 236),
+		Reflectance = 0.08,
+		Transparency = 1,
+		CanCollide = false,
+		CanQuery = false,
+		CanTouch = false,
+		CastShadow = false,
+	})
+	ice.CollisionGroup = "SeaIce"
+	Registry.misc.seaIce = ice
+	return ice
 end
 
 local function setupFloes(root: Instance)
@@ -3555,6 +6121,9 @@ function World.build(root: Instance)
 	setupIsland(root)
 	local refs = setupDock(root)
 	refs.floes = setupFloes(root)
+	refs.seaIce = setupSeaIce(root)
+	-- Ferry bell and boat at the Ribcage pier.
+	Furnish.bell(Build.folder(root, "Dock"), Vector3.new(-252, 8, -110), "ribcage", CFrame.new(-236, 1.2, -100))
 	return refs
 end
 
@@ -3564,22 +6133,25 @@ return World
       </Item>
     </Item>
   </Item>
-  <Item class="StarterPlayer" referent="RBX0000000F">
+  <Item class="StarterPlayer" referent="RBX00000018">
     <Properties>
       <string name="Name">StarterPlayer</string>
     </Properties>
-    <Item class="StarterPlayerScripts" referent="RBX00000010">
+    <Item class="StarterPlayerScripts" referent="RBX00000019">
       <Properties>
         <string name="Name">StarterPlayerScripts</string>
       </Properties>
-      <Item class="LocalScript" referent="RBX00000011">
+      <Item class="LocalScript" referent="RBX0000001A">
         <Properties>
           <string name="Name">Client</string>
           <ProtectedString name="Source"><![CDATA[-- The Ribcage: client. HUD, daily routine, cooking, pantry, pets & upgrades,
 -- fishing, lighting moods, weather, snow, breath, aurora, bobbing ice,
 -- whale breaches and the telescope.
 
+local CollectionService = game:GetService("CollectionService")
+local Debris = game:GetService("Debris")
 local HttpService = game:GetService("HttpService")
+local StarterGui = game:GetService("StarterGui")
 local Lighting = game:GetService("Lighting")
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -3668,6 +6240,11 @@ local function button(text: string, props: { [string]: any }, parent: Instance):
 	return b
 end
 
+-- Defined further down; declared here so earlier code can call them.
+local openNote: (string) -> ()
+local openFerry: () -> ()
+local togglePhotoMode: () -> ()
+
 ----------------------------------------------------------------------------
 -- Fade
 ----------------------------------------------------------------------------
@@ -3680,8 +6257,68 @@ local fade = new("Frame", {
 	ZIndex = 50,
 }, gui)
 
-local function doFade(hold: number)
+local rideLabel = new("TextLabel", {
+	AnchorPoint = Vector2.new(0.5, 0.5),
+	Position = UDim2.fromScale(0.5, 0.85),
+	Size = UDim2.new(0.8, 0, 0, 30),
+	BackgroundTransparency = 1,
+	Font = FONT,
+	TextSize = 18,
+	TextColor3 = Color3.fromRGB(236, 238, 242),
+	TextTransparency = 1,
+	Text = "",
+	ZIndex = 51,
+}, gui)
+
+local RIDE_TEXT = {
+	funicular_up = "The funicular climbs the inside of the spine...",
+	funicular_down = "Down through two hundred studs of concrete...",
+	lift_up = "The lift rises through the pylon...",
+	lift_down = "Down to the water...",
+	ferry = "The ferry noses through the floes...",
+}
+
+-- Short camera flights shown during some rides (from, look-at-from, to, look-at-to).
+local VERT = Vector3.new(-700, 0, -420)
+local RIDE_SHOTS = {
+	funicular_up = { Vector3.new(-380, 24, -170), Vector3.new(-280, 40, 0), Vector3.new(-230, 250, -190), Vector3.new(-100, 222, 0) },
+	funicular_down = { Vector3.new(-230, 250, -190), Vector3.new(-100, 222, 0), Vector3.new(-380, 24, -170), Vector3.new(-280, 40, 0) },
+	lift_up = { VERT + Vector3.new(-30, 8, -60), VERT + Vector3.new(12, 14, 0), VERT + Vector3.new(-40, 46, -70), VERT + Vector3.new(30, 36, 0) },
+	lift_down = { VERT + Vector3.new(-40, 46, -70), VERT + Vector3.new(30, 36, 0), VERT + Vector3.new(-30, 8, -60), VERT + Vector3.new(12, 14, 0) },
+}
+
+local function doFade(hold: number, ride: string?)
 	TweenService:Create(fade, TweenInfo.new(0.3), { BackgroundTransparency = 0 }):Play()
+	if ride and RIDE_TEXT[ride] then
+		rideLabel.Text = RIDE_TEXT[ride]
+		TweenService:Create(rideLabel, TweenInfo.new(0.4), { TextTransparency = 0 }):Play()
+		task.delay(hold, function()
+			TweenService:Create(rideLabel, TweenInfo.new(0.5), { TextTransparency = 1 }):Play()
+		end)
+	end
+	local shot = ride and RIDE_SHOTS[ride]
+	if shot then
+		task.spawn(function()
+			local cam = Workspace.CurrentCamera
+			task.wait(0.3)
+			cam.CameraType = Enum.CameraType.Scriptable
+			cam.CFrame = CFrame.lookAt(shot[1], shot[2])
+			TweenService:Create(fade, TweenInfo.new(0.3), { BackgroundTransparency = 1 }):Play()
+			local start = os.clock()
+			local duration = 2
+			while os.clock() - start < duration do
+				local u = (os.clock() - start) / duration
+				u = u * u * (3 - 2 * u)
+				cam.CFrame = CFrame.lookAt(shot[1]:Lerp(shot[3], u), shot[2]:Lerp(shot[4], u))
+				RunService.RenderStepped:Wait()
+			end
+			TweenService:Create(fade, TweenInfo.new(0.3), { BackgroundTransparency = 0 }):Play()
+			task.wait(0.45)
+			cam.CameraType = Enum.CameraType.Custom
+			TweenService:Create(fade, TweenInfo.new(0.6), { BackgroundTransparency = 1 }):Play()
+		end)
+		return
+	end
 	task.delay(0.3 + hold, function()
 		TweenService:Create(fade, TweenInfo.new(0.6), { BackgroundTransparency = 1 }):Play()
 	end)
@@ -3701,7 +6338,10 @@ local toastHolder = new("Frame", {
 new("UIListLayout", { Padding = UDim.new(0, 8), HorizontalAlignment = Enum.HorizontalAlignment.Right }, toastHolder)
 
 local function toast(text: string, kind: string?)
-	local color = kind == "discovery" and ACCENT or (kind == "warn" and Color3.fromRGB(255, 140, 120) or INK)
+	local color = kind == "discovery" and ACCENT
+		or (kind == "warn" and Color3.fromRGB(255, 140, 120))
+		or (kind == "chore" and Color3.fromRGB(200, 222, 190))
+		or INK
 	local t = panel({ Size = UDim2.new(1, 0, 0, 0), AutomaticSize = Enum.AutomaticSize.Y }, toastHolder)
 	new("UIPadding", {
 		PaddingTop = UDim.new(0, 10),
@@ -3732,16 +6372,17 @@ remotes.Notify.OnClientEvent:Connect(toast)
 local top = panel({
 	AnchorPoint = Vector2.new(0.5, 0),
 	Position = UDim2.new(0.5, 0, 0, 12),
-	Size = UDim2.new(0, 420, 0, 42),
+	Size = UDim2.new(0, 560, 0, 42),
 })
 local placeLabel = label("", {
-	Size = UDim2.new(0.62, -12, 1, 0),
+	Size = UDim2.new(0.72, -12, 1, 0),
 	Position = UDim2.new(0, 14, 0, 0),
 	Font = FONT_BOLD,
+	TextTruncate = Enum.TextTruncate.AtEnd,
 }, top)
 local creditLabel = label("", {
-	Size = UDim2.new(0.38, -14, 1, 0),
-	Position = UDim2.new(0.62, 0, 0, 0),
+	Size = UDim2.new(0.28, -14, 1, 0),
+	Position = UDim2.new(0.72, 0, 0, 0),
 	TextXAlignment = Enum.TextXAlignment.Right,
 	TextColor3 = ACCENT,
 	Font = FONT_BOLD,
@@ -3926,6 +6567,45 @@ local function refreshJournal()
 		label("+" .. d.reward, { Position = UDim2.new(1, -70, 0, 4), Size = UDim2.new(0, 58, 0, 20), TextXAlignment = Enum.TextXAlignment.Right, TextSize = 14, TextColor3 = MUTED }, r)
 	end
 	journalTitle.Text = string.format("Journal  ·  %d / %d discovered", count, #Config.DISCOVERIES)
+
+	-- The architect's notes.
+	local notesFound = {}
+	local noteCount = 0
+	for id in string.gmatch(player:GetAttribute("Notes") or "", "[^,]+") do
+		notesFound[id] = true
+		if id ~= "final" then
+			noteCount += 1
+		end
+	end
+	label(string.format("The architect's notes  ·  %d / %d", noteCount, #Config.NOTES - 1), {
+		Size = UDim2.new(1, -8, 0, 30),
+		Font = FONT_BOLD,
+		TextColor3 = ACCENT,
+		TextSize = 15,
+	}, journalList)
+	for _, n in Config.NOTES do
+		if n.id ~= "final" or notesFound.final then
+			local has = notesFound[n.id] == true
+			local r = row(journalList, 38)
+			label((has and "✓  " or "?  ") .. (has and n.title or ("Somewhere in " .. n.where)), {
+				Position = UDim2.new(0, 12, 0, 0),
+				Size = UDim2.new(1, -110, 1, 0),
+				Font = has and FONT_BOLD or FONT,
+				TextColor3 = has and INK or MUTED,
+			}, r)
+			if has then
+				local readButton = button("Read", {
+					AnchorPoint = Vector2.new(1, 0.5),
+					Position = UDim2.new(1, -8, 0.5, 0),
+					Size = UDim2.new(0, 80, 0, 26),
+					TextSize = 14,
+				}, r)
+				readButton.Activated:Connect(function()
+					openNote(n.id)
+				end)
+			end
+		end
+	end
 end
 
 local function toggleJournal()
@@ -4188,7 +6868,11 @@ local function cook(recipe)
 	cooking = false
 	local result = remotes.FinishCooking:InvokeServer(tokenOrMsg, scores)
 	if result then
-		toast(string.format("%s %s.", result.quality, result.name), "chore")
+		if result.treats then
+			toast(string.format("%s %s: +%d pet treats.", result.quality, result.name, result.treats), "chore")
+		else
+			toast(string.format("%s %s. It's in your hands: click to eat, and sit at a table for a bonus.", result.quality, result.name), "chore")
+		end
 	end
 end
 
@@ -4229,6 +6913,72 @@ local function openCook(station: string)
 	cookPanel.Visible = true
 end
 
+----------------------------------------------------------------------------
+-- Ferry map
+----------------------------------------------------------------------------
+
+local ferryPanel, ferryList = listPanel("Ferry", 520, 470)
+
+openFerry = function()
+	clearRows(ferryList)
+	label(Workspace:GetAttribute("Frozen") and "The sea is frozen. The ferry won't run until dawn, but you can walk." or "Where to? The ferry runs between all four docks.", {
+		Size = UDim2.new(1, -8, 0, 30),
+		TextSize = 13,
+		TextWrapped = true,
+		TextColor3 = MUTED,
+	}, ferryList)
+	local myHome = player:GetAttribute("Home")
+	for _, home in Config.HOMES do
+		local mine = myHome == home.id
+		itemRow(ferryList, home.name .. (mine and "  ·  your home" or ""), home.blurb, mine and "Go home" or "Sail here", mine and BUY or Color3.fromRGB(52, 60, 72), function()
+			remotes.Travel:FireServer(home.id, mine)
+			ferryPanel.Visible = false
+		end)
+	end
+	ferryPanel.Visible = true
+end
+
+----------------------------------------------------------------------------
+-- Reading a note
+----------------------------------------------------------------------------
+
+local notePanel = panel({
+	AnchorPoint = Vector2.new(0.5, 0.5),
+	Position = UDim2.fromScale(0.5, 0.5),
+	Size = UDim2.new(0, 440, 0, 380),
+	Visible = false,
+	ZIndex = 20,
+	BackgroundColor3 = Color3.fromRGB(232, 224, 206),
+	BackgroundTransparency = 0.02,
+})
+local noteTitle = label("", { Position = UDim2.new(0, 28, 0, 22), Size = UDim2.new(1, -90, 0, 26), Font = Enum.Font.Garamond, TextSize = 26, TextColor3 = Color3.fromRGB(40, 32, 24), ZIndex = 21 }, notePanel)
+local noteBody = label("", {
+	Position = UDim2.new(0, 28, 0, 62),
+	Size = UDim2.new(1, -56, 1, -84),
+	Font = Enum.Font.Garamond,
+	TextSize = 20,
+	TextWrapped = true,
+	TextYAlignment = Enum.TextYAlignment.Top,
+	TextColor3 = Color3.fromRGB(52, 42, 32),
+	ZIndex = 21,
+}, notePanel)
+local noteClose = button("X", { Position = UDim2.new(1, -46, 0, 14), Size = UDim2.new(0, 32, 0, 32), ZIndex = 21 }, notePanel)
+noteClose.Activated:Connect(function()
+	notePanel.Visible = false
+end)
+
+openNote = function(id: string)
+	for _, n in Config.NOTES do
+		if n.id == id then
+			noteTitle.Text = n.title
+			noteBody.Text = n.text
+			notePanel.Visible = true
+			journal.Visible = false
+			return
+		end
+	end
+end
+
 remotes.OpenPanel.OnClientEvent:Connect(function(which, arg)
 	if which == "shop" then
 		refreshShop()
@@ -4238,6 +6988,10 @@ remotes.OpenPanel.OnClientEvent:Connect(function(which, arg)
 		pantryPanel.Visible = true
 	elseif which == "cook" then
 		openCook(arg)
+	elseif which == "ferry" then
+		openFerry()
+	elseif which == "note" then
+		openNote(arg)
 	end
 end)
 
@@ -4352,11 +7106,15 @@ UserInputService.InputBegan:Connect(function(input, processed)
 		todayCollapsed = not todayCollapsed
 	elseif input.KeyCode == Enum.KeyCode.J then
 		toggleJournal()
+	elseif input.KeyCode == Enum.KeyCode.P then
+		togglePhotoMode()
 	elseif input.KeyCode == Enum.KeyCode.Escape then
 		shop.Visible = false
 		journal.Visible = false
 		pantryPanel.Visible = false
 		cookPanel.Visible = false
+		ferryPanel.Visible = false
+		notePanel.Visible = false
 	end
 end)
 
@@ -4385,10 +7143,10 @@ do
 		ZIndex = 41,
 	}, card)
 	tag.Position = UDim2.new(0.5, 0, 0.42, 52)
-	local help = label("Ride the funicular in the glass booth up to the mansion.  Stay warm.  Press J for your journal.", {
+	local help = label("Claim a home at its deed plinth.  Ring a dock bell to travel.  When night comes, the sea freezes.\nJ  journal   ·   T  today's routine   ·   P  photo mode", {
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		Position = UDim2.new(0.5, 0, 0.42, 100),
-		Size = UDim2.new(0.9, 0, 0, 24),
+		Size = UDim2.new(0.9, 0, 0, 44),
 		TextXAlignment = Enum.TextXAlignment.Center,
 		TextSize = 16,
 		TextColor3 = ACCENT,
@@ -4750,6 +7508,176 @@ local function breathe()
 end
 
 ----------------------------------------------------------------------------
+-- The rib organ in the glass-floor lounge
+----------------------------------------------------------------------------
+
+local ORGAN_RATIOS = { 1, 9 / 8, 5 / 4, 3 / 2, 5 / 3, 2, 9 / 4 }
+local organSequence: { number } = {}
+local ribModels: { [number]: Model } = {}
+local organPart: BasePart? = nil
+
+local function collectRibs()
+	table.clear(ribModels)
+	local mansion = world:FindFirstChild("Mansion")
+	local ribs = mansion and mansion:FindFirstChild("Ribs")
+	if not ribs then
+		return
+	end
+	for _, m in ribs:GetChildren() do
+		local index = m:GetAttribute("RibIndex")
+		if m:IsA("Model") and type(index) == "number" then
+			ribModels[index] = m
+		end
+	end
+end
+
+local function glowRib(index: number, duration: number)
+	local m = ribModels[index]
+	if not m then
+		return
+	end
+	for _, p in m:GetDescendants() do
+		if p:IsA("BasePart") and p:GetAttribute("OrigColor") == nil then
+			p:SetAttribute("OrigColor", p.Color)
+			p:SetAttribute("OrigMaterial", p.Material.Name)
+			p.Material = Enum.Material.Neon
+			p.Color = Color3.fromRGB(255, 196, 130)
+			task.delay(duration, function()
+				local c = p:GetAttribute("OrigColor")
+				local mat = p:GetAttribute("OrigMaterial")
+				if typeof(c) == "Color3" then
+					p.Color = c
+				end
+				if type(mat) == "string" then
+					p.Material = (Enum.Material :: any)[mat]
+				end
+				p:SetAttribute("OrigColor", nil)
+				p:SetAttribute("OrigMaterial", nil)
+			end)
+		end
+	end
+end
+
+local function playKey(k: number)
+	if next(ribModels) == nil then
+		collectRibs()
+	end
+	local sound = Instance.new("Sound")
+	sound.SoundId = "rbxasset://sounds/electronicpingshort.wav"
+	sound.PlaybackSpeed = 0.55 * ORGAN_RATIOS[k]
+	sound.Volume = 0.7
+	sound.Parent = organPart or Workspace
+	sound:Play()
+	Debris:AddItem(sound, 3)
+	-- Each key lights the ribs it was tuned to.
+	local centre = math.floor((k - 1) * (Arch.RIB_COUNT - 1) / 6 + 1.5)
+	for i = centre - 1, centre + 1 do
+		glowRib(i, 0.9)
+	end
+	table.insert(organSequence, k)
+	while #organSequence > #Config.MELODY do
+		table.remove(organSequence, 1)
+	end
+	local match = #organSequence == #Config.MELODY
+	for i, key in Config.MELODY do
+		if organSequence[i] ~= key then
+			match = false
+		end
+	end
+	if match then
+		remotes.Organ:FireServer(table.clone(organSequence))
+		table.clear(organSequence)
+	end
+end
+
+remotes.Organ.OnClientEvent:Connect(function(what)
+	if what ~= "solved" then
+		return
+	end
+	if next(ribModels) == nil then
+		collectRibs()
+	end
+	for i = 1, Arch.RIB_COUNT do
+		task.delay(i * 0.08, function()
+			glowRib(i, 2.5)
+		end)
+	end
+end)
+
+task.spawn(function()
+	local part
+	repeat
+		part = CollectionService:GetTagged("RibOrgan")[1]
+		if not part then
+			task.wait(1)
+		end
+	until part
+	organPart = part
+	collectRibs()
+	local sg = new("SurfaceGui", {
+		Name = "RibOrganGui",
+		Adornee = part,
+		Face = Enum.NormalId.Top,
+		SizingMode = Enum.SurfaceGuiSizingMode.PixelsPerStud,
+		PixelsPerStud = 60,
+		MaxDistance = 24,
+		LightInfluence = 0,
+		ResetOnSpawn = false,
+	}, player:WaitForChild("PlayerGui"))
+	for k = 1, 7 do
+		local key = button(tostring(k), {
+			Position = UDim2.new((k - 1) / 7, 4, 0, 8),
+			Size = UDim2.new(1 / 7, -8, 1, -16),
+			BackgroundColor3 = Color3.fromRGB(176, 140, 82),
+			TextColor3 = Color3.fromRGB(40, 30, 16),
+			TextSize = 34,
+		}, sg)
+		key.Activated:Connect(function()
+			playKey(k)
+		end)
+	end
+end)
+
+----------------------------------------------------------------------------
+-- Photo mode (P): hides the HUD, adds letterbox bars and depth of field
+----------------------------------------------------------------------------
+
+local photoGui = new("ScreenGui", { Name = "PhotoMode", Enabled = false, IgnoreGuiInset = true, ResetOnSpawn = false, DisplayOrder = 10 }, player:WaitForChild("PlayerGui"))
+new("Frame", { Size = UDim2.new(1, 0, 0.09, 0), BackgroundColor3 = Color3.new(0, 0, 0), BorderSizePixel = 0 }, photoGui)
+new("Frame", { AnchorPoint = Vector2.new(0, 1), Position = UDim2.fromScale(0, 1), Size = UDim2.new(1, 0, 0.09, 0), BackgroundColor3 = Color3.new(0, 0, 0), BorderSizePixel = 0 }, photoGui)
+local photoHint = new("TextLabel", {
+	AnchorPoint = Vector2.new(0.5, 1),
+	Position = UDim2.new(0.5, 0, 1, -8),
+	Size = UDim2.new(0, 300, 0, 20),
+	BackgroundTransparency = 1,
+	Text = "PHOTO MODE  ·  P to exit",
+	Font = FONT,
+	TextSize = 13,
+	TextColor3 = MUTED,
+}, photoGui)
+local photoOn = false
+local dof: DepthOfFieldEffect? = nil
+
+togglePhotoMode = function()
+	photoOn = not photoOn
+	gui.Enabled = not photoOn
+	photoGui.Enabled = photoOn
+	pcall(function()
+		StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.All, not photoOn)
+	end)
+	if photoOn then
+		dof = new("DepthOfFieldEffect", { FarIntensity = 0.35, FocusDistance = 30, InFocusRadius = 40, NearIntensity = 0.15 }, Lighting)
+		photoHint.TextTransparency = 0
+		task.delay(2.5, function()
+			TweenService:Create(photoHint, TweenInfo.new(1), { TextTransparency = 1 }):Play()
+		end)
+	elseif dof then
+		dof:Destroy()
+		dof = nil
+	end
+end
+
+----------------------------------------------------------------------------
 -- Main loop
 ----------------------------------------------------------------------------
 
@@ -4820,17 +7748,17 @@ end)
       </Item>
     </Item>
   </Item>
-  <Item class="Workspace" referent="RBX00000012">
+  <Item class="Workspace" referent="RBX0000001B">
     <Properties>
       <string name="Name">Workspace</string>
       <bool name="StreamingEnabled">false</bool>
     </Properties>
   </Item>
-  <Item class="ServerStorage" referent="RBX00000013">
+  <Item class="ServerStorage" referent="RBX0000001C">
     <Properties>
       <string name="Name">ServerStorage</string>
     </Properties>
-    <Item class="Folder" referent="RBX00000014">
+    <Item class="Folder" referent="RBX0000001D">
       <Properties>
         <string name="Name">BlenderAssets</string>
       </Properties>

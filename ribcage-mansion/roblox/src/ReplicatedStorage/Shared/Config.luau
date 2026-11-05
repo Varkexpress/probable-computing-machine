@@ -3,8 +3,8 @@
 
 local Config = {}
 
-Config.GAME_NAME = "The Ribcage"
-Config.TAGLINE = "A quiet life inside a concrete spine on the Southern Ocean"
+Config.GAME_NAME = "Ribcage: Homes on the Ice"
+Config.TAGLINE = "Four concrete homes. One frozen sea. A secret under the arch."
 
 -- One full day/night cycle, in real minutes.
 Config.DAY_LENGTH_MINUTES = 20
@@ -157,7 +157,7 @@ Config.PETS = {
 Config.CHORES = {
 	{ id = "coffee", name = "Make the morning coffee", reward = 10 },
 	{ id = "feedcat", name = "Feed Mochi", reward = 10 },
-	{ id = "cook", name = "Cook a proper meal", reward = 20 },
+	{ id = "cook", name = "Sit down to eat a home-cooked meal", reward = 20 },
 	{ id = "dishes", name = "Wash the dishes", reward = 10 },
 	{ id = "plants", name = "Water the plants", reward = 10 },
 	{ id = "bed", name = "Make the bed", reward = 5 },
@@ -196,6 +196,46 @@ Config.DISCOVERIES = {
 	{ id = "blizzard", name = "Storm Watcher", hint = "Sit by the glass during a blizzard.", reward = 30 },
 	{ id = "dawn", name = "Pink Dawn", hint = "Be awake when the sun comes up.", reward = 30 },
 	{ id = "whale", name = "Whale Sighting", hint = "Keep watching the sea.", reward = 50 },
+	{ id = "monolith", name = "The Monolith", hint = "A tall slab stands alone to the south.", reward = 30 },
+	{ id = "vertebrae", name = "The Vertebrae", hint = "Five bones on stilts, far to the north-west.", reward = 30 },
+	{ id = "well", name = "The Well", hint = "A ring of concrete in the north-east, open to the sky.", reward = 30 },
+	{ id = "freeze", name = "Night Crossing", hint = "When the sea freezes, walk on it.", reward = 40 },
+	{ id = "boat", name = "Captain", hint = "Take a boat out from any dock.", reward = 20 },
+	{ id = "home", name = "Moving In", hint = "Claim one of the four homes at its deed plinth.", reward = 25 },
+	{ id = "melody", name = "The Tuning", hint = "The ribs were tuned like an instrument.", reward = 60 },
+	{ id = "sternum", name = "The Sternum", hint = "Something is sealed under the arch.", reward = 100 },
+}
+
+----------------------------------------------------------------------------
+-- The four homes (names and blurbs for the ferry map)
+----------------------------------------------------------------------------
+
+Config.HOMES = {
+	{ id = "ribcage", name = "The Ribcage", blurb = "A concrete spine arching out of the sea, a glass gallery in its crown. Lap pool, glass floor, hanging fire. Mochi lives here." },
+	{ id = "monolith", name = "The Monolith", blurb = "A 220-stud slab with one slit of glass. Three stacked floors and a sunken fire pit. South." },
+	{ id = "vertebrae", name = "The Vertebrae", blurb = "Five cubes on pylons, stepping up out of the water, joined by glass bridges. North-west." },
+	{ id = "well", name = "The Well", blurb = "A concrete cylinder around a black pool, open to the sky. A spiral ramp and a hanging cube of light. North-east." },
+}
+
+----------------------------------------------------------------------------
+-- The architect's notes, and the tuning of the ribs
+----------------------------------------------------------------------------
+
+-- Keys on the rib organ, 1 (lowest) to 7 (highest).
+Config.MELODY = { 1, 4, 3, 6, 5, 7 }
+
+Config.NOTES = {
+	{ id = "n1", title = "Day one", where = "The Ribcage", text = "They asked me why a ribcage. I said a house should remember that it is holding something alive.\n\n— O.H." },
+	{ id = "n2", title = "Hollow", where = "The Ribcage", text = "The ribs are hollow. In the wind they hum. Over one long winter I tuned them, rib by rib, like an instrument nobody asked for." },
+	{ id = "n3", title = "From the spine", where = "The Ribcage", text = "From up here you can see all of it. The Monolith to the south. The Vertebrae to the north-west. The Well in the north-east. I did not build four houses. I built one body and let the sea pull it apart." },
+	{ id = "n4", title = "The tooth", where = "The Monolith", text = "The Monolith is a tooth. Patient, upright, refusing the sea. It was the first thing I poured and the last thing that will fall." },
+	{ id = "n5", title = "One line of moon", where = "The Monolith", text = "I sleep badly here. The slit lets in exactly one line of moon, and it moves across the floor like a hand on a clock." },
+	{ id = "n6", title = "Bones", where = "The Vertebrae", text = "A spine that left the body to look at the horizon. Each room a bone. Walk them in order, west to east, and the floor rises like breath." },
+	{ id = "n7", title = "The tuning", where = "The Vertebrae", text = "THE TUNING, for whoever finds it.\n\nLowest first. Then the fourth. Step down to the third. Up to the sixth, down to the fifth, and end on the highest.\n\nPlay it where the floor is made of glass." },
+	{ id = "n8", title = "The heart", where = "The Well", text = "The Well is the heart. Water at the centre that never freezes, even when the whole sea does. I hung one light over it so it would never be alone." },
+	{ id = "n9", title = "A floor of water", where = "The Well", text = "On the coldest nights the sea becomes a floor. Under the arch there is a door that only opens when the water holds still, and only for someone who knows the tuning." },
+	{ id = "n10", title = "If you are reading this", where = "The Ribcage", text = "If you are reading these, you live here now. Keep the fire going. Feed the cat. Sit down when you eat. The ice is better company than it looks." },
+	{ id = "final", title = "The Sternum", where = "Under the arch", text = "You found the sternum. Everything I built points here: four bones of one animal, lying in the ice.\n\nI am not coming back. The houses are yours. Look after them.\n\n— Oren Halvard, architect" },
 }
 
 Config.UPGRADES = {

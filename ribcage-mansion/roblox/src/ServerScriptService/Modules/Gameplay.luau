@@ -1,7 +1,8 @@
 --!nonstrict
--- Daily life in the mansion: needs, cooking, the pantry, dishes, the bed,
--- plants, reading, the fire, pets, chores, weather, the day/night cycle,
--- fishing for dinner, upgrades and discoveries.
+-- Life on the ice: needs, cooking and eating, chores, fires, beds, plants,
+-- reading, pets, four homes with deeds, the ferry and boats, the night when
+-- the sea freezes, weather, fishing, upgrades, discoveries and the
+-- architect's mystery.
 
 local HttpService = game:GetService("HttpService")
 local Lighting = game:GetService("Lighting")
@@ -17,6 +18,11 @@ local Config = require(Shared:WaitForChild("Config"))
 local Build = require(script.Parent.Build)
 local Data = require(script.Parent.Data)
 local Pets = require(script.Parent.Pets)
+local Registry = require(script.Parent.Registry)
+local Food = require(script.Parent.Food)
+local Boats = require(script.Parent.Boats)
+local Lore = require(script.Parent.Lore)
+local Well = require(script.Parent:WaitForChild("Homes"):WaitForChild("Well"))
 
 local Gameplay = {}
 
@@ -27,15 +33,15 @@ local fishInventory: { [Player]: { { name: string, value: number } } } = {}
 local pantry: { [Player]: { [string]: number } } = {}
 local chores: { [Player]: { [string]: boolean } } = {}
 local fishing: { [Player]: { state: string, token: number, biteAt: number? } } = {}
-local cooking: { [Player]: { recipe: any, token: number, started: number } } = {}
+local cooking: { [Player]: { recipe: any, token: number, started: number, kitchen: any } } = {}
+local atKitchen: { [Player]: any } = {}
 local cooldowns: { [Player]: { [string]: number } } = {}
 local reading: { [Player]: number } = {}
 
-local fireFuel = 80
-local dirtyDishes = 0
-local bedMessy = true
 local day = 1
 local weather = Config.WEATHER[1]
+local frozen = false
+local FREEZE_AT, THAW_AT = 22, 4.8
 
 local discoveryById, upgradeById, recipeById, petById, choreById = {}, {}, {}, {}, {}
 for _, d in Config.DISCOVERIES do
@@ -54,16 +60,15 @@ for _, c in Config.CHORES do
 	choreById[c.id] = c
 end
 
+-- What eating each snack/drink does (cooked meals use their recipe effects).
+local EXTRA_FOOD = {
+	tea = { name = "Mug of Tea", effects = { Warmth = 18, Fun = 4 } },
+	snack = { name = "Cheese & Crackers", effects = { Hunger = 18 } },
+}
+
 ----------------------------------------------------------------------------
 -- Helpers
 ----------------------------------------------------------------------------
-
-local function remote(name: string, class: string?): Instance
-	local r = Instance.new(class or "RemoteEvent")
-	r.Name = name
-	r.Parent = remotes
-	return r
-end
 
 local function notify(player: Player, text: string, kind: string?)
 	remotes.Notify:FireClient(player, text, kind or "info")
@@ -156,7 +161,7 @@ local function completeChore(player: Player, id: string)
 		end
 	end
 	addCredits(player, 40)
-	notify(player, "Every part of today's routine done. A good day in the spine (+40).", "discovery")
+	notify(player, "Every part of today's routine done. A good day on the ice (+40).", "discovery")
 end
 
 local function syncFish(player: Player)
@@ -178,6 +183,14 @@ local function syncTreats(player: Player)
 	player:SetAttribute("Treats", profile and profile.treats or 0)
 end
 
+local function syncNotes(player: Player)
+	local profile = profiles[player]
+	if profile then
+		player:SetAttribute("Notes", idList(profile.notes))
+		player:SetAttribute("Melody", profile.flags.melody == true)
+	end
+end
+
 local function restockPantry(player: Player)
 	local stock = {}
 	for _, item in Config.PANTRY do
@@ -192,13 +205,15 @@ local function rootPart(player: Player): BasePart?
 	return character and character:FindFirstChild("HumanoidRootPart")
 end
 
-local function teleport(player: Player, cf: CFrame)
+-- Fades the screen, optionally plays a short camera "ride", then moves the player.
+local function teleport(player: Player, cf: CFrame, ride: string?)
 	local character = player.Character
 	if not character then
 		return
 	end
-	remotes.Fade:FireClient(player, 0.9)
-	task.delay(0.35, function()
+	local hold = ride and 2.8 or 0.9
+	remotes.Fade:FireClient(player, hold, ride)
+	task.delay(ride and 2.6 or 0.35, function()
 		if character.Parent then
 			character:PivotTo(cf)
 		end
@@ -215,11 +230,196 @@ local function isNight(): boolean
 	return t >= 19.5 or t < 5.5
 end
 
+local function locationName(pos: Vector3): (string?, any)
+	local interior = Registry.locate(pos)
+	if not interior then
+		return nil, nil
+	end
+	if interior.home == "ribcage" then
+		local room = Arch.roomAt(pos)
+		return "The Ribcage · " .. (room and room.name or "Gallery"), interior
+	elseif interior.home == "well" then
+		return Well.roomName(pos), interior
+	end
+	return interior.name, interior
+end
+
 ----------------------------------------------------------------------------
--- Travel and the station
+-- Titles and homes
 ----------------------------------------------------------------------------
 
-local function setParka(player: Player, on: boolean)
+local function refreshTitle(player: Player)
+	local profile = profiles[player]
+	if not profile then
+		return
+	end
+	local home = Registry.homes[profile.home]
+	local title = profile.title ~= "" and profile.title or (home and ("Lives in " .. home.name) or "Visitor")
+	player:SetAttribute("Title", title)
+	player:SetAttribute("Home", profile.home)
+	local head = player.Character and player.Character:FindFirstChild("Head")
+	if not head then
+		return
+	end
+	local gui = head:FindFirstChild("TitleTag")
+	if not gui then
+		gui = Instance.new("BillboardGui")
+		gui.Name = "TitleTag"
+		gui.Size = UDim2.new(0, 220, 0, 22)
+		gui.StudsOffset = Vector3.new(0, 2.4, 0)
+		gui.MaxDistance = 70
+		local label = Instance.new("TextLabel")
+		label.Name = "Text"
+		label.Size = UDim2.fromScale(1, 1)
+		label.BackgroundTransparency = 1
+		label.Font = Enum.Font.GothamMedium
+		label.TextSize = 14
+		label.TextColor3 = Color3.fromRGB(255, 214, 160)
+		label.TextStrokeTransparency = 0.6
+		label.Parent = gui
+		gui.Parent = head
+	end
+	gui.Text.Text = title
+end
+
+local function updateDeeds()
+	for id, home in Registry.homes do
+		if home.deedLabel then
+			local names = {}
+			for player, profile in profiles do
+				if profile.home == id then
+					table.insert(names, player.DisplayName)
+				end
+			end
+			home.deedLabel.Text = string.upper(home.name) .. "\n" .. (#names == 0 and "no residents yet" or ("home of " .. table.concat(names, ", ")))
+		end
+	end
+end
+
+local function homeSpawn(player: Player): CFrame?
+	local profile = profiles[player]
+	local home = profile and Registry.homes[profile.home]
+	return home and home.spawn
+end
+
+local function setupHomes()
+	for id, home in Registry.homes do
+		if home.deed then
+			local claim = Build.prompt(home.deed, "Make this your home", home.name, 1, 9)
+			claim.Triggered:Connect(function(player)
+				local profile = profiles[player]
+				if not profile then
+					return
+				end
+				if profile.home == id then
+					notify(player, "You already live here.")
+					return
+				end
+				profile.home = id
+				discover(player, "home")
+				refreshTitle(player)
+				updateDeeds()
+				notify(player, "Welcome home. You'll wake up in " .. home.name .. " from now on.", "discovery")
+				task.spawn(Data.save, player.UserId, profile)
+			end)
+			local concierge = Build.prompt(home.deed, "Open concierge", "Upgrades & pets", 0, 9)
+			concierge.UIOffset = Vector2.new(0, 70)
+			concierge.KeyboardKeyCode = Enum.KeyCode.F
+			concierge.Triggered:Connect(function(player)
+				remotes.OpenPanel:FireClient(player, "shop")
+			end)
+		end
+	end
+end
+
+----------------------------------------------------------------------------
+-- Travel: funicular, lift, hatches, ferry
+----------------------------------------------------------------------------
+
+local function nearBell(player: Player): boolean
+	local hrp = rootPart(player)
+	if not hrp then
+		return false
+	end
+	for _, dock in Registry.docks do
+		if (dock.bell.Position - hrp.Position).Magnitude < 22 then
+			return true
+		end
+	end
+	return false
+end
+
+local function setupTravel()
+	local up = Build.prompt(refs.funicularBottom, "Ride up to the gallery", "Funicular", 0, 12)
+	up.Triggered:Connect(function(player)
+		teleport(player, refs.funicularTopArrive, "funicular_up")
+	end)
+	local down = Build.prompt(refs.funicularTop, "Ride down to the dock", "Funicular", 0, 12)
+	down.Triggered:Connect(function(player)
+		teleport(player, refs.funicularBottomArrive, "funicular_down")
+	end)
+
+	-- The roof hatch is only in reach from the top of the ladder.
+	local hatch = Build.prompt(refs.hatch, "Open the hatch", "Roof hatch", 0.3, 7)
+	hatch.Triggered:Connect(function(player)
+		teleport(player, refs.roofArrive)
+		notify(player, "Wind, fog and a long way down. A parka helps.", "warn")
+	end)
+	local roofHatch = Build.part(refs.root, {
+		Name = "RoofHatchOutside",
+		Size = Vector3.new(4, 0.6, 5),
+		CFrame = refs.roofArrive * CFrame.new(0, -3.6, 0) * CFrame.Angles(0, 0, math.atan(Arch.slope(refs.roofArrive.X))),
+		Material = Enum.Material.Metal,
+		Color = Build.Color.Metal,
+	})
+	local back = Build.prompt(roofHatch, "Climb back inside", "Roof hatch", 0, 10)
+	back.Triggered:Connect(function(player)
+		teleport(player, CFrame.new(-102, refs.funicularTopArrive.Y, 11) * CFrame.Angles(0, -math.pi / 2, 0))
+	end)
+
+	local lift = Registry.misc.vertebraeLift
+	if lift then
+		local liftUp = Build.prompt(lift.bottom, "Ride the lift up", "Lift", 0, 12)
+		liftUp.Triggered:Connect(function(player)
+			teleport(player, lift.topArrive, "lift_up")
+		end)
+		local liftDown = Build.prompt(lift.top, "Ride the lift down", "Lift", 0, 12)
+		liftDown.Triggered:Connect(function(player)
+			teleport(player, lift.bottomArrive, "lift_down")
+		end)
+	end
+
+	local parka = Build.prompt(refs.parkaRack, "Put on / take off parka", "Coat rack", 0, 10)
+	parka.Triggered:Connect(function(player)
+		local on = not player:GetAttribute("Parka")
+		Gameplay.setParka(player, on)
+		notify(player, on and "Parka on. The cold bites much less outside." or "Parka hung back up.")
+	end)
+
+	-- Ferry bells at every dock.
+	for _, dock in Registry.docks do
+		local bell = Build.prompt(dock.bell, "Ring for the ferry", "Ferry bell", 0, 10)
+		bell.Triggered:Connect(function(player)
+			remotes.OpenPanel:FireClient(player, "ferry")
+		end)
+	end
+	remotes.Travel.OnServerEvent:Connect(function(player, homeId, inside)
+		local home = type(homeId) == "string" and Registry.homes[homeId] or nil
+		if not home or not nearBell(player) then
+			return
+		end
+		if frozen then
+			notify(player, "The ferry can't get through the ice tonight. Walk across it!", "warn")
+			return
+		end
+		local profile = profiles[player]
+		local goInside = inside == true and profile and profile.home == homeId
+		teleport(player, goInside and home.spawn or home.dock, "ferry")
+		notify(player, "The ferry noses through the floes to " .. home.name .. ".")
+	end)
+end
+
+function Gameplay.setParka(player: Player, on: boolean)
 	player:SetAttribute("Parka", on)
 	local character = player.Character
 	if not character then
@@ -253,88 +453,54 @@ local function setParka(player: Player, on: boolean)
 	shell.Parent = character
 end
 
-local function setupTravel()
-	local up = Build.prompt(refs.funicularBottom, "Ride up to the mansion", "Funicular", 0, 12)
-	up.Triggered:Connect(function(player)
-		teleport(player, refs.funicularTopArrive)
-		notify(player, "The funicular hums up the inside of the spine...")
-	end)
-	local down = Build.prompt(refs.funicularTop, "Ride down to the dock", "Funicular", 0, 12)
-	down.Triggered:Connect(function(player)
-		teleport(player, refs.funicularBottomArrive)
-	end)
-
-	local hatch = Build.prompt(refs.hatch, "Climb onto the spine", "Roof hatch", 0.5, 14)
-	hatch.Triggered:Connect(function(player)
-		teleport(player, refs.roofArrive)
-		notify(player, "Wind, fog and a long way down. A parka helps.", "warn")
-	end)
-	local roofHatch = Build.part(refs.root, {
-		Name = "RoofHatchOutside",
-		Size = Vector3.new(4, 0.6, 5),
-		CFrame = refs.roofArrive * CFrame.new(0, -3.6, 0) * CFrame.Angles(0, 0, math.atan(Arch.slope(refs.roofArrive.X))),
-		Material = Enum.Material.Metal,
-		Color = Build.Color.Metal,
-	})
-	local back = Build.prompt(roofHatch, "Climb back inside", "Roof hatch", 0, 10)
-	back.Triggered:Connect(function(player)
-		teleport(player, refs.funicularTopArrive)
-	end)
-
-	local parka = Build.prompt(refs.parkaRack, "Put on / take off parka", "Coat rack", 0, 10)
-	parka.Triggered:Connect(function(player)
-		local on = not player:GetAttribute("Parka")
-		setParka(player, on)
-		notify(player, on and "Parka on. The cold bites much less outside." or "Parka hung back up.")
-	end)
-end
-
 ----------------------------------------------------------------------------
--- Fire, lamps, doors
+-- Fires, lamps, doors
 ----------------------------------------------------------------------------
 
-local firePrompts = {}
-
-local function applyFire()
-	local fire = refs.fire
-	local lit = fireFuel > 0
-	fire.fire.Enabled = lit
-	fire.light.Enabled = lit
-	fire.embers.Enabled = lit
-	local k = fireFuel / 100
-	fire.fire.Size = 2 + 4 * k
-	fire.light.Brightness = 0.8 + 2 * k
-	fire.light.Range = 18 + 16 * k
-	for _, p in firePrompts do
+local function applyFire(f)
+	local lit = f.fuel > 0
+	f.fire.Enabled = lit
+	f.light.Enabled = lit
+	f.embers.Enabled = lit
+	local k = f.fuel / 100
+	f.fire.Size = math.max(2, f.baseSize * (0.4 + 0.8 * k))
+	f.light.Brightness = 0.8 + 2 * k
+	f.light.Range = 18 + 16 * k
+	for _, p in f.prompts do
 		p.ActionText = lit and "Add a log" or "Light the fire"
 	end
-	Workspace:SetAttribute("FireFuel", fireFuel)
 end
 
-local function feedFire(player: Player)
-	if fireFuel >= 95 then
+local function feedFire(f, player: Player)
+	if f.fuel >= 95 then
 		notify(player, "The fire is roaring already.")
 		return
 	end
-	local wasOut = fireFuel <= 0
-	fireFuel = math.min(100, fireFuel + 45)
-	applyFire()
-	notify(player, wasOut and "The bowl catches. Warm light spills across the concrete." or "You lay a log on the embers.")
+	local wasOut = f.fuel <= 0
+	f.fuel = math.min(100, f.fuel + 45)
+	applyFire(f)
+	notify(player, wasOut and "The fire catches. Warm light spills across the concrete." or "You lay a log on the embers.")
 	if isNight() then
 		completeChore(player, "fire")
 	end
 end
 
-local function setupFireAndLights()
-	table.insert(firePrompts, Build.prompt(refs.fire.core, "Add a log", "Hanging fireplace", 0.4, 14))
-	table.insert(firePrompts, Build.prompt(refs.logBasket, "Add a log", "Log basket", 0.4, 10))
-	for _, p in firePrompts do
-		p.Triggered:Connect(feedFire)
+local function setupFiresLampsDoors()
+	for _, f in Registry.fires do
+		f.prompts = { Build.prompt(f.core, "Add a log", "Fire", 0.4, 14) }
+		if f.basket then
+			table.insert(f.prompts, Build.prompt(f.basket, "Add a log", "Log basket", 0.4, 10))
+		end
+		for _, p in f.prompts do
+			p.Triggered:Connect(function(player)
+				feedFire(f, player)
+			end)
+		end
+		applyFire(f)
 	end
-	applyFire()
 
-	for _, lamp in refs.lamps do
-		local p = Build.prompt(lamp.part, "Toggle lamp", "Lamp", 0, 9)
+	for _, lamp in Registry.lamps do
+		local p = Build.prompt(lamp.part, "Toggle light", "Lamp", 0, 9)
 		p.Triggered:Connect(function()
 			lamp.light.Enabled = not lamp.light.Enabled
 			lamp.part.Material = lamp.light.Enabled and Enum.Material.Neon or Enum.Material.SmoothPlastic
@@ -342,17 +508,17 @@ local function setupFireAndLights()
 		lamp.part.Material = Enum.Material.Neon
 	end
 
-	for _, door in refs.doors do
-		local isOpen = false
+	for _, door in Registry.doors do
+		door.isOpen = false
 		local p = Build.prompt(door.part, "Open", "Door", 0, 9)
 		p.Triggered:Connect(function()
-			isOpen = not isOpen
-			p.ActionText = isOpen and "Close" or "Open"
+			door.isOpen = not door.isOpen
+			p.ActionText = door.isOpen and "Close" or "Open"
 			local info = TweenInfo.new(0.7, Enum.EasingStyle.Quad)
-			TweenService:Create(door.part, info, { CFrame = isOpen and door.open or door.closed }):Play()
+			TweenService:Create(door.part, info, { CFrame = door.isOpen and door.open or door.closed }):Play()
 			local handle = door.part:FindFirstChild("Handle")
 			if handle then
-				local target = (isOpen and door.open or door.closed) * door.closed:ToObjectSpace(handle.CFrame)
+				local target = (door.isOpen and door.open or door.closed) * door.closed:ToObjectSpace(handle.CFrame)
 				TweenService:Create(handle, info, { CFrame = target }):Play()
 			end
 		end)
@@ -360,30 +526,38 @@ local function setupFireAndLights()
 end
 
 ----------------------------------------------------------------------------
--- Home life: bed, shower, plants, books, dishes, pantry, record player
+-- Dishes, beds, showers, plants, books, kitchens
 ----------------------------------------------------------------------------
 
-local dishParts = {}
-
-local function applyDishes()
-	for _, p in dishParts do
+local function applyDishes(kitchen)
+	for _, p in kitchen.dishParts do
 		p:Destroy()
 	end
-	table.clear(dishParts)
-	for i = 1, dirtyDishes do
-		local p = Build.cylinderY(refs.root, refs.dishSpot + Vector3.new((i % 2) * 1.6, 0.12 + math.floor((i - 1) / 2) * 0.22, 0), 0.2, 1.4, {
+	table.clear(kitchen.dishParts)
+	for i = 1, kitchen.dirty do
+		local col = (i - 1) % 2
+		local row = math.floor((i - 1) / 2)
+		local p = Build.cylinderY(refs.root, kitchen.dishSpot + Vector3.new(col * 1.6, 0.12 + row * 0.22, 0), 0.2, 1.4, {
 			Name = "DirtyPlate",
 			Color = Color3.fromRGB(196, 190, 182),
 			Material = Enum.Material.SmoothPlastic,
 			CanCollide = false,
 		})
-		table.insert(dishParts, p)
+		table.insert(kitchen.dishParts, p)
 	end
 end
 
-local function setBedMessy(messy: boolean)
-	bedMessy = messy
-	TweenService:Create(refs.duvet, TweenInfo.new(0.5), { CFrame = messy and refs.duvetMessy or refs.duvetTidy }):Play()
+local function addDish(kitchen)
+	if not kitchen then
+		return
+	end
+	kitchen.dirty = math.min(Config.MAX_DIRTY_DISHES, kitchen.dirty + 1)
+	applyDishes(kitchen)
+end
+
+local function setBedMessy(bed, messy: boolean)
+	bed.messyNow = messy
+	TweenService:Create(bed.duvet, TweenInfo.new(0.5), { CFrame = messy and bed.messy or bed.tidy }):Play()
 end
 
 local PLANT_FRESH = Color3.fromRGB(58, 92, 60)
@@ -398,45 +572,107 @@ local function setPlant(plant, watered: boolean)
 	end
 end
 
-local function setupHome()
-	local sleep = Build.prompt(refs.bed, "Sleep", "Bed", 1, 10)
-	sleep.Triggered:Connect(function(player)
-		remotes.Fade:FireClient(player, 3)
-		task.delay(1.5, function()
-			setNeed(player, "Energy", 100)
-			addNeed(player, "Warmth", 20)
-			setBedMessy(true)
-			notify(player, "You slept to the sound of ice knocking softly against the ribs.")
-		end)
-	end)
-	local make = Build.prompt(refs.duvet, "Make the bed", "Bed", 0.8, 10)
-	make.UIOffset = Vector2.new(0, 70)
-	make.KeyboardKeyCode = Enum.KeyCode.F
-	make.Triggered:Connect(function(player)
-		if not bedMessy then
-			notify(player, "The bed is already made. Crisp.")
+-- Gives a Tool of food and wires up eating it.
+local function giveFood(player: Player, designId: string, displayName: string, effects, quality: string, mult: number, kitchen, cooked: boolean)
+	local tool = Food.make(designId, displayName, quality)
+	if not tool then
+		return
+	end
+	tool:SetAttribute("Mult", mult)
+	local busy = false
+	tool.Activated:Connect(function()
+		if busy or not tool.Parent then
 			return
 		end
-		setBedMessy(false)
-		completeChore(player, "bed")
-	end)
-
-	local shower = Build.prompt(refs.showerHead, "Take a rain shower", "Shower", 0.5, 12)
-	shower.Triggered:Connect(function(player)
-		refs.shower.Enabled = true
-		task.delay(6, function()
-			refs.shower.Enabled = false
+		busy = true
+		task.delay(0.7, function()
+			busy = false
 		end)
-		setNeed(player, "Hygiene", 100)
-		addNeed(player, "Warmth", 10)
-		notify(player, "Hot water falling through a shaft of light. Clean.")
+		local character = tool.Parent
+		local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+		if not humanoid then
+			return
+		end
+		local total = tool:GetAttribute("BitesTotal") or 3
+		local bites = tool:GetAttribute("Bites") or total
+		local seated = humanoid.SeatPart ~= nil
+		local m = mult * (seated and 1.3 or 1)
+		for need, amount in effects do
+			addNeed(player, need, amount * m / total)
+		end
+		if seated then
+			addNeed(player, "Fun", 2)
+			if cooked and not Food.isDrink(designId) then
+				completeChore(player, "cook")
+			end
+		end
+		if bites == total then
+			if seated then
+				notify(player, Food.isDrink(designId) and "You sit with it in both hands." or "You sit down and eat properly. It tastes better this way.")
+			else
+				notify(player, "Eating standing up... sit down at a table for a bonus.")
+			end
+		end
+		bites -= 1
+		tool:SetAttribute("Bites", bites)
+		if bites <= 0 then
+			tool:Destroy()
+			addDish(kitchen)
+			notify(player, "All gone. The dish goes back to the sink.")
+		else
+			Food.shrink(tool, bites / (bites + 1))
+		end
 	end)
-	local sink = Build.prompt(refs.sink, "Wash up", "Stone sink", 0, 8)
-	sink.Triggered:Connect(function(player)
-		addNeed(player, "Hygiene", 15)
-	end)
+	local backpack = player:FindFirstChildOfClass("Backpack")
+	tool.Parent = backpack or player.Character
+end
 
-	for _, plant in refs.plants do
+local function setupHomeLife()
+	for _, bed in Registry.beds do
+		local sleep = Build.prompt(bed.mattress, "Sleep", "Bed", 1, 10)
+		sleep.Triggered:Connect(function(player)
+			remotes.Fade:FireClient(player, 3)
+			task.delay(1.5, function()
+				setNeed(player, "Energy", 100)
+				addNeed(player, "Warmth", 20)
+				setBedMessy(bed, true)
+				notify(player, "You slept to the sound of ice knocking softly against the concrete.")
+			end)
+		end)
+		local make = Build.prompt(bed.duvet, "Make the bed", "Bed", 0.8, 10)
+		make.UIOffset = Vector2.new(0, 70)
+		make.KeyboardKeyCode = Enum.KeyCode.F
+		make.Triggered:Connect(function(player)
+			if not bed.messyNow then
+				notify(player, "The bed is already made. Crisp.")
+				return
+			end
+			setBedMessy(bed, false)
+			completeChore(player, "bed")
+		end)
+		setBedMessy(bed, true)
+	end
+
+	for _, shower in Registry.showers do
+		local p = Build.prompt(shower.head, "Take a rain shower", "Shower", 0.5, 13)
+		p.Triggered:Connect(function(player)
+			shower.rain.Enabled = true
+			task.delay(6, function()
+				shower.rain.Enabled = false
+			end)
+			setNeed(player, "Hygiene", 100)
+			addNeed(player, "Warmth", 10)
+			notify(player, "Hot water falling through a shaft of light. Clean.")
+		end)
+	end
+	for _, sink in Registry.sinks do
+		local p = Build.prompt(sink, "Wash up", "Sink", 0, 8)
+		p.Triggered:Connect(function(player)
+			addNeed(player, "Hygiene", 15)
+		end)
+	end
+
+	for _, plant in Registry.plants do
 		setPlant(plant, false)
 		local p = Build.prompt(plant.pot, "Water plant", "Plant", 0.4, 8)
 		p.Triggered:Connect(function(player)
@@ -450,52 +686,57 @@ local function setupHome()
 		end)
 	end
 
-	local book = Build.prompt(refs.bookshelf, "Take a book", "Bookshelf", 0, 9)
-	book.Triggered:Connect(function(player)
-		player:SetAttribute("HasBook", true)
-		notify(player, "You pick a worn paperback. Find a seat near the fire to read.")
-	end)
-
-	local wash = Build.prompt(refs.galleySink, "Wash the dishes", "Galley sink", 1.5, 9)
-	wash.Triggered:Connect(function(player)
-		if dirtyDishes == 0 then
-			notify(player, "The sink is empty. Nothing to wash.")
-			return
-		end
-		dirtyDishes = 0
-		applyDishes()
-		addNeed(player, "Hygiene", 4)
-		completeChore(player, "dishes")
-		notify(player, "Dishes done, steam on the glass.")
-	end)
-
-	local pantryPrompt = Build.prompt(refs.pantry, "Look in the pantry", "Pantry", 0, 9)
-	pantryPrompt.Triggered:Connect(function(player)
-		remotes.OpenPanel:FireClient(player, "pantry")
-	end)
-
-	local fridge = Build.prompt(refs.fridge, "Grab a snack", "Fridge", 0, 8)
-	fridge.Triggered:Connect(function(player)
-		if onCooldown(player, "snack", 45) then
-			return
-		end
-		addNeed(player, "Hunger", 15)
-		notify(player, "Cold cheese and crackers, eaten standing up.")
-	end)
-
-	local tea = Build.prompt(refs.kettle, "Make tea", "Kettle", 0.8, 8)
-	tea.Triggered:Connect(function(player)
-		if onCooldown(player, "tea", 25) then
-			return
-		end
-		refs.steam.Enabled = true
-		task.delay(4, function()
-			refs.steam.Enabled = false
+	for _, shelf in Registry.bookshelves do
+		local p = Build.prompt(shelf, "Take a book", "Bookshelf", 0, 9)
+		p.Triggered:Connect(function(player)
+			player:SetAttribute("HasBook", true)
+			notify(player, "You pick a worn paperback. Find a seat near a fire to read.")
 		end)
-		addNeed(player, "Warmth", 15)
-		addNeed(player, "Fun", 3)
-		notify(player, "Tea. Hold the cup in both hands.")
-	end)
+	end
+
+	for _, kitchen in Registry.kitchens do
+		local wash = Build.prompt(kitchen.sink, "Wash the dishes", "Kitchen sink", 1.5, 9)
+		wash.Triggered:Connect(function(player)
+			if kitchen.dirty == 0 then
+				notify(player, "The sink is empty. Nothing to wash.")
+				return
+			end
+			kitchen.dirty = 0
+			applyDishes(kitchen)
+			addNeed(player, "Hygiene", 4)
+			completeChore(player, "dishes")
+			notify(player, "Dishes done, steam on the glass.")
+		end)
+
+		local pantryPrompt = Build.prompt(kitchen.pantry, "Look in the pantry", "Pantry", 0, 9)
+		pantryPrompt.Triggered:Connect(function(player)
+			remotes.OpenPanel:FireClient(player, "pantry")
+		end)
+
+		local fridge = Build.prompt(kitchen.fridge, "Grab a snack", "Fridge", 0, 8)
+		fridge.Triggered:Connect(function(player)
+			if onCooldown(player, "snack", 45) then
+				return
+			end
+			giveFood(player, "snack", EXTRA_FOOD.snack.name, EXTRA_FOOD.snack.effects, "Cold", 1, kitchen, false)
+			notify(player, "Cheese and crackers. Find a seat.")
+		end)
+
+		local tea = Build.prompt(kitchen.kettle, "Make tea", "Kettle", 0.8, 8)
+		tea.Triggered:Connect(function(player)
+			if onCooldown(player, "tea", 25) then
+				return
+			end
+			kitchen.steam.Enabled = true
+			task.delay(4, function()
+				if (kitchen.cooking or 0) == 0 then
+					kitchen.steam.Enabled = false
+				end
+			end)
+			giveFood(player, "tea", EXTRA_FOOD.tea.name, EXTRA_FOOD.tea.effects, "Hot", 1, kitchen, false)
+			notify(player, "Tea. Hold the mug in both hands.")
+		end)
+	end
 
 	local bowl = Build.prompt(refs.catBowl, "Fill " .. Config.RESIDENT_CAT_NAME .. "'s bowl", "Cat bowl", 0.3, 8)
 	bowl.Triggered:Connect(function(player)
@@ -505,7 +746,7 @@ local function setupHome()
 	local record = Build.prompt(refs.recordPlayer, "Play a record", "Record player", 0, 9)
 	record.Triggered:Connect(function(player)
 		if not ownsUpgrade(player, "RecordPlayer") then
-			notify(player, "No needle on it. Buy the Record Player at the concierge tablet.", "warn")
+			notify(player, "No needle on it. Buy the Record Player at the concierge.", "warn")
 			return
 		end
 		remotes.Music:FireClient(player)
@@ -516,14 +757,12 @@ end
 -- Cooking
 ----------------------------------------------------------------------------
 
-local stationParts = {}
-
 local function hasIngredients(player: Player, recipe): (boolean, string?)
 	local stock = pantry[player] or {}
 	for item, count in recipe.needs do
 		if item == "fish" then
 			if #(fishInventory[player] or {}) < count then
-				return false, string.format("You need %d fish. Try fishing off the dock.", count)
+				return false, string.format("You need %d fish. Try fishing off the Ribcage dock.", count)
 			end
 		elseif (stock[item] or 0) < count then
 			for _, p in Config.PANTRY do
@@ -556,24 +795,18 @@ local function consume(player: Player, recipe)
 	syncPantry(player)
 end
 
-local function anyoneCooking(): boolean
-	for _ in cooking do
-		return true
-	end
-	return false
-end
+local STATION_LABEL = { stove = "Cook on the stove", oven = "Bake in the oven", coffee = "Make coffee" }
+local STATION_NAME = { stove = "Stove", oven = "Oven", coffee = "Coffee machine" }
 
 local function setupCooking()
-	stationParts.stove = refs.stove
-	stationParts.oven = refs.oven
-	stationParts.coffee = refs.coffee
-	local labels = { stove = "Cook on the stove", oven = "Bake in the oven", coffee = "Make coffee" }
-	local names = { stove = "Stove", oven = "Oven", coffee = "Coffee machine" }
-	for station, part in stationParts do
-		local p = Build.prompt(part, labels[station], names[station], 0, 9)
-		p.Triggered:Connect(function(player)
-			remotes.OpenPanel:FireClient(player, "cook", station)
-		end)
+	for _, kitchen in Registry.kitchens do
+		for station, label in STATION_LABEL do
+			local p = Build.prompt(kitchen[station], label, STATION_NAME[station], 0, 9)
+			p.Triggered:Connect(function(player)
+				atKitchen[player] = kitchen
+				remotes.OpenPanel:FireClient(player, "cook", station)
+			end)
+		end
 	end
 
 	remotes.StartCooking.OnServerInvoke = function(player: Player, recipeId: any)
@@ -581,9 +814,10 @@ local function setupCooking()
 		if not recipe then
 			return false, "Unknown recipe."
 		end
+		local kitchen = atKitchen[player]
 		local hrp = rootPart(player)
-		local station = stationParts[recipe.station]
-		if not hrp or (hrp.Position - station.Position).Magnitude > 16 then
+		local station = kitchen and kitchen[recipe.station]
+		if not hrp or not station or (hrp.Position - station.Position).Magnitude > 16 then
 			return false, "Stand at the " .. recipe.station .. " to make that."
 		end
 		if cooking[player] then
@@ -595,23 +829,31 @@ local function setupCooking()
 		end
 		consume(player, recipe)
 		local token = math.random(1, 1e9)
-		cooking[player] = { recipe = recipe, token = token, started = os.clock() }
+		cooking[player] = { recipe = recipe, token = token, started = os.clock(), kitchen = kitchen }
 		if recipe.station ~= "coffee" then
-			refs.steam.Enabled = true
+			kitchen.cooking = (kitchen.cooking or 0) + 1
+			kitchen.steam.Enabled = true
 		end
 		return true, token
 	end
 
 	remotes.FinishCooking.OnServerInvoke = function(player: Player, token: any, scores: any)
 		local session = cooking[player]
-		cooking[player] = nil
-		if not anyoneCooking() then
-			refs.steam.Enabled = false
-		end
-		if not session or session.token ~= token or type(scores) ~= "table" then
+		if not session or session.token ~= token then
 			return nil
 		end
+		cooking[player] = nil
 		local recipe = session.recipe
+		local kitchen = session.kitchen
+		if recipe.station ~= "coffee" then
+			kitchen.cooking = math.max(0, (kitchen.cooking or 1) - 1)
+			if kitchen.cooking == 0 then
+				kitchen.steam.Enabled = false
+			end
+		end
+		if type(scores) ~= "table" then
+			scores = {}
+		end
 		local total = 0
 		for i = 1, #recipe.steps do
 			total += math.clamp(tonumber(scores[i]) or 0, 0, 1)
@@ -623,30 +865,24 @@ local function setupCooking()
 		end
 		local label = quality >= 0.9 and "Perfect" or quality >= 0.65 and "Delicious" or quality >= 0.35 and "Decent" or "Slightly burnt"
 		local mult = 0.55 + 0.65 * quality
-		for need, amount in recipe.effects do
-			addNeed(player, need, amount * mult)
-		end
+		discover(player, "firstmeal")
 		if recipe.makesTreats then
 			local profile = profiles[player]
 			profile.treats += recipe.makesTreats
 			syncTreats(player)
+			addDish(kitchen)
+			return { name = recipe.name, quality = label, treats = recipe.makesTreats }
 		end
 		if recipe.station == "coffee" then
 			completeChore(player, "coffee")
-		elseif not recipe.makesTreats then
-			completeChore(player, "cook")
 		end
-		if recipe.station ~= "coffee" then
-			dirtyDishes = math.min(Config.MAX_DIRTY_DISHES, dirtyDishes + (#recipe.steps >= 4 and 2 or 1))
-			applyDishes()
-		end
-		discover(player, "firstmeal")
-		return { name = recipe.name, quality = label }
+		giveFood(player, recipe.id, recipe.name, recipe.effects, label, mult, kitchen, true)
+		return { name = recipe.name, quality = label, food = true }
 	end
 end
 
 ----------------------------------------------------------------------------
--- Upgrades and pets (concierge tablet)
+-- Concierge: upgrades and pets
 ----------------------------------------------------------------------------
 
 local function setupConcierge()
@@ -702,7 +938,7 @@ local function setupConcierge()
 	local scope = Build.prompt(refs.telescope, "Look through telescope", "Telescope", 0, 10)
 	scope.Triggered:Connect(function(player)
 		if not ownsUpgrade(player, "Telescope") then
-			notify(player, "It's capped. Buy the Roof Telescope at the concierge tablet.", "warn")
+			notify(player, "It's capped. Buy the Roof Telescope at the concierge.", "warn")
 			return
 		end
 		remotes.Telescope:FireClient(player, refs.telescope.Position + Vector3.new(0, 4, 0))
@@ -736,6 +972,10 @@ local function setupFishing()
 	local cast = Build.prompt(refs.fishSpot, "Cast line", "Fishing spot", 0, 10)
 	cast.Triggered:Connect(function(player)
 		if fishing[player] then
+			return
+		end
+		if frozen then
+			notify(player, "The sea is frozen solid. Fish again after dawn.", "warn")
 			return
 		end
 		local token = math.random(1, 1e9)
@@ -867,7 +1107,7 @@ end
 local function whaleLoop()
 	while true do
 		task.wait(math.random(Config.WHALE_MIN_INTERVAL, Config.WHALE_MAX_INTERVAL))
-		if weather.id ~= "Blizzard" then
+		if weather.id ~= "Blizzard" and not frozen then
 			local angle = math.random() * math.pi * 2
 			local dist = 220 + math.random() * 320
 			local pos = Vector3.new(math.cos(angle) * dist, 0, math.sin(angle) * dist)
@@ -877,6 +1117,38 @@ local function whaleLoop()
 				discover(player, "whale")
 			end
 		end
+	end
+end
+
+----------------------------------------------------------------------------
+-- The freeze: at night the sea becomes a floor between the homes
+----------------------------------------------------------------------------
+
+local function setFrozen(state: boolean)
+	if frozen == state then
+		return
+	end
+	frozen = state
+	Workspace:SetAttribute("Frozen", state)
+	local ice = Registry.misc.seaIce
+	Lore.setFrozen(state)
+	if state then
+		-- Lift anyone swimming in the sea up onto the new ice.
+		for _, player in Players:GetPlayers() do
+			local hrp = rootPart(player)
+			if hrp and hrp.Position.Y < 3 and not Registry.locate(hrp.Position) then
+				player.Character:PivotTo(CFrame.new(hrp.Position.X, 4, hrp.Position.Z))
+			end
+		end
+		ice.CanCollide = true
+		ice.CanQuery = true
+		TweenService:Create(ice, TweenInfo.new(6), { Transparency = 0.12 }):Play()
+		notifyAll("The sea has frozen. Tonight you can walk between the homes.", "discovery")
+	else
+		ice.CanCollide = false
+		ice.CanQuery = false
+		TweenService:Create(ice, TweenInfo.new(4), { Transparency = 1 }):Play()
+		notifyAll("The ice cracks open with a sound like thunder. Boats and the ferry are running again.", "warn")
 	end
 end
 
@@ -913,7 +1185,7 @@ local function weatherLoop()
 			Mist = "Sea mist rolls in and swallows the ribs.",
 			Still = "The fog thins. The sea goes perfectly still.",
 			Snow = "It starts to snow over the Southern Ocean.",
-			Blizzard = "A blizzard is coming in. Best to be inside, near the fire.",
+			Blizzard = "A blizzard is coming in. Best to be inside, near a fire.",
 		}
 		notifyAll(lines[weather.id] or weather.name, weather.id == "Blizzard" and "warn" or "info")
 	end
@@ -922,8 +1194,10 @@ end
 local function newDay()
 	day += 1
 	Workspace:SetAttribute("Day", day)
-	setBedMessy(true)
-	for _, plant in refs.plants do
+	for _, bed in Registry.beds do
+		setBedMessy(bed, true)
+	end
+	for _, plant in Registry.plants do
 		setPlant(plant, false)
 	end
 	for _, player in Players:GetPlayers() do
@@ -934,7 +1208,7 @@ local function newDay()
 			player:SetAttribute("Chores", "")
 		end
 	end
-	notifyAll(string.format("Morning, day %d. The pantry has been restocked and the plants are thirsty.", day), "chore")
+	notifyAll(string.format("Morning, day %d. The pantries are restocked and the plants are thirsty.", day), "chore")
 end
 
 local function inBox(pos: Vector3, minV: Vector3, maxV: Vector3): boolean
@@ -943,8 +1217,9 @@ end
 
 local function rescue(player: Player)
 	setNeed(player, "Warmth", 45)
-	teleport(player, CFrame.new(refs.galleryCenter + Vector3.new(6, 4, -2)))
-	notify(player, "You got dangerously cold, and found your way back to the fire.", "warn")
+	local ribcageFire = Registry.fires[1]
+	teleport(player, homeSpawn(player) or CFrame.new(ribcageFire.core.Position + Vector3.new(-6, 3, 0)))
+	notify(player, "You got dangerously cold, and only just made it back inside.", "warn")
 end
 
 local function tickPlayer(player: Player)
@@ -955,26 +1230,27 @@ local function tickPlayer(player: Player)
 		return
 	end
 	local pos = hrp.Position
-	local room = Arch.roomAt(pos)
+	local place, interior = locationName(pos)
+	local inside = interior ~= nil
 	local swimming = humanoid:GetState() == Enum.HumanoidStateType.Swimming
 	local inPool = inBox(pos, refs.poolMin - Vector3.new(1, 2, 1), refs.poolMax + Vector3.new(1, 4, 1))
-	local onRoof = room == nil
+	local onRoof = not inside
 		and math.abs(pos.Z) < Arch.W / 2 + 2
 		and math.abs(pos.X) < Arch.A * 0.95
 		and pos.Y > Arch.yAt(pos.X) + Arch.T / 2 - 2
-	local inSea = room == nil and pos.Y < 3 and swimming
-	local fireDist = (pos - refs.fireplacePos).Magnitude
-	local nearFire = fireFuel > 0 and fireDist < Config.WARMTH.fireplaceRange
+	local inSea = not inside and pos.Y < 3 and swimming
+	local fire, fireDist = Registry.nearestFire(pos)
+	local nearFire = fire ~= nil and fire.fuel > 0 and fireDist < Config.WARMTH.fireplaceRange
 	local parka = player:GetAttribute("Parka") == true
 	local W = Config.WARMTH
 	local storm = weather.id == "Blizzard" and W.blizzardMultiplier or 1
 
 	local warmth = getNeed(player, "Warmth")
 	if nearFire then
-		warmth += W.fireplaceGain * (0.4 + 0.6 * fireFuel / 100)
+		warmth += W.fireplaceGain * (0.4 + 0.6 * fire.fuel / 100)
 	elseif inPool and swimming and ownsUpgrade(player, "HeatedPool") then
 		warmth += W.heatedPoolGain
-	elseif room then
+	elseif inside then
 		if warmth < W.indoorsCap then
 			warmth = math.min(W.indoorsCap, warmth + W.indoorsGain)
 		end
@@ -989,9 +1265,13 @@ local function tickPlayer(player: Player)
 
 	local hungerEmpty = getNeed(player, "Hunger") <= 0
 	local energyDelta = -Config.NEED_DECAY.Energy * (hungerEmpty and 2 or 1)
-	local seated = humanoid.SeatPart ~= nil
+	local seat = humanoid.SeatPart
+	local seated = seat ~= nil
 	if seated then
 		energyDelta = Config.SEAT_ENERGY_GAIN
+		if seat:IsA("VehicleSeat") then
+			discover(player, "boat")
+		end
 	end
 	addNeed(player, "Energy", energyDelta)
 	addNeed(player, "Hunger", -Config.NEED_DECAY.Hunger)
@@ -1001,8 +1281,7 @@ local function tickPlayer(player: Player)
 	if inPool and swimming then
 		fun = Config.POOL_FUN_GAIN
 	end
-	-- Reading in a seat near the fire.
-	local isReading = seated and player:GetAttribute("HasBook") == true and fireDist < 30
+	local isReading = seated and player:GetAttribute("HasBook") == true and fire ~= nil and fireDist < 30
 	player:SetAttribute("Reading", isReading)
 	if isReading then
 		fun = Config.READING_FUN_GAIN
@@ -1014,29 +1293,38 @@ local function tickPlayer(player: Player)
 	addNeed(player, "Fun", fun)
 
 	humanoid.WalkSpeed = getNeed(player, "Energy") < 10 and 10 or 16
-	player:SetAttribute("Location", room and room.name or (onRoof and "Top of the Spine" or (inSea and "In the Southern Ocean" or "Outside")))
+	local outside = frozen and pos.Y < 6 and "On the Frozen Sea" or "Outside"
+	player:SetAttribute("Location", place or (onRoof and "Top of the Spine" or (inSea and "In the Southern Ocean" or outside)))
 
 	if (pos - refs.dockCenter).Magnitude < 45 then
 		discover(player, "dock")
 	end
-	if room then
-		if room.id == "gallery" then
-			discover(player, "gallery")
-		elseif room.id == "lounge" then
-			discover(player, "glassfloor")
+	if interior then
+		if interior.home == "ribcage" then
+			local room = Arch.roomAt(pos)
+			if room and room.id == "gallery" then
+				discover(player, "gallery")
+			elseif room and room.id == "lounge" then
+				discover(player, "glassfloor")
+			end
+		elseif interior.home == "monolith" or interior.home == "vertebrae" or interior.home == "well" then
+			discover(player, interior.home)
 		end
-		if weather.id == "Blizzard" and pos.Z < -8 then
+		if weather.id == "Blizzard" then
 			discover(player, "blizzard")
 		end
 	end
 	if inPool and swimming then
 		discover(player, "pool")
 	end
-	if fireDist < 14 then
+	if fire and fire.home == "ribcage" and fireDist < 14 then
 		discover(player, "fireplace")
 	end
 	if onRoof then
 		discover(player, "roof")
+	end
+	if frozen and humanoid.FloorMaterial == Enum.Material.Glacier then
+		discover(player, "freeze")
 	end
 	local clock = Lighting.ClockTime
 	if clock > 5.6 and clock < 7.2 then
@@ -1051,13 +1339,19 @@ end
 local function secondLoop()
 	while true do
 		task.wait(1)
-		-- The fire slowly burns down.
-		if fireFuel > 0 then
-			fireFuel = math.max(0, fireFuel - 0.12)
-			if fireFuel == 0 then
-				notifyAll("The fireplace has burned down to ash. Someone add a log?", "warn")
+		for _, f in Registry.fires do
+			if f.fuel > 0 then
+				f.fuel = math.max(0, f.fuel - 0.12)
+				applyFire(f)
+				if f.fuel == 0 then
+					for _, player in Players:GetPlayers() do
+						local hrp = rootPart(player)
+						if hrp and (hrp.Position - f.core.Position).Magnitude < 80 then
+							notify(player, "The fire has burned down to ash. Add a log?", "warn")
+						end
+					end
+				end
 			end
-			applyFire()
 		end
 		for _, player in Players:GetPlayers() do
 			if profiles[player] then
@@ -1074,6 +1368,7 @@ local function dayCycle()
 	local rate = 24 / (Config.DAY_LENGTH_MINUTES * 60)
 	Lighting.ClockTime = Config.START_CLOCK_TIME
 	Workspace:SetAttribute("Day", day)
+	Workspace:SetAttribute("Frozen", false)
 	RunService.Heartbeat:Connect(function(dt)
 		local before = Lighting.ClockTime
 		local after = (before + dt * rate) % 24
@@ -1082,6 +1377,13 @@ local function dayCycle()
 		if before < 6 and after >= 6 then
 			newDay()
 		end
+		if before < FREEZE_AT - 0.6 and after >= FREEZE_AT - 0.6 then
+			notifyAll("It's getting bitterly cold. The sea is starting to freeze...", "info")
+		end
+		if before < THAW_AT - 0.6 and after >= THAW_AT - 0.6 and frozen then
+			notifyAll("The ice is groaning. Get off the sea before dawn!", "warn")
+		end
+		setFrozen(after >= FREEZE_AT or after < THAW_AT)
 	end)
 end
 
@@ -1091,6 +1393,9 @@ end
 
 local function onPlayerAdded(player: Player)
 	local profile = Data.load(player.UserId)
+	if profile.home ~= "" and not Registry.homes[profile.home] then
+		profile.home = ""
+	end
 	profiles[player] = profile
 	fishInventory[player] = {}
 	cooldowns[player] = {}
@@ -1121,16 +1426,30 @@ local function onPlayerAdded(player: Player)
 	player:SetAttribute("Discoveries", idList(profile.discoveries))
 	syncFish(player)
 	syncTreats(player)
+	syncNotes(player)
+	updateDeeds()
 
-	player.CharacterAdded:Connect(function()
+	local function onCharacter(character: Model)
 		task.wait(0.3)
+		if profiles[player] ~= profile then
+			return
+		end
+		local spawnAt = homeSpawn(player)
+		if spawnAt then
+			character:PivotTo(spawnAt)
+		end
 		if player:GetAttribute("Parka") then
-			setParka(player, true)
+			Gameplay.setParka(player, true)
 		end
 		if profile.activePet ~= "" then
 			Pets.setActive(player, profile.activePet)
 		end
-	end)
+		refreshTitle(player)
+	end
+	player.CharacterAdded:Connect(onCharacter)
+	if player.Character then
+		task.spawn(onCharacter, player.Character)
+	end
 end
 
 local function onPlayerRemoving(player: Player)
@@ -1143,15 +1462,25 @@ local function onPlayerRemoving(player: Player)
 	pantry[player] = nil
 	chores[player] = nil
 	fishing[player] = nil
-	cooking[player] = nil
 	cooldowns[player] = nil
 	reading[player] = nil
+	atKitchen[player] = nil
+	local session = cooking[player]
+	cooking[player] = nil
+	if session and session.recipe.station ~= "coffee" then
+		session.kitchen.cooking = math.max(0, (session.kitchen.cooking or 1) - 1)
+		if session.kitchen.cooking == 0 then
+			session.kitchen.steam.Enabled = false
+		end
+	end
+	updateDeeds()
 end
 
 function Gameplay.start(builtRefs)
 	refs = builtRefs
+	local ribcageFire = Registry.fires[1]
 	refs.fireLit = function()
-		return fireFuel > 0
+		return ribcageFire.fuel > 0
 	end
 
 	local old = ReplicatedStorage:FindFirstChild("Remotes")
@@ -1160,18 +1489,23 @@ function Gameplay.start(builtRefs)
 	end
 	remotes = Instance.new("Folder")
 	remotes.Name = "Remotes"
-	for _, name in { "Notify", "Fade", "Fishing", "OpenPanel", "Telescope", "Whale", "Music" } do
-		remote(name)
+	for _, name in { "Notify", "Fade", "Fishing", "OpenPanel", "Telescope", "Whale", "Music", "Organ", "Travel" } do
+		local r = Instance.new("RemoteEvent")
+		r.Name = name
+		r.Parent = remotes
 	end
 	for _, name in { "BuyUpgrade", "AdoptPet", "StartCooking", "FinishCooking" } do
-		remote(name, "RemoteFunction")
+		local r = Instance.new("RemoteFunction")
+		r.Name = name
+		r.Parent = remotes
 	end
 	remotes.Parent = ReplicatedStorage
 
 	buildWhaleTemplate()
+	setupHomes()
 	setupTravel()
-	setupFireAndLights()
-	setupHome()
+	setupFiresLampsDoors()
+	setupHomeLife()
 	setupCooking()
 	setupConcierge()
 	setupFishing()
@@ -1191,6 +1525,21 @@ function Gameplay.start(builtRefs)
 			return true
 		end,
 	})
+	Boats.start({ notify = notify })
+	Lore.start({
+		profile = function(player: Player)
+			return profiles[player]
+		end,
+		openPanel = function(player: Player, kind: string, arg: any)
+			remotes.OpenPanel:FireClient(player, kind, arg)
+		end,
+		syncNotes = syncNotes,
+		addCredits = addCredits,
+		refreshTitle = refreshTitle,
+		discover = discover,
+		notify = notify,
+		teleport = teleport,
+	}, remotes)
 
 	Players.PlayerAdded:Connect(onPlayerAdded)
 	Players.PlayerRemoving:Connect(onPlayerRemoving)

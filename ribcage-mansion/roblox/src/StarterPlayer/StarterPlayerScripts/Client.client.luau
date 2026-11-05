@@ -2,7 +2,10 @@
 -- fishing, lighting moods, weather, snow, breath, aurora, bobbing ice,
 -- whale breaches and the telescope.
 
+local CollectionService = game:GetService("CollectionService")
+local Debris = game:GetService("Debris")
 local HttpService = game:GetService("HttpService")
+local StarterGui = game:GetService("StarterGui")
 local Lighting = game:GetService("Lighting")
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -91,6 +94,11 @@ local function button(text: string, props: { [string]: any }, parent: Instance):
 	return b
 end
 
+-- Defined further down; declared here so earlier code can call them.
+local openNote: (string) -> ()
+local openFerry: () -> ()
+local togglePhotoMode: () -> ()
+
 ----------------------------------------------------------------------------
 -- Fade
 ----------------------------------------------------------------------------
@@ -103,8 +111,68 @@ local fade = new("Frame", {
 	ZIndex = 50,
 }, gui)
 
-local function doFade(hold: number)
+local rideLabel = new("TextLabel", {
+	AnchorPoint = Vector2.new(0.5, 0.5),
+	Position = UDim2.fromScale(0.5, 0.85),
+	Size = UDim2.new(0.8, 0, 0, 30),
+	BackgroundTransparency = 1,
+	Font = FONT,
+	TextSize = 18,
+	TextColor3 = Color3.fromRGB(236, 238, 242),
+	TextTransparency = 1,
+	Text = "",
+	ZIndex = 51,
+}, gui)
+
+local RIDE_TEXT = {
+	funicular_up = "The funicular climbs the inside of the spine...",
+	funicular_down = "Down through two hundred studs of concrete...",
+	lift_up = "The lift rises through the pylon...",
+	lift_down = "Down to the water...",
+	ferry = "The ferry noses through the floes...",
+}
+
+-- Short camera flights shown during some rides (from, look-at-from, to, look-at-to).
+local VERT = Vector3.new(-700, 0, -420)
+local RIDE_SHOTS = {
+	funicular_up = { Vector3.new(-380, 24, -170), Vector3.new(-280, 40, 0), Vector3.new(-230, 250, -190), Vector3.new(-100, 222, 0) },
+	funicular_down = { Vector3.new(-230, 250, -190), Vector3.new(-100, 222, 0), Vector3.new(-380, 24, -170), Vector3.new(-280, 40, 0) },
+	lift_up = { VERT + Vector3.new(-30, 8, -60), VERT + Vector3.new(12, 14, 0), VERT + Vector3.new(-40, 46, -70), VERT + Vector3.new(30, 36, 0) },
+	lift_down = { VERT + Vector3.new(-40, 46, -70), VERT + Vector3.new(30, 36, 0), VERT + Vector3.new(-30, 8, -60), VERT + Vector3.new(12, 14, 0) },
+}
+
+local function doFade(hold: number, ride: string?)
 	TweenService:Create(fade, TweenInfo.new(0.3), { BackgroundTransparency = 0 }):Play()
+	if ride and RIDE_TEXT[ride] then
+		rideLabel.Text = RIDE_TEXT[ride]
+		TweenService:Create(rideLabel, TweenInfo.new(0.4), { TextTransparency = 0 }):Play()
+		task.delay(hold, function()
+			TweenService:Create(rideLabel, TweenInfo.new(0.5), { TextTransparency = 1 }):Play()
+		end)
+	end
+	local shot = ride and RIDE_SHOTS[ride]
+	if shot then
+		task.spawn(function()
+			local cam = Workspace.CurrentCamera
+			task.wait(0.3)
+			cam.CameraType = Enum.CameraType.Scriptable
+			cam.CFrame = CFrame.lookAt(shot[1], shot[2])
+			TweenService:Create(fade, TweenInfo.new(0.3), { BackgroundTransparency = 1 }):Play()
+			local start = os.clock()
+			local duration = 2
+			while os.clock() - start < duration do
+				local u = (os.clock() - start) / duration
+				u = u * u * (3 - 2 * u)
+				cam.CFrame = CFrame.lookAt(shot[1]:Lerp(shot[3], u), shot[2]:Lerp(shot[4], u))
+				RunService.RenderStepped:Wait()
+			end
+			TweenService:Create(fade, TweenInfo.new(0.3), { BackgroundTransparency = 0 }):Play()
+			task.wait(0.45)
+			cam.CameraType = Enum.CameraType.Custom
+			TweenService:Create(fade, TweenInfo.new(0.6), { BackgroundTransparency = 1 }):Play()
+		end)
+		return
+	end
 	task.delay(0.3 + hold, function()
 		TweenService:Create(fade, TweenInfo.new(0.6), { BackgroundTransparency = 1 }):Play()
 	end)
@@ -124,7 +192,10 @@ local toastHolder = new("Frame", {
 new("UIListLayout", { Padding = UDim.new(0, 8), HorizontalAlignment = Enum.HorizontalAlignment.Right }, toastHolder)
 
 local function toast(text: string, kind: string?)
-	local color = kind == "discovery" and ACCENT or (kind == "warn" and Color3.fromRGB(255, 140, 120) or INK)
+	local color = kind == "discovery" and ACCENT
+		or (kind == "warn" and Color3.fromRGB(255, 140, 120))
+		or (kind == "chore" and Color3.fromRGB(200, 222, 190))
+		or INK
 	local t = panel({ Size = UDim2.new(1, 0, 0, 0), AutomaticSize = Enum.AutomaticSize.Y }, toastHolder)
 	new("UIPadding", {
 		PaddingTop = UDim.new(0, 10),
@@ -155,16 +226,17 @@ remotes.Notify.OnClientEvent:Connect(toast)
 local top = panel({
 	AnchorPoint = Vector2.new(0.5, 0),
 	Position = UDim2.new(0.5, 0, 0, 12),
-	Size = UDim2.new(0, 420, 0, 42),
+	Size = UDim2.new(0, 560, 0, 42),
 })
 local placeLabel = label("", {
-	Size = UDim2.new(0.62, -12, 1, 0),
+	Size = UDim2.new(0.72, -12, 1, 0),
 	Position = UDim2.new(0, 14, 0, 0),
 	Font = FONT_BOLD,
+	TextTruncate = Enum.TextTruncate.AtEnd,
 }, top)
 local creditLabel = label("", {
-	Size = UDim2.new(0.38, -14, 1, 0),
-	Position = UDim2.new(0.62, 0, 0, 0),
+	Size = UDim2.new(0.28, -14, 1, 0),
+	Position = UDim2.new(0.72, 0, 0, 0),
 	TextXAlignment = Enum.TextXAlignment.Right,
 	TextColor3 = ACCENT,
 	Font = FONT_BOLD,
@@ -349,6 +421,45 @@ local function refreshJournal()
 		label("+" .. d.reward, { Position = UDim2.new(1, -70, 0, 4), Size = UDim2.new(0, 58, 0, 20), TextXAlignment = Enum.TextXAlignment.Right, TextSize = 14, TextColor3 = MUTED }, r)
 	end
 	journalTitle.Text = string.format("Journal  ·  %d / %d discovered", count, #Config.DISCOVERIES)
+
+	-- The architect's notes.
+	local notesFound = {}
+	local noteCount = 0
+	for id in string.gmatch(player:GetAttribute("Notes") or "", "[^,]+") do
+		notesFound[id] = true
+		if id ~= "final" then
+			noteCount += 1
+		end
+	end
+	label(string.format("The architect's notes  ·  %d / %d", noteCount, #Config.NOTES - 1), {
+		Size = UDim2.new(1, -8, 0, 30),
+		Font = FONT_BOLD,
+		TextColor3 = ACCENT,
+		TextSize = 15,
+	}, journalList)
+	for _, n in Config.NOTES do
+		if n.id ~= "final" or notesFound.final then
+			local has = notesFound[n.id] == true
+			local r = row(journalList, 38)
+			label((has and "✓  " or "?  ") .. (has and n.title or ("Somewhere in " .. n.where)), {
+				Position = UDim2.new(0, 12, 0, 0),
+				Size = UDim2.new(1, -110, 1, 0),
+				Font = has and FONT_BOLD or FONT,
+				TextColor3 = has and INK or MUTED,
+			}, r)
+			if has then
+				local readButton = button("Read", {
+					AnchorPoint = Vector2.new(1, 0.5),
+					Position = UDim2.new(1, -8, 0.5, 0),
+					Size = UDim2.new(0, 80, 0, 26),
+					TextSize = 14,
+				}, r)
+				readButton.Activated:Connect(function()
+					openNote(n.id)
+				end)
+			end
+		end
+	end
 end
 
 local function toggleJournal()
@@ -611,7 +722,11 @@ local function cook(recipe)
 	cooking = false
 	local result = remotes.FinishCooking:InvokeServer(tokenOrMsg, scores)
 	if result then
-		toast(string.format("%s %s.", result.quality, result.name), "chore")
+		if result.treats then
+			toast(string.format("%s %s: +%d pet treats.", result.quality, result.name, result.treats), "chore")
+		else
+			toast(string.format("%s %s. It's in your hands: click to eat, and sit at a table for a bonus.", result.quality, result.name), "chore")
+		end
 	end
 end
 
@@ -652,6 +767,72 @@ local function openCook(station: string)
 	cookPanel.Visible = true
 end
 
+----------------------------------------------------------------------------
+-- Ferry map
+----------------------------------------------------------------------------
+
+local ferryPanel, ferryList = listPanel("Ferry", 520, 470)
+
+openFerry = function()
+	clearRows(ferryList)
+	label(Workspace:GetAttribute("Frozen") and "The sea is frozen. The ferry won't run until dawn, but you can walk." or "Where to? The ferry runs between all four docks.", {
+		Size = UDim2.new(1, -8, 0, 30),
+		TextSize = 13,
+		TextWrapped = true,
+		TextColor3 = MUTED,
+	}, ferryList)
+	local myHome = player:GetAttribute("Home")
+	for _, home in Config.HOMES do
+		local mine = myHome == home.id
+		itemRow(ferryList, home.name .. (mine and "  ·  your home" or ""), home.blurb, mine and "Go home" or "Sail here", mine and BUY or Color3.fromRGB(52, 60, 72), function()
+			remotes.Travel:FireServer(home.id, mine)
+			ferryPanel.Visible = false
+		end)
+	end
+	ferryPanel.Visible = true
+end
+
+----------------------------------------------------------------------------
+-- Reading a note
+----------------------------------------------------------------------------
+
+local notePanel = panel({
+	AnchorPoint = Vector2.new(0.5, 0.5),
+	Position = UDim2.fromScale(0.5, 0.5),
+	Size = UDim2.new(0, 440, 0, 380),
+	Visible = false,
+	ZIndex = 20,
+	BackgroundColor3 = Color3.fromRGB(232, 224, 206),
+	BackgroundTransparency = 0.02,
+})
+local noteTitle = label("", { Position = UDim2.new(0, 28, 0, 22), Size = UDim2.new(1, -90, 0, 26), Font = Enum.Font.Garamond, TextSize = 26, TextColor3 = Color3.fromRGB(40, 32, 24), ZIndex = 21 }, notePanel)
+local noteBody = label("", {
+	Position = UDim2.new(0, 28, 0, 62),
+	Size = UDim2.new(1, -56, 1, -84),
+	Font = Enum.Font.Garamond,
+	TextSize = 20,
+	TextWrapped = true,
+	TextYAlignment = Enum.TextYAlignment.Top,
+	TextColor3 = Color3.fromRGB(52, 42, 32),
+	ZIndex = 21,
+}, notePanel)
+local noteClose = button("X", { Position = UDim2.new(1, -46, 0, 14), Size = UDim2.new(0, 32, 0, 32), ZIndex = 21 }, notePanel)
+noteClose.Activated:Connect(function()
+	notePanel.Visible = false
+end)
+
+openNote = function(id: string)
+	for _, n in Config.NOTES do
+		if n.id == id then
+			noteTitle.Text = n.title
+			noteBody.Text = n.text
+			notePanel.Visible = true
+			journal.Visible = false
+			return
+		end
+	end
+end
+
 remotes.OpenPanel.OnClientEvent:Connect(function(which, arg)
 	if which == "shop" then
 		refreshShop()
@@ -661,6 +842,10 @@ remotes.OpenPanel.OnClientEvent:Connect(function(which, arg)
 		pantryPanel.Visible = true
 	elseif which == "cook" then
 		openCook(arg)
+	elseif which == "ferry" then
+		openFerry()
+	elseif which == "note" then
+		openNote(arg)
 	end
 end)
 
@@ -775,11 +960,15 @@ UserInputService.InputBegan:Connect(function(input, processed)
 		todayCollapsed = not todayCollapsed
 	elseif input.KeyCode == Enum.KeyCode.J then
 		toggleJournal()
+	elseif input.KeyCode == Enum.KeyCode.P then
+		togglePhotoMode()
 	elseif input.KeyCode == Enum.KeyCode.Escape then
 		shop.Visible = false
 		journal.Visible = false
 		pantryPanel.Visible = false
 		cookPanel.Visible = false
+		ferryPanel.Visible = false
+		notePanel.Visible = false
 	end
 end)
 
@@ -808,10 +997,10 @@ do
 		ZIndex = 41,
 	}, card)
 	tag.Position = UDim2.new(0.5, 0, 0.42, 52)
-	local help = label("Ride the funicular in the glass booth up to the mansion.  Stay warm.  Press J for your journal.", {
+	local help = label("Claim a home at its deed plinth.  Ring a dock bell to travel.  When night comes, the sea freezes.\nJ  journal   ·   T  today's routine   ·   P  photo mode", {
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		Position = UDim2.new(0.5, 0, 0.42, 100),
-		Size = UDim2.new(0.9, 0, 0, 24),
+		Size = UDim2.new(0.9, 0, 0, 44),
 		TextXAlignment = Enum.TextXAlignment.Center,
 		TextSize = 16,
 		TextColor3 = ACCENT,
@@ -1169,6 +1358,176 @@ local function breathe()
 	end
 	if breathEmitter then
 		breathEmitter:Emit(4)
+	end
+end
+
+----------------------------------------------------------------------------
+-- The rib organ in the glass-floor lounge
+----------------------------------------------------------------------------
+
+local ORGAN_RATIOS = { 1, 9 / 8, 5 / 4, 3 / 2, 5 / 3, 2, 9 / 4 }
+local organSequence: { number } = {}
+local ribModels: { [number]: Model } = {}
+local organPart: BasePart? = nil
+
+local function collectRibs()
+	table.clear(ribModels)
+	local mansion = world:FindFirstChild("Mansion")
+	local ribs = mansion and mansion:FindFirstChild("Ribs")
+	if not ribs then
+		return
+	end
+	for _, m in ribs:GetChildren() do
+		local index = m:GetAttribute("RibIndex")
+		if m:IsA("Model") and type(index) == "number" then
+			ribModels[index] = m
+		end
+	end
+end
+
+local function glowRib(index: number, duration: number)
+	local m = ribModels[index]
+	if not m then
+		return
+	end
+	for _, p in m:GetDescendants() do
+		if p:IsA("BasePart") and p:GetAttribute("OrigColor") == nil then
+			p:SetAttribute("OrigColor", p.Color)
+			p:SetAttribute("OrigMaterial", p.Material.Name)
+			p.Material = Enum.Material.Neon
+			p.Color = Color3.fromRGB(255, 196, 130)
+			task.delay(duration, function()
+				local c = p:GetAttribute("OrigColor")
+				local mat = p:GetAttribute("OrigMaterial")
+				if typeof(c) == "Color3" then
+					p.Color = c
+				end
+				if type(mat) == "string" then
+					p.Material = (Enum.Material :: any)[mat]
+				end
+				p:SetAttribute("OrigColor", nil)
+				p:SetAttribute("OrigMaterial", nil)
+			end)
+		end
+	end
+end
+
+local function playKey(k: number)
+	if next(ribModels) == nil then
+		collectRibs()
+	end
+	local sound = Instance.new("Sound")
+	sound.SoundId = "rbxasset://sounds/electronicpingshort.wav"
+	sound.PlaybackSpeed = 0.55 * ORGAN_RATIOS[k]
+	sound.Volume = 0.7
+	sound.Parent = organPart or Workspace
+	sound:Play()
+	Debris:AddItem(sound, 3)
+	-- Each key lights the ribs it was tuned to.
+	local centre = math.floor((k - 1) * (Arch.RIB_COUNT - 1) / 6 + 1.5)
+	for i = centre - 1, centre + 1 do
+		glowRib(i, 0.9)
+	end
+	table.insert(organSequence, k)
+	while #organSequence > #Config.MELODY do
+		table.remove(organSequence, 1)
+	end
+	local match = #organSequence == #Config.MELODY
+	for i, key in Config.MELODY do
+		if organSequence[i] ~= key then
+			match = false
+		end
+	end
+	if match then
+		remotes.Organ:FireServer(table.clone(organSequence))
+		table.clear(organSequence)
+	end
+end
+
+remotes.Organ.OnClientEvent:Connect(function(what)
+	if what ~= "solved" then
+		return
+	end
+	if next(ribModels) == nil then
+		collectRibs()
+	end
+	for i = 1, Arch.RIB_COUNT do
+		task.delay(i * 0.08, function()
+			glowRib(i, 2.5)
+		end)
+	end
+end)
+
+task.spawn(function()
+	local part
+	repeat
+		part = CollectionService:GetTagged("RibOrgan")[1]
+		if not part then
+			task.wait(1)
+		end
+	until part
+	organPart = part
+	collectRibs()
+	local sg = new("SurfaceGui", {
+		Name = "RibOrganGui",
+		Adornee = part,
+		Face = Enum.NormalId.Top,
+		SizingMode = Enum.SurfaceGuiSizingMode.PixelsPerStud,
+		PixelsPerStud = 60,
+		MaxDistance = 24,
+		LightInfluence = 0,
+		ResetOnSpawn = false,
+	}, player:WaitForChild("PlayerGui"))
+	for k = 1, 7 do
+		local key = button(tostring(k), {
+			Position = UDim2.new((k - 1) / 7, 4, 0, 8),
+			Size = UDim2.new(1 / 7, -8, 1, -16),
+			BackgroundColor3 = Color3.fromRGB(176, 140, 82),
+			TextColor3 = Color3.fromRGB(40, 30, 16),
+			TextSize = 34,
+		}, sg)
+		key.Activated:Connect(function()
+			playKey(k)
+		end)
+	end
+end)
+
+----------------------------------------------------------------------------
+-- Photo mode (P): hides the HUD, adds letterbox bars and depth of field
+----------------------------------------------------------------------------
+
+local photoGui = new("ScreenGui", { Name = "PhotoMode", Enabled = false, IgnoreGuiInset = true, ResetOnSpawn = false, DisplayOrder = 10 }, player:WaitForChild("PlayerGui"))
+new("Frame", { Size = UDim2.new(1, 0, 0.09, 0), BackgroundColor3 = Color3.new(0, 0, 0), BorderSizePixel = 0 }, photoGui)
+new("Frame", { AnchorPoint = Vector2.new(0, 1), Position = UDim2.fromScale(0, 1), Size = UDim2.new(1, 0, 0.09, 0), BackgroundColor3 = Color3.new(0, 0, 0), BorderSizePixel = 0 }, photoGui)
+local photoHint = new("TextLabel", {
+	AnchorPoint = Vector2.new(0.5, 1),
+	Position = UDim2.new(0.5, 0, 1, -8),
+	Size = UDim2.new(0, 300, 0, 20),
+	BackgroundTransparency = 1,
+	Text = "PHOTO MODE  ·  P to exit",
+	Font = FONT,
+	TextSize = 13,
+	TextColor3 = MUTED,
+}, photoGui)
+local photoOn = false
+local dof: DepthOfFieldEffect? = nil
+
+togglePhotoMode = function()
+	photoOn = not photoOn
+	gui.Enabled = not photoOn
+	photoGui.Enabled = photoOn
+	pcall(function()
+		StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.All, not photoOn)
+	end)
+	if photoOn then
+		dof = new("DepthOfFieldEffect", { FarIntensity = 0.35, FocusDistance = 30, InFocusRadius = 40, NearIntensity = 0.15 }, Lighting)
+		photoHint.TextTransparency = 0
+		task.delay(2.5, function()
+			TweenService:Create(photoHint, TweenInfo.new(1), { TextTransparency = 1 }):Play()
+		end)
+	elseif dof then
+		dof:Destroy()
+		dof = nil
 	end
 end
 

@@ -47,6 +47,14 @@
      "className": "Folder",
      "children": [
       {
+       "name": "Boats",
+       "className": "ModuleScript",
+       "filePaths": [
+        "src/ServerScriptService/Modules/Boats.luau"
+       ],
+       "children": []
+      },
+      {
        "name": "Build",
        "className": "ModuleScript",
        "filePaths": [
@@ -71,10 +79,64 @@
        "children": []
       },
       {
+       "name": "Food",
+       "className": "ModuleScript",
+       "filePaths": [
+        "src/ServerScriptService/Modules/Food.luau"
+       ],
+       "children": []
+      },
+      {
+       "name": "Furnish",
+       "className": "ModuleScript",
+       "filePaths": [
+        "src/ServerScriptService/Modules/Furnish.luau"
+       ],
+       "children": []
+      },
+      {
        "name": "Gameplay",
        "className": "ModuleScript",
        "filePaths": [
         "src/ServerScriptService/Modules/Gameplay.luau"
+       ],
+       "children": []
+      },
+      {
+       "name": "Homes",
+       "className": "Folder",
+       "children": [
+        {
+         "name": "Monolith",
+         "className": "ModuleScript",
+         "filePaths": [
+          "src/ServerScriptService/Modules/Homes/Monolith.luau"
+         ],
+         "children": []
+        },
+        {
+         "name": "Vertebrae",
+         "className": "ModuleScript",
+         "filePaths": [
+          "src/ServerScriptService/Modules/Homes/Vertebrae.luau"
+         ],
+         "children": []
+        },
+        {
+         "name": "Well",
+         "className": "ModuleScript",
+         "filePaths": [
+          "src/ServerScriptService/Modules/Homes/Well.luau"
+         ],
+         "children": []
+        }
+       ]
+      },
+      {
+       "name": "Lore",
+       "className": "ModuleScript",
+       "filePaths": [
+        "src/ServerScriptService/Modules/Lore.luau"
        ],
        "children": []
       },
@@ -91,6 +153,14 @@
        "className": "ModuleScript",
        "filePaths": [
         "src/ServerScriptService/Modules/Pets.luau"
+       ],
+       "children": []
+      },
+      {
+       "name": "Registry",
+       "className": "ModuleScript",
+       "filePaths": [
+        "src/ServerScriptService/Modules/Registry.luau"
        ],
        "children": []
       },

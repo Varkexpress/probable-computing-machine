@@ -1,11 +1,14 @@
 --!nonstrict
 -- The world around the mansion: the Southern Ocean, the rock the west leg
--- stands on, the dock, ice floes, lighting and fog.
+-- stands on, the dock, ice floes, the night sea ice, lighting and fog.
 
 local Lighting = game:GetService("Lighting")
+local PhysicsService = game:GetService("PhysicsService")
 local Workspace = game:GetService("Workspace")
 
 local Build = require(script.Parent.Build)
+local Furnish = require(script.Parent.Furnish)
+local Registry = require(script.Parent.Registry)
 
 local World = {}
 
@@ -232,15 +235,50 @@ local function setupDock(root: Instance)
 	return refs
 end
 
+-- Areas kept clear of ice floes: the Ribcage legs, island and pier, the
+-- sealed hatch under the arch, and the three other homes with their piers.
+local CLEAR_ZONES = {
+	{ -350, -190, -150, 80 }, -- west leg, island, pier
+	{ 210, 350, -60, 60 }, -- east leg
+	{ -45, 45, -105, -15 }, -- the hatch under the arch
+	{ -45, 125, 570, 775 }, -- the Monolith
+	{ -725, -505, -515, -385 }, -- the Vertebrae
+	{ 555, 745, -615, -385 }, -- the Well
+}
+
 local function floeOverlapsArch(x: number, z: number): boolean
-	-- Keep the legs, the island and the pier clear.
-	if math.abs(z) < 60 and math.abs(math.abs(x) - 280) < 70 then
-		return true
-	end
-	if x < -190 and x > -340 and z > -150 and z < 80 then
-		return true
+	for _, r in CLEAR_ZONES do
+		if x >= r[1] and x <= r[2] and z >= r[3] and z <= r[4] then
+			return true
+		end
 	end
 	return false
+end
+
+-- The night ice: an invisible sheet over the whole sea that becomes solid
+-- (and visible) when the sea freezes. Boats never collide with it.
+local function setupSeaIce(root: Instance)
+	pcall(function()
+		PhysicsService:RegisterCollisionGroup("Boats")
+		PhysicsService:RegisterCollisionGroup("SeaIce")
+	end)
+	PhysicsService:CollisionGroupSetCollidable("Boats", "SeaIce", false)
+	local ice = Build.part(root, {
+		Name = "SeaIce",
+		Size = Vector3.new(2048, 0.8, 2048),
+		CFrame = CFrame.new(0, 0, 0),
+		Material = Enum.Material.Glacier,
+		Color = Color3.fromRGB(206, 222, 236),
+		Reflectance = 0.08,
+		Transparency = 1,
+		CanCollide = false,
+		CanQuery = false,
+		CanTouch = false,
+		CastShadow = false,
+	})
+	ice.CollisionGroup = "SeaIce"
+	Registry.misc.seaIce = ice
+	return ice
 end
 
 local function setupFloes(root: Instance)
@@ -287,6 +325,9 @@ function World.build(root: Instance)
 	setupIsland(root)
 	local refs = setupDock(root)
 	refs.floes = setupFloes(root)
+	refs.seaIce = setupSeaIce(root)
+	-- Ferry bell and boat at the Ribcage pier.
+	Furnish.bell(Build.folder(root, "Dock"), Vector3.new(-252, 8, -110), "ribcage", CFrame.new(-236, 1.2, -100))
 	return refs
 end
 
