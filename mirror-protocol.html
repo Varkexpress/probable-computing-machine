@@ -1071,6 +1071,11 @@ function scoreTag(s){return s>=.999?'<span class="chip done">Correct · 1</span>
 function prepHome(){clear3D();hudCh('Study hall');focusCam(38,.7);const b=G.prep.best,b2=G.prep.best2;
  const modCards=(L)=>L.map((m,i)=>`<button class="card" type="button" data-m="${m.id}"><span class="num">${i+1}</span><span class="nm"><b>${m.n}</b><span>${m.t.length} problem type${m.t.length>1?'s':''}</span></span><span class="chip ${G.prep.mods[m.id]?'done':''}">${G.prep.mods[m.id]?'Practised':'Open'}</span></button>`).join('');
  setPanel(`<div class="eyebrow">Study hall</div><h2>Practice tests, quizzes, modules</h2><p class="muted">Every problem gets new numbers each time.</p>
+ <h3>Proof toolbox · postulates, theorems, definitions, properties</h3><p class="muted">Every proof tool from Chapters 1–5 in one place: look them up, flip flashcards, and drill identifying, defining, classifying, and using them.</p>
+ <div class="cards"><button class="card" type="button" id="pTools"><span class="num">📖</span><span class="nm"><b>Toolbox reference</b><span>All tools with statements and an example use. Search and filter by kind.</span></span><span class="chip go">Open</span></button>
+ <button class="card" type="button" id="pFlash"><span class="num">⇆</span><span class="nm"><b>Flashcards</b><span>Statement on the front, name and kind on the back.</span></span><span class="chip go">Start</span></button>
+ <button class="card" type="button" id="pToolT"><span class="num">20</span><span class="nm"><b>Toolbox test</b><span>Name it, state it, classify it, pick the reason for a step, and converses.</span></span><span class="chip ${G.prep.tools!=null?'done':'go'}">${G.prep.tools!=null?'Best '+G.prep.tools+'/20':'Start'}</span></button></div>
+ <div class="cards">${modCards(MODS6)}</div>
  <h3>Set 1 · Chapter 4 transformations</h3>
  <div class="cards"><button class="card" type="button" id="pTest"><span class="num">20</span><span class="nm"><b>Practice test</b><span>One of each Chapter 4 review problem type, scored with partial credit. Results and solutions at the end.</span></span><span class="chip ${b!==null?'done':'go'}">${b!==null?'Best '+b+'/20':'Start'}</span></button>
  <button class="card" type="button" id="pQuiz"><span class="num">8</span><span class="nm"><b>Quick quiz</b><span>Eight mixed transformation problems with instant feedback and steps.</span></span><span class="chip go">Start</span></button></div>
@@ -1094,11 +1099,11 @@ function prepHome(){clear3D();hudCh('Study hall');focusCam(38,.7);const b=G.prep
  <p class="muted">Overall quiz accuracy: ${G.prep.quiz.total?Math.round(G.prep.quiz.right/G.prep.quiz.total*100)+'% over '+G.prep.quiz.total+' questions':'no quizzes yet'}.</p>
  <div class="row"><button class="btn ghost sm" id="bk" type="button">Case board</button></div>`,'wide tall');
  $('#pTest').onclick=()=>startTest(TEST_ORDER,'best','Practice test · transformations');$('#pQuiz').onclick=()=>startQuiz(shuffle(TEST_ORDER).slice(0,8),'Quick quiz',null,TEST_ORDER);
- $('#pAMC').onclick=amcContest;$('#pAMCq').onclick=()=>startQuiz(shuffle(TYPES4.map(t=>t.id)).slice(0,10),'AMC drill',null,TYPES4.map(t=>t.id));$('#pWalk').onclick=()=>startTest(WALK_ORDER,'walk','Chapter 5 test · new numbers');$('#pTest3b').onclick=()=>startTest(TEST3B_ORDER,'best3b','Proof exam · Chapter 5');$('#pTest3').onclick=()=>startTest(TEST3_ORDER,'best3','Practice test · congruent triangles');$('#pQuiz3').onclick=()=>startQuiz(shuffle(['p12','p18','p19','p27','p20','p21','p23','p13']).slice(0,8),'Proof drill',null,['p12','p13','p17','p10','p18','p19','p20','p21','p22','p23','p27']);
+ $('#pAMC').onclick=amcContest;$('#pAMCq').onclick=()=>startQuiz(shuffle(TYPES4.map(t=>t.id)).slice(0,10),'AMC drill',null,TYPES4.map(t=>t.id));$('#pWalk').onclick=()=>startTest(WALK_ORDER,'walk','Chapter 5 test · new numbers');$('#pTools').onclick=toolboxView;$('#pFlash').onclick=toolFlash;$('#pToolT').onclick=()=>startTest(TOOLS_ORDER(),'tools','Toolbox test');$('#pTest3b').onclick=()=>startTest(TEST3B_ORDER,'best3b','Proof exam · Chapter 5');$('#pTest3').onclick=()=>startTest(TEST3_ORDER,'best3','Practice test · congruent triangles');$('#pQuiz3').onclick=()=>startQuiz(shuffle(['p12','p18','p19','p27','p20','p21','p23','p13']).slice(0,8),'Proof drill',null,['p12','p13','p17','p10','p18','p19','p20','p21','p22','p23','p27']);
  $('#pTest2').onclick=()=>startTest(TEST2_ORDER,'best2','Practice test · coordinate plane');$('#pQuiz2').onclick=()=>startQuiz(shuffle(TEST2_ORDER).slice(0,8),'Coordinate quiz',null,TEST2_ORDER);
  UI.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>moduleView(MBYID[b.dataset.m]));$('#bk').onclick=board}
 function moduleView(m){clear3D();hudCh('Module: '+m.n);
- const ML=MODS.includes(m)?MODS:MODS2.includes(m)?MODS2:MODS3.includes(m)?MODS3:MODS5.includes(m)?MODS5:MODS4;setPanel(`<div class="eyebrow">${ML===MODS?'Set 1':ML===MODS2?'Set 2':ML===MODS3?'Set 3':ML===MODS5?'Chapter 5 test walkthrough':'Set 4 · AMC 10'} · module ${ML.indexOf(m)+1} of ${ML.length}</div><h2>${m.n}</h2>${m.body}
+ const ML=MODS.includes(m)?MODS:MODS2.includes(m)?MODS2:MODS3.includes(m)?MODS3:MODS5.includes(m)?MODS5:MODS6.includes(m)?MODS6:MODS4;setPanel(`<div class="eyebrow">${ML===MODS?'Set 1':ML===MODS2?'Set 2':ML===MODS3?'Set 3':ML===MODS5?'Chapter 5 test walkthrough':ML===MODS6?'Proof toolbox':'Set 4 · AMC 10'} · module ${ML.indexOf(m)+1} of ${ML.length}</div><h2>${m.n}</h2>${m.body}
  <div class="row"><button class="btn" id="ex" type="button">See a stepped-out example</button><button class="btn ghost" id="pr" type="button">Practice this skill (5 problems)</button></div><div id="exBox" class="col"></div>
  <div class="row"><button class="btn ghost sm" id="bk" type="button">Study hall</button></div>`,'wide tall');
  $('#bk').onclick=prepHome;$('#pr').onclick=()=>startQuiz(Array.from({length:5},(_,i)=>m.t[i%m.t.length]),m.n,m);
@@ -1639,6 +1644,112 @@ const WALK=[['z1','1. Classify △ABC by its sides and angles','p1','Look at the
 const MODS5=WALK.map(([id,n,tid,how])=>({id,n,t:tid==='w3'?['w3','w4']:tid==='w6'?['w6','w8']:tid==='w10'?['w10','p8','p9']:tid==='p10'?['p10']:[tid],body:`<h3>How to do it</h3><p>${how}</p><p class="muted">Use “See a stepped-out example” for a full worked problem with a diagram, then practise five more.</p>`}));
 MODS5.forEach(m=>MBYID[m.id]=m);
 const WALK_ORDER=['p1','w2','w3','w4','w5','w6','w7','w8','p9','w10','w11','p10','w13','w14','w15','w16','p10','w18','w19','w20'];
+
+/* ===================== PROOF TOOLBOX: every definition, property, postulate, theorem so far ===================== */
+if(G.prep.tools===undefined)G.prep.tools=null;
+const TOOLS=[
+ /* properties of equality */
+ {n:'Addition Property of Equality',k:'Property',s:'If a = b, then a + c = b + c.',u:'From x − 4 = 10, conclude x = 14.'},
+ {n:'Subtraction Property of Equality',k:'Property',s:'If a = b, then a − c = b − c.',u:'From m∠1 + m∠2 = m∠1 + m∠3, conclude m∠2 = m∠3.'},
+ {n:'Multiplication Property of Equality',k:'Property',s:'If a = b, then a · c = b · c.',u:'From x/3 = 7, conclude x = 21.'},
+ {n:'Division Property of Equality',k:'Property',s:'If a = b and c ≠ 0, then a ÷ c = b ÷ c.',u:'From 2x = 18, conclude x = 9.'},
+ {n:'Substitution Property of Equality',k:'Property',s:'If a = b, then a can be substituted for b in any equation or expression.',u:'From AB = 5 and AB + BC = 12, conclude 5 + BC = 12.'},
+ {n:'Distributive Property',k:'Property',s:'a(b + c) = ab + ac.',u:'From 3(x + 2) = 21, conclude 3x + 6 = 21.'},
+ {n:'Reflexive Property of Equality',k:'Property',s:'For any real number a, a = a.',u:'m∠A = m∠A'},
+ {n:'Symmetric Property of Equality',k:'Property',s:'If a = b, then b = a.',u:'From AB = CD, conclude CD = AB.'},
+ {n:'Transitive Property of Equality',k:'Property',s:'If a = b and b = c, then a = c.',u:'From m∠1 = m∠2 and m∠2 = m∠3, conclude m∠1 = m∠3.'},
+ /* properties of congruence */
+ {n:'Reflexive Property of Congruence',k:'Property',s:'A segment, angle, or figure is congruent to itself: AB ≅ AB, ∠A ≅ ∠A.',u:'In two triangles that share side BD, conclude BD ≅ BD.'},
+ {n:'Symmetric Property of Congruence',k:'Property',s:'If AB ≅ CD, then CD ≅ AB (also for angles and triangles).',u:'From △ABC ≅ △DEF, conclude △DEF ≅ △ABC.'},
+ {n:'Transitive Property of Congruence',k:'Property',s:'If AB ≅ CD and CD ≅ EF, then AB ≅ EF (also for angles and triangles).',u:'From ∠1 ≅ ∠2 and ∠2 ≅ ∠3, conclude ∠1 ≅ ∠3.'},
+ /* definitions */
+ {n:'Definition of congruent segments',k:'Definition',s:'Segments are congruent if and only if they have the same length.',u:'From AB ≅ CD, conclude AB = CD.'},
+ {n:'Definition of congruent angles',k:'Definition',s:'Angles are congruent if and only if they have the same measure.',u:'From m∠A = m∠B, conclude ∠A ≅ ∠B.'},
+ {n:'Definition of midpoint',k:'Definition',s:'A midpoint is the point that divides a segment into two congruent segments.',u:'From M is the midpoint of AB, conclude AM ≅ MB.'},
+ {n:'Definition of segment bisector',k:'Definition',s:'A segment bisector is a point, ray, line, segment, or plane that intersects a segment at its midpoint.',u:'From line ℓ bisects AB at M, conclude AM ≅ MB.'},
+ {n:'Definition of angle bisector',k:'Definition',s:'An angle bisector is a ray that divides an angle into two congruent adjacent angles.',u:'From BD bisects ∠ABC, conclude ∠ABD ≅ ∠DBC.'},
+ {n:'Definition of perpendicular lines',k:'Definition',s:'Perpendicular lines intersect to form a right angle.',u:'From AB ⟂ CD, conclude ∠ACD is a right angle.'},
+ {n:'Definition of right angle',k:'Definition',s:'A right angle is an angle whose measure is 90°.',u:'From ∠A is a right angle, conclude m∠A = 90°.'},
+ {n:'Definition of complementary angles',k:'Definition',s:'Two angles are complementary if the sum of their measures is 90°.',u:'From ∠1 and ∠2 are complementary, conclude m∠1 + m∠2 = 90°.'},
+ {n:'Definition of supplementary angles',k:'Definition',s:'Two angles are supplementary if the sum of their measures is 180°.',u:'From ∠1 and ∠2 are supplementary, conclude m∠1 + m∠2 = 180°.'},
+ {n:'Definition of vertical angles',k:'Definition',s:'Two angles are vertical angles if their sides form two pairs of opposite rays.',u:'Identify ∠1 and ∠3, formed by two intersecting lines, as vertical angles.'},
+ {n:'Definition of linear pair',k:'Definition',s:'A linear pair is two adjacent angles whose noncommon sides are opposite rays.',u:'Identify ∠1 and ∠2 on a straight line as a linear pair.'},
+ {n:'Definition of right triangle',k:'Definition',s:'A right triangle has one right angle.',u:'From ∠C is a right angle, conclude △ABC is a right triangle.'},
+ {n:'Definition of isosceles triangle',k:'Definition',s:'An isosceles triangle has at least two congruent sides.',u:'From AB ≅ AC, conclude △ABC is isosceles.'},
+ {n:'Definition of equilateral triangle',k:'Definition',s:'An equilateral triangle has three congruent sides.',u:'From △ABC is equilateral, conclude AB ≅ BC ≅ CA.'},
+ {n:'Definition of congruent figures',k:'Definition',s:'Congruent figures have the same size and shape; all pairs of corresponding parts are congruent.',u:'From △ABC ≅ △DEF, conclude ∠B ≅ ∠E (often written CPCTC).'},
+ /* postulates */
+ {n:'Ruler Postulate',k:'Postulate',s:'The points on a line can be matched one to one with the real numbers; the distance between two points is the absolute value of the difference of their coordinates.',u:'Points at −2 and 5 on a number line are 7 units apart.'},
+ {n:'Segment Addition Postulate',k:'Postulate',s:'If B is between A and C, then AB + BC = AC.',u:'From B is between A and C, conclude AB + BC = AC.'},
+ {n:'Protractor Postulate',k:'Postulate',s:'Rays from a point on a line can be matched one to one with the real numbers from 0 to 180; an angle’s measure is the absolute value of the difference of its rays’ numbers.',u:'Measure ∠AOB with a protractor.'},
+ {n:'Angle Addition Postulate',k:'Postulate',s:'If P is in the interior of ∠RST, then m∠RSP + m∠PST = m∠RST.',u:'From D is in the interior of ∠ABC, conclude m∠ABD + m∠DBC = m∠ABC.'},
+ {n:'Linear Pair Postulate',k:'Postulate',s:'If two angles form a linear pair, then they are supplementary.',u:'From ∠1 and ∠2 form a linear pair, conclude m∠1 + m∠2 = 180°.'},
+ {n:'Two Point Postulate',k:'Postulate',s:'Through any two points, there exists exactly one line.',u:'Draw the auxiliary segment AD in a proof.'},
+ {n:'Parallel Postulate',k:'Postulate',s:'If there is a line and a point not on the line, then there is exactly one line through the point parallel to the given line.',u:'Draw the line through C parallel to AB (used to prove the Triangle Sum Theorem).'},
+ {n:'Perpendicular Postulate',k:'Postulate',s:'If there is a line and a point not on the line, then there is exactly one line through the point perpendicular to the given line.',u:'Draw the perpendicular from B to AC.'},
+ {n:'Translation Postulate (4.1)',k:'Postulate',s:'A translation is a rigid motion.',u:'From △A′B′C′ is a translation of △ABC, conclude A′B′ = AB.'},
+ {n:'Reflection Postulate (4.2)',k:'Postulate',s:'A reflection is a rigid motion.',u:'From △A′B′C′ is a reflection of △ABC, conclude the triangles are congruent.'},
+ {n:'Rotation Postulate (4.3)',k:'Postulate',s:'A rotation is a rigid motion.',u:'From ABCD is rotated about D to A′B′C′D, conclude A′B′C′D ≅ ABCD.'},
+ /* earlier theorems */
+ {n:'Vertical Angles Congruence Theorem',k:'Theorem',s:'Vertical angles are congruent.',u:'Where AE and BD cross at M, conclude ∠AMB ≅ ∠EMD.'},
+ {n:'Right Angles Congruence Theorem',k:'Theorem',s:'All right angles are congruent.',u:'From ∠ADB and ∠CDB are right angles, conclude ∠ADB ≅ ∠CDB.'},
+ {n:'Congruent Supplements Theorem',k:'Theorem',s:'If two angles are supplementary to the same angle (or to congruent angles), then they are congruent.',u:'From ∠1 and ∠2 are both supplementary to ∠3, conclude ∠1 ≅ ∠2.'},
+ {n:'Congruent Complements Theorem',k:'Theorem',s:'If two angles are complementary to the same angle (or to congruent angles), then they are congruent.',u:'From ∠1 and ∠2 are both complementary to ∠3, conclude ∠1 ≅ ∠2.'},
+ {n:'Corresponding Angles Theorem',k:'Theorem',s:'If two parallel lines are cut by a transversal, then the pairs of corresponding angles are congruent.',u:'From ℓ ∥ m, conclude the corresponding angles ∠1 ≅ ∠5.'},
+ {n:'Alternate Interior Angles Theorem',k:'Theorem',s:'If two parallel lines are cut by a transversal, then the pairs of alternate interior angles are congruent.',u:'From AB ∥ DC, conclude ∠BAE ≅ ∠DCE.'},
+ {n:'Alternate Exterior Angles Theorem',k:'Theorem',s:'If two parallel lines are cut by a transversal, then the pairs of alternate exterior angles are congruent.',u:'From ℓ ∥ m, conclude the alternate exterior angles ∠1 ≅ ∠8.'},
+ {n:'Consecutive Interior Angles Theorem',k:'Theorem',s:'If two parallel lines are cut by a transversal, then the pairs of consecutive interior angles are supplementary.',u:'From ℓ ∥ m, conclude m∠3 + m∠5 = 180°.'},
+ {n:'Composition Theorem (4.1)',k:'Theorem',s:'The composition of two (or more) rigid motions is a rigid motion.',u:'A rotation followed by a translation maps △ABC to a congruent triangle.'},
+ {n:'Reflections in Parallel Lines Theorem (4.2)',k:'Theorem',s:'A reflection in line k followed by a reflection in parallel line m is a translation of 2d, perpendicular to the lines.',u:'Reflecting in x = 1 then x = 4 moves every point 6 units right.'},
+ {n:'Reflections in Intersecting Lines Theorem (4.3)',k:'Theorem',s:'A reflection in k followed by a reflection in m, where k and m meet at P with angle x°, is a rotation about P of 2x°.',u:'Reflecting in the x-axis then y = x is a 90° rotation.'},
+ /* chapter 5 */
+ {n:'Triangle Sum Theorem (5.1)',k:'Theorem',s:'The sum of the measures of the interior angles of a triangle is 180°.',u:'From m∠A = 50° and m∠B = 60°, conclude m∠C = 70°.'},
+ {n:'Exterior Angle Theorem (5.2)',k:'Theorem',s:'The measure of an exterior angle of a triangle equals the sum of the measures of the two nonadjacent interior angles.',u:'Conclude m∠ACD = m∠A + m∠B.'},
+ {n:'Corollary to the Triangle Sum Theorem (5.1)',k:'Corollary',s:'The acute angles of a right triangle are complementary.',u:'In right △ABC with right angle C, conclude m∠A + m∠B = 90°.'},
+ {n:'Properties of Triangle Congruence (5.3)',k:'Theorem',s:'Triangle congruence is reflexive, symmetric, and transitive.',u:'From △ABC ≅ △DEF and △DEF ≅ △JKL, conclude △ABC ≅ △JKL.'},
+ {n:'Third Angles Theorem (5.4)',k:'Theorem',s:'If two angles of one triangle are congruent to two angles of another triangle, then the third angles are also congruent.',u:'From ∠A ≅ ∠D and ∠B ≅ ∠E, conclude ∠C ≅ ∠F.'},
+ {n:'SAS Congruence Theorem (5.5)',k:'Theorem',s:'If two sides and the included angle of one triangle are congruent to two sides and the included angle of a second triangle, then the triangles are congruent.',u:'From AM ≅ EM, BM ≅ DM, ∠AMB ≅ ∠EMD, conclude △ABM ≅ △EDM.'},
+ {n:'Base Angles Theorem (5.6)',k:'Theorem',s:'If two sides of a triangle are congruent, then the angles opposite them are congruent.',u:'From AB ≅ AC, conclude ∠B ≅ ∠C.'},
+ {n:'Converse of the Base Angles Theorem (5.7)',k:'Theorem',s:'If two angles of a triangle are congruent, then the sides opposite them are congruent.',u:'From ∠B ≅ ∠C, conclude AB ≅ AC.'},
+ {n:'Corollary to the Base Angles Theorem (5.2)',k:'Corollary',s:'If a triangle is equilateral, then it is equiangular.',u:'From △ABC is equilateral, conclude ∠A ≅ ∠B ≅ ∠C.'},
+ {n:'Corollary to the Converse of the Base Angles Theorem (5.3)',k:'Corollary',s:'If a triangle is equiangular, then it is equilateral.',u:'From ∠A ≅ ∠B ≅ ∠C, conclude AB ≅ BC ≅ CA.'},
+ {n:'SSS Congruence Theorem (5.8)',k:'Theorem',s:'If three sides of one triangle are congruent to three sides of a second triangle, then the triangles are congruent.',u:'From AB ≅ CB, AD ≅ CD, BD ≅ BD, conclude △ABD ≅ △CBD.'},
+ {n:'HL Congruence Theorem (5.9)',k:'Theorem',s:'If the hypotenuse and a leg of a right triangle are congruent to the hypotenuse and a leg of a second right triangle, then the triangles are congruent.',u:'From right △ACB and △ACD with AB ≅ AD and AC ≅ AC, conclude △ACB ≅ △ACD.'},
+ {n:'ASA Congruence Theorem (5.10)',k:'Theorem',s:'If two angles and the included side of one triangle are congruent to two angles and the included side of a second triangle, then the triangles are congruent.',u:'From ∠BAE ≅ ∠DCE, AB ≅ CD, ∠ABE ≅ ∠CDE, conclude △ABE ≅ △CDE.'},
+ {n:'AAS Congruence Theorem (5.11)',k:'Theorem',s:'If two angles and a non-included side of one triangle are congruent to two angles and the corresponding non-included side of a second triangle, then the triangles are congruent.',u:'From ∠B ≅ ∠D, ∠BAC ≅ ∠DAC, AC ≅ AC, conclude △ABC ≅ △ADC.'}];
+const TOOLKIND=['Definition','Property','Postulate','Theorem','Corollary'];
+const KINDNOTE={Definition:'A definition says what a word means. It works in both directions (“if and only if”).',Property:'A property is an algebraic or logical rule about equality or congruence.',Postulate:'A postulate (axiom) is a rule accepted without proof.',Theorem:'A theorem is a statement that has been proved from definitions, postulates, and earlier theorems.',Corollary:'A corollary is a statement that follows easily from a theorem.'};
+const tdist=(t,f,n=3)=>shuffle(TOOLS.filter(x=>x!==t&&(!f||f(x)))).slice(0,n);
+const TYPES6=[
+ {id:'x1',mod:'y2',gen(){const t=pick(TOOLS);const d=tdist(t,x=>x.k===t.k).concat(tdist(t)).filter((x,i,a)=>a.indexOf(x)===i).slice(0,3);return{skill:'Identify the tool from its statement.',prompt:`Which ${t.k.toLowerCase()} says:<br><b>“${t.s}”</b>`,parts:[{kind:'mc',label:'Name',choices:shuffle([t.n,...d.map(x=>x.n)]),ans:t.n}],steps:[`<b>${t.n}</b> (${t.k.toLowerCase()}): ${t.s}`,`Example use: ${t.u}`]}}},
+ {id:'x2',mod:'y3',gen(){const t=pick(TOOLS);const d=tdist(t,x=>x.k===t.k).concat(tdist(t)).filter((x,i,a)=>a.indexOf(x)===i).slice(0,3);return{skill:'Define the tool.',prompt:`What does the <b>${t.n}</b> state?`,parts:[{kind:'mc',label:'Statement',choices:shuffle([t.s,...d.map(x=>x.s)]),ans:t.s}],steps:[`<b>${t.n}</b>: ${t.s}`,`Example use: ${t.u}`]}}},
+ {id:'x3',mod:'y1',gen(){const t=pick(TOOLS.filter(x=>!/Postulate \(4|\(5\.\d+\)|\(4\.\d\)/.test(x.n)||Math.random()<.4));return{skill:'Classify the tool.',prompt:`What kind of proof tool is the <b>${t.n}</b>?`,parts:[SEL('Kind',TOOLKIND,t.k)],steps:[`It is a <b>${t.k.toLowerCase()}</b>. ${KINDNOTE[t.k]}`,`Statement: ${t.s}`]}}},
+ {id:'x4',mod:'y4',gen(){const t=pick(TOOLS);const d=tdist(t,x=>x.k===t.k||Math.random()<.3);return{skill:'Pick the justification for a proof step.',prompt:`Which reason justifies this proof step?<br><b>${t.u}</b>`,parts:[{kind:'mc',label:'Reason',choices:shuffle([t.n,...d.map(x=>x.n)]),ans:t.n}],steps:[`Reason: <b>${t.n}</b>.`,`${t.s}`]}}},
+ {id:'x5',mod:'y1',gen(){const want=pick(['Postulate','Theorem','Definition','Corollary','Property']);const t=pick(TOOLS.filter(x=>x.k===want));const d=shuffle(TOOLS.filter(x=>x.k!==want)).slice(0,3);return{skill:'Postulates versus theorems versus definitions.',prompt:`Which of these is a <b>${want.toLowerCase()}</b>?`,parts:[{kind:'mc',label:want,choices:shuffle([t.n,...d.map(x=>x.n)]),ans:t.n}],steps:[`${KINDNOTE[want]}`,`<b>${t.n}</b> is a ${want.toLowerCase()}. ${d.map(x=>`${x.n} is a ${x.k.toLowerCase()}`).join('; ')}.`]}}},
+ {id:'x6',mod:'y5',gen(){const pairs=[['Base Angles Theorem (5.6)','Converse of the Base Angles Theorem (5.7)'],['Corollary to the Base Angles Theorem (5.2)','Corollary to the Converse of the Base Angles Theorem (5.3)'],['Alternate Interior Angles Theorem',null],['Corresponding Angles Theorem',null]];
+  const conv={ 'Alternate Interior Angles Theorem':'If two lines are cut by a transversal so the alternate interior angles are congruent, then the lines are parallel.','Corresponding Angles Theorem':'If two lines are cut by a transversal so the corresponding angles are congruent, then the lines are parallel.'};
+  const p=pick(pairs);const t=TOOLS.find(x=>x.n===p[0]);const ans=p[1]?TOOLS.find(x=>x.n===p[1]).s:conv[p[0]];const wr=[t.s,'If two sides of a triangle are not congruent, then the angles opposite them are not congruent.','If the lines are not parallel, then the angles are not congruent.'];
+  return{skill:'Converses.',prompt:`The <b>${t.n}</b> says: “${t.s}” Which statement is its <b>converse</b>?`,parts:[{kind:'mc',label:'Converse',choices:shuffle([ans,...wr]),ans}],steps:['The converse swaps the hypothesis (“if” part) and the conclusion (“then” part).',`Converse: <b>${ans}</b>`,'A converse is not automatically true; each of these converses was proved separately.']}}}];
+TYPES6.forEach(t=>TBYID[t.id]=t);
+const toolCard=t=>`<div class="def" data-tk="${t.k}" data-tn="${GEO_esc(t.n+' '+t.s)}"><b>${t.n}</b> <span class="chip" style="margin-left:6px">${t.k}</span><br>${t.s}<br><span class="muted" style="font-size:14px">Use: ${t.u}</span></div>`;
+function GEO_esc(s){return String(s).replace(/"/g,'&quot;').toLowerCase()}
+const MODS6=[
+ {id:'y1',n:'Kinds of proof tools',t:['x3','x5'],body:`${TOOLKIND.map(k=>`<div class="rule"><span class="k">${k}</span> ${KINDNOTE[k]}</div>`).join('')}<p>In a two-column proof, the reason column may only use: Given, definitions, properties, postulates, and theorems or corollaries that were already proved.</p>`},
+ {id:'y2',n:'Name it from its statement',t:['x1'],body:'<p>Read the statement and decide what kind of thing it talks about: equations (property of equality), ≅ symbols (property of congruence), what a word means (definition), something taken for granted (postulate), or something proved (theorem).</p>'},
+ {id:'y3',n:'State it from its name',t:['x2'],body:'<p>Practise the exact wording. Watch the details that make theorems different: “included” versus “non-included”, “opposite” versus “adjacent”, “congruent” versus “supplementary”.</p>'},
+ {id:'y4',n:'Pick the reason for a step',t:['x4'],body:'<p>Ask what the step changes. Equal numbers → a property of equality. ≅ from a word like midpoint or bisector → a definition. A shared side → Reflexive Property. Crossing lines → Vertical Angles. Parallel lines → angle theorems. Three triangle parts → a congruence theorem. A part from congruent triangles → definition of congruent figures (CPCTC).</p>'},
+ {id:'y5',n:'Converses',t:['x6'],body:'<p>The converse of “if p, then q” is “if q, then p”. It is a different statement and needs its own proof. Base Angles and its converse are both theorems; so are the parallel-line angle theorems and their converses.</p>'}];
+MODS6.forEach(m=>MBYID[m.id]=m);
+const TOOLS_ORDER=()=>shuffle(['x1','x1','x1','x1','x2','x2','x2','x2','x3','x3','x3','x4','x4','x4','x4','x5','x5','x5','x6','x6']);
+function toolboxView(){clear3D();hudCh('Proof toolbox');
+ setPanel(`<div class="eyebrow">Proof toolbox</div><h2>Every definition, property, postulate, and theorem so far</h2><p class="muted">${TOOLS.length} tools from Chapters 1–5. Search or filter, then drill them.</p>
+ <div class="inp" style="font-size:15px"><input id="tSearch" placeholder="search, e.g. bisector" aria-label="search tools" style="width:100%;text-align:left;font-size:16px"></div>
+ <div class="row" id="tKinds">${['All',...TOOLKIND].map(k=>`<button class="tool ${k==='All'?'on':''}" type="button" data-k="${k}">${k}</button>`).join('')}</div>
+ <div class="col" id="tList">${TOOLS.map(toolCard).join('')}</div><div class="row"><button class="btn ghost sm" id="bk" type="button">Study hall</button></div>`,'wide tall');
+ let kind='All';const filt=()=>{const q=$('#tSearch').value.trim().toLowerCase();UI.querySelectorAll('#tList [data-tk]').forEach(d=>{d.hidden=!((kind==='All'||d.dataset.tk===kind)&&(!q||d.dataset.tn.includes(q)))})};
+ $('#tSearch').oninput=filt;UI.querySelectorAll('#tKinds .tool').forEach(b=>b.onclick=()=>{kind=b.dataset.k;UI.querySelectorAll('#tKinds .tool').forEach(x=>x.classList.toggle('on',x===b));filt()});$('#bk').onclick=prepHome}
+function toolFlash(){const deck=shuffle(TOOLS.slice());let i=0,flip=false;const show=()=>{const t=deck[i];setPanel(`<div class="eyebrow">Flashcards · ${i+1} of ${deck.length}</div><div class="rule" style="min-height:8em;cursor:pointer" id="fc" tabindex="0">${flip?`<b>${t.n}</b> <span class="chip">${t.k}</span><br><br>${t.s}<br><br><span class="muted">Use: ${t.u}</span>`:`<span class="muted">What is this?</span><br><br>${t.s}`}</div><div class="row"><button class="btn" id="fl" type="button">${flip?'Next card':'Flip'}</button><button class="btn ghost sm" id="bk" type="button">Study hall</button></div>`,'wide tall');
+  const go=()=>{if(!flip){flip=true}else{flip=false;i=(i+1)%deck.length}show()};$('#fl').onclick=go;$('#fc').onclick=go;$('#fl').focus();$('#bk').onclick=prepHome};show()}
 
 if(EMBED){$('#bBack').hidden=false;$('#bBack').onclick=()=>mpPost('mp-close')}
 init3D();$('#hudHeat').textContent=G.heat;if(/[?&]view=prep/.test(location.search)){G.seenIntro=true;save();prepHome()}else title();
