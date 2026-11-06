@@ -1099,7 +1099,7 @@ function title(){S=null;const has=loadRun();const run=S;S=null;drawHud();
   {t:'Play as Misaki',sub:'contracts, rent, sneaking into V’s base',dis:lock,fn:()=>newRun('m')},
   {t:'Play as V',sub:'meetings, the kennel, checking on Misaki',dis:lock,fn:()=>newRun('v')},
   {t:'Play as both',sub:META.done?'every activity, one run':'locked — finish a run first',dis:lock||!META.done,fn:()=>newRun('both')},
-  {t:'Achievements',fn:achPanel},{t:'Saves — slots, download, import',fn:()=>savesPanel(title)},{t:'Settings',fn:settings},{t:'Abandon current run',dis:!lock,fn:()=>ask('','Abandon this run? It can’t be recovered.',[{t:'Abandon it',fn:()=>{wipeRun();title()}},{t:'Keep playing',fn:title}])}])},
+  {t:'Benchmark saves — jump to key moments, everything maxed',fn:()=>benchPanel(title)},{t:'Achievements',fn:achPanel},{t:'Saves — slots, download, import',fn:()=>savesPanel(title)},{t:'Settings',fn:settings},{t:'Abandon current run',dis:!lock,fn:()=>ask('','Abandon this run? It can’t be recovered.',[{t:'Abandon it',fn:()=>{wipeRun();title()}},{t:'Keep playing',fn:title}])}])},
  draw(){rect(0,0,W,H,'#0a0610');for(let i=0;i<14;i++){const x=i*24,h=50+((i*37)%60);rect(x,H-h,22,h,'#140c1c');for(let j=0;j<h/9;j++)if((i*3+j+(T>>6))%4===0)rect(x+6,H-h+4+j*9,3,4,'#d0283f')}
   for(let i=0;i<60;i++){const x=(i*47+T*1.5)%W,y=(i*31+T*4)%H;rect(x,y,1,4,'rgba(180,170,220,.25)')}spr(MIS,250,124,true,2);spr(VSP,276,112,true,2)}})}
 function newRun(p){S=NEW(p);save();drawHud();
@@ -8639,6 +8639,24 @@ PLACES.push({id:'aldric',t:'Train: St. Aldric’s (V’s old school)',sub:'costs
  {id:'coast',t:'Train: the end of the line',sub:'costs time · endgame · the sea, a lighthouse, nobody else',ok:trainOK,fn:()=>TRAIN_RIDE('coast',[['','The last stop. The doors open onto salt air and a beach with no one on it.']])});
 const _epTrain=epiOpts;epiOpts=function(late){const o=_epTrain(late);try{return o.concat(placesHub(late))}catch(e){return o}};
 ACH.push(['fits','Costume Department','Try on every outfit for both of them.',()=>S.f.fitSeen&&Object.keys(S.f.fitSeen).length>=12],['trainall','End of the Line','Visit all three train destinations.',()=>S.seen&&S.seen.r_aldric&&S.seen.r_oldtrack&&S.seen.r_coast]);
+/* ===================== BENCHMARK SAVES: jump to key moments with every relationship maxed ===================== */
+function benchMax(){S.aff=100;S.fr={r:100,a:100};S.trust=100;S.tension=0;S.morale=100;S.rivalry=0;S.heart=100;S.rep=100;S.funds=6000;S.yen=250000;S.energy=100;S.comp=100;S.hold=100;S.heat=0;S.edge=60;S.smoke=3;S.pick=1;
+ Object.keys(S.dogs).forEach(k=>S.dogs[k]=100);S.paid=2;S.f.movedIn=1;S.f.wasRide=1;S.f.kidnapSet=1;S.q=S.q||{};if(typeof QUESTS!=='undefined'&&QUESTS.meetup){S.q.meetup=QUESTS.meetup.steps.length;S.meet3='cook'}
+ S.talks=S.talks||{};S.talks.mother=Math.max(1,S.talks.mother||0);S.f.harvests=Math.max(1,S.f.harvests||0);S.f.bakedAngel=1;S.f.ronCooked=1;S.f.board=1;S.f.sketch=1;
+ S.f.mp=S.f.mp||{};S.f.fit=S.f.fit||{};S.f.geo=S.f.geo||{r:0,w:0,streak:0,best:0}}
+const BENCH=[
+ {id:'kid_m',pov:'m',t:'Day before the kidnapping · Misaki',d:'Day 10. Rent paid twice, moved in with V, every relationship maxed (V, Angel, Ronin, the dogs; V and Ronin at peace). Tonight, when you sleep, they come for her.',set(){S.day=10;S.slot=0}},
+ {id:'kid_v',pov:'v',t:'Day before the kidnapping · V',d:'The same night from V’s side. Everything maxed. After you sleep, Misaki is gone and the search begins.',set(){S.day=10;S.slot=0}},
+ {id:'act2_m',pov:'m',t:'Start of Act II · Misaki',d:'She’s home and safe. The K9 copycat case opens, all relationships maxed.',set(){S.f.inter=Object.assign(S.f.inter||{},{act2:1,act3:1});S.f.gl_i2=1;S.f.gl_i3=1;S.day=15;S.captor=captorOrg();S.takenDay=11;S.phase='after';startAct2()}},
+ {id:'act2_v',pov:'v',t:'Start of Act II · V',d:'Act II from V’s side, everything maxed.',set(){S.f.inter=Object.assign(S.f.inter||{},{act2:1,act3:1});S.f.gl_i2=1;S.f.gl_i3=1;S.day=15;S.captor=captorOrg();S.takenDay=11;S.phase='after';startAct2()}},
+ {id:'act3_m',pov:'m',t:'Start of Act III: The Ledger · Misaki',d:'The copycat is caught. Ten days until the boat. All allies available, everything maxed.',set(){S.f.inter=Object.assign(S.f.inter||{},{act2:1,act3:1});S.f.gl_i2=1;S.f.gl_i3=1;S.day=15;S.captor=captorOrg();S.takenDay=11;S.phase='after';startAct2();S.case.solved=true;S.case.accused=S.case.cul;S.day=S.act2End;startAct3()}},
+ {id:'act3_v',pov:'v',t:'Start of Act III: The Ledger · V',d:'Act III from V’s side, everything maxed.',set(){S.f.inter=Object.assign(S.f.inter||{},{act2:1,act3:1});S.f.gl_i2=1;S.f.gl_i3=1;S.day=15;S.captor=captorOrg();S.takenDay=11;S.phase='after';startAct2();S.case.solved=true;S.case.accused=S.case.cul;S.day=S.act2End;startAct3()}},
+ {id:'epi_m',pov:'m',t:'Epilogue · Misaki',d:'After the Ledger. Train trips, “years later” scenes, weddings, the Study hall. Everything maxed.',set(){BENCH.find(b=>b.id==='act3_m').set();S.f.a3End='paper';S.phase='epilogue';S.dark=0;S.slot=0;S.done={}}},
+ {id:'epi_v',pov:'v',t:'Epilogue · V',d:'The epilogue from V’s side, everything maxed.',set(){BENCH.find(b=>b.id==='act3_m').set();S.f.a3End='paper';S.phase='epilogue';S.dark=0;S.slot=0;S.done={}}}];
+function benchLoad(b){newRun(b.pov);benchMax();b.set();benchMax();save();drawHud();toast('Loaded: '+b.t);hub()}
+function benchPanel(back){let has=false;try{has=!!localStorage.getItem('kc_run3')}catch(e){}
+ panel(`<h2>Benchmark saves</h2><p>Jump straight to a key moment with every relationship maxed. ${has?'<span style="color:var(--blood)">Loading one replaces the run in progress.</span> Use Saves first if you want to keep it.':''}</p>`,
+  BENCH.map(b=>({t:b.t,sub:b.d,fn:()=>has?ask('','Replace the current run with “'+b.t+'”?',[{t:'Load it',fn:()=>benchLoad(b)},{t:'Cancel',fn:()=>benchPanel(back)}]):benchLoad(b)})).concat([{t:'Back',fn:back||title}]))}
 requestAnimationFrame(frame);splash();
 
 </script></body></html>
