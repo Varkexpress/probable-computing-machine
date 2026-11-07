@@ -38,6 +38,15 @@ The trailer and all of V's base are no longer side-view backdrops: they are 3/4 
 - Notifications: `toast` is a stacked feed (max 4) with item icons for "Got:" and colour per kind.
 - Pause menu: grouped into Play / Settings / Leave with key hints; Bag added.
 
+## The world instead of menus (td6 block, inside the UI2 markers after ui2)
+- No list day-planner by default: `hub()` still builds every option (all story logic untouched), but `panel` is captured (`WH.cap`) and the player is put home instead (`whHome`: trailer, or V's bedroom/atrium; wakes by the bed in the morning). Options live on objects (`WHBIND`: contracts on the trailer laptop; ledger/trace/meeting on the ops terminal; kennel shift on the grooming table; sleep on beds; wardrobe on the bin bag / bedroom wardrobe; long drive on Misaki's truck) and everything else is a pin on the city map (`cityMap`, `WHPLACES` regex → place) or a sticky note under TODAY. Exits (lot edge, side door, elevator up, garage door, Esc "Head out") open the map. Pause menu toggle "Day planner: list menu" (`META.menuHub`) restores the old panel.
+- The 1–9 choice hotkeys/badges are gone; seen-choice ✓ and read-line skip remain.
+- Phone: `#phBtn`, a small phone in the bottom-left of the stage, buzzes with an unread badge.
+- Underground base: every base zone except the atrium has `under:1` (constant artificial light, ceiling strip fixtures, bunker walls with pipes, light-well slit windows, no sun shafts). Ops is sub-level 1 (stairs go down); the roof is reached by a spiral stair in the atrium.
+- Outfits: `FPATCH` row patches change silhouettes (rows <24 replaced, leg rows recoloured so walk frames still animate). New: Hood up, Black trench, Cardigan & pleats, Leather & denim, Star pyjamas, The black dress; rain gear gets a hood with ears.
+- Plot fixes: Misaki no longer appears in her trailer while taken / gone / moved in / locked out; while she's taken V finds the trailer door open and her shoe in the gravel; during the after-phase lockout the trailer door won't open and she sleeps in the truck cab; keepsakes are per-POV.
+- New interactions: Misaki's truck (+ glovebox layers), coin jar, intercom, grey locker go-bag (+ talk topic), fuse board, archive vent, daylight switch in the east wing, dog ramp, garage door.
+
 ## Mirror Protocol (mirror-protocol.html)
 - Chapter 4 cases (all unlocked): lessons, mastery practice, 3D missions, final Ledger + 20-question exam.
 - Study hall (`prepHome`): shared item engine (`TYPES*` generators → `{skill,prompt,fig,parts,steps}`; part kinds pt/num/sel/mc/multi/graph/rule; `gradeItem`, `custom13`, `custom18`), `startTest(order,key,label)`, `startQuiz`, `moduleView`.
