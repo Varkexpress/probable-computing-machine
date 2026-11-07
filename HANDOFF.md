@@ -55,6 +55,11 @@ The trailer and all of V's base are no longer side-view backdrops: they are 3/4 
 - Layout fixes found by an automated reachability audit: V's bathroom sink was in the doorway, trailer yarn basket nearly blocked the front door, lab bench blocked the lab door, trophy cases walled off the room, greenhouse "Fogged glass" was behind the tomatoes, stream setup boxed in the manga shelf. Wall items now have a longer reach (`p.reach`, default 24).
 - Audit script approach (worth re-running after map edits): BFS every map from its arrival with doors open, flag walkable tiles that can't be reached and interactables with no reachable tile within 14px; then trigger every spot/prop/NPC in every room across benchmarks and catch errors. Last run: 0 unreachable, ~430 interactions per run × 4 benchmarks, 0 errors.
 
+## Expression portraits (td8, last block)
+- V and Misaki dialogue portraits come from the expression charts in `art/` (`v_expressions_source.webp`, `misaki_expressions_source.webp`), sliced 3×3, downscaled to 84px and quantized to 48 colours (`art/portraits/*.png`), embedded as `XPORT` data URLs.
+- V: neutral, calm, angry, surprised, stern, smile, shout, fluster, content. Misaki: neutral, talk, annoyed, surprised, cry, smug, shout, fluster, content.
+- `xPickExpr(k,text)` chooses per line (anger words, CAPS/!!, love words, grief words, short questions, thanks/home, laughter, dark mode), falling back to neutral/calm/talk. Phone uses today's mood. To force one, set `canvas.dataset.ex` before `drawPortrait`.
+
 ## Mirror Protocol (mirror-protocol.html)
 - Chapter 4 cases (all unlocked): lessons, mastery practice, 3D missions, final Ledger + 20-question exam.
 - Study hall (`prepHome`): shared item engine (`TYPES*` generators → `{skill,prompt,fig,parts,steps}`; part kinds pt/num/sel/mc/multi/graph/rule; `gradeItem`, `custom13`, `custom18`), `startTest(order,key,label)`, `startQuiz`, `moduleView`.
