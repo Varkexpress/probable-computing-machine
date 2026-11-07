@@ -58,6 +58,7 @@ The trailer and all of V's base are no longer side-view backdrops: they are 3/4 
 ## Expression portraits (td8, last block)
 - V and Misaki dialogue portraits come from the expression charts in `art/` (`v_expressions_source.webp`, `misaki_expressions_source.webp`), sliced 3×3, downscaled to 84px and quantized to 48 colours (`art/portraits/*.png`), embedded as `XPORT` data URLs.
 - V: neutral, calm, angry, surprised, stern, smile, shout, fluster, content. Misaki: neutral, talk, annoyed, surprised, cry, smug, shout, fluster, content.
+- Ronin (`ronin_expressions_source.webp`, maroon background flood-filled to black from the cell edges so his hair is untouched): neutral, grin, angry, surprised, cry, smirk, shout, fluster, laugh. Angel (`angel_expressions_source.webp`, 96 colours so her blue eyes survive): neutral, flirt, annoyed, surprised, cry, smirk, shout, fluster, laugh. Speaker "Angel" also maps to her.
 - `xPickExpr(k,text)` chooses per line (anger words, CAPS/!!, love words, grief words, short questions, thanks/home, laughter, dark mode), falling back to neutral/calm/talk. Phone uses today's mood. To force one, set `canvas.dataset.ex` before `drawPortrait`.
 
 ## Mirror Protocol (mirror-protocol.html)
