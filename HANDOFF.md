@@ -61,6 +61,22 @@ The trailer and all of V's base are no longer side-view backdrops: they are 3/4 
 - Ronin (`ronin_expressions_source.webp`, maroon background flood-filled to black from the cell edges so his hair is untouched): neutral, grin, angry, surprised, cry, smirk, shout, fluster, laugh. Angel (`angel_expressions_source.webp`, 96 colours so her blue eyes survive): neutral, flirt, annoyed, surprised, cry, smirk, shout, fluster, laugh. Speaker "Angel" also maps to her.
 - `xPickExpr(k,text)` chooses per line (anger words, CAPS/!!, love words, grief words, short questions, thanks/home, laughter, dark mode), falling back to neutral/calm/talk. Phone uses today's mood. To force one, set `canvas.dataset.ex` before `drawPortrait`.
 
+## The deep house (B3/B4), the forest, the work (td9)
+- New `tdMap('deep')` (80×62, rows `TDROWS.DEEP`, room rects `TD_DEEPROOMS`): sterile grey halls winding through B3 and B4. Rooms: landing, supply depot, two washrooms, long gallery, cabinet of strange things, cinema, work room, flower room, hall of doors, service tunnel.
+- Unlocking follows the plot:
+  - Garage service door `ga_service` (`deepOpen()`): V's POV, tier≥1 && day≥3, any phase after normal, or flag `deepCode`. A morning text `dp_deepnote` announces it.
+  - Cinema: the brass key on the depot hooks (`projKey`).
+  - Cabinet of strange things: hidden door, opened by setting the gallery globe to Lisbon (`curioOpen`). Plaque riddle: "WHERE THE MONEY NEVER CLEARS".
+  - Work room: hidden behind the WC2 mirror (`mirrorOpen`, needs tier≥2, V, or a later phase).
+  - B4: `b4Open()`, a later phase, day≥8, or the B4 key in the cabinet.
+  - Flower room (teamLab Planets copy): two days after Misaki tells V she misses it (topic `dp_teamlab` / `dp_tlV`, flag `domeAsked`).
+  - Tunnel hatch: survey drawings in the cabinet (`tunnelMap`) or V's POV.
+- False exits: painted elevator, EMERGENCY EXIT onto brick, welded manhole, hall of seven doors (one is Misaki's storage).
+- Forest (`tdMap('forest')`) via the tunnel grate. The stump starts a chase (`chaseStart('run'|'hunt')`, 45 s, Shift to sprint with stamina). The pursuer or quarry uses BFS (`tdPathTo`). Works from both POVs. Engine hooks were added in td2: `M.tick(sc)`, `M.speedMul(sc)`.
+- Logistics quests: `dp_restock` Clean Hands, `dp_alibi` Paper Alibis (Angel's studio camera), `dp_wash` Clean Money (V explains laundering at the ops desk), `dp_burn` The Furnace.
+- Talk: `dp_auton`/`dp_autonV`, the autonomy conversation. At 16 the other offer was selling her body, so to Misaki killing costs less autonomy. V is angry with the world, not her. `dp_rulesV`.
+- Canon cameos (no new characters on screen): Luca's surfboard, Felicie's scorched postcards, the Vince & Ai Hua photo, Vince's box set, the cinema newsreel, the professional-courtesy card on the board, and rotating server chat lines.
+
 ## Mirror Protocol (mirror-protocol.html)
 - Chapter 4 cases (all unlocked): lessons, mastery practice, 3D missions, final Ledger + 20-question exam.
 - Study hall (`prepHome`): shared item engine (`TYPES*` generators → `{skill,prompt,fig,parts,steps}`; part kinds pt/num/sel/mc/multi/graph/rule; `gradeItem`, `custom13`, `custom18`), `startTest(order,key,label)`, `startQuiz`, `moduleView`.
