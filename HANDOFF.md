@@ -103,10 +103,7 @@ The trailer and all of V's base are no longer side-view backdrops: they are 3/4 
 - The artifact declares `downloads` so save export works.
 
 ## Two doors (td12): Misaki's dilemma
-- `DP_AUTON_M` (td9) is expanded with the shape of the choice:
-  - "Don't" was never on offer: it meant the station bench, the man who knew her name, and winter.
-  - So the question was which piece of herself to rent out, her body or her hands. Hands "come back", and with hands she decides who, when and if; behind the other door she can only wait.
-  - V names the injury: a child made to become "an accountant of her own body". He refuses to turn her into a sad story ("you picked well, inside a room somebody else built"). It records `autonDay`.
+- `DP_AUTON_M` (td9) is kept short (15 lines): "neither" was never offered, so the question was which piece of herself to rent out, body or hands. Hands come back, and with hands she decides; behind the other door she can only wait. V: "you picked well, inside a room somebody else built". It records `autonDay`.
 - Follow-up a day later, `dp_auton2` (Misaki POV) / `dp_auton2V` (V POV): "i still do the math".
   - She still prices everything by who gets which piece of her. The job only feels light because it was the cheapest item on a menu where everything cost her.
   - After her first job, she cried about still owning all of herself, not about the man.
