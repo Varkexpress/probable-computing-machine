@@ -1,6 +1,6 @@
 # Killer Chat! Off Hours + Mirror Protocol — handoff notes
 
-Repo: varkexpress/probable-computing-machine · branch `claude/game-interactions-sar2ec`
+Repo: varkexpress/probable-computing-machine · branch `claude/kind-hamilton-9u4jq0` (walkable-house overhaul; earlier work on `claude/game-interactions-sar2ec`)
 Published: Killer Chat https://claude.ai/artifact/MnV6pegwS3EnxwNsdFiqbk (index.html, published with `files: {"mirror-protocol.html": ".pub/mirror-protocol.html"}`)
 Mirror Protocol standalone (private) https://claude.ai/artifact/PYHmmvPdLM33Asj4tNc3rp (mirror-protocol.html)
 
@@ -15,6 +15,19 @@ Story: Misaki (hitmeuppp, contract killer, nonbinary, she/they) and V (K9, billi
 Phases: normal → taken (kidnapping when rent paid twice, S.f.kidnapSet) → after → act2 (copycat case) → act3 (The Ledger, 10 days, 6 endings) → epilogue.
 Key APIs: say, ask, cut, panel, hub, sideHub, epiOpts, EVENTS (morning), QUESTS/qStart/qAdv, ROOMS + PLACES (areas), TOPICS_V/TOPICS_M (talk), ACH, apply/fr/frT/tier/calm, ME2/ME3/isM/isV/isLone, mVoice/MV.
 Added content: Act III, interludes, years-later, endgame talks, Act II interviews; 5 areas (harbour, park, laundromat, shrine, last train) + Misaki detachment arc (pall block); Chapter 4 geometry woven in (GEO module, geoAsk overlays on contracts/lockpick/simon/stealth, talk topics, morning problems, Geo HUD); 3D sniper contracts (`snipeContract`, modes lead/water/turn/drone); wardrobe/outfits (palette swaps on MIS.P/VSP.P, `wardrobe()`), backstory topics (fencing, St. Aldric’s, drama club, track, nonbinary/leaving home), 6 new recipes with DISH sprites, train destinations (aldric, oldtrack, coast) with épée and 400m minigames; Study hall hub entry (`mpOpen('prep')`); **Benchmark saves** on the title screen (`benchPanel`, `BENCH`: day-before-kidnapping M/V, Act II M/V, Act III M/V, Epilogue M/V; all relationships maxed via `benchMax`).
+
+## Walkable house (TD block in index.html, between `/* ===TD-BEGIN=== */` and `/* ===TD-END=== */`)
+The trailer and all of V's base are no longer side-view backdrops: they are 3/4 top-down tile maps you walk through.
+- Maps (`TD.maps`): `trailer` (interior, tiny bathroom, the lot, behind the trailer), `base` (atrium, archive behind the vault, greenhouse, training hall, east corridor + kennel, V's bathroom), `ewing` (hallway, bedroom, the 7 wing rooms; wing doors stay locked until `S.wing[k]`), `ops`, `roof`, `garage`, `cellar`. ASCII rows live in `TDROWS` (`#` wall, `w` window wall, `.` floor, `D` door, `_` threshold, `=` stairs, `g/G/a` gravel/grass/asphalt). Each zone maps to a legacy room id (`z.room`), so `S.room`, partner NPCs, music and every `toRoom(id,[x,y])` still work.
+- Hook: `roomScene` is wrapped last; for any room in `TD.room` it returns `tdScene(...)`. `scene.pos()` answers in legacy side-view coordinates, so `toRoom(S.room,S.roomPos)` returns you to the exact tile (via `TD.resume`). Arrivals from the hub use `z.arrive`; legacy coordinates with a fixed meaning use `z.at['x,y']`.
+- Props: `{id,x,y,w,d,h,draw,label,act(who,legacyFn,prop,scene),legacy:'Spot label',wall,flat,seat,clutter,push,exit,light,show}`. A prop with `legacy` claims that `ROOMS[room].spots` entry; unclaimed spots are auto-placed (side-view x/y → zone x/y) so new content added the old way still appears. `kind:'deco'` claims a spot without being interactive. `TDHIDE` hides legacy "→ room" transition spots (doors and stairs are physical now).
+- Systems: collision + corner sliding, bump-to-open doors (`doorOpt`: `closed`, `locked`, `onLocked`, `noUse`, custom `draw`), tap-to-walk with BFS pathing, seats (`sc.sitOn`), clutter that slows you, pushable crates (garage), lights (`M.lights`, prop `light`) composited on a low-res light map, window light shafts with rain shadows, dust/steam/mist/drip particles, outdoor rain/snow/fog, blurred foreground layers for depth of field (`M.fg`), dog follower that trails you through doors.
+- Story: `TDREACT` (companion barks/inner monologue triggered by where you stand, what you've touched, phase/weather), drawer "layers" (`tdLayer`), new talk topics `TDTOP_V`/`TDTOP_M` unlocked by finds (ceiling stars 49.8, coach's New Year cards, V's coat pocket clip, Persuasion underline, unsent "Stay." draft, the bike behind the crates, the keep-list). State in `S.td` (`l` lights, `door`, `dr` drawers, `f` flags, `seen`).
+- Trailer puzzle: heater + kettle + main light trips the breaker; fix it at the post behind the trailer. Lights off at night + lie on the bed shows the stars.
+- Voices: Misaki's speech gets more complex as the relationship deepens — the cheerful mask comes off. The original `mVoice` (slang expansion, sentence case) is kept and extended: from level 2 her performative tics drop (`:)`, lol, hehe, `!!`), at level 3 her ALL-CAPS shouting and `!` settle into plain sentences. Write her lines low-tier whimsical, high-tier sincere (use `MV(...)`). `vVoice` (wrapped into `showL`) lets V's contractions slip at close/ride-or-die, deterministically per line, never when `S.dark`.
+- Pause menu → "Rooms: walkable/classic" toggles `META.classicRooms` (classic side view fallback).
+- Performance: sprites are cached per palette in `TDSPR`; depth-of-field draws foreground shapes into a 1/3-res buffer and upscales (no `ctx.filter`). ~5 ms/frame in headless software rendering.
+- Rebuild workflow used: the TD source was kept as separate files and spliced between the markers; editing in place inside the markers is fine too.
 
 ## Mirror Protocol (mirror-protocol.html)
 - Chapter 4 cases (all unlocked): lessons, mastery practice, 3D missions, final Ledger + 20-question exam.
@@ -31,7 +44,8 @@ Added content: Act III, interludes, years-later, endgame talks, Act II interview
 Playwright is installed globally (`require(execSync('npm root -g')+'/playwright')`). cdnjs is blocked in this container: route `**/three.min.js` to abort (or a local copy via `npm pack three@0.128.0`). Typical checks: generate each TYPE 600× and validate answer is in choices / no NaN; take each test answering from `window.__curItem`; random fuzz of the main game.
 
 ## Known gaps / honest status
-- Main-game rooms are still 2D pixel art; 3D is in sniper jobs and Mirror Protocol.
+- The trailer and base are walkable top-down maps now; the city areas (mall, harbour, park, laundromat, shrine, station, Kyoto, train destinations, Ronin's and Angel's flats) are still side-view rooms. To convert one, add a `tdMap` with a zone whose `room` is that id.
+- Two Wardrobe spots exist in the bedroom; `legacyN:1` picks the second.
 - The five areas and the detachment arc (pall block) were never fully play-tested.
 - Page references a `downloads` capability that is not declared (export button won’t work in the artifact).
 - Chapter 5 problems are original, modeled on Big Ideas style (the online textbook was unreachable).
