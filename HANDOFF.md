@@ -47,6 +47,14 @@ The trailer and all of V's base are no longer side-view backdrops: they are 3/4 
 - Plot fixes: Misaki no longer appears in her trailer while taken / gone / moved in / locked out; while she's taken V finds the trailer door open and her shoe in the gravel; during the after-phase lockout the trailer door won't open and she sleeps in the truck cab; keepsakes are per-POV.
 - New interactions: Misaki's truck (+ glovebox layers), coin jar, intercom, grey locker go-bag (+ talk topic), fuse board, archive vent, daylight switch in the east wing, dog ramp, garage door.
 
+## Bug-fix pass (td7, last in the UI2 markers)
+- One of everyone: in house rooms (`HOUSE`) V only appears where `vWhere()` says, Misaki where `misWhereBase()` says, Angel/Ronin where `angWhere()`/`ronWhere()` say; Angel/Ronin aren't in their own flats while visiting the house. (The wing rooms used to all report V at once.)
+- Ronin's apartment and Angel's studio are walkable maps now (`ronin`, `studio`), friends drawn natively and wandering.
+- Side-facing sprites no longer overwrite half the face (`tdSide` removed); side view uses the front sprite.
+- Legacy speech bubbles wrap and stay inside the zoomed camera view.
+- Layout fixes found by an automated reachability audit: V's bathroom sink was in the doorway, trailer yarn basket nearly blocked the front door, lab bench blocked the lab door, trophy cases walled off the room, greenhouse "Fogged glass" was behind the tomatoes, stream setup boxed in the manga shelf. Wall items now have a longer reach (`p.reach`, default 24).
+- Audit script approach (worth re-running after map edits): BFS every map from its arrival with doors open, flag walkable tiles that can't be reached and interactables with no reachable tile within 14px; then trigger every spot/prop/NPC in every room across benchmarks and catch errors. Last run: 0 unreachable, ~430 interactions per run × 4 benchmarks, 0 errors.
+
 ## Mirror Protocol (mirror-protocol.html)
 - Chapter 4 cases (all unlocked): lessons, mastery practice, 3D missions, final Ledger + 20-question exam.
 - Study hall (`prepHome`): shared item engine (`TYPES*` generators → `{skill,prompt,fig,parts,steps}`; part kinds pt/num/sel/mc/multi/graph/rule; `gradeItem`, `custom13`, `custom18`), `startTest(order,key,label)`, `startQuiz`, `moduleView`.
