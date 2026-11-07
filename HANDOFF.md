@@ -104,10 +104,7 @@ The trailer and all of V's base are no longer side-view backdrops: they are 3/4 
 
 ## Two doors (td12): Misaki's dilemma
 - `DP_AUTON_M` (td9) is kept short (15 lines): "neither" was never offered, so the question was which piece of herself to rent out, body or hands. Hands come back, and with hands she decides; behind the other door she can only wait. V: "you picked well, inside a room somebody else built". It records `autonDay`.
-- Follow-up a day later, `dp_auton2` (Misaki POV) / `dp_auton2V` (V POV): "i still do the math".
-  - She still prices everything by who gets which piece of her. The job only feels light because it was the cheapest item on a menu where everything cost her.
-  - After her first job, she cried about still owning all of herself, not about the man.
-  - With V the sum comes out zero, and that frightens her. She thinks the part of her that could feel the job's weight was spent at sixteen. V carries the weight; she carries the knowledge.
+- Follow-up a day later, `dp_auton2` / `dp_auton2V` (9 lines): she still prices everything by which piece of her it costs, and the job was the cheapest thing on the menu. After the first job she cried about still owning all of herself. With V the math comes out zero, which scares her. V carries the weight; she carries what the other door was.
 - Consequences:
   - Morning dream `dp_lockerdream`: the locker room has a third door.
   - `dp_third` in the hall of doors: a crooked wooden door, plate THREE, an empty room with a chair, a lamp and a lock only on her side.

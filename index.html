@@ -10017,23 +10017,14 @@ function cyWillow(x,y){rect(x-1,y-20,3,22,'#4a3a2a');c.fillStyle='#4a6a3a';for(l
 
 /* ===================== TWO DOORS: what the choice cost, and the third door ===================== */
 const autonReady=()=>tdF('autonomy')&&!tdF('autonomy2')&&S.day>=(tdS().f.autonDay||0)+1&&!S.dark;
-const DP_AUTON2=[['hitmeuppp','i still do the math, you know. every day. it’s automatic.'],['K9','What math?'],
- ['hitmeuppp','somebody hands me a coffee and i check what it costs. not money. what it costs ME. who gets a piece, which piece, for how long. i rank it. body’s the most expensive. then my time. then my hands. hands are cheap. hands are the cheapest thing i own.'],
- ['hitmeuppp','that’s why the job never felt heavy. i didn’t decide killing was fine. i decided it was the cheapest thing on a menu where everything cost me something. and then i stopped looking at the menu.'],
- ['K9','And the rest of it? The things that happened after you picked?'],
- ['hitmeuppp','the first one, i threw up in a bin outside a pachinko place. then i ate a whole bento. then i slept twelve hours. i woke up and i still owned all of me. i cried about that part. not the guy. that part.'],
- ['hitmeuppp','is that awful. it’s awful, right. say it’s awful.'],
- ['K9','It is what happens to someone who was made to choose between two kinds of losing and won the only way she could. I do not think you are awful. I think you were alone.'],
- ['hitmeuppp','...here’s the thing that’s freaking me out. i ran you. us. i ran the math on this a hundred times.'],
- ['K9','And?'],
- ['hitmeuppp','it keeps coming out zero. nobody’s taking anything. you don’t want a piece. and zero scares me worse than any number. i don’t know what to do with a door that doesn’t want anything back.'],
- ['K9','You do not have to do anything with it. It will stay open.'],
- ['hitmeuppp','what if i close it. just to check it still opens.'],
- ['K9','Then close it. I built it to open from your side.'],
- ['hitmeuppp','and the job. i want u to know i tried. last night i lay there and tried to make it heavy. on purpose. it won’t go. i think the part of me that could feel it got spent at sixteen, buying the rest of me back.'],
- ['K9','Then I will carry the weight of it, and you carry the knowledge of what the other door was. Between the two of us, it is all accounted for.'],
- ['hitmeuppp','that’s not even. that’s not even close to even.'],
- ['K9','It does not have to be. That is what I keep trying to tell you. Nothing in this house has a price.']];
+const DP_AUTON2=[['hitmeuppp','i still do the math, you know. every day.'],['K9','What math?'],
+ ['hitmeuppp','who gets which piece of me, and for how long. body’s the most expensive. hands are the cheapest thing i own. that’s why the job never felt heavy. it was just the cheapest thing on the menu.'],
+ ['hitmeuppp','after the first one i threw up, ate a whole bento, slept twelve hours. i woke up still owning all of me. i cried about that part. not him.'],
+ ['K9','That is not awful. That is someone who was alone.'],
+ ['hitmeuppp','i ran the math on us. it keeps coming out zero. nobody’s taking anything. and zero scares me worse than any number.'],
+ ['K9','Then let it be zero. The door stays open. I built it to open from your side.'],
+ ['hitmeuppp','i tried to make the job heavy last night. it won’t go. i think that part of me got spent at sixteen.'],
+ ['K9','Then I will carry the weight, and you carry what the other door was. Nothing in this house has a price.']];
 const DP_AUTON2_V=[['K9','Do you still do the math?'],['hitmeuppp','...how do u know about the math.'],['K9','You read the menu at the café for four minutes and never once looked at the prices. You were looking at something else.']].concat(DP_AUTON2.slice(2));
 function autonDone(b){tdSetF('autonomy2');apply({aff:4});if(S.dark&&typeof calm==='function')calm(8);note('td_auton2','Misaki still ranks everything by what it costs her and who gets which piece of her. With V the sum keeps coming out zero, and that frightens her more than any price. V built her a third door.');toast('Something new in the hall of doors');save();b&&b()}
 TDTOP_V.push({id:'dp_auton2',label:()=>'“i still do the math, you know.”',tag:()=>'deepens',show:()=>autonReady()&&!dpV(),run:b=>{warm('v','dp_auton2',10);say(DP_AUTON2,()=>autonDone(b))}});
