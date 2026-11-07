@@ -1,5 +1,7 @@
 # Killer Chat! Off Hours + Mirror Protocol — handoff notes
 
+**Two separate builds.** `index.html` (Killer Chat) has no math in it any more. All math lives in `mirror-protocol.html` (Mirror Protocol): the Chapter 4 cases, Study hall, exam, AMC prep, proof toolbox, and the 3D rooftop sniper contracts (ported from Killer Chat; card on the case board, `snipeContract`, results in `G.snipe`). Killer Chat no longer embeds Mirror Protocol, no longer loads three.js, and the GEO/geoAsk/mpOpen/Cartographer-geometry block was replaced by a stub (`mpHub` returns [] so the wardrobe hook still works). Old saves keep harmless `S.f.mp`/`S.f.geo` fields.
+
 Repo: varkexpress/probable-computing-machine · branch `claude/kind-hamilton-9u4jq0` (walkable-house overhaul; earlier work on `claude/game-interactions-sar2ec`)
 Published: Killer Chat https://claude.ai/artifact/MnV6pegwS3EnxwNsdFiqbk (index.html, published with `files: {"mirror-protocol.html": ".pub/mirror-protocol.html"}`)
 Mirror Protocol standalone (private) https://claude.ai/artifact/PYHmmvPdLM33Asj4tNc3rp (mirror-protocol.html)
