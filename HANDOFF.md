@@ -102,6 +102,21 @@ The trailer and all of V's base are no longer side-view backdrops: they are 3/4 
 - B4 firing range (`dp_range`, door 22,44): `dpRange` minigame. Paper targets score +2 (+3 head); pink bystander cards score −5 ("RULE 2"). Brass is counted back. Range log with best scores (`rangeBestV`/`rangeBestM`) and all-time bystanders hit.
 - The artifact declares `downloads` so save export works.
 
+## Two doors (td12): Misaki's dilemma
+- `DP_AUTON_M` (td9) is expanded with the shape of the choice:
+  - "Don't" was never on offer: it meant the station bench, the man who knew her name, and winter.
+  - So the question was which piece of herself to rent out, her body or her hands. Hands "come back", and with hands she decides who, when and if; behind the other door she can only wait.
+  - V names the injury: a child made to become "an accountant of her own body". He refuses to turn her into a sad story ("you picked well, inside a room somebody else built"). It records `autonDay`.
+- Follow-up a day later, `dp_auton2` (Misaki POV) / `dp_auton2V` (V POV): "i still do the math".
+  - She still prices everything by who gets which piece of her. The job only feels light because it was the cheapest item on a menu where everything cost her.
+  - After her first job, she cried about still owning all of herself, not about the man.
+  - With V the sum comes out zero, and that frightens her. She thinks the part of her that could feel the job's weight was spent at sixteen. V carries the weight; she carries the knowledge.
+- Consequences:
+  - Morning dream `dp_lockerdream`: the locker room has a third door.
+  - `dp_third` in the hall of doors: a crooked wooden door, plate THREE, an empty room with a chair, a lamp and a lock only on her side.
+  - THE RULES gains rule 6: she can say no.
+  - V's notebook `dp_vnotes` in the work room: a tally of "things nobody asked her", which grows with days since.
+
 ## Mirror Protocol (mirror-protocol.html)
 - Chapter 4 cases (all unlocked): lessons, mastery practice, 3D missions, final Ledger + 20-question exam.
 - Study hall (`prepHome`): shared item engine (`TYPES*` generators → `{skill,prompt,fig,parts,steps}`; part kinds pt/num/sel/mc/multi/graph/rule; `gradeItem`, `custom13`, `custom18`), `startTest(order,key,label)`, `startQuiz`, `moduleView`.
