@@ -31,6 +31,13 @@ The trailer and all of V's base are no longer side-view backdrops: they are 3/4 
 - Performance: sprites are cached per palette in `TDSPR`; depth-of-field draws foreground shapes into a 1/3-res buffer and upscales (no `ctx.filter`). ~5 ms/frame in headless software rendering.
 - Rebuild workflow used: the TD source was kept as separate files and spliced between the markers; editing in place inside the markers is fine too.
 
+## UI 2 (block between `/* ===UI2-BEGIN=== */` and `/* ===UI2-END=== */`, last before the boot line)
+- HUD: one row — menu, DAY + four time-of-day pips + phase tag, POV stats as labelled bars (energy/heat/edge or rep/conscience, plus composure when dark and "holding on" when alone), bond bar (trust/tension/morale in its tooltip), icon buttons with badges (bag new-items, phone unread). The key cheat-sheet under the stage is one line.
+- Bag (`bagOpen`, key I, HUD 🎒, pause menu): tabs All/Gifts/Food/Tools/Keepsakes (keys 1–5, Shift cycles), pixel icons (`IICON` → `iconURL`, dishes get a bowl), detail pane with description (`IDESC`, recipe notes), eat effects (`IEAT`, recipe `eff`), gift tastes per person that show "? not given yet" until you give it, actions Eat / Give to <whoever is within reach> (reuses `giftMenu`/`friendGift`) / Inspect (an in-voice thought), sorting, new-item dots (`S.f.bagSeen`). Keepsakes are built from walkable-house finds (`S.td.f`), the floorboard photo and your photos. Runs as `ctrl`, so the world pauses and arrows/gamepad drive it.
+- Dialogue: choices are numbered (keys 1–9), choices you picked before are dimmed with ✓ (`META.seenO`), SKIP button / hold Ctrl skips only lines already read (`META.seenL`) and stops at choices and unread lines, the dialogue box border takes the speaker's colour.
+- Notifications: `toast` is a stacked feed (max 4) with item icons for "Got:" and colour per kind.
+- Pause menu: grouped into Play / Settings / Leave with key hints; Bag added.
+
 ## Mirror Protocol (mirror-protocol.html)
 - Chapter 4 cases (all unlocked): lessons, mastery practice, 3D missions, final Ledger + 20-question exam.
 - Study hall (`prepHome`): shared item engine (`TYPES*` generators → `{skill,prompt,fig,parts,steps}`; part kinds pt/num/sel/mc/multi/graph/rule; `gradeItem`, `custom13`, `custom18`), `startTest(order,key,label)`, `startQuiz`, `moduleView`.
