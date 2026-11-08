@@ -163,6 +163,20 @@ The trailer and all of V's base are no longer side-view backdrops: they are 3/4 
   - `sleep` sometimes runs `nightWake` (30%): branches by POV, moved-in, and Misaki's or V's romance.
   - Angel and Ronin 3am events.
 
+## B5 library → the library tower
+- `gen2.py` carves the library as a disc (centre 22,83, r≈10.5). Doors: north (22,72) from the corridor, east (42,88) to observation, south (22,95) to the pump hall. Zone floor `lab`, wall `glass`.
+- Drawing (td16, `lib_vis` section):
+  - under: floor rings, the shelf band at the rim, planter-trough arcs, the glass core.
+  - over: six upper galleries, hydroponic helices up the core and the walls, a light column, the watering drone BISCUIT II, rising motes.
+- Interactables:
+  - the core (spiral lift to the top: nine galleries, the camphor tree under the skylight)
+  - 8 curved-shelf points (`LIBQ`)
+  - 4 grow towers: strawberry (+energy), moonflower, herb, and dragonfruit ("attempt 12, it took")
+  - 2 reading pods, the holo-catalogue, the typewriter desk, the drone dock
+  - his mother's 3 ribboned books → `libMother`
+- The planter ring is solid via invisible segments, with gaps at the four compass points.
+- Freight-lift shortcut: once you've reached B5 (`b5seen`, set by `deep.tick`), a lift appears in the garage (to B5), and the B5 landing has a lift back up.
+
 ## Mirror Protocol (mirror-protocol.html)
 - Chapter 4 cases (all unlocked): lessons, mastery practice, 3D missions, final Ledger + 20-question exam.
 - Study hall (`prepHome`): shared item engine (`TYPES*` generators → `{skill,prompt,fig,parts,steps}`; part kinds pt/num/sel/mc/multi/graph/rule; `gradeItem`, `custom13`, `custom18`), `startTest(order,key,label)`, `startQuiz`, `moduleView`.
