@@ -111,6 +111,20 @@ The trailer and all of V's base are no longer side-view backdrops: they are 3/4 
   - THE RULES gains rule 6: she can say no.
   - V's notebook `dp_vnotes` in the work room: a tally of "things nobody asked her", which grows with days since.
 
+## Score 2 (td13): the music
+- Replaces the old `TRACKS`/`playStep`/`sched` with `mzStep` + a new `sched`. The old `tone()` is still used by sfx.
+- Mix: music bus → compressor → `MG` (master volume/mute). Generated stereo reverb (`MZ.rvIn`) and a dotted-eighth delay with lowpass feedback (`MZ.dlIn`). Every gain node starts at 0, which matters: a default gain of 1 leaked waveshaper DC.
+- Instruments (`mzVoice`): warm (detuned saw pad), glass, drone, ep (electric piano), pluck, koto, bell, mbox (music box), flute, shaku, trumpet, calliope, sq, sine, sub, pick, saw, dist. Drums: kick, snare, brush, hat/open hat, rim, shaker. Notes get small timing and velocity humanisation.
+- Track spec: `{bpm, steps(16|12 waltz), swing, ch:[[root,type]], rev, dly, intro, pad, keys, bass, arp, lead:{mel:mzMel('bar.step note len|…'), every}, gen:[{scale,tonic,dens,lo,hi}], dr:{k,s,br,h,o,r,sh,fill}, amb}`.
+  - Loop 0 is an intro (no drums or lead).
+  - Leads come in on alternate loops.
+  - Fills fall on the last bar of odd loops.
+  - `gen` writes a seeded random-walk melody that lands on chord tones on downbeats, so ambient tracks never repeat exactly.
+- Tracks: title, lofi, base, noir, ronin, angel, tense, dark, mall; deep, dome, work, cinema, curio, forest, chase; harbour, shrine, kyoto, station, coast, park. Rooms map to them via `ROOMTRACK`. `pickTrack` adds chase (forest only) and cinema (while a film runs).
+- Track changes crossfade (about 1 s out, then a fade in). Music ducks to 62% under dialogue, and to 50% while a film plays outside the cinema.
+- Ambience bed (`mzAmbWant`): waves, wind, rain (outdoor zones when raining), rumble (laundromat, train), water (bath, river, fountain, dome, tunnel), hum (deep house, ops). Events: crickets (night, outdoors, not in rain), train clacks, drips. Lofi has vinyl crackle.
+- Offline level check: render each track in an `OfflineAudioContext` (see scratch `mz.js`). RMS is about 0.008–0.02 and peaks stay under 0.18.
+
 ## Mirror Protocol (mirror-protocol.html)
 - Chapter 4 cases (all unlocked): lessons, mastery practice, 3D missions, final Ledger + 20-question exam.
 - Study hall (`prepHome`): shared item engine (`TYPES*` generators → `{skill,prompt,fig,parts,steps}`; part kinds pt/num/sel/mc/multi/graph/rule; `gradeItem`, `custom13`, `custom18`), `startTest(order,key,label)`, `startQuiz`, `moduleView`.
