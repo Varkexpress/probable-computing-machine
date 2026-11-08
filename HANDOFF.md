@@ -125,6 +125,24 @@ The trailer and all of V's base are no longer side-view backdrops: they are 3/4 
 - Ambience bed (`mzAmbWant`): waves, wind, rain (outdoor zones when raining), rumble (laundromat, train), water (bath, river, fountain, dome, tunnel), hum (deep house, ops). Events: crickets (night, outdoors, not in rain), train clacks, drips. Lofi has vinyl crackle.
 - Offline level check: render each track in an `OfflineAudioContext` (see scratch `mz.js`). RMS is about 0.008–0.02 and peaks stay under 0.18.
 
+## Story overhaul (main beats) + aftermath threads (td14)
+- The main beats were rewritten in place in the original functions, so every wrapper (playInter, lone route, glass interludes) still runs:
+  - `newRun` intros (both POVs)
+  - `takenM` (abduction, then waking in the cell), `takenV` (the empty trailer)
+  - the first `failedEscape` (backup clip in the shoe)
+  - `vRescueCut`, `escaped`, `rescued`
+  - `afterBase` opening
+  - `startAct2` opening and Act II `BEATS` 3/5/7/9
+  - the gala opening (a brown coat on the rack that V didn't bring)
+  - a pre-`finale` night scene
+- Misaki's lines use `MV`, so her voice still changes with affection tier. V's lines use `byT`.
+- Four consequence threads (EVENTS, phase 'after'):
+  - `sub_receipt`: V paid her rent through March. Repay (`rentBack`) or let it stand (`rentLet`).
+  - `sub_hallway`: Ronin cleaned up after V's rescue. Sets `ronHall`; only when not `selfEscape`.
+  - `sub_angel`: if leaks≥1, tell Angel what she said (`toldAngel`) or keep it (`angelSecret`).
+  - `sub_coat` (V): keep the river coat (`coatKept=1`) or fold it away (`coatKept=0`).
+- Payoffs: Act II beats 7 and 9, the pre-finale scene, and the ending screen (`subEnd`, appended via `extraEnding`).
+
 ## Mirror Protocol (mirror-protocol.html)
 - Chapter 4 cases (all unlocked): lessons, mastery practice, 3D missions, final Ledger + 20-question exam.
 - Study hall (`prepHome`): shared item engine (`TYPES*` generators → `{skill,prompt,fig,parts,steps}`; part kinds pt/num/sel/mc/multi/graph/rule; `gradeItem`, `custom13`, `custom18`), `startTest(order,key,label)`, `startQuiz`, `moduleView`.

@@ -1102,8 +1102,24 @@ function title(){S=null;const has=loadRun();const run=S;S=null;drawHud();
  draw(){rect(0,0,W,H,'#0a0610');for(let i=0;i<14;i++){const x=i*24,h=50+((i*37)%60);rect(x,H-h,22,h,'#140c1c');for(let j=0;j<h/9;j++)if((i*3+j+(T>>6))%4===0)rect(x+6,H-h+4+j*9,3,4,'#d0283f')}
   for(let i=0;i<60;i++){const x=(i*47+T*1.5)%W,y=(i*31+T*4)%H;rect(x,y,1,4,'rgba(180,170,220,.25)')}spr(MIS,250,124,true,2);spr(VSP,276,112,true,2)}})}
 function newRun(p){S=NEW(p);save();drawHud();
- const intro=p==='v'?[['','V has three dogs, a foundation in forty-one cities, and a server full of serial killers he did not ask to be in.'],['','One of them is an assassin named Misaki. She is behind on rent. She refuses his money.'],['K9','This is not my concern.'],['','It is, increasingly, his concern.']]
-  :[['','Misaki has a trailer, a gun, a sticker that says DON’T, and ¥9,000.'],['','Rent is ¥40,000. Due day 5. Then again by day 10.'],['hitmeuppp','ok. ok ok ok. i can do this. i kill people for money. i can do RENT.']];
+ const intro=p==='v'?[
+  ['','Day 1. The alarm is set for 5:40. V wakes at 5:38, every morning, so that he can turn it off before it gets the chance.'],
+  ['','Three dogs. A foundation in forty-one cities. A house so large that some rooms he only enters to check that nothing has happened in them.'],
+  ['','And a chat server full of serial killers. He joined it for a reason he has stopped admitting. He stays for reasons he has not admitted yet.'],
+  ['','One of them is an assassin who calls herself hitmeuppp. Misaki. She is behind on rent. She has refused his money so creatively that he has started keeping a list of the refusals.'],
+  ['K9','(Refusal number five: “i would rather eat my own shoe.” She sent a photograph of the shoe. It was a very clean shoe.)'],
+  ['','He puts the kettle on. He takes down one mug. He looks at it for slightly too long, and then puts it back, and takes down the okayest one instead.'],
+  ['K9','This is not my concern.'],
+  ['','It is, increasingly, his concern. The dogs know. Biscuit has started waiting by the door at the hour Misaki usually logs on.']]
+  :[
+  ['','Day 1. The trailer smells of instant ramen and gun oil, in that order, depending on which way the wind comes through the window that doesn’t shut.'],
+  ['','On the fridge: a final notice in red, held up by a magnet shaped like a strawberry. RENT ¥40,000. DUE DAY 5. Then the same again by day 10. Then forever.'],
+  ['','In the coffee tin under the sink: ¥9,000, a spare star clip, and a folded foreign banknote she has never managed to spend. She counts it twice. It doesn’t get bigger.'],
+  ['','Her phone buzzes. The server. Ronin has posted a crowbar. Angel has posted a selfie. K9 has posted, to nobody in particular: “A reminder that the shelters accept donations.”'],
+  ['hitmeuppp','not looking at that. not looking at the rich man’s charity reminder. i have a JOB.'],
+  ['','He has offered her money four times. She has said no five times, because she said it once in advance.'],
+  ['hitmeuppp','ok. ok ok ok. i can do this. i kill people for money. i can do RENT.'],
+  ['','She says it to the strawberry magnet. The strawberry, to its credit, doesn’t argue.']];
  cut(intro,hub)}
 function hubBg(){const a=IMG.m,b=IMG.v;if(a.complete&&a.naturalWidth)c.drawImage(a,0,0,125,141,0,0,160,H);if(b.complete&&b.naturalWidth)c.drawImage(b,125,0,125,141,160,0,160,H);rect(0,0,W,H,S&&S.dark?'rgba(30,0,8,.6)':'rgba(10,8,14,.45)');rect(159,0,2,H,'#d0283f')}
 function hub(){if(!S)return title();ensureAct2();S.visitAs=null;save();
@@ -1177,24 +1193,95 @@ function informant(){const o=ORG[S.captor];go({draw(){rect(0,0,W,H,'#0a0808');re
 
 /* ---------- the kidnapping ---------- */
 function takenM(){S.phase='taken';S.dark=1;S.captor=captorOrg();S.takenDay=S.day;S.tries=0;S.f.tray=0;S.f.cotSearched=0;S.f.listened=0;save();const o=ORG[S.captor];
- cut([['','The rent receipt is still in her pocket when the van door slides open.'],['hitmeuppp','oh you have GOT to be kidding m—'],['','A hood. A needle. The smell of the river.'],['',`When she wakes, the first thing she sees is a logo on a guard’s jacket. ${o.name}.`],['hitmeuppp','...should’ve left that body somewhere better.']],()=>interrogate(1,()=>cut([['','They throw you back in the cell. The door locks. Somewhere a radio plays something cheerful.'],['hitmeuppp','ok. ok. think. star clip. tray. door. vent. think.']],()=>toRoom('cell',[120,150]),'#0c0a08')),'#000')}
+ cut([['','Nine-forty at night. She cuts through the lot behind the pachinko parlour because it saves four minutes, and four minutes is a whole konbini run.'],
+  ['','The rent receipt is in her back pocket. Paid. Stamped. She keeps touching it through the denim, as if it might wander off.'],
+  ['','A grey van with no plates is idling by the fence. Engine on. Lights off. Her body notices before she does: shoulders up, weight onto the balls of her feet, right hand drifting toward a hip that has nothing on it tonight.'],
+  ['hitmeuppp','(no gun. no knife. star clip. phone. a receipt. really great loadout, misaki. ten out of ten.)'],
+  ['','She doesn’t run. Running tells them she knows. She shifts her line two degrees toward the streetlight and keeps walking, loose, like a girl who is only thinking about egg sandwiches.'],
+  ['','The side door slides open on her third step.'],
+  ['hitmeuppp','oh you have GOT to be kidding m—'],
+  ['','Hands. Too many of them. She gets an elbow into something soft and hears it fold. Then the hood comes down and the whole world turns into her own breath, hot and too loud.'],
+  ['','A needle, high on the side of her neck. A smell like the river in August. Somebody says “careful, careful, they want her talking,” in the bored voice of a man on overtime.'],
+  ['','The last thing she hears is her phone buzzing in the gravel. The server. Someone sending a meme. It keeps buzzing for a long time after she stops hearing it.'],
+  ['','—'],
+  ['','Cold concrete under her cheek. One bulb in a wire cage, far too bright. A drain in the middle of the floor that she decides, immediately and permanently, not to think about.'],
+  ['',`The guard by the door has a logo stitched on his jacket. ${o.name}. She knows that logo. She left one of their men in a canal in the spring.`],
+  ['hitmeuppp','...should’ve left that body somewhere better.'],
+  ['','Her mouth tastes of coins. Her left wrist won’t close all the way. She takes stock: one shoe, one star clip in her hair that nobody thought to take, and the receipt, still in her pocket, still paid.'],
+  ['hitmeuppp',MV('(rent’s paid. i’m getting out and living in that trailer out of SPITE.)','(rent’s paid. if i die here, i die with a paid rent. that’s more than most people get.)','(Paid. At least nobody can take the trailer while I’m gone. I’m going back to it.)','(Paid. Somebody will notice I’m gone by tomorrow. He’ll notice by tonight. He will.)')]],
+  ()=>interrogate(1,()=>cut([['','They throw you back into the cell. The door locks with a sound like a decision.'],
+   ['','Somewhere down the hall a radio plays a jingle for a bank. It loops every four minutes. You start counting loops, because counting is a thing you can still do.'],
+   ['hitmeuppp','ok. ok. think. star clip. tray. door. vent. think.'],
+   ['hitmeuppp',MV('do NOT cry in front of the bulb. the bulb is a snitch.','not crying. the bulb doesn’t get to see that.','Don’t give them anything. Not even your face.','Breathe. You know how to wait out a room. You did it at sixteen. You hated it then too.')]],()=>toRoom('cell',[120,150]),'#0c0a08')),'#000')}
 function takenV(){S.phase='taken';S.dark=1;S.captor=captorOrg();S.takenDay=S.day;save();
- cut([['','Misaki doesn’t answer the server. Not the memes, not Angelic’s poll, not V’s “Did you eat today?”'],['','V drives to the trailer. The door is open. In the gravel: one white platform shoe.'],['K9','...'],['','He stands there for a long time. Then he takes off the mask he wears in his head, the one that says K9, and he puts it away.'],['K9','Someone took her.'],['K9','I will find them. And I will not be kind.']],hub,'#000')}
+ cut([['','Misaki doesn’t answer the server.'],
+  ['','Not the memes. Not Angel’s poll about whether a hot dog is a sandwich. Not Ronin’s crowbar. Not V’s “Did you eat today?”, sent at seven, twelve and six, exactly as always.'],
+  ['','At 18:40 he sends a fourth message, which he has never done. Just her name. He watches the word Delivered for eleven minutes. It does not become Read.'],
+  ['K9','(She has a job tonight. She switches her phone off for jobs. She is fine.)'],
+  ['K9','(She switches it off for jobs, and back on by nine. It is nine fifty.)'],
+  ['','He tells himself he is going for a drive. He tells Biscuit he will be back. Biscuit does not believe him and gets into the car first.'],
+  ['','The trailer door is open. Not broken. Open, swinging a few degrees in the wind, the way a door does when the person who left it never got to come back and close it.'],
+  ['','Noodles on the counter, the water long cold. The fan still turning. Her phone in the gravel outside, screen cracked, forty-one unread messages. Four of them are his.'],
+  ['','And by the step: one white platform shoe, lying on its side.'],
+  ['K9','...'],
+  ['','He crouches. He doesn’t touch it. Tyre marks in the soft ground by the fence, a wide wheelbase, the left rear tread worn smooth. He memorises them, because his hands need something to do that is not shaking.'],
+  ['','Biscuit whines once, very quietly, and lies down beside the shoe.'],
+  ['','Then he takes off the mask he wears in his head, the patient one, the one that writes everything down and calls the police first, and he puts it away somewhere he won’t be able to find it for a while.'],
+  ['K9','Someone took her.'],
+  ['K9',byT('I will find them.','I will find them. And I will be thorough.','I will find them. And I will not be kind.','I will find them. Every one. And there will be nothing left of them that anyone could mistake for kindness.')]],hub,'#000')}
 function escapeRun(route){const m=route==='vent'?{map:VENT,guards:VENT_G,title:'The vents — then the loading dock'}:{map:WARE,guards:WARE_G,title:'The warehouse floor'};
  stealth(Object.assign(m,{hint:'Get to the EXIT. Plants hide you. Sneak up from behind + E to take a guard down. ⇧ near a body hides it.',smoke:S.f.tray?1:0,smokeName:'tray',actor:'m',takedown:true,guardCol:'#2a1a1a',takeLine:'Star clip. Throat. Quiet.',autoExit:true}),r=>{if(r.ok){S.f.selfEscape=1;S.bodies+=r.bodies;save();escaped(r)}else failedEscape('A flashlight in your face. Hands on your shoulders.')})}
 function failedEscape(msg){S.tries++;save();
- if(S.tries===1)cut([['',msg],['','They drag you back. Someone takes the clip out of your hair. Someone else laughs.'],['hitmeuppp','(...i have a backup clip. idiots.)']],()=>interrogate(2,()=>{S.f.tray=0;save();cut([['','Back in the cell. Your legs don’t work right. You make them work.']],()=>toRoom('cell',[120,150]),'#0c0a08')}),'#000');
+ if(S.tries===1)cut([['',msg],['','They drag you back by the arms, heels bumping over every seam in the concrete. You count the seams. Twenty-two. It helps more than it should.'],['','Someone pulls the star clip out of your hair and holds it up to the light like a funny little insect. Someone else laughs.'],['','You let your face do what they want it to do. You let it crumple. You let them watch it.'],['hitmeuppp','(...i have a backup clip. idiots.)'],['hitmeuppp',MV('(it’s in my shoe. it’s been in my shoe since i was fifteen.)','(in my shoe. since i was fifteen. never leave the house with only one exit.)','(In my shoe. I learned that one years ago. Always carry the second door with you.)','(In my shoe, since I was fifteen. I thought it was for jobs. It was always for this.)')]],()=>interrogate(2,()=>{S.f.tray=0;save();cut([['','Back in the cell. Your legs don’t work right. You make them work.']],()=>toRoom('cell',[120,150]),'#0c0a08')}),'#000');
  else if(S.pov==='both')cut([['',msg],['','This time they don’t drag you back to the cell. They just leave you on the floor.'],['','Across the city, a man in a brown coat finishes loading a car.']],vRescue,'#000');
  else vRescueCut(msg)}
-function vRescueCut(msg){cut([['',msg],['','This time they don’t bother with the cell.'],['','Then the lights go out.'],['','Then nothing. No shouting. No footsteps. For a long time.'],['','When the emergency lights come on, V is in the doorway. There is something dark on his gloves. He isn’t wearing anything that would make him K9.'],['K9','Misaki.'],['hitmeuppp','...took u long enough.'],['K9',byT('I apologise.','I came as fast as I could.','I was always coming. You knew that.','I would have kept looking. As long as it took.')],['','He carries her out. She keeps her eyes shut through the hallway. So does he, mostly.']],()=>after(false),'#000')}
-function escaped(r){cut([['','The loading dock door. Cold air. The river. Freedom smells like diesel.'],['','She walks until dawn. She doesn’t realise where she’s going until she’s at V’s door.'],['K9','...Misaki.'],['hitmeuppp','hi. sorry. i didn’t know where else to'],['','He pulls her inside before she finishes. His hands are shaking. She has never seen his hands shake.'],['K9',byT('You are safe.','You are safe. You did this yourself.','You got out. Of course you got out.','I was halfway there. I was halfway there, Misaki.')],['K9','Who.'],['hitmeuppp',`${ORG[S.captor].name}. ${ORG[S.captor].boss}.`],['K9','Thank you. Sleep now.'],['','The way he says it, it sounds like a threat. Not to her.']],()=>after(true),'#05040a')}
+function vRescueCut(msg){cut([['',msg],['','This time they don’t bother with the cell. Someone drops you on the floor of the loading bay and goes to get a coffee. You can hear him laughing at something on his phone.'],
+ ['','You lie on the concrete and count the ribs of the roller door. Seventeen. You count again. Still seventeen. The radio jingle loops.'],
+ ['','Then the lights go out.'],
+ ['','Not a flicker. Out. The radio stops mid-word. In the dark: a sound like a sack of rice being set down, carefully. Then another.'],
+ ['','Then nothing. No shouting. No footsteps. Only your own breathing, which is too loud, so you hold it.'],
+ ['','When the emergency lights come on, red and low, V is in the doorway.'],
+ ['','Nothing on him that would make him K9. Just the brown coat, wet to the knee from the river. Something dark on his gloves, and on his cuffs, and he hasn’t noticed, or has and doesn’t care.'],
+ ['K9','Misaki.'],
+ ['','He says it the way you check a gun: once, carefully, to make sure it’s still there.'],
+ ['hitmeuppp',MV('...took u long enough.','...took you long enough.','...You took long enough.','...I told them you’d come. I didn’t tell them anything else. Just that.')],
+ ['K9',byT('I apologise.','I came as fast as I could.','I was always coming. You knew that.','I would have kept looking. As long as it took. As long as there was a city left to take apart.')],
+ ['','He kneels, and stops with his hands an inch from you, as if asking. You nod. Only then does he lift you.'],
+ ['','He carries you out through the hallway. You keep your eyes shut. So does he, mostly. Through the coat you can feel his heart going much too fast for a man who walks that slowly.']],()=>after(false),'#000')}
+function escaped(r){cut([['','The loading dock door gives on the second shove. Cold air hits your face so hard it feels like being slapped awake.'],
+ ['','The river. The sky going purple at the edges. Freedom smells exactly like diesel and fish guts, and you could cry about it, so you don’t.'],
+ ['','You walk. You don’t let yourself run until you’re three streets away, because running is what prey does. Then you run until your lungs make a sound you’ve never heard them make.'],
+ ['','At some point you stop deciding where you’re going. Your feet do it. A bridge. A long road of ginkgo trees. A gate you’ve climbed twice and walked through, politely, once.'],
+ ['','You don’t realise where you are until you’re standing at V’s door with your fist already raised.'],
+ ['','It opens before you knock. He’s dressed. Coat on. Car keys in his hand. The grey under his eyes says he hasn’t slept since you didn’t answer the server.'],
+ ['K9','...Misaki.'],
+ ['hitmeuppp',MV('hi. sorry. i didn’t know where else to','hi. sorry. i didn’t know where else to go','Hi. Sorry. I didn’t know where else to—','I didn’t think. I just walked. I’m sorry, I didn’t know where else I—')],
+ ['','He pulls you inside before you finish. His hands are shaking. In all the time you’ve known him you have never once seen his hands shake. Not over a rifle. Not in front of a board.'],
+ ['K9',byT('You are safe.','You are safe. You did this yourself.','You got out. Of course you got out.','I was halfway there. I was halfway there, Misaki. I had the car running.')],
+ ['','He doesn’t ask if you’re hurt. He looks instead, fast and thorough: wrists, ankles, the side of your neck where the needle went in. His jaw does something when he finds it.'],
+ ['K9','Who.'],
+ ['hitmeuppp',`${ORG[S.captor].name}. ${ORG[S.captor].boss}.`],
+ ['K9','Thank you. Sleep now.'],
+ ['','He says it very gently. It sounds like a threat. Not to you. To a man across the river who is asleep, and doesn’t know yet that he should stop.']],()=>after(true),'#05040a')}
 function vRescue(){const g=WARE_G.slice(0,S.f.schedule?4:5).concat([[[2,1],[2,4]]]);
  stealth({map:RESC,guards:g,title:'River warehouse — find her',hint:'Reach her cell (EXIT marker). Take guards from behind with E. ⇧ near a body hides it.',smoke:S.f.roninOwes?1:0,smokeName:'Ronin’s distraction',actor:'v',takedown:true,sens:.9-(S.f.vSkill||0)*.12,guardCol:'#2a1a1a',takeLine:D('He goes down without a sound.','He goes down. He does not get up. V does not check.')},r=>{
   if(!r.ok){cut([['','A guard shouts. V does not run. He walks through them instead.'],['','It is not elegant. It is not K9. It works.']],()=>{S.bodies+=3;apply({heart:-10});rescued(3)},'#000');return}
   go(cutBg('#0e0a10'));S.bodies+=r.kills;apply({heart:-3*r.kills});dispose('v',r.bodies,()=>rescued(r.kills))})}
-function rescued(k){cut([['','The cell door. A girl on the floor with her knees pulled up, a tray held like a blade.'],['hitmeuppp','...V?'],['K9','I am here.'],['hitmeuppp','you’re. you’re covered in—'],['K9','Yes.'],['hitmeuppp',byT('…ok.','ok. ok. thank you.','i knew you’d come. i told them you would. i didn’t tell them anything else.','took you long enough. come here.')],['','He lifts her like she weighs nothing. On the way out, she counts '+k+' shapes in the hallway. She stops counting.']],()=>after(false),'#000')}
+function rescued(k){cut([['','The cell door, kicked off one hinge. In the corner, a girl on the floor with her knees pulled up and a cafeteria tray held edge-out like a blade, as if she has been holding it that way for hours.'],
+ ['hitmeuppp','...V?'],['K9','I am here.'],
+ ['','She doesn’t lower the tray. Her arms have forgotten how. He doesn’t ask her to. He crouches just out of reach and waits, the way he waits for a frightened dog to decide.'],
+ ['hitmeuppp','you’re. you’re covered in—'],['K9','Yes.'],
+ ['','No explanation. No apology. She finds, strangely, that she doesn’t want one.'],
+ ['hitmeuppp',byT('…ok.','ok. ok. thank you.','i knew you’d come. i told them you would. i didn’t tell them anything else.','took you long enough. come here.')],
+ ['','The tray clatters on the concrete. He lifts her as if she weighs nothing, which by now is almost true.'],
+ ['','On the way out she counts '+k+' shapes in the hallway, then stops counting. He steps over each of them without looking down, the way you step over cracks in a pavement.'],
+ ['hitmeuppp',MV('(note to self: never make him mad.)','(note to self: never, ever make him mad.)','(I knew what he was. I didn’t know what he’d be for me. I don’t know what to do with that yet.)','(He did that for me. I should be scared. I’m not. That’s the part that scares me.)')]],()=>after(false),'#000')}
 function afterBase(self){S.phase='after';S.endDay=S.day+4;S.slot=Math.min(S.slot,2);apply({aff:self?6:10,edge:self?10:6});
- const L=[['','Things are different after.'],['hitmeuppp',self?'i got myself out. i want that on the record. i also want to never be in a room with one lightbulb again.':'i owe you. don’t say i don’t. i hate owing people.'],['K9',D('','')+byT('Rest. I will handle the rest.','Rest. Then we talk about '+ORG[S.captor].boss+'.','I have a file on '+ORG[S.captor].boss+'. I have had it for two days. It is very thick.','I am done being K9 for them. They do not get K9. They get me.')]];
+ const L=[['','Things are different after.'],
+  ['','Not loudly. Small things. She sleeps with the light on and says it’s for reading. He checks the locks twice and says it’s once.'],
+  ['hitmeuppp',self?MV('i got myself out. i want that on the record. i also want to never be in a room with one lightbulb again.','i got myself out. on the record. ALSO no more rooms with one lightbulb. ever.','I got myself out. I want that on the record. And I never want to see a bare bulb again.','I got myself out. Write it down, the way you write everything down. I need it written somewhere that isn’t me.'):MV('i owe you. don’t say i don’t. i hate owing people.','i owe you. don’t argue. i hate owing people.','I owe you. Don’t tell me I don’t. I hate owing people, you know that.','I owe you. And I don’t hate it. That’s new. I don’t know what to do with that.')],
+  ['K9',byT('Rest. I will handle the rest.','Rest. Then we talk about '+ORG[S.captor].boss+'.','I have a file on '+ORG[S.captor].boss+'. I have had it for two days. It is very thick.','I am done being K9 for them. They do not get K9. They get me.')],
+  ['','He says it to the window, not to her. She notices he hasn’t taken the coat off since he came home. It’s starting to smell of the river.']];
  if(S.leaks>=2)L.push(['Angelic','someone came to my building asking for “the vlogger from the server.” i’m fine. i’m moving. misaki i’m not mad. i’m a little mad.'],['ronin.beaufort','somebody came asking for the butcher. they found him. well. pieces of the conversation.']);
  else if(S.leaks===1)L.push(['ronin.beaufort','heard you held out. mostly. respect.']);
  else L.push(['Angelic','you didn’t give them ANYTHING?? misaki you’re my hero. i’m making you a crown.']);
@@ -1205,7 +1292,17 @@ function finale(){const o=ORG[S.captor];const opts=[];
  if(isM())opts.push({t:`Misaki goes after ${o.boss}`,sub:'infiltration',fn:()=>finalM()});
  if(isV()){opts.push({t:'V ruins them — the K9 way',sub:S.heart>=45?'leaks, lawyers, frozen accounts':'needs conscience 45 — that man is gone',dis:S.heart<45,fn:()=>{S.f.finalRuin=1;cut([['','V spends one night and four million dollars. By morning, '+o.name+'’s accounts are frozen, their lawyers have quit, and three newspapers have the same file.'],['K9','You do not get to disappear. You get to be seen.']],()=>ending('final'),'#031014')}},
   {t:`V kills ${o.boss}`,sub:'infiltration with takedowns',fn:()=>finalV()})}
- go({draw:hubBg});ask(S.pov==='v'?'K9':'hitmeuppp',S.pov==='v'?`${o.boss}. ${o.name}. It ends tonight.`:`${o.boss}. it ends tonight.`,opts)}
+ const pre=[['','The night before. Nobody in the house says the word tomorrow.'],
+  ['','V cleans a rifle he hasn’t fired in nine years, at the kitchen table, on yesterday’s newspaper, the dogs asleep in a pile under his chair. Misaki sits across from him eating cereal out of the box, which is Ronin’s fault.'],
+  ['hitmeuppp',MV('u do the frown when u clean things','you’re doing the frown.','You frown when you clean things. Did you know that?','You frown when you clean things. You frowned like that at me the first night. I thought it meant you hated me.')],
+  ['K9','It meant I was concentrating.'],['hitmeuppp','on me?'],['K9','...Eat your cereal.'],
+  S.f.ronHall?['','Ronin texts at midnight: a crowbar wearing a tiny hat, and under it, “hallway’s on me again if u need it. don’t need it.”']:null,
+  S.f.toldAngel===1?['','Angel texts at one: “come back with all your fingers. i did your nails. they have to be SEEN.”']:S.f.angelSecret?['','Angel texts at one: a single panda emoji. You look at it until the screen goes dark on its own.']:null,
+  S.f.rentBack?['hitmeuppp','(the trailer’s mine through march. mine. whatever happens tomorrow, that stays true.)']:S.f.rentLet?['hitmeuppp','(through march, on his money. if this goes wrong he paid rent on an empty trailer. so don’t let it go wrong.)']:null,
+  S.f.coatKept===1?['','At dawn he puts on the brown coat. It fits the way it always has.']:S.f.coatKept===0?['','At dawn he goes down to the archive and does not open the drawer marked “Not again.” He wears a black jacket instead. It doesn’t fit as well. That is the point.']:null,
+  ['K9','Whatever happens. You walk out first.'],
+  ['hitmeuppp',MV('whatever u say grandpa','no. we walk out together. that’s the deal now.','No. Together, or I’m not going.','No. I walked out of one room alone. I’m not doing it again. Together.')]].filter(Boolean);
+ go({draw:hubBg});say(pre,()=>ask(S.pov==='v'?'K9':'hitmeuppp',S.pov==='v'?`${o.boss}. ${o.name}. It ends tonight.`:`${o.boss}. it ends tonight.`,opts))}
 function finalM(){const o=ORG[S.captor];stealth({map:GALA,guards:finaleGuards(),title:`${o.boss} — ${o.name}`,hint:'The boss is in white. E from adjacent. Take guards from behind. ⇧ hides bodies / smoke.',smoke:S.smoke+1+(frT('r')>=2?1:0),actor:'m',takedown:true,sens:1.15,guardCol:'#3a0a14',killLine:D('Done.','For the forty-one marks on the cot.')},r=>{
  if(!r.ok){if(S.pov==='both'||tier()>=2)cut([['','They have her pinned. Then the lights die, and someone tall walks in from the dark.'],['K9','Get behind me.']],()=>{S.f.vSaved=1;S.bodies+=4;apply({heart:-8});ending('final')},'#000');else cut([['','She gets out. Barely. '+o.boss+' gets out too.'],['hitmeuppp','next time.']],()=>{S.f.bossLives=1;ending('final')},'#000');return}
  go(cutBg('#0e0a10'));S.bodies+=r.kills;dispose('m',r.bodies,()=>ending('final'))})}
@@ -1648,8 +1745,18 @@ function startAct2(){S.phase='act2';S.dark=0;S.scar=1;S.slot=0;S.done={};S.act2S
  const cul=S.lone?'heir':S.f.stalkerPaper?'dale':(S.f.finalRuin||S.f.bossLives)?'heir':'hara';const oth=['dale','heir','hara'].filter(x=>x!==cul);
  S.case={cul,found:[],queue:[cul+'1','tag',cul+'2',oth[0]==='dale'?'dale3':oth[0]+'2','coat',cul+'3','owed',oth[1]+'1'],solved:false,accused:null};
  S.meet=MEETS.length;ensureAct2();
- save();cut(S.lone?loneIntro():[['','Six weeks later.'],['','The leaves turn. The river gives back nothing. The server goes back to memes, mostly.'],['',S.pov==='v'?'V goes back to the foundation. The board wants a gala. V wants a quiet year. The board wins.':'Misaki goes back to work. Rent is rent. Her hands are steadier than she expected.'],
-  ['','Then, on a Tuesday, a man V ruined on paper three years ago is found dead in an alley in Shinjuku.'],['','There’s a dog tag in his hand. Stamped: K9.'],['K9','That is not mine.'],['hitmeuppp','i know. somebody wants people to think it is.'],['','ACT II — THE MIMIC']],hub,'#05040a')}
+ save();cut(S.lone?loneIntro():[['','Six weeks later.'],
+  ['','The leaves turn. The river gives back nothing. The server goes back to memes, mostly, the way a house goes back to normal after a funeral: everyone laughing a little too readily.'],
+  ['',S.pov==='v'?'V goes back to the foundation. The board wants a gala. V wants a quiet year. The board has more people in it, so the board wins.':'Misaki goes back to work. Rent is rent. Her hands are steadier than she expected, which bothers her more than if they’d shaken.'],
+  ['',S.pov==='v'?'He has started sleeping in his clothes, shoes by the bed with the laces loose. He tells the dogs it saves time.':'She has started sitting with her back to walls. In restaurants, in the bath, in his kitchen. Nobody mentions it. Everybody makes room.'],
+  ['','Then, on a Tuesday, a man V ruined on paper three years ago is found dead in an alley in Shinjuku. It rained all night. The police have little left but an outline.'],
+  ['','There’s a dog tag in his fist, stamped by hand: K9.'],
+  ['K9','That is not mine.'],
+  ['hitmeuppp',MV('i know. somebody wants people to think it is.','i know. somebody wants everyone to think it is.','I know. Someone wants the whole city to think it is.','I know it’s not yours. You’d never leave your name on anything. You barely put it on cheques.')],
+  ['K9','The letters were punched by hand. Someone sat with a hammer and a set of steel stamps and took their time.'],
+  ['hitmeuppp','so they’re patient.'],
+  ['K9','So they are enjoying it.'],
+  ['','ACT II — THE MIMIC']],hub,'#05040a')}
 const A2MEETS=[
  {who:'Gala planning committee',intro:[['Chair','The Hands On autumn gala. We need a venue, a theme, and ideally a photograph of you smiling. Just one.']],q:'(Where should it be?)',o:[{t:'The Imperial ballroom',e:{funds:-40,rep:6},flag:'galaBig',out:[['','Chandeliers. Six hundred guests. More donors, more cameras, more places for someone to hide.']]},{t:'A community hall in Arakawa',e:{funds:-10,heart:6},flag:'galaSmall',out:[['','Folding chairs, a local band, the shelter kids doing the decorations. Smaller. Harder to infiltrate.']]},{t:'The atrium of your own home',req:{heart:50},e:{rep:2},flag:'galaHome',out:[['K9','If someone comes for me, I would rather it be on ground I know.']]}]},
  {who:'Inspector Hara',intro:[['','A rumpled man in a good coat, holding a cheap coffee.'],['Hara','Mr. V. Three bodies, three tags. All three, men your foundation exposed. You can see how it looks.']],q:'(He is watching your hands.)',o:[{t:'Cooperate fully',e:{rep:4,heart:3},out:[['K9','Ask me anything. I have nothing to hide that is relevant to your case.'],['Hara','Interesting phrasing.']]},{t:'Say nothing without a lawyer',e:{rep:-3},out:[['Hara','Of course. I’ll be seeing you.']]},{t:'Ask him a question back',e:{},fn:()=>gainClue('hara3'),out:[['K9','How long have you had the K9 file open, Inspector?'],['Hara','...Four years. Why?'],['','He answers too fast. V files it away.']]}]},
@@ -1670,10 +1777,24 @@ function donorCalls(){const D2=[['Mrs. Tanizaki','Old money. Lost her husband to
  const picks=D2.sort(()=>Math.random()-.5).slice(0,3);let i=0,raised=0;go({draw(){boardroom('Donor calls')}});
  const next=()=>{if(i>=picks.length){S.gala+=raised;save();say([['K9',raised>=90?`$${raised}k in one afternoon. The board will be insufferable. I will allow it.`:raised>=40?`$${raised}k. Respectable.`:`$${raised}k. I was not persuasive today.`]],hub);return}const [n,d,want]=picks[i++];
   ask('K9',`<b>${n}</b> — ${d}`,[['story','Tell them a story — one person, one night, one bed.'],['data','Give them the numbers: cost per night, outcomes, audits.'],['flatter','Tell them how much their name would mean on the wall.']].map(([k,l])=>({t:l,fn:()=>{const g=k===want?40:k==='flatter'&&want==='story'?0:15;raised+=g;say([[n,g>=40?pk(['…Put me down for forty.','That’s exactly what I needed to hear. Forty.']):g?pk(['Fine. Fifteen.','I suppose I can do fifteen.']):pk(['I don’t appreciate being flattered, Mr. V. Good day.','No.'])]],next)}})))};next()}
-const BEATS={1:()=>[],3:()=>{S.victims=2;relApply({morale:-5});apply({rep:-8});return[['','A second body. Another man from V’s paperwork. Another tag.'],['TV','—police are “not ruling out a connection” to the Hands On Foundation—'],['K9','They are going to come to the door. Let them.']]},
- 5:()=>{S.victims=3;const t=TARGETS.find(x=>x.id.startsWith('a2_')&&!S.f['done_'+x.id]);if(t)S.f['done_'+t.id]=1;return[['','Misaki’s next target, '+(t?t.n:'a loan shark')+', is found dead before she gets there. Tag in his pocket.'],['hitmeuppp','they’re in my jobs now. they know my list.'],['K9','Then they know the server. Or someone close to it.']]},
- 7:()=>{relApply({morale:-8});return[[AN,'someone left a K9 tag on my car. with a bow on it. i’m fine. i’m sleeping at ronin’s. don’t make it weird.'],[RN,'she’s fine. i’m awake. i’m very, very awake.']]},
- 9:()=>[['','A new message in #slaughterhouse-general, from an account nobody recognises:'],['???','see you at the gala, K9. wear the coat.'],['K9','...They are in the server.'],['hitmeuppp','then we finish this at the gala.']]};
+const BEATS={1:()=>[],3:()=>{S.victims=2;relApply({morale:-5});apply({rep:-8});return[['','A second body. Another man from V’s paperwork. Another tag, this one pinned through his tie like a medal.'],['TV','—police are “not ruling out a connection” to the Hands On Foundation, whose reclusive chairman—'],
+  ['','V turns the television off in the middle of the word, and sits looking at the black screen, at his own reflection in it.'],
+  ['K9','They are going to come to the door. Let them. I will make tea. Inspector Hara takes two sugars and pretends he takes none.'],['hitmeuppp',MV('u know how he takes his TEA?','you know how he takes his TEA?','You know how he takes his tea?','Of course you know how he takes his tea.')],
+  ['K9','I know how everyone takes their tea. It is the first thing that tells you whether they are lying.']]},
+ 5:()=>{S.victims=3;const t=TARGETS.find(x=>x.id.startsWith('a2_')&&!S.f['done_'+x.id]);if(t)S.f['done_'+t.id]=1;return[['','Misaki’s next target, '+(t?t.n:'a loan shark')+', is found dead before she gets there. Tag in his pocket. Her job. Her Thursday.'],
+  ['','She stands across the road from the police tape under a konbini umbrella, holding a contract nobody will ever pay her for now.'],
+  ['hitmeuppp',MV('they’re in my jobs now. they know my list.','they’re in my jobs. they know my LIST, v.','They’re inside my work now. They know my list. Who knows my list?','They know my list. Four people know my list. One of them is you. I hate that I just counted.')],
+  ['K9','Then they know the server. Or someone close to it.'],['hitmeuppp','...say it. u think it’s one of us.'],
+  ['K9','I think someone wants us to think that. Which is not the same thing. Which is worse.']]},
+ 7:()=>{relApply({morale:-8});return[[AN,'someone left a K9 tag on my car. with a bow on it. i’m fine. i’m sleeping at ronin’s. don’t make it weird.'],[RN,'she’s fine. i’m awake. i’m very, very awake.'],
+  [AN,'he’s sitting in the hallway with the crowbar across his knees like a sad guard dog. it’s honestly very sweet. don’t tell him.'],[RN,'I can read, darlin’.'],
+  S.f.ronHall?[RN,'Owe somebody a hallway. So I’m sittin’ in one. Funny how that works out.']:null,
+  S.leaks>0&&isM()&&S.pov!=='v'?(S.f.toldAngel?['hitmeuppp','(she knows what i said in that room. she still put her car in the group photo. she still calls me babe.)']:['hitmeuppp','(they found her car. i said her building, in that room, under the bulb. she doesn’t know. she’s doing her nails at ronin’s and she doesn’t know.)']):null].filter(Boolean)},
+ 9:()=>[['','A new message in #slaughterhouse-general from an account nobody recognises. The avatar is a photograph of V’s front gate, taken from the road, at night.'],['???','see you at the gala, K9. wear the coat.'],
+  ['','For a full minute nobody types anything. “Ronin is typing…” appears and disappears four times.'],['K9','...They are in the server.'],
+  S.f.coatKept===1?['K9','(I have worn it every day since the river. They have been watching every day.)']:S.f.coatKept===0?['K9','(The coat is in a drawer in the archive. They do not know that. Or they do, and that is why they asked.)']:null,
+  ['hitmeuppp','then we finish this at the gala.'],['K9','Misaki. If it goes wrong—'],['hitmeuppp','it won’t.'],['K9','If it does.'],
+  ['hitmeuppp',MV('then u owe me noodles. that’s the deal.','then you owe me noodles. that’s the whole deal.','Then you owe me noodles, and I’m collecting.','Then come and find me. You always do. That’s the deal.')]].filter(Boolean)};
 function morningEventJ(done){if(S.phase==='act2'){const d=S.day-S.act2Start+1;if(d===1&&!S.victims)S.victims=1;const b=BEATS[d];if(b&&!S.seen['beat'+d]){S.seen['beat'+d]=1;save();const L=b();if(L.length)return say(L,done)}}
  const pool=EVENTS.filter(e=>!S.seen[e.id]&&e.when());if(!pool.length||Math.random()<.25){done();return}const e=pk(pool);S.seen[e.id]=1;save();e.run(done)}
 EVENTS.push({id:'fight',when:()=>S.tension>=55&&!S.dark,run:done=>{const m=isM()&&S.pov!=='v';say([['','It starts over who forgot to text back. It isn’t really about the text.'],m?['K9','You took a contract alone, in that part of town, without telling anyone. After everything.']:['hitmeuppp','you’ve been following me to jobs. ronin told me. you’ve been FOLLOWING me, V.'],m?['hitmeuppp','i don’t need a babysitter. i need you to trust me.']:['K9','I have been making sure no one else does.']],()=>ask(m?'hitmeuppp':'K9','(...)',[
@@ -1689,7 +1810,7 @@ function sceneClue(k,txt0){if(S.done['sc'+k]){say([['','Nothing more here.']]);r
 
 /* climax */
 function act2Climax(){const sus=SUS(),db=clueDB();const venue=S.f.galaHome?'V’s atrium, transformed':S.f.galaSmall?'a community hall in Arakawa':'the Imperial ballroom';
- cut([['','October 31st. The Hands On gala.'],['',`It’s held in ${venue}. ${S.f.galaStream?'Angel’s livestream counter ticks past a million.':'No cameras, as requested.'}`],...(S.lone==='m'?[['hitmeuppp','They’ll be here. They want an audience. ...You’d know what to say right now.']]:S.lone==='v'?[['K9','They will be here. They want an audience. She would have made a joke. I cannot think of one.']]:[['K9','Whoever it is will be here. They want an audience.'],['hitmeuppp','then let’s give them one.']])],()=>{
+ cut([['','October 31st. The Hands On gala.'],['',`It’s held in ${venue}. ${S.f.galaStream?'Angel’s livestream counter ticks past a million.':'No cameras, as requested.'}`],['','Six hundred people who have never been hungry, dressed as people with opinions about hunger. A string quartet playing something sad, very fast.'],['','A guard at every door. And by the cloakroom, a coat rack, with a long brown coat hanging on it that V did not bring.'],...(S.lone==='m'?[['hitmeuppp','They’ll be here. They want an audience. ...You’d know what to say right now.']]:S.lone==='v'?[['K9','They will be here. They want an audience. She would have made a joke. I cannot think of one.']]:[['K9','Whoever it is will be here. They want an audience.'],['hitmeuppp','then let’s give them one.'],['K9','Stay where I can see you.'],['hitmeuppp',MV('ur not my dad','you’re not my dad.','Then don’t look away.','I’ll stay where you can see me. You stay where I can see you, too.')]])],()=>{
   ask(S.pov==='v'?'K9':'hitmeuppp','Who is the Mimic?',Object.keys(sus).map(k=>({t:sus[k].n,sub:sus[k].d,fn:()=>{S.case.accused=k;const pool=S.case.found.slice();const picks=[];
    const pickEv=()=>{if(picks.length>=2||!pool.length)return resolve();ask(S.pov==='v'?'K9':'hitmeuppp',`Evidence ${picks.length+1}/2 against ${sus[k].n}:`,pool.filter(x=>!picks.includes(x)).map(x=>({t:db[x].t,fn:()=>{picks.push(x);pickEv()}})).concat([{t:'That’s all I have.',fn:resolve}]))};
    const resolve=()=>{const right=k===S.case.cul;const strong=picks.filter(x=>db[x].p.length===1&&db[x].p[0]===k).length;S.case.strength=right?strong:0;S.case.solved=right&&strong>=1;save();
@@ -10290,6 +10411,82 @@ function mzAmbEvents(now){const e=MZ.ev;if(!e||META.mute||META.sfx===0)return;
  if(e.crickets&&Math.random()<.035){const t=now+.05,f=4100+Math.random()*700;for(let k=0;k<3+Math.floor(Math.random()*3);k++){const g=mzPerc(t+k*.045,.012,.03);mzO('sine',f,t+k*.045,t+k*.045+.04,g);g.connect(MG)}}
  if(e.clack&&(!MZ.clackT||now>MZ.clackT)){MZ.clackT=now+1.15;for(const dt of [0,.13]){const g=mzPerc(now+.05+dt,.05,.08),f=mzF('bandpass',300,2);f.connect(g);mzNz(now+.05+dt,.1,f);g.connect(MG)}}
  if(e.drip&&Math.random()<.008){const t=now+.05,g=mzPerc(t,.03,.18),o=AC.createOscillator();o.frequency.setValueAtTime(1900,t);o.frequency.exponentialRampToValueAtTime(700,t+.12);o.connect(g);o.start(t);o.stop(t+.2);g.connect(MZ.rvIn);g.connect(MG)}}
+
+/* ===================== AFTERMATH THREADS: what the warehouse cost, and who pays ===================== */
+EVENTS.push(
+/* the receipt: she paid her own rent. Someone else paid the next three months. */
+{id:'sub_receipt',when:()=>S.phase==='after'&&isM()&&S.pov!=='v'&&S.day>=(S.f.returnDay||0)+1,run:done=>say([
+ ['','Laundry day. She turns out the jeans from that night before they go in, out of habit, and finds the receipt in the back pocket. It went through the wash once already. It’s pulp. The stamp is gone.'],
+ ['','She goes to the landlord’s office to ask for a copy. She doesn’t know why it matters. It matters.'],
+ ['Landlord','Copy? Sure, sure. Oh, and your, um, brother came by. Paid you through March. Very polite man. Brought biscuits. For me. Not the dog kind.'],
+ ['hitmeuppp','...he brought you BISCUITS.'],
+ ['Landlord','Do you not have a brother?'],
+ ['hitmeuppp',MV('i have a brother. he’s tall. he’s a problem.','yeah. he’s tall. he’s a problem.','I have one now, apparently.','Yes. He’s very polite. He’s very, very polite.')],
+ ['','She walks home the long way, holding the fresh receipt by its corner like it might bite. Through March. Three months of rent she didn’t earn.'],
+ ['','Her hands know how this feels. Somebody else holding the deed to a piece of her. She hates that her first feeling, before the anger, was relief.']],
+ ()=>ask('hitmeuppp','(What do you do about March?)',[
+  {t:'Pay him back. Every yen.',sub:S.yen>0?'−¥'+Math.min(S.yen,120000).toLocaleString()+' · it’s yours':'you’re broke · you’ll owe him',fn:()=>{const p=Math.min(S.yen,120000);S.yen-=p;S.f.rentBack=1;apply({aff:2});save();say([
+   ['','She leaves an envelope on his kitchen counter, under the okayest mug, with a note: “for march. don’t.”'],
+   ['K9','(That evening.) You did not have to.'],['hitmeuppp','yeah. i did.'],
+   ['K9','...I know. That is why I did not argue with the envelope. I wanted to. I argued with the mug instead. The mug won.'],
+   ['hitmeuppp',MV('ur so weird','you’re so weird.','You’re so strange. Thank you for not arguing.','Thank you. For hearing it. That’s the part that costs you something.')]],done)}},
+  {t:'Let it stand. Just this once.',sub:'+affection · it costs something you can’t see',fn:()=>{S.f.rentLet=1;apply({aff:4,edge:2});save();say([
+   ['hitmeuppp','(text) march. i saw. i’m letting it go. once. don’t make it a thing.'],
+   ['K9','It is not a thing.'],['K9','(Eleven minutes later.) It is a small thing.'],
+   ['','She sits on the step of the trailer for a long time, watching the strawberry magnet hold up a receipt with someone else’s money on it.']],done)}}]))},
+/* the hallway: someone cleaned up after V, and wants him to know it */
+{id:'sub_hallway',when:()=>S.phase==='after'&&!S.f.selfEscape&&S.day>=(S.f.returnDay||0)+1,run:done=>say([
+ ['','Late. Kitchen. Ronin is at the counter eating V’s cereal out of the box, which is how V finds out he’s in the house.'],
+ [RN,'Evenin’.'],['K9','How did you get in.'],[RN,'Same way you got into that warehouse. Front door was the least of it.'],
+ ['','Ronin sets the box down. Folds the top closed, very neatly, like it matters.'],
+ [RN,'Went by the river Tuesday. Thought I’d tidy. Habit.'],
+ ['K9','I did not ask you to.'],
+ [RN,'Nah. You didn’t ask anybody anything. That’s what got me, darlin’. Man who calls the police on jaywalkers didn’t call a single soul.'],
+ ['','V says nothing. He looks at his own hands on the counter, as if checking that they’re the same ones.'],
+ [RN,'It’s done. All of it. Nobody’s findin’ nothin’. I ain’t here for thanks.'],
+ ['K9','Then why are you here.'],
+ [RN,'Wanted to see if you’d sleep after. Lot of folks don’t, first time. ...Lot of folks sleep like babies. Them’s the ones I worry about.'],
+ ['K9','...I slept.'],
+ [RN,'Yeah. That’s what I figured.'],
+ isM()&&S.pov!=='v'?['','(From the hallway, you hear all of it. You go back to bed before either of them sees you. You don’t sleep.)']:null].filter(Boolean),()=>{S.f.ronHall=1;fr('r',3);if(typeof relApply==='function')relApply({rivalry:-6});save();done()})},
+/* what she said in the room: Angel doesn't know */
+{id:'sub_angel',when:()=>S.phase==='after'&&isM()&&S.pov!=='v'&&S.leaks>=1&&frT('a')>=0,run:done=>say([
+ [AN,'face mask night!! i brought the cucumber ones and the ones that look like a panda. you’re the panda. no arguments.'],
+ ['','Angel is already cross-legged on the trailer floor, unscrewing lids, talking about her new building. Concierge. Cameras. “Very boring, babe, very safe.”'],
+ ['','The new building. Because someone came to the old one asking for “the vlogger from the server.” Because in a room with one bulb, someone asked a question, and you answered it.'],
+ [AN,'you’re quiet. you’re never quiet. it’s freaking me out. say something mean about my eyebrows.'],
+ ['hitmeuppp','...ur eyebrows are fine.'],
+ [AN,'okay now i KNOW something’s wrong.']],
+ ()=>ask('hitmeuppp','(Angel’s holding a panda face mask out to you.)',[
+  {t:'Tell her what you said in that room.',sub:'it will hurt · she deserves it',fn:()=>{S.f.toldAngel=1;fr('a',2);apply({edge:-2});save();say([
+   ['hitmeuppp','the building. they found ur building because of me. i said it. i said “the vlogger.” i thought i was saying nothing. it was something.'],
+   ['','Angel’s hands stop. The lid of the panda mask is still in her fingers. She looks at it as if she doesn’t know what it is.'],
+   [AN,'...okay.'],[AN,'okay. give me a sec.'],
+   ['','She takes more than a sec. She takes long enough that you start getting up to leave your own trailer. Then she grabs your wrist, the good one.'],
+   [AN,'you were in a ROOM, misaki. with a bulb and men. you don’t get to carry that by yourself. that’s not how this works. i’m not letting you be noble at me.'],
+   [AN,'...also you’re still the panda.']],done)}},
+  {t:'Put the mask on. Say nothing.',sub:'keep it · it keeps you',fn:()=>{S.f.toldAngel=0;S.f.angelSecret=1;apply({edge:3});save();say([
+   ['','You put on the panda. Angel laughs so hard she has to lie down. You take a photo of yourselves for the group chat. You look happy in it.'],
+   ['','When she’s gone, you look at the photo for a long time. You look happy in it. That’s the worst part.']],done)}}]))},
+/* the coat: V's side */
+{id:'sub_coat',when:()=>S.phase==='after'&&isV()&&S.day>=(S.f.returnDay||0)+1,run:done=>say([
+ ['','The brown coat hangs on the back of the archive door. It has hung there since the river. He has walked past it nineteen times today. He knows, because he counted.'],
+ ['','It smells of the water, still, and under that of something iron that the dry cleaner would ask about, politely, and then not ask about.'],
+ ['K9','(It is only a coat. My father bought it for me when I was twenty. I have worn it to every board meeting, every shelter opening, every night as K9.)'],
+ ['K9','(And to the river.)']],
+ ()=>ask('K9','(The coat.)',[
+  {t:'Have it cleaned. Keep wearing it.',sub:'it is only a coat',fn:()=>{S.f.coatKept=1;save();say([['','The dry cleaner does not ask. It comes back smelling of nothing, on a wire hanger, in plastic. He puts it on. It fits exactly the way it always did. He decides that is reassuring.']],done)}},
+  {t:'Fold it into a drawer in the archive.',sub:'it was never only a coat',fn:()=>{S.f.coatKept=0;apply({heart:3});save();say([['','He folds it the way his mother folded flags, corners in, and lays it in an empty drawer between two files of people he got out. He labels the drawer. The label says: “Not again.”']],done)}}]))});
+/* how the threads end up, on the ending screen */
+function subEnd(){const L=[];if(!S||!S.f)return L;
+ if(S.f.rentBack)L.push('The envelope for March is still in V’s kitchen drawer, unopened. He tells himself he will cash it. He never does. She knows. She lets him have that one.');
+ else if(S.f.rentLet)L.push('He paid three months of her rent once. She never mentions it. Every month since, she pays the landlord herself, in person, early, with biscuits.');
+ if(S.f.toldAngel===1)L.push('Angel never once brings up the building. She does, now and then, call Misaki “the panda” in front of strangers, and refuses to explain.');
+ else if(S.f.angelSecret)L.push('Misaki never tells Angel what she said in that room. Some nights it sits on her chest like a cat. She is starting to think it always will.');
+ if(S.f.ronHall)L.push('Ronin and V never talk about the river again. Ronin still turns up unannounced. V has started leaving the cereal out.');
+ if(S.f.coatKept===0)L.push('The drawer marked “Not again” stays shut.');else if(S.f.coatKept===1)L.push('He still wears the brown coat. Most days, it is only a coat.');
+ return L}
+const _xeSub=extraEnding;extraEnding=function(){return _xeSub().concat(subEnd())};
 /* ===UI2-END=== */
 requestAnimationFrame(frame);splash();
 
