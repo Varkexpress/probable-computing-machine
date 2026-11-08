@@ -143,6 +143,26 @@ The trailer and all of V's base are no longer side-view backdrops: they are 3/4 
   - `sub_coat` (V): keep the river coat (`coatKept=1`) or fold it away (`coatKept=0`).
 - Payoffs: Act II beats 7 and 9, the pre-finale scene, and the ending screen (`subEnd`, appended via `extraEnding`).
 
+## Round: trims, V romance, B5, Ronin/Angel, late nights (td15–td18)
+- The main-beat scenes and aftermath threads were trimmed by roughly 40% (scratch `story2.py`, td14). Payoff hooks are unchanged.
+- td15 V romance:
+  - `S.vrom` ('a'/'r'), separate from Misaki's `S.rom`.
+  - `vromOK` needs V POV, friendship tier ≥2, no other romance, and rivalry <60 for Ronin.
+  - Flow: confession → 3 dates (`vromDate`) → key to the house (`vromKey`). If V and Misaki were close (`vromHurt`), there's a konbini scene telling Misaki, and she moves out if she had moved in.
+  - Caps affection with Misaki at 74. Ending line via `extraEnding`.
+- td16 Sub-level 5 (DEEP map now 80×100, `gen2.py`):
+  - Rooms: b5land, b5h1, library (moss floor, overgrown shelves, the camphor tree in the light well, card catalogue, typewriter, the drowned stacks, 3 of his mother's ribboned books → `libMother`), seed vault, observation (monitors, logbooks: "Subject V, age 9" → `b5log`, `vChildKnown`), wing B with chambers 1–4 (kennel cell = where "K9" came from; dry sensory tank; the white room; chamber 4 = V's greenhouse lab, opens after the log), pump hall (welded sluice, a rowing boat of books).
+  - Entry: stair door (11,63), `b5Open()`. The code comes from knocking 3× on the hall-of-doors "door with no handle". V or Misaki may be reading in the library. New tracks: library, white.
+- td17: Ronin's flat gets a workshop and Angel's studio a set & closet (`gen4.py` widens RONIN/STUDIO). Each new activity is once per day.
+  - Ronin: workbench (file a crowbar charm), arm-wrestling, heavy bag, fire-escape talks (5 rotating), June's photo.
+  - Angel: green screen (4 trends), thrift flip, nails, lens-cap confessional (5 rotating), cleaning Beyoncé.
+  - New events: soup night, 3am voice notes, blanket fort.
+  - The kitchen counter (Ronin) and oven (Angel) moved off the new doorways.
+- td18 late night (`S.slot>=3`):
+  - V sleeps in the east-wing bed (`vWhere`→'bedroom'). Misaki sleeps in the trailer, or in V's bed if moved in. Ronin sleeps on his couch, Angel on the new daybed. Each sleeper has a "X is sleeping. Best not wake him/her." menu with options specific to that person.
+  - `sleep` sometimes runs `nightWake` (30%): branches by POV, moved-in, and Misaki's or V's romance.
+  - Angel and Ronin 3am events.
+
 ## Mirror Protocol (mirror-protocol.html)
 - Chapter 4 cases (all unlocked): lessons, mastery practice, 3D missions, final Ledger + 20-question exam.
 - Study hall (`prepHome`): shared item engine (`TYPES*` generators → `{skill,prompt,fig,parts,steps}`; part kinds pt/num/sel/mc/multi/graph/rule; `gradeItem`, `custom13`, `custom18`), `startTest(order,key,label)`, `startQuiz`, `moduleView`.
