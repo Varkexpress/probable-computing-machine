@@ -14,7 +14,7 @@ function tdCollect(sc){const M=sc.M,who=tdWho(),L=[];const claimed={};
   if(M.props.some(p=>p.legacy&&(p.room||(p.room=tdPropRoom(M,p)))===room&&(Array.isArray(p.legacy)?p.legacy:[p.legacy]).some(k=>s.label.startsWith(k))))return;
   const q=tdAutoPos(M,room,s);if(!q)return;L.push({k:'spot',s,room,x:q.x,y:q.y,r:[q.x-7,q.y-8,14,12],label:s.label,top:q.y-14})})}
  sc.npcList.forEach(n=>L.push({k:'npc',n,r:[n.x-8,n.y-8,16,12],label:n.label,top:n.y-38}));
- sc.dogs.forEach(d=>L.push({k:'dog',d,r:[d.x-8,d.y-6,16,10],label:(d.sleep?'Wake ':'Pet ')+d.n,top:d.y-14}));
+ sc.dogs.forEach(d=>L.push({k:'dog',d,r:[d.x-8,d.y-6,16,10],label:(d.sleep?'Wake ':'Approach ')+houndN(d.n),top:d.y-14}));
  for(const k in M.doors){const d=M.doors[k];const x=d.i*TS,y=d.j*TS;if(d.hidden&&d.hidden())continue;if(d.noUse&&d.noUse())continue;const op=tdDoorOpen(M,d);L.push({k:'door',d,r:[x-2,y-2,TS+4,TS+4],label:d.label?d.label(op):(op?'Close the door':'Open the door'),top:y-(d.face?20:6),low:1})}
  return L}
 function tdPick(sc){const p=sc.p;const f={u:[0,-1],d:[0,1],l:[-1,0],r:[1,0]}[p.dir];const px=p.x+f[0]*9,py=p.y-2+f[1]*8;
@@ -39,8 +39,8 @@ function tdScene(mapId,x,y,dir,opt={}){const M=TD.maps[mapId];const p={x,y,dir:d
   near(){return this.cur?{label:this.cur.label,at:tdToLegacy(S.room,p.x,p.y)}:null},
   enter(){const z=tdZoneNear(M,p.x,p.y);this.cam={x:clamp(p.x-W/2,Math.min(0,M.pw-W)/1,Math.max(0,M.pw-W)),y:clamp(p.y-H/2-10,Math.min(0,M.ph-H),Math.max(0,M.ph-H))};if(M.pw<W)this.cam.x=(M.pw-W)/2;if(M.ph<H)this.cam.y=(M.ph-H)/2;
    if(z){S.room=z.room}S.roomPos=this.pos();TD.bark=null;this.exitLock=M.props.some(q=>q.exit&&p.x>q.x&&p.x<q.x+q.w&&p.y>q.y&&p.y<q.y+q.d)?1:0;TD.parts=[];this.spawnDogs();if(M.enter)M.enter(this);if(z)this.zoneIn(z,true)},
-  spawnDogs(){this.dogs=[];const cols={Biscuit:'#c98a3a',Sergeant:'#3a3030',Mochi:'#f4f0ea',Pancake:'#9a6a40'};
-   M.zl.forEach(z=>{const R=ROOMS[z.room];if(!R||!R.dogs||z.room!==z.id)return;R.dogs().forEach((d,i)=>{const pos=tdFree(M,z.px[0]+20+((i*53)%(z.px[2]-40)),z.px[1]+24+((i*29)%(z.px[3]-40)));this.dogs.push(Object.assign({x:pos[0],y:pos[1],vx:0,vy:0,t:ri(30,120),z,R,f:false,sleep:d.n==='Sergeant'&&tdNight()},d))})})},
+  spawnDogs(){this.dogs=[];const cols={Biscuit:'#5a5650',Sergeant:'#2a2626',Mochi:'#141216',Pancake:'#a8a49a'};
+   M.zl.forEach(z=>{const R=ROOMS[z.room];if(!R||!R.dogs||z.room!==z.id)return;R.dogs().forEach((d,i)=>{const pos=tdFree(M,z.px[0]+20+((i*53)%(z.px[2]-40)),z.px[1]+24+((i*29)%(z.px[3]-40)));this.dogs.push(Object.assign({x:pos[0],y:pos[1],vx:0,vy:0,t:ri(30,120),z,R,f:false,sleep:d.n==='Sergeant'&&tdNight()},d,{col:cols[d.n]||'#3a3436'}))})})},
   zoneIn(z,first){const prev=this.zone;this.zone=z;if(!first&&prev&&prev.room!==z.room&&TD.bark&&TD.bark.self)TD.bark=null;if(p.hold==='can'&&z.id!=='green'&&!first){p.hold=null;tdThink(tdWho()==='v'?'He puts the can back by the bench. Order.':'can goes back. i’m not a thief. (i am. but not of cans.)',120)}if(!first&&prev&&prev.room===z.room&&prev.id===z.id)return;const roomChanged=!prev||prev.room!==z.room||first;S.room=z.room;
    if(z.onEnter)try{z.onEnter(this,first)}catch(e){console.error(e)}
    if(roomChanged){const R=ROOMS[z.room];if(R&&R.enter&&!dlg&&!ctrl)try{R.enter()}catch(e){console.error(e)}}
@@ -55,7 +55,7 @@ function tdScene(mapId,x,y,dir,opt={}){const M=TD.maps[mapId];const p={x,y,dir:d
   arrive(){const it=this.goal;this.goal=null;this.path=null;if(!it)return;const r=it.r,cx=r[0]+r[2]/2,cy=r[1]+r[3]/2;const dx=cx-p.x,dy=cy-(p.y-2);p.dir=Math.abs(dx)>Math.abs(dy)?(dx<0?'l':'r'):(dy<0?'u':'d');this.use(it)},
   use(it){if(!it)return;const who=tdWho();const room=it.k==='spot'?it.room:it.k==='prop'?(it.p.room||tdPropRoom(M,it.p)):this.zone?this.zone.room:S.room;if(room&&ROOMS[room])S.room=room;S.roomPos=this.pos();sfx('sel');
    try{if(it.k==='prop'){const P=it.p;const L=it.leg?()=>tdRunSpot(it.leg):null;tdMark(P.id);if(P.seen)tdMark(P.seen);if(P.act)P.act(who,L,P,this);else if(L)L()}
-    else if(it.k==='spot')tdRunSpot(it.s);else if(it.k==='npc'){it.n.face=1;it.n.act()}else if(it.k==='dog'){if(it.d.sleep){it.d.sleep=false;tdSay([['',it.d.n+' opens one eye, decides you are not dinner, and closes it again. Then thinks better of it and gets up.']])}else it.d.R.petDog(it.d)}
+    else if(it.k==='spot')tdRunSpot(it.s);else if(it.k==='npc'){it.n.face=1;it.n.act()}else if(it.k==='dog'){if(it.d.sleep){it.d.sleep=false;tdSay([['',(t=>t[0].toUpperCase()+t.slice(1))(houndN(it.d.n))+' was not asleep. Its eyes were open the whole time; you only thought they were shut. It gets up, unhurried, and stands too close.']])}else it.d.R.petDog(it.d)}
     else if(it.k==='door')this.toggleDoor(it.d)}catch(e){console.error(e)}},
   toggleDoor(d,auto){const op=tdDoorOpen(M,d);if(!op&&d.locked&&d.locked()){if(d.onLocked)d.onLocked(this);else tdSay([['','Locked.']]);return false}
    if(op&&tdBlocked(M,p.x,p.y,true)===false){const x=d.i*TS,y=d.j*TS;if(p.x+5>x&&p.x-5<x+TS&&p.y>y&&p.y-4<y+TS)return false}
@@ -115,7 +115,7 @@ function tdScene(mapId,x,y,dir,opt={}){const M=TD.maps[mapId];const p={x,y,dir:d
     const who=tdWho();const moving=Math.hypot(p.vx,p.vy)>.15;
     E.push({y:p.y,f:()=>{tdActor(who,p.x,p.y,p.dir,moving,p.fr,{sit:!!p.sit});if(p.hold&&TDHOLD[p.hold])TDHOLD[p.hold](p.x+(p.dir==='l'?-7:7),p.y-12)}});
     this.npcList.forEach(n=>E.push({y:n.y,f:()=>{if(n.k==='v'||n.k==='m'){tdActor(n.k,n.x,n.y,n.dir,n.tx!=null,n.fr,{})}else if((n.k==='a'&&typeof ANG!=='undefined')||(n.k==='r'&&typeof RON!=='undefined')){shadowAt(n.x,n.y-1,7);const A=n.k==='a'?ANG:RON;tdPx(n.dir==='u'?tdBack(A):A,n.x,n.y-((n.tx!=null&&(n.fr>>3)%2)?1:0),n.dir==='l',1)}else if(n.draw){shadowAt(n.x,n.y-1,7);c.save();const kk=.8;c.translate(n.x-n.at[0]*kk,n.y-(n.at[1]-9)*kk);c.scale(kk,kk);try{n.draw()}catch(e){}c.restore()}}}));
-    this.dogs.forEach(d=>E.push({y:d.y,f:()=>{tdDog(d.x,d.y,d.col,d.f,Math.hypot(d.vx,d.vy)>.1,d.sleep);if(d.sleep&&(T>>5)%2)txt('z',d.x+6,d.y-10-((T>>3)%4),'rgba(236,228,218,.7)',8)}}));
+    this.dogs.forEach(d=>E.push({y:d.y,f:()=>{tdDog(d.x,d.y,d.col,d.f,Math.hypot(d.vx,d.vy)>.1,d.sleep);void 0}}));
     tdFollower(this,E);
     E.sort((a,b)=>a.y-b.y).forEach(e=>{try{e.f()}catch(er){console.error(er)}});
     if(M.over)M.over(this);
@@ -186,7 +186,7 @@ function tdReact(sc){if(dlg||ctrl||(TD.bark&&TD.bark.t>0))return;const t=tdS();c
 /* ---------- dog on a walk follows you through doors ---------- */
 function tdFollower(sc,E){if(!S.done||!S.done.walk)return;const F=sc.fol||(sc.fol={trail:[],x:sc.p.x-14,y:sc.p.y,f:false});const p=sc.p;const last=F.trail[F.trail.length-1];if(!last||Math.hypot(last[0]-p.x,last[1]-p.y)>3)F.trail.push([p.x,p.y]);if(F.trail.length>60)F.trail.shift();
  const tg=F.trail.length>9?F.trail[F.trail.length-9]:null;let mv=false;if(tg){const dx=tg[0]-F.x,dy=tg[1]-F.y,d=Math.hypot(dx,dy);if(d>2){const s=Math.min(1.6,d*.12);F.x+=dx/d*s;F.y+=dy/d*s;mv=true;F.f=dx<0}}
- const cols={Biscuit:'#c98a3a',Sergeant:'#3a3030',Mochi:'#f4f0ea',Pancake:'#9a6a40'};E.push({y:F.y,f:()=>tdDog(F.x,F.y,cols[S.done.walk]||'#d8b878',F.f,mv,false)})}
+ const cols={Biscuit:'#5a5650',Sergeant:'#2a2626',Mochi:'#141216',Pancake:'#a8a49a'};E.push({y:F.y,f:()=>tdDog(F.x,F.y,cols[S.done.walk]||'#d8b878',F.f,mv,false)})}
 /* ---------- hooking into the old room engine ---------- */
 let TDRS_LAST=null;
 const _tdGo=go;go=function(s){if(scene&&scene.td&&scene!==s&&scene.leaveTD)scene.leaveTD();_tdGo(s)};

@@ -58,8 +58,13 @@ function tdActor(k,x,y,dir,moving,fr,opt={}){const v=k==='v';const base=v?VSP:MI
  const bob=(fi===1||fi===3)?-1:0;shadowAt(x,y-1,7);
  if(opt.sit){c.save();c.beginPath();c.rect(x-20,y-60,40,60-(opt.sitCut||9));c.clip();tdPx(a,x,y+(opt.sitDrop||7),dir==='l',1);c.restore();return}
  tdPx(a,x,y+bob,dir==='l'||(dir==='d'&&opt.flip),1)}
-function tdDog(x,y,col,flip,walk,sleep){const prev=PAL.x;PAL.x=col;c.fillStyle='rgba(0,0,0,.25)';c.beginPath();c.ellipse(x,y,7,2,0,0,7);c.fill();
- if(sleep){const r=[".xxxxx......","xxxxxxxxxx..","xxxxxxxxxxxb",".xxxxxxxxx.."];tdPx(r,x,y,flip,1.5)}else tdPx(walk&&(T>>3)%2?DOGW:DOG,x,y,flip,1.6);PAL.x=prev}
+/* V's hounds: too big, too lean, head carried low, pale eyes, old surgical seams. They do not wag. */
+const HND=["..x.............",".xx.............","xxxx............","xxxe............","xxxxxxxxxxxxxx..",".xxxxxxxxxxxxxxx","..xxxsxxxxxxxx.x","..xxxxsxxxxxxx..","..xx.x.....xx.x.","..x..x.....x..x.","..x..x.....x..x.",".xx.xx....xx.xx."];
+const HNDW=HND.slice(0,8).concat(["..x.xx....x.xx..",".x..x.....x..x..",".x...x.....x..x.",".xx..xx...xx..xx"]);
+const HNDS=["..x.............",".xxx............","xxxexxxxxxxxx...","xxxxxxxxxxxxxxx.",".xxxxsxxxxxxxxxx","..xxxxxxxxxxxxx."];
+const HNDP=new Map();const hndPal=col=>{let p=HNDP.get(col);if(!p){p=Object.assign({},PAL,{x:col,e:'#dfe8e2',s:'#6e5052'});HNDP.set(col,p)}return p};
+function tdDog(x,y,col,flip,walk,sleep){c.fillStyle='rgba(0,0,0,.34)';c.beginPath();c.ellipse(x,y,12,3,0,0,7);c.fill();const P=hndPal(col);
+ if(sleep)tdPx(HNDS,x,y,flip,1.9,P);else tdPx(walk&&(T>>3)%2?HNDW:HND,x,y,flip,1.9,P)}
 /* ---------- drawing helpers for furniture (x,y = footprint top-left, w/d = footprint, h = height) ---------- */
 function tdBox(x,y,w,d,h,top,front,edge){rect(x,y-h,w,d,top);rect(x,y+d-h,w,h,front);if(edge){rect(x,y-h,w,1,edge)}rect(x,y+d-1,w,1,'rgba(0,0,0,.35)')}
 function tdShadowRect(x,y,w,d){c.fillStyle='rgba(0,0,0,.22)';c.fillRect(x+1,y+d-2,w,4)}
