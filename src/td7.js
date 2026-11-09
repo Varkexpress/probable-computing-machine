@@ -58,3 +58,15 @@ tdMap('studio',{floor:'oak',wall:'pink',backLabel:'leave',dust:1,rows:TDROWS.STU
  const tc=g('ewing','wt_cases');tc.x=274;tc.w=60;})();
 (function(){const g=id=>TD.maps.trailer.props.find(p=>p.id===id);const st=g('tr_stream');st.x=58;st.y=96;const f=g('tr_fairy');f.x=134;f.y=64;f.tagY=-8;const sw=g('tr_switch');sw.x=180;sw.y=118})();
 (function(){const s=TD.maps.trailer.props.find(p=>p.id==='tr_shelf');s.d=12})();
+/* Esc ("Back") picks a menu's cancel option (Stay, Never mind, Back…) and closes the dialogue log / help card.
+   Before, Esc did nothing in menus, and the log could only be closed with a click or L. */
+const _ocEsc=optsCtrl;optsCtrl=function(box,opts,done){const C=_ocEsc(box,opts,done);const u=C.update;
+ const ci=opts.findIndex(o=>o&&!o.dis&&!o.h&&/^(Stay|Never mind|Back|Cancel|Keep playing|Not now|Not yet|Leave it|Close|Nothing)\b/i.test(String(o.t||'').replace(/<[^>]+>/g,'').replace(/^[“"]/,'')));
+ C.update=function(){if(ci>=0&&ctrl===C&&hit('back')){const el=box.querySelectorAll('.opt,.oh')[ci];if(el&&el.onclick){el.onclick();return}}return u.apply(this,arguments)};return C};
+if(typeof addEventListener!=='undefined')addEventListener('keydown',e=>{if(e.key!=='Escape')return;const lb=document.querySelector('.logbox');if(lb&&!lb.querySelector('input,textarea')){lb.remove();e.stopImmediatePropagation();pressed.back=0}},true);
+/* Phone held upright: the stage used to stay a 16:9 strip with every dialogue, menu and the bag squeezed into ~200px
+   (text cut off, bag rows overlapping) and the rest of the screen empty. Now the stage fills the screen height:
+   the game view stays 16:9 at the top and dialogue/menus get the space underneath. */
+(function(){if(typeof document==='undefined')return;const st=document.createElement('style');
+ st.textContent=`@media (orientation:portrait) and (max-width:760px){#wrap{max-width:100%}#stage{aspect-ratio:auto;height:calc(100dvh - 92px);min-height:320px}#cv{height:auto;aspect-ratio:16/9}
+ #ui .dlg{max-height:56%}#ui .bag{inset:calc(56.25vw + 6px) 2% 2% 2%}}`;document.head.appendChild(st)})();
