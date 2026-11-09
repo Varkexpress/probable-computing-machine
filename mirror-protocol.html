@@ -3771,6 +3771,110 @@ AB.push(
 (function(){const seen=new Set();for(let i=0;i<AB.length;i++){if(seen.has(AB[i].q)){AB.splice(i,1);i--}else seen.add(AB[i].q)}})();
 if(typeof amcRebuild==='function')amcRebuild();
 
+/* ===================== GAME LAYER: XP, levels, combos, streaks, quests, badges, bosses, hints, step reveals ===================== */
+(function(){const st=document.createElement('style');st.textContent=`
+.xpPop{position:fixed;z-index:20;left:50%;top:calc(110px + env(safe-area-inset-top,0px));transform:translateX(-50%);font:600 22px var(--f-mono);color:var(--tape);text-shadow:0 2px 10px #000;pointer-events:none;animation:xpUp 1.4s ease-out forwards;white-space:nowrap}
+.xpPop.bad{color:var(--blood)}.xpPop small{display:block;font-size:13px;color:var(--chalk);text-align:center}
+@keyframes xpUp{0%{opacity:0;transform:translate(-50%,10px) scale(.8)}15%{opacity:1;transform:translate(-50%,0) scale(1.08)}70%{opacity:1}100%{opacity:0;transform:translate(-50%,-40px)}}
+.lvlUp{position:fixed;inset:0;z-index:30;display:flex;align-items:center;justify-content:center;background:rgba(7,10,12,.6);animation:fadeIn .3s}
+.lvlUp>div{background:var(--slate);border:2px solid var(--tape);border-radius:6px;padding:24px 28px;text-align:center;max-width:min(420px,90vw);display:flex;flex-direction:column;gap:10px;box-shadow:0 0 60px rgba(232,185,49,.35)}
+.lvlUp h2{font-size:30px;color:var(--tape)}@keyframes fadeIn{from{opacity:0}}
+#hudXP{display:flex;align-items:center;gap:6px}#hudXP .bar{width:70px;height:6px;background:var(--ink);border:1px solid var(--line);border-radius:3px;overflow:hidden}#hudXP .bar i{display:block;height:100%;background:var(--tape)}
+.stars{color:var(--tape);letter-spacing:2px}.stars .off{color:var(--line)}
+.badgeGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}.bdg{border:1px solid var(--line);border-radius:3px;padding:8px;background:var(--slate2);font-size:13px}.bdg b{display:block;font-size:14px}.bdg.off{opacity:.38}
+.hearts{font-size:22px;letter-spacing:3px;color:var(--blood)}.bossHP{height:12px;background:var(--ink);border:1px solid var(--blood);border-radius:3px;overflow:hidden}.bossHP i{display:block;height:100%;background:var(--blood);transition:width .5s}
+.stepper li[hidden]{display:none!important}.hintBox{border-left:3px solid var(--tape);padding:8px 12px;background:var(--ink);font-size:15px}
+@media (prefers-reduced-motion:reduce){.xpPop{animation:none;opacity:1}}`;document.head.appendChild(st)})();
+if(!G.prep.game)G.prep.game={xp:0,combo:0,bestCombo:0,streak:0,lastGoalDay:null,day:null,dayN:0,badges:{},solved:{},hard:0,quests:null,bosses:{},mockBest:0};
+const GM=G.prep.game;
+const RANKS=['Rookie','Chalk Runner','Vector Scout','Mirror Apprentice','Locus Hunter','Proof Smith','Lemma Thief','Theorem Breaker','Ledger Cracker','AIME Contender','Cartographer','Olympiad Ghost'];
+const xpNeed=L=>Math.round(60*Math.pow(L-1,1.6));
+const gmLevel=()=>{let L=1;while(GM.xp>=xpNeed(L+1))L++;return L};
+const gmRank=L=>RANKS[Math.min(RANKS.length-1,Math.floor((L-1)/3))];
+const todayStr=()=>{const d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate()};
+const dayDiff=(a,b)=>Math.round((new Date(b)-new Date(a))/864e5);
+/* sound */
+let GAC=null;function gsfx(k){try{if(!GAC)GAC=new (window.AudioContext||window.webkitAudioContext)();const t=GAC.currentTime;const N=(f,dt,dur,type='sine',v=.12)=>{const o=GAC.createOscillator(),g=GAC.createGain();o.type=type;o.frequency.value=f;g.gain.setValueAtTime(.0001,t+dt);g.gain.exponentialRampToValueAtTime(v,t+dt+.01);g.gain.exponentialRampToValueAtTime(.0001,t+dt+dur);o.connect(g).connect(GAC.destination);o.start(t+dt);o.stop(t+dt+dur+.02)};
+ if(k==='ok'){const b=520*Math.pow(1.06,Math.min(12,GM.combo));N(b,0,.12,'triangle');N(b*1.5,.08,.2,'triangle')}
+ else if(k==='bad'){N(150,0,.25,'sawtooth',.07);N(110,.1,.3,'sawtooth',.06)}
+ else if(k==='lvl'){[523,659,784,1047,1319].forEach((f,i)=>N(f,i*.09,.35,'triangle',.12))}
+ else if(k==='badge'){[880,1175,1568].forEach((f,i)=>N(f,i*.07,.4,'sine',.1))}
+ else if(k==='hit'){N(90,0,.2,'square',.08);N(60,.05,.3,'sine',.12)}}catch(e){}}
+/* visuals */
+function xpPop(text,sub,bad){const d=document.createElement('div');d.className='xpPop'+(bad?' bad':'');d.innerHTML=text+(sub?`<small>${sub}</small>`:'');document.body.appendChild(d);setTimeout(()=>d.remove(),1500)}
+function burst3D(color=0xe8b931){if(!E.ok)return;const n=260,pos=new Float32Array(n*3),vel=[];for(let i=0;i<n;i++){pos.set([0,1,0],i*3);const a=Math.random()*Math.PI*2,u=Math.random()*2-1;vel.push([Math.cos(a)*Math.sqrt(1-u*u)*9,Math.abs(u)*10+4,Math.sin(a)*Math.sqrt(1-u*u)*9])}
+ const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(pos,3));const pts=new THREE.Points(g,new THREE.PointsMaterial({color,size:.32,transparent:true}));pts.position.x=E.focusX||0;E.sc.add(pts);let t=0;
+ const gem=new THREE.Mesh(new THREE.IcosahedronGeometry(1.4),new THREE.MeshStandardMaterial({color,emissive:color,emissiveIntensity:.5,metalness:.6,roughness:.2}));gem.position.set(E.focusX||0,3,0);E.sc.add(gem);
+ const step=()=>{t+=1/60;for(let i=0;i<n;i++){vel[i][1]-=14/60;pos[i*3]+=vel[i][0]/60;pos[i*3+1]+=vel[i][1]/60;pos[i*3+2]+=vel[i][2]/60}g.attributes.position.needsUpdate=true;pts.material.opacity=Math.max(0,1-t/2.2);gem.rotation.y+=.08;gem.rotation.x+=.03;gem.position.y=3+Math.sin(t*4)*.4;gem.scale.setScalar(Math.max(.01,1-Math.max(0,t-1.6)/.6));if(t<2.2)requestAnimationFrame(step);else{E.sc.remove(pts);E.sc.remove(gem);g.dispose()}};requestAnimationFrame(step)}
+function gmHud(){let el=document.getElementById('hudXP');if(!el){el=document.createElement('span');el.className='pill';el.id='hudXP';el.title='Level, XP, combo, daily streak';const h=document.getElementById('hudCh');h.insertAdjacentElement('afterend',el)}
+ const L=gmLevel(),a=xpNeed(L),b=xpNeed(L+1);el.innerHTML=`Lv <b>${L}</b> <span class="bar"><i style="width:${Math.round((GM.xp-a)/(b-a)*100)}%"></i></span> ${GM.combo>=3?'🔥×'+GM.combo:''} ${GM.streak?'📅'+GM.streak:''}`}
+/* quests */
+const QT=[{k:'solve',n:8,t:'Solve 8 problems',r:60},{k:'hard',n:2,t:'Solve 2 hard problems',r:90},{k:'combo',n:5,t:'Reach a 5-combo',r:70},{k:'unit',n:3,t:'Solve 3 problems in ',r:60},{k:'nohint',n:5,t:'Solve 5 problems without hints',r:60},{k:'medium',n:4,t:'Solve 4 medium problems',r:60},{k:'boss',n:1,t:'Defeat a boss',r:150}];
+function gmQuests(){const td=todayStr();if(!GM.quests||GM.quests.day!==td){let h=0;for(const c of td)h=(h*31+c.charCodeAt(0))>>>0;const pickq=[];const pool=QT.slice();for(let i=0;i<3;i++){const q=Object.assign({},pool.splice(h%pool.length,1)[0]);h=Math.floor(h/7)+i*97;if(q.k==='unit'){const us=UNITS.filter(U=>U.u!=='S0');const U=us[h%us.length];q.u=U.u;q.t+=U.n.split(':')[0]}q.p=0;q.done=false;pickq.push(q)}GM.quests={day:td,list:pickq}}return GM.quests.list}
+function gmQuestTick(ev){gmQuests().forEach(q=>{if(q.done)return;let inc=0;if(ev.ok){if(q.k==='solve')inc=1;if(q.k==='hard'&&ev.d===3)inc=1;if(q.k==='medium'&&ev.d===2)inc=1;if(q.k==='unit'&&ev.u===q.u)inc=1;if(q.k==='nohint'&&!ev.hint)inc=1;if(q.k==='combo')q.p=Math.max(q.p,GM.combo)}if(ev.boss&&q.k==='boss')inc=1;q.p=Math.min(q.n,q.p+inc);if(q.p>=q.n){q.done=true;GM.xp+=q.r;setTimeout(()=>{xpPop(`Quest complete +${q.r} XP`,q.t);gsfx('badge')},700)}})}
+/* badges */
+const BADGES=[['first','First Blood','Solve your first problem.',()=>Object.keys(GM.solved).length>=1],['c10','On Fire','Reach a 10-combo.',()=>GM.bestCombo>=10],['c25','Unstoppable','Reach a 25-combo.',()=>GM.bestCombo>=25],
+ ['s50','Fifty Down','Solve 50 different bank problems.',()=>Object.keys(GM.solved).length>=50],['s200','Two Hundred','Solve 200 different bank problems.',()=>Object.keys(GM.solved).length>=200],['s500','Problem Hoarder','Solve 500 different bank problems.',()=>Object.keys(GM.solved).length>=500],
+ ['h10','Late-Test Nerves','Solve 10 hard problems.',()=>GM.hard>=10],['h50','Problem 25 Energy','Solve 50 hard problems.',()=>GM.hard>=50],['all','Well Rounded','Solve a problem in every unit.',()=>UNITS.filter(U=>U.u!=='S0').every(U=>AB.some((p,i)=>p.u===U.u&&GM.solved[i]))],
+ ['b1','Boss Slayer','Defeat a boss.',()=>Object.keys(GM.bosses).length>=1],['b5','Boss Rush','Defeat 5 bosses.',()=>Object.keys(GM.bosses).length>=5],['ball','Cartographer’s Bane','Defeat every boss.',()=>UNITS.filter(U=>U.u!=='S0').every(U=>GM.bosses[U.u])],
+ ['st3','Habit','Hit the daily goal 3 days in a row.',()=>GM.streak>=3],['st7','Discipline','Hit the daily goal 7 days in a row.',()=>GM.streak>=7],['m100','Triple Digits','Score 100+ on a mock contest.',()=>GM.mockBest>=100],['m130','Distinction','Score 130+ on a mock contest.',()=>GM.mockBest>=130],
+ ['l10','Level 10','Reach level 10.',()=>gmLevel()>=10],['l25','Level 25','Reach level 25.',()=>gmLevel()>=25],['star','Three Stars','Get three stars in any unit.',()=>UNITS.some(U=>gmStars(U.u)>=3)]];
+function gmBadges(){BADGES.forEach(([id,n,d,f])=>{if(!GM.badges[id]&&f()){GM.badges[id]=Date.now();setTimeout(()=>{xpPop('🏅 '+n,d);gsfx('badge')},1200)}})}
+function gmStars(u){const ids=AB.map((p,i)=>p.u===u?i:-1).filter(i=>i>=0);if(!ids.length)return 0;const f=ids.filter(i=>GM.solved[i]).length/ids.length;return f>=.8?3:f>=.5?2:f>=.25?1:0}
+const starHTML=k=>`<span class="stars">${'★'.repeat(k)}<span class="off">${'★'.repeat(3-k)}</span></span>`;
+/* award */
+function gmAward(ok,ev={}){const before=gmLevel();const td=todayStr();if(GM.day!==td){GM.day=td;GM.dayN=0}
+ if(ok){GM.combo++;GM.bestCombo=Math.max(GM.bestCombo,GM.combo);const d=ev.d||1;const base=[10,10,20,40][d];const mult=1+Math.min(1,(GM.combo-1)*.1);const xp=Math.round(base*mult*(ev.hint?.5:1));GM.xp+=xp;GM.dayN++;
+  if(ev.bank>=0){GM.solved[ev.bank]=1}if(d===3)GM.hard++;
+  if(GM.dayN===5){if(GM.lastGoalDay&&dayDiff(GM.lastGoalDay,td)===1)GM.streak++;else if(GM.lastGoalDay!==td)GM.streak=1;GM.lastGoalDay=td;setTimeout(()=>xpPop('📅 Daily goal reached',`streak ${GM.streak} day${GM.streak>1?'s':''}`),900)}
+  if(!ev.silent){xpPop(`+${xp} XP`,GM.combo>=2?`combo ×${GM.combo} · ${mult.toFixed(1)}× multiplier${ev.hint?' · hint ½':''}`:(ev.hint?'hint used: ½ XP':''));gsfx('ok')}}
+ else{if(GM.combo>=5&&!ev.silent)xpPop('Combo broken','read the solution: it’s how the streak comes back',true);GM.combo=0;if(!ev.silent)gsfx('bad')}
+ gmQuestTick(Object.assign({ok},ev));gmBadges();save();gmHud();const after=gmLevel();if(after>before)gmLevelUp(after)}
+function gmLevelUp(L){gsfx('lvl');burst3D();const o=document.createElement('div');o.className='lvlUp';o.innerHTML=`<div><span class="eyebrow">Level up</span><h2>Level ${L}</h2><p>Rank: <b>${gmRank(L)}</b></p><p class="muted">Next level at ${xpNeed(L+1)} XP.</p><button class="btn" type="button">Keep going</button></div>`;document.body.appendChild(o);const b=o.querySelector('button');b.focus();b.onclick=()=>o.remove();setTimeout(()=>o.remove(),6000)}
+/* hook grading */
+const _giGame=gradeItem;gradeItem=function(it){const s=_giGame(it);const p=it&&it.bankRef;gmAward(s>=.999,{d:p?p.d:1,u:p?p.u:null,bank:p?AB.indexOf(p):-1,hint:!!it._hint});return s};
+const _endGame=amcEnd;amcEnd=function(X){let xp0=GM.xp;X.items.forEach((it,i)=>{if(X.ans[i]===null)return;const p=it.bankRef;gmAward(X.ans[i]===it.parts[0].ans,{d:p?p.d:1,u:p?p.u:null,bank:p?AB.indexOf(p):-1,silent:true})});
+ const sc=X.items.reduce((t,it,i)=>t+(X.ans[i]===null?1.5:X.ans[i]===it.parts[0].ans?6:0),0);GM.mockBest=Math.max(GM.mockBest,sc);const bonus=Math.round(sc);GM.xp+=bonus;gmBadges();save();gmHud();_endGame(X);setTimeout(()=>xpPop(`+${GM.xp-xp0} XP`,'mock contest (includes a bonus of 1 XP per point)'),300)};
+/* step-by-step solution reveal */
+let STEPN=0;
+stepsHTML=function(it){const id='stp'+(++STEPN);const n=it.steps.length;return`<h3>Step-by-step solution</h3><ol class="steps2 stepper" id="${id}">${it.steps.map((s,i)=>`<li ${i?'hidden':''}>${s}</li>`).join('')}</ol>${n>1?`<div class="row"><button class="btn ghost sm" type="button" data-stepnext="${id}">Next step (1/${n})</button><button class="btn ghost sm" type="button" data-stepall="${id}">Show all</button></div>`:''}`};
+document.addEventListener('click',e=>{const nx=e.target.closest('[data-stepnext]'),al=e.target.closest('[data-stepall]');const id=(nx||al)&&(nx?nx.dataset.stepnext:al.dataset.stepall);if(!id)return;const ol=document.getElementById(id);if(!ol)return;const lis=[...ol.children];
+ if(al)lis.forEach(li=>li.hidden=false);else{const k=lis.findIndex(li=>li.hidden);if(k>=0)lis[k].hidden=false}const shown=lis.filter(li=>!li.hidden).length;const btn=document.querySelector(`[data-stepnext="${id}"]`);if(btn){btn.textContent=shown<lis.length?`Next step (${shown}/${lis.length})`:'All steps shown';btn.disabled=shown>=lis.length}});
+/* hints in quizzes */
+function addHint(it,host){if(!it||!it.steps||it.steps.length<2||!host)return;let hs=it.steps.filter(s=>!/^Answer:/.test(s));if(hs.length>1)hs=hs.slice(0,hs.length-1);if(!hs.length)return;let k=0;
+ host.insertAdjacentHTML('beforeend',`<button class="btn ghost sm" type="button" id="hintBtn">Hint (½ XP)</button>`);const box=document.createElement('div');box.className='hintBox';box.hidden=true;host.insertAdjacentElement('afterend',box);
+ document.getElementById('hintBtn').onclick=()=>{it._hint=true;box.hidden=false;if(k<hs.length){box.insertAdjacentHTML('beforeend',`<p><b>Hint ${k+1}:</b> ${hs[k]}</p>`);k++}if(k>=hs.length){const b=document.getElementById('hintBtn');b.disabled=true;b.textContent='No more hints'}}}
+const _qqGame=quizQ;quizQ=function(Z){_qqGame(Z);const sub=document.getElementById('sub');if(sub)addHint(window.__curItem,sub.parentElement)};
+/* bosses */
+const BOSSN={A1:'The Bookkeeper',A2:'The Root Collector',A3:'The Recurring Man',A4:'The Logarithm',N1:'The Prime Broker',N2:'The Modular Twins',C1:'The Counter',P1:'The Gambler',G1:'The Triangulator',G2:'The Circle Warden',G3:'The Architect',T1:'The Rotator',S1:'The Invariant',A5:'The Polynomial King',C2:'The Recursion Engine',G4:'The Mass-Point Assassin'};
+function bossStart(u){const pool=shuffle(AB.filter(p=>p.u===u&&p.d===3));const more=shuffle(AB.filter(p=>p.u===u&&p.d===2));const list=pool.concat(more).slice(0,5);const B={u,list,i:0,hp:list.length,lives:3,name:BOSSN[u]||'The Boss'};bossQ(B)}
+function bossQ(B){const p=B.list[B.i];const it=bankItem(p);clear3D();hudCh('Boss: '+B.name);
+ if(E.ok){focusCam(28,.9);const g=new THREE.IcosahedronGeometry(2.4,0);const m=new THREE.Mesh(g,new THREE.MeshStandardMaterial({color:0xd6455a,emissive:0x6a0f1a,emissiveIntensity:.6,metalness:.4,roughness:.3,flatShading:true}));m.position.set((E.focusX||0)-3.5,4,0);m.add(vlEdges(g,0xe8b931));E.root.add(m);E.anims.push({t:0,dur:1e9,fn:()=>{m.rotation.y+=.01;m.rotation.x+=.004;m.position.y=4+Math.sin(performance.now()/500)*.4;const s=.5+.5*B.hp/B.list.length;m.scale.setScalar(s)}})}
+ setPanel(`<div class="row" style="justify-content:space-between"><span class="eyebrow">Boss battle · ${UBY[B.u].n.split(':')[0]}</span><span class="hearts">${'♥'.repeat(B.lives)}<span style="color:var(--line)">${'♥'.repeat(3-B.lives)}</span></span></div><h2>${B.name}</h2><div class="bossHP"><i style="width:${B.hp/B.list.length*100}%"></i></div>
+ ${itemHTML(it,`round ${B.i+1} of ${B.list.length} · ${p.d===3?'hard':'medium'}`)}<div class="row"><button class="btn" id="sub" type="button">Strike</button><button class="btn ghost sm" id="bk" type="button">Retreat</button></div><div id="fb"></div>`,'tall');
+ addHint(it,document.getElementById('sub').parentElement);$('#bk').onclick=amcHome;
+ $('#sub').onclick=()=>{const s=gradeItem(it);const ok=s>=.999;$('#sub').disabled=true;if(document.getElementById('hintBtn'))document.getElementById('hintBtn').disabled=true;
+  if(ok){B.hp--;gsfx('hit');UI.querySelector('.bossHP i').style.width=(B.hp/B.list.length*100)+'%'}else{B.lives--;UI.querySelector('.hearts').innerHTML=`${'♥'.repeat(B.lives)}<span style="color:var(--line)">${'♥'.repeat(3-B.lives)}</span>`}
+  const end=B.lives<=0||B.i+1>=B.list.length;  $('#fb').innerHTML=`<div class="fb ${ok?'ok':'no'}"><span class="t">${ok?'Direct hit':'You took a hit'}</span>${stepsHTML(it)}<div class="row"><button class="btn" id="nx" type="button">${end?'See the result':'Next round'}</button></div></div>`;
+  $('#nx').onclick=()=>{if(!end){B.i++;return bossQ(B)}bossEnd(B)}}}
+function bossEnd(B){const won=B.lives>0;let gain=0;clear3D();if(won){const first=!GM.bosses[B.u];GM.bosses[B.u]=Date.now();gain=first?250:100;GM.xp+=gain;gmQuestTick({boss:true});gmBadges();save();gmHud();burst3D(0xd6455a);gsfx('lvl')}
+ setPanel(`<div class="eyebrow">Boss battle</div><h2>${won?B.name+' defeated':'Defeated by '+B.name}</h2><p>${won?`You won with ${B.lives} heart${B.lives>1?'s':''} left. +${gain} XP${gain===250?' (first win)':''}.`:'Three wrong answers end the fight. Read the solutions, drill the unit, and come back.'}</p>
+ <div class="row"><button class="btn" id="again" type="button">${won?'Fight again':'Rematch'}</button><button class="btn ghost" id="bk" type="button">Arena</button></div>`,'wide');$('#again').onclick=()=>bossStart(B.u);$('#bk').onclick=arenaView;if(won)xpPop(`Boss defeated +${gain} XP`,B.name)}
+/* arena screen */
+function arenaView(){clear3D();hudCh('Arena');const L=gmLevel(),a=xpNeed(L),b=xpNeed(L+1);const qs=gmQuests();
+ if(E.ok){focusCam(30,.8);const g=new THREE.TorusKnotGeometry(1.6,.45,120,16);const m=new THREE.Mesh(g,new THREE.MeshStandardMaterial({color:0xe8b931,metalness:.7,roughness:.25,emissive:0x3a2a00}));m.position.set((E.focusX||0)-1,3.5,0);E.root.add(m);E.anims.push({t:0,dur:1e9,fn:()=>{m.rotation.y+=.01;m.rotation.x+=.005}})}
+ const units=UNITS.filter(U=>U.u!=='S0');
+ setPanel(`<div class="eyebrow">Arena</div><h2>Level ${L} · ${gmRank(L)}</h2><div class="meter"><i style="width:${Math.round((GM.xp-a)/(b-a)*100)}%"></i></div><p class="muted">${GM.xp} XP · next level at ${b} · best combo ${GM.bestCombo} · daily streak ${GM.streak} day${GM.streak===1?'':'s'} · ${Object.keys(GM.solved).length} of ${AB.length} bank problems solved · today ${GM.day===todayStr()?GM.dayN:0}/5 toward the daily goal</p>
+ <h3>Today’s quests</h3><div class="col">${qs.map(q=>`<div class="step"><span>${q.done?'✓ ':''}${q.t}</span><span class="chip ${q.done?'done':'go'}">${q.p}/${q.n} · +${q.r} XP</span></div>`).join('')}</div>
+ <h3>Boss battles</h3><p class="muted">Five hard problems, three hearts. Defeating a boss for the first time gives 250 XP.</p><div class="cards">${units.map(U=>`<button class="card" type="button" data-boss="${U.u}"><span class="num">${GM.bosses[U.u]?'☠':'⚔'}</span><span class="nm"><b>${BOSSN[U.u]||U.u}</b><span>${U.n.split(':')[0]} · mastery ${starHTML(gmStars(U.u))}</span></span><span class="chip ${GM.bosses[U.u]?'done':'go'}">${GM.bosses[U.u]?'Defeated':'Fight'}</span></button>`).join('')}</div>
+ <h3>Badges (${Object.keys(GM.badges).length}/${BADGES.length})</h3><div class="badgeGrid">${BADGES.map(([id,n,d])=>`<div class="bdg ${GM.badges[id]?'':'off'}"><b>${GM.badges[id]?'🏅':'🔒'} ${n}</b>${d}</div>`).join('')}</div>
+ <h3>How XP works</h3><p class="muted">Warm-up 10, medium 20, hard 40 XP. Each correct answer in a row adds +10% (up to double). Hints halve the XP for that problem. Mock contests give 1 XP per point on top. Solve 5 a day to keep your streak. Ranks change every 3 levels.</p>
+ <div class="row"><button class="btn ghost sm" id="bk" type="button">AMC training</button></div>`,'wide tall');
+ UI.querySelectorAll('[data-boss]').forEach(b2=>b2.onclick=()=>bossStart(b2.dataset.boss));$('#bk').onclick=amcHome}
+const _amcHomeG=amcHome;amcHome=function(){_amcHomeG();const cards=UI.querySelector('.cards');if(cards){const L=gmLevel(),qs=gmQuests(),done=qs.filter(q=>q.done).length;cards.insertAdjacentHTML('afterbegin',`<button class="card" type="button" id="mArena" style="border-color:var(--tape)"><span class="num">🏆</span><span class="nm"><b>Arena · Level ${L} ${gmRank(L)}</b><span>Quests ${done}/3 today · ${Object.keys(GM.badges).length} badges · ${Object.keys(GM.bosses).length} bosses defeated · streak ${GM.streak}</span></span><span class="chip go">Enter</span></button>`);$('#mArena').onclick=arenaView}
+ UI.querySelectorAll('[data-m^="r_"]').forEach(c=>{const u=c.dataset.m.slice(2);const sp=c.querySelector('.nm span');if(sp&&u!=='S0')sp.insertAdjacentHTML('beforeend',' · '+starHTML(gmStars(u)))})};
+gmHud();
+
 if(EMBED){$('#bBack').hidden=false;$('#bBack').onclick=()=>mpPost('mp-close')}
 init3D();$('#hudHeat').textContent=G.heat;if(/[?&]view=prep/.test(location.search)){G.seenIntro=true;save();prepHome()}else title();
 </script>
