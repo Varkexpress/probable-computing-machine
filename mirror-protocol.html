@@ -3893,7 +3893,7 @@ function survPick(S){const d=S.n<4?1:S.n<12?2:(Math.random()<.75?3:2);let pool=A
 function survQ(S){const p=survPick(S);const it=bankItem(p);clear3D();hudCh('Survival');modeShape('oct',0x5fd4c4);
  const tier=S.n<4?'warm-up tier':S.n<12?'medium tier':'hard tier';
  setPanel(`<div class="row" style="justify-content:space-between"><span class="eyebrow">Survival · problem ${S.n+1} · ${tier}</span><span class="hearts">${heartsHTML(S.lives,3)}</span></div><h2>Score ${S.score}<span class="muted" style="font-size:.55em"> · best ${GM.survBest}</span></h2>
- <p class="muted">Warm-up 1 point, medium 2, hard 3. Five in a row restores a heart (max 3).</p>${itemHTML(it,`${UBY[p.u]?UBY[p.u].n.split(':')[0]:''}`)}<div class="row"><button class="btn" id="sub" type="button">Lock in</button><button class="btn ghost sm" id="bk" type="button">Bank it and quit</button></div><div id="fb"></div>`,'tall');
+ ${S.n?'':'<p class="muted">Warm-up 1 point, medium 2, hard 3. Five in a row restores a heart (max 3).</p>'}${itemHTML(it,`${UBY[p.u]?UBY[p.u].n.split(':')[0]:''}`)}<div class="row"><button class="btn" id="sub" type="button">Lock in</button><button class="btn ghost sm" id="bk" type="button">Bank it and quit</button></div><div id="fb"></div>`,'tall');
  addHint(it,document.getElementById('sub').parentElement);$('#bk').onclick=()=>survEnd(S,true);
  $('#sub').onclick=()=>{const ok=gradeItem(it)>=.999;$('#sub').disabled=true;const hb=document.getElementById('hintBtn');if(hb)hb.disabled=true;
   let note='';if(ok){S.score+=p.d;S.streak++;if(S.streak%5===0&&S.lives<3){S.lives++;note=' · heart restored';gsfx('badge')}}else{S.lives--;S.streak=0}
@@ -4064,7 +4064,7 @@ const _arenaFun=arenaView;arenaView=function(){_arenaFun();const h2=UI.querySele
  const td=todayStr();const mine=GM.dayXPDay===td?GM.dayXP:0,tgt=rivalTarget(),won=GM.rivalDay===td;const cards=document.getElementById('gmSurv');if(!cards)return;
  cards.insertAdjacentHTML('beforebegin',`<button class="card" type="button" id="gmBlitz"><span class="num">⚡</span><span class="nm"><b>Blitz</b><span>60 seconds of rapid-fire mental math. Keys 1–4. Earns coins. Best: ${GM.bzBest}.</span></span><span class="chip go">Play</span></button>
  <button class="card" type="button" id="gmShop"><span class="num">🪙</span><span class="nm"><b>Shop · ${GM.coins} coins</b><span>Power-ups (50/50 ×${GM.inv.ff}, shield ×${GM.inv.shield}, Double XP ×${GM.inv.dx}), accent colors, titles.</span></span><span class="chip go">Open</span></button>`);
- cards.parentElement.insertAdjacentHTML('beforebegin',`<h3>Today’s rival</h3><div class="step"><span>${won?'✓ ':''}Misaki has ${tgt} XP today. You have ${mine}.${won?' You won today.':' Pass her for 60 coins.'}</span><span class="chip ${won?'done':'go'}">${Math.min(mine,tgt)}/${tgt}</span></div><div class="meter"><i style="width:${Math.min(100,Math.round(mine/tgt*100))}%"></i></div>`);
+ cards.parentElement.insertAdjacentHTML('beforebegin',`<h3>Today’s rival</h3><div class="step"><span>${won?'✓ ':''}Misaki has ${tgt} XP today. You have ${mine}.${won?' You won today.':' Pass them for 60 coins.'}</span><span class="chip ${won?'done':'go'}">${Math.min(mine,tgt)}/${tgt}</span></div><div class="meter"><i style="width:${Math.min(100,Math.round(mine/tgt*100))}%"></i></div>`);
  $('#gmBlitz').onclick=blitzStart;$('#gmShop').onclick=shopView};
 gmHud();
 
@@ -4081,6 +4081,34 @@ AB.push(...[{"u": "G1", "d": 1, "q": "An isosceles triangle has perimeter 50, an
 if(typeof amcRebuild==='function')amcRebuild();
 
 (function(){const seen=new Set();for(let i=0;i<AB.length;i++){if(seen.has(AB[i].q)){AB.splice(i,1);i--}else seen.add(AB[i].q)}})();amcRebuild();
+/* ===================== Refinements: layout, flow, mute, grouping, recommendations ===================== */
+(function(){const st=document.createElement('style');st.textContent=`
+@media (max-width:700px){#hud .brand{display:none}#hud .pill[title^="Mistakes"]{display:none}#hud .btn{padding:4px 7px;font-size:11px}#hud{gap:6px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}#hud .pill,#hud .btn{flex:none;white-space:nowrap}#hudXP .bar{width:44px}}
+#hudMute{cursor:pointer;background:none;border:0;color:inherit;font:inherit;padding:0 0 0 4px}
+.homeSec{margin-top:6px}.fb{scroll-margin-top:8px}`;document.head.appendChild(st)})();
+/* mute */
+const _gsfxR=gsfx;gsfx=function(k){if(GM.mute)return;_gsfxR(k)};
+const _hudR=gmHud;gmHud=function(){_hudR();const el=document.getElementById('hudXP');if(!el)return;el.insertAdjacentHTML('beforeend',`<button id="hudMute" type="button" title="${GM.mute?'Sound off':'Sound on'}" aria-label="${GM.mute?'Turn sound on':'Turn sound off'}">${GM.mute?'🔇':'🔊'}</button>`);document.getElementById('hudMute').onclick=e=>{e.stopPropagation();GM.mute=!GM.mute;save();gmHud()}};
+/* after grading: bring the feedback into view and retire the helper buttons */
+const _giR=gradeItem;gradeItem=function(it){const s=_giR(it);setTimeout(()=>{const fb=document.getElementById('fb');UI.querySelectorAll('.puBar,.hintBox:empty').forEach(x=>x.remove());const hb=document.getElementById('hintBtn');if(hb)hb.remove();if(fb&&fb.firstElementChild){const t=fb.getBoundingClientRect().top-UI.getBoundingClientRect().top+UI.scrollTop-8;UI.scrollTo({top:t,behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'});const nx=document.getElementById('nx');if(nx)nx.focus({preventScroll:true})}},60);return s};
+/* better Blitz distractors: share last digits and magnitudes with the answer */
+bzMake=function(){const [q,ans]=pick(BZG)();const cand=ans<10?[1,-1,2,-2,3,-3,4,-4]:ans<60?[1,-1,2,-2,10,-10,5,-5,9,-9]:[10,-10,20,-20,2,-2,100,-100,18,-18,Math.round(ans*.1),-Math.round(ans*.1)];const set=new Set([ans]);const offs=shuffle(cand);let i=0;while(set.size<4&&i<200){const v=ans+offs[i%offs.length]*(1+Math.floor(i/offs.length));i++;if(v>=0&&(ans>=10||v<10||!/last digit/.test(q)))set.add(v)}return{q,ans,ch:shuffle([...set])}};
+/* arena: rival above the mode list */
+const _arenaR=arenaView;arenaView=function(){_arenaR();const hs=[...UI.querySelectorAll('h3')];const riv=hs.find(h=>/rival/i.test(h.textContent)),modes=hs.find(h=>/Game modes/.test(h.textContent));if(riv&&modes){const a=riv.nextElementSibling,b=a&&a.nextElementSibling;modes.before(riv);if(a)modes.before(a);if(b&&b.classList.contains('meter'))modes.before(b)}};
+/* home: grouped sections and a recommended next step */
+function gmRecommend(){const td=todayStr();if(typeof chestReady==='function'&&chestReady())return['🎁','Open your daily chest','You hit today’s goal. Collect the reward.',()=>arenaView()];
+ const n=GM.day===td?GM.dayN:0;if(n<5)return['📅',`Daily goal: ${n}/5`,`Solve ${5-n} more today to keep your streak${GM.streak?` (${GM.streak} day${GM.streak>1?'s':''})`:''} and unlock the chest.`,()=>{const b=document.getElementById('mDaily');if(b)b.click()}];
+ const us=UNITS.filter(U=>U.u!=='S0').map(U=>{const ids=AB.map((p,i)=>p.u===U.u?i:-1).filter(i=>i>=0);return[U,ids.filter(i=>GM.solved[i]).length/Math.max(1,ids.length)]}).sort((a,b)=>a[1]-b[1]);const [U,f]=us[0];
+ if(!GM.bosses[U.u]&&f>=.1)return['⚔',`Fight ${BOSSN[U.u]}`,`You have solved ${Math.round(f*100)}% of ${U.n.split(':')[0]}. Time for its boss.`,()=>bossStart(U.u)];
+ return['◎',`Weakest unit: ${U.n.split(':')[0]}`,`Only ${Math.round(f*100)}% solved. Open the lesson and work its problems.`,()=>moduleView(MBYID['r_'+U.u])]}
+const _homeR=amcHome;amcHome=function(){_homeR();const box=UI.querySelector('.cards');if(!box)return;const cards=[...box.children];const by=id=>cards.find(c=>c.id===id);
+ const groups=[['Play',['mArena','mDaily','mSpeed','mHard']],['Contests',['m10','m12','mPast']],['Study',['mHB','mVL','mSheet','mMiss']]];const used=new Set();const frag=document.createDocumentFragment();
+ const [ic,t,d,fn]=gmRecommend();const rec=document.createElement('div');rec.className='homeSec';rec.innerHTML=`<h3>Recommended next</h3><div class="cards"><button class="card" type="button" id="mRec" style="border-color:var(--tape)"><span class="num">${ic}</span><span class="nm"><b>${t}</b><span>${d}</span></span><span class="chip go">Go</span></button></div>`;frag.appendChild(rec);
+ groups.forEach(([name,ids])=>{const cs=ids.map(by).filter(Boolean);if(!cs.length)return;const sec=document.createElement('div');sec.className='homeSec';sec.innerHTML=`<h3>${name}</h3>`;const c=document.createElement('div');c.className='cards';cs.forEach(x=>{used.add(x);c.appendChild(x)});sec.appendChild(c);frag.appendChild(sec)});
+ const rest=cards.filter(x=>!used.has(x));if(rest.length){const sec=document.createElement('div');sec.className='homeSec';sec.innerHTML=`<h3>Units and lessons</h3>`;const c=document.createElement('div');c.className='cards';rest.forEach(x=>c.appendChild(x));sec.appendChild(c);frag.appendChild(sec)}
+ box.replaceWith(frag);document.getElementById('mRec').onclick=fn};
+gmHud();
+
 if(EMBED){$('#bBack').hidden=false;$('#bBack').onclick=()=>mpPost('mp-close')}
 init3D();$('#hudHeat').textContent=G.heat;if(/[?&]view=prep/.test(location.search)){G.seenIntro=true;save();prepHome()}else title();
 </script>
