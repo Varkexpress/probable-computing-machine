@@ -4062,6 +4062,10 @@ function A3_CODA(){const L=[];const rom=S.rom,lone=S.lone,mar=S.f.married||S.f.r
  return L}
 /* ===================== CHAPTER INTERLUDES ===================== */
 /* A short playable scene at each turn of the story, from whichever side you are playing. */
+/* names of Act II suspects / Act III targets come from SUS()/A3N() so the text follows whatever those lists say */
+const a3nm=id=>{try{return (A3N().find(n=>n.id===id)||{}).n||'him'}catch(e){return 'him'}};
+const a3sur=id=>a3nm(id).split(' ').pop();
+const susN=(k,first)=>{try{const n=SUS()[k].n.split(' ');return first?n[0]:n[n.length-1]}catch(e){return k}};
 function playInter(key,cb){S.f.inter=S.f.inter||{};if(S.f.inter[key]||isLone()){return cb()}S.f.inter[key]=1;save();const I=INTER[key];const side=A3P();const X=I[side]||I.m;
  chapterCard(X.title,()=>cut(A3L(X.L),()=>{if(!X.o)return cb();ask(A3ME(),X.q,X.o.map(o=>({t:o.t,sub:o.sub||'',fn:()=>{if(o.e)apply(o.e);if(o.r)relApply(o.r);if(o.f)o.f();save();cut(A3L(o.L),cb,'#07060b')}})))},'#07060b'))}
 const INTER={
@@ -4083,7 +4087,7 @@ const INTER={
    ['','The night before it happens, V cannot sleep, and does not know why.'],
    ['','He walks the house. The kennel: everyone breathing. The greenhouse: the misters ticking, Gerald and Also Gerald thriving in the dark. The ops deck: forty-one cities, all quiet, no red dots blinking.'],
    ['','On the server, Misaki has posted a photo of a rent receipt with the caption “TWO FOR TWO. who’s a homeowner. me.” Eleven people have reacted to it. He has looked at it four times.'],
-   ['V','She paid it herself. Both times. She would not take a single yen from me.'],
+   ['V','She paid it herself. Both times. She would not take a single cent from me.'],
    ['','He is proud of her in a way that feels like grief, and he does not understand that either.'],
    ['','On the security feed, at the edge of the trailer lot two kilometres away, a car idles under a broken streetlight. He has a camera there. He tells himself it is for the dogs he sometimes walks past. He knows it is not.'],
    ['','The car pulls away. He zooms in on the plate a second too late.']],
@@ -4118,10 +4122,10 @@ const INTER={
    ['','The phone buzzes. Ronin: “u good?” Angel: “i’m awake if u are.” V: nothing. V is in the next room. She can hear him not sleeping.']],
    q:'Before you go:',o:[
     {t:'Go knock on his door.',e:{aff:3},L:()=>[['','He opens it before she knocks twice. He is dressed. He has been dressed all night.'],['V','I know. You are going alone. I know.'],['M','i’m going alone.'],['V','Then come back alone. That is the only thing I am asking for. Come back, by whatever door you like.'],['M','...ok. ok. i’ll come back. i’ll even use the front door. like a normal person.']]},
-    {t:'Text the server.',f:()=>relApply({morale:6}),L:()=>[['M','(server) going to do a thing tomorrow. if i don’t post a meme by friday someone feed biscuit'],['Angelic','(server) you’re going to post a meme by friday. i’m going to make it for you. it’s going to be terrible.'],['ronin.beaufort','(server) kiss or kill, darlin’. go get it.'],['K9','(server) The side door is unlocked.'],['','She reads them all until she falls asleep with the phone on her chest.']]}]},
+    {t:'Text the server.',f:()=>relApply({morale:6}),L:()=>[['M','(server) going to do a thing tomorrow. if i don’t post a meme by friday someone feed the hounds. from a distance'],['Angelic','(server) you’re going to post a meme by friday. i’m going to make it for you. it’s going to be terrible.'],['ronin.beaufort','(server) kiss or kill, darlin’. go get it.'],['K9','(server) The side door is unlocked.'],['','She reads them all until she falls asleep with the phone on her chest.']]}]},
   v:{title:'Interlude · Before',L:()=>[
    ['','The night before he goes after '+(S.captor?ORG[S.captor].boss:'him')+', V does paperwork. It is the only thing that keeps his hands still.'],
-   ['','He signs the dogs over to Angelic, in case. He signs the house over to a trust, in case. He writes a letter to Misaki and does not seal it, in case he gets to come back and burn it.'],
+   ['','He signs the hounds over to Angelic, in case, and writes her four pages on how to feed them without losing a hand. He signs the house over to a trust, in case. He writes a letter to Misaki and does not seal it, in case he gets to come back and burn it.'],
    ['V','The letter is three lines long. I have rewritten it fourteen times. Every version is the same three lines in a different order.'],
    ['','At midnight, Ronin’s face appears on the gate camera, waving with a crowbar.'],
    ['ronin.beaufort','(through the intercom) Lemme in, Vee. I ain’t gonna let you go out tomorrow with nobody tellin’ you you’re an idiot first.']],
@@ -4144,7 +4148,7 @@ const INTER={
  act3:{
   m:{title:'Interlude · November',L:()=>[
    ['','After the gala, the city goes quiet in the way it only does in November: early dark, cold rain, everyone hurrying home with their collars up.'],
-   ['','She catches herself, one evening, standing in a konbini with two egg sandwiches in her hand. One for her. One for someone who is not there. She buys both.'],
+   ['','She catches herself, one evening, standing in the corner store with two egg sandwiches in her hand. One for her. One for someone who is not there. She buys both.'],
    ['M','old habits.'],
    ['','On the way home, a man in a grey suit holds a door open for her. He smiles very politely. She is three streets away before she realises he said her full name.']]},
   v:{title:'Interlude · November',L:()=>[
@@ -4163,11 +4167,11 @@ const _a3I=startAct3;startAct3=function(){playInter('act3',_a3I)};
 const YEARS=[
  {id:'y1',t:'One year later · the anniversary',L:()=>[
   ['','A year to the day since the warehouse. Nobody planned anything. Everybody shows up anyway.'],
-  ['','Angel brings a cake shaped like a lightbulb, then panics halfway up the drive, turns around, and comes back with a cake shaped like a dog instead.'],
-  ['Angelic','i realised in the car. i realised in the CAR. i am so sorry. the dog one is better anyway.'],
+  ['','Angel brings a cake shaped like a lightbulb, then panics halfway up the drive, turns around, and comes back with a plain black cake instead.'],
+  ['Angelic','i realised in the car. i realised in the CAR. i am so sorry. the plain one is better anyway.'],
   ['M','it’s ok. honestly the lightbulb one would’ve been funny. in like two more years.'],
   ['','Ronin brings nothing, which is unlike him, and then at the end of the night quietly hands Misaki a small box. Inside: one white star clip, exactly like the one she lost.'],
-  ['ronin.beaufort','Took me eleven months to find the same kind. They stopped makin’ ’em. Had to buy a whole lot off an auction in Osaka. Got forty more in the car if you lose this one.'],
+  ['ronin.beaufort','Took me eleven months to find the same kind. They stopped makin’ ’em. Had to buy a whole lot off a dead man’s estate sale three states over. Got forty more in the car if you lose this one.'],
   ['','She doesn’t put it in. Not that night. She holds it. A week later, she starts wearing two again.']]},
  {id:'y2',t:'One year later · the trailer',L:()=>[
   ['','The trailer still sits behind the greenhouse, on the pad V poured for it, with the little mailbox. It doesn’t move anymore. It has decided, the way old dogs decide, that this is where it lives.'],
@@ -4178,13 +4182,14 @@ const YEARS=[
   ['V','The cactus is thriving.'],
   ['M','he’s got opinions now. he’s the head of the household.'],
   ['V','I suspected as much. I have been deferring to him on all major decisions.']]},
- {id:'y3',t:'Two years later · the board',L:()=>[
-  ['','Two years later, the Hands On Foundation is in sixty cities. V attends board meetings exactly as rarely as the bylaws allow.'],
-  ['','At one of them, a new board member, young and sharp and furious, presents a proposal to fund legal defence for sex workers. The room goes cold. Everybody looks at V.'],
-  ['V','Approved.'],
-  ['Board member','Sir? We haven’t discussed—'],
-  ['V','I have read it. Twice. It is the best proposal this board has seen in years. It is approved, and I would like this young woman’s name on the shortlist for my seat when I retire.'],
-  ['','Afterwards, in the lift, she asks him why. He tells her the truth, which is that he knows someone who would have needed it, once, and that someone is waiting for him downstairs with a bag of crêpes.']]},
+ {id:'y3',t:'Two years later · the gate',L:()=>[
+  ['','Two years later, a man walks up the drive at dawn and sits down on the gravel in front of the gate with his hands on his head.'],
+  ['','He has killed five people. He tells the camera all five names. He asks to be taken to the police, and not, he says, “to the dogs.”'],
+  ['V','(on the intercom) Nobody has sent the dogs for you.'],
+  ['Man','They’ve been outside my building for three nights. Standing there. Not barking. Just standing.'],
+  ['','V checks the kennel. All the hounds are in it. All of them are awake, and all of them are facing the gate.'],
+  ['V','...I will call someone. Stay where you are.'],
+  ['M','he’s not going anywhere. look at him. he’s not even going to blink.']]},
  {id:'y4',t:'Two years later · the server',L:()=>[
   ['','SLAUGHTERHOUSE_LOSERS_v.4.4.4.mango is still running. It is the oldest server any of them have ever been in. Nobody remembers who made it. Nobody wants to.'],
   ['Angelic','(server) reminder that it’s movie night friday and i’m picking. not heathers. i’m begging. please not heathers.'],
@@ -4193,23 +4198,27 @@ const YEARS=[
   ['K9','(server) I am afraid it is Heathers.'],
   ['Angelic','(server) i hate all of you. see you friday. i’m bringing a different movie and i’m going to hold it the whole time like a protest sign.'],
   ['','She does. They watch Heathers. She mouths every line.']]},
- {id:'y5',t:'Three years later · the shelter',L:()=>[
-  ['','The shelter in Uji — the one with the sign that says MISAKI HOUSE, or the one that just says SOMEBODY CAME, depending on how things went — has a waiting list now. That is a sad thing and a good thing at once.'],
-  ['','Misaki volunteers there on Tuesdays. She teaches self-defence, which mostly means teaching kids how to notice exits and how to scream properly.'],
-  ['M','no no no. that’s a polite scream. i want a scream that makes a guy rethink his whole life. from the gut. like ur angry at god.'],
-  ['','A girl of maybe twelve screams so loud a window in the next building opens. Misaki gives her a sticker. It is a knife with a heart on it. The staff pretend not to see.']]},
- {id:'y6',t:'Three years later · Sergeant’s tree',ok:()=>S.f.sergeantGone,L:()=>[
-  ['','There is a tree in the garden now, planted over a small box, with a brass plate at its foot that says SERGEANT, and under it, smaller: “too gentle for the work.”'],
-  ['','Every year on the same day, V sits under it with a thermos of tea and a dog treat he leaves on the soil. Every year the treat is gone by morning. He suspects Biscuit. He is correct.'],
-  ['V','He would have been eighteen this year. Very old for a dog. Very old for anyone, in our line of work.'],
+ {id:'y5',t:'Three years later · the rule',L:()=>[
+  ['','Three years later, the city’s killers have a rule. Nobody wrote it down. Everybody knows it.'],
+  ['','You do not take work on the four streets around the big house. You do not take work on the street with the trailer lot. You do not take work anywhere a pink ring light has been switched on in the last week. And if a man in a leather jacket asks you to sit down, you sit down.'],
+  ['ronin.beaufort','(server) found a new guy in the east end today. real eager. had a whole kit.'],
+  ['Angelic','(server) and??'],
+  ['ronin.beaufort','(server) and i explained the rule to him. he took notes. i let him keep the notes. most of his fingers, too.'],
+  ['K9','(server) Ronin.'],
+  ['ronin.beaufort','(server) MOST, vee. i said most. the Devil’s a generous landlord.']]},
+ {id:'y6',t:'Three years later · the old hound’s tree',ok:()=>S.f.sergeantGone,L:()=>[
+  ['','There is a tree in the garden now, planted over a long box, with a brass plate at its foot. No name. A number, 01, and under it, smaller: “the first one I brought back.”'],
+  ['','Every year on the same day, V sits under it with a thermos of tea. The other hounds lie in a ring around the tree, facing outward, and do not move until he does.'],
+  ['V','He should have died the year I found him. I gave him eleven more. I do not know if he would have thanked me. I did not ask him. That is the part I think about.'],
   ['M','he had a good day. at the end. u gave him a good day.'],
   ['V','We did. Both of us. I think about that more than I think about any of the rest.']]},
- {id:'y7',t:'Five years later · a letter',L:()=>[
-  ['','A letter arrives, addressed to K9, care of the foundation. Handwritten. The stamp is from Sapporo.'],
-  ['','“You won’t remember me. My dad was a detective. He left the city very suddenly when I was eleven. He told me, years later, that somebody gave him a chance he didn’t deserve because I had a cat.”'],
-  ['','“I’m a lawyer now. I work for a legal aid clinic. I wanted you to know that the chance got used. The cat lived to be nineteen. Her name was Mochi.”'],
-  ['','V reads it at the kitchen table, twice. Then he puts it in a drawer in the archive, in a new drawer, with a label in his neat handwriting: “The ones I let go.”'],
-  ['V','The drawer is small. It is the one I am proudest of.']]},
+ {id:'y7',t:'Five years later · the drawer',L:()=>[
+  ['','Five years later there is a new drawer in the archive, with a label in V’s neat handwriting: “The ones I let go.”'],
+  ['','It is the smallest drawer in the room. Misaki opens it once, uninvited, and counts. Four files. She has never seen him let anyone go who did not deserve it, and she has never seen him let go of anyone who did, except these four.'],
+  ['M','what makes these four different.'],
+  ['V','Each of them had someone who would have been hurt by it. Not by the death. By the absence. I weighed it. I still weigh it.'],
+  ['M','and if they do it again.'],
+  ['V','Then the drawer gets smaller.']]},
  {id:'y8',t:'Five years later · Ronin and Angel',ok:()=>!S.rom,L:()=>[
   ['','Ronin and Angel never get married. They say marriage is for people who need the paperwork. They live three floors apart in the same building and refuse to explain the arrangement to anyone.'],
   ['','Every Sunday, she does his eyeliner. Every Sunday, he cooks her breakfast. Every Sunday, they argue about Heathers for at least an hour.'],
@@ -4218,91 +4227,90 @@ const YEARS=[
   ['Angelic','...that’s what i said. cautionary tale.'],
   ['','They have never once agreed. They have never once missed a Sunday.']]},
  {id:'y9',t:'Ten years later · the window',L:()=>[
-  ['','Ten years later. The house in the city is quieter. Fewer dogs; older dogs. Gerald the Ninth on the windowsill.'],
+  ['','Ten years later. The house in the city is quieter. Fewer hounds; older hounds, greyer at the muzzle and no less frightening. Gerald the Ninth on the windowsill.'],
   ['','There is a drawer in the archive now with Misaki’s name on it. Not because anyone got her out. Because she asked for one, so the house would remember her too.'],
   ['','Inside: a rent receipt, folded small, marked PAID twice. A star clip. A sticky note that says EAT. A photograph, finally, for the space in the middle of the fridge.'],
-  ['','In the photograph, everyone is there. Nobody is dead. Biscuit has her eyes closed. Ronin is blinking. Angel is mid-laugh. And at the back, two people are standing so close together there is no light between them, and neither of them is looking at the camera.'],
+  ['','In the photograph, everyone is there. Nobody is dead. The hounds are at the edges of the frame, and every one of them is looking straight down the lens. Ronin is blinking. Angel is mid-laugh. And at the back, two people are standing so close together there is no light between them, and neither of them is looking at the camera.'],
   ['','They are looking at each other. They have been for ten years.']]},
  {id:'y9r',t:'Ten years later · the window',ok:()=>!!S.rom,L:()=>[
   ['','Ten years later. Misaki and '+(S.rom==='r'?'Ronin':'Angel')+' live in a place with a balcony, a freezer labelled “NOT SNACKS”, and far too many ring lights.'],
-  ['','V comes to dinner every Sunday. He has stopped bringing soup and started bringing whatever the dogs have decided is a gift that week: a sock, a leaf, once a very confused pigeon.'],
+  ['','V comes to dinner every Sunday. Sometimes he brings whatever the hounds have dragged to his gate that week, wrapped in a towel. Nobody asks what is in the towel. Ronin always asks to keep it.'],
   ['V','I have been told I am an honorary uncle to a cactus.'],
   ['M','prickles chose u. it’s an honour. don’t make it weird.'],
   ['','After dinner, the three of them sit on the balcony with the city below, and nobody says anything for a long time, and nobody minds.']]}];
 function yearsOpts(late){if(S.phase!=='epilogue')return[];const seen=S.f.years||{};const next=YEARS.find(y=>!seen[y.id]&&(!y.ok||y.ok()));if(!next)return[];
  return[{h:'Years later'},{t:next.t,sub:'a glimpse ahead',dis:late||S.done.years,fn:()=>{S.done.years=1;S.f.years=seen;seen[next.id]=1;save();cut(A3L(next.L),hub,'#0a0810')}}]}
 const _epY=epiOpts;epiOpts=function(late){return _epY(late).concat(yearsOpts(late))};
-ACH.push(['years','The Long Way Home','See every “years later” glimpse.',()=>Object.keys(S.f.years||{}).length>=8]);
+ACH.push(['years','The Long Way Home','See every “years later” glimpse.',()=>{const s=S.f.years||{};return YEARS.filter(y=>!y.ok||y.ok()).every(y=>s[y.id])}]);
 /* ===================== ENDGAME CONVERSATIONS ===================== */
 const ENDV=[
- {id:'e_ledger',label:()=>'“What would your father think of you now?”',show:()=>S.phase==='act3',run:b=>{warm('v','e_ledger',4);say([['K9','He would think I was wasting the family name on charity. He would think the dogs were a weakness. He would think you were a liability.'],['hitmeuppp',mVoice('and what do u think')],['K9','I think he was wrong about all three, and I think it took me thirty-four years to say so out loud, and I think I am going to say it to his ledger on Friday.']],()=>ask('hitmeuppp','(...)',[{t:'“say it to me first. practice.”',fn:()=>say([['K9','...My father was wrong about me.'],['hitmeuppp',mVoice('louder')],['K9','My father was wrong about me.'],['hitmeuppp',mVoice('good. now say it like u mean it')],['K9','My father was wrong. About me. About you. About everything that mattered.'],['','The dogs, who have been asleep, all lift their heads at once.']],b)},{t:'“he’d think you were him. you’re not.”',fn:()=>say([['K9','You keep saying that. I am beginning to believe it is a strategy.'],['hitmeuppp',mVoice('it is. i’m going to say it until it’s true. i’m very patient. i sat on a roof for six hours once')]],b)}]))}},
+ {id:'e_ledger',label:()=>'“What would your father think of you now?”',show:()=>S.phase==='act3',run:b=>{warm('v','e_ledger',4);say([['K9','He would think I was wasting the family name on charity. He would think the hounds were a weakness. He would think you were a liability.'],['hitmeuppp',mVoice('and what do u think')],['K9','I think he was wrong about all three, and I think it took me thirty-four years to say so out loud, and I think I am going to say it to his ledger on Friday.']],()=>ask('hitmeuppp','(...)',[{t:'“say it to me first. practice.”',fn:()=>say([['K9','...My father was wrong about me.'],['hitmeuppp',mVoice('louder')],['K9','My father was wrong about me.'],['hitmeuppp',mVoice('good. now say it like u mean it')],['K9','My father was wrong. About me. About you. About everything that mattered.'],['','The hounds, who have been asleep, all lift their heads at once.']],b)},{t:'“he’d think you were him. you’re not.”',fn:()=>say([['K9','You keep saying that. I am beginning to believe it is a strategy.'],['hitmeuppp',mVoice('it is. i’m going to say it until it’s true. i’m very patient. i sat on a roof for six hours once')]],b)}]))}},
  {id:'e_name',label:()=>'“Can I call you Valentin?”',show:()=>(S.phase==='act3'||S.phase==='epilogue')&&tier()>=2&&!S.rom,run:b=>{warm('v','e_name',5);say([['K9','Nobody has called me that since I was nineteen.'],['K9','My mother called me Valentin. My father called me “the boy.” Everybody else calls me V, or sir, or, in one memorable case, “the tall problem.”'],['hitmeuppp',mVoice('valentin.')],['','He is quiet for a very long time.'],['K9','Again. If you would.'],['hitmeuppp',mVoice('valentin. valentin valentin valentin.')],['K9','...Only you. Nobody else. I could not bear it from anybody else.']],b)}},
- {id:'e_after',label:()=>'“What do you do when it’s over? Actually over?”',show:()=>S.phase==='act3'||S.phase==='epilogue',run:b=>{warm('v','e_after',3);say([['K9','I have a list. It is very short. It is the first list I have ever written that has nothing to do with anybody else’s crimes.'],['hitmeuppp',mVoice('read it to me')],['K9','“One: sleep eight hours, once, to see what it is like. Two: learn the rest of my mother’s song. Three: take the dogs to the sea. Four—”'],['','He stops.'],['hitmeuppp',mVoice('four?')],['K9','Four is not finished. Four depends on someone else’s answer to a question I have not yet asked.']],b)}},
+ {id:'e_after',label:()=>'“What do you do when it’s over? Actually over?”',show:()=>S.phase==='act3'||S.phase==='epilogue',run:b=>{warm('v','e_after',3);say([['K9','I have a list. It is very short. It is the first list I have ever written that has nothing to do with anybody else’s crimes.'],['hitmeuppp',mVoice('read it to me')],['K9','“One: sleep eight hours, once, to see what it is like. Two: learn the rest of my mother’s song. Three: take the hounds to the sea. Four—”'],['','He stops.'],['hitmeuppp',mVoice('four?')],['K9','Four is not finished. Four depends on someone else’s answer to a question I have not yet asked.']],b)}},
  {id:'e_mimic',label:()=>'“Do you still think about the Mimic?”',show:()=>(S.phase==='act3'||S.phase==='epilogue')&&S.case,run:b=>{warm('v','e_mimic',3);say([['K9',S.case&&S.case.solved?'Every day. He wore my name for a month. I wore it for eleven years. Some days I am not sure which of us wore it more honestly.':'Every day. He is still out there, somewhere, with a box of tags. I check the news every morning for my own name.'],['hitmeuppp',mVoice('ur name’s not k9 tho. ur name’s valentin. k9 is a coat u wear.')],['K9','...Then perhaps it is time I stopped wearing it in November. It is not a warm coat.']],b)}},
  {id:'e_kiss',label:()=>'“Kiss or kill: us.”',show:()=>(S.phase==='act3'||S.phase==='epilogue')&&tier()>=3&&!S.rom,run:b=>{warm('v','e_kiss',6);say([['K9','That is Ronin’s game. I have refused to play it for four years on principle.'],['hitmeuppp',mVoice('play it anyway. kiss or kill. us.')],['K9','Kiss.'],['hitmeuppp',mVoice('no hesitation?')],['K9','I have been hesitating for over a year, Misaki. I have run out of hesitation. I spent it all.']],b)}}];
 const ENDM=[
  {id:'e_mfear',label:()=>'“What are you most afraid of? Now. Not before.”',show:()=>S.phase==='act3'||S.phase==='epilogue',run:b=>{warm('m','e_mfear',4);say([['hitmeuppp',MV('nothing. i’m fearless','dogs dying. you dying. running out of egg sandwiches.','Being somewhere I can’t leave. And then, worse: being somewhere I don’t want to leave, and having to.','That this is the good part. That I’m in it right now, and that one day I’ll look back and it’ll be over, and I’ll know I didn’t hold on hard enough.')],['K9',tier()>=3?'Then hold on harder. I will not complain. I have very strong shoulders.':'Then we will make sure the good part is long. I am very good at long projects.']],b)}},
  {id:'e_mjob',label:()=>'“Will you keep working? After the boat?”',show:()=>S.phase==='act3'||S.phase==='epilogue',run:b=>{warm('m','e_mjob',3);say([['hitmeuppp',MV('rent’s still due lol','yeah. rent doesn’t care about boats.','Yes. Differently. I want to choose every name myself. No more men in suits telling me who’s rotten.','Yes. But only the ones I would do for free. That’s my rule now. If I wouldn’t do it for nothing, I don’t do it for money.')],['K9','That is a very good rule. It is a better rule than any I have had.'],['hitmeuppp',mVoice('i know. i made it up in the shower. all my best rules happen in the shower')]],b)}},
- {id:'e_mhome',label:()=>'“Where’s home, for you? Honestly.”',show:()=>(S.phase==='act3'||S.phase==='epilogue')&&!S.rom,run:b=>{warm('m','e_mhome',5);say([['hitmeuppp',MV('the trailer obviously','the trailer. the konbini. ur kennel, kind of.',S.f.movedIn?'Here. I didn’t notice when it happened. I just woke up one day and I wasn’t counting exits.':'The trailer. And here, a little. More than a little. I don’t know where one ends anymore.','Wherever you are when it’s three in the morning and neither of us can sleep. That’s home. Everything else is just an address.')],['K9','...I am going to need a moment.'],['hitmeuppp',mVoice('take ur time. ur home. there’s no rush at home')]],b)}},
- {id:'e_mname',label:()=>'“Do you like your name? Katsuo?”',show:()=>S.phase==='act3'||S.phase==='epilogue',run:b=>{warm('m','e_mname',3);say([['hitmeuppp','katsuo’s the name i picked. the one on my birth certificate was somebody else’s idea of who i’d be. i didn’t like her very much.'],['hitmeuppp','misaki katsuo. beautiful sand chronicle, bonito. like a fish. i picked a fish. i was nineteen and i thought it was hilarious.'],['K9','I think it is the most perfect name I have ever heard. I think it suits you down to the ground. I think, if you ever want another, you may borrow mine.'],['hitmeuppp',mVoice(tier()>=3&&!S.rom?'...v. was that a proposal. was that a FISH proposal.':'lol. noted.')],['K9',tier()>=3&&!S.rom?'It was a test of the market. The market appears receptive.':'Noted, as they say.']],b)}}];
+ {id:'e_mhome',label:()=>'“Where’s home, for you? Honestly.”',show:()=>(S.phase==='act3'||S.phase==='epilogue')&&!S.rom,run:b=>{warm('m','e_mhome',5);say([['hitmeuppp',MV('the trailer obviously','the trailer. the corner store. ur kennel, kind of.',S.f.movedIn?'Here. I didn’t notice when it happened. I just woke up one day and I wasn’t counting exits.':'The trailer. And here, a little. More than a little. I don’t know where one ends anymore.','Wherever you are when it’s three in the morning and neither of us can sleep. That’s home. Everything else is just an address.')],['K9','...I am going to need a moment.'],['hitmeuppp',mVoice('take ur time. ur home. there’s no rush at home')]],b)}},
+ {id:'e_mname',label:()=>'“Do you like your name? Katsuo?”',show:()=>S.phase==='act3'||S.phase==='epilogue',run:b=>{warm('m','e_mname',3);say([['hitmeuppp','katsuo’s the name i picked. the one on my birth certificate was somebody else’s idea of who i’d be. i didn’t like her very much.'],['hitmeuppp','misaki katsuo. katsuo’s a fish. bonito. i picked a fish. i was nineteen and i thought it was hilarious.'],['K9','I think it is the most perfect name I have ever heard. I think it suits you down to the ground. I think, if you ever want another, you may borrow mine.'],['hitmeuppp',mVoice(tier()>=3&&!S.rom?'...v. was that a proposal. was that a FISH proposal.':'lol. noted.')],['K9',tier()>=3&&!S.rom?'It was a test of the market. The market appears receptive.':'Noted, as they say.']],b)}}];
 ENDV.forEach(t=>TOPICS_V.splice(TOPICS_V.length-1,0,t));ENDM.forEach(t=>TOPICS_M.splice(TOPICS_M.length-1,0,t));PINNED.push('e_ledger','e_mfear');
 
 /* friends in the endgame */
 const _taE=talkAngel;talkAngel=function(){if(S.phase==='act3'&&!S.done.angelA3){S.done.angelA3=1;return say([[AN,'hey. before you say anything. i read the guest list for the boat again last night. i know eleven of those women. i’ve done their makeup for funerals, weddings, divorces.'],[AN,'one of them told me once, while i was doing her lashes, that her husband keeps a “second accounts book.” i laughed. i thought it was a cute rich-person thing. like a second wine fridge.'],[AN,'i didn’t ask. i always don’t ask. that’s my whole brand. i don’t ask, and i make you look beautiful, and you go home.'],[AN,'i’m asking now. i’m done not asking.']],_taE)}return _taE()};
-const _trE=talkRonin;talkRonin=function(){if(S.phase==='act3'&&!S.done.roninA3){S.done.roninA3=1;return say([[RN,'Sit down, '+nick()+'. I’m gonna tell you somethin’ and you’re gonna let me get to the end.'],[RN,'Before the server, I was in a book like that. Not that one. Another one. Smaller. A man in Nagoya who kept names and sold ’em. Mine was on page twelve.'],[RN,'I got off page twelve the only way you get off a page. And I been tellin’ myself ever since that I’m the one who decides what goes in books now.'],[RN,'This Friday, I want the book. Not for me. I just wanna watch it burn, or sink, or go to some courtroom where it can rot in a box. I wanna see a book end. Just once.']],_trE)}return _trE()};
+const _trE=talkRonin;talkRonin=function(){if(S.phase==='act3'&&!S.done.roninA3){S.done.roninA3=1;return say([[RN,'Sit down, '+nick()+'. I’m gonna tell you somethin’ and you’re gonna let me get to the end.'],[RN,'Before the server, I was in a book like that. Not that one. Another one. Smaller. A man up north who kept names and sold ’em. Mine was on page twelve.'],[RN,'I got off page twelve the only way you get off a page. And I been tellin’ myself ever since that I’m the one who decides what goes in books now.'],[RN,'This Friday, I want the book. Not for me. I just wanna watch it burn, or sink, or go to some courtroom where it can rot in a box. I wanna see a book end. Just once.']],_trE)}return _trE()};
 /* ===================== ACT III: nights between, and what each choice leaves behind ===================== */
 const A3_NIGHTS=[
- ()=>[['','A storm knocks the power out at midnight. The backup generator coughs, catches, and the house comes back one room at a time, like someone waking up.'],['@','The cameras were down for forty seconds.'],['#','anything on them after?'],['@','A footprint on the wet step that is not ours. Small. A woman’s shoe, or a man who wants us to think so.'],['','Nobody sleeps after that. Biscuit patrols the hallway until dawn, nails clicking on the wood, a very small and very serious guard.']],
+ ()=>[['','A storm knocks the power out at midnight. The backup generator coughs, catches, and the house comes back one room at a time, like someone waking up.'],['@','The cameras were down for forty seconds.'],['#','anything on them after?'],['@','A footprint on the wet step that is not ours. Small. A woman’s shoe, or a man who wants us to think so.'],['','Nobody sleeps after that. The grey hound walks the hallway until dawn. Its nails make no sound on the wood. Nobody has ever worked out how something that large moves that quietly.']],
  ()=>[['','The server goes quiet at exactly the same minute every night this week: 11:03. Thirty seconds of nothing, then everything resumes.'],['Angelic','(server) is anyone else seeing this? the gap? it’s like somebody’s pressing pause on us.'],['K9','(server) Somebody is reading every message. It takes them thirty seconds to copy the day.'],['ronin.beaufort','(server) hi creep. hope ur enjoyin’ the memes. that crowbar in a hat was for u specifically'],['','The next night, the gap is thirty-one seconds. Somebody laughed.']],
- ()=>[['','A woman comes to the foundation’s front desk and asks for “the man who answers letters.” She has a child with her, maybe six, holding a stuffed dog.'],['Woman','My husband’s name is in a book. He told me so before he left. He said if he didn’t come back, I should find the man with the dogs.'],['@','What is his name?'],['','She says it. It is not one of the seven. It is in the margin of page four, crossed out in the Chairman’s patient hand, with a date beside it. The date was last month.'],['@','(quietly) We will find out what happened. I cannot promise you a good answer. I can promise you a true one.'],['','The child holds the stuffed dog out to Biscuit, who sniffs it very solemnly and approves.']],
- ()=>[['','Three in the morning. A knock at the gate. On the camera: nobody. On the step, when somebody finally goes down: a single egg sandwich from the konbini, still cold, in its plastic wrapper.'],['#','...that’s my sandwich. that’s exactly my sandwich. the one i get every time.'],['@','He is telling us he knows what you eat.'],['#','he’s telling us he’s been to my konbini. that’s worse. that’s so much worse. that clerk is the nicest man in tokyo.'],['','The clerk is fine. They check. He remembers a polite man in a grey suit who bought one egg sandwich and paid in exact change and said “for a friend.”']],
+ ()=>[['','A woman comes to the foundation’s front desk and asks for “the man who answers letters.” She has a child with her, maybe six, holding a stuffed dog.'],['Woman','My husband’s name is in a book. He told me so before he left. He said if he didn’t come back, I should find the man with the dogs.'],['@','What is his name?'],['','She says it. It is not one of the seven. It is in the margin of page four, crossed out in the Chairman’s patient hand, with a date beside it. The date was last month.'],['@','(quietly) We will find out what happened. I cannot promise you a good answer. I can promise you a true one.'],['','The child holds the stuffed dog out toward the black hound at V’s knee. The woman goes white. The hound looks at the toy for a long time, then lowers its head to the child’s height and stays perfectly, horribly still until the child is done.']],
+ ()=>[['','Three in the morning. A knock at the gate. On the camera: nobody. On the step, when somebody finally goes down: a single egg sandwich from the corner store, still cold, in its plastic wrapper.'],['#','...that’s my sandwich. that’s exactly my sandwich. the one i get every time.'],['@','He is telling us he knows what you eat.'],['#','he’s telling us he’s been to my store. that’s worse. that’s so much worse.'],['','The camera at the store shows a polite man in a grey suit who bought one egg sandwich and paid in exact change.'],['ronin.beaufort','(server) Gimme the footage. I wanna learn his face. I’m gonna learn it real slow.']],
  ()=>[['','Angel sends a voice note at 2am. Just breathing, for nine seconds. Then: “sorry. sorry. wrong button. i’m fine. i’m in the bath with the shotgun. normal night.”'],['@','Go to her.'],['#','already putting on shoes.'],['','You find her exactly as advertised: in the bath, fully dressed, the shotgun across her knees, a face mask on. She does not explain. You do not ask. You sit on the bathroom floor until the face mask dries and she laughs at how stupid she looks.']],
  ()=>[['','Ronin turns up at dawn with a bag of pastries and a black eye.'],['ronin.beaufort','Ran into a fella in a grey suit outside my building. Real polite. Asked if I knew where “the girl” was. Said he just wanted to talk.'],['@','And?'],['ronin.beaufort','And now he knows where my fist is. Pastry? These are the good ones. The bakery lady likes me. Thinks I’m a nice young man.'],['','He eats four pastries and falls asleep on the atrium couch with his boots on. Nobody wakes him. V puts a blanket over him and looks almost embarrassed about it.']],
- ()=>[['','An envelope arrives with no stamp: a photograph of the two of you, taken through the greenhouse glass, from very close. On the back, in the patient hand: “The light in here is beautiful. Your father thought so too.”'],['@','He has been inside the grounds.'],['#','he wants us scared. we’re scared. ok. now what.'],['@','Now we change the locks, and the codes, and the dogs’ walking times. And then we stop being scared, because he does not get to keep anything of ours. Not even that.']],
- ()=>[['','Hara calls at midnight. He sounds tired. He always sounds tired.'],['Hara','A man in my division asked me today, very casually, which harbour Odaiba is in. He has worked in this city for nineteen years. He knows which harbour Odaiba is in.'],['@','He is checking whether you know about Friday.'],['Hara','I told him I did not know what Odaiba was. He believed me. That is the worst part. Thirty years, and my colleagues believe I am the kind of man who does not know what Odaiba is.']]];
+ ()=>[['','An envelope arrives with no stamp: a photograph of the two of you, taken through the greenhouse glass, from very close. On the back, in the patient hand: “The light in here is beautiful. Your father thought so too.”'],['@','He has been inside the grounds.'],['#','he wants us scared. we’re scared. ok. now what.'],['@','Now we change the locks, and the codes, and the hounds’ walking times. And then we stop being scared, because he does not get to keep anything of ours. Not even that.']],
+ ()=>[['','Hale calls at midnight. He sounds tired. He always sounds tired.'],['Hale','A man in my division asked me today, very casually, which berth Pier Nine is. He has worked in this city for nineteen years. He knows which berth Pier Nine is.'],['@','He is checking whether you know about Friday.'],['Hale','I told him I did not know what Pier Nine was. He believed me. That is the worst part. Thirty years, and my colleagues believe I am the kind of man who does not know what Pier Nine is.']]];
 const _morN=morningEvent;morningEvent=function(done){if(S&&S.phase==='act3'){const d=a3d();if(!A3_BEATS[d]||S.seen['a3b'+d]){if(!S.seen['a3n'+d]&&Math.random()<.6){S.seen['a3n'+d]=1;S.a3.nights=(S.a3.nights||0);const n=A3_NIGHTS[S.a3.nights%A3_NIGHTS.length];S.a3.nights++;save();return say(A3L(n),done)}}}return _morN(done)};
 const A3_AFTER={
- okubo:{paper:()=>[['','A newspaper photo: Okubo, small and grey, leaving the Judicial Council with his coat over his head. Behind him, on the steps, a young woman holds a sign with nineteen case numbers on it. She is one of the girls from the agency. She is smiling.']],kill:()=>[['','The koi pond in Setagaya is drained a month later. The fish are sold to a restaurant in Ginza. Somebody posts a photo of the empty pond online with no caption. It gets four likes.']],leverage:()=>[['','Okubo calls once, from a payphone. “I told them everything. On paper. I wanted you to know I did it properly.” He hangs up before anyone can answer.']]},
+ okubo:{paper:()=>[['','A newspaper photo: '+a3nm('okubo')+', small and grey, leaving the Judicial Council with his coat over his head. Behind him, on the steps, a young woman holds a sign with nineteen case numbers on it. She is one of the girls from the agency. She is smiling.']],kill:()=>[['','The koi pond behind the house is drained a month later. The fish are sold to a restaurant across the river. Somebody posts a photo of the empty pond online with no caption. It gets four likes.']],leverage:()=>[['',a3sur('okubo')+' calls once, from a payphone. “I told them everything. On paper. I wanted you to know I did it properly.” He hangs up before anyone can answer.']]},
  mizuno:{paper:()=>[['','A drawing arrives at the foundation, crayon on cheap paper: a house with forty-one windows, all of them lit. It is signed “from the sparrows.”']],kill:()=>[['','The Little Sparrows home is sold. The building becomes a convenience store. Every time you pass it you look at the upstairs windows and count.']],angel:()=>[['','Angel’s livestream is nominated for an award. She declines it. In the statement she writes: “it wasn’t content. it was a crime scene. please stop clapping.”']]},
- tsuji:{ronin:()=>[['','In Ronin’s freezer, behind NOT SNACKS, a lightbulb wrapped in newspaper. Every time anyone opens the freezer they look at it, and close the door a little more gently than before.']],kill:()=>[['','The laundromat below Tsuji’s flat gets new owners. They paint it pink. The machines still eat socks.']],paper:()=>[['','Tsuji’s trial is short. He pleads guilty to everything and asks only one question of the court: whether anyone ever found the bulb. Nobody answers him.']]},
- arima:{paper:()=>[['','The building in Kita gets a plaque. Somebody keeps leaving flowers under it. One week, the flowers are from the trailer’s window box.']],kill:()=>[['','Arima lives in a hotel now. She keeps the window open in winter. The staff say she cannot stand the smell of the heating.']],home:()=>[['','Fourth floor, the old number. The unit stays empty. Every month the one-yen rent is paid anyway, anonymously, in an envelope with a star sticker on it.']]},
- kanzaki:{hara:()=>[['','Hara feeds a cat for a month. He never mentions it. When the aunt comes, the cat refuses to leave him for twenty minutes. He stands very still and lets it decide.']],kill:()=>[['','A girl in a school uniform lays flowers at the department store car park every Sunday. She does not know who to be angry at. That is the worst sentence anyone could serve.']],spare:()=>[['','A postcard from Sapporo, every year, no message. Just a photograph of a cat getting older.']]},
- fumiko:{ask:()=>[['','V plays eleven notes on the piano every night now. On the twelfth, he stops, and sits there, and listens to the silence where the rest of the song goes.']],kill:()=>[['','Fumiko’s plants are found by a neighbour, all of them dead, a week later. V pays for the funeral. He does not attend. He sends lilies, which he hates.']],paper:()=>[['','The clinic’s new wing is demolished. On the site, the city plants a small park. There is a bench with no plaque. V sits on it once, on his mother’s birthday, and never again.']]}};
+ tsuji:{ronin:()=>[['','In Ronin’s freezer, behind NOT SNACKS, a lightbulb wrapped in newspaper. Every time anyone opens the freezer they look at it, and close the door a little more gently than before.']],kill:()=>[['','The flat '+a3sur('tsuji')+' rented stays empty for a year. Nobody will take it. The landlord says the bulbs keep blowing.']],paper:()=>[['',a3sur('tsuji')+'’s trial is short. He pleads guilty to everything and asks only one question of the court: whether anyone ever found the bulb. Nobody answers him.']]},
+ arima:{paper:()=>[['','The building on the north side gets a plaque. Somebody keeps leaving flowers under it. Misaki never does. She walks past it on jobs and does not look.']],kill:()=>[['',a3sur('arima')+' lives in a hotel now. She keeps the window open in winter. The staff say she cannot stand the smell of the heating.']],home:()=>[['','Fourth floor, the old number. The unit stays empty. Every month a one-dollar rent is paid anyway, anonymously, in an envelope with a star sticker on it.']]},
+ kanzaki:{hara:()=>[['','Hale feeds a cat for a month. He never mentions it. When the aunt comes, the cat refuses to leave him for twenty minutes. He stands very still and lets it decide.']],kill:()=>[['','A girl in a school uniform lays flowers at the department store car park every Sunday. She does not know who to be angry at. That is the worst sentence anyone could serve.']],spare:()=>[['','A postcard, every year, no message, no return address. Just a photograph of a cat getting older. V files each one in the drawer for the ones he let go.']]},
+ fumiko:{ask:()=>[['','V plays eleven notes on the piano every night now. On the twelfth, he stops, and sits there, and listens to the silence where the rest of the song goes.']],kill:()=>[['',a3sur('fumiko')+'’s plants are found, all of them dead, a week later. V pays for the funeral. He does not attend. He sends lilies, which he hates.']],paper:()=>[['','The clinic’s new wing is demolished. On the site, the city plants a small park. There is a bench with no plaque. V sits on it once, on his mother’s birthday, and never again.']]}};
 function a3Aftermath(late){if(S.phase!=='act3')return[];const out=[];const seen=S.a3.after||{};for(const id in S.a3.names){const k=S.a3.names[id];const f=A3_AFTER[id]&&A3_AFTER[id][k];if(f&&!seen[id])out.push({t:'What happened after: '+A3N().find(n=>n.id===id).n,sub:'a quiet look back',fn:()=>{S.a3.after=seen;seen[id]=1;save();cut(A3L(f),hub,'#0a0810')}})}return out.length?[{h:'Afterwards'}].concat(out.slice(0,2)):[]}
 const _a3H2=a3Hub;a3Hub=function(late){return _a3H2(late).concat(a3Aftermath(late))};
 /* ===================== ACT II: interviews with the suspects, and nights in between ===================== */
 const A2_INT={
- dale:[()=>[['','A hotel staff canteen at four in the morning. Dale Ishikawa, night security, eating rice out of a plastic box. He looks up, sees who it is, and puts his chopsticks down very carefully.'],['Dale','You’re the ones from the letters. The ones who sent my mother a copy.'],['@','You photographed a woman while she slept.'],['Dale','I know. I know what I did. I lost everything. My job, my flat, my mother won’t answer the phone. I’m working nights in a hotel in a different ward under my cousin’s name.'],['Dale','You think I’m killing people with dog tags because of a letter? I can barely afford the bus.'],['','He is either telling the truth, or he has practised this speech a great many times in a great many canteens.']],
-  ()=>[['','Dale again, a week later, in a bus shelter in the rain. He looks worse. He looks like a man who has stopped sleeping.'],['Dale','I keep seeing the news. The tags. I keep thinking: what if they think it’s me. What if somebody wants them to think it’s me.'],['Dale','The cipher on the notes. It’s mine. I made it up in high school. I only ever used it twice. Once on the letters to Angelic. Once on a birthday card to my sister, when I was sixteen.'],['@','Who else has seen the birthday card?'],['Dale','...My sister. And whoever she showed it to. And the police, when they searched my flat. They took everything. They took the card.']]],
- heir:[()=>[['','An accountant’s office in a building with no name on the door. Ren Aoki, thirty-four, polite, perfectly dressed, offering tea from a pot that cost more than a car.'],['Aoki','I worked for '+(S.captor?ORG[S.captor].name:'them')+' for eleven years. I kept their books. When they disappeared — and I use the word advisedly — I kept my job, because somebody has to close the accounts.'],['Aoki','I know who you are. I know what happened in the warehouse. I know what happened to everyone who was in it, afterwards.'],['@','And you are still alive.'],['Aoki','I was never in the warehouse. I have never been in any warehouse. I am an accountant. I am the most boring man you will ever meet. Please, have some tea.']],
-  ()=>[['','Aoki’s office again. The tea is the same. Aoki is not. There is a bandage on his hand he does not explain.'],['Aoki','You have been looking at me. I would like to save us both some time.'],['Aoki','Every man who has died with a K9 tag was in your paperwork. Every one of them was also in mine. I kept their accounts. I knew where they lived. I knew when they were alone.'],['Aoki','That is not a confession. That is a description of my job. If you want a confession you will have to go and find one, and I do not think you will find it with me.'],['','He refills your cup. His hand, the bandaged one, is perfectly steady.']]],
- hara:[()=>[['','Inspector Hara’s favourite coffee shop. The one that has not been cleaned since 1963. He has ordered for you again.'],['Hara','You are wondering if it is me. I would wonder too. I have a file on K9 four years thick, and I have been mocked for it at every Christmas party since.'],['Hara','A man becomes very tired of being mocked. A man might, after enough Christmas parties, decide to make the thing he is hunting real.'],['@','Are you telling me something?'],['Hara','I am telling you what I would think, if I were you. I am a detective. I am very good at thinking what other people think.']],
-  ()=>[['','Hara’s office, after hours. The K9 file is open on his desk. Three pages are missing. He shows you the gap.'],['Hara','I noticed on Tuesday. Three pages. The three victims. Somebody in this building has been reading my file and taking notes.'],['Hara','I have narrowed it down to eleven people. Ten of them are policemen. One of them is the cleaner.'],['Hara','...It is not the cleaner. She has worked here since before I joined. She brings me mochi on my birthday.'],['','He closes the file. For the first time, he looks less tired than angry.'],['Hara','I would very much like to know who it is. I would like to know it before you do, if you do not mind. Some things a man should be allowed to find out himself.']]]};
+ dale:[()=>[['','A hotel staff canteen at four in the morning. '+SUS().dale.n+', night security, eating rice out of a plastic box. He looks up, sees who it is, and puts his fork down very carefully.'],[susN('dale',1),'You’re the ones from the letters. The ones who sent my mother a copy.'],['@','You photographed a woman while she slept.'],[susN('dale',1),'I know. I know what I did. I lost everything. My job, my flat, my mother won’t answer the phone. I’m working nights in a hotel across the river under my cousin’s name.'],[susN('dale',1),'You think I’m killing people with dog tags because of a letter? I can barely afford the bus.'],['','He is either telling the truth, or he has practised this speech a great many times in a great many canteens.']],
+  ()=>[['',susN('dale',1)+' again, a week later, in a bus shelter in the rain. He looks worse. He looks like a man who has stopped sleeping.'],[susN('dale',1),'I keep seeing the news. The tags. I keep thinking: what if they think it’s me. What if somebody wants them to think it’s me.'],[susN('dale',1),'The cipher on the notes. It’s mine. I made it up in high school. I only ever used it twice. Once on the letters to Angelic. Once on a birthday card to my sister, when I was sixteen.'],['@','Who else has seen the birthday card?'],[susN('dale',1),'...My sister. And whoever she showed it to. And the police, when they searched my flat. They took everything. They took the card.']]],
+ heir:[()=>[['','An accountant’s office in a building with no name on the door. '+SUS().heir.n+', thirty-four, polite, perfectly dressed, offering tea from a pot that cost more than a car.'],[susN('heir'),'I worked for '+(S.captor?ORG[S.captor].name:'them')+' for eleven years. I kept their books. When they disappeared — and I use the word advisedly — I kept my job, because somebody has to close the accounts.'],[susN('heir'),'I know who you are. I know what happened in the warehouse. I know what happened to everyone who was in it, afterwards.'],['@','And you are still alive.'],[susN('heir'),'I was never in the warehouse. I have never been in any warehouse. I am an accountant. I am the most boring man you will ever meet. Please, have some tea.']],
+  ()=>[['',susN('heir')+'’s office again. The tea is the same. '+susN('heir')+' is not. There is a bandage on his hand he does not explain.'],[susN('heir'),'You have been looking at me. I would like to save us both some time.'],[susN('heir'),'Every man who has died with a K9 tag was in your paperwork. Every one of them was also in mine. I kept their accounts. I knew where they lived. I knew when they were alone.'],[susN('heir'),'That is not a confession. That is a description of my job. If you want a confession you will have to go and find one, and I do not think you will find it with me.'],['','He refills your cup. His hand, the bandaged one, is perfectly steady.']]],
+ hara:[()=>[['','Inspector Hale’s favourite coffee shop. The one that has not been cleaned since 1963. He has ordered for you again.'],['Hale','You are wondering if it is me. I would wonder too. I have a file on K9 four years thick, and I have been mocked for it at every Christmas party since.'],['Hale','A man becomes very tired of being mocked. A man might, after enough Christmas parties, decide to make the thing he is hunting real.'],['@','Are you telling me something?'],['Hale','I am telling you what I would think, if I were you. I am a detective. I am very good at thinking what other people think.']],
+  ()=>[['','Hale’s office, after hours. The K9 file is open on his desk. Three pages are missing. He shows you the gap.'],['Hale','I noticed on Tuesday. Three pages. The three victims. Somebody in this building has been reading my file and taking notes.'],['Hale','I have narrowed it down to eleven people. Ten of them are policemen. One of them is the cleaner.'],['Hale','...It is not the cleaner. She has worked here since before I joined. She brings me a cake on my birthday.'],['','He closes the file. For the first time, he looks less tired than angry.'],['Hale','I would very much like to know who it is. I would like to know it before you do, if you do not mind. Some things a man should be allowed to find out himself.']]]};
 function a2Interviews(late){if(S.phase!=='act2'||!S.case)return[];const o=[];const seen=S.f.a2int||{};for(const k in A2_INT){const n=(seen[k]||0);if(n<A2_INT[k].length)o.push({t:`Talk to ${SUS()[k].n}`,sub:`interview ${n+1}/${A2_INT[k].length} · costs time · may turn up a clue`,dis:late||S.done['a2i'+k],fn:()=>{spend();S.done['a2i'+k]=1;S.f.a2int=seen;seen[k]=n+1;save();cut(A3L(A2_INT[k][n]),()=>{if(k===S.case.cul&&n===1)gainClue(k+'3');else if(Math.random()<.5)gainClue();hub()},'#0a0a14')}})}return o.length?[{h:'Suspects'}].concat(o):[]}
 const _a2hI=act2Hub;act2Hub=function(late){return _a2hI(late).concat(a2Interviews(late))};
 const A2_NIGHTS=[
  ()=>[['','A third tag is found, not on a body, but nailed to the foundation’s front door. Under it, in marker: “WHO’S NEXT, VALENTIN?”'],['@','He knows my name. My real name.'],['#','so do i. and nobody gets to use it like that. nobody.']],
- ()=>[['','The server. A new member joins, posts a single photograph of the foundation’s logo with a dog tag on top, and leaves before anyone can reply.'],['Angelic','(server) i got their IP. it’s a library. a public library in shinjuku. they’re using a library computer. that’s so creepy. that’s so smart.'],['ronin.beaufort','(server) i’ll go sit in the library. i love libraries. very quiet. good for thinkin’ about violence.']],
+ ()=>[['','The server. A new member joins, posts a single photograph of the foundation’s logo with a dog tag on top, and leaves before anyone can reply.'],['Angelic','(server) i got their IP. it’s a library. a public library on the north side. they’re using a library computer. that’s so creepy. that’s so smart.'],['ronin.beaufort','(server) i’ll go sit in the library. i love libraries. very quiet. good for thinkin’ about violence.']],
  ()=>[['','The gala committee calls to say four major donors have withdrawn. One of them says, on the record, that he “cannot be associated with an organisation under police scrutiny.”'],['V','He has been under police scrutiny himself three times. I have the files. I paid for two of the lawyers.'],['M','want me to send him a fruit basket? a scary one?'],['V','...Yes. Anonymously. With a pineapple. He is afraid of pineapples. It was in one of the files.']],
  ()=>[['','Rain on the window all night. Neither of you can sleep, so you sit in the archive with every drawer open, reading thank-you notes from people V got out.'],['#','this one says “you saved my life and also my cat”. this one is just a drawing of a sandwich.'],['@','The sandwich is from a man who now owns a restaurant. He sends me one every year. It is always too much mayonnaise.'],['#','that’s love. too much mayonnaise is love.']],
  ()=>[['','A crowd outside the foundation’s offices. Signs. “WHO IS K9?” “VIGILANTES ARE MURDERERS.” And one, very small, held by an old woman: “K9 GOT MY SON A JOB. LEAVE HIM ALONE.”'],['@','I do not know her.'],['#','she knows you. that’s how it works. you don’t have to know them. you just have to have been there.']],
- ()=>[['','Hara leaves a voicemail at three in the morning. He sounds like he is in a car.'],['Hara','I have been thinking about who in my building wants K9 to be real. The answer is: all of us. Every single officer who has ever watched a rich man walk out of court. That is a very long list.'],['Hara','I am going to go home now. I am going to eat something. I suggest you do the same. Goodnight, whoever you are.']]];
+ ()=>[['','Hale leaves a voicemail at three in the morning. He sounds like he is in a car.'],['Hale','I have been thinking about who in my building wants K9 to be real. The answer is: all of us. Every single officer who has ever watched a rich man walk out of court. That is a very long list.'],['Hale','I am going to go home now. I am going to eat something. I suggest you do the same. Goodnight, whoever you are.']]];
 const _morA2=morningEvent;morningEvent=function(done){if(S&&S.phase==='act2'&&!isLone()){const d=S.day-S.act2Start+1;if(!S.seen['a2n'+d]&&Math.random()<.45){S.seen['a2n'+d]=1;S.f.a2n=(S.f.a2n||0);const n=A2_NIGHTS[S.f.a2n%A2_NIGHTS.length];S.f.a2n++;save();return _morA2(()=>say(A3L(n),done))}}return _morA2(done)};
 /* ===================== ACT I: more mornings ===================== */
 EVENTS.push(
- {id:'x_rain_roof',when:()=>isM()&&S.pov!=='v'&&S.day>=2&&S.phase==='normal',run:done=>say([['','A job falls through at the last second: the target cancels his dinner. She is left on a wet roof at midnight with a rifle and nowhere to point it.'],['M','six hours on a roof. for nothing. i could’ve been watching a horror movie. i could’ve been ASLEEP.'],['','She doesn’t leave. She stays another hour, watching the restaurant’s windows go dark one by one, the waiters stacking chairs, a cook smoking in the alley.'],['M','he’d have been here. right there. that table. and those guys would’ve had to clean it up.'],['','She packs up. On the way home, she buys the cook a coffee from the vending machine and leaves it on the alley step. She doesn’t know why. It just seems fair.']],done)},
+ {id:'x_rain_roof',when:()=>isM()&&S.pov!=='v'&&S.day>=2&&S.phase==='normal',run:done=>say([['','A job falls through at the last second: the target cancels his dinner. She is left on a wet roof at midnight with a rifle and nowhere to point it.'],['M','six hours on a roof. for nothing. i could’ve been watching a horror movie. i could’ve been ASLEEP.'],['','She doesn’t leave. She stays another hour, watching the restaurant’s windows go dark one by one, the waiters stacking chairs, a cook smoking in the alley.'],['M','he’d have been here. right there. that table. and those guys would’ve had to clean it up.'],['','She packs up. On the way home she walks past the restaurant twice and learns the alley by heart, both directions, for next time. There is always a next time. He only cancelled dinner.']],done)},
  {id:'x_v_board',when:()=>isV()&&S.day>=2&&S.phase==='normal',run:done=>say([['','A board meeting runs four hours. Somewhere around hour three, the chairman suggests that the foundation “reconsider its relationship with certain shelters in high-crime areas.”'],['V','By “high-crime,” do you mean “poor”?'],['Chairman','I mean areas where our brand is at risk.'],['V','Our brand is a dog holding a key. It was drawn by a nine-year-old who lived in one of those shelters. I will be keeping it, and the shelters, and I will be taking your suggestion home with me and putting it in a very specific drawer.'],['','The meeting ends twelve minutes early. Everyone at the table knows exactly which drawer he means. Nobody has ever seen it.']],done)},
- {id:'x_dog_walk',when:()=>S.day>=3&&!isLone()&&S.phase!=='taken',run:done=>say([['','Six in the morning. Fog over the river. V walks the dogs along the embankment, three leads in one hand, coffee in the other.'],['','A jogger stops to pet Biscuit and asks what she is. V says “a menace.” The jogger laughs. Biscuit steals her headband.'],['V','I apologise. She is a collector.'],['','On the way back, he passes the trailer lot without meaning to. The lights are on. Through the window, a girl with a star clip is eating cereal from a pot. He does not stop. He walks a little slower.']],done)},
+ {id:'x_dog_walk',when:()=>S.day>=3&&!isLone()&&S.phase!=='taken',run:done=>say([['','Six in the morning. Fog over the river. V walks the hounds along the embankment, three chains in one hand, coffee in the other.'],['','A jogger comes round the bend, sees what is on the leads, and stops dead. She turns around and runs back the way she came, faster than she arrived.'],['V','They have that effect. I have stopped apologising for it.'],['','On the way back, he passes the trailer lot without meaning to. The lights are on. Through the window, a girl with a star clip is eating cereal from a pot. He does not stop. He walks a little slower.']],done)},
  {id:'x_angel_cry',when:()=>S.day>=4&&frT('a')>=1&&S.phase!=='taken',run:done=>say([['','Angel posts a video at 4am. No makeup. No ring light. Just her face in the dark, lit by the screen.'],['Angelic','(video) hi. sorry. this isn’t a real video. i just wanted to say that sometimes the people who look happiest on camera are the ones who need you to text them. so text someone. that’s it. that’s the video.'],['','It is deleted by six. Not before eleven people from one small server have texted her. She replies to every one with a single heart.']],()=>{fr('a',2);done()})},
  {id:'x_ronin_dentist',when:()=>S.day>=3&&frT('r')>=1&&S.phase!=='taken',run:done=>say([['ronin.beaufort','(server) so i went to the dentist'],['Angelic','(server) and??'],['ronin.beaufort','(server) and the dentist was a guy from a list. like A List. like my kinda list.'],['K9','(server) Ronin.'],['ronin.beaufort','(server) i didn’t DO anything vee. i got a cleaning. he did a real good job. i tipped. i’m just sayin’ i know where he works now'],['hitmeuppp','(server) did u floss tho'],['ronin.beaufort','(server) ...no']],done)},
  {id:'x_cold',when:()=>S.day>=4&&weather()==='snow'&&S.phase==='normal',run:done=>say([['','The first snow. The city goes quiet the way it only does when it snows: every sound wrapped in cotton, every footstep muffled.'],[A3ME(),ME3()?'My mother used to say the snow was the city holding its breath.':mVoice('snow. ok. the trailer heater is going to die. i can feel it. it’s making the noise.')],['','The trailer heater dies at noon. By two, there is an electric heater on the step with a bow on it and no card. Everyone knows who sent it. Nobody says so.']],done)},
  {id:'x_wrong_door',when:()=>isM()&&S.pov!=='v'&&S.day>=5&&S.phase==='normal',run:done=>say([['','A job, a hotel, a corridor. She counts the doors. 1104. 1106. 1108. She knocks on 1108, smiles at the man who opens it, and realises half a second too late that he is not the man in the photograph.'],['Stranger','Room service?'],['M','...wrong floor. sorry. have a good night.'],['','She walks to the lift very calmly. Her heart is going so fast she can hear it in her teeth. The man in 1110 will live another day because a stranger in 1108 ordered room service.'],['M','that’s the job. that’s the whole job. one wrong door and you’re somebody else.']],()=>{apply({energy:-8});done()})},
- {id:'x_v_hospital',when:()=>isV()&&S.day>=5&&S.phase==='normal',run:done=>say([['','A hospital, children’s wing. V visits once a month, unannounced, and reads to whichever ward will have him. Today it is the oncology ward. They want a dog book.'],['V','“Max is doing his best.” He is a very small dog in a very big city, and he is doing his best.'],['','A boy with no hair asks if Max ever gets scared. V says yes. Every day. The boy nods, very seriously, as if that settles something.'],['','On the way out, a nurse asks if he is a volunteer. He says he is just a man who likes dog books. She does not believe him. She lets him have it anyway.']],()=>{apply({heart:3});done()})},
+ {id:'x_v_hospital',when:()=>isV()&&S.day>=5&&S.phase==='normal',run:done=>say([['','A man on the east side keeps a dog on a chain in a yard with no shade. V visits at dusk. He brings two of the hounds. He does not raise his voice.'],['V','I am not going to touch you. They are not going to touch you. They are only going to learn your smell.'],['','The hounds stand at the fence and look at the man. They do not bark. They do not blink as often as dogs should.'],['','He signs the dog over in his own handwriting. By morning he has left the city. Nobody on the street has to ask why. They saw what stood at his gate.']],()=>{apply({heart:3});done()})},
  {id:'x_power_bill',when:()=>isM()&&S.pov!=='v'&&S.paid===1&&S.phase==='normal',run:done=>say([['','A second envelope under the rent one. The electricity bill. It has been red for a month. She has been pretending the colour is decorative.'],['M','ok. electricity. i can do electricity. electricity is like rent’s little brother.'],['','She pays it from the stash under the bed. The stash is now mostly stickers. She looks at the stickers for a long time.']],()=>{apply({yen:-3000});done()})},
- {id:'x_v_father',when:()=>isV()&&S.day>=6&&S.phase==='normal',run:done=>say([['','The anniversary of his father’s death. V does what he does every year: nothing. He works. He does not visit the grave. He does not light a candle.'],['','At midnight, he goes down to the archive and opens the drawer where he keeps the one photograph of his father he has not burned. A man in a grey suit, at a desk, writing in a ledger.'],['V','I am not you. I check every year. I am still not you.'],['','He closes the drawer. Upstairs, Biscuit is waiting on the bottom step, as she does every night, as though he might not come back.']],done)},
+ {id:'x_v_father',when:()=>isV()&&S.day>=6&&S.phase==='normal',run:done=>say([['','The anniversary of his father’s death. V does what he does every year: nothing. He works. He does not visit the grave. He does not light a candle.'],['','At midnight, he goes down to the archive and opens the drawer where he keeps the one photograph of his father he has not burned. A man in a grey suit, at a desk, writing in a ledger.'],['V','I am not you. I check every year. I am still not you.'],['','He closes the drawer. The grey hound is lying across the top of the stairs, awake, the way it always is when he goes down there at night. It does not move until he has passed. It never has.']],done)},
  {id:'x_misaki_mail',when:()=>isM()&&S.pov!=='v'&&S.day>=4&&tier()>=1&&S.phase==='normal',run:done=>say([['','A parcel at the trailer. Inside: a hardback copy of a dog book, the one from V’s shelves, with every margin annotated in neat handwriting.'],['','“He is doing his best.” On every page. And on the last page, in a different pen, newer: “So are you.”'],['M','...he gave me the dog book. he gave me THE dog book.'],['','She reads it in bed with a torch, like a kid. She reads every margin. She falls asleep halfway through and dreams, for once, about nothing at all.']],()=>{apply({aff:3});done()})},
- {id:'x_ronin_body2',when:()=>S.day>=7&&frT('r')>=1&&S.phase==='normal',run:done=>say([['ronin.beaufort','(text) sorry to bug ya. this ain’t a favour. just. i had a bad one tonight. kid was in the next room. didn’t see nothin’. still.'],[A3ME(),ME3()?'(text) Are you safe?':mVoice('(text) u ok?')],['ronin.beaufort','(text) yeah. yeah. just wanted somebody to know i’m awake. go back to sleep, '+nick()+'.'],['','You don’t go back to sleep. You send him a photo of the dogs every ten minutes until he replies with a single “lol” at 4am.']],()=>{fr('r',3);done()})},
- {id:'x_rent_kid',when:()=>isM()&&S.pov!=='v'&&S.day>=3&&S.phase==='normal',run:done=>say([['','The landlord’s nephew comes to collect the rent notice. He is about fourteen and very embarrassed.'],['Nephew','My uncle says, um. Pay or else. Sorry. He makes me say that.'],['M','does ur uncle make u do a lot of stuff'],['Nephew','...yeah.'],['M','ok. tell him i said “noted.” and here.'],['','She gives him a dorayaki from the stash. He looks at it like it might explode. Then he eats it on the step before he leaves, very quickly, like he is not allowed.']],done)},
+ {id:'x_ronin_body2',when:()=>S.day>=7&&frT('r')>=1&&S.phase==='normal',run:done=>say([['ronin.beaufort','(text) sorry to bug ya. this ain’t a favour. just. i had a bad one tonight. kid was in the next room. didn’t see nothin’. still.'],[A3ME(),ME3()?'(text) Are you safe?':mVoice('(text) u ok?')],['ronin.beaufort','(text) yeah. yeah. just wanted somebody to know i’m awake. go back to sleep, '+nick()+'.'],['','You don’t go back to sleep. You send him something stupid every ten minutes until he replies with a single “lol” at 4am.']],()=>{fr('r',3);done()})},
  {id:'x_late_text',when:()=>tier()>=2&&S.phase==='normal'&&!isLone()&&!S.rom,run:done=>say([[ME3()?'hitmeuppp':'K9',ME3()?mVoice('(text, 3:14am) r u up'):'(text, 3:14am) Are you awake?'],[A3ME(),ME3()?'(text) Yes.':mVoice('(text) yeah')],[ME3()?'hitmeuppp':'K9',ME3()?mVoice('(text) nothing. just checking'):'(text) Nothing. I only wanted to know.'],['','Neither of you says anything else. Neither of you puts the phone down. At 3:40, one of you finally types “night.” At 3:41, the other types it back.']],()=>{apply({aff:2});done()})});
 /* ===================== PLACES: shared registry for new areas ===================== */
 /* speaker shorthands 'M'/'V' anywhere in say() map to the real handles */
@@ -7197,8 +7205,8 @@ function gl_begin(cb){cb=cb||hub;
   ['K9','What are you looking at?'],
   ['M','the street. it’s on.'],
   ['K9','“On.”'],
-  ['M','like a tv. the old lady at number six is about to drop her keys. she does it every day at like four.'],
-  ['','At four, the old lady at number six drops her keys. Misaki does not laugh. She nods, like a programme that went the way she expected it to.'],
+  ['M','like a tv. the old lady two trailers down is about to drop her keys. she does it every day at like four.'],
+  ['','At four, the old lady two trailers down drops her keys. Misaki does not laugh. She nods, like a programme that went the way she expected it to.'],
   ['K9','Do you know her name?'],
   ['M','whose'],
   ['K9','The woman with the keys.'],
@@ -7229,11 +7237,11 @@ function gl_s1(cb){cb=cb||hub;
   ['','Angel is filming a skincare video. She sees your face over the camera and stops mid-serum.'],
   ['Angelic','oh my god. u noticed. u have the noticing face. it’s the misaki thing isn’t it'],
   ['K9','I did not say anything.'],
-  ['Angelic','u didn’t HAVE to, ur eyebrows filed a report. ok. sit. don’t touch the serum, it’s ¥9,000.'],
+  ['Angelic','u didn’t HAVE to, ur eyebrows filed a report. ok. sit. don’t touch the serum, it’s ninety dollars.'],
   ['Angelic','so u know how she laughs a second late? like there’s a delay? like she’s on a satellite feed from mars?'],
   ['K9','I had attributed it to comic timing.'],
   ['Angelic','it’s not timing. it’s DISTANCE.'],
-  ['Angelic','i took her to the shibuya crossing once for content. everybody moving, ten thousand people, very cinematic. and she just stopped. in the middle. looking around like a ghost in somebody’s holiday video.'],
+  ['Angelic','i took her to the big crossing downtown once for content. everybody moving, ten thousand people, very cinematic. and she just stopped. in the middle. looking around like a ghost in somebody’s holiday video.'],
   ['Angelic','i got it on camera. it’s the best shot i ever took. i deleted it. i don’t post things that make me want to lie down on the floor.'],
   ['','She looks at the dead ring light for a while, which is not something you have ever seen Angel do.']],
   ()=>ask('K9','(Angel is waiting.)',[
@@ -7272,8 +7280,8 @@ function gl_s2(cb){cb=cb||hub;
   ['ronin.beaufort','She came over Wednesday and told me it was Monday. Brought me a Christmas card in June once. She don’t know what day it is, Vee. Not ’cause she’s dumb. ’Cause she don’t think days are for her.'],
   ['ronin.beaufort','My granddaddy was like that. Came home from somewhere, sat on the porch watchin’ the road like a picture show. Took my grandmama two years and a pie a day to get him to the table.'],
   ['ronin.beaufort','Point is, you can’t drag somebody off a porch. You gotta give ’em a reason to come in that’s smaller than the whole world. Pie. A dog. A Thursday.'],
-  ['K9','I have a great many dogs.'],
-  ['ronin.beaufort','Then you got a head start, pal.']],
+  ['K9','My hounds are not a reason anyone comes in, Ronin. They are the reason people stay out.'],
+  ['ronin.beaufort','She goes in the kennel, Vee. Nobody goes in your kennel. Not me. Not Angel. Not the Devil himself. She goes in and sits down. You got a head start, pal.']],
   ()=>ask('K9','(Ronin is eating the waffle after all.)',[
    {t:'“What did your grandfather see, out there?”',fn:()=>{fr('r',3);say([['ronin.beaufort','Never said. Wasn’t mine to ask.'],['ronin.beaufort','Some things you let folks keep. ...You gonna let her keep hers?'],['K9','If she wants to.'],['ronin.beaufort','Good answer. Only answer. Get out of my house, I gotta watch Heathers alone and cry about it.']],()=>{gl_adv();cb()})}},
    {t:'“How do I help without making it worse?”',fn:()=>{fr('r',3);say([['ronin.beaufort','Take her somewhere loud. Watch whether she looks at you or at the room.'],['ronin.beaufort','If she looks at the room, don’t say nothin’. Just stand where she can see you. Be the one thing in the picture that waves back.'],['K9','...Be the one thing that waves back.'],['ronin.beaufort','Write it down, it’s good. I’m very wise in a bathrobe.']],()=>{gl_adv();cb()})}},
@@ -7314,14 +7322,14 @@ function gl_s3(fromHub){
 /* ---------- step 4: the TV (her past) ---------- */
 function gl_s4(cb){cb=cb||hub;const P=gl_P();
  const tale=[
-  ['M','it’s the same model we had. at home. the house outside kyoto. i found it at a recycle shop for ¥500 and carried it two kilometres on my back like a turtle.'],
+  ['M','it’s the same model we had. at home. the house i left. i found it at a thrift shop for five dollars and carried it a mile on my back like a turtle.'],
   ['M','we ate dinner in front of it every night. my dad talked to the news. my mum talked to the weather lady. nobody talked to the table.'],
   ['M','and the table had a kid at it with a name that wasn’t hers. you know that part. the name on the birth certificate. somebody else’s idea of who i’d be.'],
   ['M','so i did a trick. i pretended the kid at the table was on tv too. a show. a sad little show about a girl who said “yes” and “fine” and ate her rice.'],
   ['M','and if she’s on tv then it’s not happening to me. it’s happening to her. i’m just watching. u can’t get hurt watching. that’s the whole point of tv.'],
   ['','On the screen, with the sound off, a man folds dumplings very fast for nobody.'],
   ['M','i left at nineteen. picked my name. picked a fish. thought that would switch it off.'],
-  ['M','it didn’t switch off. it just. widened. the whole city went on the tv. the konbini, the trains, people’s birthdays, people holding hands at crossings. i can see all of it really clearly. i just can’t reach in.'],
+  ['M','it didn’t switch off. it just. widened. the whole city went on the tv. every city did. the corner stores, the trains, people’s birthdays, people holding hands at crossings. i can see all of it really clearly. i just can’t reach in.'],
   ['M','and then the job. a scope is just a really small tv. that’s why i’m good at it. that’s the part i don’t like saying out loud.'],
   ['','The dumpling man finishes. Bows to the camera. Nobody in the trailer bows back.']];
  if(gl_M()){
@@ -7329,7 +7337,7 @@ function gl_s4(cb){cb=cb||hub;const P=gl_P();
   say(open.concat(tale),()=>ask('hitmeuppp','(...)',[
    {t:'“please don’t try to fix it”',fn:()=>{say([[P,P==='K9'?'I will not. I could not. I would like to sit here and watch the dumplings with you, if that is all right.':P==='Angelic'?'i’m not fixing it. i’m doing my toes. i’m just gonna be on ur side of the glass while i do them. deal?':'Wasn’t gonna. I’m just gonna sit on this side of it with you. Glass is warmer with two.'],['','You watch the next episode together. It is about soup. Nobody turns the sound on. It is, somehow, the least alone you have felt in this trailer.']],()=>{apply({aff:4});calm(6);gl_adv();cb()})}},
    {t:'“do u think it can be turned off”',fn:()=>{say([[P,P==='K9'?'I do not think it is a switch. I think it is a door you learned to keep shut because the room behind it was cold. Rooms can be warmed. Slowly.':P==='Angelic'?'not off. but like… the brightness can go down? u know how u can lower the brightness so ur not blinded? that.':'Not off, no. But you can walk away from it for an hour. Then two. That’s how my granddaddy did it. Pie by pie.'],['M','...slowly.'],[P,P==='K9'?'Slowly. I am very patient. I have a list to prove it.':P==='Angelic'?'slowly. i’ll do ur makeup every single time. that’s a promise and a threat.':'Slowly. Thursday at seven, darlin’. I’ll be there.']],()=>{apply({aff:3});calm(4);gl_adv();cb()})}},
-   {t:'“say something normal. anything.”',fn:()=>{say([[P,P==='K9'?'The dog groomer has raised her prices. Biscuit bit a postman’s umbrella, which I have chosen to view as an act of protest. It might rain on Thursday.':P==='Angelic'?'the 7-eleven on my street started selling peach mochi and i bought nine. there’s a pigeon that lives on my balcony and i named him gerald. i think it’s gonna rain thursday.':'Grocery store moved the bread aisle. I’m filin’ a complaint. My neighbour’s kid learned to whistle and won’t stop. Rain Thursday, they say.'],['M','...thank u. that was so normal. that was so incredibly normal.'],['','You make them say more. Weather, prices, gossip about strangers. Every boring sentence lands somewhere in your chest, softly, like snow on a windowsill.']],()=>{apply({aff:3});calm(5);gl_adv();cb()})}}]))}
+   {t:'“say something normal. anything.”',fn:()=>{say([[P,P==='K9'?'The black hound stood at the gate all morning, and the postman left the parcels at the end of the road again. The ink in my good pen has run out. It might rain on Thursday.':P==='Angelic'?'the corner store on my street started selling peach pastries and i bought nine. there’s a pigeon that lives on my balcony and i named him gerald. i think it’s gonna rain thursday.':'Grocery store moved the bread aisle. I’m filin’ a complaint. My neighbour’s kid learned to whistle and won’t stop. Rain Thursday, they say.'],['M','...thank u. that was so normal. that was so incredibly normal.'],['','You make them say more. Weather, prices, gossip about strangers. Every boring sentence lands somewhere in your chest, softly, like snow on a windowsill.']],()=>{apply({aff:3});calm(5);gl_adv();cb()})}}]))}
  else{
   say([['','The CRT is on, the way it is always on. A cooking show, sound off. Misaki is cross-legged in front of it, holding Prickles in her lap like a cat.'],['K9','You never change the channel. Or turn the sound on.'],['M','nope'],['K9','May I ask why?'],['','She looks at you for a long time. Then she pats the floor. You sit, which takes a while, because you are very tall and the trailer is very not.']].concat(tale),()=>ask('K9','(She is watching the screen, not you. She is waiting to see what you do.)',[
    {t:'Sit with her and watch the dumplings',fn:()=>{say([['','You do not say anything. You watch the man fold dumplings. After a minute, her head tips onto your shoulder, carefully, as if she is not sure it will be allowed.'],['M','...thanks for not doing the face.'],['K9','I do not know which face you mean, and I am grateful I did not do it.']],()=>{apply({aff:5});gl_adv();cb()})}},
@@ -7349,15 +7357,15 @@ function gl_s5(cb){cb=cb||hub;const k=gl_tag();S.f.gl_end=k;save();
    ['K9','Tomorrow I would like to take you to the post office.'],
    ['M','...that’s the least romantic sentence anyone’s ever said on a roof'],
    ['K9','We will stand in the queue. We will take a number. We will buy one stamp. And we will send a postcard to your trailer, so that something arrives there addressed to you, from inside the world.'],
-   ['','The next day, you do. The queue is eleven people long. The old woman in front of them turns around and asks Misaki if the star in her hair is real gold.'],
-   ['M','it’s plastic. it’s from a gacha machine. it cost ¥200 and three tries.'],
-   ['','The old woman laughs and shows her a hairpin of her own, a dragonfly, from 1971. They talk for six numbers. V holds the stamp the whole time like it is a medal.'],
+   ['','The next day, you do. The queue is eleven people long. Misaki counts every exit, twice, and then, for the first time, stops counting and just stands in it.'],
+   ['M','this is so boring. i hate it. don’t make me leave.'],
+   ['','V holds the stamp the whole time like it is a medal.'],
    ['','The postcard arrives at the trailer two days later. It says, in V’s neat hand: “You were here. —V.” She puts it on the fridge, dead centre, in the blank space she was saving.']],
   a:[['','Angel climbs up beside her in platform boots, which should not be possible, and hands her a list written in glitter pen.'],
    ['Angelic','normal person shopping. tomorrow. no arguments. i made a LIST.'],
    ['M','“a dish rack. a calendar. one (1) houseplant that is not a cactus. socks that match each other.”'],
    ['Angelic','prickles can stay. prickles is family. but u need a plant that’s ALLOWED to be soft.'],
-   ['','The hundred-yen shop is the loudest place in the city on a Saturday. Angel narrates every aisle like a nature documentary. Misaki picks a calendar with dogs on it.'],
+   ['','The dollar store is the loudest place in the city on a Saturday. Angel narrates every aisle like a nature documentary. Misaki picks a calendar with no pictures on it at all, which she says is the point.'],
    ['Angelic','now write today on it. circle it. today happened. u were there. i have the receipt.'],
    ['','She writes the date. She gets the month wrong, then crosses it out and gets it right. Angel kisses the crossed-out bit like it is the best part, which it is.'],
    ['Angelic','see? now it’s a real day. it’s got a typo in it. those are the realest ones.']],
@@ -7370,23 +7378,23 @@ function gl_s5(cb){cb=cb||hub;const k=gl_tag();S.f.gl_end=k;save();
    ['','She watches. Then, at the end, he opens the door and drops the hot coat over her head, and the whole world goes warm and dark and smells like his cologne.'],
    ['ronin.beaufort','See? Glass don’t go all the way round, darlin’. There’s always a door in it somewhere. You just gotta wait for the buzzer.']],
   f:[['','Ronin’s voice comes up the stairs before he does. Angel is behind him. V is behind Angel, carrying all of Angel’s bags.'],
-   ['ronin.beaufort','Festival down by the river. Lanterns, food on sticks, the works. You’re comin’.'],
-   ['Angelic','we’re ALL coming. it’s a mandatory friendship event. i already bought u a yukata. it has stars on it. don’t fight me.'],
-   ['','The matsuri is loud and bright and too crowded. At the goldfish stall, she scoops one on the third try. The man ties it into a plastic bag of water and hands it over.'],
-   ['','She holds the bag up to her eye. The whole festival goes round and orange and wobbling through the water, with one small fish in the middle of it.'],
+   ['ronin.beaufort','Street fair down by the river. Lights, food on sticks, a ring toss that’s rigged. You’re comin’.'],
+   ['Angelic','we’re ALL coming. it’s a mandatory friendship event. i already bought u a jacket. it has stars on it. don’t fight me.'],
+   ['','The fair is loud and bright and too crowded. At the ring toss, she wins a goldfish on the third try, because she throws the way she shoots.'],
+   ['','She holds the bag up to her eye. The whole fair goes round and orange and wobbling through the water, with one small fish in the middle of it.'],
    ['M','huh. for once i’m outside the glass. and the fish is in it.'],
    ['M','it looks fine in there. it looks ok.'],
    ['K9','And out here?'],
-   ['','She looks at the three of them: Angel with candyfloss in her hair, Ronin wearing a fox mask on the back of his head, V holding a paper fan like it is a classified document.'],
+   ['','She looks at the three of them: Angel with candyfloss in her hair, Ronin in a plastic devil-horn headband he will not take off, V holding a stick of candyfloss like it is classified evidence.'],
    ['M','out here’s better. it’s louder. i’m gonna call it katsuo.'],
    ['Angelic','u named the fish after URSELF'],
    ['M','i named it after a fish. it’s a fish. it’s been a fish this whole time.']]};
  const after=gl_M()?{
   v:['M','he didn’t try to fix it. he just took me somewhere boring and stood next to me. that’s. huh. that’s the whole trick, isn’t it.'],
-  a:['M','the dog calendar is on the wall. there’s a circle on today. i’m gonna circle tomorrow too. like a psycho.'],
+  a:['M','the calendar is on the wall. there’s a circle on today. i’m gonna circle tomorrow too. like a psycho.'],
   r:['M','my coat smells like his now. i think that’s what he wanted. i think that’s a crowbar-guy way of saying a thing.'],
   f:['M','katsuo lives in a jar on the counter now. i watch him. he watches me back. it’s fair.']}[k]:{
-  v:['K9','She stood in a queue and talked to a stranger about a hairpin for six numbers. I have funded hospitals. Nothing I have done has felt like that.'],
+  v:['K9','She stood in a queue for forty minutes and did not leave once. I have funded hospitals. Nothing I have done has felt like that.'],
   a:['K9','Angel sent me a photograph of a calendar with one day circled. I have never been so moved by stationery.'],
   r:['K9','Ronin texted me at three in the morning: “glass got a door in it, pal. she found it.” I did not sleep afterwards. In the good way.'],
   f:['K9','There is a goldfish named after a fish named after a girl. I suspect this is the most important thing that will happen to me this year.']}[k];
@@ -7405,20 +7413,20 @@ function gl_taken(){say([['',pk(['A window. Somewhere out there, behind some oth
 function gl_spot(room,pos,fn){return()=>{if(!S)return;if(isLone())return gl_lone();if(S.phase==='taken')return gl_taken();fn(()=>toRoom(room,pos))}}
 const GL_SP={
  trailer:{m:[
-  [['','The lane. The woman at number six. A cat asleep on a car roof. A boy practising kendo against a vending machine and losing.'],['M','the vending machine’s winning. it’s been winning for three days. i should root for someone. i never root for anyone.']],
+  [['','The lane. A cat asleep on a car roof. A boy kicking a ball against a wall and losing.'],['M','the wall’s winning. it’s been winning for three days. i should root for someone. i never root for anyone.']],
   [['','Somebody is hanging laundry two trailers down: sheets, a school uniform, a tiny pair of socks with frogs on them.'],['M','somebody has a kid. somebody has a kid who has frog socks. somebody washes the frog socks on a tuesday.'],['M','that’s a whole life. it’s just right there. drying.']],
   [['','Rain on the glass. The lane goes soft and blurry, like a television with bad reception.'],['M','oh good. now it looks how it feels.']],
   [['','A delivery driver knocks on the wrong trailer, checks his phone, knocks on the right one. Someone opens the door and they both laugh about something.'],['M','i wonder what was funny. i’ll never know. that’s fine. that’s so fine.']]],
   v:[
-  [['','You look out of her little window. The lane, the vending machine, a woman with keys.'],['K9','From in here it looks very far away. Everything is six metres off.'],['M','ya. that’s the trick. six metres and a window and it’s basically the moon.']],
+  [['','You look out of her little window. The lane, a wall, a woman with keys.'],['K9','From in here it looks very far away. Everything is six metres off.'],['M','ya. that’s the trick. six metres and a window and it’s basically the moon.']],
   [['','There are fingerprints on the inside of the glass. Small ones, at about the height of someone sitting on the floor with her knees up.'],['K9','(She sits here a great deal.)'],['','You do not wipe them off.']],
   [['K9','Do you ever go out and talk to them? The neighbours.'],['M','talk to them about what'],['K9','Anything. The weather.'],['M','the weather’s on tv. they can watch it themselves'],['','She means it as a joke. It does not come out entirely as one.']]],
-  done:{m:[['','The lane. The woman at number six sees the window and waves. Misaki waves back. On time.'],['M','her name’s mrs. oda. i asked. it took me four years and one (1) question.']],
-   v:[['','Mrs. Oda from number six is at the trailer door with a bag of persimmons. Misaki opens it before she can knock.'],['M','mrs. oda. hi. this is V. he’s… tall.'],['Mrs. Oda','I can see that, dear. Take these. Too many for one person.'],['','Misaki takes the persimmons carefully, like something real. You watch her take them.']]}},
+  done:{m:[['','The lane. Ronin’s car is parked across two spaces at the end of it, because he “was in the area.” He was not in the area.'],['M','he does this. he parks there and sits for ten minutes and leaves. i used to watch him do it. now i go out and get in the car.']],
+   v:[['','Misaki opens the trailer door before you can knock. She has started doing that.'],['M','i saw u from the window. i didn’t watch u. i SAW u. there’s a difference now.']]}},
  atrium:{m:[
   [['','The tall windows look out over the grounds and, beyond the wall, the city. From in here it is all lights and no sound.'],['M','rich people get the city on mute. that’s the real luxury. not the coffee machine.']],
   [['','A delivery van at the gate. Security talks to the driver for ten minutes. Through the glass it is a silent film: gestures, nodding, a shared cigarette.'],['M','i bet they’re talking about football. or their kids. or how weird the guy who lives here is.']],
-  [['','Biscuit comes and sits beside her at the window, nose against the glass, making a little cloud with every breath.'],['M','u too huh. ok. we watch it together. u tell me if anything smells weird.'],['Biscuit','*fogs the glass, wipes it with her face, fogs it again*']],
+  [['','The grey hound comes and stands beside her at the window. Its head is level with her shoulder. It does not look at the city. It looks at her reflection in the glass, and does not blink.'],['M','u too huh. ok. we watch. u tell me if anything out there needs eating.']],
   ()=>[['','Her reflection hangs in the glass over the city: star clip, hoodie, a face she does not quite recognise, in a house she does not quite live in.'],['M',S.f.movedIn?'oh. right. i live here now. i keep forgetting. it keeps being true anyway.':'look at her. sneaking around a billionaire’s house. who even is she.']]],
   v:[
   [['','The atrium windows. Thirty-odd years of looking out of them. You know every light on that hill by its owner’s name.'],['K9','She would not know any of their names. She would know what time each one goes off.'],['','You realise you have started counting the lights the way she does.']],
@@ -7426,7 +7434,7 @@ const GL_SP={
   ()=>S.f.movedIn?[['','Misaki is at the window when you come in. She does not turn. She is watching a man across the valley mow his lawn in the dark with a head torch.'],['M','he’s been doing it for an hour. it’s so stupid. i love him.'],['K9','Shall I find out his name?'],['M','no. if he has a name he stops being a show.'],['K9','And if he stops being a show?'],['M','then he’s just a guy. mowing. alone. in the dark. and that’s sad. and i’d have to feel it.']]:[['','From here you can almost see the trailer park. Not quite. A smudge of streetlight where it ought to be.'],['K9','(You wonder if she is at her window too. You wonder what she is watching.)']]]},
  mall:{m:[
   [['','A family at the crêpe stand argue about toppings with the gravity of a peace treaty. The smallest one wins.'],['M','she wanted the strawberry one so bad. she got it. good for her. i hope she remembers this. i don’t remember any of mine.']],
-  [['','A man in a suit sits at the other end of the bench, eats a rice ball in four bites, sighs like a boiler, and leaves.'],['M','that was his whole lunch break. that was probably the best part of his day. and i was there for it. weird.']],
+  [['','A man in a suit sits at the other end of the bench, eats a sandwich in four bites, sighs like a boiler, and leaves.'],['M','that was his whole lunch break. that was probably the best part of his day. and i was there for it. weird.']],
   [['','Two high schoolers walk past sharing earbuds, one each, walking in step to a song nobody else can hear.'],['M','i never did that. there’s a whole list of normal stuff i never did. it’s not sad. it’s just a list.']],
   [['','A busker plays a song everybody knows. People sing along without looking up from their phones.'],['M','everyone knows the words. how does everyone know the words. when did they learn it. was there a day'],['','There was a day. She was somewhere else, watching it on a screen.']]],
   v:[
@@ -7448,31 +7456,31 @@ const GL_SP={
   v:[
   [['Angelic','V. u’re looking at my mood board like it’s a crime scene'],['K9','There is a photograph of Misaki on it. Laughing.'],['Angelic','i know. it’s so rare i had to pin it like a butterfly.'],['K9','...I have never seen her laugh like that.'],['Angelic','she doesn’t know she does it. she wasn’t watching herself. that’s the trick. u gotta catch her when she forgets to watch.']],
   [['Angelic','fun fact. misaki has never once been in a group photo on purpose. she always takes them. she says she likes being behind the camera.'],['K9','Is that so unusual?'],['Angelic','for someone who looks like THAT? with THAT clip? babe. yes. she’s hiding behind the lens like it’s a bush.']],
-  [['','A sticky note on the board in Angel’s handwriting: “things m doesn’t know: the national anthem. what a mortgage is. if u tip at karaoke (u don’t). her own birthday (??)”'],['K9','Her own birthday.'],['Angelic','she said it was “sometime in spring probably.” PROBABLY, V.'],['K9','Noted. Deeply.']]],
-  done:{m:[['','The mood board has a new polaroid on it. You, mid-sentence, talking to somebody out of frame, hands going.'],['Angelic','ur TALKING in that one. to a stranger. like a citizen. i had it framed in my heart and also at the konbini.']],
-   v:[['','The mood board has a new polaroid. Misaki, mid-sentence, hands going, talking to someone out of frame.'],['Angelic','she didn’t even notice me take it. she was too busy BEING somewhere.'],['K9','May I have a copy?'],['Angelic','i already printed u three. one for ur wallet, one for the ops deck, one for the dogs.']]}},
+  [['','A sticky note on the board in Angel’s handwriting: “things m doesn’t know: the national anthem. what a mortgage is. if u tip the pizza guy (u do). her own birthday (??)”'],['K9','Her own birthday.'],['Angelic','she said it was “sometime in spring probably.” PROBABLY, V.'],['K9','Noted. Deeply.']]],
+  done:{m:[['','The mood board has a new polaroid on it. You, mid-sentence, talking to somebody out of frame, hands going.'],['Angelic','ur TALKING in that one. to a stranger. like a citizen. i had it framed in my heart and also at the drugstore.']],
+   v:[['','The mood board has a new polaroid. Misaki, mid-sentence, hands going, talking to someone out of frame.'],['Angelic','she didn’t even notice me take it. she was too busy BEING somewhere.'],['K9','May I have a copy?'],['Angelic','i already printed u three. one for ur wallet, one for the ops deck, one for the kennel door. the hounds won’t care. i care.']]}},
  ronin:{m:[
-  [['','Ronin’s window looks straight into the flat across the alley. A family is eating dinner in there, four of them, passing dishes.'],['ronin.beaufort','The Fujimotos. Every night at seven. Dad burns the fish on Wednesdays.'],['M','u know their NAME'],['ronin.beaufort','I went over and asked, darlin’. Took a pie. Works every time.']],
+  [['','Ronin’s window looks straight into the flat across the alley. A family is eating dinner in there, four of them, passing dishes.'],['ronin.beaufort','Every night at seven. Dad burns the fish on Wednesdays. Don’t know their names. Don’t want to.'],['M','why do u watch them then'],['ronin.beaufort','’Cause if that man ever lifts a hand to that kid, I wanna know which Wednesday he did it. So I can be real punctual about it.']],
   [['ronin.beaufort','You’re doin’ that thing again. Starin’ at the street like it owes you money.'],['M','it does owe me money. everyone does.'],['ronin.beaufort','Ha. Fair. But you look at it like you’re fixin’ to leave it. Like you already did, and you’re just watchin’ the tape.']],
-  [['','Across the alley the Fujimoto kid has stuck a drawing to the window, facing out: a smiling sun and the words HELLO WHOEVER.'],['M','hello whoever. ...that’s me. i’m whoever.'],['ronin.beaufort','Draw one back. I got markers. I got markers and cardboard and nothin’ but time, darlin’.']]],
+  [['','Across the alley the kid has stuck a drawing to the window, facing out: a smiling sun.'],['ronin.beaufort','Kid puts a new one up every week. I check ’em. Every one. You learn what a happy drawing looks like, you notice the week it ain’t.'],['M','...that’s the most frightening nice thing i’ve ever heard.'],['ronin.beaufort','Thank you, darlin’. I work at it.']]],
   v:[
   [['ronin.beaufort','Look at you, Vee. Starin’ out my window like a sad Victorian widow.'],['K9','I was thinking about Misaki.'],['ronin.beaufort','Course you were. Thinkin’ she looks out of windows too much, so now you’re lookin’ out of a window about it. Pal. Irony.']],
   [['ronin.beaufort','Here’s what I think. And I think a lot, I just do it quiet.'],['ronin.beaufort','She was a kid somewhere she wasn’t allowed to be herself. So she stepped outta herself to watch. Kids do that. Most of ’em step back in. Nobody ever told her it was safe.'],['K9','Then someone ought to tell her.'],['ronin.beaufort','Not tell. Show. Tellin’ is just more TV.']],
-  [['','Across the alley a kid’s drawing is taped to the window: HELLO WHOEVER. Under it, newer, on cardboard, in a scrawl you know: hi. it’s whoever.'],['ronin.beaufort','She did that. Tuesday. Don’t you say nothin’ to her about it. You’ll spook her.'],['K9','I will say nothing. I may never recover.']]]},
+  [['','Across the alley a kid’s drawing is taped to a window: a smiling sun.'],['ronin.beaufort','I watch that window every day, Vee. Same as she watches hers. Difference is, I’m waitin’ for somethin’ to go wrong, so I got a reason to go over there.'],['K9','And she?'],['ronin.beaufort','She ain’t waitin’ for nothin’. That’s the part that scares me, and I scare real hard to scare.']]]},
  ops:{m:[
   [['','A wall of little screens: the gate, the drive, the kennel, a dozen city street cameras V has quietly bought access to. Little grey people going about little grey days.'],['M','oh this is just how my brain looks. this is my brain with a budget.']],
-  [['','On one screen a man outside a konbini is teaching a girl to ride a bike. She falls. He catches the bike, not the girl. She gets up laughing.'],['M','i could watch this all day. that’s the problem. i could watch this ALL day. and never once go to the konbini.']],
+  [['','On one screen a man outside a corner store is teaching a girl to ride a bike. She falls. He catches the bike, not the girl. She gets up laughing.'],['M','i could watch this all day. that’s the problem. i could watch this ALL day. and never once go to the store.']],
   [['','On camera nine, in the trailer park, you can just make out the trailer. Your trailer. From here it looks like somebody else’s.'],['M','that’s where she lives. the girl on camera nine. she seems ok. she seems a bit lonely.']]],
   v:[
   [['','The camera wall. You built it to watch over the city. Sixty cameras. Sixty little windows.'],['K9','She watches the world the way I watch this wall. The difference is that I am allowed to walk out of the door afterwards.'],['','You are not sure, any more, that you do.']],
   [['','Camera nine, the trailer park. A small figure at a small window, knees up, watching the lane.'],['K9','(She is watching them. I am watching her watch them. Someone, probably, is watching me.)'],['','You switch camera nine off. It feels like closing a door gently on someone asleep.']]]},
  kennel:{m:[
-  [['','The dogs line up at the yard window when it rains, noses to the glass, watching the puddles with deep professional interest.'],['M','we’re the same. u guys get it. it’s right there and u can’t go out in it. and it looks SO good.']],
-  [['','Sergeant does not look out of the window. He looks at you, looking out of the window.'],['M','...what. don’t do the V face. u learned that from him.'],['Sergeant','*one slow, dignified tail wag*']],
-  [['','Pancake has fallen asleep with her nose on the glass. She dreams, legs going, chasing something on the other side.'],['M','i hope u catch it in there buddy. i hope it’s a sock.']]],
+  [['','The hounds line up at the yard window when it rains. They do not look at the puddles. They look at the gate, all of them, at once, the way they always do when it rains.'],['M','we’re the same. u guys get it. it’s right there and nothing gets in.']],
+  [['','The old hound does not look out of the window. He looks at you, looking out of the window. Something shifts under the long scar on his ribs when he breathes, out of time with the breathing.'],['M','...what. don’t do the V face. u learned that from him.']],
+  [['','The pale hound sleeps with her eyes open. Misaki sits down on the concrete beside her anyway. Nobody else in the house will.'],['M','it’s ok. i do that too.']]],
   v:[
-  [['','The dogs love the yard window. They would watch it all day if you let them. You never let them. Every afternoon, rain or not, you open the door.'],['K9','Out. Go. The world is not a television.'],['','You hear yourself say it, and stop, and stand there for a while.']],
-  [['','Biscuit came from a shelter where she lived three years behind a glass door, watching people choose other dogs.'],['K9','When I brought her home she sat at every window for a month. Then one day she stopped, and came and lay on my feet instead.'],['K9','I never knew what changed. I think it was only time. And feet.']]]},
+  [['','The hounds would watch the yard window all day if you let them. You never let them. Every afternoon, rain or not, you open the door, and the street outside empties within a minute.'],['K9','Out. Go. The world is not a television.'],['','You hear yourself say it, and stop, and stand there for a while.']],
+  [['','The grey hound came from a shelter that had already done the paperwork to put her down. She had been burned. She was blind in one eye. She had a week.'],['K9','I asked for the week. I used it, downstairs. She has not been blind since.'],['K9','I do not tell people what I did in that week. Misaki has never asked. She only looks at the grey hound’s eyes, which are no longer the same colour as each other, and nods, as if that is a reasonable price.']]]},
  green:{m:[
   [['','The greenhouse glass fogs from the inside. The world goes to grey shapes. She writes HELLO backwards in the fog, so it reads the right way from outside.'],['M','for whoever. hello whoever.']],
   [['','Through the fogged glass, the house is a big warm smudge. Somewhere in it a dog barks and someone laughs.'],['M','it sounds nice in there. i could go in. i could just. go in.'],['','She stays a minute longer. Then she does.']],
@@ -7516,7 +7524,7 @@ function gl_lookAsk(room,pos){ask(gl_M()?'hitmeuppp':'K9',gl_M()?'(the window. t
  {t:'Just look',fn:()=>gl_amb_spot(room)},
  {t:'Really look',sub:S.done.gl_win?'once a day — ur eyes are tired':'window game · spot what changed',dis:!!S.done.gl_win,fn:()=>gl_play(room,pos)},
  {t:'Leave it',fn:()=>{}}])}
-function gl_notYet(){say([[gl_M()?'hitmeuppp':'K9',gl_M()?pk(['not yet. something still has to happen. i can feel it coming. like weather.','not yet. i don’t know what i’m waiting for. i’ll know it when it knocks.']):pk(['Not yet. Ronin said: a reason smaller than the world. It has not arrived yet.','Not yet. Something has to happen to both of you first. You can feel it coming the way the dogs feel thunder.'])]])}
+function gl_notYet(){say([[gl_M()?'hitmeuppp':'K9',gl_M()?pk(['not yet. something still has to happen. i can feel it coming. like weather.','not yet. i don’t know what i’m waiting for. i’ll know it when it knocks.']):pk(['Not yet. Ronin said: a reason smaller than the world. It has not arrived yet.','Not yet. Something has to happen to both of you first. You can feel it coming the way the hounds feel a stranger at the gate.'])]])}
 const GL_SPOTS={
  trailer:{at:[132,142],mark:[130,66],label:'The little window',fn:back=>{const q=qst('gl_glass');if(q===-1&&S.day>=2)return gl_begin(back);if(q===3)return gl_can()?gl_s4(()=>{}):gl_tomorrow();if(q>=3)return gl_lookAsk('trailer',[132,146]);gl_amb_spot('trailer')}},
  atrium:{at:[210,140],mark:[210,60],label:'The tall windows',fn:()=>gl_amb_spot('atrium')},
@@ -7536,24 +7544,21 @@ Object.keys(GL_SPOTS).forEach(k=>{const R=ROOMS[k],d=GL_SPOTS[k];if(!R||!R.spots
 const GL_AMB=[
  {r:['trailer'],L:[['','The trailer is exactly as she left it. The TV is on, sound off, showing a weather map of a country she technically lives in.'],['M','sunny tomorrow. for them.']]},
  {r:['trailer'],L:[['','Somebody in the next trailer is singing in the shower, badly, with total commitment. She stands very still in the doorway so as not to interrupt a stranger’s concert.']]},
- {r:['trailer'],L:[['','There is a flyer under the door for a neighbourhood clean-up day. Bring gloves. Tea provided. Everyone welcome.'],['M','“everyone.” ha. that’s a lot of people to welcome. i wonder if they mean it.'],['','She does not throw it away. She puts it on the fridge, under the dog photo, where she keeps things she might do one day.']]},
  {r:['trailer'],L:[['','The trailer smells like cold noodles and cactus soil. For a second she sees it the way a stranger would: a small room, a small bed, a TV talking to nobody.'],['M','...who lives like this. oh. me. right.']]},
  {r:['mall'],L:[['','The square is full. Somebody’s grandmother is feeding pigeons. A couple are breaking up quietly by the fountain. A boy has a balloon shaped like a fish.'],['','She takes it all in like a long camera pan, and is not in a single frame of it.']]},
- {r:['mall'],L:[['','A tourist asks her to take a photo of his family. She does: four people squinting, arms round each other, in front of the fountain.'],['M','say “gyoza”'],['','They say “gyoza.” She hands back the phone. They walk away into their holiday, and she stands where she was, in nobody’s photograph.']]},
  {r:['mall'],L:[['','A shop window is full of televisions, all showing the same news anchor. Her reflection is in every one of them, faintly, standing behind the man reading the news.'],['M','look at that. i’m on tv. twenty times. nobody can see me on any of them.']]},
  {r:['mall'],L:[['','A girl her age in a school uniform runs past, shrieking with laughter, chased by two friends. Misaki steps aside to let them go by, the way you would step aside for weather.'],['M','i was never that loud. i was never that anything. ...good for them.']]},
  {r:['mall'],L:[['','The crossing light turns green. Two hundred people step off the kerb at once, like a single animal. She waits until they’re gone, and crosses alone.']]},
  {r:['roof'],L:[['','From the roof she can see into forty windows at once. A man ironing. A woman on a treadmill. Someone’s birthday, candles, faces lit from below.'],['M','happy birthday whoever u are.'],['','She says it out loud. Nobody hears. It counts anyway, she decides. It has to count for something.']]},
  {r:['roof'],L:[['','Evening. The office towers go dark floor by floor, as if somebody is closing the city like a book.']]},
  {r:['atrium'],L:[['','The atrium is so quiet she can hear the city through the walls: a siren, far off, getting smaller. Somebody else’s emergency, going somewhere else.']]},
- {r:['atrium'],L:[['','Through the high windows, a jogger runs past the gate every evening at six. She has never seen his face. She knows his gait better than her own.'],['M','6:02 today. he’s slipping. are u ok, jogger. talk to me.']]},
- {r:['kennel'],L:[['','The dogs rush her the second she comes in, all at once, no hesitation, no delay. Something about that makes her throat hurt.'],['M','hi. hi. ok. ur all so HERE. how are u all so here.']]},
- {r:['kennel'],L:[['','Sergeant is lying at the yard window, watching rain. He looks at her and then back at the rain, as if to say: yes. it’s like that for me too.']]},
+ {r:['kennel'],L:[['','The hounds stand up when she comes in, all at once, without a sound. Then they lie down again, because it is only her. Nobody else gets the second half of that.'],['M','hi. hi. ok. ur all so HERE. how are u all so here.']]},
+ {r:['kennel'],L:[['','The old hound is lying at the yard window, watching the rain. He turns his head to look at her. His eyes catch the light the wrong way, green, like something at the bottom of a pond. Then he looks back at the rain.']]},
  {r:['green'],L:[['','The greenhouse hums. Outside the fogged glass, the world is just shapes. In here it is warm and green and everything grows toward the light without thinking about it.'],['M','must be nice. to just lean.']]},
  {r:['studio'],L:[['','Angel is live when she walks in. Twelve thousand people are watching Angel do a lip. Misaki stands just out of shot, watching Angel be watched.'],['Angelic','(still live, not looking) and say hi to misaki everybody! she’s shy! she’s behind the camera! she’s always behind the camera!'],['','The chat scrolls: hi misaki!! hi!!! HI MISAKI. Twelve thousand strangers say her name. She has no idea where to look.']]},
  {r:['studio'],L:[['','The studio smells like setting spray and burnt coffee. On the wall, a hundred polaroids of a hundred faces Angel has made up. Strangers, all of them, glowing.'],['M','she touched every one of these faces. like with her hands. that’s insane. that’s so many people.']]},
  {r:['ronin'],L:[['','Ronin’s apartment is loud the way his apartments are always loud: TV, radio, a kettle, a neighbour’s drill, Ronin narrating all of it.'],['','For once she doesn’t mind. It’s so loud there’s no room left for glass.']]},
- {r:['ronin'],L:[['','Through Ronin’s window, the Fujimotos are having dinner. She knows their dinner schedule better than she knows her own.'],['M','dad burned the fish. it’s wednesday. it’s always wednesday when he burns the fish.']]},
+ {r:['ronin'],L:[['','Ronin’s window, the family across the alley, dinner at seven. Ronin is watching them too, very still, the way he watches before he does something.'],['M','dad burned the fish. it’s wednesday.'],['ronin.beaufort','Yep. And he’s smilin’. Good. Good for him.']]},
  {r:['bedroom'],L:[['','The bedroom curtains are open. The city is out there, a long way down. She lies on top of the covers and watches it the way you would watch an aquarium in a hotel lobby.']]},
  {r:['ops'],L:[['','The camera wall flickers. Sixty little grey worlds, none of them hers. She sits in V’s chair and spins slowly, once, and watches them all go past like a carousel.']]},
  {r:['archive'],L:[['','The archive is the quietest room in the house. Hundreds of drawers, hundreds of people who used to be stuck somewhere and now aren’t.'],['M','it’s like a library of doors.']]},
@@ -7589,39 +7594,6 @@ gl_ev('gl_e_news',()=>S.day>=2,done=>say(ME3()?[
  ['','She texts V before she can talk herself out of it: “is it bad if i don’t feel anything about the news.”'],
  ['K9','It is not bad. It is information. Would you like to come and fill sandbags with me on Saturday? It is very wet work.'],
  ['M','...ya. maybe that’s how. maybe u have to go stand in it.']],()=>{apply({aff:2});done()}));
-gl_ev('gl_e_bday',()=>S.day>=3,done=>ME3()?say([
- ['hitmeuppp','a stranger had a birthday at me today'],
- ['K9','At you?'],
- ['hitmeuppp','at the konbini. the night guy, the one with the eyebrow. his coworker brought a cake to the counter and they all sang. i was in the queue with an onigiri.'],
- ['hitmeuppp','i didn’t know where to look. it felt like walking into someone’s house by accident. like i was in the shot.'],
- ['K9','Did you sing?'],
- ['hitmeuppp','i clapped. like four seconds after everyone else. it echoed. it was so bad.'],
- ['hitmeuppp','then he gave me a piece of cake. for free. because i was there. that’s it. that was the only reason.'],
- ['K9','That is usually the reason, I believe. People who are there get cake.'],
- ['hitmeuppp','huh. ok. noted.']],done):say([
- ['','The konbini, midnight. The night clerk — the one with the eyebrow — is ringing up your onigiri when his coworker comes out of the back with a cake, candles lit, and the whole shop starts singing.'],
- ['','A salaryman joins in. A woman buying cat food joins in. You stand there holding a tuna-mayo onigiri like a ticket to the wrong film.']],()=>ask('hitmeuppp','(everyone is singing. it’s nearly over.)',[
- {t:'Sing the last line',fn:()=>{calm(4);say([['M','…happy birthday to youuu'],['','You come in late, alone, on the wrong note. The clerk laughs so hard he has to hold the counter. He gives you the first slice. Before himself. Before anyone.'],['M','why me'],['Konbini clerk','You sang! Nobody who’s just buying an onigiri ever sings.']],done)}},
- {t:'Clap, a bit late',fn:()=>{calm(2);say([['','You clap. Four seconds after everyone else. It echoes. The clerk grins anyway and puts a slice of cake in your bag with the onigiri.'],['M','...thanks. happy birthday. u don’t know me.'],['Konbini clerk','You come in every night at 1:12. Of course I know you.']],done)}},
- {t:'Pay and slip out',fn:()=>say([['','You leave the coins on the counter and slip out while they’re blowing out the candles. Through the glass door, the whole konbini is lit up and laughing, like a snow globe somebody shook.'],['M','that’s nice. that’s really nice for them.'],['','You eat your onigiri on the kerb. It tastes like a Tuesday.']],done)}])));
-gl_ev('gl_e_queue',()=>S.day>=3&&S.phase!=='epilogue',done=>say(ME3()?[
- ['hitmeuppp','V. how does the post office work'],
- ['K9','In what sense?'],
- ['hitmeuppp','i’ve been standing here forty minutes. there’s a queue but nobody’s moving and people keep coming in after me and going up FIRST. is it like. vip. do u have to be a regular'],
- ['K9','Is there a machine near the door that dispenses small paper tickets?'],
- ['hitmeuppp','...'],
- ['hitmeuppp','there is a machine near the door that dispenses small paper tickets'],
- ['K9','Take one. They call the numbers.'],
- ['hitmeuppp','i’m number 214. they’re on 172. i’ve been in the wrong queue. i’ve been in a queue that doesn’t exist. i’ve been queueing for nothing. like a ghost.'],
- ['K9','I am coming. I will wait with you. I will bring snacks for numbers 173 to 213.']]:[
- ['','The post office. You stand in what looks like a queue for forty minutes. People come in after you and go straight up to the counter.'],
- ['M','is this a vip thing. do u have to be a regular.'],
- ['','An old man in a flat cap finally takes pity on you. He points at a machine by the door that dispenses little paper numbers.'],
- ['Old man','You have to take a number, love. Everyone knows that.'],
- ['M','everyone knows that.'],
- ['','Everyone knows that. Somewhere along the line everyone was told, and you were somewhere else. Number 214. They are on 172.'],
- ['Old man','Here. I’m 176. Take mine. I’m only buying stamps for a woman who never writes back.'],
- ['','He takes 214 and sits down with it, perfectly content, to wait forty numbers for someone he has just met.']],()=>{apply({aff:1});done()}));
 gl_ev('gl_e_season',()=>S.day>=4,done=>say(ME3()?[
  ['','Misaki arrives at the gate in shorts and a T-shirt. There is frost on the drive. Her knees are pink.'],
  ['K9','Misaki. It is three degrees.'],
@@ -7637,23 +7609,6 @@ gl_ev('gl_e_season',()=>S.day>=4,done=>say(ME3()?[
  ['Angelic','(text) babe i saw u from the bus. SHORTS??? it’s NOVEMBER. are u ok. are u a ghost. ghosts don’t feel cold. blink twice'],
  ['M','(text) i blinked twice'],
  ['Angelic','(text) i’m bringing u a coat. i have nine coats. u can have the ugly one. it’s actually not ugly i just say that so ppl don’t steal it']],done));
-gl_ev('gl_e_city',()=>S.day>=4,done=>say(ME3()?[
- ['','A small experiment. Over breakfast, you mention it casually.'],
- ['K9','The bakery on your corner closed. The one with the blue awning.'],
- ['M','...there was a bakery?'],
- ['K9','For eleven years. You walk past it every day.'],
- ['M','oh. OH. the place with the bread in the window. i thought that was. idk. decoration. like a picture of bread.'],
- ['K9','It closed three weeks ago. There is a sign in the window. The owner thanks her customers for “all the mornings.”'],
- ['','She goes very quiet. That afternoon, on the camera wall, you see her standing in front of the empty shop for a long time, reading the sign, as if it were addressed to her.'],
- ['K9','(You did not mean to make her sad. You meant to see whether she would notice. You did not think about what you would do if she did not.)']]:[
- ['K9','The bakery on your corner closed. The one with the blue awning.'],
- ['M','...there was a bakery?'],
- ['K9','For eleven years. You walk past it every day.'],
- ['M','i thought that was a picture of bread. like a poster.'],
- ['','After the call, you walk to the corner. There it is: a blue awning, faded. An empty window. A handwritten sign: “Thank you to all our customers for all the mornings.”'],
- ['','All the mornings. Eleven years of them. You were walking past for four of those, and you never once looked in.'],
- ['M','...sorry. i didn’t know u were real. i should’ve bought something.'],
- ['','You stand there a long time. A woman stops next to you and reads the sign too, and says, “She did the best melon pan,” and walks on. You will never know what the melon pan was like.']],done));
 gl_ev('gl_e_shop',()=>S.day>=3&&frT('a')>=1,done=>say([
  ['Angelic','ok. normal person shopping. supermarket. today. i’m picking u up. this is an intervention but cute.'],
  ['','The supermarket is enormous and bright and full of people who all seem to know where the eggs are.'],
@@ -7664,7 +7619,7 @@ gl_ev('gl_e_shop',()=>S.day>=3&&frT('a')>=1,done=>say([
  ['','Angel films nothing. She holds your elbow and steers you to the onions and stands there while you choose one, very seriously, turning each over like it might be wired.'],
  ['Angelic','that one?'],
  ['M','this one. it looks like it’s had a hard life.'],
- ['Angelic','perfect. that’s a perfect onion. that’s ur onion now. u’re a woman who owns an onion.'],
+ ['Angelic','perfect. that’s a perfect onion. that’s ur onion now. u’re a person who owns an onion.'],
  ['','At the till, the cashier asks if you want a bag. You say yes on time. You carry it home like a trophy and put it on the counter and look at it for a while, a small round fact.']],()=>{fr('a',3);if(!ME3())calm(3);done()}));
 gl_ev('gl_e_ronin',()=>S.day>=4&&frT('r')>=1,done=>say(ME3()?[
  ['ronin.beaufort','Vee. You up?'],
@@ -7678,142 +7633,74 @@ gl_ev('gl_e_ronin',()=>S.day>=4&&frT('r')>=1,done=>say(ME3()?[
  ['ronin.beaufort','Go on. Tell the nice lady what you want.'],
  ['M','i want whatever people normally want'],
  ['ronin.beaufort','Nope. That ain’t an order, that’s a census.'],
- ['','You stare at the menu for twenty minutes. Pancakes. Omurice. Something called a “Texas Toast Tower.” Every option feels like it belongs to a different person.'],
+ ['','You stare at the menu for twenty minutes. Pancakes. Meatloaf. Something called a “Texas Toast Tower.” Every option feels like it belongs to a different person.'],
  ['M','...grilled cheese.'],
  ['ronin.beaufort','Why?'],
  ['M','because i want it. i think. i think that’s the reason.'],
  ['ronin.beaufort','That’s the only reason, darlin’. That’s the whole reason anybody does anything. Good job. I’m so proud I could spit.'],
  ['','It is a very good grilled cheese. It is, as far as you can remember, the first thing you have ordered because you wanted it, and not because it was cheapest or fastest or what the person before you got.']],()=>{fr('r',3);done()}));
-gl_ev('gl_e_wave',()=>S.day>=2,done=>say(ME3()?[
- ['hitmeuppp','a kid waved at me from a bus'],
- ['K9','Did you wave back?'],
- ['hitmeuppp','i did. but the bus had gone. i was waving at a bus stop. a man at the bus stop waved back because he thought it was for him.'],
- ['hitmeuppp','so i guess it worked out. the wave went somewhere.'],
- ['K9','Waves usually do.']]:[
- ['','A bus stops at the light. A small girl in the back seat presses her face to the window and waves at you, big, both hands.'],
- ['','You stand there. You watch her wave. You watch it the way you watch everything: a nice little scene, a kid waving at somebody.'],
- ['','It takes you until the bus pulls off to understand the somebody was you.'],
- ['M','oh— wait—'],
- ['','You wave. The bus is gone. A man at the bus stop, briefcase, tired face, waves back, because he thinks it’s for him.'],
- ['M','...ok. it went somewhere. that counts.']],done));
 gl_ev('gl_e_forecast',()=>S.day>=2,done=>say([
  ['','The weather forecast comes on. A woman in a nice blazer stands in front of a map and promises rain for the weekend, with total confidence.'],
  ['M','i love her. she says it like she knows. like tomorrow’s already filmed and she’s seen it.'],
  [ME3()?'K9':'hitmeuppp',ME3()?'You watch the forecast every morning, I have noticed.':'forecasts are just fanfic about tomorrow. really well-researched fanfic.'],
  ['M',ME3()?'i like knowing what the show’s gonna do. if it rains i didn’t miss anything. it was always gonna rain.':'and every morning i watch it and every morning it’s a show about a place called “tomorrow.” and i never think, oh, i live there. i’ll be in that rain.'],
  ['','On Saturday it rains. She is out in it with no umbrella, astonished, as if the forecast had been about somebody else.']],done));
-gl_ev('gl_e_neighbour',()=>S.day>=5&&!S.f.movedIn,done=>say(ME3()?[
- ['','You arrive at the trailer park early. An old woman at number six is sweeping her step.'],
- ['Mrs. Oda','Are you here for Misaki-chan?'],
- ['K9','I am. You know her?'],
- ['Mrs. Oda','Oh, for years. She sits at that little window every afternoon. I wave. She never sees me. Such a serious girl. She leaves her noodle cups out for the crows.'],
- ['Mrs. Oda','Tell her the persimmons are ripe. Tell her she can have some. She won’t come and ask. She never asks for anything.'],
- ['K9','I will tell her. ...What is your name?'],
- ['Mrs. Oda','Oda. She won’t know it. That’s all right. Some people just need watching over from a little way off.'],
- ['','You stand there a while after she goes in. Somebody has been doing your job, at number six, for four years, with a broom.']]:[
- ['','You step out of the trailer. The old woman at number six is sweeping her step.'],
- ['Mrs. Oda','Good morning, Misaki-chan.'],
- ['','You stop. You have never told her your name. You don’t know hers.'],
- ['M','...morning. how do u know my name'],
- ['Mrs. Oda','It’s on your post, dear. I take it in when you’re away. Four years. You never noticed? The red envelopes go under your door, the nice ones I keep till you’re back.'],
- ['','Four years. Someone has been taking in your post. Someone has been keeping the nice ones.'],
- ['M','...what’s ur name'],
- ['Mrs. Oda','Oda. The persimmons are ripe. Have some.'],
- ['','She gives you three. You hold them all day. They are heavier than they look.']],()=>{S.f.gl_oda=1;save();done()}));
-gl_ev('gl_e_holiday',()=>S.day>=3,done=>say([
- ['','Everything is closed. The bank, the post office, the good noodle place. Flags on the station. Families everywhere, in nice clothes, going somewhere together.'],
- ['M','is it like. a strike. did something happen'],
- [ME3()?'K9':'K9 (text)','It is a public holiday.'],
- ['M','which one'],
- [ME3()?'K9':'K9 (text)','Culture Day.'],
- ['M','what do u do on culture day'],
- [ME3()?'K9':'K9 (text)','Most people visit a museum, or their family, or both. I usually donate a painting and hide.'],
- ['M','i didn’t know it was a day. it’s been a day every year. i always just thought everything was weirdly closed sometimes. like the city was sulking.'],
- ['','The families go past in their nice clothes, all going somewhere, all knowing why.'],
- [ME3()?'K9':'K9 (text)','Would you like to go to a museum? There is one about lamps.'],
- ['M','...ya. ok. let’s do culture day. let’s do it wrong. together.']],done));
-gl_ev('gl_e_wedding',()=>S.day>=5,done=>say([
- ['','A wedding party spills out of a hotel onto the pavement just as '+(ME3()?'you and Misaki pass':'you pass')+': confetti, a white dress, a groom crying openly, a grandmother being lifted onto a chair.'],
- ['','Misaki stops dead in the middle of the pavement and stares, the way you would stare at a parade in a foreign country.'],
- ['M','they’re so happy. look at them. it’s like a commercial.'],
- ['','The bride’s mother, flushed and beaming, presses a little bag of sugared almonds into Misaki’s hand, because she is standing there, because everybody gets one today.'],
- ['Bride’s mother','For luck! Thank you for coming!'],
- ['M','i didn’t— i wasn’t—'],
- ['','But she is already gone, back into the confetti. Misaki looks at the almonds. Five of them, in white netting, tied with a ribbon.'],
- ['M',ME3()?'she thought i was a guest. she thought i was in it.':'she thought i was a guest. i was in it. for like four seconds i was in it.'],
- ...(ME3()?[['K9','You were. You were standing right there. That is all a guest is.']]:[])],()=>{apply({aff:1});if(!ME3())calm(3);done()}));
 gl_ev('gl_e_hara',()=>S.day>=6&&S.phase!=='epilogue',done=>say(ME3()?[
- ['','Inspector Hara, at the foundation’s door, rain on his coat, on an unrelated matter. He lingers.'],
- ['Inspector Hara','Your friend. The one with the star clip. She was in the crowd at a scene I worked last week. Behind the tape.'],
+ ['','Inspector Hale, at the foundation’s door, rain on his coat, on an unrelated matter. He lingers.'],
+ ['Inspector Hale','Your friend. The one with the star clip. She was in the crowd at a scene I worked last week. Behind the tape.'],
  ['K9','A great many people watch police tape.'],
- ['Inspector Hara','They do. They watch it like television. Excited. Scared. Taking photos.'],
- ['Inspector Hara','She watched it like somebody checking the continuity. Like she was making sure the scene had been put together right. Then she bought a coffee and left.'],
- ['Inspector Hara','I’ve been doing this twenty-two years. I don’t know what that look is. I didn’t like not knowing.'],
+ ['Inspector Hale','They do. They watch it like television. Excited. Scared. Taking photos.'],
+ ['Inspector Hale','She watched it like somebody checking the continuity. Like she was making sure the scene had been put together right. Then she bought a coffee and left.'],
+ ['Inspector Hale','I’ve been doing this twenty-two years. I don’t know what that look is. I didn’t like not knowing.'],
  ['K9','...I will pass on your regards.'],
- ['Inspector Hara','Don’t. Just. Keep her somewhere she has to be in the room, would you. People who only watch make me nervous.']]:[
+ ['Inspector Hale','Don’t. Just. Keep her somewhere she has to be in the room, would you. People who only watch make me nervous.']]:[
  ['','Police tape on a side street. A crowd behind it, phones up. You stop, because everybody stops.'],
  ['','You watch the way you watch everything. Where the officers are standing. Where the light is. Which window someone would have used. Whether the scene has been put together right.'],
- ['','A tired man in a wet coat is watching you over the tape. Inspector Hara.'],
- ['Inspector Hara','You don’t watch like the others.'],
+ ['','A tired man in a wet coat is watching you over the tape. Inspector Hale.'],
+ ['Inspector Hale','You don’t watch like the others.'],
  ['M','how do the others watch'],
- ['Inspector Hara','Like it’s television. Scared, excited. You watch it like you’re checking whether the set was built properly.'],
+ ['Inspector Hale','Like it’s television. Scared, excited. You watch it like you’re checking whether the set was built properly.'],
  ['M','...i like sets.'],
- ['Inspector Hara','Go home, miss. Go somewhere you have to be in the room.'],
+ ['Inspector Hale','Go home, miss. Go somewhere you have to be in the room.'],
  ['','You buy a coffee and leave. Your hands are perfectly steady. That is the part you think about on the train.']],done));
-gl_ev('gl_e_wrongnum',()=>S.day>=3,done=>say(ME3()?[
- ['hitmeuppp','i talked to a stranger for 20 minutes'],
- ['K9','On purpose?'],
- ['hitmeuppp','wrong number. old man. he thought i was his granddaughter haruka. i told him i wasn’t. he said “oh. well. how are you anyway”'],
- ['hitmeuppp','so i told him. like actually told him. how i was. i haven’t told anyone how i am in like a year. i told a stranger. on accident.'],
- ['K9','What did he say?'],
- ['hitmeuppp','he said “that sounds hard. you sound like a good girl. call haruka for me if you see her.” and hung up.'],
- ['hitmeuppp','i don’t know a haruka. i’m gonna look out for her for the rest of my life.']]:[
- ['','Your phone rings. Unknown number. You never pick up unknown numbers. You pick up.'],
- ['Old man','Haruka? Haruka, it’s Grandad.'],
- ['M','...sorry. wrong number. i’m not haruka.'],
- ['Old man','Oh. Oh dear. Well. How are you anyway?'],
- ['','Nobody has asked you that and waited for the answer in a very long time. So you tell him. Not the job. Not the trailer. Just: tired. Weird. Kind of lonely. A cactus called Prickles.'],
- ['Old man','That sounds hard. You sound like a good girl. If you see my Haruka, tell her to call her grandad.'],
- ['','He hangs up. You sit holding the phone. You don’t know any Haruka. You’re going to look out for her for the rest of your life.']],()=>{if(!ME3())calm(4);done()}));
-gl_ev('gl_e_vote',()=>S.day>=5,done=>say([
- ['','Election posters on every fence. The same six smiling faces, again and again, all down the street, like a hall of mirrors.'],
- ['M','who are all these guys'],
- [ME3()?'K9':'K9 (text)','Candidates. There is an election on Sunday.'],
- ['M','for what'],
- [ME3()?'K9':'K9 (text)','For the people who decide things. Roads. Hospitals. Rent.'],
- ['M','oh. i thought it was like. the comments section of a tv show. ppl yelling about the plot.'],
- [ME3()?'K9':'K9 (text)','It is somewhat like that. Except you are allowed to change the plot.'],
- ['M','...am i? can i? like me, specifically?'],
- [ME3()?'K9':'K9 (text)','You, specifically. You are registered. I checked. You have been registered for six years and have never once been in.'],
- ['M','i didn’t know i was in it.'],
- ['','On Sunday she goes. She stands in the little booth with the pencil for a long time. Afterwards she says only: “it felt like reaching through something.”']],done));
-gl_ev('gl_e_rain',()=>S.day>=3&&weather()==='rain',done=>say(ME3()?[
- ['','Rain. On the camera wall, camera nine: Misaki at her little window, palm flat on the glass, watching the bus stop.'],
- ['','At the bus stop, a boy in a yellow raincoat sees her. He puts his own hand up on the bus-shelter glass, flat, the same height, across the lane.'],
- ['','They stay like that until the bus comes. Then he gets on, and waves, and she waves, on time.'],
- ['K9','(You do not tell her you saw. Some things are hers.)']]:[
- ['','Rain. You sit at the window with your palm on the cold glass, watching the bus stop, the way you do.'],
- ['','A boy in a yellow raincoat at the bus stop sees you. He puts his hand up on the bus-shelter glass, flat, at the same height. Across the lane. Two hands, two panes, a whole wet street between.'],
- ['M','...hi.'],
- ['','The bus comes. He gets on. He waves from the window. You wave back. On time. First try.'],
- ['M','huh. there’s someone on the other side. there’s always someone on the other side.']],done));
-gl_ev('gl_e_photo',()=>S.day>=6&&frT('a')>=1,done=>say([
- ['Angelic','EMERGENCY. look at this. LOOK.'],
- ['','A photo has gone viral: the cherry-blossom crowd in the park, a thousand people looking up at the pink. A beautiful shot. Shared a hundred thousand times.'],
- ['Angelic','zoom in. bottom left. by the lantern.'],
- ['','One face in the whole crowd isn’t looking at the blossoms. She is looking at the people looking at the blossoms. Star clip. Hood up. Perfectly still in a sea of motion.'],
- ['M','...oh. that’s me.'],
- ['Angelic','the comments are calling u “the ghost of the sakura.” there are THEORIES. someone made fan art.'],
- [ME3()?'K9':'M',ME3()?'She looks as though she is watching from the other side of something.':'i look like i’m watching from behind something. i didn’t know it showed. i thought it was just inside.'],
- ['Angelic','it shows, babe. it shows to anyone who loves u. it’s ok. next year ur looking UP. i’ll make u. i’ll hold ur chin.']],done));
-gl_ev('gl_e_dinner',()=>S.day>=5&&tier()>=1,done=>say([
- ['','The foundation staff have a family dinner once a month, everyone at one long table, dishes passed hand to hand. V brings '+(ME3()?'Misaki':'you')+'.'],
- ['','Misaki doesn’t eat for the first ten minutes. She watches. Who pours for who. Who takes the last gyoza and who pretends not to want it. Who laughs at whose joke.'],
- ['Foundation cook','You have to pour for your neighbour, love. Not yourself. That’s the rule here. Then someone pours for you.'],
+gl_ev('gl_e_dinner',()=>S.day>=5&&tier()>=1&&frT('r')>=1&&frT('a')>=1,done=>say([
+ ['','Dinner at V’s, the four of them at one end of a table built for thirty, dishes passed hand to hand.'],
+ ['','Misaki doesn’t eat for the first ten minutes. She watches. Who pours for who. Who takes the last dumpling and who pretends not to want it. Who laughs at whose joke. She watches the three of them like targets, out of habit, and then like a programme, and neither is right.'],
+ ['ronin.beaufort','You pour for your neighbour, darlin’. Not yourself. That’s the rule at this table. Then somebody pours for you. Only church I still go to.'],
  ['M','...oh. so u just have to trust that someone will.'],
- ['Foundation cook','That’s the whole trick of a table, yes.'],
- ['','She pours for the man next to her. Thirty seconds later, without looking, a woman across the table fills her glass. Misaki stares at it like a magic trick.'],
+ ['ronin.beaufort','That’s the whole trick of a table. Same as a firing squad, but nicer.'],
+ ['','She pours for Ronin. Thirty seconds later, without looking, Angel fills her glass. Misaki stares at it like a magic trick.'],
  [ME3()?'K9':'M',ME3()?'(You watch her watch the glass fill. You do not think you have ever been so glad to have a table.)':'it worked. it actually worked. someone just. did it. for me. because i was there.']],()=>{apply({aff:2});done()}));
+
+gl_ev('gl_e_scope',()=>S.day>=3,done=>say(ME3()?[
+ ['','She comes back from a job at five in the morning and sits at your kitchen table without taking her jacket off.'],
+ ['M','he had a fish tank. in the room. i watched the fish for like twenty minutes before i did it. they were so busy.'],
+ ['K9','And him?'],
+ ['M','him i watched for two seconds. that’s all he was. two seconds of a show i’d already seen the ending of.'],
+ ['','She says it the way someone else would describe traffic. Then she eats your toast. You realise you have not breathed for a while.']]:[
+ ['','Five in the morning. A rooftop. Through the scope, a man in a bathrobe feeds a fish tank, very carefully, one pinch at a time.'],
+ ['','A scope is just a very small television. That is why you are good at this. Nothing on a television can reach you.'],
+ ['','You watch the fish for twenty minutes. They are so busy. You watch the man for two seconds.'],
+ ['M','ok. show’s over.'],
+ ['','Your hands do not shake. They never do. On the walk home you try to remember the colour of his bathrobe and cannot, and you remember every fish.']],done));
+gl_ev('gl_e_kennel',()=>S.day>=4&&tier()>=1,done=>say(ME3()?[
+ ['','Camera six, the kennel, two in the morning. Misaki is sitting on the concrete in the middle of the hounds.'],
+ ['','Nobody else goes in there. Ronin will not go in there. Angel will not go past the door. The men who have tried to come over the back wall have not gone anywhere, afterwards, for a long time.'],
+ ['','She is not watching the hounds. The hounds are watching her, all of them, the way she watches everything: patient, unblinking, from behind something.'],
+ ['K9','(She sits there because it is the only room in the house where she is the one being watched, and does not mind.)']]:[
+ ['','Two in the morning. You go and sit in the kennel, because it is the only room in the house where nobody wants anything from you.'],
+ ['','The hounds stand when you come in, then lie down again around you, close, too close, the black one’s head heavy on your boot.'],
+ ['','They watch you. All of them. Without blinking. The way you watch a street.'],
+ ['M','oh. so this is what it’s like from the other side. huh. it’s kind of nice.'],
+ ['','Upstairs, on camera six, somebody is watching too. You can feel it. You wave at the lens without looking up.']],()=>{apply({aff:2});done()}));
+gl_ev('gl_e_live',()=>S.day>=3&&frT('a')>=1,done=>say([
+ ['','Angel’s studio. Angel is live. Misaki is sitting two feet away from her, on the floor, watching the livestream on her own phone.'],
+ ['Angelic','(still live, through her teeth) babe. i’m RIGHT here.'],
+ ['M','i know. it’s better on the phone. ur smaller. i can see all of u at once.'],
+ ['','Angel ends the stream. Twelve thousand people are cut off mid-sentence. She sits down on the floor in front of Misaki, so close their knees touch, and takes the phone out of her hand.'],
+ ['Angelic','there. now there’s no screen. look at me. not the angel on the phone. this one. the one who would kill a man for u and has.'],
+ ['M','...that one’s scarier.'],
+ ['Angelic','yeah babe. that one’s real.']],()=>{fr('a',3);done()}));
 
 /* ---------- chapter beats: after / act II / act III / epilogue ---------- */
 gl_ev('gl_ph_after',()=>S.phase==='after',done=>say(ME3()?[
@@ -7843,7 +7730,7 @@ gl_ev('gl_ph_act2',()=>S.phase==='act2',done=>say(ME3()?[
 gl_ev('gl_ph_act3',()=>S.phase==='act3',done=>say(ME3()?[
  ['','A grey suit, a polite smile, her full name said in the street by someone who should not have known it. She tells you about it at the kitchen table, very calmly, peeling an orange.'],
  ['M','he’s been watching me. from behind the glass. the whole time. i thought i was the only one back there.'],
- ['M','it’s so weird. now i know what it feels like. for the street. for the lady at number six. for everyone i ever watched.'],
+ ['M','it’s so weird. now i know what it feels like. for every target i ever sat on a roof for. for everyone i ever watched.'],
  ['K9','And what does it feel like?'],
  ['M','like u want someone to knock. like u want someone to come round the front and say hi instead.'],
  ['K9','Then we will go round the front. Both of us. And we will knock very hard.']]:[
@@ -7854,9 +7741,9 @@ gl_ev('gl_ph_act3',()=>S.phase==='act3',done=>say(ME3()?[
  ['','In the morning you tell V. You don’t do it like a show. You do it at the table, both hands round a mug, in the room.']],done));
 gl_ev('gl_ph_epi',()=>S.phase==='epilogue',done=>{const fin=qst('gl_glass')>=QUESTS.gl_glass.steps.length,k=S.f.gl_end||gl_tag();say(fin?[
  ['','After everything, the first ordinary morning. Nothing is on fire. No one is watching from a car across the road. The kettle clicks.'],
- ['','Misaki goes out for milk. On the way back she stops to talk to the woman at the flower stall about tulips, for no reason, for eleven minutes.'],
- ['M',{v:'i told her about the post office. the hairpin lady. she knew her. EVERYONE knows everyone. the city’s like a group chat with no mute button.',a:'i told her about the dog calendar. she has the same one. we’re calendar sisters now. angel’s gonna be so jealous.',r:'i told her about the laundromat. she said her husband proposed in one. ronin’s gonna be unbearable about this.',f:'i told her about katsuo the goldfish. she sells fish food. she gave me some for free. i’m a regular now. i’m a regular somewhere.'}[k]||'i talked to a stranger about tulips. on purpose. for eleven minutes.'],
- ['','She comes home with the milk and a tulip she didn’t pay for, and puts it in a glass, and the glass is just a glass.'],
+ ['','Misaki goes out for milk and comes back three hours later with no milk, because she knocked on Ronin’s door on the way, and Angel was there, and nobody can remember afterwards what they talked about.'],
+ ['M',{v:'i forgot the milk. i was in the room the whole time though. i checked.',a:'angel did my eyeliner and i watched her do it in the mirror and i was IN the mirror. both of us were.',r:'ronin made me pick the movie. i picked one. on purpose. it was terrible. i loved it.',f:'i didn’t watch them. i was just there. that’s new. that’s so new.'}[k]||'i forgot the milk. i was there the whole time though.'],
+ ['','She has a tulip she stole from Angel’s windowsill. She puts it in a glass, and the glass is just a glass.'],
  [ME3()?'K9':'M',ME3()?'(She is home. She is in it. You have never seen anything so ordinary or so beautiful.)':'it’s just a glass. it’s got a flower in it. it’s not between me and anything. ...weird. good weird.']]:[
  ['','After everything, the first ordinary morning. The kettle clicks. Outside, the city is doing what it always does: going to work, walking dogs, buying bread.'],
  ['','Misaki watches it from the window for a while, out of habit. Then she does something new. She opens the window.'],
@@ -7871,31 +7758,29 @@ if(typeof startAct2==='function'){const _glA2=startAct2;startAct2=function(){if(
  ['M','whatever happens next. i want to be in it. not watching it. in it.']],()=>_glA2(),'#0b0a12')}return _glA2()}}
 if(typeof startAct3==='function'){const _glA3=startAct3;startAct3=function(){if(S&&!isLone()&&qst('gl_glass')>=0&&!(S.f.gl_i3)){S.f.gl_i3=1;save();return cut([
  ['','November, nearly. The city pulls its collar up.'],
- ['','In a konbini, in front of the window, Misaki is holding two egg sandwiches and watching the street go dark. For once she is not watching it like a show. She is watching it like a place she has to get home through.'],
+ ['','In the corner store, in front of the window, Misaki is holding two egg sandwiches and watching the street go dark. For once she is not watching it like a show. She is watching it like a place she has to get home through.'],
  [S.pov==='v'?'K9':'M',S.pov==='v'?'(Somewhere out there, someone is watching both of you. Let them. You are not behind glass any more. You can be reached. So can they.)':'there’s someone out there behind the glass now. watching me. ok. fine. i know that trick. i invented that trick.']],()=>_glA3(),'#0b0a12')}return _glA3()}}
 
 /* ---------- years later ---------- */
 YEARS.push(
- {id:'gl_y1',t:'Some years later · the queue',ok:()=>!isLone(),L:()=>[
-  ['','Some years later. The post office on a Monday. The ticket machine by the door. Misaki takes a number without thinking about it, the way everybody does.'],
-  ['','The old woman in front of her is struggling with a parcel form. Misaki leans over and helps. They talk about the weather, the price of stamps, the old woman’s grandson, who is studying to be a vet.'],
-  ['M','tell him to specialise in big dogs. there’s a guy i know who’ll fund him. he’s a big dog guy. it’s a whole thing.'],
-  ['','Her number is called. She doesn’t notice for a second, because she is in the middle of a conversation. The clerk has to call it twice.'],
-  ['','When she gets home, she tells '+(S.rom==='a'?'Angel':S.rom==='r'?'Ronin':'V')+' about it, at length, in detail, for no reason. It is the most normal thing in the world. Nobody says so. Nobody has to.']]},
+ {id:'gl_y1',t:'Some years later · the job',ok:()=>!isLone(),L:()=>[
+  ['','Some years later. A job. A roof. The target’s window, and behind it, his whole life: a wife, a dog, a television on with the sound off.'],
+  ['','Misaki watches it the way she used to watch everything, like a programme. Then she stops, because she doesn’t do that any more. She looks at it like a room with a man in it who did what the file says he did.'],
+  ['','She does the job anyway. That part never changed. That was never the glass.'],
+  ['','When she gets home she tells '+(S.rom==='a'?'Angel':S.rom==='r'?'Ronin':'V')+' about it at the table, both hands round a mug, in the room. She does not turn it into a show. It is the most frightening thing anyone at that table has ever heard, and it is said in a perfectly ordinary voice.']]},
  {id:'gl_y2',t:'Years later · a birthday',ok:()=>!isLone(),L:()=>[
   ['','Years later. Misaki never did find out exactly when her birthday was. “Sometime in spring, probably.” So one year, everyone voted, and they picked a day.'],
-  ['','They picked the day she waved at a bus on time. Angel had it written down. Of course Angel had it written down.'],
-  ['','There is a cake. There is singing. Ronin is loudest and worst. The dogs are under the table. Somebody’s neighbour came, and somebody’s neighbour’s kid, and the old woman from number six with persimmons, very slowly, on a stick.'],
+  ['','They picked the day she laughed at one of Ronin’s jokes on time. Angel had it written down. Of course Angel had it written down.'],
+  ['','There is a cake. There is singing. Ronin is loudest and worst, and sings the Devil’s part of a hymn he will not explain. The hounds lie in a ring around the table, facing out. Nobody else was invited. Nobody else would have come up the drive.'],
   ['V','Make a wish.'],
   ['M','i don’t need one. look at this. look at all of it. i’m IN it.'],
   ['','Angel takes the photo. For the first time in any photo of hers, Misaki is not at the edge, not behind the lens, not half-turned away. She is in the middle, mouth open, mid-laugh, a little blurry, completely there.']]},
  {id:'gl_y3',t:'Much later · the window',ok:()=>!isLone(),L:()=>[
   ['','Much later. A window. Afternoon light. Two old chairs pulled up close to it, the way you’d pull chairs up to a fire.'],
-  ['','Outside, the street does what streets do. A kid on a bicycle. A man with too many shopping bags. A dog that is mostly ears, the great-great-grandchild of one she watched once from a trailer.'],
+  ['','Outside, the street does what streets do. She watches it for a minute, out of habit, the way an old soldier still checks the doors.'],
   ['M','that guy’s about to drop an orange.'],
-  ['','The man drops an orange. It rolls across the road. Misaki gets up — slower than she used to, knees complaining — and opens the door, and calls out, and points.'],
-  ['','He finds it. He waves. She waves back. On time. She has been on time for years.'],
-  ['','When she sits down again, '+(S.rom==='a'?'Angel takes her hand without looking up from her book.':S.rom==='r'?'Ronin hands her half a persimmon without being asked.':tier()>=2?'V puts his hand over hers on the arm of the chair, the way he has every afternoon for forty years.':'the window is just a window, and the street is just the street, and she is just a woman in a chair, in the middle of all of it.')]]});
+  ['','The man drops an orange. She does not get up. She does not need to know what happens to it. She turns her chair away from the window, towards the room, where the people are.'],
+  ['','When she sits down again, '+(S.rom==='a'?'Angel takes her hand without looking up from her book.':S.rom==='r'?'Ronin hands her half an apple without being asked.':tier()>=2?'V puts his hand over hers on the arm of the chair, the way he has every afternoon for forty years.':'the window is just a window, and the street is just the street, and she is just a woman in a chair, in the middle of all of it.')]]});
 
 /* ---------- achievements ---------- */
 ACH.push(['gl_glass','Through Glass','See what Misaki sees — and help her through it.',()=>S.q&&S.q.gl_glass>=5],['gl_window','Spot the Difference','Catch every change in the window game.',()=>(S.f.gl_best||0)>=5]);
@@ -7975,7 +7860,7 @@ const FITS={m:[
  {id:'usual',n:'The coat',d:'Long brown coat, charcoal vest, grey tie, olive trousers with a faint pinstripe. Every piece bought in multiples so nobody can tell which day it is.',p:{}},
  {id:'fence',n:'Fencing whites',d:'His old club jacket from school: white canvas, the left sleeve darker where a blade caught it in a final. Breeches, long socks, flat white shoes. He still stands en garde when he is nervous.',p:{c:'#f4f0ea',C:'#d8d8e0',t:'#e8e8ee',g:'#c2253a',p:'#f4f0ea',P:'#d4d4dc',b:'#e8e8ee'}},
  {id:'school',n:'Boarding school blazer',d:'Navy blazer from St. Aldric’s, crest on the pocket, the house tie in maroon and silver. It still fits. He finds that worse than if it didn’t.',p:{c:'#1a2a4a',C:'#12203a',t:'#f4f0ea',g:'#7a1e2a',p:'#3a3a44',P:'#4a4a54'}},
- {id:'kennel',n:'Kennel flannel',d:'Red flannel shirt, dark jeans, boots with dog hair permanently woven into the laces. The only clothes he owns that have been chewed.',p:{c:'#8a2a2a',C:'#5a1e1e',t:'#2e3a4a',g:'#2e3a4a',p:'#2e3a5a',P:'#3e4a6a',b:'#4a2e1c'}},
+ {id:'kennel',n:'Kennel flannel',d:'Red flannel shirt, dark jeans, boots with hound hair woven permanently into the laces. The left sleeve has been bitten through, once, by something he had just finished saving.',p:{c:'#8a2a2a',C:'#5a1e1e',t:'#2e3a4a',g:'#2e3a4a',p:'#2e3a5a',P:'#3e4a6a',b:'#4a2e1c'}},
  {id:'tux',n:'Gala tuxedo',d:'Midnight tux, peak lapels, a white silk scarf his mother bought him at nineteen. He wears it to every event he hates, which is all of them.',p:{c:'#0e0e14',C:'#1e1e28',t:'#f4f0ea',g:'#141014',p:'#0e0e14',P:'#1e1e28',b:'#0a0a0c'}},
  {id:'hoodie',n:'Misaki’s hoodie',d:'Her black hoodie with the red skull, which stops a full hand above his wrists. He is wearing it because she was cold and he wanted to see if it was warm. It was.',p:{c:'#1c1830',C:'#c2253a',t:'#1c1830',g:'#f4f0ea',p:'#2a2a34',P:'#3a3a44'}}]};
 function fitApply(){if(!S)return;['m','v'].forEach(w=>{const sp=w==='m'?MIS:VSP;const id=(S.f.fit||{})[w]||'usual';const f=FITS[w].find(x=>x.id===id)||FITS[w][0];Object.keys(sp.P).forEach(k=>delete sp.P[k]);Object.assign(sp.P,FIT_BASE[w],f.p)})}
@@ -7994,8 +7879,8 @@ const _mpHFit=mpHub;mpHub=function(late){const o=_mpHFit(late);if(!S||S.phase===
 
 /* ---- backstory: fencing, boarding school, drama club, track ---- */
 const BACK_V=[
- {id:'b_fence',label:'“Did you ever play a sport? Like, a real one.”',L:()=>[['K9','Fencing. Épée. From eleven until nineteen.'],['K9','My father chose it because it was “a gentleman’s violence.” I kept it because it was the only room in that school where hitting someone first was called good manners.'],['hitmeuppp',mVoice('were u good')],['K9','I was third in the country at seventeen. I lost the final to a boy who cried when he won. I liked him very much for that.'],['K9','I still parry in my sleep. Biscuit has learned to sleep on the other side of the bed.']]},
- {id:'b_school',label:'“Where did you go to school?”',L:()=>[['K9','St. Aldric’s. A boarding school in the hills outside Karuizawa. Stone chapel, cold showers, Latin before breakfast.'],['K9','I was sent at nine. I was allowed home twice a year. My mother wrote every Sunday. My father wrote once, to say my marks in mathematics were “adequate.”'],['hitmeuppp',mVoice('adequate. ur literally a maths gremlin')],['K9','I became one out of spite. It is the most productive spite I have ever had.'],['K9','There was a dog in the groundskeeper’s cottage. Old, black, three legs. I spent every Sunday afternoon with him. I think you can guess how that ended up shaping my life.']]},
+ {id:'b_fence',label:'“Did you ever play a sport? Like, a real one.”',L:()=>[['K9','Fencing. Épée. From eleven until nineteen.'],['K9','My father chose it because it was “a gentleman’s violence.” I kept it because it was the only room in that school where hitting someone first was called good manners.'],['hitmeuppp',mVoice('were u good')],['K9','I was third in the country at seventeen. I lost the final to a boy who cried when he won. I liked him very much for that.'],['K9','I still parry in my sleep. The grey hound has learned to sleep on the other side of the door.']]},
+ {id:'b_school',label:'“Where did you go to school?”',L:()=>[['K9','St. Aldric’s. A boarding school in the hills, a long way north. Stone chapel, cold showers, Latin before breakfast.'],['K9','I was sent at nine. I was allowed home twice a year. My mother wrote every Sunday. My father wrote once, to say my marks in mathematics were “adequate.”'],['hitmeuppp',mVoice('adequate. ur literally a maths gremlin')],['K9','I became one out of spite. It is the most productive spite I have ever had.'],['K9','There was a dog in the groundskeeper’s cottage. Old, black, three legs. I spent every Sunday afternoon with him. I think you can guess how that ended up shaping my life.']]},
  {id:'b_tea',label:'“Who taught you to cook?”',L:()=>[['K9','My mother, until I was nine. Then nobody, for ten years. The school food was beige.'],['K9','At university I lived above a Haitian restaurant. The owner, Madame Célestin, caught me trying to make soup joumou from memory and took the pot off me.'],['K9','She taught me for three years. She never charged me. She said I had “sad wrists” and needed somewhere to put them.']]}];
 const BACK_M=[
  {id:'b_home',label:'“Why did you leave home so young?”',L:()=>[['hitmeuppp',MV('long story. boring story.','my family wanted a daughter. i wasn’t really one. still not.','I’m nonbinary. She or they, I’m not precious about it. My family wanted a daughter, a very specific one, and every year I was less like her and they got angrier about it.','I’m nonbinary. I didn’t have the word at twelve. I just knew every dress felt like a costume and every dinner felt like a trial I was losing.')],
@@ -8007,7 +7892,7 @@ const BACK_M=[
   ['K9','Then I will use both, and I will never stop asking.']]},
  {id:'b_drama',label:'“Were you in any clubs at school?”',L:()=>[['hitmeuppp',MV('drama club. don’t laugh','drama club. i was good. like actually good.','Drama club. Three years. I played a dead queen, a lying servant, and Viola, who spends the whole play pretending to be someone else.','Drama club. It was the only place I got to be somebody else on purpose and get applause for it instead of a bruise.')],['K9','What was your best role?'],['hitmeuppp',mVoice('viola. she washes up after a shipwreck and decides to just. become a different person. and it works. everyone believes her.')],['K9','I can see why you liked her.'],['hitmeuppp',mVoice('yeah. turns out it’s a transferable skill.')]]},
  {id:'b_track',label:'“You run like you’ve trained. Did you?”',L:()=>[['hitmeuppp',MV('track. the 400. it’s the worst race. i loved it','track team. 400 metres. it hurts the whole way.','The 400. One lap, flat out. Your legs go at 300 metres and you finish on whatever you have left.','Track. I loved it more than anything. For fifty seconds nobody could reach me, and at the end there was a line, and I crossed it, and it counted.')],['K9','Why did you stop?'],['hitmeuppp',mVoice('needed the money more than the medals. dropped out in second year. coach still sends me a new year card. every year. i never write back.')],['K9','Write back this year.'],['hitmeuppp',mVoice('...maybe.')]]},
- {id:'b_name',label:'“What were you like at sixteen?”',L:()=>[['hitmeuppp',mVoice('loud in drama, silent everywhere else. fastest girl in the prefecture for one summer. ate lunch on the roof.')],['hitmeuppp',mVoice('i was the kind of kid teachers describe as “a lot of potential.” which is code for “we’re not going to help.”')],['K9','I would have sat on that roof with you.'],['hitmeuppp',mVoice('u would have been at ur fancy school doing latin')],['K9','I would have climbed out of the Latin room. I was very good at climbing out of rooms.']]}];
+ {id:'b_name',label:'“What were you like at sixteen?”',L:()=>[['hitmeuppp',mVoice('loud in drama, silent everywhere else. fastest kid in the district for one summer. ate lunch on the roof.')],['hitmeuppp',mVoice('i was the kind of kid teachers describe as “a lot of potential.” which is code for “we’re not going to help.”')],['K9','I would have sat on that roof with you.'],['hitmeuppp',mVoice('u would have been at ur fancy school doing latin')],['K9','I would have climbed out of the Latin room. I was very good at climbing out of rooms.']]}];
 BACK_V.forEach(t=>TOPICS_V.splice(TOPICS_V.length-1,0,{id:t.id,label:()=>t.label,show:()=>S.phase!=='taken'&&tier()>=1,run:b=>{warm('v',t.id,3);say(t.L(),b)}}));
 BACK_M.forEach(t=>TOPICS_M.splice(TOPICS_M.length-1,0,{id:t.id,label:()=>t.label,show:()=>S.phase!=='taken'&&tier()>=1,run:b=>{warm('m',t.id,3);say(t.L(),b)}}));
 
@@ -8015,35 +7900,35 @@ BACK_M.forEach(t=>TOPICS_M.splice(TOPICS_M.length-1,0,{id:t.id,label:()=>t.label
 const END2_V=[
  {id:'e2_letter',label:'“If you could write to nine-year-old you, at St. Aldric’s?”',L:()=>[['K9','“The dog is not the only one who will love you. It will take a long time. Keep going to the cottage on Sundays anyway.”'],['K9','“Also, you are going to lose the final at seventeen. Shake his hand. He will become a doctor and save a woman you will meet much later.”'],['hitmeuppp',mVoice('…did he?')],['K9','Angel’s mother. I found out last year. I have not told Angel. I think I will, now.']]},
  {id:'e2_duel',label:'“Teach me to fence. Right now. With wooden spoons.”',L:()=>[['K9','En garde. No, your weight is on your heels. Forward. You are not waiting for the blow, you are inviting it.'],['hitmeuppp',mVoice('i’m inviting it. i’m being so inviting')],['K9','Parry four. Riposte. …You just hit me in the face with a spoon.'],['hitmeuppp',mVoice('point to me?')],['K9','Point to you. I am going to remember this match for the rest of my life.']]},
- {id:'e2_after',label:'“Where do we go when the ledger is gone?”',show:()=>S.phase==='epilogue',L:()=>[['K9','The sea, first. I promised the dogs. Then I thought: your old school. The track. I want to see where you were fastest.'],['hitmeuppp',mVoice('and then ur school. the stone chapel. i want to see where u were saddest.')],['K9','That is a terrible idea.'],['hitmeuppp',mVoice('it’s a great idea. we bring a picnic. we haunt it.')]]}];
+ {id:'e2_after',label:'“Where do we go when the ledger is gone?”',show:()=>S.phase==='epilogue',L:()=>[['K9','The sea, first. I promised the hounds. Then I thought: your old school. The track. I want to see where you were fastest.'],['hitmeuppp',mVoice('and then ur school. the stone chapel. i want to see where u were saddest.')],['K9','That is a terrible idea.'],['hitmeuppp',mVoice('it’s a great idea. we bring a picnic. we haunt it.')]]}];
 const END2_M=[
  {id:'e2_stage',label:'“Would you act again?”',L:()=>[['hitmeuppp',mVoice('i think i’ve been acting for years. normal girl. rent girl. fine girl.')],['hitmeuppp',mVoice('i’d like to do it once more on a real stage. where everyone knows it’s pretend. that sounds so restful.')],['K9','I will buy every ticket in the house.'],['hitmeuppp',mVoice('no. buy one. sit in the front. the rest is for strangers. that’s the point.')]]},
- {id:'e2_run',label:'“Run with me. Tomorrow. Six a.m.”',L:()=>[['hitmeuppp',mVoice('u want to RUN. with ME. i’ll lap u. i’ll lap u twice and then i’ll lap the dogs.')],['K9','I know. I would like to watch you do it.'],['hitmeuppp',mVoice('...ok. six. bring water. and don’t be weird when i cry at the 300 metre mark. it’s a thing. it’s muscle memory.')]]},
- {id:'e2_names',label:'“Misaki Katsuo. Say it like a stage introduction.”',show:()=>tier()>=2,L:()=>[['hitmeuppp',mVoice('“appearing tonight, in the role of herself: misaki katsuo.”')],['K9','Again, slower. Like you believe it.'],['hitmeuppp','Appearing tonight. In the role of herself. Misaki Katsuo.'],['','Nobody claps. The dogs thump their tails on the floor in sequence, like a slow, uneven ovation.']]}];
+ {id:'e2_run',label:'“Run with me. Tomorrow. Six a.m.”',L:()=>[['hitmeuppp',mVoice('u want to RUN. with ME. i’ll lap u. i’ll lap u twice. i won’t lap the hounds. nobody laps the hounds.')],['K9','I know. I would like to watch you do it.'],['hitmeuppp',mVoice('...ok. six. bring water. and don’t be weird when i cry at the 300 metre mark. it’s a thing. it’s muscle memory.')]]},
+ {id:'e2_names',label:'“Misaki Katsuo. Say it like a stage introduction.”',show:()=>tier()>=2,L:()=>[['hitmeuppp',mVoice('“appearing tonight, in the role of herself: misaki katsuo.”')],['K9','Again, slower. Like you believe it.'],['hitmeuppp','Appearing tonight. In the role of herself. Misaki Katsuo.'],['','Nobody claps. The hounds, who never make a sound, lift their heads one after another, like a slow, uneven ovation that nobody wants.']]}];
 END2_V.forEach(t=>TOPICS_V.splice(TOPICS_V.length-1,0,{id:t.id,label:()=>t.label,show:()=>(S.phase==='act3'||S.phase==='epilogue'||S.phase==='after')&&(!t.show||t.show()),run:b=>{warm('v',t.id,4);say(t.L(),b)}}));
 END2_M.forEach(t=>TOPICS_M.splice(TOPICS_M.length-1,0,{id:t.id,label:()=>t.label,show:()=>(S.phase==='act3'||S.phase==='epilogue'||S.phase==='after')&&(!t.show||t.show()),run:b=>{warm('m',t.id,4);say(t.L(),b)}}));
 EVENTS.push(
  {id:'bk_name',when:()=>S.day>=5&&S.phase!=='taken'&&!isLone(),run:done=>say([['','An old envelope turns up in the trailer: a school ID card, the photo of a kid with a forced smile and a name that isn’t Katsuo, cut almost in half with scissors and never finished.'],[ME2(),ME3()?'She saw me find it. She said: “that kid didn’t get to pick anything. i picked everything after.” I put it back exactly where it was.':mVoice('that kid didn’t get to pick their name, their hair, their clothes, or their family. so i picked everything after. even the bad stuff. ESPECIALLY the bad stuff, at first.')]],done)},
- {id:'bk_coach',when:()=>S.day>=6&&S.phase!=='taken',run:done=>say([['','A New Year card, forwarded from an address she hasn’t lived at for years. A cartoon of a running rabbit. Inside, in shaky biro: “Still the fastest 400 I ever coached. Door’s open. — Coach Hamada.”'],[ME2(),ME3()?'She read it four times and put it inside her phone case. She thinks I did not see.':mVoice('…he still remembers my split time. 58.4. i don’t even remember my blood type.')]],done)},
+ {id:'bk_coach',when:()=>S.day>=6&&S.phase!=='taken',run:done=>say([['','A New Year card, forwarded from an address she hasn’t lived at for years. A cartoon of a running rabbit. Inside, in shaky biro: “Still the fastest 400 I ever coached. Door’s open. — Coach H.”'],[ME2(),ME3()?'She read it four times and put it inside her phone case. She thinks I did not see.':mVoice('…he still remembers my split time. 58.4. i don’t even remember my blood type.')]],done)},
  {id:'bk_aldric',when:()=>S.day>=7&&isV()&&S.phase!=='taken',run:done=>say([['','A letter on heavy cream paper: St. Aldric’s is unveiling a portrait of its most generous alumnus, and would he kindly attend.'],['K9','I paid for the new dormitory heating. Anonymously. They found out. I am going to have to stand under a painting of myself.'],['hitmeuppp',mVoice('i’m coming. i’m wearing the drama costume. i’m going to stand next to the painting and do the same face.')]],done)},
- {id:'bk_ending',when:()=>S.phase==='epilogue',run:done=>say([['','Years later, in the hallway of the house, there are two framed things side by side.'],['','A faded track results sheet: Women’s 400m, Prefectural Final, 1st — M. Katsuo, 58.4.'],['','And a fencing scoresheet from a national junior final, lost 15–14, with a second signature on it in a younger hand: “Good match. Thank you. — K. Arai.”'],['','Guests always ask which one is the win. Neither of them ever answers.']],done)});
+ {id:'bk_ending',when:()=>S.phase==='epilogue',run:done=>say([['','Years later, in the hallway of the house, there are two framed things side by side.'],['','A faded track results sheet: 400m, District Final, 1st — M. Katsuo, 58.4.'],['','And a fencing scoresheet from a national junior final, lost 15–14, with a second signature on it in a younger hand: “Good match. Thank you. — K. Arden.”'],['','Guests always ask which one is the win. Neither of them ever answers.']],done)});
 
 /* ---- more recipes, each with a dish sprite ---- */
 const NEW_RECIPES=[
- {id:'tamago',n:'Tamagoyaki',ing:{egg:3,sugar:1},steps:[['knead','eggs'],['fry','first layer'],['fry','roll'],['season','dashi'],['plate']],likes:{v:2,m:7},eff:{energy:18},unlock:()=>true,note:'The St. Aldric’s cook made it on birthdays. V learned it so nobody would have to wait for a birthday.',
+ {id:'tamago',n:'Rolled omelette',ing:{egg:3,sugar:1},steps:[['knead','eggs'],['fry','first layer'],['fry','roll'],['season','stock'],['plate']],likes:{v:2,m:7},eff:{energy:18},unlock:()=>true,note:'The St. Aldric’s cook made it on birthdays. V learned it so nobody would have to wait for a birthday.',
   dish:{p:{p:'#f4f0ea',P:'#c8c0b0',y:'#f2d24a',Y:'#d8a820',o:'#e8b040'},a:["................","..pppppppppppp..",".pyyyyyyyyyyyyp.",".pyYyyYyyYyyYyp.",".pyyyyyyyyyyyyp.",".poooooooooooop.","..pppppppppppp..","...PPPPPPPPPP..."]}},
- {id:'katsu',n:'Tofu katsu',ing:{tofu:1,flour:1,bread:1,rice:1},steps:[['chop','tofu'],['knead','breadcrumbs'],['fry','katsu'],['season','tonkatsu sauce'],['plate']],likes:{v:6,m:8},eff:{energy:32},vegan:1,unlock:()=>true,note:'Misaki’s pre-race meal at sixteen, the vegan way. Crunch is the whole point.',
+ {id:'katsu',n:'Crispy tofu cutlet',ing:{tofu:1,flour:1,bread:1,rice:1},steps:[['chop','tofu'],['knead','breadcrumbs'],['fry','cutlet'],['season','brown sauce'],['plate']],likes:{v:6,m:8},eff:{energy:32},vegan:1,unlock:()=>true,note:'Misaki’s pre-race meal at sixteen, the vegan way. Crunch is the whole point.',
   dish:{p:{p:'#f4f0ea',P:'#c8c0b0',k:'#d89a40',K:'#a86a20',s:'#5a2a1a',r:'#ffffff',g:'#5aa84e'},a:["...pppppppppp...","..pkkKkkKkkrrp..",".pkKkkKkkKkrrrp.",".pksssssssskrrp.",".pkkKkkKkkkgrrp.","..pppppppppppp..","...PPPPPPPPPP..."]}},
- {id:'yakisoba',n:'Festival yakisoba',ing:{noodles:1,onion:1,scallion:1},steps:[['chop','onion'],['fry','noodles'],['fry','onion'],['season','yakisoba sauce'],['plate']],likes:{v:3,m:8,r:7},eff:{energy:28},vegan:1,unlock:()=>true,note:'Drama club sold it at the culture festival every year. Misaki burned it every year. It sold out every year.',
+ {id:'yakisoba',n:'Street-fair fried noodles',ing:{noodles:1,onion:1,scallion:1},steps:[['chop','onion'],['fry','noodles'],['fry','onion'],['season','sweet soy sauce'],['plate']],likes:{v:3,m:8,r:7},eff:{energy:28},vegan:1,unlock:()=>true,note:'Drama club sold it at the school fair every year. Misaki burned it every year. It sold out every year.',
   dish:{p:{p:'#f4f0ea',P:'#c8c0b0',n:'#a8642a',N:'#7a4418',g:'#5aa84e',r:'#e0303a'},a:["....g..r..g.....","..pppppppppppp..",".pnNnnNnnNnnNnp.",".pnnNnngnnNnrnp.",".pNnnnNnnnnNnnp.","..pppppppppppp..","...PPPPPPPPPP..."]}},
- {id:'mochi',n:'Strawberry daifuku',ing:{rice:1,redbean:1,strawberry:1,sugar:1},steps:[['knead','mochi'],['season','red bean'],['chop','strawberry'],['plate']],likes:{v:7,m:9,a:8},eff:{energy:16},vegan:1,unlock:()=>tier()>=1,note:'They made these together the first time and every one came out a different size. They ate the evidence.',lock:'Get to know each other first.',
+ {id:'mochi',n:'Strawberry rice cakes',ing:{rice:1,redbean:1,strawberry:1,sugar:1},steps:[['knead','rice dough'],['season','red bean'],['chop','strawberry'],['plate']],likes:{v:7,m:9,a:8},eff:{energy:16},vegan:1,unlock:()=>tier()>=1,note:'They made these together the first time and every one came out a different size. They ate the evidence.',lock:'Get to know each other first.',
   dish:{p:{w:'#fff4f8',W:'#f0d8e0',r:'#e0303a',b:'#4a1e1e',p:'#3a2a20'},a:["................",".....wwwwww.....","...wwwwrrwwww...","..wwwwrrrrwwww..","..wwwwbbbbwwWw..","..wwwwwwwwwWWw..","...wwwwwwwWWw...","..pppppppppppp.."]}},
- {id:'spinach',n:'Goma-ae spinach',ing:{spinach:1,sugar:1},steps:[['simmer','spinach'],['chop','spinach'],['season','sesame dressing'],['plate']],likes:{v:8,m:3},eff:{energy:12},vegan:1,unlock:()=>true,note:'V’s side dish for every meal since he was twenty. Misaki calls it “lawn.”',
+ {id:'spinach',n:'Sesame spinach',ing:{spinach:1,sugar:1},steps:[['simmer','spinach'],['chop','spinach'],['season','sesame dressing'],['plate']],likes:{v:8,m:3},eff:{energy:12},vegan:1,unlock:()=>true,note:'V’s side dish for every meal since he was twenty. Misaki calls it “lawn.”',
   dish:{p:{p:'#2a2a32',P:'#1a1a20',g:'#2e7a3a',G:'#4aa050',s:'#e8d8a0'},a:["................","....pppppppp....","...pgGgsgGgsp...","..pgsgGgsgGgsp..","..pGgsgGgGsggp..","...pppppppppp...","....PPPPPPPP...."]}},
  {id:'mango',n:'Mango sticky rice',ing:{mango:1,rice:1,sugar:1},steps:[['simmer','rice'],['season','coconut milk'],['chop','mango'],['plate']],likes:{v:7,m:8,a:7},eff:{energy:22},vegan:1,unlock:()=>(S.f.harvests||0)>=1,note:'From the greenhouse mango. The first thing that ever grew there that he didn’t plant for a dog.',lock:'Harvest from the garden.',
   dish:{p:{p:'#f4f0ea',P:'#c8c0b0',w:'#ffffff',m:'#f2b030',M:'#e09020',c:'#fff8e0'},a:["................","..pppppppppppp..",".pwwwwmmMmmmmMp.",".pwwwwmMmmMmmmp.",".pcccwwmmmMmmmp.","..pppppppppppp..","...PPPPPPPPPP..."]}}];
 NEW_RECIPES.forEach(r=>{DISH[r.id]=r.dish;const x=Object.assign({},r);delete x.dish;RECIPES.push(x);
- ITEMS['dish_'+r.id]=r.n;PREF.v['dish_'+r.id]=[Math.max(1,r.likes.v||1),r.likes.v>=7?'You made this for me. I am going to eat it very slowly, so it lasts.':'Thank you. This is very good.'];PREF.m['dish_'+r.id]=[Math.max(1,r.likes.m||1),r.likes.m>=8?'FOOD. MY FOOD. you made my FOOD':'ooh. thank u'];if(r.likes.a)FPREF.a['dish_'+r.id]=[r.likes.a,'you made me DAIFUKU?? i’m crying into it'];if(r.likes.r)FPREF.r['dish_'+r.id]=[r.likes.r,'Festival noodles? Darlin’, I’m seven years old again.']});
+ ITEMS['dish_'+r.id]=r.n;PREF.v['dish_'+r.id]=[Math.max(1,r.likes.v||1),r.likes.v>=7?'You made this for me. I am going to eat it very slowly, so it lasts.':'Thank you. This is very good.'];PREF.m['dish_'+r.id]=[Math.max(1,r.likes.m||1),r.likes.m>=8?'FOOD. MY FOOD. you made my FOOD':'ooh. thank u'];if(r.likes.a)FPREF.a['dish_'+r.id]=[r.likes.a,'you made me RICE CAKES?? i’m crying into it'];if(r.likes.r)FPREF.r['dish_'+r.id]=[r.likes.r,'Street-fair noodles? Darlin’, I’m seven years old again.']});
 
 /* ---- minigames: épée bout and the 400 ---- */
 function fenceGame(cb){cb=once(cb);let r=0,score=0,opp=0,t=0,phase='wait',lunge=ri(50,110),fb='Parry when the blade crosses the line. E / tap.',fbT=0,line=210,bx=40,ln=[];
@@ -8071,29 +7956,29 @@ const trainOK=()=>S&&['after','act2','epilogue'].includes(S.phase);
 function drawAldric(){rect(0,0,W,H,'#1a1814');rect(0,0,W,118,'#2a261e');for(let i=0;i<5;i++){const x=24+i*62;rect(x,14,36,70,'#3a3428');rect(x+4,18,28,62,'#5a6a7a');c.fillStyle='rgba(242,210,74,.15)';c.fillRect(x+4,18,28,62);rect(x+17,18,2,62,'#2a261e')}
  rect(0,118,W,62,'#4a3a28');for(let x=0;x<W;x+=20)rect(x,118,1,62,'#3a2a1a');rect(60,134,200,8,'#c9c39a');txt('ST. ALDRIC’S · FENCING HALL',160,100,'#c9c39a',9,'center');lightPool(160,40,120,'rgba(255,230,180,.08)')}
 function drawTrack(){const g=c.createLinearGradient(0,0,0,110);g.addColorStop(0,'#f2a060');g.addColorStop(1,'#5a3a5a');c.fillStyle=g;c.fillRect(0,0,W,110);for(let i=0;i<8;i++)rect(i*44,70-((i*13)%20),40,40,'#3a2a3a');
- rect(0,108,W,72,'#a0442a');for(let i=0;i<6;i++)rect(0,116+i*10,W,1,'#f4f0ea');rect(250,108,2,72,'#f4f0ea');txt('1',20,124,'#f4f0ea',8);rect(40,60,50,40,'#5a5a6a');for(let i=0;i<4;i++)rect(44,64+i*9,42,2,'#8a8a9a');txt('KITA HIGH',65,56,'#f4f0ea',8,'center')}
+ rect(0,108,W,72,'#a0442a');for(let i=0;i<6;i++)rect(0,116+i*10,W,1,'#f4f0ea');rect(250,108,2,72,'#f4f0ea');txt('1',20,124,'#f4f0ea',8);rect(40,60,50,40,'#5a5a6a');for(let i=0;i<4;i++)rect(44,64+i*9,42,2,'#8a8a9a');txt('NORTH HIGH',65,56,'#f4f0ea',8,'center')}
 function drawCoast(){const g=c.createLinearGradient(0,0,0,100);g.addColorStop(0,'#5a8ab0');g.addColorStop(1,'#c8d8e0');c.fillStyle=g;c.fillRect(0,0,W,100);rect(0,80,W,30,'#2a5a7a');for(let i=0;i<12;i++)rect(md(i*30+T*.3,W),84+(i%3)*6,14,1,'rgba(255,255,255,.6)');
- rect(0,108,W,72,'#d8c8a0');for(let i=0;i<30;i++)rect((i*53)%W,112+(i*17)%60,2,1,'#b8a880');rect(270,40,6,70,'#f4f0ea');rect(264,36,18,8,'#c2253a');txt('END OF THE LINE · 終点',80,40,'#f4f0ea',9,'center')}
-const TRAIN_RIDE=(dest,lines)=>{S.seen['r_'+dest]=1;save();say([['','The train rattles out of the city. Rice fields, then tunnels, then the sea flashing between them.']].concat(lines),()=>toRoom(dest,[40,160]))};
+ rect(0,108,W,72,'#d8c8a0');for(let i=0;i<30;i++)rect((i*53)%W,112+(i*17)%60,2,1,'#b8a880');rect(270,40,6,70,'#f4f0ea');rect(264,36,18,8,'#c2253a');txt('END OF THE LINE',80,40,'#f4f0ea',9,'center')}
+const TRAIN_RIDE=(dest,lines)=>{S.seen['r_'+dest]=1;save();say([['','The train rattles out of the city. Fields, then tunnels, then the sea flashing between them.']].concat(lines),()=>toRoom(dest,[40,160]))};
 ROOMS.aldric={name:()=>'St. Aldric’s — the fencing hall',who:()=>PW(),walk:[16,304,126,172],backLabel:'train home',back:()=>hub(),draw:drawAldric,
  spots:[{at:[160,136],mark:[160,120],label:'The piste',act:()=>{if(S.done.fence){say([['hitmeuppp',mVoice('my arm is still shaking from the last bout')]]);return}S.done.fence=1;fenceGame(sc=>{toRoom('aldric',[160,150]);apply({aff:sc>=4?3:1});say([[ME2(),sc>=4?(ME3()?'Four touches. My old coach would have pretended not to be pleased.':mVoice('i BEAT u. at ur own sport. in ur own school. write that on the portrait')):(ME3()?'I am out of practice. Or I am in practice at other things.':mVoice('ok fencing is hard. ur allowed to be good at one thing'))]])})},vact:()=>ROOMS.aldric.spots[0].act()},
   {at:[86,130],mark:[86,60],label:'Honours board',act:()=>say([['','Gold leaf on wood. Épée, Junior National Finalist: V. Kurosawa. Runner-up. The only name on the board with “runner-up” beside it, because he asked them to add it.'],[ME2(),ME3()?'I wanted it to be true. The boy who beat me deserved his name on a board more than I did.':mVoice('he made them write that he LOST. on purpose. that’s the most v thing i’ve ever seen')]])},
   {at:[230,130],mark:[230,60],label:'The chapel window',act:()=>say([['','Through the window: the stone chapel, and beyond it a cottage with a low door and a dog-flap cut into it, long since nailed shut.'],[ME2(),ME3()?'That is where the three-legged dog lived. I came every Sunday. I was the only boy who did.':mVoice('the dog cottage. he told me about it. it’s so small. he must have been so small')]],()=>{apply({aff:2})})},
   {at:[20,160],mark:[10,150],label:'Train home',act:()=>hub()}]};
-ROOMS.oldtrack={name:()=>'Kita High — the old track',who:()=>PW(),walk:[16,304,126,172],backLabel:'train home',back:()=>hub(),draw:drawTrack,
- spots:[{at:[40,150],mark:[40,130],label:'Lane one · the 400',act:()=>{if(S.done.run){say([['hitmeuppp',mVoice('legs are gone. legs are in another prefecture.')]]);return}S.done.run=1;trackGame(fr2=>{toRoom('oldtrack',[60,150]);const s=fr2/60;apply({energy:-10,aff:2});
+ROOMS.oldtrack={name:()=>'North High — the old track',who:()=>PW(),walk:[16,304,126,172],backLabel:'train home',back:()=>hub(),draw:drawTrack,
+ spots:[{at:[40,150],mark:[40,130],label:'Lane one · the 400',act:()=>{if(S.done.run){say([['hitmeuppp',mVoice('legs are gone. legs are in another county.')]]);return}S.done.run=1;trackGame(fr2=>{toRoom('oldtrack',[60,150]);const s=fr2/60;apply({energy:-10,aff:2});
    say([['',fr2&&fr2<600?`One lap. ${s.toFixed(1)} seconds of game time.`:'You run out of lap before you run out of breath.'],[ME2(),ME3()?'She ran it so I could see. She was not looking at the clock. She was looking at the finish line like it owed her something.':mVoice('...still got it. kind of. my lungs are filing a complaint.')]])})},vact:()=>ROOMS.oldtrack.spots[0].act()},
   {at:[66,130],mark:[66,60],label:'The bleachers',act:()=>say([['','Faded blue paint. Under the third row, scratched with a compass point: “M.K. 58.4 — beat THAT.”'],[ME2(),ME3()?'Nobody has. I checked the school records on the train.':mVoice('nobody’s beaten it. i asked the groundskeeper. he said “who are you” and i said “58.4” and he went “OH.”')]])},
   {at:[180,140],mark:[180,100],label:'The drama hall, across the field',act:()=>say([['','Through the open door: a stage, a dusty curtain, and a cardboard ship from a production of Twelfth Night that nobody has thrown away in nine years.'],[ME2(),ME3()?'She went quiet. Then she walked onto the stage and said a line to the empty hall. I will not repeat it. It was hers.':mVoice('they kept the ship. they KEPT the SHIP. i built that ship. it was supposed to be temporary. look at it. it’s still sailing')]],()=>{calm(4)})},
   {at:[20,160],mark:[10,150],label:'Train home',act:()=>hub()}]};
 ROOMS.coast={name:()=>'End of the line — the coast',who:()=>PW(),walk:[16,304,126,172],backLabel:'train home',back:()=>hub(),draw:drawCoast,
- npcs:()=>!isLone()?[ME3()?mNpc(220,150,()=>say([['hitmeuppp',mVoice(pk(['the dogs have never seen the sea. look at biscuit. she thinks it’s a very large bath she has to defeat.','i’m not thinking about anything. i’m just looking. is that allowed?','we should come back in winter. when nobody’s here. i want to see it angry.']))]])):vNpc(220,150,()=>say([['K9',pk(['I promised the dogs the sea. I have finally kept a promise to the dogs.','I used to think rest was something you earned. I am learning it is something you take, like a train ticket.','You are smiling at the waves. You do not know you are doing it. Please do not stop.'])]]))]:[],
+ npcs:()=>!isLone()?[ME3()?mNpc(220,150,()=>say([['hitmeuppp',mVoice(pk(['the hounds have never seen the sea. look at them. they’re watching it like it owes them something.','i’m not thinking about anything. i’m just looking. is that allowed?','we should come back in winter. when nobody’s here. i want to see it angry.']))]])):vNpc(220,150,()=>say([['K9',pk(['I promised the hounds the sea. They are standing at the edge of it, very still, deciding whether it is a threat.','I used to think rest was something you earned. I am learning it is something you take, like a train ticket.','You are smiling at the waves. You do not know you are doing it. Please do not stop.'])]]))]:[],
  spots:[{at:[100,150],mark:[100,130],label:'The tideline',act:()=>{if(S.done.tide){say([['','The sea has already given you everything it had today.']]);return}S.done.tide=1;calm(8);apply({energy:15});say([['','You walk along the tideline until your shoes are wet and your head is empty. A shell, a bottle cap, a smooth green piece of glass.'],[ME2(),ME3()?'I put the sea glass in my pocket. It will go in the archive, in the drawer of things I let myself keep.':mVoice('sea glass. it used to be a bottle. now it’s this. i get it, sea. i get what ur saying.')]])}},
   {at:[270,140],mark:[270,40],label:'The lighthouse',act:()=>say([['','A white lighthouse with a red cap. A plaque: the light has not missed a night in ninety years.'],[ME2(),ME3()?'Ninety years of one job. Doing it every night without being thanked. I recognise the type.':mVoice('ninety years of turning around in circles and helping people. that’s a rotation with a job.')]])},
   {at:[20,160],mark:[10,150],label:'Train home',act:()=>hub()}]};
 ['aldric','oldtrack','coast'].forEach(r=>{ROOMTRACK[r]=r==='coast'?'lofi':'base';ROOMZOOM[r]=1.3});
-PLACES.push({id:'aldric',t:'Train: St. Aldric’s (V’s old school)',sub:'costs time · endgame · the fencing hall, the honours board, the chapel',ok:trainOK,fn:()=>TRAIN_RIDE('aldric',[['',isV()?'Karuizawa. The hills he left at nineteen.':'Karuizawa. Pine trees, stone walls, a gate with a crest on it.']])},
- {id:'oldtrack',t:'Train: Kita High (Misaki’s old school)',sub:'costs time · endgame · the track, the bleachers, the drama hall',ok:trainOK,fn:()=>TRAIN_RIDE('oldtrack',[['','Three changes and a bus. A school with a cracked clock tower and a red running track behind it.']])},
+PLACES.push({id:'aldric',t:'Train: St. Aldric’s (V’s old school)',sub:'costs time · endgame · the fencing hall, the honours board, the chapel',ok:trainOK,fn:()=>TRAIN_RIDE('aldric',[['',isV()?'The hills he left at nineteen.':'Pine trees, stone walls, a gate with a crest on it.']])},
+ {id:'oldtrack',t:'Train: North High (Misaki’s old school)',sub:'costs time · endgame · the track, the bleachers, the drama hall',ok:trainOK,fn:()=>TRAIN_RIDE('oldtrack',[['','Three changes and a bus. A school with a cracked clock tower and a red running track behind it.']])},
  {id:'coast',t:'Train: the end of the line',sub:'costs time · endgame · the sea, a lighthouse, nobody else',ok:trainOK,fn:()=>TRAIN_RIDE('coast',[['','The last stop. The doors open onto salt air and a beach with no one on it.']])});
 const _epTrain=epiOpts;epiOpts=function(late){const o=_epTrain(late);try{return o.concat(placesHub(late))}catch(e){return o}};
 ACH.push(['fits','Costume Department','Try on every outfit for both of them.',()=>S.f.fitSeen&&Object.keys(S.f.fitSeen).length>=12],['trainall','End of the Line','Visit all three train destinations.',()=>S.seen&&S.seen.r_aldric&&S.seen.r_oldtrack&&S.seen.r_coast]);
@@ -8103,7 +7988,7 @@ function benchMax(){S.aff=100;S.fr={r:100,a:100};S.trust=100;S.tension=0;S.moral
  S.talks=S.talks||{};S.talks.mother=Math.max(1,S.talks.mother||0);S.f.harvests=Math.max(1,S.f.harvests||0);S.f.bakedAngel=1;S.f.ronCooked=1;S.f.board=1;S.f.sketch=1;
  S.f.mp=S.f.mp||{};S.f.fit=S.f.fit||{};S.f.geo=S.f.geo||{r:0,w:0,streak:0,best:0}}
 const BENCH=[
- {id:'kid_m',pov:'m',t:'Day before the kidnapping · Misaki',d:'Day 10. Rent paid twice, moved in with V, every relationship maxed (V, Angel, Ronin, the dogs; V and Ronin at peace). Tonight, when you sleep, they come for her.',set(){S.day=10;S.slot=0}},
+ {id:'kid_m',pov:'m',t:'Day before the kidnapping · Misaki',d:'Day 10. Rent paid twice, moved in with V, every relationship maxed (V, Angel, Ronin, the hounds; V and Ronin at peace). Tonight, when you sleep, they come for her.',set(){S.day=10;S.slot=0}},
  {id:'kid_v',pov:'v',t:'Day before the kidnapping · V',d:'The same night from V’s side. Everything maxed. After you sleep, Misaki is gone and the search begins.',set(){S.day=10;S.slot=0}},
  {id:'act2_m',pov:'m',t:'Start of Act II · Misaki',d:'She’s home and safe. The K9 copycat case opens, all relationships maxed.',set(){S.f.inter=Object.assign(S.f.inter||{},{act2:1,act3:1});S.f.gl_i2=1;S.f.gl_i3=1;S.day=15;S.captor=captorOrg();S.takenDay=11;S.phase='after';startAct2()}},
  {id:'act2_v',pov:'v',t:'Start of Act II · V',d:'Act II from V’s side, everything maxed.',set(){S.f.inter=Object.assign(S.f.inter||{},{act2:1,act3:1});S.f.gl_i2=1;S.f.gl_i3=1;S.day=15;S.captor=captorOrg();S.takenDay=11;S.phase='after';startAct2()}},
@@ -8112,6 +7997,15 @@ const BENCH=[
  {id:'epi_m',pov:'m',t:'Epilogue · Misaki',d:'After the Ledger. Train trips, “years later” scenes, weddings. Everything maxed.',set(){BENCH.find(b=>b.id==='act3_m').set();S.f.a3End='paper';S.phase='epilogue';S.dark=0;S.slot=0;S.done={}}},
  {id:'epi_v',pov:'v',t:'Epilogue · V',d:'The epilogue from V’s side, everything maxed.',set(){BENCH.find(b=>b.id==='act3_m').set();S.f.a3End='paper';S.phase='epilogue';S.dark=0;S.slot=0;S.done={}}}];
 function benchLoad(b){newRun(b.pov);benchMax();b.set();benchMax();save();drawHud();toast('Loaded: '+b.t);hub()}
+/* ===================== REWORK: the further-out areas are closed =====================
+   The harbour (Tetsu's boat), the dead amusement park, the laundromat and bathhouse, the hillside shrine and its cemetery,
+   the last train, and the three train trips were side places built around strangers and around places mattering to Misaki.
+   The story is the four of them, so these are no longer offered: their hub/map entries, their morning events and their
+   achievements are removed here. The room code stays (other modules reference the room ids) but nothing leads to it. */
+(function(){const CUTP=['harbour','park','laundro','shrine','station','aldric','oldtrack','coast'];
+ for(let i=PLACES.length-1;i>=0;i--)if(CUTP.includes(PLACES[i].id))PLACES.splice(i,1);
+ for(let i=EVENTS.length-1;i>=0;i--)if(/^(hb_|pk2_|ld_|sh_|st_)/.test(EVENTS[i].id))EVENTS.splice(i,1);
+ const CUTA=['hb_angler','pk2_seven','ld_kuro','sh_ume','st_endline','trainall'];for(let i=ACH.length-1;i>=0;i--)if(CUTA.includes(ACH[i][0]))ACH.splice(i,1)})();
 function benchPanel(back){let has=false;try{has=!!localStorage.getItem('kc_run3')}catch(e){}
  panel(`<h2>Benchmark saves</h2><p>Jump straight to a key moment with every relationship maxed. ${has?'<span style="color:var(--blood)">Loading one replaces the run in progress.</span> Use Saves first if you want to keep it.':''}</p>`,
   BENCH.map(b=>({t:b.t,sub:b.d,fn:()=>has?ask('','Replace the current run with “'+b.t+'”?',[{t:'Load it',fn:()=>benchLoad(b)},{t:'Cancel',fn:()=>benchPanel(back)}]):benchLoad(b)})).concat([{t:'Back',fn:back||title}]))}
