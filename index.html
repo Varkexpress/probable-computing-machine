@@ -8314,6 +8314,10 @@ function tdGridBlock(M){const B=new Uint8Array(M.W*M.H);for(let j=0;j<M.H;j++)fo
  for(const p of M.props){if(!p.solid||(p.show&&!p.show())||(p.gone&&p.gone()))continue;for(let j=Math.floor(p.y/TS);j<=Math.floor((p.y+p.d-1)/TS);j++)for(let i=Math.floor(p.x/TS);i<=Math.floor((p.x+p.w-1)/TS);i++){const cx=i*TS+8,cy=j*TS+8;if(cx>=p.x-3&&cx<=p.x+p.w+3&&cy>=p.y-3&&cy<=p.y+p.d+3&&i>=0&&j>=0&&i<M.W&&j<M.H)B[j*M.W+i]=1}}return B}
 function tdBFS(M,sx,sy){const B=tdGridBlock(M),N=M.W*M.H,D=new Int32Array(N).fill(-1),P=new Int32Array(N).fill(-1);const s=Math.floor(sy/TS)*M.W+Math.floor(sx/TS);if(s<0||s>=N)return{D,P};D[s]=0;const q=[s];
  for(let h=0;h<q.length;h++){const u=q[h],i=u%M.W,j=(u/M.W)|0;for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){const ni=i+dx,nj=j+dy;if(ni<0||nj<0||ni>=M.W||nj>=M.H)continue;const v=nj*M.W+ni;if(D[v]>=0||B[v])continue;D[v]=D[u]+1;P[v]=u;q.push(v)}}return{D,P,B}}
+/* like tdFree, but refuses a spot that is sealed off (a 1-tile pocket in a curved wall, a gap between planters): it must sit on an open tile with room to walk */
+function tdFreeReach(M,x,y,z){const f=tdFree(M,x,y);const ok=(px,py)=>{const {D,B}=tdBFS(M,px,py);const s=Math.floor(py/TS)*M.W+Math.floor(px/TS);if(!B||B[s])return false;let n=0;for(let i=0;i<D.length&&n<24;i++)if(D[i]>=0)n++;return n>=24};
+ if(ok(f[0],f[1]))return f;const r=(z&&z.r)||[0,0,M.W,M.H];const C=[];for(let j=r[1];j<r[1]+r[3];j++)for(let i=r[0];i<r[0]+r[2];i++){const cx=i*TS+8,cy=j*TS+12;if(!tdBlocked(M,cx,cy))C.push([Math.hypot(cx-x,cy-y),cx,cy])}
+ C.sort((a,b)=>a[0]-b[0]);for(const [,cx,cy] of C)if(ok(cx,cy))return[cx,cy];return f}
 function tdPathTo(M,sx,sy,test){const {D,P}=tdBFS(M,sx,sy);let best=-1,bs=1e9;for(let v=0;v<D.length;v++){if(D[v]<0)continue;const sc=test(v%M.W,(v/M.W)|0);if(sc===null)continue;const t=sc*4+D[v]*.2;if(t<bs){bs=t;best=v}}
  if(best<0)return null;const out=[];let u=best;while(u>=0&&D[u]>0){out.unshift([(u%M.W)*TS+8,((u/M.W)|0)*TS+12]);u=P[u]}return out}
 /* ---------- the scene ---------- */
@@ -8329,7 +8333,7 @@ function tdScene(mapId,x,y,dir,opt={}){const M=TD.maps[mapId];const p={x,y,dir:d
    if(z.onEnter)try{z.onEnter(this,first)}catch(e){console.error(e)}
    if(roomChanged){const R=ROOMS[z.room];if(R&&R.enter&&!dlg&&!ctrl)try{R.enter()}catch(e){console.error(e)}}
    if(roomChanged&&typeof flashCheck==='function'&&!this.fl){try{if(flashCheck(z.room,{x:160,y:150})){this.fl=1}}catch(e){}}},
-  leaveTD(){if(this.noResume){TD.resume=null;return}TD.resume={room:S.room,map:M.id,x:p.x,y:p.y,dir:p.dir,lp:this.pos()}},
+  leaveTD(){if(this.noResume||!S){TD.resume=null;return}TD.resume={room:S.room,map:M.id,x:p.x,y:p.y,dir:p.dir,lp:this.pos()}},
   trans(fn){if(this.tr)return;this.noResume=1;this.tr={t:0,fn:()=>{fn();if(scene===this)this.noResume=0}};sfx('step')},
   tapTo(sx,sy){if(!this.cam)return;const wx=sx+this.cam.x,wy=sy+this.cam.y;this.tapFx={x:wx,y:wy,t:20};if(p.sit){this.stand();return}
    let it=null,bd=10;for(const q of this.inter){const r=q.r;const dx=Math.max(r[0]-wx,0,wx-(r[0]+r[2])),dy=Math.max(r[1]-12-wy,0,wy-(r[1]+r[3]));const d=Math.hypot(dx,dy);if(d<bd){bd=d;it=q}}
@@ -8374,7 +8378,7 @@ function tdScene(mapId,x,y,dir,opt={}){const M=TD.maps[mapId];const p={x,y,dir:d
    if(T%15===0)tdReact(this)},
   syncNpcs(){const seen={};const L=[];for(const room of tdRoomsOf(M)){const R=ROOMS[room];if(!R.npcs)continue;let arr=[];try{arr=R.npcs()||[]}catch(e){}
     arr.forEach((n,i)=>{const lab=n.label||'';const key=room+'|'+lab+'|'+i;seen[key]=1;let st=this.ns[key];const kk=/(^| )V$|K9/.test(lab)?'v':/Misaki/.test(lab)?'m':/Angel/.test(lab)?'a':/Ronin/.test(lab)?'r':'x';
-     if(!st){let q=tdToMap(room,n.at[0],n.at[1]-4);if(!q)return;if(q.map!==M.id)return;const ov=(M.npcAt||{})[room+':'+kk];if(ov){q={x:ov[0]*TS,y:ov[1]*TS}}const f=tdFree(M,q.x,q.y);st=this.ns[key]={x:f[0],y:f[1],ax:f[0],ay:f[1],dir:'d',t:ri(60,200),tx:null,ty:null,k:kk,fr:0}}
+     if(!st){let q=tdToMap(room,n.at[0],n.at[1]-4);if(!q)return;if(q.map!==M.id)return;const ov=(M.npcAt||{})[room+':'+kk];if(ov){q={x:ov[0]*TS,y:ov[1]*TS}}const f=['v','m','a','r'].includes(kk)?tdFreeReach(M,q.x,q.y,tdZoneAt(M,q.x,q.y)):tdFree(M,q.x,q.y);st=this.ns[key]={x:f[0],y:f[1],ax:f[0],ay:f[1],dir:'d',t:ri(60,200),tx:null,ty:null,k:kk,fr:0}}
      st.label=lab;st.act=n.act;st.draw=n.draw;st.at=n.at;L.push(st)})}
    for(const k in this.ns)if(!seen[k])delete this.ns[k];
    L.forEach(n=>{const d=Math.hypot(p.x-n.x,p.y-n.y);if(d<46&&!n.tx){const dx=p.x-n.x,dy=p.y-n.y;n.dir=Math.abs(dx)>Math.abs(dy)*1.3?(dx<0?'l':'r'):(dy<0?'u':'d');return}
@@ -8483,7 +8487,7 @@ const _tdRS=roomScene;roomScene=function(id,sp){const e=TD.room[id];if(!e||!tdOn
  if(R&&R.room===id&&R.map===e.map){return tdScene(e.map,R.x,R.y,R.dir,{noFade:false})}
  const key=sp[0]+','+sp[1];const z=e.z;if(z.at&&z.at[key]){const a=z.at[key];return tdScene(e.map,a[0]*TS+8,a[1]*TS+12,a[2]||'d',{banner:1})}
  if(!fromTD&&z.arrive){const a=typeof z.arrive==='function'?z.arrive():z.arrive;return tdScene(e.map,a[0]*TS+8,a[1]*TS+12,a[2]||'u',{banner:1})}
- const q=tdToMap(id,sp[0],sp[1]);const f=tdFree(M,q.x,q.y);return tdScene(e.map,f[0],f[1],'d',{banner:1})};
+ const q=tdToMap(id,sp[0],sp[1]);const f=tdFreeReach(M,q.x,q.y,z);return tdScene(e.map,f[0],f[1],'d',{banner:1})};
 
 /* ---------- shared prop helpers ---------- */
 const tdL=(id,def)=>{const t=S&&S.td&&S.td.l;return t&&t[id]!==undefined?!!t[id]:!!def};
