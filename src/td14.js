@@ -8,7 +8,7 @@ EVENTS.push(
  ['hitmeuppp',MV('i have a brother. he’s tall. he’s a problem.','yeah. he’s tall. he’s a problem.','I have one now, apparently.','Yes. He’s very polite. He’s very, very polite.')],
  ['','Through March. Three months of rent she didn’t earn. Her hands know this feeling: somebody else holding the deed to a piece of her. She hates that her first feeling was relief.']],
  ()=>ask('hitmeuppp','(What do you do about March?)',[
-  {t:'Pay him back. Every yen.',sub:S.yen>0?'−¥'+Math.min(S.yen,120000).toLocaleString()+' · it’s yours':'you’re broke · you’ll owe him',fn:()=>{const p=Math.min(S.yen,120000);S.yen-=p;S.f.rentBack=1;apply({aff:2});save();say([
+  {t:'Pay him back. Every cent.',sub:S.yen>0?'−'+money(Math.min(S.yen,120000))+' · it’s yours':'you’re broke · you’ll owe him',fn:()=>{const p=Math.min(S.yen,120000);S.yen-=p;S.f.rentBack=1;apply({aff:2});save();say([
    ['','She leaves an envelope on his kitchen counter, under the okayest mug, with a note: “for march. don’t.”'],
    ['K9','(That evening.) You did not have to.'],['hitmeuppp','yeah. i did.'],
  ['K9','...I know. I argued with the mug instead. The mug won.'],
