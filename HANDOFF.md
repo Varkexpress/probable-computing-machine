@@ -24,7 +24,7 @@ Added content: Act III, interludes, years-later, endgame talks, Act II interview
   - Set 2 coordinate plane (c1–c16, MODS2)
   - Set 3 Ch.5 congruent triangles (p1–p17, MODS3 q1–q10) + expansion (p18–p27, q11–q16, Proof exam), PROOFS/THM_PROOFS templates with dependency arrays `d` (any valid order accepted), proof diagrams (`geoPic`, `PICS`, `proofPic`)
   - Chapter 5 test walkthrough (TYPES5 w*, MODS5 z*, WALK_ORDER retake)
-  - Set 4 AMC training (`amcHome`): bank `AB` of 84 hand-written problems with solutions across 14 `UNITS` (incl. AMC 12 units A4 logs, T1 trig/complex), MODS4 rebuilt as r_<unit> with worked-problem lessons; generators TYPES4; `amcContest(10|12)`, hard drill, formula sheet
+  - Set 4 AMC training (`amcHome`): bank `AB` of 252 original verified problems (84 + 168 added in the expansion block; checkers in the scratchpad were not committed) across 17 `UNITS` (AMC 12 units A4 logs, T1 trig/complex, A5 polynomials/conics, C2 advanced counting, G4 advanced geometry), `amcRebuild()`, real past-contest links (`pastView`, AoPS wiki), MODS4 rebuilt as r_<unit> with worked-problem lessons; generators TYPES4; `amcContest(10|12)`, hard drill, formula sheet
 - Progress in localStorage `mirror_protocol_v1` (G).
 
 ## Testing
@@ -35,3 +35,5 @@ Playwright is installed globally (`require(execSync('npm root -g')+'/playwright'
 - The five areas and the detachment arc (pall block) were never fully play-tested.
 - Page references a `downloads` capability that is not declared (export button won’t work in the artifact).
 - Chapter 5 problems are original, modeled on Big Ideas style (the online textbook was unreachable).
+
+- The Killer Chat artifact was republished from another session (larger index.html, downloads capability declared, mirror-protocol.html removed). This session did not overwrite it; merge before republishing.
