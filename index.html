@@ -162,6 +162,10 @@ const SLOTS=['Morning','Afternoon','Night','Late night'];
 const TIERS=['acquaintances','friends','close','ride-or-die'];
 const tier=()=>S.aff>=75?3:S.aff>=50?2:S.aff>=25?1:0;
 const byT=(...a)=>a[Math.min(tier(),a.length-1)];
+/* money: amounts are stored in the old units (hundredths); always display through money(n) → "$400" */
+const money=n=>'$'+Math.round((+n||0)/100).toLocaleString('en-US');
+/* the hounds: internal keys stay Biscuit/Sergeant/Mochi/Pancake; visible text never uses those names */
+const HOUND={Biscuit:'the grey hound',Sergeant:'the old hound',Mochi:'the black hound',Pancake:'the pale hound'};const houndN=k=>HOUND[k]||'the hound';
 const D=(n,d)=>S.dark?d:n;
 const lvl=()=>Math.min(3,1+Math.floor((S.day-1)/3));
 const rentOpen=()=>S.paid===0||(S.paid===1&&S.day>=6);
