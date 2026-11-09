@@ -13,7 +13,7 @@
   - Everything outside those markers is the original game, edited in place in `index.html`. Story beats like `takenM`, `afterBase` and `startAct2` live there.
 - `src/`: the source of the two generated regions.
   - `td1_engine.js`, `td2_scene.js`, `td3_trailer.js`, `td4_base.js`, `td5_story.js` → TD block.
-  - `ui2.js`, `td6.js` … `td21.js` → UI2 block. Load order is in `tools/build.py`; td12 loads before td11 on purpose.
+  - `ui2.js`, `td6.js` … `td22.js` → UI2 block. Load order is in `tools/build.py`; td12 loads before td11 on purpose.
   - `maps.json`: tile rows for every top-down map.
   - `deep_rooms.json`, `city_rooms.json`: room rectangles, emitted as `TD_DEEPROOMS` / `TD_CITYROOMS`.
 - `tools/`:
@@ -240,6 +240,25 @@ The trailer and all of V's base are no longer side-view backdrops: they are 3/4 
   - Sprite outlines via cached silhouettes in a `tdPx` wrapper.
   - Screen-space pass after `tdWeatherFX`: additive light glow, per-place soft-light grade (`fxGrade`), vignette, film grain (off with reduce motion).
   - **G** toggles `META.fx` between enhanced and classic.
+
+## More messages: the group chat, and Misaki's luck (td22)
+- Theme: Misaki expected to be dead within about five years of starting. Then Angel corrected her wind maths on a sniping forum, sent her a server invite, and everyone kept her. "I really didn't expect to be lucky."
+- New threads:
+  - `tx_lucky` (Angel's forum-versary)
+  - `tx_vlucky` (Misaki to V: the odds, the five years)
+  - `tx_rhow` (Ronin: how'd you end up with us)
+  - `tx_tarps`
+  - `tx_vgroc` (V's grocery list: one lime, bleach)
+  - `tx_aalibi` (walk through Maria's live at 9: a timestamp alibi for the Heartsick Angel)
+  - `tx_mcontact` (emergency contact)
+  - `tx_rangel` (the "heartsick face", bring the bad snacks)
+- Also:
+  - About a dozen new server pings.
+  - `DRIFT` one-off texts per contact (repeatable morning event `drift_txt`).
+  - `lucky_morning` inner monologue (once).
+  - V talk topic `lucky`.
+  - Extra `chatLog` lines.
+- Flags: `luckyTold`, `vLucky`, `vEmergency`.
 
 ## Mirror Protocol (mirror-protocol.html)
 - Chapter 4 cases (all unlocked): lessons, mastery practice, 3D missions, final Ledger + 20-question exam.
