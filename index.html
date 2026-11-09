@@ -10980,13 +10980,13 @@ const ANAT=new WeakMap(),ANATP=new WeakMap();
 function anatParams(a){if(ANATP.has(a))return ANATP.get(a);const h=a.length,n=a[0].length;let p=null;
  if(h>=28&&n>=14){const r0=a.findIndex(r=>/[^.]/.test(r));const eye=a.findIndex(r=>r.includes('e'));if(r0>=0&&eye>r0+2&&eye<h*.45)p={r0,eye,hip:Math.round(eye+(h-eye)*.4),knee:Math.round(eye+(h-eye)*.72)}}
  ANATP.set(a,p);return p}
-function anat(a){if(ANAT.has(a))return ANAT.get(a);const p=anatParams(a);if(!p){ANAT.set(a,a);return a}
+function anat(a){const sig=a.join('');const hit=ANAT.get(a);if(hit&&hit.sig===sig)return hit.out;const p=anatParams(a);if(!p){ANAT.set(a,{sig,out:a});return a}
  const {r0,eye,hip,knee}=p,h=a.length;const drop=new Set([r0+1,eye+1]);const out=[];
  for(let j=0;j<h;j++){if(drop.has(j))continue;let r=a[j];
   if(j>=r0&&j<=eye+2){const L=r.search(/[^.]/),R=r.length-1-[...r].reverse().join('').search(/[^.]/);const skin=ch=>ch==='s'||ch==='S'||ch==='e';if(L>=0&&R-L>6){if(!skin(r[L]))r=r.slice(0,L)+'.'+r.slice(L+1);if(!skin(r[R]))r=r.slice(0,R)+'.'+r.slice(R+1)}}
   out.push(r);if(j===hip||j===knee)out.push(r)}
  while(out.length<h)out.unshift('.'.repeat(a[0].length));while(out.length>h)out.shift();
- out.P=a.P;out.S=a.S;if(TDSH.has(a))TDSH.add(out);ANAT.set(a,out);return out}
+ out.P=a.P;out.S=a.S;if(TDSH.has(a))TDSH.add(out);ANAT.set(a,{sig,out});return out}
 const _px20=tdPx;tdPx=function(a){if(a&&!META.fxOff&&(TD.shade||TDSH.has(a))&&!TD.noAnat){const b=anat(a);if(b!==a){arguments[0]=b}}return _px20.apply(this,arguments)};
 const _back20b=tdBack;tdBack=function(a){const r=_back20b(a);try{if(r&&r!==a&&!ANATP.has(r)){const p=anatParams(a);if(p)ANATP.set(r,p)}}catch(e){}return r};
 
@@ -11269,12 +11269,21 @@ function mvTier(){if(!S)return 0;const t=tier();return k22Post()?Math.max(t,2):t
 const _ml22=mLevel;mLevel=function(){return k22Post()?3:_ml22()};
 
 /* ---------- how she looks ---------- */
-const MIS_A=mk3(["..................","..................",".....kkkkkkk......","....kKkkkkkkkw....","...kkKkkrkkkkww...","..kkkkkrrkkkkkw...","..kkkkrkkkkkkkkk..","..kkkrkkkkkkkkkk..","..kkkssssssskkkk..","..kkssesssesskkk..","...kssssssssskk...","...k.sssssss.kk...","......sSSSs.......","....gggggggggg....","...gggggggggggg...","...gggggggggggg...","...gggggggggggg...","...gggggggggggg...","...sggggggggggs...","...s.gggggggg.s...",".....gggggggg.....",".....LLLLLLLLL....",".....LLLL.LLLL....",".....LLLL.LLLL....","......LL...LL.....","......LL...LL.....","......LL...LL.....",".....LLL...LLL....",".....LLL...LLL....",".....LLL...LLL....","....bbbb...bbbb...","....bbbb...bbbb...","....bbbb...bbbb...",".................."],
- Object.assign({},MIS.P,{g:'#3a3644',L:'#24222c'}));
-const MIS_B=mk3(["..................","..................",".....kkkkkkk......","....kKkkKkkkk.....","...kkKkkKkkKkk....","..kkKkkkKkkKkkk...","..kkkkkKkkkKkkkk..","..kKkkkkkkKkkkKk..","..kkkssssssskkkk..","..k.ssesssess.kk..","..k.sssssssss.k...","....sssssssss.....","......sSSSs.......","....gggggggggg....","...gggggggggggg...","...gggggggggggg...","...gggggggggggg...","...gggggggggggg...","...sggggggggggs...","...s.gggggggg.s...",".....gggggggg.....",".....LLLLLLLLL....",".....LLLL.LLLL....",".....LLLL.LLLL....","......LL...LL.....","......LL...LL.....","......LL...LL.....",".....LLL...LLL....",".....LLL...LLL....",".....LLL...LLL....","....bbbb...bbbb...","....bbbb...bbbb...","....bbbb...bbbb...",".................."],
- Object.assign({},MIS.P,{g:'#3a3644',L:'#24222c'}));
-const MISW_A=mkWalk(MIS_A,24),MISW_B=mkWalk(MIS_B,24);
-const _act22=tdActor;tdActor=function(k){if(k==='m'&&k22Post()){const a=MIS,aw=MISW;const B=k22Hair();MIS=B?MIS_B:MIS_A;MISW=B?MISW_B:MISW_A;try{return _act22.apply(this,arguments)}finally{MIS=a;MISW=aw}}return _act22.apply(this,arguments)};
+const MIS_A=mk3(["..................","..................",".....kkkkkkk......","....kKkkkkkkkw....","...kkKkkrkkkkww...","..kkkkkrrkkkkkw...","..kkkkrkkkkkkkkk..","..kkkrkkkkkkkkkk..","..kkkssssssskkkk..","..kkssesssesskkk..","...kssssssssskk...","...k.sssssss.kk...","......sSSSs.......","....GGgggggggG....","...gGggwgwggggg...","...ggggwgwggggg...","...gggGGGGGgggg...","...gggGggggGggg...","...sGggGGGGGggGs..","...s.gggggggg.s...",".....GGGGGGGG.....",".....LLLLLLLLL....",".....LLQL.LQLL....",".....LLQL.LQLL....","......LL...LL.....","......LQ...QL.....","......LL...LL.....",".....LLL...LLL....",".....LQL...LQL....",".....LLL...LLL....","....bbbb...bbbb...","....bbbb...bbbb...","....gbbb...gbbb...",".................."],
+ Object.assign({},MIS.P,{g:'#3a3644',G:'#2a2732',L:'#24222c',Q:'#34313e',w:'#c8c4cc'}));
+
+const MIS_B=mk3(["..................","..................",".....kkkkkkk......","....kKkkKkkkk.....","...kkKkkKkkKkk....","..kkKkkkKkkKkkk...","..kkkkkKkkkKkkkk..","..kKkkkkkkKkkkKk..","..kkkssssssskkkk..","..k.ssesssess.kk..","..k.sssssssss.k...","....sssssssss.....","......sSSSs.......","....GGgggggggG....","...gGggwgwggggg...","...ggggwgwggggg...","...gggGGGGGgggg...","...gggGggggGggg...","...sGggGGGGGggGs..","...s.gggggggg.s...",".....GGGGGGGG.....",".....LLLLLLLLL....",".....LLQL.LQLL....",".....LLQL.LQLL....","......LL...LL.....","......LQ...QL.....","......LL...LL.....",".....LLL...LLL....",".....LQL...LQL....",".....LLL...LLL....","....bbbb...bbbb...","....bbbb...bbbb...","....gbbb...gbbb...",".................."],
+ Object.assign({},MIS.P,{g:'#3a3644',G:'#2a2732',L:'#24222c',Q:'#34313e',w:'#c8c4cc'}));
+
+const MISW_A=mkWalk(MIS_A,24),MISW_B=mkWalk(MIS_B,24),MISW2_A=mkWalkB(MIS_A,24),MISW2_B=mkWalkB(MIS_B,24);
+/* after the kidnapping: her own base, all three walk frames, cached */
+const K22SET=new Map();
+function k22Set(){const B=k22Hair();const id=(S.f.fit||{}).m||'usual';const ok=false; /* her post-kidnapping clothes are fixed: the wardrobe patches assume the old outfit's rows and palette */const key=(B?'B':'A')+'|'+(ok?id:'');
+ if(K22SET.has(key))return K22SET.get(key);const base=B?[MIS_B,MISW_B,MISW2_B]:[MIS_A,MISW_A,MISW2_A];
+ const F=base.map(a=>{const c2=a.slice();c2.P=a.P;c2.S=a.S;c2.k22=1;return c2});
+ if(ok){const P=FPATCH[id];F.forEach(a=>{for(const k in P.rows||{}){const i=+k;if(i<12)continue;const src=a[i]||'..................',pr=P.rows[k];let o='';for(let x=0;x<src.length;x++){const ch=pr[x];o+=(ch===undefined||ch===' ')?src[x]:ch}a[i]=o}(P.maps||[]).forEach(([f,t,m])=>{for(let i=Math.max(12,f);i<=t;i++)if(a[i])a[i]=[...a[i]].map(ch=>m[ch]||ch).join('')})})}
+ K22SET.set(key,F);return F}
+const _act22=tdActor;tdActor=function(k){if(k==='m'&&k22Post()){const a=MIS,aw=MISW,aw2=MISW2;const F=k22Set();MIS=F[0];MISW=F[1];MISW2=F[2];try{return _act22.apply(this,arguments)}finally{MIS=a;MISW=aw;MISW2=aw2}}return _act22.apply(this,arguments)};
 /* the portrait loses the streak too: bright reds in the upper half of her portrait go to hair-black */
 const _dp22=drawPortrait;drawPortrait=function(cv,k){const r=_dp22.apply(this,arguments);try{if(k==='m'&&k22Hair()&&cv&&cv.getContext){const g=cv.getContext('2d');const h=Math.floor(cv.height*.5);const im=g.getImageData(0,0,cv.width,h);const d=im.data;for(let i=0;i<d.length;i+=4){if(d[i]>150&&d[i+1]<90&&d[i+2]<100){d[i]=30;d[i+1]=26;d[i+2]=46}}g.putImageData(im,0,0)}}catch(e){}return r};
 
@@ -11402,6 +11411,8 @@ Object.assign(ITEMS,{k22env:'An envelope with a lock of red hair'});
 const _side22=sideHub;sideHub=function(late){const o=_side22(late);try{if(S&&k22M()&&!isLone()&&S.phase!=='taken'){o.push({t:'Take a digital art commission',sub:k22Post()?'no faces':'$40–$90, a slot',dis:late||S.done.k22art,fn:()=>{spend();S.done.k22art=1;S.f.k22art=1;const pay=k22Post()?4000:6000;S.yen+=pay;save();drawHud();
    say(k22Post()?[['','A commission request: a couple, holding hands, faces turned toward each other.'],['','You draw the hands. You draw the coats, the rain, the street. You draw them from behind, walking away, and you send it with a note: “faces weren’t working. no charge for the faces.”'],['','They pay anyway. '+money(pay)+'. They say it is the saddest thing they have ever bought. You agree with them.']]
     :[['','A commission request: somebody’s dead cat, in a crown, on a cloud. You charge extra for the crown.'],['','Four hours. You do the eyes last, the way you always did. When you send it the client replies with eleven crying emojis.'],['','+'+money(pay)+'. Rent is rent.']],hub)}})}}catch(e){}return o};
+/* back view of her post-kidnapping clothes: no drawstrings, no pocket */
+const _back22=tdBack;tdBack=function(a){const r=_back22(a);try{if(r&&a&&a.k22&&!r.k22b){for(let i=12;i<=21&&i<r.length;i++)r[i]=r[i].replace(/w/g,'g').replace(/G{3,}/g,m=>'g'.repeat(m.length));r.k22b=1}}catch(e){}return r};
 
 /* ===================== td23: abroad, and what you are =====================
    - The Japanese places (Kururin Land, the haunted house, the hillside shrine and its cemetery, the rented machiya and

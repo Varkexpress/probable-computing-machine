@@ -44,12 +44,12 @@ const ANAT=new WeakMap(),ANATP=new WeakMap();
 function anatParams(a){if(ANATP.has(a))return ANATP.get(a);const h=a.length,n=a[0].length;let p=null;
  if(h>=28&&n>=14){const r0=a.findIndex(r=>/[^.]/.test(r));const eye=a.findIndex(r=>r.includes('e'));if(r0>=0&&eye>r0+2&&eye<h*.45)p={r0,eye,hip:Math.round(eye+(h-eye)*.4),knee:Math.round(eye+(h-eye)*.72)}}
  ANATP.set(a,p);return p}
-function anat(a){if(ANAT.has(a))return ANAT.get(a);const p=anatParams(a);if(!p){ANAT.set(a,a);return a}
+function anat(a){const sig=a.join('');const hit=ANAT.get(a);if(hit&&hit.sig===sig)return hit.out;const p=anatParams(a);if(!p){ANAT.set(a,{sig,out:a});return a}
  const {r0,eye,hip,knee}=p,h=a.length;const drop=new Set([r0+1,eye+1]);const out=[];
  for(let j=0;j<h;j++){if(drop.has(j))continue;let r=a[j];
   if(j>=r0&&j<=eye+2){const L=r.search(/[^.]/),R=r.length-1-[...r].reverse().join('').search(/[^.]/);const skin=ch=>ch==='s'||ch==='S'||ch==='e';if(L>=0&&R-L>6){if(!skin(r[L]))r=r.slice(0,L)+'.'+r.slice(L+1);if(!skin(r[R]))r=r.slice(0,R)+'.'+r.slice(R+1)}}
   out.push(r);if(j===hip||j===knee)out.push(r)}
  while(out.length<h)out.unshift('.'.repeat(a[0].length));while(out.length>h)out.shift();
- out.P=a.P;out.S=a.S;if(TDSH.has(a))TDSH.add(out);ANAT.set(a,out);return out}
+ out.P=a.P;out.S=a.S;if(TDSH.has(a))TDSH.add(out);ANAT.set(a,{sig,out});return out}
 const _px20=tdPx;tdPx=function(a){if(a&&!META.fxOff&&(TD.shade||TDSH.has(a))&&!TD.noAnat){const b=anat(a);if(b!==a){arguments[0]=b}}return _px20.apply(this,arguments)};
 const _back20b=tdBack;tdBack=function(a){const r=_back20b(a);try{if(r&&r!==a&&!ANATP.has(r)){const p=anatParams(a);if(p)ANATP.set(r,p)}}catch(e){}return r};
