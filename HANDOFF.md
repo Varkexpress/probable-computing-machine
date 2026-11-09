@@ -13,7 +13,7 @@
   - Everything outside those markers is the original game, edited in place in `index.html`. Story beats like `takenM`, `afterBase` and `startAct2` live there.
 - `src/`: the source of the two generated regions.
   - `td1_engine.js`, `td2_scene.js`, `td3_trailer.js`, `td4_base.js`, `td5_story.js` → TD block.
-  - `ui2.js`, `td6.js` … `td28.js` → UI2 block. Load order is in `tools/build.py`; td12 loads before td11 on purpose.
+  - `ui2.js`, `td6.js` … `td29.js` → UI2 block. Load order is in `tools/build.py`; td12 loads before td11 on purpose.
   - `maps.json`: tile rows for every top-down map.
   - `deep_rooms.json`, `city_rooms.json`: room rectangles, emitted as `TD_DEEPROOMS` / `TD_CITYROOMS`.
 - `tools/`:
@@ -204,6 +204,14 @@ The trailer and all of V's base are no longer side-view backdrops: they are 3/4 
   - V sleeps in the east-wing bed (`vWhere`→'bedroom'). Misaki sleeps in the trailer, or in V's bed if moved in. Ronin sleeps on his couch, Angel on the new daybed. Each sleeper has a "X is sleeping. Best not wake him/her." menu with options specific to that person.
   - `sleep` sometimes runs `nightWake` (30%): branches by POV, moved-in, and Misaki's or V's romance.
   - Angel and Ronin 3am events.
+
+## The four, as they are (td29)
+- `k29_code`: V and Ronin clash over codes (the file vs. the joy); V threatens him, Ronin asks him to say it again, slower.
+- `k29_pew`: Ronin in the back pew every Sunday; grew up front row; “not today, Father”; gave the Devil a front-row seat.
+- `k29_bday`: Angel picks Misaki a birthday because Misaki never had one; `k29_angelwhy`: she gives the quarter’s sponsorship money away and asks to have her rifle taken if she ever kills for herself.
+- `k29_files`: V keeps a file on each of them, updated every January, including one on himself.
+- `k29_drawing`: Misaki draws the four of them (backs only after the kidnapping; chibi with horns, halo and sinister-cloud hounds before).
+- Topics: `k29_code_m` (V’s actual rules), `k29_contract` (how Misaki chooses contracts).
 
 ## Partners, the package deal, the other pairing (td28)
 - With a partner (`S.rom` as Misaki, `S.vrom` as V), the partner takes over the black bath (`k25_bath` re-routed: Ronin’s salvaged clawfoot tub and gospel radio; Angel’s rose-gold bath and the “after” playlist). V and Misaki’s kiss/heart affection options go platonic with each other unless married.
