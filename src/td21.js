@@ -72,7 +72,7 @@ PT_EV.push({id:'pt_door',when:()=>pt_after('pulse'),run:done=>{pt_set();pt_mark(
   ['','Ronin calls at seven in the morning, which he never does.'],
   [RN,'Vee. She tell you about the door?'],
   ['K9','Which door?'],
-  [RN,'Konbini door. Busted sensor. Whole neighbourhood’s been pullin’ it by hand for a week. There’s a sign.'],
+  [RN,'Corner-store door. Busted sensor. Whole neighbourhood’s been pullin’ it by hand for a week. There’s a sign.'],
   [RN,'She stood there wavin’ at it. Then she told me, real calm, like she was readin’ me a weather report, that it was “consistent with the other thing.”'],
   ['K9','What other thing?'],
   [RN,'That’s what I asked. She said she’d tell me when she had three.'],

@@ -13,7 +13,7 @@
   - Everything outside those markers is the original game, edited in place in `index.html`. Story beats like `takenM`, `afterBase` and `startAct2` live there.
 - `src/`: the source of the two generated regions.
   - `td1_engine.js`, `td2_scene.js`, `td3_trailer.js`, `td4_base.js`, `td5_story.js` → TD block.
-  - `ui2.js`, `td6.js` … `td21.js` → UI2 block. Load order is in `tools/build.py`; td12 loads before td11 on purpose.
+  - `ui2.js`, `td6.js` … `td22.js` → UI2 block. Load order is in `tools/build.py`; td12 loads before td11 on purpose.
   - `maps.json`: tile rows for every top-down map.
   - `deep_rooms.json`, `city_rooms.json`: room rectangles, emitted as `TD_DEEPROOMS` / `TD_CITYROOMS`.
 - `tools/`:
@@ -204,6 +204,17 @@ The trailer and all of V's base are no longer side-view backdrops: they are 3/4 
   - V sleeps in the east-wing bed (`vWhere`→'bedroom'). Misaki sleeps in the trailer, or in V's bed if moved in. Ronin sleeps on his couch, Angel on the new daybed. Each sleeper has a "X is sleeping. Best not wake him/her." menu with options specific to that person.
   - `sleep` sometimes runs `nightWake` (30%): branches by POV, moved-in, and Misaki's or V's romance.
   - Angel and Ronin 3am events.
+
+## Setting and character rework (this round) — read this first
+The direction from the user, which overrides older notes in this file:
+- **The four are serial killers and should frighten.** The game is about Misaki, V, Ronin and Angel; no random side characters with emotional weight, no whimsical “strange places”. Background people and places carry no significance.
+- **Canon (Killer Chat! by rosesrot):** Ronin is the most unhinged, enjoys killing, obsessed with the Devil and satanic imagery, sarcastic (the invented sister “June” is gone). Angel is sweet, mature, selfless, and never misses. V has a strict code and clashes with Ronin; never uses contractions.
+- **The city is not Japan and is never named.** Money shows through `money(n)` (stored units /100 → “$400”). No konbini/onigiri/shrines/Japanese places or surnames. Inspector Hara is Inspector Hale.
+- **The hounds** (keys Biscuit/Sergeant/Mochi/Pancake stay internal): no cute names or business; visible text uses `houndN(k)`/`HOUND`. Big, silent, surgically remade by V to save them; the city's killers treat them like something from under the water. New sprite (td src).
+- **B5 is V's experimental wings** (td16): theatre, recovery pens, a cold room for the eleven that did not live, his surgical notes, and pen four with something under a blanket. No childhood experiments, no sensory tank, no father.
+- **Misaki** (td22): after the kidnapping the whimsy drains (`mvTier` makes `MV` pick plainer lines, `mLevel` forced to 3), she dresses androgynously (`MIS_A`), later Angel cuts the red streak out for a layered cut (`MIS_B`, `S.f.k22hair`; portrait reds recoloured). V counts four days she never accounts for (`k22_sus1/2`). She keeps no places, only what each city she worked in believed (`K22BEL`, topic `k22_cities`). She used to do digital art commissions (city option; after the kidnapping she cannot draw faces). In the lower base: “if we were anybody else, we’d have killed ourselves out of terror by now” (`TDREACT k22_terror`).
+- **Removed from play** (code kept, unreachable): Kururin Land, haunted house, bathhouse/sento, shrine/cemetery, Kyoto, last train, old track, coast trips, harbour boat area (`WH_CUT` filter, `PLACES` emptied); deep-house flower room, cabinet of curiosities/globe, hall of seven doors (now Stores), painted elevator/false exits, cameo props; td19's coach / June / commenter arcs; Through Glass mornings centred on strangers. The disabled area blocks in index.html (~lines 4324–7170) still contain old text; they are dead code.
+- Shared style guide used for the rework: see the bullets above; renamed targets/suspects (e.g. Tanabe → Tanner, Ishikawa → Isherwood, Aoki → Avery) are read through `susN`/`a3nm` helpers.
 
 ## Grief, closeness, small kindnesses (td19, last module)
 - Tragedy arcs run as priority morning events (`T19EV`, wrapped `morningEvent`), in order, at least three days apart:
