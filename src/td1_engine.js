@@ -40,10 +40,13 @@ function tdToLegacy(room,x,y){const e=TD.room[room];const R=ROOMS[room];if(!e||!
 function tdFree(M,x,y){if(!tdBlocked(M,x,y))return[x,y];for(let r=4;r<80;r+=4)for(let a=0;a<16;a++){const nx=x+Math.cos(a/16*6.283)*r,ny=y+Math.sin(a/16*6.283)*r;if(!tdBlocked(M,nx,ny))return[nx,ny]}return[x,y]}
 /* ---------- sprites at 1px ---------- */
 const TDSPR=new WeakMap();
-function tdPx(a,cx,fy,flip,ps=1,pal){const n=a[0].length,h=a.length;const P=pal||a.P||PAL;
- let m=TDSPR.get(a);if(!m){m=new Map();TDSPR.set(a,m)}const key=(flip?1:0)+'|'+ps+'|'+SC+'|'+Object.values(P).join(',');let o=m.get(key);
- if(!o){o=document.createElement('canvas');const k=ps*SC;o.width=Math.ceil(n*k);o.height=Math.ceil(h*k);const g=o.getContext('2d');if(g){for(let j=0;j<h;j++){const r=a[j];for(let i=0;i<n;i++){const ch=r[flip?n-1-i:i];if(ch==='.'||ch===undefined)continue;const col=P[ch];if(!col)continue;g.fillStyle=col;const x0=Math.round(i*k),y0=Math.round(j*k);g.fillRect(x0,y0,Math.round((i+1)*k)-x0,Math.round((j+1)*k)-y0)}}}if(m.size>24)m.clear();m.set(key,o)}
- const sn=v=>Math.round(v*SC)/SC;c.drawImage(o,sn(cx-n*ps/2),sn(fy-h*ps),o.width/SC,o.height/SC)}
+const TDOL=new WeakSet();/* sprites that get a 1px outline: actors (TD.outline while drawing them) and anything added to TDOL */
+function tdPx(a,cx,fy,flip,ps=1,pal){const n=a[0].length,h=a.length;const P=pal||a.P||PAL;const ol=(TD.outline||TDOL.has(a))&&!META.fxOff;
+ let m=TDSPR.get(a);if(!m){m=new Map();TDSPR.set(a,m)}const key=(flip?1:0)+'|'+ps+'|'+SC+'|'+(ol?'o|':'')+Object.values(P).join(',');let o=m.get(key);
+ if(!o){o=document.createElement('canvas');const k=ps*SC;o.width=Math.ceil(n*k);o.height=Math.ceil(h*k);const g=o.getContext('2d');if(g){for(let j=0;j<h;j++){const r=a[j];for(let i=0;i<n;i++){const ch=r[flip?n-1-i:i];if(ch==='.'||ch===undefined)continue;const col=P[ch];if(!col)continue;g.fillStyle=col;const x0=Math.round(i*k),y0=Math.round(j*k);g.fillRect(x0,y0,Math.round((i+1)*k)-x0,Math.round((j+1)*k)-y0)}}}
+  if(ol&&g){const b=o,K=Math.round(k);o=document.createElement('canvas');o.width=b.width+2*K;o.height=b.height+2*K;const q=o.getContext('2d');if(q){for(const [dx,dy] of [[0,K],[2*K,K],[K,0],[K,2*K]])q.drawImage(b,dx,dy);q.globalCompositeOperation='source-in';q.fillStyle='rgba(12,8,18,.78)';q.fillRect(0,0,o.width,o.height);q.globalCompositeOperation='source-over';q.drawImage(b,K,K)}o.olp=K/SC}
+  if(m.size>24)m.clear();m.set(key,o)}
+ const sn=v=>Math.round(v*SC)/SC;const d=o.olp||0;c.drawImage(o,sn(cx-n*ps/2)-d,sn(fy-h*ps)-d,o.width/SC,o.height/SC)}
 function tdBack(a){if(!a)return a;let b=TD.cache.get(a);if(b)return b;const keep=new Set();for(let j=0;j<4&&j<a.length;j++)for(const ch of a[j])if(ch!=='.')keep.add(ch);
  const cnt={};for(let j=0;j<5;j++)for(const ch of a[j]||'')if(ch!=='.')cnt[ch]=(cnt[ch]||0)+1;const hair=Object.keys(cnt).sort((x,y)=>cnt[y]-cnt[x])[0]||'k';
  const he=Math.round(a.length*.36);b=a.map((r,j)=>j>=he?r:r.split('').map(ch=>ch==='.'||keep.has(ch)?ch:hair).join(''));b.P=a.P;b.S=a.S;TD.cache.set(a,b);return b}
