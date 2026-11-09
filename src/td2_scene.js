@@ -147,7 +147,8 @@ function tdLight(cam,amb,lights,p){if(!TD.lm){TD.lm=document.createElement('canv
  lights.forEach(l=>{c.globalAlpha=Math.min(.5,.22*l.i*(amb.d+.2));const r=l.r*.75;c.drawImage(tdGrad(r,l.col),l.x-cam.x-r,l.y-cam.y-r,r*2,r*2)});c.restore()}
 function tdBeams(M,cam){if(tdNight()||META.reduceMotion&&false)return;const wx=weather();const str=(S.slot===0?.13:.09)*(wx==='clear'?1:wx==='snow'?.7:.4);if(str<=0)return;
  c.save();c.translate(-cam.x,-cam.y);c.globalCompositeOperation='lighter';const sk=M.beamSkew===undefined?14:M.beamSkew,L=M.beamLen||44;
- for(let j=0;j<M.H;j++)for(let i=0;i<M.W;i++){if(M.g[j][i]!=='w'||!TDWALK.includes(tdCh(M,i,j+1)))continue;const x=i*TS,y=(j+1)*TS;if(x<cam.x-60||x>cam.x+W+20||y<cam.y-20||y>cam.y+H+60)continue;
+ const bj0=Math.max(0,Math.floor((cam.y-60)/TS)),bj1=Math.min(M.H-1,Math.ceil((cam.y+H+20)/TS)),bi0=Math.max(0,Math.floor((cam.x-20-sk)/TS)),bi1=Math.min(M.W-1,Math.ceil((cam.x+W+60)/TS));
+ for(let j=bj0;j<=bj1;j++)for(let i=bi0;i<=bi1;i++){if(M.g[j][i]!=='w'||!TDWALK.includes(tdCh(M,i,j+1)))continue;const x=i*TS,y=(j+1)*TS;if(x<cam.x-60||x>cam.x+W+20||y<cam.y-20||y>cam.y+H+60)continue;
   const g=c.createLinearGradient(0,y,0,y+L);g.addColorStop(0,`rgba(255,240,205,${str})`);g.addColorStop(1,'rgba(255,240,205,0)');c.fillStyle=g;c.beginPath();c.moveTo(x+2,y);c.lineTo(x+14,y);c.lineTo(x+14+sk,y+L);c.lineTo(x+2+sk,y+L);c.closePath();c.fill();
   if(wx==='rain'){c.save();c.clip();c.globalCompositeOperation='source-over';c.fillStyle='rgba(0,0,20,.10)';for(let k=0;k<5;k++){const yy=(T*.5+k*11+i*7)%(L+10)-5;c.fillRect(x+3+((k*5+i*3)%11)+yy*sk/L,y+yy,1,5)}c.restore()}}
  c.restore()}

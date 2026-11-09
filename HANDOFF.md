@@ -13,7 +13,7 @@
   - Everything outside those markers is the original game, edited in place in `index.html`. Story beats like `takenM`, `afterBase` and `startAct2` live there.
 - `src/`: the source of the two generated regions.
   - `td1_engine.js`, `td2_scene.js`, `td3_trailer.js`, `td4_base.js`, `td5_story.js` → TD block.
-  - `ui2.js`, `td6.js` … `td22.js` → UI2 block. Load order is in `tools/build.py`; td12 loads before td11 on purpose.
+  - `ui2.js`, `td6.js` … `td23.js` → UI2 block. Load order is in `tools/build.py`; td12 loads before td11 on purpose.
   - `maps.json`: tile rows for every top-down map.
   - `deep_rooms.json`, `city_rooms.json`: room rectangles, emitted as `TD_DEEPROOMS` / `TD_CITYROOMS`.
 - `tools/`:
@@ -204,6 +204,13 @@ The trailer and all of V's base are no longer side-view backdrops: they are 3/4 
   - V sleeps in the east-wing bed (`vWhere`→'bedroom'). Misaki sleeps in the trailer, or in V's bed if moved in. Ronin sleeps on his couch, Angel on the new daybed. Each sleeper has a "X is sleeping. Best not wake him/her." menu with options specific to that person.
   - `sleep` sometimes runs `nightWake` (30%): branches by POV, moved-in, and Misaki's or V's romance.
   - Angel and Ronin 3am events.
+
+## Abroad, anatomy, darker, faster (td23 + td20)
+- The user’s rule now: keep everything you can do, reframe it. **Japan is real, it is just not home.** The Japanese places (Kururin Land, haunted house, hillside shrine + cemetery, the rented machiya + Uji river, the last train, the coast, Kita High’s old track, the bathhouse, and the harbour/container yard and the 24h laundromat) are reachable only on an overseas trip (td23): city option “Overseas contract: Kyoto” (Misaki) / “Overseas hunt: Kyoto” (V), two days, `S.f.abroad`. While abroad `hub`/`cityMap` show the trip menu (`jpMenu`), mornings are quiet, exits inside those maps return to the menu, the job adds a body, and the last morning flies you home (`jpEnd`). Locals there have no lines (npcs filtered to V/Misaki, and only if the partner came). The Kyoto wedding job is the together version. St. Aldric’s stays at home.
+- **You are a killer:** the HUD shows † body count (`S.bodies`), some mornings open with a cold line (`K23_MORN`), and once a day a passing thought (`k23_think`). Title blurb rewritten.
+- **Sprites:** an anatomy pass on people (td20 `anat`): one hair row and one cheek row removed, torso and legs lengthened, head trimmed; same height and feet line; back views reuse the front view’s rows. Off with “Visual polish”.
+- **Lag:** canvas resolution capped at 4× (was up to 8×, i.e. 2560×1440 on big screens); the screen grade/vignette is one pre-rendered overlay per mood instead of full-screen blend modes each frame; light shafts only loop over visible tiles.
+- **Darker:** the overlay darkens every time of day a little more, more at night and while `S.dark`.
 
 ## Setting and character rework (this round) — read this first
 The direction from the user, which overrides older notes in this file:

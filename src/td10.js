@@ -241,7 +241,7 @@ tdMap('coast',{floor:'sand',wall:'hedge',void:'#081018',backLabel:'train home',r
   {id:'co_shell',x:Q(22),y:Q(12),w:8,d:6,flat:1,solid:false,label:'A shell',draw:(x,y)=>{c.fillStyle='#f2c8d0';c.beginPath();c.arc(x+4,y+3,3,3.14,0);c.fill()},act:()=>tdSay([['','A pink shell, whole. You hold it to your ear. It sounds exactly like the sea, which is right behind you, which is a little embarrassing for the shell.']])},
   {id:'co_grass1',x:Q(5),y:Q(4),w:10,d:6,h:12,draw:(x,y)=>{for(let k=0;k<5;k++)rect(x+k*2,y-10+Math.sin(T/30+k),1,12,'#8a9a5a')}},{id:'co_grass2',x:Q(24),y:Q(4),w:10,d:6,h:12,draw:(x,y)=>{for(let k=0;k<5;k++)rect(x+k*2,y-10+Math.sin(T/30+k),1,12,'#8a9a5a')}}]});
 tdMap('oldtrack',{floor:'track',wall:'hedge',void:'#081008',backLabel:'train home',rows:TDROWS.OLDTRACK,
- zones:{oldtrack:{r:CR.OLDTRACK.track,floor:'track',wall:'hedge',out:1,main:1,name:'Northgate High — the old track',arrive:[2,12,'r']}},
+ zones:{oldtrack:{r:CR.OLDTRACK.track,floor:'track',wall:'hedge',out:1,main:1,name:'Kita High — the old track (Japan)',arrive:[2,12,'r']}},
  lights:[],leave:()=>[{t:'Train home',fn:cyOut}],
  bake:g=>{g.fillStyle='#2e4a26';g.beginPath();g.ellipse(Q(20),Q(12)+8,Q(13),Q(5),0,0,7);g.fill();g.strokeStyle='rgba(240,240,240,.55)';for(let k=0;k<4;k++){g.beginPath();g.ellipse(Q(20),Q(12)+8,Q(13)+8+k*10,Q(5)+8+k*10,0,0,7);g.stroke()}g.fillStyle='rgba(240,240,240,.7)';g.fillRect(Q(10),Q(17)+8,2,40)},
  props:[cyExit('ot_exit',Q(1),Q(10),6,Q(4)),cyClaim('ot_train','oldtrack','Train home'),
@@ -254,7 +254,7 @@ tdMap('oldtrack',{floor:'track',wall:'hedge',void:'#081008',backLabel:'train hom
 
 /* ---------------- 8. Kyoto: the machiya, and the river at Uji ---------------- */
 tdMap('kyoto',{floor:'tatami',wall:'shoji',void:'#0a0806',backLabel:'home',rows:TDROWS.KYOTO,waterCol:'#24506a',
- zones:{kyoto:{r:CR.KYOTO.machiya,floor:'tatami',wall:'shoji',main:1,name:'Out of town — the old house',arrive:[4,8,'u']},uji:{r:CR.KYOTO.uji,floor:'soil',wall:'hedge',out:1,main:1,name:'Uji — the river',arrive:[18,6,'r']}},
+ zones:{kyoto:{r:CR.KYOTO.machiya,floor:'tatami',wall:'shoji',main:1,name:'Kyoto — the rented machiya',arrive:[4,8,'u']},uji:{r:CR.KYOTO.uji,floor:'soil',wall:'hedge',out:1,main:1,name:'Uji — the river',arrive:[18,6,'r']}},
  doorOpt:{'15,6':{closed:1,label:o=>o?'Close the sliding door':'Slide the door open',style:{col:'#e8e0cc',dk:'#5a3e26',knob:'#3a2818',frame:'#3a2818'}}},
  view:(x,y,w,h)=>{c.fillStyle=tdNight()?'#2a2018':'#f4ecd8';c.fillRect(x,y,w,h);c.fillStyle=tdNight()?'#3a2a18':'#d8ccb0';for(let k=0;k<w;k+=4)c.fillRect(x+k,y,1,h);c.fillRect(x,y+h/2,w,1)},
  lights:[{x:Q(6),y:Q(6),r:70,i:.8,col:'255,214,160',flick:.08},{x:Q(30),y:Q(5),r:50,i:.6,col:'255,170,110',flick:.2,on:()=>tdNight()},{x:Q(40),y:Q(5),r:50,i:.6,col:'255,170,110',flick:.2,on:()=>tdNight()}],

@@ -58,8 +58,8 @@ const _fitAU=fitApply;fitApply=function(){_fitAU();if(!S)return;const F=[MIS,MIS
 const WH={opts:[],key:'',cap:0,got:null,woke:''};
 const whOK=()=>tdOn()&&S&&!META.menuHub;
 /* places that are no longer part of the city (the setting is an unnamed city, and the game is about the four, not landmarks) */
-const WH_CUT=/Kururin|hillside shrine|^The last train|^Train: |job in Kyoto|Kyoto|Karaoke|haunted house|bathhouse|sento|Ginza|matsuri|festival/i;
-const whCut=o=>o&&o.t&&WH_CUT.test(String(o.t).replace(/<[^>]+>/g,''));
+const WH_CUT=/Kururin|hillside shrine|^The last train|^Train: (?!St)|haunted house|bathhouse|sento/i; /* these are reachable only on an overseas job (td23) */
+const whCut=o=>o&&o.t&&!(S&&S.f&&S.f.abroad)&&WH_CUT.test(String(o.t).replace(/<[^>]+>/g,''));
 const _panelW=panel;panel=function(html,opts){if(Array.isArray(opts))opts=opts.filter(o=>!whCut(o));if(WH.cap){WH.got={html,opts};return}return _panelW(html,opts)};
 const _hubW=hub;hub=function(){if(!whOK())return _hubW.apply(this,arguments);WH.cap=1;WH.got=null;try{_hubW.apply(this,arguments)}finally{WH.cap=0}
  if(!WH.got)return;WH.opts=WH.got.opts.filter(o=>o&&(o.h||o.t));WH.key=S.day+'/'+S.slot+'/'+S.phase;whHome()};
