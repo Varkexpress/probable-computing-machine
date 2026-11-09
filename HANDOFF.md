@@ -24,7 +24,7 @@ Added content: Act III, interludes, years-later, endgame talks, Act II interview
   - Set 2 coordinate plane (c1–c16, MODS2)
   - Set 3 Ch.5 congruent triangles (p1–p17, MODS3 q1–q10) + expansion (p18–p27, q11–q16, Proof exam), PROOFS/THM_PROOFS templates with dependency arrays `d` (any valid order accepted), proof diagrams (`geoPic`, `PICS`, `proofPic`)
   - Chapter 5 test walkthrough (TYPES5 w*, MODS5 z*, WALK_ORDER retake)
-  - Set 4 AMC 10 (TYPES4 a/n/k/g*, MODS4 r0–r4, `amcContest` 25 q, 6/1.5/0 scoring)
+  - Set 4 AMC training (`amcHome`): bank `AB` of 84 hand-written problems with solutions across 14 `UNITS` (incl. AMC 12 units A4 logs, T1 trig/complex), MODS4 rebuilt as r_<unit> with worked-problem lessons; generators TYPES4; `amcContest(10|12)`, hard drill, formula sheet
 - Progress in localStorage `mirror_protocol_v1` (G).
 
 ## Testing
