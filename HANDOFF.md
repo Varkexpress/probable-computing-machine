@@ -13,7 +13,7 @@
   - Everything outside those markers is the original game, edited in place in `index.html`. Story beats like `takenM`, `afterBase` and `startAct2` live there.
 - `src/`: the source of the two generated regions.
   - `td1_engine.js`, `td2_scene.js`, `td3_trailer.js`, `td4_base.js`, `td5_story.js` → TD block.
-  - `ui2.js`, `td6.js` … `td23.js` → UI2 block. Load order is in `tools/build.py`; td12 loads before td11 on purpose.
+  - `ui2.js`, `td6.js` … `td24.js` → UI2 block. Load order is in `tools/build.py`; td12 loads before td11 on purpose.
   - `maps.json`: tile rows for every top-down map.
   - `deep_rooms.json`, `city_rooms.json`: room rectangles, emitted as `TD_DEEPROOMS` / `TD_CITYROOMS`.
 - `tools/`:
@@ -204,6 +204,15 @@ The trailer and all of V's base are no longer side-view backdrops: they are 3/4 
   - V sleeps in the east-wing bed (`vWhere`→'bedroom'). Misaki sleeps in the trailer, or in V's bed if moved in. Ronin sleeps on his couch, Angel on the new daybed. Each sleeper has a "X is sleeping. Best not wake him/her." menu with options specific to that person.
   - `sleep` sometimes runs `nightWake` (30%): branches by POV, moved-in, and Misaki's or V's romance.
   - Angel and Ronin 3am events.
+
+## The sanctuary (td24)
+- Tone target: nothing can hurt the four of them here, and anything here would send anyone else to hell. Calm and domestic on the surface; the horror is what is normal to them.
+- Per-place thoughts (`K24_THINK`, TDREACT `k24_think`, once per visit) in the house, the deep house, the trailer, Ronin’s and Angel’s.
+- Ordinary-pool mornings: knife Sunday, laundry (cold water), the wrong delivery van, the breakfast debrief, the storm the house does not notice, Angel’s nail poll, a quiet day.
+- Night card: anonymous city rumours about the four (`K24_RUMOUR`), no named people.
+- Activities (both POVs, sideHub): family dinner (weekly), sit in the pens with the hounds, help Ronin clean up, the night drive.
+- The house steadies you: first arrival home each day restores a little composure.
+- Topics: `k24_safe` (“why do i feel safe here”), `k24_others` (“What would other people see, if they lived here?”).
 
 ## Abroad, anatomy, darker, faster (td23 + td20)
 - The user’s rule now: keep everything you can do, reframe it. **Japan is real, it is just not home.** The Japanese places (Kururin Land, haunted house, hillside shrine + cemetery, the rented machiya + Uji river, the last train, the coast, Kita High’s old track, the bathhouse, and the harbour/container yard and the 24h laundromat) are reachable only on an overseas trip (td23): city option “Overseas contract: Kyoto” (Misaki) / “Overseas hunt: Kyoto” (V), two days, `S.f.abroad`. While abroad `hub`/`cityMap` show the trip menu (`jpMenu`), mornings are quiet, exits inside those maps return to the menu, the job adds a body, and the last morning flies you home (`jpEnd`). Locals there have no lines (npcs filtered to V/Misaki, and only if the partner came). The Kyoto wedding job is the together version. St. Aldric’s stays at home.
