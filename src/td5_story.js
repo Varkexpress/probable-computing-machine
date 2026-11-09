@@ -138,13 +138,41 @@ if(typeof TOPICS_M!=='undefined')TOPICS_M.splice(Math.max(0,TOPICS_M.length-1),0
 /* Misaki's mask: guarded = whimsical text-speak and forced cheer; as she trusts V the voice gets fuller, plainer, more exact,
    and the performance (smileys, lol, shouting, !!!) falls away. Built on the original mVoice, which expands slang and adds sentence case. */
 const _mVoiceBase=mVoice;
-mVoice=function(t){if(!t||!S)return t;let s=_mVoiceBase(t);const L=mLevel();if(L<2||typeof s!=='string')return s;
- s=s.replace(/\s*(:\)|:D|xD|:3|<3|\^\^)(?=\s|$)/g,'').replace(/\b(haha+|hehe+|lol|lmao|jk)\b[,.!]*\s*/gi,'').replace(/!{2,}/g,'!').replace(/\?{2,}/g,'?');
- if(L>=3){s=s.replace(/\b([A-Z]{3,})\b/g,w=>/^(DON|DO|NOT|CRT|TV|K9|OK|ID|DNA|ASAP|EAT)$/.test(w)?w:w[0]+w.slice(1).toLowerCase()).replace(/!(\s|$)/g,'.$1').replace(/\.\.(?!\.)/g,'.')}
- return s.replace(/\s{2,}/g,' ').replace(/(^|[.?!]\s+)([a-z])/g,(m,x,y)=>x+y.toUpperCase()).trim()};
-/* V loosens as he gets close: contractions start slipping in. Not every line, and never when things are dark. */
-function vVoice(t){if(!t||!S||S.dark||typeof t!=='string')return t;const k=tier();if(k<2)return t;let h=0;for(let i=0;i<t.length;i++)h=(h*31+t.charCodeAt(i))|0;if(((h>>>0)%100)>=(k>=3?60:32))return t;
- return t.replace(/\bI am\b/g,'I’m').replace(/\bdo not\b/g,'don’t').replace(/\bDo not\b/g,'Don’t').replace(/\bIt is\b/g,'It’s').replace(/\bit is\b/g,'it’s').replace(/\bthat is\b/g,'that’s').replace(/\bThat is\b/g,'That’s').replace(/\bI will\b/g,'I’ll').replace(/\bcannot\b/g,'can’t').replace(/\bis not\b/g,'isn’t').replace(/\bdoes not\b/g,'doesn’t').replace(/\bwould not\b/g,'wouldn’t').replace(/\bYou are\b/g,'You’re').replace(/\byou are\b/g,'you’re').replace(/\bdid not\b/g,'didn’t').replace(/\bhave not\b/g,'haven’t').replace(/\bwas not\b/g,'wasn’t').replace(/\bThere is\b/g,'There’s')}
+/* Misaki's voice matures with closeness. Below level 2 her texting style is left exactly as written.
+   From level 2 the shorthand expands and the tics drop; at level 3 the shouting and the stretched letters settle.
+   Written to keep grammar intact: ellipses stay three dots, ALL-CAPS words become lowercase (not Title Case),
+   names are capitalised, "ur" is read as "your" or "you’re" by what follows, and "i’m"/"i’d"/"i’ll" become "I’m". */
+const MV_NAMES={ronin:'Ronin',misaki:'Misaki',hara:'Hara',sergeant:'Sergeant',gerald:'Gerald',prickles:'Prickles',june:'June',luca:'Luca',vince:'Vince',felicie:'Felicie',beyoncé:'Beyoncé',beyonce:'Beyoncé',prague:'Prague',lisbon:'Lisbon',kyoto:'Kyoto',tokyo:'Tokyo',osaka:'Osaka',uji:'Uji',kururin:'Kururin',kawabe:'Kawabe','yoru-machi':'Yoru-machi',aldric:'Aldric',shakespeare:'Shakespeare',christmas:'Christmas',halloween:'Halloween',japan:'Japan',japanese:'Japanese',english:'English',january:'January',february:'February',march:'March',april:'April',july:'July',august:'August',september:'September',october:'October',november:'November',december:'December',monday:'Monday',tuesday:'Tuesday',wednesday:'Wednesday',thursday:'Thursday',friday:'Friday',saturday:'Saturday',sunday:'Sunday',k9:'K9',v:'V',tokyo:'Tokyo',angelic:'Angelic',haruka:'Haruka',hitomi:'Hitomi'};
+const MV_UR_RE=/^(so|not|the|a|an|gonna|going|being|such|really|very|literally|actually|always|never|kinda|too|my|welcome|right|wrong|kidding|joking|here|there|late|early|fine|okay|ok|safe|home|cute|sweet|mean|insane|crazy|weird|ridiculous|impossible|allowed|just|still|already|all|both|one|also|lying|like|dead|done|back|sure|nice|good|bad|rich|scary|annoying|banned|asleep|awake|tired|right|lucky|stuck|in|on|at|out|up|over|making|doing|\w+ing|\w+ed)$/i;
+const MV_CAPS_KEEP=/^(K9|TV|ID|DNA|ASAP|CRT|CCTV|GPS|ATM|DJ|PE|UK|US|NYC|AM|PM|SOS|OK|I|V|ABC|BBQ|MRI|ER|ICU|DIY|FAQ|NPC|RIP|SHŪTEN|LAST|B[1-5])$/;
+const MV_W={u:'you',r:'are',im:'I’m',i:'I',idk:'I don’t know',tho:'though',rn:'right now',pls:'please',plz:'please',bc:'because',omg:'oh my god',ok:'okay',srsly:'seriously',ppl:'people',thx:'thanks',ya:'yeah',cuz:'because',dont:'don’t',cant:'can’t',didnt:'didn’t',isnt:'isn’t',wasnt:'wasn’t',doesnt:'doesn’t',wont:'won’t',thats:'that’s',whats:'what’s',youre:'you’re',ive:'I’ve',tbh:'to be honest',ngl:'not going to lie',nvm:'never mind',bf:'boyfriend',gf:'girlfriend',bday:'birthday',w:'with',abt:'about',ily:'I love you'};
+mVoice=function(t){if(!t||!S||typeof t!=='string')return t;const L=mLevel();if(L<2)return t;
+ let s=t;const keep=[];const prot=x=>{keep.push(x);return '\u0001'+(keep.length-1)+'\u0002'};
+ s=s.replace(/hitmeuppp|<[^>]+>/gi,prot);
+ /* tics */
+ s=s.replace(/(^|\s)(:\)|:\(|:D|xD|XD|:3|<3|\^\^|:P|;\))(?=\s|$|[.,!?])/g,'$1').replace(/\b(a?ha(ha)+|he(he)+|lol+|lmao+|lmfao|jk|rofl)\b[,.!]*/gi,'');
+ if(L>=3)s=s.replace(/([a-z])\1{2,}/gi,'$1$1').replace(/\b(soo|noo|yess|okayy|heyy|hii|byee|whyy|pleasee|ohh|uhh|umm|ahh|ughh|yeahh|yayy|nooo|wayy|stopp|meann|lovee|cutee)\b/gi,w=>w.slice(0,-1));
+ /* ALL CAPS shouting: at level 3 it becomes ordinary lowercase (sentence case fixes the starts) */
+ if(L>=3)s=s.replace(/(^|[^\w’'])([A-ZĀĪŪĒŌ][A-ZĀĪŪĒŌ’']+)(?![\w’'])/g,(m,a,w)=>MV_CAPS_KEEP.test(w)?a+w:a+w.toLowerCase());
+ /* shorthand */
+ s=s.replace(/\bur\s+([A-Za-z’']+)/g,(m,nx)=>(MV_UR_RE.test(nx)?'you’re ':'your ')+nx).replace(/\bur\b/g,'your');
+ s=s.replace(/\bi(?=[’'](m|d|ll|ve)\b)/g,'I');
+ s=s.replace(/(^|[^\w’'-])([a-z][a-z’'-]*)(?![\w’'-])/g,(m,a,w)=>{if(MV_W[w]!==undefined)return a+MV_W[w];if(w==='gonna')return a+(L>=3?'going to':'gonna');if(w==='wanna')return a+(L>=3?'want to':'wanna');if(w==='gotta')return a+(L>=3?'have to':'gotta');
+  const n=MV_NAMES[w];if(n)return a+n;return m});
+ /* "angel" the person, not "an angel"; "biscuit" the dog, not "a biscuit" */
+ s=s.replace(/(^|[^\w])(angel|biscuit)(?![\w’'])/g,(m,a,w,o,str)=>/\b(an|a|the|little|my|tea|dog)\s+$/i.test(str.slice(Math.max(0,o-8),o+a.length))?m:a+w[0].toUpperCase()+w.slice(1));
+ /* punctuation */
+ s=s.replace(/!{2,}/g,'!').replace(/\?{2,}/g,'?').replace(/\?!+|!\?+/g,'?');
+ if(L>=3)s=s.replace(/!(?=[\s”)]|$)/g,'.');
+ s=s.replace(/(?<![.…])\.\.(?![.…])/g,'.').replace(/\s+([,.!?;:])(?!\.)/g,'$1').replace(/,\s*([.!?])/g,'$1').replace(/^[\s,;:]+/,'').replace(/\s{2,}/g,' ').trim();
+ if(L>=3&&/[a-z\u0002]$/i.test(s)&&!/[.!?…—–:”)]$/.test(s))s+='.';
+ /* sentence case: start of line, after . ! ? … and a space, after a short "(text) " tag; skipping opening quotes/brackets */
+ const up=(m,a,b,c)=>a+b+c.toUpperCase();
+ s=s.replace(/^((?:\.\.\.|…)?)([“"(]*)([a-z])/,up).replace(/((?<![.…])[.!?]\s+)([“"(]*)([a-z])/g,up).replace(/^(\([^)]{1,14}\)\s+)()([a-z])/,up);
+ s=s.replace(/\u0001(\d+)\u0002/g,(m,i)=>keep[+i]);
+ return s||t};
+/* V stays formal. He does not use contractions; closeness shows in what he says, not in slipped grammar. */
+function vVoice(t){return t}
 const _tdShowL=showL;showL=function(){if(dlg&&dlg.lines&&dlg.lines[dlg.i]){const L=dlg.lines[dlg.i];if(L&&whoKey(L[0])==='v'&&typeof L[1]==='string'){const n=vVoice(L[1]);if(n!==L[1])dlg.lines[dlg.i]=[L[0],n].concat(L.slice(2))}}return _tdShowL.apply(this,arguments)};
 /* ---------- settings: classic view toggle ---------- */
 const _pmTD=pauseMenu;pauseMenu=function(){_pmTD();const box=document.querySelector('.pausebox .pbtns');if(!box)return;const b=document.createElement('button');const lab=()=>'Rooms: '+(META.classicRooms?'classic (side view)':'walkable (top-down)');b.textContent=lab();
