@@ -30,8 +30,8 @@ function vfxPost(zone,cam){if(META.fxOff||!scene||!scene.td)return;const sc=scen
 const _wfx20=tdWeatherFX;tdWeatherFX=function(zone,cam){_wfx20.apply(this,arguments);try{vfxPost(zone||(scene&&scene.zone),cam)}catch(e){}};
 const _pm20=pauseMenu;pauseMenu=function(){_pm20.apply(this,arguments);const box=document.querySelector('.pausebox .pbtns');if(!box)return;const b=document.createElement('button');const lab=()=>'Visual polish: '+(META.fxOff?'off':'on');b.textContent=lab();
  b.onclick=e=>{e.stopPropagation();META.fxOff=!META.fxOff;saveMeta();b.textContent=lab()};box.insertBefore(b,box.lastElementChild)};
-/* characters get a soft 1px outline so they read against busy floors */
-const _act20=tdActor;tdActor=function(){TD.outline=1;try{return _act20.apply(this,arguments)}finally{TD.outline=0}};
-const _dog20=tdDog;tdDog=function(){TD.outline=1;try{return _dog20.apply(this,arguments)}finally{TD.outline=0}};
-const _back20=tdBack;tdBack=function(a){const r=_back20(a);try{if(r&&(a===(typeof ANG!=='undefined'&&ANG)||a===(typeof RON!=='undefined'&&RON)))TDOL.add(r)}catch(e){}return r};
-try{if(typeof ANG!=='undefined')TDOL.add(ANG);if(typeof RON!=='undefined')TDOL.add(RON)}catch(e){}
+/* characters and dogs get soft shading (tdPx, TD.shade / TDSH) */
+const _act20=tdActor;tdActor=function(){TD.shade=1;try{return _act20.apply(this,arguments)}finally{TD.shade=0}};
+const _dog20=tdDog;tdDog=function(){TD.shade=1;try{return _dog20.apply(this,arguments)}finally{TD.shade=0}};
+const _back20=tdBack;tdBack=function(a){const r=_back20(a);try{if(r&&TDSH.has(a))TDSH.add(r)}catch(e){}return r};
+try{if(typeof ANG!=='undefined')TDSH.add(ANG);if(typeof RON!=='undefined')TDSH.add(RON)}catch(e){}

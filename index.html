@@ -1102,17 +1102,8 @@ function title(){S=null;const has=loadRun();const run=S;S=null;drawHud();
  draw(){rect(0,0,W,H,'#0a0610');for(let i=0;i<14;i++){const x=i*24,h=50+((i*37)%60);rect(x,H-h,22,h,'#140c1c');for(let j=0;j<h/9;j++)if((i*3+j+(T>>6))%4===0)rect(x+6,H-h+4+j*9,3,4,'#d0283f')}
   for(let i=0;i<60;i++){const x=(i*47+T*1.5)%W,y=(i*31+T*4)%H;rect(x,y,1,4,'rgba(180,170,220,.25)')}spr(MIS,250,124,true,2);spr(VSP,276,112,true,2)}})}
 function newRun(p){S=NEW(p);save();drawHud();
- const intro=p==='v'?[
-  ['','V wakes at 5:38, so he can turn off the 5:40 alarm before it gets the chance.'],
-  ['','Three dogs. A foundation in forty-one cities. A chat server full of killers he joined for reasons he has stopped admitting.'],
-  ['','One of them is Misaki. She is behind on rent and has refused his money so creatively that he keeps a list. (Number five: “i would rather eat my own shoe.” She sent a photo of the shoe.)'],
-  ['K9','This is not my concern.'],
-  ['','It is, increasingly, his concern.']]
-  :[
-  ['','The trailer smells of instant ramen and gun oil. On the fridge, under a strawberry magnet: RENT ¥40,000. DUE DAY 5. Then again by day 10.'],
-  ['','In the coffee tin: ¥9,000. She counts it twice. It doesn’t get bigger.'],
-  ['','The server pings. K9, to nobody in particular: “A reminder that the shelters accept donations.” He has offered her money four times. She has said no five.'],
-  ['hitmeuppp','ok. ok ok ok. i can do this. i kill people for money. i can do RENT.']];
+ const intro=p==='v'?[['','V has three dogs, a foundation in forty-one cities, and a server full of serial killers he did not ask to be in.'],['','One of them is an assassin named Misaki. She is behind on rent. She refuses his money.'],['K9','This is not my concern.'],['','It is, increasingly, his concern.']]
+  :[['','Misaki has a trailer, a gun, a sticker that says DON’T, and ¥9,000.'],['','Rent is ¥40,000. Due day 5. Then again by day 10.'],['hitmeuppp','ok. ok ok ok. i can do this. i kill people for money. i can do RENT.']];
  cut(intro,hub)}
 function hubBg(){const a=IMG.m,b=IMG.v;if(a.complete&&a.naturalWidth)c.drawImage(a,0,0,125,141,0,0,160,H);if(b.complete&&b.naturalWidth)c.drawImage(b,125,0,125,141,160,0,160,H);rect(0,0,W,H,S&&S.dark?'rgba(30,0,8,.6)':'rgba(10,8,14,.45)');rect(159,0,2,H,'#d0283f')}
 function hub(){if(!S)return title();ensureAct2();S.visitAs=null;save();
@@ -8164,13 +8155,13 @@ function tdToLegacy(room,x,y){const e=TD.room[room];const R=ROOMS[room];if(!e||!
 function tdFree(M,x,y){if(!tdBlocked(M,x,y))return[x,y];for(let r=4;r<80;r+=4)for(let a=0;a<16;a++){const nx=x+Math.cos(a/16*6.283)*r,ny=y+Math.sin(a/16*6.283)*r;if(!tdBlocked(M,nx,ny))return[nx,ny]}return[x,y]}
 /* ---------- sprites at 1px ---------- */
 const TDSPR=new WeakMap();
-const TDOL=new WeakSet();/* sprites that get a 1px outline: actors (TD.outline while drawing them) and anything added to TDOL */
-function tdPx(a,cx,fy,flip,ps=1,pal){const n=a[0].length,h=a.length;const P=pal||a.P||PAL;const ol=(TD.outline||TDOL.has(a))&&!META.fxOff;
- let m=TDSPR.get(a);if(!m){m=new Map();TDSPR.set(a,m)}const key=(flip?1:0)+'|'+ps+'|'+SC+'|'+(ol?'o|':'')+Object.values(P).join(',');let o=m.get(key);
- if(!o){o=document.createElement('canvas');const k=ps*SC;o.width=Math.ceil(n*k);o.height=Math.ceil(h*k);const g=o.getContext('2d');if(g){for(let j=0;j<h;j++){const r=a[j];for(let i=0;i<n;i++){const ch=r[flip?n-1-i:i];if(ch==='.'||ch===undefined)continue;const col=P[ch];if(!col)continue;g.fillStyle=col;const x0=Math.round(i*k),y0=Math.round(j*k);g.fillRect(x0,y0,Math.round((i+1)*k)-x0,Math.round((j+1)*k)-y0)}}}
-  if(ol&&g){const b=o,K=Math.round(k);o=document.createElement('canvas');o.width=b.width+2*K;o.height=b.height+2*K;const q=o.getContext('2d');if(q){for(const [dx,dy] of [[0,K],[2*K,K],[K,0],[K,2*K]])q.drawImage(b,dx,dy);q.globalCompositeOperation='source-in';q.fillStyle='rgba(12,8,18,.78)';q.fillRect(0,0,o.width,o.height);q.globalCompositeOperation='source-over';q.drawImage(b,K,K)}o.olp=K/SC}
-  if(m.size>24)m.clear();m.set(key,o)}
- const sn=v=>Math.round(v*SC)/SC;const d=o.olp||0;c.drawImage(o,sn(cx-n*ps/2)-d,sn(fy-h*ps)-d,o.width/SC,o.height/SC)}
+const TDSH=new WeakSet();const TDSHC=new Map();/* character sprites get soft volume: shadow side darker, lit side a touch brighter (light from upper left of the facing) */
+function tdShadeCol(col,f){const k=col+'|'+f;let o=TDSHC.get(k);if(o)return o;const m=/^#([0-9a-f]{6})$/i.exec(col);if(!m){TDSHC.set(k,col);return col}const v=parseInt(m[1],16);const ch=x=>Math.max(0,Math.min(255,Math.round(f<1?x*f:x+(255-x)*(f-1))));
+ o='#'+[v>>16&255,v>>8&255,v&255].map(x=>ch(x).toString(16).padStart(2,'0')).join('');TDSHC.set(k,o);return o}
+function tdPx(a,cx,fy,flip,ps=1,pal){const n=a[0].length,h=a.length;const P=pal||a.P||PAL;const sh=(TD.shade||TDSH.has(a))&&!META.fxOff;
+ let m=TDSPR.get(a);if(!m){m=new Map();TDSPR.set(a,m)}const key=(flip?1:0)+'|'+ps+'|'+SC+'|'+(sh?'s|':'')+Object.values(P).join(',');let o=m.get(key);
+ if(!o){o=document.createElement('canvas');const k=ps*SC;o.width=Math.ceil(n*k);o.height=Math.ceil(h*k);const g=o.getContext('2d');if(g){for(let j=0;j<h;j++){const r=a[j];for(let i=0;i<n;i++){const ch=r[flip?n-1-i:i];if(ch==='.'||ch===undefined)continue;let col=P[ch];if(!col)continue;if(sh){const u=flip?n-1-i:i,dr=flip?-1:1,op=(x,y)=>y>=0&&y<h&&x>=0&&x<n&&a[y][x]&&a[y][x]!=='.';let f=1;if(!op(u+dr,j))f=.78;else if(!op(u+2*dr,j))f=.9;else if(!op(u-dr,j)||!op(u,j-1))f=1.1;if(f!==1)col=tdShadeCol(col,f)}g.fillStyle=col;const x0=Math.round(i*k),y0=Math.round(j*k);g.fillRect(x0,y0,Math.round((i+1)*k)-x0,Math.round((j+1)*k)-y0)}}}if(m.size>24)m.clear();m.set(key,o)}
+ const sn=v=>Math.round(v*SC)/SC;c.drawImage(o,sn(cx-n*ps/2),sn(fy-h*ps),o.width/SC,o.height/SC)}
 function tdBack(a){if(!a)return a;let b=TD.cache.get(a);if(b)return b;const keep=new Set();for(let j=0;j<4&&j<a.length;j++)for(const ch of a[j])if(ch!=='.')keep.add(ch);
  const cnt={};for(let j=0;j<5;j++)for(const ch of a[j]||'')if(ch!=='.')cnt[ch]=(cnt[ch]||0)+1;const hair=Object.keys(cnt).sort((x,y)=>cnt[y]-cnt[x])[0]||'k';
  const he=Math.round(a.length*.36);b=a.map((r,j)=>j>=he?r:r.split('').map(ch=>ch==='.'||keep.has(ch)?ch:hair).join(''));b.P=a.P;b.S=a.S;TD.cache.set(a,b);return b}
@@ -11142,11 +11133,11 @@ function vfxPost(zone,cam){if(META.fxOff||!scene||!scene.td)return;const sc=scen
 const _wfx20=tdWeatherFX;tdWeatherFX=function(zone,cam){_wfx20.apply(this,arguments);try{vfxPost(zone||(scene&&scene.zone),cam)}catch(e){}};
 const _pm20=pauseMenu;pauseMenu=function(){_pm20.apply(this,arguments);const box=document.querySelector('.pausebox .pbtns');if(!box)return;const b=document.createElement('button');const lab=()=>'Visual polish: '+(META.fxOff?'off':'on');b.textContent=lab();
  b.onclick=e=>{e.stopPropagation();META.fxOff=!META.fxOff;saveMeta();b.textContent=lab()};box.insertBefore(b,box.lastElementChild)};
-/* characters get a soft 1px outline so they read against busy floors */
-const _act20=tdActor;tdActor=function(){TD.outline=1;try{return _act20.apply(this,arguments)}finally{TD.outline=0}};
-const _dog20=tdDog;tdDog=function(){TD.outline=1;try{return _dog20.apply(this,arguments)}finally{TD.outline=0}};
-const _back20=tdBack;tdBack=function(a){const r=_back20(a);try{if(r&&(a===(typeof ANG!=='undefined'&&ANG)||a===(typeof RON!=='undefined'&&RON)))TDOL.add(r)}catch(e){}return r};
-try{if(typeof ANG!=='undefined')TDOL.add(ANG);if(typeof RON!=='undefined')TDOL.add(RON)}catch(e){}
+/* characters and dogs get soft shading (tdPx, TD.shade / TDSH) */
+const _act20=tdActor;tdActor=function(){TD.shade=1;try{return _act20.apply(this,arguments)}finally{TD.shade=0}};
+const _dog20=tdDog;tdDog=function(){TD.shade=1;try{return _dog20.apply(this,arguments)}finally{TD.shade=0}};
+const _back20=tdBack;tdBack=function(a){const r=_back20(a);try{if(r&&TDSH.has(a))TDSH.add(r)}catch(e){}return r};
+try{if(typeof ANG!=='undefined')TDSH.add(ANG);if(typeof RON!=='undefined')TDSH.add(RON)}catch(e){}
 /* ===UI2-END=== */
 requestAnimationFrame(frame);splash();
 

@@ -224,7 +224,7 @@ The trailer and all of V's base are no longer side-view backdrops: they are 3/4 
   - Quitting to title or reaching an ending from a walkable room crashed (`leaveTD` read `S.room` after `S` was nulled).
   - `toRoom` into zones without an arrival could drop the player into a sealed pocket; V/Misaki/Angel/Ronin could spawn on blocked tiles. Both now use `tdFreeReach` (reachable free tile).
   - The 3am night wake-up no longer fires on the night of the kidnapping.
-- Visual pass (td20, plus outline support in `tdPx`): baked contact shadows where floors meet walls/solids (`vfxAO`), vignette, time-of-day colour grade (drained while `S.dark`), a warm rim on the player at night, 1px outlines on characters and dogs (`TD.outline`, `TDOL`). Pause menu → “Visual polish” toggles it (`META.fxOff`). Cost ≈0.6 ms/frame.
+- Visual pass (td20, plus outline support in `tdPx`): baked contact shadows where floors meet walls/solids (`vfxAO`), vignette, time-of-day colour grade (drained while `S.dark`), a warm rim on the player at night. Character and dog sprites get soft shading in `tdPx` (shadow-side edge darker, lit edge a touch brighter; `TD.shade`, `TDSH`). The 1px outlines tried earlier were removed. Pause menu → “Visual polish” toggles it all (`META.fxOff`). The new-run opening text is back to the original short version. Cost ≈0.6 ms/frame.
 
 ## B5 library → the library tower
 - `gen2.py` carves the library as a disc (centre 22,83, r≈10.5). Doors: north (22,72) from the corridor, east (42,88) to observation, south (22,95) to the pump hall. Zone floor `lab`, wall `glass`.
