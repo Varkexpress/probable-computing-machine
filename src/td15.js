@@ -16,12 +16,12 @@ function vromConfess(k){const N=vromWho(k);
   [RN,'Vee. Been thinkin’ about why you get under my skin so bad.'],
   ['K9','I assumed it was the crowbar wall.'],
   [RN,'Thought so too. Then I caught myself ironin’ the good shirt for your stupid gala. Ironin’, Vee.'],
-  [RN,'So. Kiss or kill, Mister Foundation? Pick careful. I’d be happy either way, and that’s the problem.'],
+  [RN,'So. Kiss or kill, Mister Foundation? Pick careful. Trouble is, I’d be happy either way.'],
   vromHurt()?[RN,'And yeah, I know about the little firecracker. Ain’t askin’ you to choose. Just puttin’ my name in the hat.']:null];
  say(L.filter(Boolean),()=>ask('K9','(...)',[
   {t:k==='a'?'“…I have noticed the lipstick.”':'“Kiss. Do not make me say it twice.”',fn:()=>{S.vrom=k;S.vromDates=0;if(vromHurt()&&S.aff>74)S.aff=74;save();toast('♥ Romance: '+vromName(k));
    say(k==='a'?[[AN,'you NOTICED?? oh my god. okay. i’m going behind the rack. come find me.'],['','You find her behind the rack. It takes a long time to come back out.']]
-    :[[RN,'Twice? Darlin’, I’m gonna make you say it every day.'],['','He kisses the way he fights: no warning, all at once. Afterwards he straightens your collar, carefully, like it matters.']],()=>vromAfterYes(k))}},
+    :[[RN,'Twice? Darlin’, I’m gonna make you say it every day.'],['','He kisses the way he fights: no warning, all at once. Afterwards he straightens your collar, with great care.']],()=>vromAfterYes(k))}},
   {t:k==='a'?'“I treasure you. Not like that.”':'“Neither. You are my friend, Ronin. That is rarer.”',fn:()=>{S.f['vromNo'+k]=1;fr(k,2);save();say(k==='a'?[[AN,'okay! okay. that’s okay. you’re still my favourite rich weirdo. i’m going to cry a normal amount and then make you brunch.']]:[[RN,'Friend. Huh. Ain’t nobody called me that and meant it in a while.'],[RN,'...Fine. Get off my roof. Bring soup next time.']],hub)}}]))}
 function vromAfterYes(k){if(!vromHurt())return hub();const N=vromName(k);const moved=!!S.f.movedIn;S.f.vhb=S.day;if(moved)S.f.movedIn=0;save();
  cut([['','You tell Misaki yourself. The konbini car park, four in the morning, two egg sandwiches.'],
@@ -38,7 +38,7 @@ function vromDate(k){const n=S.vromDates||0;const D=k==='a'?[
  :[
   [['','A bowling alley at midnight. Ronin bowls like the pins owe him money. You bowl with perfect form and score a 74.'],[RN,'Seventy-four. Man can disarm a guy with a fountain pen.'],['K9','It is a very different motion.'],[RN,'C’mere. Hips. No— hips.'],['','You bowl a strike. He is unbearable about it for a week.']],
   [['','Your kitchen, two in the morning. Ronin is making his grandmother’s apple crumble and refusing to measure anything.'],['K9','That is not a tablespoon.'],[RN,'It’s a Ronin-spoon. Trust the process.'],['','It is the best thing you have ever eaten. When you say so, he has to go and stand on the balcony for a minute.']],
-  [['','A hunting night, just the two of you. Afterwards he runs the tap warm and washes your hands in his sink, knuckle by knuckle.'],[RN,'Kiss or kill. Picked kiss a while back.'],['K9','You said it on the roof.'],[RN,'Said it. Didn’t SAY it. There’s a difference, Mister Foundation.']]];
+  [['','A hunting night, just the two of you. Afterwards he runs the tap warm and washes your hands in his sink, knuckle by knuckle.'],[RN,'Kiss or kill. Picked kiss a while back.'],['K9','You said it on the roof.'],[RN,'Said it. Didn’t SAY it. You know what I mean, Mister Foundation.']]];
  spend();S.vromDates=n+1;fr(k,4);save();cut(D[Math.min(n,2)],hub,k==='a'?'#2a1428':'#1a0408')}
 function vromKey(){const k=S.vrom;S.f.vromKey=k;fr(k,8);save();
  cut(k==='a'?[['','You give Angel a key to the side door, on a ribbon, in a box that is far too large for it.'],[AN,'V. this is a KEY.'],['K9','It opens the side door. It does not open the deep house. Yet.'],[AN,'“yet.” he said yet. i’m screaming. i’m screaming quietly. biscuit, he said yet.']]

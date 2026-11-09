@@ -12,14 +12,14 @@ EVENTS.push(
    ['','She leaves an envelope on his kitchen counter, under the okayest mug, with a note: “for march. don’t.”'],
    ['K9','(That evening.) You did not have to.'],['hitmeuppp','yeah. i did.'],
  ['K9','...I know. I argued with the mug instead. The mug won.'],
-   ['hitmeuppp',MV('ur so weird','you’re so weird.','You’re so strange. Thank you for not arguing.','Thank you. For hearing it. That’s the part that costs you something.')]],done)}},
+   ['hitmeuppp',MV('ur so weird','you’re so weird.','You’re so strange. Thank you for not arguing.','Thank you for hearing it. I know that cost you something.')]],done)}},
   {t:'Let it stand. Just this once.',sub:'+affection · it costs something you can’t see',fn:()=>{S.f.rentLet=1;apply({aff:4,edge:2});save();say([
    ['hitmeuppp','(text) march. i saw. i’m letting it go. once. don’t make it a thing.'],
    ['K9','It is not a thing.'],['K9','(Eleven minutes later.) It is a small thing.'],
    ['','She sits on the step of the trailer for a long time, watching the strawberry magnet hold up a receipt with someone else’s money on it.']],done)}}]))},
 /* the hallway: someone cleaned up after V, and wants him to know it */
 {id:'sub_hallway',when:()=>S.phase==='after'&&!S.f.selfEscape&&S.day>=(S.f.returnDay||0)+1,run:done=>say([
- ['','Late. Kitchen. Ronin is at the counter eating V’s cereal out of the box, which is how V finds out he’s in the house.'],
+ ['','Late. Kitchen. Ronin is at the counter eating V’s cereal out of the box, and that is how V learns he’s in the house.'],
  [RN,'Evenin’.'],['K9','How did you get in.'],[RN,'Same way you got into that warehouse. Front door was the least of it.'],
  [RN,'Went by the river Tuesday. Thought I’d tidy. Habit.'],
  ['K9','I did not ask you to.'],
@@ -44,7 +44,7 @@ EVENTS.push(
    [AN,'...also you’re still the panda.']],done)}},
   {t:'Put the mask on. Say nothing.',sub:'keep it · it keeps you',fn:()=>{S.f.toldAngel=0;S.f.angelSecret=1;apply({edge:3});save();say([
    ['','You put on the panda. Angel laughs so hard she has to lie down. You take a photo of yourselves for the group chat. You look happy in it.'],
-   ['','When she’s gone, you look at the photo for a long time. You look happy in it. That’s the worst part.']],done)}}]))},
+   ['','When she’s gone, you look at the photo for a long time. You look happy in it, and you wish you didn’t.']],done)}}]))},
 /* the coat: V's side */
 {id:'sub_coat',when:()=>S.phase==='after'&&isV()&&S.day>=(S.f.returnDay||0)+1,run:done=>say([
  ['','The brown coat hangs on the back of the archive door, still smelling of the river. He has walked past it nineteen times today. He counted.'],

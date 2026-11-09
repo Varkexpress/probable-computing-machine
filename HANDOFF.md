@@ -20,7 +20,7 @@
   - `build.py`: rebuilds the generated regions of index.html from src/.
   - `gen2.py`: deep house B3–B5 and the forest. `gen3.py`: city districts. `gen4.py`: widens Ronin's/Angel's flats. Each rewrites its maps in `src/maps.json`.
   - `audit.js`: reachability of every tile and object, plus every interaction on four benchmark saves.
-  - `fuzz2.js`: random play. `phone_test.js`: every phone thread path. `gfx_test.js`: enhanced vs classic screenshots. `mz.js`: offline render and level check of every music track. `bal.js`: bracket-balance finder.
+  - `fuzz2.js`: random play. `phone_test.js`: every phone thread path. `gfx_test.js`: enhanced vs classic screenshots. `mz.js`: offline render and level check of every music track. `bal.js`: bracket-balance finder. `aiscan.py`: lists dialogue using contrast-reveal constructions.
 - `art/`: expression charts (`*_expressions_source.webp`), `art/portraits_build.py`, output `art/portraits/*.png`.
 - `mirror-protocol.html`: separate three.js (r128, cdnjs) study game.
 
@@ -259,6 +259,15 @@ The trailer and all of V's base are no longer side-view backdrops: they are 3/4 
   - V talk topic `lucky`.
   - Extra `chatLog` lines.
 - Flags: `luckyTold`, `vLucky`, `vEmergency`.
+
+## Dialogue de-AI pass
+- Rewrote about 320 lines across `index.html` and `src/` that used contrast-reveal tics:
+  - "X. It's not Y. It's Z."
+  - "Not X. Y."
+  - "That's the point / the whole thing / the trick / the worst part"
+  - "both are true", "which is how…", "somehow", "that's new", "That's all. You just…"
+- Each was rewritten as a plain statement in the character's own voice. No mechanics changed.
+- `tools/aiscan.py` lists strings that still match the first set of patterns. What it reports now is ordinary speech ("Not today", "Not bad"). When writing new lines, state the thing directly; don't negate a framing nobody raised, and don't end on a summarising "that's the X".
 
 ## Mirror Protocol (mirror-protocol.html)
 - Chapter 4 cases (all unlocked): lessons, mastery practice, 3D missions, final Ledger + 20-question exam.
