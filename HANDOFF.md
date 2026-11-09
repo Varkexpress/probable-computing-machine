@@ -13,7 +13,7 @@
   - Everything outside those markers is the original game, edited in place in `index.html`. Story beats like `takenM`, `afterBase` and `startAct2` live there.
 - `src/`: the source of the two generated regions.
   - `td1_engine.js`, `td2_scene.js`, `td3_trailer.js`, `td4_base.js`, `td5_story.js` → TD block.
-  - `ui2.js`, `td6.js` … `td25.js` → UI2 block. Load order is in `tools/build.py`; td12 loads before td11 on purpose.
+  - `ui2.js`, `td6.js` … `td26.js` → UI2 block. Load order is in `tools/build.py`; td12 loads before td11 on purpose.
   - `maps.json`: tile rows for every top-down map.
   - `deep_rooms.json`, `city_rooms.json`: room rectangles, emitted as `TD_DEEPROOMS` / `TD_CITYROOMS`.
 - `tools/`:
@@ -204,6 +204,14 @@ The trailer and all of V's base are no longer side-view backdrops: they are 3/4 
   - V sleeps in the east-wing bed (`vWhere`→'bedroom'). Misaki sleeps in the trailer, or in V's bed if moved in. Ronin sleeps on his couch, Angel on the new daybed. Each sleeper has a "X is sleeping. Best not wake him/her." menu with options specific to that person.
   - `sleep` sometimes runs `nightWake` (30%): branches by POV, moved-in, and Misaki's or V's romance.
   - Angel and Ronin 3am events.
+
+## The pool, Ronin and Angel after the job, the flower room back (td26, td9)
+- **The pool** (B5, the old seed vault, zone `dp_seeds`): it was a hydroponics grow room meant to feed the house through anything; it devolved into a pool. Interactive `k26_pool` (go under / swim lengths, float, sit on the edge), the old seed drawers, a rusted nutrient tank.
+- **Ronin after a job** (`k26_ronin`): four-in-the-morning breakfast, gospel radio (he cannot sleep without it), apron over the shirt; he runs hot and has never owned a winter coat. **The ice bath** (`k26_ice`): Angel found him grey in a tub of ice with the crowbar on his chest; “you’re lettin’ the cold out.”
+- **Angel after a job** (`k26_angel`): an hour of total silence; she cleans her face and then the rifle with the same pads; only the four may stay for the quiet part. **The setting spray** (`k26_spray`): Ronin used her gold-bottle spray on the crowbar; nothing sticks to it now; she orders six more.
+- **All four in the pool** (`k26_poolfour`): Misaki under for four minutes ten.
+- **The flower room is back** (td9): no longer a copy of an exhibit. Misaki once said every room she has had was for something, and she had never been in one that was just pretty; V built a room for nothing under the house. Her line: it is soft of him.
+- **Tone:** the killing is a fact, not a refrain. The daily killer thoughts and the morning reminder lines are gone (the † body count stays); the per-place thoughts and night rumours are trimmed to the understated ones; the “an outsider would be sick” sentences are cut.
 
 ## The black bath (td25)
 - `k25_bath` (scheduled via K22EV): after a job, V washes Misaki’s hair in the blackstone bath, navy silk pyjamas, both half asleep, red water; she goes under and stays under and never drowns; he sleeps three and a half hours. Variants for the red streak or the post-haircut layers, and for after the kidnapping (she lets only him behind her).

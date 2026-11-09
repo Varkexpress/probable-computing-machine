@@ -108,7 +108,7 @@ K22EV.push({id:'k22_angel',when:()=>S.day>=8&&frT('a')>=1,run:done=>k22Say([
  [AN,'(live) —and that’s it! that’s the routine. drink water. be kind. bye my loves.'],
  ['','The stream ends. She takes her lashes off very slowly, one at a time, and then she cries, hard, for about four minutes. Not for him. For the kid, who is safe now and will still have to grow up remembering.'],
  [AN,'(text) done. the kid’s with the people we talked about. i’m ok. i’m always ok after. it’s the before i hate.'],
- ['','Everyone in the server reads it. Nobody makes a joke. The kindest of the four of you is the one who has never once missed.']],()=>{fr('a',2);done()},'dark')});
+ ['','Everyone in the server reads it. Nobody makes a joke.']],()=>{fr('a',2);done()},'dark')});
 
 K22EV.push({id:'k22_ronin',when:()=>S.day>=11&&frT('r')>=1,run:done=>k22Say([
  [RN,'(server) [photo: a church pew, a hymnal open on it, something dark dried on the pages]'],
