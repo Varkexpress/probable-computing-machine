@@ -13,7 +13,7 @@
   - Everything outside those markers is the original game, edited in place in `index.html`. Story beats like `takenM`, `afterBase` and `startAct2` live there.
 - `src/`: the source of the two generated regions.
   - `td1_engine.js`, `td2_scene.js`, `td3_trailer.js`, `td4_base.js`, `td5_story.js` → TD block.
-  - `ui2.js`, `td6.js` … `td19.js` → UI2 block. Load order is in `tools/build.py`; td12 loads before td11 on purpose.
+  - `ui2.js`, `td6.js` … `td20.js` → UI2 block. Load order is in `tools/build.py`; td12 loads before td11 on purpose.
   - `maps.json`: tile rows for every top-down map.
   - `deep_rooms.json`, `city_rooms.json`: room rectangles, emitted as `TD_DEEPROOMS` / `TD_CITYROOMS`.
 - `tools/`:
@@ -215,6 +215,16 @@ The trailer and all of V's base are no longer side-view backdrops: they are 3/4 
 - Closeness: AFFX (V ↔ Misaki “Affection…” menu) gains: sit without talking, tea, lean on a shoulder, blanket, pinky promise, kitchen dance, nap together, scars, heartbeat (married) / hands under the table. Touch asks consent first while Misaki is in the dark state (`t19Touch`). Affection from each is once per day (`t19Day`).
 - Ronin and Angel: their talk menus get “Spend time together…” (platonic, by friendship tier) or “Be close…” when you are romancing them (`S.rom` as Misaki, `S.vrom` as V). Injected by wrapping `ask` when the hint reads “Ronin · ”/“Angelic · ”. Friendship gain once per day.
 - Warm route events in the normal pool: film-night shoulder (V/Misaki platonic), Sunday morning (married), laundromat dance (Misaki/Ronin), hair washing (Misaki/Angel), stitches (V/Ronin), audit reports in bed (V/Angel), everyone asleep after movie night.
+
+## Score 3, bug fixes, visual pass (this round)
+- Music (td13): chords voice-lead to the nearest inversion; basslines walk into the next chord; generated melodies are phrased (call and answer, cadence on chord tones); tracks move through sections (intro → groove → lead → breakdown). New voices: piano, cello, strings. Per-voice stereo, kick ducking on beat tracks, low end kept out of reverb/delay.
+  - New sad tracks: `grief`, `loss`, `requiem`. Force a track from story code with `mzForce(name)` / `mzForce(name, secs)`, release with `mzForce(null)`; `mzScene(name, lines, cb)` wraps a `say`. td19 uses `t19Mood('grief')`.
+- Bugs fixed:
+  - The focus “blip” fired every frame when standing near wall items (target compared by object identity). Now compared by label+rect, rate-limited, and the blip is a soft sine.
+  - Quitting to title or reaching an ending from a walkable room crashed (`leaveTD` read `S.room` after `S` was nulled).
+  - `toRoom` into zones without an arrival could drop the player into a sealed pocket; V/Misaki/Angel/Ronin could spawn on blocked tiles. Both now use `tdFreeReach` (reachable free tile).
+  - The 3am night wake-up no longer fires on the night of the kidnapping.
+- Visual pass (td20, plus outline support in `tdPx`): baked contact shadows where floors meet walls/solids (`vfxAO`), vignette, time-of-day colour grade (drained while `S.dark`), a warm rim on the player at night, 1px outlines on characters and dogs (`TD.outline`, `TDOL`). Pause menu → “Visual polish” toggles it (`META.fxOff`). Cost ≈0.6 ms/frame.
 
 ## B5 library → the library tower
 - `gen2.py` carves the library as a disc (centre 22,83, r≈10.5). Doors: north (22,72) from the corridor, east (42,88) to observation, south (22,95) to the pump hall. Zone floor `lab`, wall `glass`.
