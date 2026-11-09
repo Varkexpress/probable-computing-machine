@@ -2,7 +2,7 @@
 
 **Two separate builds.** `index.html` is Killer Chat, the game. `mirror-protocol.html` is Mirror Protocol, the math/study build (Chapter 4 cases, Study hall, exam, AMC prep, proof toolbox, 3D rooftop sniper contracts). Killer Chat contains no math, does not load three.js, and does not embed Mirror Protocol. A stub (`mpHub` returns []) keeps old hooks working, and old saves keep harmless `S.f.mp`/`S.f.geo` fields.
 
-- Repo: varkexpress/probable-computing-machine · branch `claude/kind-hamilton-9u4jq0`
+- Repo: varkexpress/probable-computing-machine · branch `claude/pensive-darwin-liv1h1` (built on `claude/kind-hamilton-9u4jq0`)
 - Killer Chat (shared by link): https://claude.ai/artifact/MnV6pegwS3EnxwNsdFiqbk. Publish `index.html` to this URL; it declares the `downloads` capability (save export).
 - Mirror Protocol (private, current): https://claude.ai/artifact/28zaMP5DnkNWXGy949BPfJ. An older copy is at https://claude.ai/artifact/PYHmmvPdLM33Asj4tNc3rp.
 
@@ -13,7 +13,7 @@
   - Everything outside those markers is the original game, edited in place in `index.html`. Story beats like `takenM`, `afterBase` and `startAct2` live there.
 - `src/`: the source of the two generated regions.
   - `td1_engine.js`, `td2_scene.js`, `td3_trailer.js`, `td4_base.js`, `td5_story.js` → TD block.
-  - `ui2.js`, `td6.js` … `td18.js` → UI2 block. Load order is in `tools/build.py`; td12 loads before td11 on purpose.
+  - `ui2.js`, `td6.js` … `td19.js` → UI2 block. Load order is in `tools/build.py`; td12 loads before td11 on purpose.
   - `maps.json`: tile rows for every top-down map.
   - `deep_rooms.json`, `city_rooms.json`: room rectangles, emitted as `TD_DEEPROOMS` / `TD_CITYROOMS`.
 - `tools/`:
@@ -67,7 +67,8 @@ The trailer and all of V's base are no longer side-view backdrops: they are 3/4 
 - Systems: collision + corner sliding, bump-to-open doors (`doorOpt`: `closed`, `locked`, `onLocked`, `noUse`, custom `draw`), tap-to-walk with BFS pathing, seats (`sc.sitOn`), clutter that slows you, pushable crates (garage), lights (`M.lights`, prop `light`) composited on a low-res light map, window light shafts with rain shadows, dust/steam/mist/drip particles, outdoor rain/snow/fog, blurred foreground layers for depth of field (`M.fg`), dog follower that trails you through doors.
 - Story: `TDREACT` (companion barks/inner monologue triggered by where you stand, what you've touched, phase/weather), drawer "layers" (`tdLayer`), new talk topics `TDTOP_V`/`TDTOP_M` unlocked by finds (ceiling stars 49.8, coach's New Year cards, V's coat pocket clip, Persuasion underline, unsent "Stay." draft, the bike behind the crates, the keep-list). State in `S.td` (`l` lights, `door`, `dr` drawers, `f` flags, `seen`).
 - Trailer puzzle: heater + kettle + main light trips the breaker; fix it at the post behind the trailer. Lights off at night + lie on the bed shows the stars.
-- Voices: Misaki's speech gets more complex as the relationship deepens — the cheerful mask comes off. The original `mVoice` (slang expansion, sentence case) is kept and extended: from level 2 her performative tics drop (`:)`, lol, hehe, `!!`), at level 3 her ALL-CAPS shouting and `!` settle into plain sentences. Write her lines low-tier whimsical, high-tier sincere (use `MV(...)`). `vVoice` (wrapped into `showL`) lets V's contractions slip at close/ride-or-die, deterministically per line, never when `S.dark`.
+- Voices (rewritten in `src/td5_story.js`): Misaki's speech gets more complex as the relationship deepens. Below level 2 her texting style is left exactly as written. From level 2 the shorthand expands (`u`→you, `ur`→your/you’re by the next word, `i’m`→I’m) and tics drop (`:)`, lol, hehe, `!!`); names are capitalised (`MV_NAMES`). At level 3 ALL-CAPS words become ordinary lowercase (not Title Case; acronyms in `MV_CAPS_KEEP` stay), stretched letters settle, `!` becomes `.`. Ellipses always stay three dots; `hitmeuppp` and HTML tags are protected. Write her lines low-tier whimsical, high-tier sincere (use `MV(...)`).
+- **V never uses contractions.** `vVoice` is a no-op now (it used to slip contractions in and produced lines like “what it’s”). Write V’s lines, including his POV choices and inner monologue, without contractions; quoting someone else inside “…” is fine.
 - Pause menu → "Rooms: walkable/classic" toggles `META.classicRooms` (classic side view fallback).
 - Performance: sprites are cached per palette in `TDSPR`; depth-of-field draws foreground shapes into a 1/3-res buffer and upscales (no `ctx.filter`). ~5 ms/frame in headless software rendering.
 - Rebuild workflow used: the TD source was kept as separate files and spliced between the markers; editing in place inside the markers is fine too.
@@ -203,6 +204,17 @@ The trailer and all of V's base are no longer side-view backdrops: they are 3/4 
   - V sleeps in the east-wing bed (`vWhere`→'bedroom'). Misaki sleeps in the trailer, or in V's bed if moved in. Ronin sleeps on his couch, Angel on the new daybed. Each sleeper has a "X is sleeping. Best not wake him/her." menu with options specific to that person.
   - `sleep` sometimes runs `nightWake` (30%): branches by POV, moved-in, and Misaki's or V's romance.
   - Angel and Ronin 3am events.
+
+## Grief, closeness, small kindnesses (td19, last module)
+- Tragedy arcs run as priority morning events (`T19EV`, wrapped `morningEvent`), in order, at least three days apart:
+  1. Coach Hamada (`t19_coach1/2`): his daughter writes that he died; whether Misaki wrote back (`tdF('coach')`) changes the letter. Go to the service or not (`S.f.t19coachGo`); either way she gets his stopwatch (58.31, never cleared). Then a city option: run one 400 at the old track (`t19Run`).
+  2. The man who killed June (`t19_whistle1/2`): he died peacefully in a hospice; Ronin waits at the station all night. Then the crowbar marked J, thrown into the harbour together (`t19Harbour`).
+  3. Mrs. Oda (`t19_oda1/2`): Angel's oldest commenter died in a hospice; her last comment was never sent. Angel does a live with no face, no filter.
+  4. The voicemail (`t19_vm1/2`): V's mother's last voicemail is on a phone that dies; Ronin or Angel tries; it is gone; Misaki records V describing her voice instead.
+- Keepsakes for each (wrapped `keepList`), journal notes. Scenes call `t19Mood('grief')` → `mzForce` if the music module provides it.
+- Closeness: AFFX (V ↔ Misaki “Affection…” menu) gains: sit without talking, tea, lean on a shoulder, blanket, pinky promise, kitchen dance, nap together, scars, heartbeat (married) / hands under the table. Touch asks consent first while Misaki is in the dark state (`t19Touch`). Affection from each is once per day (`t19Day`).
+- Ronin and Angel: their talk menus get “Spend time together…” (platonic, by friendship tier) or “Be close…” when you are romancing them (`S.rom` as Misaki, `S.vrom` as V). Injected by wrapping `ask` when the hint reads “Ronin · ”/“Angelic · ”. Friendship gain once per day.
+- Warm route events in the normal pool: film-night shoulder (V/Misaki platonic), Sunday morning (married), laundromat dance (Misaki/Ronin), hair washing (Misaki/Angel), stitches (V/Ronin), audit reports in bed (V/Angel), everyone asleep after movie night.
 
 ## B5 library → the library tower
 - `gen2.py` carves the library as a disc (centre 22,83, r≈10.5). Doors: north (22,72) from the corridor, east (42,88) to observation, south (22,95) to the pump hall. Zone floor `lab`, wall `glass`.
