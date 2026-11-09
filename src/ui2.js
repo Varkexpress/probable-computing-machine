@@ -115,7 +115,7 @@ function bagGive(it,w){bagClose();const back=()=>{if(scene&&scene.isRoom)toRoom(
  if(w==='a'||w==='r'){friendGift(w,back)}else giftMenu(w,back);
  setTimeout(()=>{const o=[...document.querySelectorAll('.dlg .opt')].find(e=>e.textContent.replace(/^\d+\s*/,'').startsWith(iname(it.id)));if(o)o.click()},30)}
 function bagRender(){const el=BAG.el;if(!el)return;const L=bagItems();BAG.sel=clamp(BAG.sel,0,Math.max(0,L.length-1));const it=L[BAG.sel];const A=bagActs(it);BAG.act=clamp(BAG.act,0,Math.max(0,A.length-1));
- const total=Object.values(S.inv||{}).reduce((a,b)=>a+Math.max(0,b),0);const money=isM()&&S.pov!=='v'?`¥${S.yen.toLocaleString()}`:`$${S.funds}k`;
+ const total=Object.values(S.inv||{}).reduce((a,b)=>a+Math.max(0,b),0)+(typeof gearList==='function'?gearList().length:0);const money=isM()&&S.pov!=='v'?`¥${S.yen.toLocaleString()}`:`$${S.funds}k`;
  const likes=it&&!it.tool&&!it.keep?['v','m','a','r'].map(w=>{const P=w==='v'||w==='m'?PREF[w][it.id]:(typeof FPREF!=='undefined'&&FPREF[w]&&FPREF[w][it.id]);const known=w==='v'||w==='m'?S.f['pref_'+w+it.id]:null;if(w==='a'||w==='r')return null;return`<b style="color:${NCOL[w]}">${WHO[w]}</b> · ${known&&P?(P[0]>=6?'♥ loved it':P[0]>=3?'liked it':'meh'):'<span style="opacity:.55">? not given yet</span>'}`}).filter(Boolean):[];
  const thought=BAG.thought?`<p class="th">${esc2(BAG.thought)}</p>`:'';
  el.innerHTML=`<span class="x" data-b="x">✕</span><div class="left"><h2>${ME2()==='K9'?'Pockets':'Bag'} <small>${total} item${total===1?'':'s'} · ${money}</small></h2>

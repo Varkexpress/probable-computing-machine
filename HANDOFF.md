@@ -209,8 +209,8 @@ The trailer and all of V's base are no longer side-view backdrops: they are 3/4 
 - Tragedy arcs run as priority morning events (`T19EV`, wrapped `morningEvent`), in order, at least three days apart:
   1. Coach Hamada (`t19_coach1/2`): his daughter writes that he died; whether Misaki wrote back (`tdF('coach')`) changes the letter. Go to the service or not (`S.f.t19coachGo`); either way she gets his stopwatch (58.31, never cleared). Then a city option: run one 400 at the old track (`t19Run`).
   2. The man who killed June (`t19_whistle1/2`): he died peacefully in a hospice; Ronin waits at the station all night. Then the crowbar marked J, thrown into the harbour together (`t19Harbour`).
-  3. Mrs. Oda (`t19_oda1/2`): Angel's oldest commenter died in a hospice; her last comment was never sent. Angel does a live with no face, no filter.
-  4. The voicemail (`t19_vm1/2`): V's mother's last voicemail is on a phone that dies; Ronin or Angel tries; it is gone; Misaki records V describing her voice instead.
+  3. Mrs. Kanemoto (`t19_oda1/2`): Angel's oldest commenter died in a hospice; her last comment was never sent. Angel does a live with no face, no filter.
+  4. The voicemail (`t19_vm1/2`): Maman's last voicemail (the afternoon before she was taken) is on a phone that dies; Ronin or Angel tries; it is gone; Misaki records V describing her voice instead.
 - Keepsakes for each (wrapped `keepList`), journal notes. Scenes call `t19Mood('grief')` → `mzForce` if the music module provides it.
 - Closeness: AFFX (V ↔ Misaki “Affection…” menu) gains: sit without talking, tea, lean on a shoulder, blanket, pinky promise, kitchen dance, nap together, scars, heartbeat (married) / hands under the table. Touch asks consent first while Misaki is in the dark state (`t19Touch`). Affection from each is once per day (`t19Day`).
 - Ronin and Angel: their talk menus get “Spend time together…” (platonic, by friendship tier) or “Be close…” when you are romancing them (`S.rom` as Misaki, `S.vrom` as V). Injected by wrapping `ask` when the hint reads “Ronin · ”/“Angelic · ”. Friendship gain once per day.

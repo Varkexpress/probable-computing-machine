@@ -1,5 +1,5 @@
 /* ===================== td19: grief, closeness, small kindnesses =====================
-   Four tragedy arcs (Coach Hamada, the man who killed June, Mrs. Oda, the voicemail),
+   Four tragedy arcs (Coach Hamada, the man who killed June, Mrs. Kanemoto, the voicemail),
    closeness for every route (V & Misaki, Misaki with Ronin or Angel, V with Ronin or Angel),
    and platonic things to do with Ronin and Angel. Voices: V never uses contractions;
    Misaki's lines go through MV (whimsical at low tiers, sincere at high); Ronin drawls; Angel texts in lowercase. */
@@ -92,35 +92,35 @@ function t19Harbour(){S.f.t19harbour=1;save();const me=ME2(),v=isMe2V();
   [RN,'June, honey. That’s the last of him. Ain’t carryin’ him round for you no more. Only carryin’ you.'],
   ['','He ties a knot in a length of wet rope from the bollard and gives it to you. He does not explain. You do not ask.']],()=>{fr('r',8);note('t19_harbour','Ronin threw the J crowbar into the harbour. He let go on the fifth three.');hub()},'#0a1018','grief')}
 
-/* ===== 3. Mrs. Oda ===== */
-T19EV.push({id:'t19_oda1',when:()=>t19Ok()&&frT('a')>=1&&S.day>=7,run:done=>t19Say([[AN,'(in chat) ok weird question. has anyone seen a comment from oda_obaachan on my new vid'],[AN,'(in chat) she always comments first. like within a minute. for four years. “beautiful as always, dear. eat something.” every single video.'],[RN,'(in chat) maybe she’s busy, darlin’.'],[AN,'(in chat) she’s 84 ronin. she has never once been busy.'],[AN,'(in chat) ok. it’s fine. i’m being weird. ignore me 💅']],()=>{S.f.t19oda1=S.day;save();done()})});
+/* ===== 3. Mrs. Kanemoto ===== */
+T19EV.push({id:'t19_oda1',when:()=>t19Ok()&&frT('a')>=1&&S.day>=7,run:done=>t19Say([[AN,'(in chat) ok weird question. has anyone seen a comment from kanemoto_obaachan on my new vid'],[AN,'(in chat) she always comments first. like within a minute. for four years. “beautiful as always, sweetheart. eat something.” every single video.'],[RN,'(in chat) maybe she’s busy, darlin’.'],[AN,'(in chat) she’s 84 ronin. she has never once been busy.'],[AN,'(in chat) ok. it’s fine. i’m being weird. ignore me 💅']],()=>{S.f.t19oda1=S.day;save();done()})});
 T19EV.push({id:'t19_oda2',when:()=>t19Ok()&&S.f.t19oda1&&S.day>=S.f.t19oda1+2,run:done=>{const me=ME2(),v=isMe2V(),rom=t19Rom('a');S.f.t19oda=1;save();
  const L=[['','Angel’s studio. The ring light is off. You have never seen the ring light off. She is sitting on the floor in a hoodie with no makeup on, holding her phone in both hands.'],
   [AN,'her granddaughter messaged me. obaachan died sunday. she was in a hospice for three months.'],
   [AN,'she watched every live. with the volume up. the nurses learned the songs. they used to tell her i was too skinny.'],
   [AN,'and there’s this. her granddaughter found it in the app. a draft. she never sent it.'],
-  ['','She turns the phone round. A comment box, half typed: “beautiful as always, dear. eat som”'],
+  ['','She turns the phone round. A comment box, half typed: “beautiful as always, sweetheart. eat som”'],
   [AN,'four years. i do my face for like two million people. and the one who was actually listening i never met. i never even said her name on stream. i didn’t know her NAME.']];
- const fin=n=>{fr('a',n);note('t19_oda','Mrs. Oda watched every one of Angel’s lives from a hospice bed. Her last comment was never sent.');
+ const fin=n=>{fr('a',n);note('t19_oda','Mrs. Kanemoto watched every one of Angel’s lives from a hospice bed. Her last comment was never sent.');
   t19Say([[AN,'ok. ok. i want to do a live. no face. no filter. no ring light. just me saying her name.'],[AN,'will u hold the phone. my hands are being stupid.'],
-   ['','You hold the phone. She says, “this one’s for Oda Fumiko, who told me to eat something every day for four years.” Then she eats a whole onigiri on camera, badly, crying.'],
-   ['','The comments fill up so fast the screen blurs. Thousands of them. All the same five words.'],['','“beautiful as always, dear.”']],done,'grief')};
+   ['','You hold the phone. She says, “this one’s for Kanemoto Haru, who told me to eat something every day for four years.” Then she eats a whole onigiri on camera, badly, crying.'],
+   ['','The comments fill up so fast the screen blurs. Thousands of them. All the same five words.'],['','“beautiful as always, sweetheart.”']],done,'grief')};
  const opts=[{t:v?'Sit down on the floor next to her.':MV('sit on the floor with her','sit on the floor with her','Sit on the floor next to her.','Sit on the floor next to her and take her hand.'),fn:()=>t19Say([['','You sit down. The floor is cold. She leans until her head is on your arm and stays there.'],[AN,'don’t say anything smart. just be a person next to me.']],()=>fin(6))},
-  {t:v?'“Tell me about her.”':MV('“tell me about her.”','“tell me about her.”','“Tell me about her.”','“Tell me everything about her. I’ve got all night.”'),fn:()=>t19Say([[AN,'she called me “dear.” she corrected my kanji once. she sent a photo of her cat in a little hat for my birthday. the cat was furious.'],[AN,'she said i was the only thing on the internet that wasn’t trying to sell her something. i was literally selling her lip gloss.'],[me,v?'You were not selling her lip gloss. You were keeping her company. She knew the difference.':MV('u weren’t selling her anything. u were keeping her company','she knew the difference babe','She knew the difference. Between the gloss and you.','She knew the difference, Angel. That is why she stayed four years.')]],()=>fin(6))}];
+  {t:v?'“Tell me about her.”':MV('“tell me about her.”','“tell me about her.”','“Tell me about her.”','“Tell me everything about her. I’ve got all night.”'),fn:()=>t19Say([[AN,'she called me “sweetheart.” she corrected my kanji once. she sent a photo of her cat in a little hat for my birthday. the cat was furious.'],[AN,'she said i was the only thing on the internet that wasn’t trying to sell her something. i was literally selling her lip gloss.'],[me,v?'You were not selling her lip gloss. You were keeping her company. She knew the difference.':MV('u weren’t selling her anything. u were keeping her company','she knew the difference babe','She knew the difference. Between the gloss and you.','She knew the difference, Angel. That is why she stayed four years.')]],()=>fin(6))}];
  if(rom)opts.unshift({t:'Hold her.',fn:()=>t19Say([['','You pull her into your lap like it is the most obvious thing in the world. She fits there. She cries into your collar until it is soaked through, and keeps apologising to it.'],[AN,'i ruined ur collar.'],[me,v?'I will frame it.':MV('i’m gonna frame it','i’m framing it','I’m framing it.','I’m framing it. Come here. Closer.')]],()=>fin(8))});
  t19Say(L,()=>ask(me,'She is not looking at you. She is looking at the half-typed comment.',opts),'grief')}});
 
 /* ===== 4. The voicemail ===== */
 T19EV.push({id:'t19_vm1',when:()=>t19Ok()&&tier()>=2&&S.day>=9&&!S.dark,run:done=>{const v=t19PV();
  const L=v?[['','You open the archive drawer for the yearly listen and the old phone will not turn on. The battery has swollen until the back of the case has lifted like a lid.'],
-   ['','It has one voicemail on it. Your mother. Forty-one seconds. She was calling to ask whether you wanted rice or noodles. You were nine. You did not pick up.'],
+   ['','It has one voicemail on it. Maman. Forty-one seconds, the afternoon before they took her. She was calling to ask whether you wanted the soup or rice for dinner. You were nine and at your piano lesson. You did not pick up.'],
    ['','You listened to it once a year. You were rationing it.'],
    ['hitmeuppp',MV('V? u ok? u’ve been down here like an hour','V? you’ve been down here for an hour. what’s that','V? You have been down here an hour. What is that?','V. You have been down here an hour. Talk to me.')],
-   ['K9','It is a telephone. It was my mother’s voice. It is now a telephone.']]
+   ['K9','It is a telephone. It was Maman’s voice. It is now a telephone.']]
   :[['','You find V in the archive, at the desk, with an old flip phone in pieces in front of him. He is holding the battery like it is a small dead animal.'],
-   ['K9','It has one voicemail on it. My mother. Forty-one seconds. She was calling to ask whether I wanted rice or noodles. I was nine. I did not pick up.'],
+   ['K9','It has one voicemail on it. Maman. Forty-one seconds, the afternoon before they took her. She was calling to ask whether I wanted the soup or rice for dinner. I was nine and at my piano lesson. I did not pick up.'],
    ['K9','I listened to it once a year. I was rationing it. It will not turn on.']];
- const fin=w=>{S.f.t19vm=S.day;S.f.t19vmWho=w;save();note('t19_vm','V’s mother’s last voicemail is on a phone that will not turn on. '+(w==='r'?'Ronin is trying to fix it.':'Angel knows somebody in data recovery.'));done()};
+ const fin=w=>{S.f.t19vm=S.day;S.f.t19vmWho=w;save();note('t19_vm','Maman’s last voicemail is on a phone that will not turn on. '+(w==='r'?'Ronin is trying to fix it.':'Angel knows somebody in data recovery.'));done()};
  t19Say(L,()=>ask(ME2(),'The battery is warm. That is probably not a good sign.',[
   {t:v?'“Ronin can fix anything with a motor or a hinge. Perhaps a circuit.”':MV('“ronin fixes everything. he fixed a toaster with a fork”','“ronin. ronin fixes things. let me call ronin”','“Ronin fixes things. Let me call Ronin.”','“Let me call Ronin. He’ll try. He’ll try all night if I ask him.”'),fn:()=>fin('r')},
   {t:v?'“Angelic knows someone who recovers deleted footage for influencers.”':MV('“angel knows a guy who un-deletes stuff”','“angel knows a recovery guy. for her deleted vids”','“Angel knows someone. A recovery person, for her footage.”','“Angel knows someone who gets back things people thought were gone. Let me ask.”'),fn:()=>fin('a')}]),'grief')}});
@@ -128,13 +128,13 @@ T19EV.push({id:'t19_vm2',when:()=>t19Ok()&&S.f.t19vm&&S.day>=S.f.t19vm+2,run:don
  const L=[who==='r'?[RN,'Vee. I’m sorry. I opened her up real gentle. The memory chip’s cracked clean through. Heat from the battery, I reckon. Whatever was on there… it ain’t on there no more.']:[AN,'V. i’m so sorry. my guy tried three different things. the chip’s cracked. it’s not hiding. it’s gone.'],
   ['K9','Thank you for trying.'],
   ['',v?'You say it very evenly. You put the pieces back in the drawer in the right order, as if that matters now.':'He says it very evenly. He puts the pieces back in the drawer in the right order, as if that matters now.'],
-  ['K9','Rice. She would have made rice. I always said rice.'],
+  ['K9','The soup. She would have made the soup. I always said the soup.'],
   ['K9','I do not remember her voice. I remember that I had it. Those are not the same thing, and I did not know that until this morning.']];
  const fin=()=>{S.f.t19memo=1;save();toast('Keepsake: Two minutes, ten seconds');apply({aff:4});t19Rel({trust:6});done()};
  const memo=[[me,v?'(You do not know why you say it. You say it anyway.) Misaki. Record something for me. I want to describe her before I forget how to.':MV('tell me what she sounded like. wait. say it into this','what did she sound like. wait— say it into my phone','What did she sound like? Wait. Say it into my phone.','Tell me what she sounded like. Into my phone. I can’t give you her voice. I can keep yours describing it.')],
   ['','The red dot blinks. He talks for two minutes and ten seconds.'],
-  ['K9','She hummed when she read. Off key. Always the same four notes. She said “well, well” when she was pleased and pretended it was about the weather. She laughed with her whole face, and then she covered her mouth, because her mother had told her it was rude.'],
-  ['K9','She called me “little general.” I hated it. I would like to hear it once more and I would not hate it at all.'],
+  ['K9','She sang while she cooked. Off key, in three languages, sometimes in the same line. She said “ou wè?” whenever she was right, which she believed was always. She laughed with her whole face, and then she covered her mouth, because her mother had told her it was rude.'],
+  ['K9','She called me “ti jeneral.” Little general. I hated it. I would like to hear it once more and I would not hate it at all.'],
   ['','The dot stops. '+(v?'She saves it twice, then backs it up three times, then shows you each copy, one by one, until you believe her.':'You save it twice. Then you back it up three times. Then you show him every copy, one by one, until he believes you.')]];
  t19Say(L,()=>ask(me,'The drawer is closed. He has not moved his hand off it.',[
   {t:v?'Let her hold your hand.':MV('hold his hand','hold his hand','Hold his hand.','Put your hand over his on the drawer.'),fn:()=>t19Say([['',v?'A hand over yours. Small, warm, a callus on the trigger finger. Neither of you says anything for a long time.':'You put your hand over his. His is cold. Yours has a callus on the trigger finger. Neither of you says anything for a long time.']].concat(memo),fin,'grief')},
