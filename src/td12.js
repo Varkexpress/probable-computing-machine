@@ -18,7 +18,7 @@ if(!TOPICS_M.find(x=>x.id==='dp_auton2V'))TOPICS_M.splice(TOPICS_M.length-1,0,TD
 EVENTS.push({id:'dp_lockerdream',when:()=>isM()&&S.pov!=='v'&&tdF('autonomy')&&S.day>(tdS().f.autonDay||99)&&!S.seen.dp_lockerdream,run:done=>say([
  ['','You dream about the locker room. It is exactly the same: the bench, the strip light, the smell of someone else’s deodorant. There are two doors at the end, like there always are.'],
  ['','But this time there’s a third one, plain wood, slightly crooked, like somebody hung it themselves and wasn’t sure of the measurements.'],
- ['','You don’t go through it. You just look at it, for a long time, until you wake up.'],
+ ['','You don’t go through it. You just look at it, for what feels like hours, until you wake up.'],
  ['hitmeuppp','...weird. i usually wake up before i pick.']],done)});
 /* the third door, in the hall of doors */
 dp({id:'dp_third',x:TX(63)-2,y:TX(50),w:6,d:20,h:20,solid:false,flat:1,show:()=>tdF('autonomy2'),label:()=>tdF('thirdOpened')?'The third door':'A new door — brass plate: THREE',

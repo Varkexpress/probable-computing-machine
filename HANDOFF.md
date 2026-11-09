@@ -269,6 +269,16 @@ The trailer and all of V's base are no longer side-view backdrops: they are 3/4 
 - Each was rewritten as a plain statement in the character's own voice. No mechanics changed.
 - `tools/aiscan.py` lists strings that still match the first set of patterns. What it reports now is ordinary speech ("Not today", "Not bad"). When writing new lines, state the thing directly; don't negate a framing nobody raised, and don't end on a summarising "that's the X".
 
+## Refinement pass
+- **Fixed a crash:** reaching any ending while standing in a walkable room threw in `leaveTD` (S was already null). Guarded.
+- **Performance:**
+  - The library's static floor art (rings, about 1,000 book spines, troughs, core) is baked once in `libBake`; only the plants animate.
+  - The graphics-pass light glow is capped at 10 lights.
+  - `tools/perf_test.js` prints frame cost per area, enhanced vs classic. Headless numbers are relative only.
+- **UI:** interaction prompts no longer sit on top of the objective banner (minimum y is 40).
+- **Writing:** varied or cut about 80 uses of "for a long time" and "very carefully/quietly/slowly/gently". Similes were left alone on purpose.
+- **`tools/days_test.js`:** plays 12 days as each POV (answers texts, takes calls, wanders, pokes things, sleeps) and reports errors. It found the ending crash.
+
 ## Mirror Protocol (mirror-protocol.html)
 - Chapter 4 cases (all unlocked): lessons, mastery practice, 3D missions, final Ledger + 20-question exam.
 - Study hall (`prepHome`): shared item engine (`TYPES*` generators → `{skill,prompt,fig,parts,steps}`; part kinds pt/num/sel/mc/multi/graph/rule; `gradeItem`, `custom13`, `custom18`), `startTest(order,key,label)`, `startQuiz`, `moduleView`.

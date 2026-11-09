@@ -33,7 +33,7 @@ TD.maps.ronin.props.push({id:'sl_r',x:142,y:104,w:58,d:14,flat:1,solid:false,sho
  act:()=>sleepMenu('Ronin','him',[
   {t:'Let him sleep.',fn:()=>{fr('r',1);tdSay([['','He sleeps with the good crowbar tucked under one arm like a teddy bear. Heathers is still playing, on mute, on the croquet lawn.']])}},
   {t:'Turn off the TV.',fn:()=>{fr('r',1);tdSay([['','The second the screen goes dark, without opening his eyes:'],[RN,'I was watchin’ that.'],['','He was not. He’s asleep again before you’ve put the remote down.']])}},
-  {t:'Put a blanket over him.',fn:()=>{fr('r',2);tdSay([['','You drape the throw over him. In his sleep he mutters “June, quit it,” and pulls it up to his chin.'],['','You leave very quietly.']])}},
+  {t:'Put a blanket over him.',fn:()=>{fr('r',2);tdSay([['','You drape the throw over him. In his sleep he mutters “June, quit it,” and pulls it up to his chin.'],['','You leave in your socks.']])}},
   {t:'Wake him.',fn:()=>{fr('r',1);tdSay([['','Wrong move. You are on the floor before you know you’ve fallen, a crowbar resting politely on your collarbone.'],[RN,'...Oh. It’s you, darlin’. Coulda knocked. ...Coffee?']])}}])});
 TD.maps.ronin.props.forEach(p=>{if(p.id==='sl_r')p.zb=4});
 const _rnNpc=ROOMS.ronin.npcs;ROOMS.ronin.npcs=()=>{const L=_rnNpc?_rnNpc():[];return LATE()?L.filter(n=>!/Ronin/.test(n.label||'')):L};

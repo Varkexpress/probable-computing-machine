@@ -62,7 +62,7 @@ const LIBQ=[['An atlas. Half the countries in it no longer exist. Someone has dr
  ['Encyclopaedias, A to Mu. Someone took out “K” and left an empty box.','I took K out at fourteen. I did not want to be in an encyclopaedia.','the K volume is missing. there’s just a box. i know who took it.'],
  ['Books she mentioned. New spines, cracked where they’ve been read twice. A card: “M. — in order of mention.”','Everything she has ever mentioned. Some twice, so I would have something to say.','he bought every book i ever mentioned. IN ORDER. i’m going to lie down on the floor now.'],
  ['Detective novels, shelved by body count. A note: “SORTED. — R.”','Ronin sorted them. I have not had the heart to re-sort them.','ronin sorted the mystery shelf by body count. honestly a great system.'],
- ['Books about dogs. Training, breeds, care, grief. The grief one has the most bookmarks.','Sergeant. Max. Before them, others. It does not get shorter.','the dog grief book has forty bookmarks in it. i’m putting it back very gently.']];
+ ['Books about dogs. Training, breeds, care, grief. The grief one has the most bookmarks.','Sergeant. Max. Before them, others. It does not get shorter.','the dog grief book has forty bookmarks in it. i’m putting it back with both hands.']];
 function libBook(i){const L=LIBQ[i%LIBQ.length];tdSay([['',L[0]],[tdN(),dpV()?L[1]:L[2]]])}
 function libIndex(){ask(tdN(),'The holo-catalogue wakes up and asks, in V’s mother’s recorded voice, what you are looking for.',[
  {t:'“Dogs”',fn:()=>tdSay([['','Two hundred and six entries. The newest: “Biscuit (a dog). See: everything.”']])},
@@ -73,7 +73,7 @@ function libIndex(){ask(tdN(),'The holo-catalogue wakes up and asks, in V’s mo
 /* three of his mother's books, ribbons in them */
 const MB=[[-128,9,'A book with a red ribbon','“The Little Prince”, French. In the margin by the fox, in a soft round hand: “for my V, when he is old enough to be tamed.”'],[78,8.8,'A book with a blue ribbon','A field guide to Haitian birds. Every bird he has ever seen is ticked. The last tick is newer: “hummingbird, Kyoto. She saw it first.”'],[188,9,'A book with a green ribbon','Her diary, its pages warped from years in the trough. One line survived: “He has his father’s hands. I will teach them other things to do.”']];
 MB.forEach(([d,r,lab,txt0],i)=>{const [x,y]=lpt(d,r);b5({id:'lib_mb'+i,x:x-5,y:y-4,w:10,d:8,h:6,show:()=>!tdF('mb'+i),label:lab,draw:(xx,yy)=>{rect(xx+1,yy-4,8,6,'#5a3a22');rect(xx+4,yy-4,2,9,['#d0283f','#2a6aaa','#3a8a3a'][i])},act:()=>{tdSetF('mb'+i);sfx('chime');toast('Found '+[0,1,2].filter(k=>tdF('mb'+k)).length+'/3 of her books');tdSay([['',txt0]],()=>{if([0,1,2].every(k=>tdF('mb'+k))&&!tdF('mbAll'))libMother()})}})});
-function libMother(){tdSetF('mbAll');apply({aff:3});tdSay(dpV()?[['','You set the three ribboned books in the reading pod, side by side, the way she used to leave them on your pillow.'],['K9','She marked them for me. One a year. I found the third only after she was gone.'],['K9','“I will teach them other things to do.” ...I have tried. Most days, I think, I have tried.']]:[['','You leave the three ribboned books in his reading pod. When he comes down he sees them and stops in the doorway.'],['K9','...Where did you find the green one. I have looked for the green one for eleven years.'],['hitmeuppp','in the herb trough. it was holding up the basil.'],['K9','Of course it was.'],['','He sits in the pod with the diary open on his knees for a long time. He reads the one surviving line out loud. Then again, quieter, like it’s for you too.']])}
+function libMother(){tdSetF('mbAll');apply({aff:3});tdSay(dpV()?[['','You set the three ribboned books in the reading pod, side by side, the way she used to leave them on your pillow.'],['K9','She marked them for me. One a year. I found the third only after she was gone.'],['K9','“I will teach them other things to do.” ...I have tried. Most days, I think, I have tried.']]:[['','You leave the three ribboned books in his reading pod. When he comes down he sees them and stops in the doorway.'],['K9','...Where did you find the green one. I have looked for the green one for eleven years.'],['hitmeuppp','in the herb trough. it was holding up the basil.'],['K9','Of course it was.'],['','He sits in the pod with the diary open on his knees until the grow lights dim for the night. He reads the one surviving line out loud. Then again, quieter, like it’s for you too.']])}
 /* seed vault */
 b5({id:'sv_drawers2',wall:1,x:TX(50),y:TX(70),w:TX(4),d:32,label:'Seed drawers',draw:(x,y)=>svDraw(x,y),act:()=>tdSay([['','More drawers. A whole column just for one city: here. Every weed in the lot behind the trailer, pressed, labelled, saved. “In case she wants them back.”']])});
 function svDraw(x,y){rect(x,y+2,TX(4),30,'#c8dce8');for(let r=0;r<4;r++)for(let k=0;k<8;k++){rect(x+2+k*8,y+4+r*7,7,6,'#e8f4fc');rect(x+4+k*8,y+6+r*7,3,1,'#5a6a7a')}}
@@ -116,18 +116,19 @@ Object.assign(TD.maps.deep.npcAt,{'dp_library:v':[19,80],'dp_library:m':[27,79]}
  M.lights.push({x:LC.x,y:LC.y,r:120,i:.9,col:'235,255,250',flick:.01,und:1});
  const c3=DR.cham3;M.lights.push({x:TX(c3[0]+6),y:TX(c3[1]+2),r:140,i:1,col:'255,255,255',und:1})})();
 /* the floor: rings, the planter trough, the shelf band at the rim, the glass core */
-const _unB5=TD.maps.deep.under;TD.maps.deep.under=sc=>{_unB5(sc);if(!sc.zone||sc.zone.id!=='dp_library')return;const X=LC.x,Y=LC.y,u=16;
+/* everything on the library floor that never moves is drawn once into a cached canvas */
+let LIBBAKE=null;
+function libBake(){if(LIBBAKE&&LIBBAKE.sc===SC)return LIBBAKE;const R=200,o=document.createElement('canvas');o.width=o.height=R*2*SC;o.sc=SC;const c=o.getContext('2d');if(!c)return(LIBBAKE=o);c.scale(SC,SC);const X=R,Y=R,u=16;
  c.strokeStyle='rgba(95,212,196,.12)';c.lineWidth=1;[2.6,4.4,7,8.6].forEach(r=>{c.beginPath();c.arc(X,Y,r*u,0,7);c.stroke()});for(let k=0;k<12;k++){const a=k*Math.PI/6;c.beginPath();c.moveTo(X+Math.cos(a)*2.6*u,Y+Math.sin(a)*2.6*u);c.lineTo(X+Math.cos(a)*8.6*u,Y+Math.sin(a)*8.6*u);c.stroke()}
- /* shelf band at the rim */
- c.lineWidth=1;for(let d=0;d<360;d+=1.4){if(nearDoor(d,7))continue;const a=d*Math.PI/180;for(let r=10.25;r<12;r+=.42){const col=['#7a2a2a','#2a4a6a','#c9a050','#3a5a3a','#e8dcc0','#5a3a6a'][Math.floor(d*3.1+r*7)%6];c.fillStyle=col;c.fillRect(X+Math.cos(a)*r*u-1,Y+Math.sin(a)*r*u-1,2,2.4)}}
+ for(let d=0;d<360;d+=1.4){if(nearDoor(d,7))continue;const a=d*Math.PI/180;for(let r=10.25;r<12;r+=.42){c.fillStyle=['#7a2a2a','#2a4a6a','#c9a050','#3a5a3a','#e8dcc0','#5a3a6a'][Math.floor(d*3.1+r*7)%6];c.fillRect(X+Math.cos(a)*r*u-1,Y+Math.sin(a)*r*u-1,2,2.4)}}
  c.strokeStyle='#5fd4c4';c.lineWidth=2;for(const [a0,a1] of [[-83,19],[33,83],[97,277]]){c.beginPath();c.arc(X,Y,10.1*u,a0*Math.PI/180,a1*Math.PI/180);c.stroke()}
- /* planter trough */
- c.lineWidth=11;c.strokeStyle='#1e2a30';for(const [a0,a1] of [[16,74],[106,164],[196,254],[286,344]]){c.beginPath();c.arc(X,Y,5.6*u,a0*Math.PI/180,a1*Math.PI/180);c.stroke()}
- c.lineWidth=3;c.strokeStyle='rgba(95,212,196,.45)';for(const [a0,a1] of [[16,74],[106,164],[196,254],[286,344]]){c.beginPath();c.arc(X,Y,5.6*u,a0*Math.PI/180,a1*Math.PI/180);c.stroke()}
- c.lineWidth=1;for(let d=0;d<360;d+=4){if([0,90,180,270].some(a=>Math.abs(((d-a+540)%360)-180)<16))continue;const a=d*Math.PI/180+Math.sin(T/80+d)*.01;c.fillStyle=d%12?'#3e8a3a':'#5aba4a';c.beginPath();c.ellipse(X+Math.cos(a)*5.6*u,Y+Math.sin(a)*5.6*u-2,3,1.8,a,0,7);c.fill();if(d%20===0){c.fillStyle='#ff8ab0';c.fillRect(X+Math.cos(a)*5.6*u,Y+Math.sin(a)*5.6*u-4,2,2)}}
- /* the core */
- c.fillStyle='rgba(20,30,36,.9)';c.beginPath();c.arc(X,Y,1.7*u,0,7);c.fill();c.strokeStyle='rgba(95,212,196,.8)';c.lineWidth=2;c.beginPath();c.arc(X,Y,1.7*u,0,7);c.stroke();c.lineWidth=1;
- c.fillStyle='rgba(235,255,250,.25)';c.beginPath();c.arc(X,Y,1.2*u,0,7);c.fill()};
+ const ARCS=[[16,74],[106,164],[196,254],[286,344]];c.lineWidth=11;c.strokeStyle='#1e2a30';for(const [a0,a1] of ARCS){c.beginPath();c.arc(X,Y,5.6*u,a0*Math.PI/180,a1*Math.PI/180);c.stroke()}
+ c.lineWidth=3;c.strokeStyle='rgba(95,212,196,.45)';for(const [a0,a1] of ARCS){c.beginPath();c.arc(X,Y,5.6*u,a0*Math.PI/180,a1*Math.PI/180);c.stroke()}
+ c.fillStyle='rgba(20,30,36,.9)';c.beginPath();c.arc(X,Y,1.7*u,0,7);c.fill();c.strokeStyle='rgba(95,212,196,.8)';c.lineWidth=2;c.beginPath();c.arc(X,Y,1.7*u,0,7);c.stroke();
+ c.fillStyle='rgba(235,255,250,.25)';c.beginPath();c.arc(X,Y,1.2*u,0,7);c.fill();return(LIBBAKE=o)}
+const _unB5=TD.maps.deep.under;TD.maps.deep.under=sc=>{_unB5(sc);if(!sc.zone||sc.zone.id!=='dp_library')return;const X=LC.x,Y=LC.y,u=16;
+ c.drawImage(libBake(),X-200,Y-200,400,400);
+ for(let d=0;d<360;d+=4){if([0,90,180,270].some(a=>Math.abs(((d-a+540)%360)-180)<16))continue;const a=d*Math.PI/180+Math.sin(T/80+d)*.01;c.fillStyle=d%12?'#3e8a3a':'#5aba4a';c.beginPath();c.ellipse(X+Math.cos(a)*5.6*u,Y+Math.sin(a)*5.6*u-2,3,1.8,a,0,7);c.fill();if(d%20===0){c.fillStyle='#ff8ab0';c.fillRect(X+Math.cos(a)*5.6*u,Y+Math.sin(a)*5.6*u-4,2,2)}}};
 /* looking up: galleries rising into the dark, hydroponics spiralling up the core and the walls */
 const _ovB5=TD.maps.deep.over;TD.maps.deep.over=sc=>{_ovB5(sc);if(!sc.zone||sc.zone.id!=='dp_library')return;const X=LC.x,Y=LC.y,u=16,t=T/60;
  const g=c.createLinearGradient(0,Y-260,0,Y);g.addColorStop(0,'rgba(235,255,250,0)');g.addColorStop(1,'rgba(235,255,250,.13)');c.fillStyle=g;c.fillRect(X-20,Y-260,40,260);

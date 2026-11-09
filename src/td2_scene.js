@@ -41,7 +41,7 @@ function tdScene(mapId,x,y,dir,opt={}){const M=TD.maps[mapId];const p={x,y,dir:d
    if(z.onEnter)try{z.onEnter(this,first)}catch(e){console.error(e)}
    if(roomChanged){const R=ROOMS[z.room];if(R&&R.enter&&!dlg&&!ctrl)try{R.enter()}catch(e){console.error(e)}}
    if(roomChanged&&typeof flashCheck==='function'&&!this.fl){try{if(flashCheck(z.room,{x:160,y:150})){this.fl=1}}catch(e){}}},
-  leaveTD(){if(this.noResume){TD.resume=null;return}TD.resume={room:S.room,map:M.id,x:p.x,y:p.y,dir:p.dir,lp:this.pos()}},
+  leaveTD(){if(this.noResume||!S){TD.resume=null;return}TD.resume={room:S.room,map:M.id,x:p.x,y:p.y,dir:p.dir,lp:this.pos()}},
   trans(fn){if(this.tr)return;this.noResume=1;this.tr={t:0,fn:()=>{fn();if(scene===this)this.noResume=0}};sfx('step')},
   tapTo(sx,sy){if(!this.cam)return;const wx=sx+this.cam.x,wy=sy+this.cam.y;this.tapFx={x:wx,y:wy,t:20};if(p.sit){this.stand();return}
    let it=null,bd=10;for(const q of this.inter){const r=q.r;const dx=Math.max(r[0]-wx,0,wx-(r[0]+r[2])),dy=Math.max(r[1]-12-wy,0,wy-(r[1]+r[3]));const d=Math.hypot(dx,dy);if(d<bd){bd=d;it=q}}
@@ -127,7 +127,7 @@ function tdScene(mapId,x,y,dir,opt={}){const M=TD.maps[mapId];const p={x,y,dir:d
    c.save();c.translate(-cam.x,-cam.y);TD.drawing=true;try{if(typeof drawEmote==='function')drawEmote();tdBarks(this);
     if(this.cur&&!dlg&&!ctrl&&!this.tr){const it=this.cur;const cx=it.r[0]+it.r[2]/2;let ty=it.top;if(it.k==='prop'&&it.p.tagY!==undefined)ty=it.p.y+it.p.tagY;const a=(Math.sin(T/8)+1)/2;
      c.strokeStyle=`rgba(255,236,200,${.18+.25*a})`;c.lineWidth=.5;c.strokeRect(Math.round(it.r[0])+.5,Math.round(it.r[1])+.5,Math.round(it.r[2]),Math.round(it.r[3]));
-     TG=[(p.sit&&it.p&&it.p.seat?'Stand up':it.label),cx-cam.x,Math.max(24,ty-4-cam.y)]}}finally{TD.drawing=false;c.restore()}
+     TG=[(p.sit&&it.p&&it.p.seat?'Stand up':it.label),cx-cam.x,Math.max(40,ty-4-cam.y)]}}finally{TD.drawing=false;c.restore()}
    if(TG)tag(((typeof isTouch==='function'&&isTouch())?'':'E · ')+TG[0],TG[1],TG[2]);
    if(typeof vignette==='function')vignette();
    tdCaption();
