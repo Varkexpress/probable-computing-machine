@@ -13,14 +13,14 @@
   - Everything outside those markers is the original game, edited in place in `index.html`. Story beats like `takenM`, `afterBase` and `startAct2` live there.
 - `src/`: the source of the two generated regions.
   - `td1_engine.js`, `td2_scene.js`, `td3_trailer.js`, `td4_base.js`, `td5_story.js` → TD block.
-  - `ui2.js`, `td6.js` … `td18.js` → UI2 block. Load order is in `tools/build.py`; td12 loads before td11 on purpose.
+  - `ui2.js`, `td6.js` … `td21.js` → UI2 block. Load order is in `tools/build.py`; td12 loads before td11 on purpose.
   - `maps.json`: tile rows for every top-down map.
   - `deep_rooms.json`, `city_rooms.json`: room rectangles, emitted as `TD_DEEPROOMS` / `TD_CITYROOMS`.
 - `tools/`:
   - `build.py`: rebuilds the generated regions of index.html from src/.
   - `gen2.py`: deep house B3–B5 and the forest. `gen3.py`: city districts. `gen4.py`: widens Ronin's/Angel's flats. Each rewrites its maps in `src/maps.json`.
   - `audit.js`: reachability of every tile and object, plus every interaction on four benchmark saves.
-  - `fuzz2.js`: random play. `mz.js`: offline render and level check of every music track. `bal.js`: bracket-balance finder.
+  - `fuzz2.js`: random play. `phone_test.js`: every phone thread path. `gfx_test.js`: enhanced vs classic screenshots. `mz.js`: offline render and level check of every music track. `bal.js`: bracket-balance finder.
 - `art/`: expression charts (`*_expressions_source.webp`), `art/portraits_build.py`, output `art/portraits/*.png`.
 - `mirror-protocol.html`: separate three.js (r128, cdnjs) study game.
 
@@ -217,6 +217,29 @@ The trailer and all of V's base are no longer side-view backdrops: they are 3/4 
   - his mother's 3 ribboned books → `libMother`
 - The planter ring is solid via invisible segments, with gaps at the four compass points.
 - Freight-lift shortcut: once you've reached B5 (`b5seen`, set by `deep.tick`), a lift appears in the garage (to B5), and the B5 landing has a lift back up.
+
+## Phone 2, Angel's two masks, glasses, graphics (td19–td21)
+- td19 Phone 2 (`S.tx`):
+  - Each contact (V/Misaki/Angel/Ronin) has a thread. Replies are queued and arrive later (`phQueue`/`phDeliver`, on hub).
+  - Branching threads: `txDef(id,{with,pov,prio,when,nodes:{start:{in,opts,expire,onExpire}}})`. Options take `fx`, `reply`, `next`, `ok`. Ignoring a thread past `expire` runs `onExpire`.
+  - At most one new thread a day (`txTick`). Incoming calls (`call({...answer,miss})`) ring at most once a day and can be declined. Outgoing calls: one per contact a day (`outcall`).
+  - Threads: `tx_vjob`, `tx_mrent`, `tx_rpick`, `tx_rjune`, `tx_ahurt`, `tx_vroof`, `tx_amaria`, `tx_avhouse`. Calls: `c_angel3am`, `c_vjob`, `c_ronlift`, `c_mlate`.
+  - Payoff events: `pay_vdrove`, `pay_ronalone`, `pay_rondrive`, `pay_angellie`, `pay_roof`. Ending lines via `extraEnding`.
+  - `tools/phone_test.js` walks every option path and checks expiry.
+- td20 Angel's two masks: **Maria de la Rosa** (the channel and modelling; her livestreams are timestamped alibis) and **the Heartsick Angel** (the press's name for her killer side). "Angel" is just for the server.
+  - Content:
+    - the studio neon (`mariaKnown`)
+    - `tx_amaria` → `mariaShoot` (rooftop shoot, 3 ways to help)
+    - the `heartsick_news` event
+    - `maria_crack` (recognised at 3am: cover / let her answer / shield)
+    - `maria_end` (kill Maria / keep her as armour / introduce them; the last needs `mariaReal` + the shoot)
+    - V's `tx_avhouse` (shoot at his house, the keypad-door scare)
+    - a feed view in Messages
+- td21: V's reading glasses exist **in text only** (no sprite or portrait changes): the nightstand prop (wear / steal / freezer), the `gl_first` and `gl_found` events.
+- td21 graphics:
+  - Sprite outlines via cached silhouettes in a `tdPx` wrapper.
+  - Screen-space pass after `tdWeatherFX`: additive light glow, per-place soft-light grade (`fxGrade`), vignette, film grain (off with reduce motion).
+  - **G** toggles `META.fx` between enhanced and classic.
 
 ## Mirror Protocol (mirror-protocol.html)
 - Chapter 4 cases (all unlocked): lessons, mastery practice, 3D missions, final Ledger + 20-question exam.

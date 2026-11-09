@@ -10792,6 +10792,225 @@ function sleeperV(x,y,hair,skin,blanket){const b=Math.sin(T/45)*.5;c.fillStyle=b
  if(bd&&sm){Object.assign(sm,{x:bd.x+28,y:bd.y,w:28,d:bd.d,draw:()=>sleeperV(bd.x+42,bd.y-4,'#1b1626','#f0c8a8','#c2253a')})}
  const tb=g('trailer','tr_bed'),st=g('trailer','sl_m_tr');if(tb&&st)Object.assign(st,{x:tb.x,y:tb.y,w:tb.w,d:tb.d,draw:()=>sleeper(tb.x+17,tb.y+6,'#1b1626','#f0c8a8','#5a3a5a',false)});
  const rc=g('ronin','rn_couch'),sr=g('ronin','sl_r');if(rc&&sr)Object.assign(sr,{x:rc.x,y:rc.y-4,w:rc.w,d:rc.d,draw:()=>{sleeper(rc.x+34,rc.y-6,'#3a2a2a','#f0d0b8','#4a1424',true);rect(rc.x+14,rc.y-12,22,2,'#8a8a96')}})})();
+
+/* ===================== PHONE 2: threads that branch, calls you can miss ===================== */
+const PNM={v:'V',m:'Misaki',a:'Angel',r:'Ronin'};
+const PHONE={sel:null};
+const phMe=()=>S&&S.pov==='v'?'v':'m';
+const phNow=()=>S.day*4+S.slot;
+function phS(){if(!S.tx)S.tx={th:{},un:{},q:[],run:{},calls:{},out:{},log:[]};return S.tx}
+const phAlive=k=>!(S.phase==='taken'&&(k==='m'||phMe()==='m'))&&!(S.lone==='m'&&k==='v')&&!(S.lone==='v'&&k==='m');
+const phContacts=()=>['v','m','a','r'].filter(k=>k!==phMe()&&phAlive(k));
+function phPush(k,who,t){const P=phS();(P.th[k]=P.th[k]||[]).push([who,t,S.day]);if(P.th[k].length>60)P.th[k].shift();if(who==='t'){P.un[k]=(P.un[k]||0)+1}}
+function phQueue(k,lines,delay,mark){const P=phS();let at=phNow()+(delay||0);lines.forEach(t=>P.q.push({k,t,at}));if(mark)P.q.push({k,at,mark})}
+function phDeliver(){if(!S)return;const P=phS();const n=phNow();const due=P.q.filter(x=>x.at<=n);if(!due.length)return;P.q=P.q.filter(x=>x.at>n);let last=null;
+ due.forEach(x=>{if(x.mark){const r=P.run[x.mark.tid];if(r){r.node=x.mark.node;r.await=1;const nd=TXS[x.mark.tid].nodes[x.mark.node];r.exp=nd.expire?n+nd.expire:null}return}phPush(x.k,'t',x.t);last=x});
+ if(last){toast('✉ '+PNM[last.k]+': '+String(last.t).slice(0,34)+(String(last.t).length>34?'…':''));S.unread=Math.min(9,(S.unread||0)+1);sfx('chime');drawHud()}save()}
+/* threads: data-driven, every option can change something that is checked later */
+const TXS={};const TXSL=[];
+function txDef(id,o){o.id=id;TXS[id]=o;TXSL.push(o)}
+function txStart(id){const P=phS();P.run[id]={node:null,await:0};const nd=TXS[id].nodes.start;phQueue(TXS[id].with,nd.in(),nd.delay||0,{tid:id,node:'start'});save()}
+function txChoose(id,opt){const P=phS(),T=TXS[id],r=P.run[id];r.await=0;phPush(T.with,'me',typeof opt.say==='function'?opt.say():opt.say||opt.t);if(opt.fx)opt.fx();
+ const rep=opt.reply?opt.reply():[];if(opt.next){const nd=T.nodes[opt.next];phQueue(T.with,rep.concat(nd.in()),opt.delay||0,{tid:id,node:opt.next})}else{phQueue(T.with,rep,opt.delay||0);r.done=1}save();phDeliver()}
+function txTick(){if(!S||S.dark&&S.phase==='taken')return;const P=phS(),n=phNow();
+ for(const id in P.run){const r=P.run[id];if(r.await&&r.exp&&n>=r.exp){const nd=TXS[id].nodes[r.node];r.await=0;r.done=1;r.missed=1;if(nd.onExpire)nd.onExpire()}}
+ if(P.lastStart===S.day)return;const cand=TXSL.filter(t=>!P.run[t.id]&&phAlive(t.with)&&t.with!==phMe()&&(!t.pov||t.pov===phMe())&&(()=>{try{return t.when()}catch(e){return false}})());
+ if(cand.length&&Math.random()<.55){const t=cand.sort((a,b)=>(b.prio||0)-(a.prio||0))[0];P.lastStart=S.day;txStart(t.id)}}
+/* calls */
+const CALLS=[];function call(o){CALLS.push(o)}
+function phRing(c){const P=phS();P.calls[c.id]=S.day;save();sfx('chime');setTimeout(()=>sfx('chime'),350);
+ ask(PNM[c.from],`<b>📞 ${PNM[c.from]} is calling…</b>`+(c.hint?`<br><span class="hint">${c.hint()}</span>`:''),[
+  {t:'Answer',fn:()=>{phPush(c.from,'sys','📞 Call · answered');c.answer(()=>{save();phAfterCall()})}},
+  {t:'Decline',fn:()=>{phPush(c.from,'sys','📞 Missed call');if(c.miss)c.miss();save();phAfterCall()}}])}
+function phAfterCall(){if(scene&&scene.td)return;hub()}
+function phCallTick(){if(!S||dlg||ctrl)return;const P=phS();if(P.callDay===S.day)return;const c=CALLS.find(c=>phAlive(c.from)&&c.from!==phMe()&&P.calls[c.id]===undefined&&(()=>{try{return c.when()}catch(e){return false}})());if(!c||Math.random()>.5)return;P.callDay=S.day;setTimeout(()=>{if(!dlg&&!ctrl)phRing(c)},700)}
+const OUT={};function outcall(k,list){OUT[k]=list}
+function phCallOut(k){const P=phS();P.out[k+S.day]=1;save();phPush(k,'sys','📞 You called');const L=(OUT[k]||[]).find(o=>{try{return o.when()}catch(e){return false}});if(L)return L.run(()=>{save();phone('dm')});
+ say([[k==='v'?'K9':k==='m'?'hitmeuppp':k==='a'?AN:RN,pk(k==='r'?['Yeah? ...Nah, just checkin’ you’re alive. You are. Good. Bye.','You callin’ me? On the phone? Like a grandma? I love it.']:k==='a'?['hiii!! i can’t talk i’m in a face mask. talk TO me. i’ll listen.','babe i’m mid-shoot, i love you, call me in an hour, or don’t, i’ll call you.']:k==='v'?['Hello. ...Nothing is wrong? Good. I will keep you on the line a moment anyway.','You called. I was going to call you. Now I do not have to be brave.']:['hiii. what’s up. no ur not interrupting. ok u are. stay on.','oh. hi. u called. people don’t call. ok. talk.'])]],()=>phone('dm'))}
+/* the Messages tab */
+function phThreadHTML(k){const P=phS();const me=phMe();const L=(P.th[k]||[]).slice(-14);
+ return `<div class="thread">${L.map(([w,t,d])=>w==='sys'?`<div class="hint" style="align-self:center">${t}</div>`:`<div class="bub ${w==='me'?'me':'them'}">${t}</div>`).join('')||'<p class="hint">No messages yet.</p>'}</div>`}
+const _dmLone=dmTab;dmTab=function(){if(isLone())return _dmLone();phDeliver();const P=phS();
+ if(!PHONE.sel||!phContacts().includes(PHONE.sel)){PHONE.sel=null;const rows=phContacts().map(k=>{const L=P.th[k]||[];const last=L.filter(x=>x[0]!=='sys').slice(-1)[0];const pend=Object.keys(P.run).some(id=>TXS[id].with===k&&P.run[id].await);
+   return `<div class="bub them" style="max-width:100%"><b>${PNM[k]}</b>${P.un[k]?` <b class="badge">${P.un[k]}</b>`:''}${pend?' <span style="color:var(--blood)">· needs a reply</span>':''}<br><span class="hint">${last?(last[0]==='me'?'you: ':'')+String(last[1]).slice(0,52):'—'}</span></div>`}).join('');
+  return{html:`<div class="thread">${rows}</div>`,opts:phContacts().map(k=>({t:'Open '+PNM[k],sub:P.un[k]?P.un[k]+' new':'',fn:()=>{PHONE.sel=k;P.un[k]=0;save();phone('dm')}}))}}
+ const k=PHONE.sel;P.un[k]=0;const opts=[];
+ Object.keys(P.run).forEach(id=>{const r=P.run[id];if(TXS[id].with!==k||!r.await)return;const nd=TXS[id].nodes[r.node];(nd.opts().filter(o=>!o.ok||o.ok())).forEach(o=>opts.push({t:'↳ '+o.t,sub:o.sub||'',fn:()=>{txChoose(id,o);phone('dm')}}))});
+ if(!P.out[k+S.day]&&!S.dark)opts.push({t:'📞 Call '+PNM[k],sub:'once a day',fn:()=>phCallOut(k)});
+ if((k==='v'||k==='m')&&!S.done.dm&&!opts.some(o=>o.t.startsWith('↳'))){const side=phMe();(DMOPT[side]||[]).forEach(([kk,f])=>{const t=side==='m'?mVoice(f()):f();opts.push({t:'“'+t+'”',sub:'small talk · '+kk,fn:()=>{phPush(k,'me',t);S.done.dm=1;S.done.reply=1;const r=DMREP[side][kk]();phQueue(k,[side==='v'?mVoice(r):r],1);save();phone('dm')}})})}
+ opts.push({t:'← All messages',fn:()=>{PHONE.sel=null;phone('dm')}});
+ return{html:`<h3 style="margin:2px 0">${PNM[k]}</h3>`+phThreadHTML(k)+(opts.some(o=>o.t.startsWith('↳'))?'<p class="hint">They’re waiting on you.</p>':''),opts}};
+const _hubPH=hub;hub=function(){if(S&&!isLone()){phDeliver();txTick()}_hubPH();if(S&&!isLone())phCallTick()};
+/* ============ THE THREADS ============ */
+const MEp=()=>phMe()==='v'?'K9':'hitmeuppp';
+/* Misaki ↔ V: the job she didn't mention */
+txDef('tx_vjob',{with:'v',pov:'m',prio:3,when:()=>tier()>=1&&S.phase==='normal'&&S.f&&Object.keys(S.f).some(f=>f.startsWith('done_')),nodes:{
+ start:{in:()=>['You took the Shinjuku contract.'],expire:3,onExpire:()=>{S.f.vDrove=S.day;relApply&&relApply({tension:6})},
+  opts:()=>[{t:'“yeah. and?”',fx:()=>{relApply({tension:5});S.f.vJob='cold'},reply:()=>['Nothing. Noted.']},
+   {t:'“i was careful. want the details?”',fx:()=>{relApply({trust:4});S.f.vJob='open'},reply:()=>['Only the exit. Always the exit.'],next:'exit'},
+   {t:'“how do u know that”',reply:()=>['The police scanner. You were on it for four minutes. They did not have your face.'],next:'how'}]},
+ how:{in:()=>['I was not following you. I was listening. There is a difference. I am aware it is small.'],opts:()=>[
+   {t:'“it’s not small.”',fx:()=>{relApply({tension:3,trust:2});S.f.vJob='boundary'},reply:()=>['...You are right. I will turn it off when you work. You will have to tell me when you work.'],next:'deal'},
+   {t:'“...ok. thanks for listening.”',fx:()=>{apply({aff:2});S.f.vJob='open'},reply:()=>['Always.']}]},
+ deal:{in:()=>['Deal?'],opts:()=>[{t:'“deal. i’ll text u before.”',fx:()=>{S.f.vJobDeal=1;relApply({trust:6})},reply:()=>['Thank you. That is more than I deserved to ask for.']},{t:'“no deal. trust me.”',fx:()=>{S.f.vJobDeal=0;relApply({tension:2})},reply:()=>['Then I will trust you. It will be very difficult and I will do it anyway.']}]},
+ exit:{in:()=>['Which way did you leave?'],opts:()=>[{t:'“roof. then the next roof. then a bakery.”',fx:()=>{apply({aff:3});S.f.vJobShare=1},reply:()=>['The bakery is a nice touch. ...Thank you for telling me.']},{t:'“front door. nobody looks at the front door.”',fx:()=>{S.f.vJobShare=1;relApply({tension:2})},reply:()=>['Everybody looks at the front door, Misaki. Please let me show you three others.']}]}}});
+/* V ↔ Misaki: the rent, from his side */
+txDef('tx_mrent',{with:'m',pov:'v',prio:3,when:()=>S.phase==='normal'&&S.day>=3&&(S.paid||0)<2,nodes:{
+ start:{in:()=>['hypothetically if someone was 6000 yen short','asking for a friend','the friend is a cactus'],expire:2,onExpire:()=>{S.f.mRentIgnored=1},
+  opts:()=>[{t:'“Let me help.”',reply:()=>['no. i said HYPOTHETICALLY.'],next:'pride'},
+   {t:'“What do you need me to do?”',fx:()=>{relApply({trust:4});S.f.mRent='listen'},reply:()=>['...nothing. just say it’ll be fine.'],next:'fine'},
+   {t:'“I could leave it under your mat.”',fx:()=>{relApply({tension:6});S.f.mRent='mat'},reply:()=>['if there is money under my mat i will put it in a blender. i’m serious v.']}]},
+ pride:{in:()=>['i don’t take money from u. that’s my one rule with u.'],opts:()=>[
+   {t:'“Then let me hire you. The foundation has a job.”',fx:()=>{S.f.mRent='job';S.yen=(S.yen||0)+6000;apply({aff:2})},reply:()=>['...what kind of job.','Watching a building for a night. Boring. Legitimate. Paid.','fine. FINE. but i’m invoicing u. with a logo.']},
+   {t:'“Understood. I respect the rule.”',fx:()=>{relApply({trust:5});S.f.mRent='respect'},reply:()=>['...thanks. i’ll figure it out. i always figure it out.']}]},
+ fine:{in:()=>[],opts:()=>[{t:'“It will be fine.”',fx:()=>apply({aff:2}),reply:()=>['ok. ok. i believe u. don’t tell anyone.']},{t:'“It will be fine. I will make sure.”',fx:()=>relApply({tension:2}),reply:()=>['don’t make sure. just say it.']}]}}});
+/* Ronin: a 2am pickup */
+txDef('tx_rpick',{with:'r',prio:2,when:()=>frT('r')>=1&&!S.dark&&S.phase!=='taken'&&S.day>=4,nodes:{
+ start:{in:()=>['need a driver tonite. 2am. no questions.','bring gloves. the good ones, not the dish ones.'],expire:2,onExpire:()=>{S.f.ronAlone=S.day},
+  opts:()=>[{t:'“i’ll drive.”',fx:()=>{S.f.ronDrive=S.day},reply:()=>['knew it. knew you were a good egg. a rotten good egg.']},
+   {t:'“can’t. be careful.”',fx:()=>{S.f.ronAlone=S.day;fr('r',-1)},reply:()=>['careful’s my middle name. it isn’t. it’s dale.']},
+   {t:phMe()==='m'?'“i’m telling v.”':'“I am calling the police.”',ok:()=>phMe()==='v'||tier()>=1,fx:()=>{S.f.ronTold=S.day;fr('r',-3);if(phMe()==='v')relApply({rivalry:8});else relApply({trust:3})},reply:()=>phMe()==='v'?['you WOULDN’T.','...you would. fine. FINE. i’m stayin’ in. you owe me a crumble.']:['SNITCH.','...fine. he just called me. he’s comin’ with me. this is so much worse. thanks.']}]}}});
+/* Ronin to V at 3am: June */
+txDef('tx_rjune',{with:'r',pov:'v',prio:1,when:()=>frT('r')>=1&&(S.rivalry||0)<70,nodes:{
+ start:{in:()=>['vee. you up. bet you’re up.'],expire:2,
+  opts:()=>[{t:'“I am working.”',reply:()=>['workin on what. world domination. charity. same thing w you.']},
+   {t:'“What do you want, Ronin.”',reply:()=>['nothin. thought about june. didn’t wanna think about her alone.'],next:'june'}]},
+ june:{in:()=>[],opts:()=>[{t:'“Tell me about her.”',fx:()=>{fr('r',4);relApply({rivalry:-6});S.f.vJune=1},reply:()=>['she bit a kid who called me a freak. she was nine. he was twelve.','she’d have liked you. she liked anybody who wore a coat in summer.']},{t:'“Go to sleep, Ronin.”',fx:()=>fr('r',-1),reply:()=>['yeah. yeah ok.']}]}}});
+/* Angel: did anyone ask about me (only if Misaki kept the secret) */
+txDef('tx_ahurt',{with:'a',pov:'m',prio:4,when:()=>S.f.angelSecret&&S.phase!=='taken'&&!S.f.toldAngel,nodes:{
+ start:{in:()=>['hey random q','did anyone ever ask u about me. like. when u were gone.'],expire:2,onExpire:()=>{S.f.angelGhosted=1;fr('a',-3)},
+  opts:()=>[{t:'“yes. i said ur building. i’m sorry.”',fx:()=>{S.f.toldAngel=1;S.f.angelSecret=0;fr('a',2)},reply:()=>['...','ok.','thank u for telling me. i knew. i wanted u to tell me.']},
+   {t:'“no. why?”',fx:()=>{S.f.angelLie=1;fr('a',-1)},reply:()=>['no reason! forget it!! 💅']},
+   {t:'“can i call u instead”',reply:()=>['...yeah. call me.'],fx:()=>{S.f.angelCallOwed=1}}]}}});
+/* V to Misaki: the roof */
+txDef('tx_vroof',{with:'v',pov:'m',prio:1,when:()=>tier()>=2&&S.slot>=2&&!S.dark,nodes:{
+ start:{in:()=>['Are you awake.'],expire:1,opts:()=>[{t:'“yeah”',reply:()=>['Come up to the roof.'],next:'roof'},{t:'“why”',reply:()=>['No reason. I wanted to show you the moon. It is very large tonight. That is the whole reason.'],next:'roof'}]},
+ roof:{in:()=>[],opts:()=>[{t:'“omw”',fx:()=>{S.f.roofTonight=S.day;apply({aff:3})},reply:()=>['I brought the blanket with the dog on it.']},{t:'“too tired. tmrw?”',reply:()=>['Of course. Goodnight, Misaki.']}]}}});
+/* ============ CALLS ============ */
+call({id:'c_angel3am',from:'a',when:()=>frT('a')>=1&&S.slot>=2&&!S.dark&&S.phase!=='taken',hint:()=>'It’s very late.',
+ answer:done=>say([[AN,'are you asleep. don’t answer that. i had the dream again. the one with the comments.'],[AN,S.f.mariaKnown?'everybody loves maria. nobody’s ever met me. i’m so tired of being her at 3am.':'can you just stay on the line while i make tea.']],()=>ask(MEp(),'(...)',[
+  {t:'Stay on the line until she falls asleep.',fn:()=>{fr('a',4);S.f.angelStayed=1;say([['','She makes tea and narrates it, and somewhere in the middle she falls asleep with the phone on the pillow.']],done)}},
+  {t:'“want me to come over?”',fn:()=>{fr('a',5);apply({energy:-8});S.f.angelVisit=S.day;say([[AN,'...yeah. yes. bring the bad snacks.'],['','You sit on her kitchen floor until five eating the bad snacks. She doesn’t put her face on once.']],done)}},
+  {t:'“tell me about the dream.”',fn:()=>{fr('a',3);say([[AN,'it’s just the comments. reading them out loud in my mom’s voice. that’s the whole dream. it’s so stupid.'],[MEp(),phMe()==='v'?'It is not stupid. It is a cruel voice reading cruel things. Of course you are awake.':'it’s not stupid. ur mom’s voice is a horror movie.'],[AN,'...thank you.']],done)}}])),
+ miss:()=>{S.f.angelMissed=S.day;phQueue('a',['never mind!! sorry!! go back to sleep 💤'],0)}});
+call({id:'c_vjob',from:'v',when:()=>phMe()==='m'&&tier()>=1&&S.done&&S.done.job&&S.slot>=2&&S.f.vJobDeal!==0,hint:()=>'You just got home from a job.',
+ answer:done=>say([['K9','Are you home.'],['hitmeuppp','yeah. how did u'],['K9',S.f.vJobDeal?'You texted me before. You said you would. You did. I have been holding the phone for two hours.':'The scanner. I know. I am sorry. Are you hurt.']],()=>ask('hitmeuppp','(...)',[{t:'“i’m fine. talk to me a bit.”',fn:()=>{apply({aff:3,heat:-3});say([['K9','About what?'],['hitmeuppp','anything. the dogs.'],['','He tells you about the dogs for forty minutes. Your hands stop shaking somewhere around Mochi.']],done)}},{t:'“i’m fine. goodnight.”',fn:()=>say([['K9','Goodnight, Misaki.']],done)}])),
+ miss:()=>{relApply({tension:3});phQueue('v',['Answer when you can.'],0)}});
+call({id:'c_ronlift',from:'r',when:()=>phMe()==='v'&&frT('r')>=1&&S.slot>=2,hint:()=>'Ronin never calls.',
+ answer:done=>say([[RN,'Vee. Need a lift. Car park behind the bowlin’ alley. Don’t bring the coat, it’s too recognisable.']],()=>ask('K9','(...)',[{t:'Go.',fn:()=>{fr('r',5);relApply({rivalry:-6});S.f.vRonLift=1;say([['','He’s sitting on the kerb with a split lip and a very satisfied expression. He doesn’t explain. You don’t ask. He falls asleep in your passenger seat and drools on the upholstery.']],done)}},{t:'“Call a taxi, Ronin.”',fn:()=>{fr('r',-2);say([[RN,'Wow. Okay. Cold. Cold, Vee.']],done)}}])),
+ miss:()=>{S.f.vRonMissed=S.day}});
+call({id:'c_mlate',from:'m',when:()=>phMe()==='v'&&tier()>=2&&S.slot>=2&&!S.f.movedIn,hint:()=>'Misaki doesn’t call. She texts.',
+ answer:done=>say([['hitmeuppp','hi. no reason. can’t sleep. talk at me.']],()=>ask('K9','(...)',[{t:'Read her something until she sleeps.',fn:()=>{apply({aff:4});say([['','You read her the first chapter of Persuasion. She falls asleep at “Sir Walter Elliot”. You keep reading anyway.']],done)}},{t:'“Do you want me to come over?”',fn:()=>{apply({aff:3});say([['hitmeuppp',MV('no. ...yes. no. stay on the phone.','no. stay on the phone. that’s better somehow.','No. This is better. You can’t see my face.','No. Stay right there. This is the most i’ve ever told anybody about my day.')]],done)}}])),
+ miss:()=>{phQueue('m',['nvm. night'],0);relApply({tension:2})}});
+/* outgoing calls with something to say */
+outcall('a',[{when:()=>S.f.angelCallOwed&&!S.f.toldAngel,run:done=>{S.f.angelCallOwed=0;ask('hitmeuppp','Angel picks up on the first ring. She doesn’t say hello.',[{t:'Tell her the truth about the building.',fn:()=>{S.f.toldAngel=1;S.f.angelSecret=0;fr('a',3);say([[AN,'...okay. okay. thank you for saying it out loud. it’s better out loud.'],[AN,'you’re still the panda.']],done)}},{t:'Hang up.',fn:()=>{S.f.angelLie=1;say([['','You hang up. She texts “??” and then nothing.']],done)}}])}}]);
+outcall('v',[{when:()=>phMe()==='m'&&S.f.vDrove===S.day,run:done=>say([['hitmeuppp','ur car is outside my trailer.'],['K9','...Yes.'],['hitmeuppp','go home v.'],['K9','Going.']],()=>{relApply({tension:3});done()})}]);
+/* ============ PAYOFFS ============ */
+EVENTS.push(
+ {id:'pay_vdrove',when:()=>S.f.vDrove&&S.day>S.f.vDrove&&!S.seen.pay_vdrove2&&isM(),run:done=>{S.seen.pay_vdrove2=1;say([['','You didn’t answer his text. Last night there was a car idling at the end of the lot until two. You know the engine.'],['hitmeuppp',MV('(he drove by. i didn’t answer and he drove by.)','(i didn’t answer and he came to look. i hate that it helped.)','(He came to check because I didn’t answer. I’m angry. I slept better. Both.)','(He came because I went quiet. We need to talk about that. I also need to thank him.)')]],done)}},
+ {id:'pay_ronalone',when:()=>S.f.ronAlone&&S.day>S.f.ronAlone&&!S.seen.pay_ronalone2,run:done=>{S.seen.pay_ronalone2=1;const bad=frT('r')<2;fr('r',bad?-2:0);say(bad?[['','Ronin turns up at noon with eleven stitches over one eyebrow and a bag of oranges.'],[RN,'Went alone. Went fine. Mostly. The oranges are an apology to myself.']]:[[RN,'(text) went fine. didn’t need you. would’ve been nicer with you. bringin’ crumble anyway.']],done)}},
+ {id:'pay_rondrive',when:()=>S.f.ronDrive&&S.day>S.f.ronDrive&&!S.seen.pay_rondrive2,run:done=>{S.seen.pay_rondrive2=1;fr('r',5);apply(isM()?{edge:2,heat:4}:{heart:-2});say([['','2am. You drive. Ronin goes into a warehouse with an empty duffel and comes out with a full one and a man’s car keys.'],[RN,'Don’t look in the bag, darlin’. It’s just paperwork. Rotten paperwork. For a rotten fella.'],['','He tips you in apple crumble. It’s still warm.']],done)}},
+ {id:'pay_angellie',when:()=>S.f.angelLie&&!S.seen.pay_angellie2&&S.day>=(S.f.angelLieDay||0),run:done=>{S.seen.pay_angellie2=1;fr('a',-2);say([['','Angel posts a story: her old building, the front door, a single word over it. “moved.” Nothing else. You watch it four times.']],done)}},
+ {id:'pay_roof',when:()=>S.f.roofTonight===S.day-1&&!S.seen['pay_roof'+S.day],run:done=>{S.seen['pay_roof'+S.day]=1;say([['','Last night: the roof, the blanket with the dog on it, a moon so big it looked fake.'],['K9','(He didn’t say anything for an hour. Neither did you. It was the best hour of the week.)']],done)}});
+const _xePH=extraEnding;extraEnding=function(){const L=_xePH();if(!S||!S.f)return L;
+ if(S.f.vJobDeal===1)L.push('She texts him before every job. Two words: “going in.” He replies with one: “Noted.” He keeps every one.');
+ if(S.f.angelLie)L.push('Misaki told Angel “no” when she asked. Angel never asked again. It is the only lie between them, and both of them know exactly where it is.');
+ if(S.f.angelStayed)L.push('Angel still calls at 3am sometimes. She doesn’t say why any more. The call just stays open until one of them falls asleep.');
+ if(S.f.vJune)L.push('V knows the story of June now. He keeps it the way he keeps everything: carefully, and somewhere Ronin can find it.');
+ return L};
+
+/* ===================== MARIA DE LA ROSA: Angel's other name ===================== */
+/* Two masks. Maria de la Rosa: the channel, the modelling, the face two million people know.
+   The Heartsick Angel: the name the papers gave the killer they can't catch. In the server, she's just Angel. */
+const MDR='Maria de la Rosa';
+const _wkMDR=whoKey;whoKey=function(w){if(w&&/maria de la rosa/i.test(w))return'a';return _wkMDR(w)};
+PINGS.push(['an','new maria de la rosa vid is up!! (it’s me. i’m maria. u all know this. like and subscribe or i haunt u)'],['an','maria has a perfume campaign. maria does not know what perfume smells like. maria is sick of maria.']);
+/* the studio wears the brand */
+TD.maps.studio.props.push({id:'st_neon',wall:1,x:110,y:16,w:72,d:32,label:'A neon sign: MARIA DE LA ROSA',draw:(x,y)=>{const f=(T>>3)%40===0?.35:1;c.globalAlpha=f;txt('Maria',x+36,y+14,'#ff8ab0',10,'center');txt('de la Rosa',x+36,y+24,'#ffd0e0',7,'center');c.globalAlpha=1;c.fillStyle='rgba(255,138,176,.08)';c.fillRect(x,y+2,72,28)},light:{dx:36,dy:28,r:46,i:.5,col:'255,138,176',flick:.1,on:()=>true},
+ act:who=>{const first=!S.f.mariaKnown;S.f.mariaKnown=1;save();tdSay(first?[['','The neon reads MARIA DE LA ROSA in looping pink script. Underneath, smaller, on a sticky note in Angel’s handwriting: “she’s not real. be nice to her anyway.”'],[AN,'that’s her. maria. two million followers, a perfume deal, and absolutely no idea how to load a shotgun.'],[AN,'the shotgun belongs to the other one. the heartsick angel. the news named her, not me. i think it’s a little dramatic. i also think it’s a little perfect.'],[AN,'maria smiles. the heartsick angel doesn’t. i switch at the door. ...it’s fine. everybody has a work voice. i just have two.']]:[['','MARIA DE LA ROSA, humming pink. The sticky note is still there: “be nice to her anyway.”']])}});
+/* the shoot she asks for help with */
+txDef('tx_amaria',{with:'a',prio:3,when:()=>frT('a')>=1&&!S.dark&&S.phase!=='taken'&&!S.f.mariaShootDone,nodes:{
+ start:{in:()=>['babe. BABE.','maria has a shoot tmrw at 6am and my assistant quit (i yelled. once. a normal amount)','i need hands. i’ll pay u in iced coffee and eternal love'],expire:2,onExpire:()=>{S.f.mariaSkip=1;fr('a',-1)},
+  opts:()=>[{t:'“i’m in.”',fx:()=>{S.f.mariaShoot=S.day+1;fr('a',2)},reply:()=>['YES. ok. wear black. stand where i point. don’t let anyone touch the ring light. ever.']},
+   {t:'“can’t. sorry.”',fx:()=>{S.f.mariaSkip=1;fr('a',-1)},reply:()=>['ok!! totally fine!! 💖','(she is not totally fine. she posts a story at 6:14am captioned “doing it myself i guess” with the ring light at an angle.)']},
+   {t:'“who’s maria?”',ok:()=>!S.f.mariaKnown,fx:()=>{S.f.mariaKnown=1},reply:()=>['...oh my god. u don’t know. i love that u don’t know.','maria de la rosa is me. the me with a last name and a lawyer. the channel. the modelling.','the heartsick angel is also me. the one on the news. the one without a face.','angel is just for the server. for u guys. she’s the only one i don’t have to put on.'],next:'again'}]},
+ again:{in:()=>['so. 6am. are u helping maria or not'],opts:()=>[{t:'“i’m helping angel. and maria i guess.”',fx:()=>{S.f.mariaShoot=S.day+1;fr('a',4)},reply:()=>['...that’s the nicest thing anyone’s ever said to both of us.']},{t:'“can’t this time.”',fx:()=>{S.f.mariaSkip=1},reply:()=>['next time then!! ok!! 💖']}]}}});
+function mariaShoot(){spend();S.f.mariaShootDone=S.day;save();const v=phMe()==='v';
+ cut([['','6am, a rooftop in Aoyama. Wind. A rented white backdrop that keeps trying to become a sail.'],['','Angel arrives already being Maria: hair like a magazine, voice half an octave higher, laughing at things that are not funny. She hands you a reflector without breaking character.'],[MDR,'Okay, darling! Hold it at my chin. No, MY chin. Gorgeous. We love a helper.']],()=>ask(v?'K9':'hitmeuppp','(How do you help?)',[
+  {t:'Hold the reflector perfectly still',sub:'steady hands',fn:()=>pottery(ok=>{fr('a',ok?5:2);S.f.mariaShootHow='still';cut(ok?[['','Forty minutes without a wobble. The photographer asks if you’re a professional. You say yes, technically.'],[MDR,'Look at THAT light. Look at that light!'],['','Between frames, very quietly, in Angel’s real voice: “thank you. my arms always shake by now.”']]:[['','The reflector catches the wind and very nearly takes you off the roof. Maria laughs like it was planned. Angel, under her breath: “i love you. never do that again.”']],hub,'#2a1428')})},
+  {t:'Keep the gawkers on the next roof from filming',fn:()=>{fr('a',4);S.f.mariaShootHow='guard';cut([['','A cluster of office workers on the next roof has their phones out. You stand at the parapet and look at them. That’s all. You just look.'],['','The phones go down one by one.'],['',v?'Maria doesn’t see. Angel does. She does a tiny, private thumbs-up behind the backdrop.':'Maria doesn’t see. Angel does. She mouths “SCARY” at you, delighted.']],hub,'#2a1428')}},
+  {t:'Notice she hasn’t eaten. Make her eat.',fn:()=>{fr('a',6);S.f.mariaShootHow='fed';cut([['','At the first break you put an onigiri in her hand. Maria starts to say she doesn’t eat before shoots.'],['','You just keep holding it out.'],[AN,'(real voice) ...okay. okay. salmon? how did you know salmon.'],['','She eats it behind the backdrop in four bites, and the next three hundred frames are the best of the day.']],hub,'#2a1428')}}]),'#2a1428')}
+/* the night she gets recognised without her face on */
+EVENTS.push({id:'heartsick_news',when:()=>S.f.mariaKnown&&!S.dark&&S.phase!=='taken',run:done=>say([['TV','—police have released no new information on the killer the press has called “the Heartsick Angel”. Detectives say the—'],[AN,'(in chat) they used the bad photo again. the composite. i look like a sad potato.'],[RN,'(in chat) you look like a sad potato that kills people, princess. it’s a compliment.'],[AN,'(in chat) maria’s posting a skincare video at 8. it’s timestamped. just saying. for anyone keeping track of where i was last night. which is nobody. 💅']],()=>{S.f.heartsickSeen=1;done()})},
+{id:'maria_crack',when:()=>S.f.mariaKnown&&frT('a')>=2&&!S.dark&&S.phase!=='taken',run:done=>say([
+ ['','A konbini at 3am. Angel in a hoodie, no makeup, hair in a claw clip, arguing with you about crisps.'],
+ ['','A girl at the till keeps looking. Then she has her phone out.'],['','“Oh my god. Are you… Maria de la Rosa? You look so different. Are you okay? Can I get a—”'],
+ ['','Angel goes completely still, the way she never does.']],()=>ask(MEp(),'(Angel hasn’t moved.)',[
+ {t:'“Her cousin. She gets that a lot.”',fn:()=>{S.f.mariaMask=(S.f.mariaMask||0)+1;fr('a',2);say([['','The girl apologises and goes. Angel breathes out.'],[AN,'cousin. ok. good. thanks. ...i hate that i was relieved.']],done)}},
+ {t:'Let Angel answer.',fn:()=>{S.f.mariaReal=(S.f.mariaReal||0)+1;fr('a',4);say([[AN,'...yeah. hi. this is what she looks like at 3am. it’s me. i’m fine. no photo, okay? just— this one’s mine.'],['','The girl nods. She buys Angel the crisps. Angel cries in the car park for one minute, exactly, and then laughs.'],[AN,'she saw ME. not maria. and she was NICE about it.']],done)}},
+ {t:'Step between Angel and the camera.',fn:()=>{S.f.mariaShield=1;fr('a',3);say([['','You just step in front of her. Not threatening. Just there. The girl lowers the phone.'],[AN,'(in the car) you didn’t have to do that.'],[MEp(),phMe()==='v'?'I know.':'i know.'],[AN,'...nobody ever does that for maria. you did it for me.']],done)}}]))},
+/* what she does with Maria in the end depends on everything above */
+{id:'maria_end',when:()=>S.f.mariaKnown&&(S.f.mariaReal||S.f.mariaMask||S.f.mariaShield)&&frT('a')>=3&&!S.f.mariaEnd&&S.phase!=='taken',run:done=>say([
+ [AN,'can i tell you something and you don’t say anything till i’m done'],[AN,'i’m thinking about killing maria. like. retiring her. one last video and then just. me.'],[AN,'but maria’s the alibi. every livestream is a timestamp. without her the heartsick angel has nowhere to stand. so it’s not just a channel. it’s the floor.'],
+ S.f.mariaShootDone?[AN,'you held the reflector for her. you know how heavy she is.']:null,S.f.angelLie?[AN,'and it’s weird. i feel like there’s stuff people don’t tell me. maybe i don’t tell people stuff either. maybe that’s maria’s fault.']:null].filter(Boolean),()=>ask(MEp(),'(What do you tell her?)',[
+ {t:'“kill her. be angel.”',fn:()=>{S.f.mariaEnd='angel';fr('a',4);apply({heat:6});say([[AN,'...okay. okay. no makeup. no script. just me telling two million people my real name.'],['','The video is eleven minutes long. She doesn’t cry until minute nine. It’s the most-watched thing she’s ever posted.'],[AN,'(later, in chat) no more timestamps. the heartsick angel is going to have to be a lot more careful. ...worth it.']],done)}},
+ {t:'“keep her. she’s armour. you’re allowed armour.”',fn:()=>{S.f.mariaEnd='maria';fr('a',3);apply({heat:-6});say([[AN,'armour. yeah. ...i like that. maria keeps the door, the heartsick angel keeps the shotgun, and angel gets the house.'],['','She changes one thing: the neon sign comes down from the studio and goes up in the hallway, outside. The door.']],done)}},
+ {t:'“don’t kill her. introduce them.”',ok:()=>!!(S.f.mariaReal&&S.f.mariaShootDone),sub:'only if she’s already let people see her',fn:()=>{S.f.mariaEnd='both';fr('a',6);say([[AN,'introduce them. oh my god. a video where maria does my makeup and i take it off halfway through.'],['','She films it that week. Half glam, half bare. The comments are kind for the first time in years.'],[AN,'they like both of us. they like BOTH of us.']],done)}}]))});
+/* V can lend her the house, which brings cameras very close to things he hides */
+txDef('tx_avhouse',{with:'a',pov:'v',prio:2,when:()=>frT('a')>=1&&!S.f.mariaHouse&&S.phase!=='taken',nodes:{
+ start:{in:()=>['V can maria borrow ur house for a shoot','the brief is “old money, haunted”','ur house is the most haunted money i know'],expire:2,
+  opts:()=>[{t:'“Yes.”',fx:()=>{S.f.mariaHouse=S.day+1;S.f.mariaKnown=1},reply:()=>['YESSS. tmrw. six people. i’ll keep them on a leash. a pink one.']},{t:'“The atrium only.”',fx:()=>{S.f.mariaHouse=S.day+1;S.f.mariaHouseAtrium=1;S.f.mariaKnown=1},reply:()=>['atrium only. understood. sir yes sir.']},{t:'“No.”',fx:()=>fr('a',-1),reply:()=>['ok!! fair!! haunted money stays haunted 👻']}]}}});
+EVENTS.push({id:'maria_house',when:()=>S.f.mariaHouse&&S.day>=S.f.mariaHouse&&!S.seen.maria_house2,run:done=>{S.seen.maria_house2=1;say([['','Six people with cameras in your atrium. Maria on the staircase in a black gown, being haunted beautifully.'],
+ ['',S.f.mariaHouseAtrium?'At four o’clock a lighting assistant goes looking for a power socket and wanders toward the garage. Toward the keypad door.':'At four o’clock a lighting assistant goes exploring. He ends up in the garage, staring at a steel door with a keypad.']],()=>ask('K9','(He is reaching for the keypad.)',[
+ {t:'Walk in, calm, and offer him the socket in the kitchen.',fn:()=>{relApply({trust:2});say([['','He follows you out. He never looks at the door again. You change the code that night anyway.']],done)}},
+ {t:'Text Angel: “Garage. Now.”',fn:()=>{fr('a',4);say([['','Ninety seconds later Maria de la Rosa faints, gorgeously, on the atrium stairs. Every single person runs to her. Including the lighting assistant.'],[AN,'(text) u owe me. that was my best faint. i did it in heels.']],done)}},
+ {t:'Let him try the code.',fn:()=>{apply({heat:4});say([['','He types 1234. The light stays red. He shrugs and goes back to the shoot.'],['K9','(1031. You should change it. You are not going to change it.)']],done)}}]))}});
+/* her feed lives in the phone */
+const _dmMDR=dmTab;dmTab=function(){if(isLone()||!S.f.mariaKnown)return _dmMDR();
+ if(PHONE.sel==='feed'){const P=[['maria.delarosa','new campaign 🌹 link in bio','182k'],S.f.mariaShootDone&&['maria.delarosa','rooftop. 6am. wind. a very serious assistant.','241k'],S.f.mariaHouse&&S.day>=S.f.mariaHouse&&['maria.delarosa','old money, haunted 🕯️ (thank u to the house)','390k'],S.f.mariaEnd==='angel'&&['angel','hi. my name is angel. this is my real face. ok bye.','2.1M'],S.f.mariaEnd==='both'&&['maria.delarosa','maria does angel’s makeup. angel takes it off. 🌹/🔫','1.4M'],S.f.mariaEnd==='maria'&&['maria.delarosa','still here 🌹','300k']].filter(Boolean).reverse();
+  return{html:`<h3 style="margin:2px 0">@maria.delarosa</h3><div class="thread">${P.map(([u,t,l])=>`<div class="bub them" style="max-width:100%"><b>@${u}</b><br>${t}<br><span class="hint">♥ ${l}</span></div>`).join('')}</div>`,opts:[{t:'← All messages',fn:()=>{PHONE.sel=null;phone('dm')}}]}}
+ const d=_dmMDR();if(!PHONE.sel)d.opts.push({t:'@maria.delarosa',sub:'Angel’s channel · feed',fn:()=>{PHONE.sel='feed';phone('dm')}});return d};
+const _rhMDR=romHub;romHub=function(late){const o=_rhMDR(late);if(S&&S.f.mariaShoot===S.day&&!S.f.mariaShootDone&&S.slot<=1)o.push({t:'Maria de la Rosa’s 6am shoot (Angel)',sub:'you promised',dis:late,fn:mariaShoot});return o};
+const _xeMDR=extraEnding;extraEnding=function(){const L=_xeMDR();if(S&&S.f.mariaEnd)L.push(S.f.mariaEnd==='angel'?'Maria de la Rosa posted one last video and took her last name off the channel. Angel kept the followers. The Heartsick Angel lost her alibi, and got very, very careful.':S.f.mariaEnd==='maria'?'Maria de la Rosa still smiles on billboards, timestamped and spotless. The Heartsick Angel is still a composite sketch nobody recognises. The neon sign hangs outside Angel’s door now, not inside it.':'Maria and Angel share a channel now. Half the videos are glam, half are bare. The comments section is, for once, kind.');return L};
+
+/* ===================== V'S READING GLASSES ===================== */
+const READROOMS=['dp_library','dp_gallery','dp_curio','archive','ops','dp_obs','dp_work','bedroom','dp_seeds'];
+const vGlassesNow=()=>!!(S&&!S.dark&&!S.f.glassesHidden&&(S.f.vGlasses===1||(S.f.vGlasses!==0&&(READROOMS.includes(S.room)||S.slot>=3))));
+/* the glasses live in the writing only: nothing is drawn on his sprite or portrait */
+/* the glasses themselves, on his nightstand */
+(function(){const bd=TD.maps.ewing.props.find(p=>p.id==='bd_bed');if(!bd)return;TD.maps.ewing.props.push({id:'gl_stand',x:bd.x+bd.w+4,y:bd.y+2,w:14,d:12,h:12,label:()=>S.f.glassesHidden?'Nightstand (something’s missing)':'Nightstand (his reading glasses)',
+ draw:(x,y)=>tdBox(x,y,14,12,12,'#5a4030','#3a2a1e'),
+ act:who=>{if(who==='v'){if(S.f.glassesHidden)return tdSay([['K9','They are not here. I put them here. I always put them here. ...Misaki.']]);ask('K9','Your reading glasses.',[{t:S.f.vGlasses===1?'Take them off for the day':'Wear them all day',fn:()=>{S.f.vGlasses=S.f.vGlasses===1?0:1;save();tdSay([['K9',S.f.vGlasses?'(They make the world very sharp and very close. I do not hate it.)':'(Off. The world goes back to being slightly soft at the edges. As it should be.)']])}},{t:'Only when reading',fn:()=>{S.f.vGlasses=undefined;save()}}]);return}
+  if(S.f.glassesHidden)return tdSay([['hitmeuppp','(they’re in the freezer. behind the peas. he hasn’t found them. it’s been '+(S.day-S.f.glassesHidden)+' day(s).)']]);
+  ask('hitmeuppp','His reading glasses. Gold wire. Fingerprint on the left lens, his.',[
+   {t:'Try them on',fn:()=>{apply({aff:1});tdSay([['','Everything goes huge and swimmy. You look in his mirror. You look like a librarian who could kill a man.'],['hitmeuppp','(...i look good. i look SO good. putting them back.)']])}},
+   {t:'Hide them in the freezer',fn:()=>{S.f.glassesHidden=S.day;save();tdSay([['hitmeuppp','(behind the peas. he’s going to lose his mind. i’m going to watch.)']])}},
+   {t:'Clean the fingerprint off and put them back',fn:()=>{apply({aff:2});tdSay([['','You polish them on your sleeve and set them back exactly at the angle you found them.']])}}])}})})();
+EVENTS.push({id:'gl_first',when:()=>isM()&&S.pov!=='v'&&tier()>=1&&!S.dark&&S.phase!=='taken',run:done=>say([['','He’s at the kitchen island with the foundation’s quarterly report and a pair of thin gold reading glasses pushed down his nose.'],['hitmeuppp',MV('u have GLASSES','you have GLASSES.','You wear glasses?','You wear glasses. How did I not know you wear glasses.')],['K9','Reading glasses. They are for reading.'],['hitmeuppp',MV('u look like a sexy librarian who could kill me','you look like a librarian who could kill me.','You look like a very dangerous librarian.','You look like you’re about to tell me my essay is late. I hate how much I like it.')],['K9','...I am taking them off.'],['hitmeuppp','NO.']],()=>{apply({aff:2});done()})},
+ {id:'gl_found',when:()=>S.f.glassesHidden&&S.day>=S.f.glassesHidden+1,run:done=>{const d=S.day-S.f.glassesHidden;S.f.glassesHidden=0;save();say([['','V opens the freezer for ice and stops. Behind the peas: his reading glasses, frosted solid.'],['K9','...'],['K9',d>1?'Two days. I read the board report by holding it at arm’s length. I approved a budget for “swans” that I believe said “shelves.”':'I spent last night reading with a magnifying glass from the archive. Like a detective. Like an idiot.'],['hitmeuppp',isM()?MV('i don’t know what ur talking about','i have no idea what you mean','I have no idea how those got there.','...I wanted to see you squint. You squint like you’re angry at the words.'):'(from the other room, very innocently) whaaaat'],['K9','The glasses are cold, Misaki. My face is going to be cold.']],()=>{apply({aff:1});done()})}});
+/* ===================== GRAPHICS PASS ===================== */
+/* every pixel sprite gets a thin dark outline (cached silhouette), so characters read against busy floors */
+const _pxOut=tdPx;tdPx=function(a,cx,fy,flip,ps=1,pal){if(META.fx===0)return _pxOut(a,cx,fy,flip,ps,pal);const n=a[0].length,h=a.length;
+ let m=TDSIL.get(a);if(!m){m=new Map();TDSIL.set(a,m)}const P=pal||a.P||PAL;const key=(flip?1:0)+'|'+ps+'|'+SC+'|'+Object.values(P).join(',');let sil=m.get(key);
+ if(!sil){const k=ps*SC;const o=document.createElement('canvas');o.width=Math.ceil(n*k);o.height=Math.ceil(h*k);const g=o.getContext('2d');if(g){g.fillStyle='rgba(10,6,16,.88)';for(let j=0;j<h;j++){const r=a[j];for(let i=0;i<n;i++){const ch=r[flip?n-1-i:i];if(ch==='.'||ch===undefined||!P[ch])continue;g.fillRect(Math.round(i*k),Math.round(j*k),Math.ceil(k),Math.ceil(k))}}}if(m.size>12)m.clear();m.set(key,o);sil=o}
+ const sn=v=>Math.round(v*SC)/SC;const dx=sn(cx-n*ps/2),dy=sn(fy-h*ps),w=sil.width/SC,hh=sil.height/SC,d=.6;
+ c.drawImage(sil,dx-d,dy,w,hh);c.drawImage(sil,dx+d,dy,w,hh);c.drawImage(sil,dx,dy-d,w,hh);c.drawImage(sil,dx,dy+d,w,hh);_pxOut(a,cx,fy,flip,ps,pal)};
+const TDSIL=new WeakMap();
+/* screen-space finish: per-place colour grade, glow on lights, vignette, a little film grain */
+const FXC={};function fxCache(k,make){if(!FXC[k]||FXC[k].sc!==SC){FXC[k]=make();FXC[k].sc=SC}return FXC[k]}
+function fxGrade(z){const id=(z&&(z.id||z.room))||'',r=S&&S.room||'';const night=tdNight();
+ if(/dp_library/.test(id))return['rgba(80,220,200,1)',.16];if(/dp_dome/.test(id))return['rgba(255,120,200,1)',.18];if(/dp_cham|dp_wing|dp_obs|haunt|cell/.test(id))return['rgba(200,40,60,1)',.12];
+ if(/^dp_/.test(id))return['rgba(120,170,230,1)',.14];if(z&&z.out)return night?['rgba(70,90,200,1)',.2]:['rgba(255,200,140,1)',.12];
+ if(/ronin/.test(r))return['rgba(255,80,110,1)',.12];if(/studio/.test(r))return['rgba(255,150,200,1)',.12];return night?['rgba(120,100,220,1)',.12]:['rgba(255,190,120,1)',.1]}
+function tdPost(z,cam){if(META.fx===0||!S)return;c.save();c.setTransform(1,0,0,1,0,0);c.scale(SC,SC);
+ const M=scene&&scene.M;if(M&&M.lights&&cam){c.globalCompositeOperation='lighter';let n=0;for(const l of M.lights){if(n>40)break;if(l.on&&!l.on())continue;const sx=l.x-cam.x,sy=l.y-cam.y;if(sx<-60||sx>W+60||sy<-60||sy>H+60)continue;n++;const r=(l.r||50)*.55;c.globalAlpha=.09*(l.i||.6);c.drawImage(tdGrad(Math.round(r),l.col||'255,214,160'),sx-r,sy-r,r*2,r*2)}c.globalAlpha=1}
+ const [col,a]=fxGrade(z);c.globalCompositeOperation='soft-light';c.globalAlpha=a;c.fillStyle=col;c.fillRect(0,0,W,H);c.globalAlpha=1;c.globalCompositeOperation='source-over';
+ const vig=fxCache('vig',()=>{const o=document.createElement('canvas');o.width=W*2;o.height=H*2;const g=o.getContext('2d');if(g){const gr=g.createRadialGradient(W,H,H*.55,W,H,W*1.05);gr.addColorStop(0,'rgba(0,0,0,0)');gr.addColorStop(1,'rgba(4,2,10,.62)');g.fillStyle=gr;g.fillRect(0,0,W*2,H*2)}return o});c.drawImage(vig,0,0,W,H);
+ if(!META.reduceMotion){const gr=fxCache('grain',()=>{const o=document.createElement('canvas');o.width=o.height=96;const g=o.getContext('2d');if(g){const id=g.createImageData(96,96);for(let i=0;i<id.data.length;i+=4){const v=Math.random()*255;id.data[i]=id.data[i+1]=id.data[i+2]=v;id.data[i+3]=18}g.putImageData(id,0,0)}return o});
+  const ox=(T*37)%96,oy=(T*53)%96;c.globalAlpha=.5;for(let x=-ox;x<W;x+=96)for(let y=-oy;y<H;y+=96)c.drawImage(gr,x,y);c.globalAlpha=1}
+ c.restore()}
+const _wfxPost=tdWeatherFX;tdWeatherFX=function(zone,cam){_wfxPost(zone,cam);try{tdPost(scene&&scene.zone,cam)}catch(e){}};
+if(typeof window!=='undefined')addEventListener('keydown',e=>{if(e.key.toLowerCase()==='g'&&!dlg&&S){META.fx=META.fx===0?1:0;saveMeta();toast(META.fx===0?'Graphics: classic (G)':'Graphics: enhanced (G)')}});
 /* ===UI2-END=== */
 requestAnimationFrame(frame);splash();
 
