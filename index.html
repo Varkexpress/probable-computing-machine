@@ -9073,7 +9073,7 @@ const _mVoiceBase=mVoice;
    From level 2 the shorthand expands and the tics drop; at level 3 the shouting and the stretched letters settle.
    Written to keep grammar intact: ellipses stay three dots, ALL-CAPS words become lowercase (not Title Case),
    names are capitalised, "ur" is read as "your" or "you’re" by what follows, and "i’m"/"i’d"/"i’ll" become "I’m". */
-const MV_NAMES={ronin:'Ronin',misaki:'Misaki',hara:'Hara',sergeant:'Sergeant',gerald:'Gerald',prickles:'Prickles',june:'June',luca:'Luca',vince:'Vince',felicie:'Felicie',beyoncé:'Beyoncé',beyonce:'Beyoncé',prague:'Prague',lisbon:'Lisbon',kyoto:'Kyoto',tokyo:'Tokyo',osaka:'Osaka',uji:'Uji',kururin:'Kururin',kawabe:'Kawabe','yoru-machi':'Yoru-machi',aldric:'Aldric',shakespeare:'Shakespeare',christmas:'Christmas',halloween:'Halloween',japan:'Japan',japanese:'Japanese',english:'English',january:'January',february:'February',march:'March',april:'April',july:'July',august:'August',september:'September',october:'October',november:'November',december:'December',monday:'Monday',tuesday:'Tuesday',wednesday:'Wednesday',thursday:'Thursday',friday:'Friday',saturday:'Saturday',sunday:'Sunday',k9:'K9',v:'V',tokyo:'Tokyo',angelic:'Angelic',haruka:'Haruka',hitomi:'Hitomi'};
+const MV_NAMES={ronin:'Ronin',misaki:'Misaki',hara:'Hara',sergeant:'Sergeant',gerald:'Gerald',prickles:'Prickles',june:'June',luca:'Luca',vince:'Vince',felicie:'Felicie',beyoncé:'Beyoncé',beyonce:'Beyoncé',prague:'Prague',lisbon:'Lisbon',kyoto:'Kyoto',tokyo:'Tokyo',osaka:'Osaka',uji:'Uji',kururin:'Kururin',kawabe:'Kawabe','yoru-machi':'Yoru-machi',aldric:'Aldric',shakespeare:'Shakespeare',christmas:'Christmas',halloween:'Halloween',japan:'Japan',japanese:'Japanese',english:'English',january:'January',february:'February',march:'March',april:'April',july:'July',august:'August',september:'September',october:'October',november:'November',december:'December',monday:'Monday',tuesday:'Tuesday',wednesday:'Wednesday',thursday:'Thursday',friday:'Friday',saturday:'Saturday',sunday:'Sunday',k9:'K9',v:'V',tokyo:'Tokyo',angelic:'Angelic',haruka:'Haruka',heathers:'Heathers',hitomi:'Hitomi'};
 const MV_UR_RE=/^(so|not|the|a|an|gonna|going|being|such|really|very|literally|actually|always|never|kinda|too|my|welcome|right|wrong|kidding|joking|here|there|late|early|fine|okay|ok|safe|home|cute|sweet|mean|insane|crazy|weird|ridiculous|impossible|allowed|just|still|already|all|both|one|also|lying|like|dead|done|back|sure|nice|good|bad|rich|scary|annoying|banned|asleep|awake|tired|right|lucky|stuck|in|on|at|out|up|over|making|doing|\w+ing|\w+ed)$/i;
 const MV_CAPS_KEEP=/^(K9|TV|ID|DNA|ASAP|CRT|CCTV|GPS|ATM|DJ|PE|UK|US|NYC|AM|PM|SOS|OK|I|V|ABC|BBQ|MRI|ER|ICU|DIY|FAQ|NPC|RIP|SHŪTEN|LAST|B[1-5])$/;
 const MV_W={u:'you',r:'are',im:'I’m',i:'I',idk:'I don’t know',tho:'though',rn:'right now',pls:'please',plz:'please',bc:'because',omg:'oh my god',ok:'okay',srsly:'seriously',ppl:'people',thx:'thanks',ya:'yeah',cuz:'because',dont:'don’t',cant:'can’t',didnt:'didn’t',isnt:'isn’t',wasnt:'wasn’t',doesnt:'doesn’t',wont:'won’t',thats:'that’s',whats:'what’s',youre:'you’re',ive:'I’ve',tbh:'to be honest',ngl:'not going to lie',nvm:'never mind',bf:'boyfriend',gf:'girlfriend',bday:'birthday',w:'with',abt:'about',ily:'I love you'};
@@ -9099,7 +9099,8 @@ mVoice=function(t){if(!t||!S||typeof t!=='string')return t;const L=mLevel();if(L
  if(L>=3&&/[a-z\u0002]$/i.test(s)&&!/[.!?…—–:”)]$/.test(s))s+='.';
  /* sentence case: start of line, after . ! ? … and a space, after a short "(text) " tag; skipping opening quotes/brackets */
  const up=(m,a,b,c)=>a+b+c.toUpperCase();
- s=s.replace(/^((?:\.\.\.|…)?)([“"(]*)([a-z])/,up).replace(/((?<![.…])[.!?]\s+)([“"(]*)([a-z])/g,up).replace(/^(\([^)]{1,14}\)\s+)()([a-z])/,up);
+ const tag=/^\([a-z][a-z ,:0-9]{0,15}\)\s+/.exec(s);let pre='';if(tag){pre=tag[0];s=s.slice(pre.length)}
+ s=s.replace(/^((?:\.\.\.|…)?)([“"(]*)([a-z])/,up).replace(/((?<![.…])[.!?][”"]?\s+)([“"(]*)([a-z])/g,up);s=pre+s;
  s=s.replace(/\u0001(\d+)\u0002/g,(m,i)=>keep[+i]);
  return s||t};
 /* V stays formal. He does not use contractions; closeness shows in what he says, not in slipped grammar. */
@@ -10936,13 +10937,13 @@ Object.assign(IICON,{t19watch:['watch','#c8c8d0'],t19memo:['paper','#8ad4ff'],t1
 const _keep19=keepList;keepList=function(){const L=_keep19();const f=S.f||{};const v=whMe()==='v';
  if(f.t19watchGot)L.push({id:'k_t19watch',n:'Coach Hamada’s stopwatch',d:v?'She keeps it on the dashboard of the truck. It still says 58.31. Neither of them will reset it.':'58.31. He never cleared it. I will not either.',ic:['watch','#c8c8d0'],keep:1});
  if(f.t19memo)L.push({id:'k_t19memo',n:'Two minutes, ten seconds',d:v?'Misaki recorded me describing my mother’s voice. She saved it twice. I have listened to it more often than I will admit.':'V describing his mother. I have it backed up in three places. One of them is a USB stick in my shoe.',ic:['paper','#8ad4ff'],keep:1});
- if(f.t19oda)L.push({id:'k_t19oda',n:'“beautiful as always, dear”',d:'A screenshot of a comment that was never sent. Angel printed it. There is a copy on her mirror and a copy in my wallet.',ic:['photo','#f4a0c0'],keep:1});
+ if(f.t19oda)L.push({id:'k_t19oda',n:'“beautiful as always, sweetheart”',d:'A screenshot of a comment that was never sent. Angel printed it. There is a copy on her mirror and a copy in my wallet.',ic:['photo','#f4a0c0'],keep:1});
  if(f.t19harbour)L.push({id:'k_t19rope',n:'A wet length of harbour rope',d:'From the night the crowbar went into the water. Ronin tied a knot in it. He said the knot was for June.',ic:['box','#5a4a3a'],keep:1});
  return L};
 
 /* ---------- priority events: the tragedy arcs run in order, at least two days apart ---------- */
 const T19EV=[];
-const _morn19=morningEvent;morningEvent=function(done){try{if(S&&!(S.f.t19last>=S.day-2)){const e=T19EV.find(e=>!S.seen[e.id]&&e.when());if(e){S.seen[e.id]=1;S.f.t19last=S.day;save();return e.run(done)}}}catch(err){}return _morn19(done)};
+const _morn19=morningEvent;morningEvent=function(done){try{if(S&&!(S.f.t19last>=S.day-2)&&!(S.f.ptLast>=S.day-1)){const e=T19EV.find(e=>!S.seen[e.id]&&e.when());if(e){S.seen[e.id]=1;S.f.t19last=S.day;save();return e.run(done)}}}catch(err){}return _morn19(done)};
 
 /* ===== 1. Coach Hamada ===== */
 T19EV.push({id:'t19_coach1',when:()=>t19Ok()&&S.day>=9&&!!(S.seen.bk_coach||tdF('drawerDone')||S.talks.bk_track||S.talks.track),run:done=>{const wrote=tdF('coach');
@@ -10960,7 +10961,7 @@ T19EV.push({id:'t19_coach1',when:()=>t19Ok()&&S.day>=9&&!!(S.seen.bk_coach||tdF(
 T19EV.push({id:'t19_coach2',when:()=>t19Ok()&&S.f.t19coach&&S.day>=S.f.t19coach+1,run:done=>{const go=S.f.t19coachGo,v=t19PV();S.f.t19watchGot=1;save();
  const L=go?[['','A community hall that smells of floor polish. Folding chairs. A table of photographs: relay teams, a boy with a broken arm holding a trophy, a girl at the end of a row who is not looking at the camera.'],
   ['',(v?'She is the girl at the end of the row. She sits in the back.':'You are the girl at the end of the row. You sit in the back.')+' Thirty people in tracksuits stand up one by one and say what he said to them. Every one of them says “door’s open.”'],
-  v?['','You stand outside under a black umbrella, because she asked you to be near and not inside. When she comes out, she walks straight into your coat and stays there.']:['','You do not stand up. You do not say anything. When it is over, a woman with his eyes finds you by the door.'],
+  v?['','You stand outside under a black umbrella, because she asked you to be near and not inside. When she comes out she takes the umbrella from you without a word and holds it over both of you, badly, so your left shoulder gets soaked all the way to the car.']:['','You do not stand up. You do not say anything. When it is over, a woman with his eyes finds you by the door.'],
   ['Hamada Yui','You are Misaki. He said you would sit at the back.'],
   ['','She puts a stopwatch in your hands. Scratched chrome, the lanyard gone soft. The screen still shows the last time it was stopped.'],
   ['Hamada Yui','58.31. The prefecture final. He never cleared it. He said it was the best thing he ever saw and he did not want to be the one who erased it.'],
@@ -10974,8 +10975,8 @@ const _side19=sideHub;sideHub=function(late){const o=_side19(late);try{if(S&&S.f
  if(S&&S.f.t19crowGot&&!S.f.t19harbour&&S.phase!=='taken')o.push({t:'Take the J crowbar to the harbour with Ronin',sub:'he asked',dis:late,fn:()=>{spend();t19Harbour()}})}catch(e){}return o};
 function t19Run(){S.f.t19ran=1;save();const v=t19PV();
  t19Cut([['','The old track after dark. The gate has been broken since before '+(v?'she was':'you were')+' born. Somebody has mown lane four and nobody else.'],
-  v?['','She hands you the stopwatch. “You press it when I go. You press it when I stop. That is the whole job.” You have never been given a job you wanted more.']:['','You put the stopwatch on the fence post, on the start line, and press it with your thumb, and go.'],
-  ['','The first bend is easy. The back straight is where it gets honest. At three hundred metres '+(v?'her':'your')+' legs remember everything and agree to none of it.'],
+  v?['','She hands you the stopwatch. “You press it when I go. You press it when I stop. That is the whole job.” You practise the button twice while she stretches.']:['','You put the stopwatch on the fence post, on the start line, and press it with your thumb, and go.'],
+  ['','The first bend is easy. The back straight is longer than it used to be. At three hundred metres the burn arrives in '+(v?'her':'your')+' thighs exactly where it always did, like someone who kept the appointment for eight years.'],
   ['','1:04.9.'],
   ['hitmeuppp',MV('still fast? no','not fast. still here though','Still fast? No. Still here.','Still fast? No. Still here, Coach. Door’s open.')],
   v?['K9','It is the best 1:04.9 I have ever seen.']:['','You leave his split on the screen. You write yours on your hand, and it washes off by morning, and that is fine.'],
@@ -10990,9 +10991,9 @@ T19EV.push({id:'t19_whistle1',when:()=>t19Ok()&&frT('r')>=1&&S.day>=11,run:done=
   [RN,'Had a plan for him. Twenty years I had it. Kept puttin’ it off, ’cause once it was done there wouldn’t be nothin’ of June left that was still… happenin’.'],
   [RN,'Now it’s done and I didn’t do it, and she’s still dead, and he went out whistlin’. Probably whistled at the priest.']];
  const fin=n=>{fr('r',n);S.f.t19whistle=S.day;save();note('t19_whistle','The man who killed June died in a hospice, peacefully. Ronin never got to him. He sat at the station until the first train.');done()};
- const opts=[{t:v?'Sit with him until the first train.':MV('sit next to him. say nothing.','sit next to him. say nothing.','Sit down next to him. Say nothing.','Sit down next to him, close enough that your shoulders touch.'),fn:()=>t19Say([['','You sit down. He does not look at you. The board clicks over: the first train, eleven minutes.'],['','At nine minutes he puts his head down on your shoulder like it weighs more than anything he has ever carried.'],[RN,'June used to watch ’em come out the tunnel. Said she liked knowin’ she could go.'],[RN,'She never went. ...Neither did I.']],()=>fin(6),'grief')},
+ const opts=[{t:v?'Sit with him until the first train.':MV('sit next to him. say nothing.','sit next to him. say nothing.','Sit down next to him. Say nothing.','Sit down next to him, close enough that your shoulders touch.'),fn:()=>t19Say([['','You sit down. He does not look at you. The board clicks over: the first train, eleven minutes.'],['','At nine minutes he leans until his head is on your shoulder. He keeps both hands in his jacket pockets, as if that makes it not count.'],[RN,'June used to watch ’em come out the tunnel. Said she liked knowin’ she could go.'],[RN,'She never went. ...Neither did I.']],()=>fin(6),'grief')},
   {t:v?'“There is nothing left you have to do for her. You are allowed to stop.”':MV('“u don’t have to do anything for her anymore.”','“u don’t owe her anything else. u did enough.”','“You don’t owe her anything else. You can stop.”','“You can stop now. She’d want you to stop.”'),fn:()=>t19Say([[RN,'Stop.'],[RN,'Darlin’, I don’t know what I am if I stop.'],[me,v?'Then we will find out. I will be there while you find out. That is not a figure of speech.':MV('then we find out. together. i’m not going anywhere','then we find out. i’ll be there for the finding out','Then we find out. I’ll be there for all of it.','Then we find out together. I learned it the hard way. I can teach you the shortcut.')],[RN,'...Yeah. Yeah, okay.']],()=>fin(6),'grief')}];
- if(rom)opts.unshift({t:v?'Hold him.':'Hold him.',fn:()=>t19Say([['','You put your arms around him on the bench that is not meant for sitting. He goes stiff, the way he does before a fight, and then all the fight goes out of him at once.'],['','He cries the way people cry who have not done it in twenty years: badly, and with a lot of apologising.'],[RN,'Sorry. Sorry. Shirt’s ruined.'],[me,v?'I own other shirts. I own a great many shirts.':MV('it’s ur shirt dummy','it’s ur shirt, dummy. i stole it off ur floor','It’s your shirt. I stole it.','It’s your shirt. I stole it off your floor. Ruin it.')],[RN,'...Don’t let go yet.']],()=>{fr('r',8);fin(0)},'grief')});
+ if(rom)opts.unshift({t:v?'Hold him.':'Hold him.',fn:()=>t19Say([['','You put your arms around him on the bench that is not meant for sitting. He goes stiff, the way he does before a fight. Nothing happens for a while. Then he starts telling you about June’s terrible taste in music, album by album, and somewhere in the middle of the second album his voice stops working and he lets it.'],[RN,'Sorry. Sorry. Shirt’s ruined.'],[me,v?'I own other shirts. I own a great many shirts.':MV('it’s ur shirt dummy','it’s ur shirt, dummy. i stole it off ur floor','It’s your shirt. I stole it.','It’s your shirt. I stole it off your floor. Ruin it.')],[RN,'...Don’t let go yet.']],()=>{fr('r',8);fin(0)},'grief')});
  t19Say(L,()=>ask(me,'The board clicks. The first train is twenty minutes away.',opts),'grief')}});
 T19EV.push({id:'t19_whistle2',when:()=>t19Ok()&&S.f.t19whistle&&S.day>=S.f.t19whistle+2,run:done=>{S.f.t19crowGot=1;save();
  t19Say([['','Ronin is waiting by your door. He is holding something wrapped in a towel the way people hold a cat they are taking to the vet.'],
@@ -11020,10 +11021,10 @@ T19EV.push({id:'t19_oda2',when:()=>t19Ok()&&S.f.t19oda1&&S.day>=S.f.t19oda1+2,ru
  const fin=n=>{fr('a',n);note('t19_oda','Mrs. Kanemoto watched every one of Angel’s lives from a hospice bed. Her last comment was never sent.');
   t19Say([[AN,'ok. ok. i want to do a live. no face. no filter. no ring light. just me saying her name.'],[AN,'will u hold the phone. my hands are being stupid.'],
    ['','You hold the phone. She says, “this one’s for Kanemoto Haru, who told me to eat something every day for four years.” Then she eats a whole onigiri on camera, badly, crying.'],
-   ['','The comments fill up so fast the screen blurs. Thousands of them. All the same five words.'],['','“beautiful as always, sweetheart.”']],done,'grief')};
+   ['','Forty-one people are watching. It is four in the afternoon and the stream has no title. Most of them leave. One account, mochi_mama_77, types: “eat the other half too.”'],['','Angel laughs so suddenly she chokes on the rice, and you have to hit her on the back, and that is the clip that ends up everywhere: not the crying, the choking.']],done,'grief')};
  const opts=[{t:v?'Sit down on the floor next to her.':MV('sit on the floor with her','sit on the floor with her','Sit on the floor next to her.','Sit on the floor next to her and take her hand.'),fn:()=>t19Say([['','You sit down. The floor is cold. She leans until her head is on your arm and stays there.'],[AN,'don’t say anything smart. just be a person next to me.']],()=>fin(6))},
   {t:v?'“Tell me about her.”':MV('“tell me about her.”','“tell me about her.”','“Tell me about her.”','“Tell me everything about her. I’ve got all night.”'),fn:()=>t19Say([[AN,'she called me “sweetheart.” she corrected my kanji once. she sent a photo of her cat in a little hat for my birthday. the cat was furious.'],[AN,'she said i was the only thing on the internet that wasn’t trying to sell her something. i was literally selling her lip gloss.'],[me,v?'You were not selling her lip gloss. You were keeping her company. She knew the difference.':MV('u weren’t selling her anything. u were keeping her company','she knew the difference babe','She knew the difference. Between the gloss and you.','She knew the difference, Angel. That is why she stayed four years.')]],()=>fin(6))}];
- if(rom)opts.unshift({t:'Hold her.',fn:()=>t19Say([['','You pull her into your lap like it is the most obvious thing in the world. She fits there. She cries into your collar until it is soaked through, and keeps apologising to it.'],[AN,'i ruined ur collar.'],[me,v?'I will frame it.':MV('i’m gonna frame it','i’m framing it','I’m framing it.','I’m framing it. Come here. Closer.')]],()=>fin(8))});
+ if(rom)opts.unshift({t:'Hold her.',fn:()=>t19Say([['','You pull her into your lap without asking, which you have never done. She lets you. She cries into your collar until it is soaked through, and keeps apologising to it, not to you.'],[AN,'i ruined ur collar.'],[me,v?'I will frame it.':MV('i’m gonna frame it','i’m framing it','I’m framing it.','I’m framing it. Come here. Closer.')]],()=>fin(8))});
  t19Say(L,()=>ask(me,'She is not looking at you. She is looking at the half-typed comment.',opts),'grief')}});
 
 /* ===== 4. The voicemail ===== */
@@ -11053,32 +11054,32 @@ T19EV.push({id:'t19_vm2',when:()=>t19Ok()&&S.f.t19vm&&S.day>=S.f.t19vm+2,run:don
   ['K9','She called me “ti jeneral.” Little general. I hated it. I would like to hear it once more and I would not hate it at all.'],
   ['','The dot stops. '+(v?'She saves it twice, then backs it up three times, then shows you each copy, one by one, until you believe her.':'You save it twice. Then you back it up three times. Then you show him every copy, one by one, until he believes you.')]];
  t19Say(L,()=>ask(me,'The drawer is closed. He has not moved his hand off it.',[
-  {t:v?'Let her hold your hand.':MV('hold his hand','hold his hand','Hold his hand.','Put your hand over his on the drawer.'),fn:()=>t19Say([['',v?'A hand over yours. Small, warm, a callus on the trigger finger. Neither of you says anything for a long time.':'You put your hand over his. His is cold. Yours has a callus on the trigger finger. Neither of you says anything for a long time.']].concat(memo),fin,'grief')},
+  {t:v?'Let her hold your hand.':MV('hold his hand','hold his hand','Hold his hand.','Put your hand over his on the drawer.'),fn:()=>t19Say([['',v?'A hand over yours. Small, warm, a callus on the trigger finger. Upstairs the dryer finishes and plays its little tune, and neither of you goes up to empty it.':'You put your hand over his. His is cold. Yours has a callus on the trigger finger. Upstairs the dryer finishes and plays its little tune, and neither of you goes up to empty it.']].concat(memo),fin,'grief')},
   {t:v?'“Ask me what she sounded like.”':MV('“what did she sound like”','“what did she sound like”','“What did she sound like?”','“Tell me about her voice.”'),fn:()=>t19Say(memo,fin,'grief')}]),'grief')}});
 
 /* ---------- warmer events for each route (ordinary pool) ---------- */
 EVENTS.push(
  {id:'t19_shoulder',when:()=>t19Ok()&&tier()>=2&&!S.f.married&&!S.dark,run:done=>say([['','Film night. Halfway through the second film Misaki falls asleep on V’s shoulder with a cracker still in her hand.'],['','He does not move for an hour and forty minutes. His arm goes numb at minute twenty. When the credits roll he whispers the ending to her, in case she wanted to know.']],()=>{apply({aff:2});done()})},
- {id:'t19_sunday',when:()=>t19Ok()&&S.f.married&&!S.dark,run:done=>say([['','Sunday. Nobody sets an alarm. Rain on the skylight. Biscuit is somewhere at the bottom of the bed, pretending she is not.'],['hitmeuppp',MV('five more minutes','five more minutes','Five more minutes.','Five more minutes. Then five more. I want a whole day made of five more minutes.')],['K9','I have cancelled everything until Tuesday.'],['','She laughs into his chest. He keeps that sound with the other things he keeps.']],()=>{apply({aff:3});t19Rel({trust:3});done()})},
+ {id:'t19_sunday',when:()=>t19Ok()&&S.f.married&&!S.dark,run:done=>say([['','Sunday. Nobody sets an alarm. Rain on the skylight. Biscuit is somewhere at the bottom of the bed, pretending she is not.'],['hitmeuppp',MV('five more minutes','five more minutes','Five more minutes.','Five more minutes. Then five more. I want a whole day made of five more minutes.')],['K9','I have cancelled everything until Tuesday.'],['','She laughs into his chest, which he feels before he hears. His phone buzzes on the nightstand. He turns it face down without looking to see who it is.']],()=>{apply({aff:3});t19Rel({trust:3});done()})},
  {id:'t19_mr_laundry',when:()=>t19Ok()&&S.rom==='r'&&!S.dark,run:done=>say([['','The laundromat at three in the morning. Ronin puts a coin in the old jukebox and holds out his hand.'],[RN,'C’mon, little killer. Nobody here but the dryers.'],['','You slow dance between the folding tables while machine six eats a sock. He hums the parts the jukebox skips.'],[RN,'This is the most romantic thing I ever done that didn’t involve a shovel.']],()=>{fr('r',3);done()})},
  {id:'t19_ma_hair',when:()=>t19Ok()&&S.rom==='a'&&!S.dark,run:done=>say([['','Angel washes your hair in her kitchen sink because, she says, your conditioner is “a hate crime.”'],[AN,'tilt back. trust me. i’ve got u.'],['','Warm water, her fingers at your temples, the radio low. You almost fall asleep standing up. She notices. She keeps going anyway.'],[AN,'see? u can relax. it’s legal. i checked.']],()=>{fr('a',3);done()})},
  {id:'t19_vr_stitch',when:()=>t19Ok()&&S.vrom==='r'&&!S.dark,run:done=>say([['','You come home with a cut along your forearm. Ronin is already at the kitchen table with a needle, thread and a bottle of something brown.'],[RN,'Hold still, Mister Foundation. I sew better’n I cook, and I cook real good.'],['','Six neat stitches. When he is done he kisses the bandage, very quickly, like it is a professional step.'],['K9','Is that part of the procedure?'],[RN,'Only for you.']],()=>{fr('r',3);done()})},
  {id:'t19_va_audit',when:()=>t19Ok()&&S.vrom==='a'&&!S.dark,run:done=>say([['','Angel reads your audit reports aloud in bed, in a different dramatic voice for every shell company.'],[AN,'“the subsidiary,” she whispered, “had not filed its quarterly disclosures.” gasp. the betrayal.'],['K9','That one is a real problem.'],[AN,'i know babe. i’m going to help u ruin him. after chapter four.']],()=>{fr('a',3);done()})},
- {id:'t19_pile',when:()=>t19Ok()&&frT('r')>=2&&frT('a')>=2&&tier()>=1&&!S.dark,run:done=>say([['','Movie night at V’s. Somewhere in the third film everybody falls asleep where they are.'],['','Ronin is on the floor with his boots still on and Sergeant on his feet. Angel is draped across two cushions with her lashes still on. Misaki is curled in the armchair. V is upright, asleep, with a bowl of popcorn balanced on his knee.'],['','Biscuit walks the room once, counts everyone, and lies down in the middle. All present.']],()=>{fr('r',2);fr('a',2);apply({aff:2});done()})});
+ {id:'t19_pile',when:()=>t19Ok()&&frT('r')>=2&&frT('a')>=2&&tier()>=1&&!S.dark,run:done=>say([['','Movie night at V’s. Somewhere in the third film everybody falls asleep where they are.'],['','Ronin is on the floor with his boots still on and '+(S.f.sergeantGone?'Biscuit':'Sergeant')+' on his feet. Angel is draped across two cushions with her lashes still on. Misaki is curled in the armchair. V is upright, asleep, with a bowl of popcorn balanced on his knee.'],['','Biscuit walks the room once, counts everyone, and lies down in the middle. All present.']],()=>{fr('r',2);fr('a',2);apply({aff:2});done()})});
 
 /* ---------- V & Misaki: more ways to be close (Affection… menu) ---------- */
 const t19Touch=(w,b,run)=>{if(S.dark&&w==='m')return say([['K9','May I?'],['hitmeuppp',S.comp>=30?MV('yeah','yeah. yes','Yes.','Yes. Thank you for asking.'):MV('not yet','not yet. thanks for asking tho','Not yet. Thank you for asking.','Not yet. Ask me again tomorrow. Please ask me again tomorrow.')]],()=>{if(S.comp>=30)run();else b()});run()};
 const t19Gain=(k,n)=>{if(t19Day('ax_'+k))apply({aff:n})};
 Object.assign(AFFX,{
- quiet:{t:'Sit together without talking',need:0,run:(w,b)=>{t19Gain('quiet',1);if(S.dark)calm(4);say([['',w==='v'?'You sit on the other end of the couch from V. After a while he puts his book down open on his knee and does not pick it up again. Neither of you says anything. It is the best conversation you have had all week.':'You sit at the other end of the couch from Misaki. She stops scrolling. She does not put the phone away, but she stops scrolling. The house ticks. The dogs breathe.'],[THEM(w),w==='v'?byT('...This is pleasant.','This is pleasant. I wanted you to know I noticed.','Stay. You do not have to say anything to stay.','I like the quiet better with you in it.'):MV('ok this is nice actually','this is nice. don’t tell anyone','This is nice. You’re easy to be quiet with.','You’re the only person I’ve ever been quiet with on purpose.')]],b)}},
+ quiet:{t:'Sit together without talking',need:0,run:(w,b)=>{t19Gain('quiet',1);if(S.dark)calm(4);say([['',w==='v'?'You sit on the other end of the couch from V. After a while he puts his book down open on his knee and does not pick it up again. At some point Biscuit climbs up into the gap between you, and neither of you mentions that either.':'You sit at the other end of the couch from Misaki. She stops scrolling. She does not put the phone away, but she stops scrolling. The house ticks. The dogs breathe.'],[THEM(w),w==='v'?byT('...This is pleasant.','This is pleasant. I wanted you to know I noticed.','Stay. You do not have to say anything to stay.','The quiet in this house used to have an echo. It does not, today.'):MV('ok this is nice actually','this is nice. don’t tell anyone','This is nice. You’re easy to be quiet with.','You’re the only person I’ve ever been quiet with on purpose.')]],b)}},
  tea:{t:w=>w==='v'?'Make him tea (badly)':'Bring her tea, the way she likes it',need:0,run:(w,b)=>{t19Gain('tea',1);say(w==='v'?[['','You make V tea. You do not know how he takes it. You guess. You guess wrong in three separate ways.'],['K9','...This is perfect.'],['hitmeuppp',MV('it’s not. i can see ur face','ur lying. ur face is lying','You’re lying. Your face is doing a thing.','You’re lying. I love that you’re lying.')],['K9','It is perfect because you made it. The tea itself is a war crime.']]:[['','Milk, three sugars, the cartoon mug with the chip in the handle that she pretends is not her favourite.'],['hitmeuppp',MV('u remembered the mug','how do u know about the mug','You remembered the mug.','You remembered the mug. You remember everything. It’s unbearable. Keep doing it.')],['K9','I am a detective. Also, you hid it behind the other mugs so nobody else would use it.']],b)}},
  lean:{t:w=>w==='v'?'Lean on his shoulder':'Let her lean on you',need:1,run:(w,b)=>t19Touch(w,b,()=>{t19Gain('lean',2);say([['',w==='v'?'You lean your head on V’s shoulder. He becomes a statue for one second, then deliberately, carefully, unbecomes one, and tips his head against yours.':'You sit down beside her. After a minute she lists sideways, like a boat, until her head is on your shoulder. You turn a page with one hand so you do not have to move.'],[THEM(w),w==='v'?byT('','...You may stay there.','You may stay there. For as long as it is useful.','Stay. I will tell the foundation I am in a meeting.'):MV('ur shoulder is so bony','ur shoulder is bony. i’m staying anyway','Your shoulder is bony. I’m staying.','I could sleep like this. I think I am going to.')]],b)})},
  blanket:{t:w=>w==='v'?'Put a blanket over him':'Tuck a blanket around her',need:1,run:(w,b)=>{t19Gain('blanket',1);say([['',w==='v'?'V has fallen asleep at his desk with his reading glasses still on. You take the glasses off. You put the throw over his shoulders. He murmurs something that might be your name.':'She has fallen asleep on the couch in her jacket with her shoes on. You take the shoes off. You put the good blanket over her. She grabs a handful of it in her sleep and holds on.'],['',w==='v'?'In the morning there is a sticky note on your door: “Thank you for the blanket. I was not asleep. — V.” He was asleep.':'In the morning she pretends she does not know who did it. She folds the blanket very carefully and leaves it on your chair.']],b)}},
  pinky:{t:'Pinky promise',need:1,run:(w,b)=>{t19Gain('pinky',1);say([[ME(w),w==='v'?MV('pinky promise u’ll eat lunch today','pinky promise u’ll eat a real lunch. not coffee','Pinky promise you’ll eat lunch. Real lunch.','Pinky promise you’ll come home tonight. That’s all. Just tonight.'):'Promise me you will sleep before three. Here. I believe this is how it is done.'],['',w==='v'?'He looks at your little finger for a long time, as if it is a contract. Then he hooks his own through it, solemnly.':'She stares at your outstretched little finger. Then she hooks hers through it and squeezes, hard.'],[THEM(w),w==='v'?'This is legally binding. I have checked.':MV('if u break it i break ur finger. that’s the rules','pinky promises are serious. i once kept one for six years','Pinky promises are serious. I keep them.','I promise. I keep these. I have only ever made two and I kept both.')]],b)}},
- dance:{t:'Dance in the kitchen',need:2,run:(w,b)=>t19Touch(w,b,()=>{t19Gain('dance',2);const m=S.f.married;say([['',m?'The radio plays something slow. Nobody decides to dance. It happens between the fridge and the sink, barefoot, her cheek against his shirt, the kettle starting to sing and nobody moving to take it off.':'The radio plays something old. V offers his hand like it is a formal ball. She takes it like it is a dare. He waltzes; she does not know how; she stands on his feet and lets him carry the steps.'],[THEM(w),w==='v'?byT('','You are standing on my feet.','You are standing on my feet. Do not stop.',m?'I would like to do this every night until we are very old.':'I would like to do this again. That is a formal request.'):MV('i can’t dance','i can’t dance. this doesn’t count','This doesn’t count as dancing.',m?'Every night. Kettle and everything.':'Okay. Okay. One more song.')]],b)})},
+ dance:{t:'Dance in the kitchen',need:2,run:(w,b)=>t19Touch(w,b,()=>{t19Gain('dance',2);const m=S.f.married;say([['',m?'The radio plays something slow. Nobody decides to dance. It happens between the fridge and the sink, barefoot, because the radio is on and the floor is warm. The kettle boils and clicks off. Later somebody boils it again.':'The radio plays something old. V offers his hand like it is a formal ball. She takes it like it is a dare. He waltzes; she does not know how; she stands on his feet and lets him carry the steps.'],[THEM(w),w==='v'?byT('','You are standing on my feet.','You are standing on my feet. Do not stop.',m?'I would like to do this every night until we are very old.':'I would like to do this again. That is a formal request.'):MV('i can’t dance','i can’t dance. this doesn’t count','This doesn’t count as dancing.',m?'Every night. Kettle and everything.':'Okay. Okay. One more song.')]],b)})},
  nap:{t:'Fall asleep on the couch together',need:2,run:(w,b)=>t19Touch(w,b,()=>{t19Gain('nap',2);apply({energy:8});if(S.dark)calm(6);say([['',S.f.married?'You fall asleep tangled on the couch with the dogs in the gaps. When you wake up the light has gone gold and he is already awake, watching the window, and he has not moved so that you would not.':'You fall asleep at opposite ends of the couch with your feet in the middle. When you wake up the blanket has migrated so that it covers both of you, and nobody admits to moving it.'],[THEM(w),w==='v'?byT('','I was not asleep.','I was asleep. I would like that on the record.','That is the best I have slept in a year.'):MV('u snore','u snore btw. like a little engine','You snore. It’s nice. Don’t fix it.','That’s the first nap I’ve taken without a chair against the door.')]],b)})},
  scar:{t:w=>w==='v'?'Ask about the scar on his hand':'Ask about the scar on her knee',need:3,run:(w,b)=>{t19Gain('scar',2);say(w==='v'?[['','There is a pale line across the back of his left hand. You run your thumb along it.'],['K9','A dog. A frightened one, in a basement in Kawabe. I was trying to get her out of a cage and she did not know that yet.'],['K9','She lived to fourteen. She slept on my feet every night. The scar is my favourite thing about my hands.'],['','He lets you hold the hand as long as you like.']]:[['','There is a white scar on her left knee, shaped like a crescent. He has noticed it for weeks and has not asked.'],['hitmeuppp',MV('track. i fell at the prefecture final','prefecture final. last bend. i fell. got up. came fourth','Prefecture final. Last bend. I fell, got up, and came fourth.','I fell on the last bend. I got up. Coach said getting up was the fastest thing he ever saw me do.')],['K9','You got up.'],['hitmeuppp',MV('that’s all i ever do','that’s kind of my whole thing','That’s my whole thing. I get up.','That is my whole thing. Getting up. I just didn’t know anyone was watching.')]].filter(Boolean),b)}},
- heart:{t:w=>S.f.married?(w==='v'?'Lay your head on his chest':'Let her listen to your heartbeat'):'Hold hands under the table',need:3,run:(w,b)=>t19Touch(w,b,()=>{t19Gain('heart',3);say(S.f.married?[['',w==='v'?'You lie with your ear on his chest. His heart is slow and steady, then it is less slow, because you are there, and he cannot do anything about that.':'She lays her head on your chest and listens with her eyes closed. You feel your heart speed up and cannot do a single thing about it.'],['hitmeuppp',MV('it went faster','it went faster. that was me. i did that','It sped up. That was me.','It sped up. I did that. I’m going to do it every day.')],['K9','It does that. It has done that since the first day. I have stopped filing complaints.']]:[['','Under the table, during dinner with everyone, a hand finds a hand. Ronin is telling a story. Angel is filming it. Nobody sees.'],['','Nobody lets go until dessert, which makes eating the dessert very difficult. Nobody mentions it.']],b)})}});
+ heart:{t:w=>S.f.married?(w==='v'?'Lay your head on his chest':'Let her listen to your heartbeat'):'Hold hands under the table',need:3,run:(w,b)=>t19Touch(w,b,()=>{t19Gain('heart',3);say(S.f.married?[['',w==='v'?'You lie with your ear on his chest. His heart is slower than yours. Without deciding to, you match your breathing to it, the way you match a target’s pace on a crowded pavement. Then it speeds up.':'She lays her head on your chest and starts counting your heart rate under her breath, professionally. Sixty-two. Sixty-eight. Seventy-five. She stops counting and looks up at you, accusing.'],['hitmeuppp',MV('it went faster','it went faster. that was me. i did that','It sped up. That was me.','It sped up. I did that. I’m going to do it every day.')],['K9','It does that. It has done that since the first day. I have stopped filing complaints.']]:[['','Under the table, during dinner with everyone, a hand turns up on a knee, palm up, waiting. Ronin is telling a story with a fork. Angel is filming him. Nobody looks down.'],['','Nobody lets go until dessert, which makes eating the dessert very difficult. Nobody mentions it.']],b)})}});
 /* the original menu shows everything at once; keep it readable by putting the quiet, everyday ones first */
 (function(){const order=['quiet','tea','compliment','tease','hug','hands','lean','pinky','blanket','hair','dance','nap','kiss','scar','heart'];const o={};order.forEach(k=>{if(AFFX[k])o[k]=AFFX[k]});Object.keys(AFFX).forEach(k=>{if(!o[k])o[k]=AFFX[k]});Object.keys(AFFX).forEach(k=>delete AFFX[k]);Object.assign(AFFX,o)})();
 
@@ -11088,22 +11089,22 @@ function t19FriendActs(k){const v=isMe2V(),me=ME2(),N=k==='r'?RN:AN,rom=t19Rom(k
  if(k==='r'){
   A(v?'Bump fists':'Fist bump',0,()=>[['',v?'You offer your fist. Ronin looks at it as if you have handed him a live grenade, then bumps it, then has to turn away for a second.':'Fist bump. He makes the explosion noise. He always makes the explosion noise.'],[RN,v?'Vee. Buddy. Somebody teach you that?':'Pow. That’s the devil’s handshake, darlin’. Legally binding.'],v?['K9','Misaki. She said it was “required.”']:null],2);
   A('Let him teach you to sharpen a knife',0,()=>[['','Ronin’s kitchen table, a whetstone, a bowl of water. He puts your hands in the right place and keeps his on top until you have the angle.'],[RN,'Twenty degrees. Long strokes. Don’t rush her. Nothin’ worth havin’ likes bein’ rushed.'],[me,v?'Is that advice about knives?':MV('is this about knives','is this about knives or about life','Is this about knives?','Is that about knives, or about you?')],[RN,'It’s about knives, '+nick()+'. Everything I say is about knives. Except the stuff that ain’t.']],3);
-  A('Hug him',1,()=>[['','You hug Ronin. He is all elbows and leather and smells like engine oil and cinnamon gum. For a second he does not know what to do with his arms.'],['','Then he hugs back like he is holding the roof up.'],[RN,'...Nobody does that. You know nobody does that? Folks shake my hand real quick and count their fingers after.']],3);
+  A('Hug him',1,()=>[['','You hug Ronin. He is all elbows and leather and smells like engine oil and cinnamon gum. For a second he does not know what to do with his arms.'],['','Then he hugs back, too hard, and pats you twice between the shoulder blades like he is checking you for a wire.'],[RN,'...Nobody does that. You know nobody does that? Folks shake my hand real quick and count their fingers after.']],3);
   A('Fall asleep on his couch during a film',1,()=>[['','Heathers again. You do not make it to the croquet. You wake up with your shoes off and his jacket over you, and him at the other end of the couch quoting every line under his breath so it will not wake you.'],[RN,'Mornin’. You missed the best part. I’ll show you again. I’ll show you every time.']],3);
   A('Help him look after June’s plant',2,()=>[['','There is a spider plant on his windowsill in a chipped teacup. He waters it with a shot glass, exactly one shot, every day.'],[RN,'June’s. Well. June’s plant’s plant’s plant. I keep cuttin’ it and it keeps comin’ back. Stubborn. Like her.'],['','He lets you do the watering. One shot. He watches the way you would watch somebody hold a baby.']],4);
   if(rom){
-   A('Kiss him',0,()=>[['','You kiss him in the doorway of his flat with your back against the frame. He kisses like he fights: no warning, all at once, and then, afterwards, very carefully.'],[RN,v?'Mister Foundation. In public. In a doorway.':'Darlin’. In a doorway. Neighbours’ll talk.'],[me,v?'Let them.':MV('let them','let them','Let them.','Let them. I want them to.')]],4,1);
+   A('Kiss him',0,()=>[['','You kiss him in the doorway of his flat with your back against the frame. He laughs into it the first time, which ruins it, so you do it again. The second time he does not laugh.'],[RN,v?'Mister Foundation. In public. In a doorway.':'Darlin’. In a doorway. Neighbours’ll talk.'],[me,v?'Let them.':MV('let them','let them','Let them.','Let them. I want them to.')]],4,1);
    A('Wear his jacket home',0,()=>[['','He puts his leather jacket round your shoulders on the walk to the car and will not take it back. It smells of him. It is far too big. You keep it on all night.'],[RN,'Looks better on you. Most things of mine do.']],3,1);
-   A('Let him trace the lines on your palm',0,()=>[['','The fire escape, the city humming below. He takes your hand palm up and traces the lines with one finger, very slowly, like he is reading.'],[RN,'Life line’s long. Real long. That’s good. I’m gonna need you around.'],[RN,'This one’s me. Right here. See? Been there the whole time.'],[me,v?'That is a crease from holding a pen.':MV('that’s a crease','that’s a crease from my gun','That’s a crease.','That’s a crease. ...Keep going.')],[RN,'Hush. I’m bein’ romantic.']],4,1)}}
+   A('Let him trace the lines on your palm',0,()=>[['','The fire escape, the city humming below. He takes your hand palm up and traces the lines with one finger, very slowly, like he is reading.'],[RN,'Life line’s long. Real long. That’s good. I’m gonna need you around.'],[RN,'And this here’s your heart line. Says you’re gonna make a real bad decision with a man in a leather jacket.'],[me,v?'That is a crease from holding a pen.':MV('that’s a crease','that’s a crease from my gun','That’s a crease.','That’s a crease. ...Keep going.')],[RN,'Hush. I’m bein’ romantic.']],4,1)}}
  else{
   A(v?'Hold the ring light for her':'Hold the ring light',0,()=>[['','You hold the ring light at exactly the angle she wants, which changes every eleven seconds.'],[AN,v?'higher. no. lower. V u have the arms of a GOD and the spatial awareness of a fridge.':'higher. lower. perfect. don’t breathe.'],['','When she is done she shows you the shot. You are in the corner of it, out of focus, smiling. She keeps that one too.']],2);
   A(v?'Let her do your skincare':'Let her do your eyeliner',0,()=>[['',v?'Angel sits you on the edge of the bath and does your skincare like it is surgery. You hold still. You are very good at holding still.':'Angel does your eyeliner with her tongue between her teeth. One wing. Two wings. She stands back.'],[AN,v?'u are so good at this. most men flinch. u just sit there like a very handsome statue':'oh. OH. babe. look. no, LOOK. ur face is so good. why do u hide it'],v?['K9','I am happy to be the statue.']:['hitmeuppp',MV('cause it’s my face','bc it’s just my face','Because it’s just my face.','...Because nobody ever said that before.')]],3);
   A('Braid her hair',1,()=>[['','She sits on the floor between your knees and you braid her hair. Badly at first, then less badly. She narrates her whole week while you do it.'],[AN,'u know this is the only time i sit still. like ever. don’t tell my manager.'],['','You tie it off with the scrunchie from her wrist. She checks it in the mirror for a long time and does not redo it.']],3);
-  A('Share earbuds on the train',1,()=>[['','One earbud each, on the last train, the cable stretched across the gap between your seats. She plays you a song she says is “about us,” and then one she says is “about nobody, shut up.”'],[AN,'this one makes me cry. don’t look at me. look at the window.'],['','You look at the window. In the window you can see her looking at you.']],3);
+  A('Share earbuds on the train',1,()=>[['','One earbud each, on the last train, the cable stretched across the gap between your seats. She plays you a song she says is “about us,” and then one she says is “about nobody, shut up.”'],[AN,'this one makes me cry. don’t look at me. look at the window.'],['','You look at the window. The tunnel lights go past every two seconds, and in every flash her reflection is mouthing the words.']],3);
   A('Help her take off her lashes',2,()=>[['','End of a shoot. She hands you the tweezers and closes her eyes. You peel the lashes off one at a time and put them on the back of her hand like little caterpillars.'],[AN,'u know i don’t let anyone do this. like ANYONE. it’s like taking ur armour off.'],[AN,'...thanks for being gentle with my armour.']],4);
   if(rom){
    A('Kiss her',0,()=>[['','You kiss her in the middle of her studio with the ring light still on. It leaves a perfect white circle in both your eyes afterwards.'],[AN,'ok. ok. that was so good. do it again, i wasn’t recording.'],[me,v?'You were recording.':MV('u were recording','u were SO recording','You were recording.','You were recording. ...Again, then.')],[AN,'i was. it’s for my eyes only. my eyes and the cloud.']],4,1);
-   A('Slow dance in her closet',0,()=>[['','Her walk-in closet, the door half shut, a phone playing something slow on top of a shoebox. You dance in a space the size of a lift, between coats that cost more than cars.'],[AN,'this is the most romantic room in my house. it’s literally where i keep my whole self.'],['','She rests her forehead on your collarbone. You do not dance so much as sway. You do not stop for a long time.']],4,1);
+   A('Slow dance in her closet',0,()=>[['','Her walk-in closet, the door half shut, a phone playing something slow on top of a shoebox. You dance in a space the size of a lift, between coats that cost more than cars.'],[AN,'this is the most romantic room in my house. it’s literally where i keep my whole self.'],['','Her phone dies halfway through the third song. You keep going on the memory of it for a while, slightly off the beat, and neither of you corrects the other.']],4,1);
    A('Fall asleep with the ring light on',0,()=>[['','Her bed. She falls asleep mid-sentence, halfway through telling you about a girl from her old school, holding your hand on the pillow like she is afraid you will float off.'],['','You do not turn off the ring light. You do not want to move your hand.']],3,1)}}
  return L.filter(a=>(a.extra?true:frT(k)>=a.need))}
 function t19Friend(k){const N=k==='r'?RN:AN,me=ME2(),rom=t19Rom(k);const used=S.f.t19d&&S.f.t19d['fr'+k]===S.day;
@@ -11150,6 +11151,268 @@ const _act20=tdActor;tdActor=function(){TD.shade=1;try{return _act20.apply(this,
 const _dog20=tdDog;tdDog=function(){TD.shade=1;try{return _dog20.apply(this,arguments)}finally{TD.shade=0}};
 const _back20=tdBack;tdBack=function(a){const r=_back20(a);try{if(r&&TDSH.has(a))TDSH.add(r)}catch(e){}return r};
 try{if(typeof ANG!=='undefined')TDSH.add(ANG);if(typeof RON!=='undefined')TDSH.add(RON)}catch(e){}
+
+/* ===================== td21: PAST TENSE (pt_) — the far end of Misaki's detachment =====================
+   Through Glass (gl_) is her watching life like a show. This goes further, towards something like Cotard's:
+   on bad days she is fairly sure she is already dead, and she is very good at making the evidence agree.
+   - A chain of priority mornings (PT_EV), three days apart, shared spacing with td19's arcs.
+   - Her POV narration is sometimes simply wrong, and the scene corrects it a line or two later.
+   - "Past-tense days" (S.f.ptDay===S.day): in her POV her own sprite draws faded. From V's side she looks normal.
+   - After the proofs scene, a protocol: on a past-tense morning she texts the server one word, and whoever
+     answers gives her a chore with a body in it. It does not fix anything. It gets the day done.
+   Misaki's lines here are written in her lowercase voice (mVoice still matures them); V never contracts. */
+const pt_M=()=>S.pov!=='v';
+const pt_ok=()=>S&&S.phase!=='taken'&&!isLone();
+const pt_today=()=>!!(S&&S.f&&S.f.ptDay===S.day);
+const pt_set=()=>{S.f.ptDay=S.day;S.f.ptDays=(S.f.ptDays||0)+1;save()};
+const pt_P=()=>S.rom==='a'?AN:S.rom==='r'?RN:'K9';
+const pt_started=()=>!!(S.q&&S.q.gl_glass!==undefined)||['after','act2','act3','epilogue'].includes(S.phase);
+const pt_after=(id,n)=>S.f['pt_'+id]&&S.day>=S.f['pt_'+id]+(n||3);
+const pt_mark=id=>{S.f['pt_'+id]=S.day;save()};
+const pt_mood=n=>{try{if(typeof mzForce==='function')mzForce(n)}catch(e){}};
+const pt_say=(L,cb,mood)=>{if(mood)pt_mood(mood);say(L.filter(Boolean),()=>{if(mood)pt_mood(null);cb&&cb()})};
+
+/* her own sprite fades on past-tense days, but only to her */
+const _actPT=tdActor;tdActor=function(k){if(k==='m'&&S&&pt_M()&&pt_today()&&!META.fxOff){const a=c.globalAlpha;c.globalAlpha=a*.5;try{return _actPT.apply(this,arguments)}finally{c.globalAlpha=a}}return _actPT.apply(this,arguments)};
+
+const PT_EV=[];
+const _mornPT=morningEvent;morningEvent=function(done){try{if(S&&pt_ok()&&!(S.f.ptLast>=S.day-2)&&!(S.f.t19last>=S.day-1)){
+  const e=PT_EV.find(e=>!S.seen[e.id]&&e.when());if(e){S.seen[e.id]=1;S.f.ptLast=S.day;save();return e.run(done)}
+  if(S.f.pt_proofs&&!pt_today()&&S.day>S.f.pt_proofs&&Math.random()<.22){S.f.ptLast=S.day;return pt_ghostDay(done)}}}catch(err){}return _mornPT(done)};
+
+/* ---------- 1. the pulse ---------- */
+PT_EV.push({id:'pt_pulse',when:()=>pt_started()&&S.day>=6,run:done=>{pt_set();pt_mark('pulse');
+ if(pt_M())pt_say([
+  ['','You wake up at six and check for a pulse, the way you do after a job. Two fingers on the wrist. Nothing.'],
+  ['','You try the other wrist. Nothing.'],
+  ['','You lie there and work it through, the way you would work through a floor plan. No pulse. No hunger, either, now you think about it. The room is cold and you are not shivering. It is not a feeling. It is a conclusion.'],
+  ['M','huh.'],
+  ['','You get up, because the alternative is lying there being correct. You make toast. You do not eat it. It is for whoever lives here.'],
+  ['M','(server) quick q. how long can a person go without a pulse'],
+  [RN,'(server) ’Bout four minutes, darlin’. You writin’ a mystery?'],
+  ['M','(server) kind of'],
+  ['K9','(server) Where are you checking?'],
+  ['','You do not answer that. You were checking on the thumb side, where there is no artery to find. You will not know that for a while. Right now you only know that the toast is going cold and nobody is coming to eat it.']],done,'loss');
+ else pt_say([
+  ['hitmeuppp','(server) quick q. how long can a person go without a pulse'],
+  [RN,'(server) ’Bout four minutes, darlin’. You writin’ a mystery?'],
+  ['hitmeuppp','(server) kind of'],
+  ['K9','(server) Where are you checking?'],
+  ['','No answer. You are in the car before the dogs have finished being surprised.'],
+  ['','She is at the trailer table with two fingers pressed to the thumb side of her wrist, very calm, like someone waiting for a kettle. There is a plate of toast in front of her that nobody has touched.'],
+  ['K9','May I?'],
+  ['','She holds the arm out to you as if it belongs to someone else. You move her fingers half an inch, to the inside of the wrist, under the tendon.'],
+  ['','She goes still. You watch her count.'],
+  ['hitmeuppp','...seventy-two.'],
+  ['hitmeuppp','huh. that’s a good fake.'],
+  ['K9','It is not a fake. It is a radial artery. Everybody has two.'],
+  ['hitmeuppp','sure. sure. that’s what it would feel like either way though, right'],
+  ['','You do not have an answer to that. You eat the toast, so that somebody has.']],()=>{apply({aff:2});done()},'loss')}});
+
+/* ---------- 2. the door ---------- */
+PT_EV.push({id:'pt_door',when:()=>pt_after('pulse'),run:done=>{pt_set();pt_mark('door');
+ const L=pt_M()?[
+  ['','The konbini at midnight. You walk up to the automatic door and it does not open.'],
+  ['','You step back. You step forward. You wave at the sensor, politely, the way you would wave at a dog that does not know you yet. Nothing.'],
+  ['','Through the glass the night clerk looks up, sees you, and comes round the counter to haul the door open by hand.'],
+  ['Clerk','Sorry, sorry. It’s been doing that.'],
+  ['','You nod. You buy an egg sandwich. You file it with the pulse. Two things now. Two is a pattern if you want it to be, and you notice that you want it to be.'],
+  [RN,'(next day) Sensor’s been busted a week, little killer. There’s a sign. Taped right at your eye level. “PLEASE PULL.”'],
+  ['M','i saw the sign.'],
+  [RN,'And?'],
+  ['M','i thought it was for other people.'],
+  ['','Ronin does not laugh. He goes very quiet, the way he does when somebody at the next table raises their voice at a waitress.'],
+  [RN,'C’mon. We’re goin’ back. You’re pullin’ that door yourself, and I’m gonna watch you do it.']]
+ :[
+  ['','Ronin calls at seven in the morning, which he never does.'],
+  [RN,'Vee. She tell you about the door?'],
+  ['K9','Which door?'],
+  [RN,'Konbini door. Busted sensor. Whole neighbourhood’s been pullin’ it by hand for a week. There’s a sign.'],
+  [RN,'She stood there wavin’ at it. Then she told me, real calm, like she was readin’ me a weather report, that it was “consistent with the other thing.”'],
+  ['K9','What other thing?'],
+  [RN,'That’s what I asked. She said she’d tell me when she had three.'],
+  ['','After he hangs up you write it in the notebook you keep for her, under the pulse: <i>the door. She is collecting.</i>']];
+ pt_say(L,()=>{if(pt_M())fr('r',3);done()},'loss')}});
+
+/* ---------- 3. food ---------- */
+PT_EV.push({id:'pt_food',when:()=>pt_after('door'),run:done=>{pt_set();pt_mark('food');const P=pt_P();
+ const L=pt_M()?[
+  ['','Breakfast. The rice tastes like the idea of rice: a word with a temperature.'],
+  ['','You do the arithmetic. If nothing tastes of anything, then eating is just moving food from one place to another. It would be more use to somebody else. That is not sad. It is efficient.'],
+  ['','You take the onigiri down to the lot and break it up for the crows. They know what to do with it. It is a relief to watch something that knows what to do with it.'],
+  ['','The crows were not there. You remember them, but when you look at the photo you took, the lot is empty and the rice is on the gravel and nobody is eating it.'],
+  P==='K9'?['K9','(text) Did you eat?']:P===AN?[AN,'(text) babe did u eat. be honest. i can smell lies through the phone']:[RN,'(text) You eat today, darlin’? Don’t lie, I’ll know.'],
+  ['M','(text) the crows did'],
+  ['','Twenty minutes later there is a knock. '+(P==='K9'?'V':P===AN?'Angel':'Ronin')+' is on your step with two bowls of something hot and a rule.'],
+  [P,P==='K9'?'You do not have to taste it. You only have to describe it. Three words. Wrong words are allowed.':P===AN?'ok new rule. u don’t have to taste it. u just have to describe it. three words. wrong words count.':'New rule. Don’t gotta taste it. Just gotta tell me about it. Three words. Wrong ones count.'],
+  ['','You eat the first spoonful to get it over with.'],
+  ['M','salt. hot. ...tuesday.'],
+  [P,P==='K9'?'It is Thursday.':P===AN?'it’s thursday. still counts.':'It’s Thursday. Still counts.'],
+  ['','You do it again. And again. By the bottom of the bowl the words are getting less wrong. “Ginger.” “Too much ginger.” Neither of you mentions that you finished it.']]
+ :[
+  ['','On the camera wall, the trailer lot, 7:12. Misaki comes out with an onigiri, unwraps it, and breaks it up on the gravel. There are no crows. She stands there as if there are.'],
+  ['','She goes back inside. The rice stays on the gravel until a cat finds it at noon.'],
+  ['K9','(text) Did you eat?'],
+  ['hitmeuppp','(text) the crows did'],
+  ['','You look at the empty gravel on camera four for a long moment. Then you make soup, badly, quickly, and drive.'],
+  ['K9','You do not have to taste it. You only have to describe it. Three words. Wrong words are allowed.'],
+  ['hitmeuppp','salt. hot. ...tuesday.'],
+  ['K9','It is Thursday.'],
+  ['','She does it again. By the bottom of the bowl the words are getting less wrong. “Ginger.” “Too much ginger.” “You burned the onions.” You did.']];
+ pt_say(L,()=>{apply({energy:8,aff:2});done()},'loss')}});
+
+/* ---------- 4. the obituary ---------- */
+PT_EV.push({id:'pt_obit',when:()=>pt_after('food'),run:done=>{pt_set();pt_mark('obit');S.f.ptObit=1;
+ const A=frT('a')>=1;const finder=A?AN:'K9';
+ const L=[
+  ['',pt_M()?(A?'Angel borrows your phone to film something and stops scrolling halfway through your notes app.':'You leave your phone unlocked on V’s kitchen counter. When you come back he is not reading it. He is very carefully not reading it, which means he has.'):(A?'Angel calls you, which she never does. She sends a screenshot first.':'Misaki leaves her phone unlocked on your counter. A note is open. You are halfway through it before you understand what it is.')],
+  ['','A note titled “bio (final)”. It is very good. It is the best thing she has ever written. It is in the past tense.'],
+  ['','<i>“She was fast at sixteen and quiet at twenty. She was good at doors. She was survived by a trailer, a coin jar, a sticker sheet with eleven stickers left, and a man who kept a list of the ways she said no.”</i>'],
+  [finder,A?'babe. “was survived by.” that’s not how that works. u can’t be survived in the past tense.':'You cannot be survived in the past tense. It is grammatically impossible.'],
+  [pt_M()?'M':'hitmeuppp','watch me.'],
+  ['',A?'Angel does not argue. She sits down, opens the note, and starts changing it, one verb at a time, out loud.':'He does not argue. He sits down beside her, opens the note, and changes one verb, slowly, where she can see.'],
+  [finder,A?'“she IS fast.” ...ok fine “she is FASTER than u.” “she IS good at doors.” “she HAS a coin jar.”':'“She is good at doors.”'],
+  ['',pt_M()?'You watch each verb change like a card trick you know the secret of. The trick still works on everyone else. It does not work on you. You let them do it anyway.':'She watches each verb change the way people watch a card trick they already know the secret of. She does not stop you.'],
+  [pt_M()?'M':'hitmeuppp','you missed one.'],
+  [finder,A?'where':'Where?'],
+  [pt_M()?'M':'hitmeuppp','“survived by.” you left it.'],
+  [finder,A?'i left it on purpose. u ARE survived by all that stuff. every day. it’s called living with it. it’s the most boring miracle in the world.':'I left it on purpose. You are survived by all of it, every day. That is what living in a place means. It is very dull. It is extremely difficult to do.']];
+ pt_say(L,()=>{note('pt_obit','She wrote her own obituary in the notes app, titled “bio (final)”. Someone changed the verbs. She let them.');if(A)fr('a',4);else apply({aff:3});done()},'loss')}});
+
+/* ---------- 5. the count ---------- */
+PT_EV.push({id:'pt_count',when:()=>pt_after('obit'),run:done=>{pt_set();pt_mark('count');
+ const L=pt_M()?[
+  ['','Angel posts the photo from movie night. You count the people in it, because you count people in every room you are in.'],
+  ['','Eleven. Ronin, Angel, V, the three dogs that count as people, the delivery guy Angel made stay, his girlfriend, the two neighbours, and Biscuit twice, because she moved halfway through. Eleven.'],
+  ['M','(server) good pic. who took it'],
+  [AN,'(server) timer!! we’re ALL in it'],
+  ['M','(server) i’m not'],
+  [AN,'(server) u’re literally in the middle. the armchair. star clip. u’re holding the popcorn'],
+  ['','You look again. There is a girl in the armchair with a star clip, holding the popcorn, looking at the camera. You counted her. You counted her as furniture.'],
+  ['','There were twelve. There were always twelve.'],
+  ['M','(server) oh. yeah. there i am'],
+  ['','You set the photo as your lock screen, not because you believe it, but so that you will have to look at the evidence every time you check the time.']]
+ :[
+  ['','Angel posts the photo from movie night. Twelve people, three dogs, one bowl of popcorn.'],
+  ['hitmeuppp','(server) good pic. who took it'],
+  [AN,'(server) timer!! we’re ALL in it'],
+  ['hitmeuppp','(server) i’m not'],
+  ['','You open the photo. She is in the middle of it, in the armchair, holding the popcorn, looking straight down the lens.'],
+  ['K9','(server) You are in the armchair. You are holding the popcorn. You took most of it.'],
+  ['','The typing indicator comes up and goes away three times.'],
+  ['hitmeuppp','(server) oh. yeah. there i am'],
+  ['','Later, at the gate, she shows you her lock screen. It is the photo. She does not say why. You do not need her to.']];
+ pt_say(L,()=>{fr('a',2);done()},'loss')}});
+
+/* ---------- 6. the windows ---------- */
+PT_EV.push({id:'pt_air',when:()=>pt_after('count'),run:done=>{pt_set();pt_mark('air');
+ const L=pt_M()?[
+  ['','November, and every window in the guest room is open. You have been awake since four. You opened them one at a time.'],
+  ['','There is a smell. Sweet, and wrong, and close. You have stood near enough rooms after enough jobs to know what it is.'],
+  ['','You shower. You shower again, with the blue one, the one for hair, on your arms. You light Angel’s incense, the expensive one.'],
+  ['','The smell is the lilies. Somebody left lilies on the landing two days ago. They are turning. That is all it was.'],
+  ['','You do not find that out for an hour, and for that hour it was you.'],
+  ['K9','(through the door) Misaki. It is four degrees in there.'],
+  ['M','do i smell'],
+  ['K9','...Of what?'],
+  ['M','like it’s been a few days'],
+  ['','The door does not open. He does not laugh. You hear him sit down on the floor outside, the way he did when you showered with the door open.'],
+  ['K9','You smell of lavender, the blue shampoo on your arms, and Angel’s incense, which she will want back. The lilies on the landing are dying. I will take them out. Nothing in this room is ending except the flowers.'],
+  ['M','...you checked the flowers'],
+  ['K9','I checked everything in the house at four. I heard the first window.']]
+ :[
+  ['','At four in the morning you hear a window open in the guest room. Then another. Then all of them.'],
+  ['','You check the house the way you would check it for an intruder. The lilies on the landing have turned. The whole floor smells of them, sweet and wrong.'],
+  ['','At five you knock.'],
+  ['hitmeuppp','(through the door) do i smell'],
+  ['K9','Of what?'],
+  ['hitmeuppp','like it’s been a few days'],
+  ['','You sit down on the floor outside her door, the way you did when she showered with it open.'],
+  ['K9','You smell of lavender, the blue shampoo, and Angel’s incense, which she will want back. The lilies on the landing are dying. I am taking them out now. Nothing in that room is ending except the flowers.'],
+  ['','A long silence. Then, one by one, you hear the windows close.']];
+ pt_say(L,()=>{apply({aff:3});if(S.dark)calm(4);done()},'loss')}});
+
+/* ---------- 7. proofs, and then not ---------- */
+PT_EV.push({id:'pt_proofs',when:()=>pt_after('air'),run:done=>{pt_set();pt_mark('proofs');
+ const L=[
+  ['',pt_M()?'V asks you to come to the archive. There is a notebook on the desk. The label says PROOFS in his small capitals.':'You put the notebook on the archive desk between you. You have been keeping it for three weeks. The label says PROOFS.'],
+  ['K9','I have been keeping evidence. I thought you might respect evidence.'],
+  ['K9','One. Your radial pulse: seventy-two, then sixty-eight, then eighty-one when Biscuit stood on your foot.'],
+  ['hitmeuppp','bodies keep going for a bit. hair grows. you know that. you’ve seen it.'],
+  ['K9','Two. You pulled the konbini door yourself. Ronin has a video.'],
+  ['hitmeuppp','doors don’t care who pulls them.'],
+  ['K9','Three. You ate a bowl of soup and identified the ginger.'],
+  ['hitmeuppp','i identified the ginger because you always put too much in. i was remembering. that’s not tasting.'],
+  ['K9','Four. The dogs greet you at the door.'],
+  ['hitmeuppp','the dogs greet the postman. the dogs greet a bin bag if it moves.'],
+  ['',pt_M()?'It goes on. Twenty-three entries. You have an answer for every one, and every answer is clean, and quick, and better than the proof.':'It goes on. Twenty-three entries. She has an answer for every one, and every answer is clean, and quick, and better than the proof.'],
+  ['',pt_M()?'You can see him realise it somewhere around entry fifteen: every proof he hands you, you take apart, and you get faster at it. He is training you.':'Somewhere around entry fifteen you understand it: every proof you hand her, she takes apart, and she is getting faster at it. You are training her.'],
+  ['','He closes the notebook.'],
+  ['K9','I am going to stop asking you to believe that you are alive.'],
+  ['hitmeuppp','...ok?'],
+  ['K9','I will ask you something smaller. On the days you are sure, text the server one word. Anyone who sees it gives you a job. Carry the dog food. Hold the ladder. Stir the pot. You may do it dead. It still has to be done.'],
+  ['hitmeuppp','what word'],
+  ['K9','You choose. It will be a stupid one. That is how I will know it is yours.'],
+  ['',pt_M()?'You think about it for the length of time it takes Biscuit to give up on the biscuit tin.':'She thinks about it for the length of time it takes Biscuit to give up on the biscuit tin.'],
+  ['hitmeuppp','“boo.”']];
+ pt_say(L,()=>{note('pt_proofs','V kept twenty-three proofs that she is alive. She took every one apart. So now: on bad days she texts “boo”, and somebody gives her a chore.');apply({aff:4});if(typeof relApply==='function')relApply({trust:6});done()},'loss')}});
+
+/* ---------- 8. the cell (after the kidnapping) ---------- */
+PT_EV.push({id:'pt_cell',when:()=>pt_after('proofs',2)&&['after','act2','act3','epilogue'].includes(S.phase),run:done=>{pt_set();pt_mark('cell');
+ const L=[
+  ['',pt_M()?'Three in the morning. V finds you on the kitchen floor with your back to the fridge, because it hums, and the humming is proof of something.':'Three in the morning. You find her on the kitchen floor with her back against the fridge, because it hums.'],
+  ['hitmeuppp','can i tell you the worst part. of the room. the cell.'],
+  ['K9','Yes.'],
+  ['hitmeuppp','i was alive the whole time in there. every second. i could feel my heart. i could taste the water. the light hurt. my wrists hurt. everything was so loud and so real and so mine.'],
+  ['hitmeuppp','and it was unbearable.'],
+  ['hitmeuppp','out here it’s easier to be dead. dead people don’t get taken. you can’t take something that isn’t there. i think i decided that in the room, on day two, and i forgot i decided it.'],
+  ['',pt_M()?'He does not tell you that you are wrong. He sits down on the floor next to you, which takes him a while, because of the knee.':'You do not tell her she is wrong. You sit down on the floor next to her, which takes a while, because of the knee.'],
+  ['K9','Then I will not ask you to stop. Not yet. I will only point out that the dead do not decide things, and you just told me you did.'],
+  ['hitmeuppp','...that’s a cheap shot.'],
+  ['K9','It is a very cheap shot. I have been saving it.'],
+  ['','The fridge hums. Upstairs a dog changes position and sighs. At some point she leans on your shoulder, and at some point after that she says, very quietly, without making it a joke:'],
+  ['hitmeuppp','present tense. for a minute.']];
+ pt_say(L,()=>{apply({aff:4});if(S.dark)calm(8);note('pt_cell','“Out here it’s easier to be dead. You can’t take something that isn’t there.” She decided it on day two in the cell.');done()},'grief')}});
+
+/* ---------- the protocol: boo ---------- */
+const PT_CHORES=[
+ ['K9','Carry the dog food from the garage to the kennel. It is fifteen kilos. Ghosts cannot lift fifteen kilos. I am not making a point. The dogs are hungry.','You carry the dog food. It is heavy in exactly the way heavy things are. Biscuit supervises.'],
+ [AN,'hold the ring light for 20 mins. ur not allowed to be dead on my set, union rules','You hold the ring light. Your arms ache by minute twelve. Angel says “higher” forty times. The aching is annoying and specific and yours.'],
+ [RN,'Come hold the ladder, darlin’. Gutters. If I fall, it’s on your conscience, and ghosts ain’t got one, so you’d better be somethin’ else.','You hold the ladder for an hour while Ronin pulls leaves out of a gutter and sings badly. Twice it wobbles and twice you catch it.'],
+ ['K9','Stir the soup. Clockwise. If it sticks to the bottom it will be your fault, which requires a self, which I am told you lack. We will find out.','You stir the soup for forty minutes. It does not stick. When you taste it to check, you say “salt” before you can stop yourself.'],
+ [AN,'come walk biscuit with me. V said i could borrow her. she pulls. she only pulls when someone’s actually holding the lead lol','Biscuit pulls the whole way round the park. Your shoulder hurts for the rest of the day. Angel says “told u” every time you rub it.'],
+ [RN,'Dishes. My place. There’s a stack. I ain’t proud of it. Water’s hot enough to argue with you.','The water is too hot. Your hands go pink. You wash the whole stack and Ronin dries, and neither of you says anything about why you are there.'],
+ ['K9','Read to me. Chapter nine. My eyes are tired. Ghosts do not do voices for the duke, so if you do the voice, I will draw my own conclusions.','You read chapter nine. You do the voice for the duke. You do not mean to. He turns a page he has not read, so that you will keep going.']];
+function pt_ghostDay(done){pt_set();const avail=PT_CHORES.filter(c=>c[0]==='K9'||(c[0]===AN&&frT('a')>=1)||(c[0]===RN&&frT('r')>=1));const ch=avail[(S.f.ptDays||0)%avail.length];
+ const L=pt_M()?[
+  ['','You wake up past tense. You know before you open your eyes: the room is a photograph of a room.'],
+  ['M','(server) boo'],
+  [ch[0],'(server) '+ch[1]],
+  ['',ch[2]],
+  ['',['It does not fix anything. By evening you are still mostly a rumour. But the job got done, and a ghost could not have done it, and you are too tired to argue with that tonight.','By evening the room is still a photograph. You are in it now, though, somewhere near the edge, holding something.','It does not fix anything. It fills the day, the way sand fills a box. That turns out to be most of what a day is for.'][(S.f.ptDays||0)%3]]]
+ :[
+  ['hitmeuppp','(server) boo'],
+  ch[0]==='K9'?['K9','(server) '+ch[1]]:[ch[0],'(server) '+ch[1]],
+  ['',ch[2].replace(/\bYou\b/g,'She').replace(/\byou\b/g,'she').replace(/\bYour\b/g,'Her').replace(/\byour\b/g,'her')],
+  ['','It does not fix anything. But the job gets done, and that evening the server gets one more message from her, unprompted, which has not happened on a “boo” day before: “ok. done.”']];
+ pt_say(L,()=>{apply({energy:-4,aff:1});if(S.dark)calm(5);done()})}
+
+/* ---------- talk topics ---------- */
+(function(){const vIns=o=>TOPICS_V.splice(TOPICS_V.length-1,0,o),mIns=o=>TOPICS_M.splice(TOPICS_M.length-1,0,o);
+ vIns({id:'pt_here',label:()=>'“do i look like i’m here to you?”',show:()=>!!S.f.pt_pulse&&S.phase!=='taken',run:b=>{warm('v','pt_here',3);const A=[
+  ['K9','You have toast crumbs on your left sleeve and you reorganised my spice rack by colour while I was on a call. I do not know what the dead do, but I doubt it is that.'],
+  ['K9','Yes. You are casting a shadow on my book. You have been casting it for twenty minutes. I have not turned the page, because I did not want you to move.'],
+  ['K9','You are here. You are also frightened that you are not. Both of those are true, and only one of them is a fact.'],
+  ['K9','Biscuit is lying on your feet. She does not lie on furniture. She has opinions about furniture.']];
+  say([A[(S.talks.pt_here-1)%A.length],pt_today()?['hitmeuppp','...ok. noted. not convinced. noted.']:['hitmeuppp','ok. good. just checking the instruments.']],b)}});
+ mIns({id:'pt_tense',label:()=>'“Which tense is it today?”',show:()=>!!S.f.pt_proofs&&S.phase!=='taken',run:b=>{warm('m','pt_tense',3);
+  say(pt_today()?[['hitmeuppp','past. very past. ancient history.'],['K9','Then I have a job for you. The kennel gate sticks. Hold it while I oil it.'],['','She holds it. It sticks twice. The second time she swears at it in the present tense, and catches herself, and does not take it back.']]
+   :[['hitmeuppp','present. ish. present-adjacent.'],['K9','Present-adjacent is acceptable. I am mostly present-adjacent myself before coffee.']],b)}});})();
+
+/* ---------- a few walking-around thoughts on past-tense days (her POV) ---------- */
+TDREACT.push(
+ {id:'pt_r1',map:'trailer',visit:1,when:()=>pt_M()&&pt_today(),line:()=>pk(['(the mirror has the room in it. and the lamp. you have to wave before you find yourself.)','(your breath fogs the window. you look at it for a while. that’s a strange thing for a ghost to be able to do.)','(the kettle is hot. you know because the light is on. not because of your hand.)'])},
+ {id:'pt_r2',map:'base',visit:1,when:()=>pt_M()&&pt_today(),line:()=>pk(['(the dogs look up when you come in. they look up at the postman too. it doesn’t mean anything.)','(somebody says your name in the next room. it sounds like it belongs to someone else, someone who used to live here.)','(V says good morning. you check the room behind you before you answer.)'])});
 /* ===UI2-END=== */
 requestAnimationFrame(frame);splash();
 

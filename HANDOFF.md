@@ -13,7 +13,7 @@
   - Everything outside those markers is the original game, edited in place in `index.html`. Story beats like `takenM`, `afterBase` and `startAct2` live there.
 - `src/`: the source of the two generated regions.
   - `td1_engine.js`, `td2_scene.js`, `td3_trailer.js`, `td4_base.js`, `td5_story.js` → TD block.
-  - `ui2.js`, `td6.js` … `td20.js` → UI2 block. Load order is in `tools/build.py`; td12 loads before td11 on purpose.
+  - `ui2.js`, `td6.js` … `td21.js` → UI2 block. Load order is in `tools/build.py`; td12 loads before td11 on purpose.
   - `maps.json`: tile rows for every top-down map.
   - `deep_rooms.json`, `city_rooms.json`: room rectangles, emitted as `TD_DEEPROOMS` / `TD_CITYROOMS`.
 - `tools/`:
@@ -225,6 +225,13 @@ The trailer and all of V's base are no longer side-view backdrops: they are 3/4 
   - `toRoom` into zones without an arrival could drop the player into a sealed pocket; V/Misaki/Angel/Ronin could spawn on blocked tiles. Both now use `tdFreeReach` (reachable free tile).
   - The 3am night wake-up no longer fires on the night of the kidnapping.
 - Visual pass (td20, plus outline support in `tdPx`): baked contact shadows where floors meet walls/solids (`vfxAO`), vignette, time-of-day colour grade (drained while `S.dark`), a warm rim on the player at night. Character and dog sprites get soft shading in `tdPx` (shadow-side edge darker, lit edge a touch brighter; `TD.shade`, `TDSH`). The 1px outlines tried earlier were removed. Pause menu → “Visual polish” toggles it all (`META.fxOff`). The new-run opening text is back to the original short version. Cost ≈0.6 ms/frame.
+
+## Past Tense (td21): the far end of Misaki's detachment
+- Continues Through Glass (gl_) toward something like Cotard's: on bad days she is fairly sure she is already dead, and she is very good at making evidence agree. Her POV narration is sometimes wrong and gets corrected a line later.
+- Priority mornings (`PT_EV`), every other day at most counting td19's arcs too (shared spacing via `S.f.ptLast` / `S.f.t19last`): `pt_pulse` (checks the wrong side of her wrist), `pt_door` (broken konbini sensor as “evidence”), `pt_food` (feeds rice to crows that are not there; the three-words rule), `pt_obit` (“bio (final)” in the past tense; someone changes the verbs), `pt_count` (counts herself as furniture in a group photo), `pt_air` (opens every window in November; the smell is the lilies), `pt_proofs` (V’s 23 proofs, all refuted; he stops arguing and sets up “boo”), `pt_cell` (after the kidnapping: “out here it’s easier to be dead”).
+- Past-tense days (`S.f.ptDay===S.day`): in her POV her sprite draws at half opacity (wrapped `tdActor`); walking-around thoughts in trailer/base (`TDREACT` pt_r1/pt_r2). After `pt_proofs`, 22% of mornings can be a “boo” day (`pt_ghostDay`): she texts “boo”, someone gives her a chore with a body in it (`PT_CHORES`).
+- Talk topics: `pt_here` (Misaki asks V “do i look like i’m here to you?”), `pt_tense` (V asks “Which tense is it today?”).
+- Cliché pass on td19: stock phrases (“neither of you says anything for a long time”, “like it weighs more than anything”, “a hand finds a hand”, comments going viral) replaced with specific details.
 
 ## B5 library → the library tower
 - `gen2.py` carves the library as a disc (centre 22,83, r≈10.5). Doors: north (22,72) from the corridor, east (42,88) to observation, south (22,95) to the pump hall. Zone floor `lab`, wall `glass`.
