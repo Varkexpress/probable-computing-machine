@@ -13,7 +13,7 @@
   - Everything outside those markers is the original game, edited in place in `index.html`. Story beats like `takenM`, `afterBase` and `startAct2` live there.
 - `src/`: the source of the two generated regions.
   - `td1_engine.js`, `td2_scene.js`, `td3_trailer.js`, `td4_base.js`, `td5_story.js` → TD block.
-  - `ui2.js`, `td6.js` … `td26.js` → UI2 block. Load order is in `tools/build.py`; td12 loads before td11 on purpose.
+  - `ui2.js`, `td6.js` … `td27.js` → UI2 block. Load order is in `tools/build.py`; td12 loads before td11 on purpose.
   - `maps.json`: tile rows for every top-down map.
   - `deep_rooms.json`, `city_rooms.json`: room rectangles, emitted as `TD_DEEPROOMS` / `TD_CITYROOMS`.
 - `tools/`:
@@ -204,6 +204,11 @@ The trailer and all of V's base are no longer side-view backdrops: they are 3/4 
   - V sleeps in the east-wing bed (`vWhere`→'bedroom'). Misaki sleeps in the trailer, or in V's bed if moved in. Ronin sleeps on his couch, Angel on the new daybed. Each sleeper has a "X is sleeping. Best not wake him/her." menu with options specific to that person.
   - `sleep` sometimes runs `nightWake` (30%): branches by POV, moved-in, and Misaki's or V's romance.
   - Angel and Ronin 3am events.
+
+## Angel's quirk, the ceiling stream, the tea (td27)
+- `k27_narrate`: Angel narrates her own life in vlog voice when nervous, including on rooftops before a shot (“and she breathes in…”); only the four have heard it.
+- `k27_ceiling`: she went live on a job by accident; 200k people watched a parking-garage ceiling for forty minutes, one quiet “cork”; her third most viewed video.
+- `k27_tea` (V POV, `S.vrom==='r'`, after the first date): V once swore to kill Ronin; Ronin drank V’s tea (V’s sleep aid, an ungodly amount), decided V had finally done it, climbed onto his lap and made a twisted confession, passed out; woke alive under V’s coat; V heard everything.
 
 ## The pool, Ronin and Angel after the job, the flower room back (td26, td9)
 - **The pool** (B5, the old seed vault, zone `dp_seeds`): it was a hydroponics grow room meant to feed the house through anything; it devolved into a pool. Interactive `k26_pool` (go under / swim lengths, float, sit on the edge), the old seed drawers, a rusted nutrient tank.
