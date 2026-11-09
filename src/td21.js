@@ -44,7 +44,7 @@ PT_EV.push({id:'pt_pulse',when:()=>pt_started()&&S.day>=6,run:done=>{pt_set();pt
   [RN,'(server) ’Bout four minutes, darlin’. You writin’ a mystery?'],
   ['hitmeuppp','(server) kind of'],
   ['K9','(server) Where are you checking?'],
-  ['','No answer. You are in the car before the dogs have finished being surprised.'],
+  ['','No answer. You are in the car before the hounds have finished turning their heads.'],
   ['','She is at the trailer table with two fingers pressed to the thumb side of her wrist, very calm, like someone waiting for a kettle. There is a plate of toast in front of her that nobody has touched.'],
   ['K9','May I?'],
   ['','She holds the arm out to you as if it belongs to someone else. You move her fingers half an inch, to the inside of the wrist, under the tendon.'],
@@ -58,10 +58,9 @@ PT_EV.push({id:'pt_pulse',when:()=>pt_started()&&S.day>=6,run:done=>{pt_set();pt
 /* ---------- 2. the door ---------- */
 PT_EV.push({id:'pt_door',when:()=>pt_after('pulse'),run:done=>{pt_set();pt_mark('door');
  const L=pt_M()?[
-  ['','The konbini at midnight. You walk up to the automatic door and it does not open.'],
+  ['','The corner store at midnight. You walk up to the automatic door and it does not open.'],
   ['','You step back. You step forward. You wave at the sensor, politely, the way you would wave at a dog that does not know you yet. Nothing.'],
-  ['','Through the glass the night clerk looks up, sees you, and comes round the counter to haul the door open by hand.'],
-  ['Clerk','Sorry, sorry. It’s been doing that.'],
+  ['','Through the glass somebody behind the counter sees you, comes round, and hauls the door open by hand without a word.'],
   ['','You nod. You buy an egg sandwich. You file it with the pulse. Two things now. Two is a pattern if you want it to be, and you notice that you want it to be.'],
   [RN,'(next day) Sensor’s been busted a week, little killer. There’s a sign. Taped right at your eye level. “PLEASE PULL.”'],
   ['M','i saw the sign.'],
@@ -85,7 +84,7 @@ PT_EV.push({id:'pt_food',when:()=>pt_after('door'),run:done=>{pt_set();pt_mark('
  const L=pt_M()?[
   ['','Breakfast. The rice tastes like the idea of rice: a word with a temperature.'],
   ['','You do the arithmetic. If nothing tastes of anything, then eating is just moving food from one place to another. It would be more use to somebody else. That is not sad. It is efficient.'],
-  ['','You take the onigiri down to the lot and break it up for the crows. They know what to do with it. It is a relief to watch something that knows what to do with it.'],
+  ['','You take the sandwich down to the lot and break it up for the crows. They know what to do with it. It is a relief to watch something that knows what to do with it.'],
   ['','The crows were not there. You remember them, but when you look at the photo you took, the lot is empty and the rice is on the gravel and nobody is eating it.'],
   P==='K9'?['K9','(text) Did you eat?']:P===AN?[AN,'(text) babe did u eat. be honest. i can smell lies through the phone']:[RN,'(text) You eat today, darlin’? Don’t lie, I’ll know.'],
   ['M','(text) the crows did'],
@@ -96,7 +95,7 @@ PT_EV.push({id:'pt_food',when:()=>pt_after('door'),run:done=>{pt_set();pt_mark('
   [P,P==='K9'?'It is Thursday.':P===AN?'it’s thursday. still counts.':'It’s Thursday. Still counts.'],
   ['','You do it again. And again. By the bottom of the bowl the words are getting less wrong. “Ginger.” “Too much ginger.” Neither of you mentions that you finished it.']]
  :[
-  ['','On the camera wall, the trailer lot, 7:12. Misaki comes out with an onigiri, unwraps it, and breaks it up on the gravel. There are no crows. She stands there as if there are.'],
+  ['','On the camera wall, the trailer lot, 7:12. Misaki comes out with a sandwich, unwraps it, and breaks it up on the gravel. There are no crows. She stands there as if there are.'],
   ['','She goes back inside. The rice stays on the gravel until a cat finds it at noon.'],
   ['K9','(text) Did you eat?'],
   ['hitmeuppp','(text) the crows did'],
@@ -129,17 +128,17 @@ PT_EV.push({id:'pt_obit',when:()=>pt_after('food'),run:done=>{pt_set();pt_mark('
 PT_EV.push({id:'pt_count',when:()=>pt_after('obit'),run:done=>{pt_set();pt_mark('count');
  const L=pt_M()?[
   ['','Angel posts the photo from movie night. You count the people in it, because you count people in every room you are in.'],
-  ['','Eleven. Ronin, Angel, V, the three dogs that count as people, the delivery guy Angel made stay, his girlfriend, the two neighbours, and Biscuit twice, because she moved halfway through. Eleven.'],
+  ['','Three. Ronin with a knife still in his belt. Angel mid-laugh. V, upright, unsmiling. Behind them, the hounds, like furniture that breathes. Three.'],
   ['M','(server) good pic. who took it'],
   [AN,'(server) timer!! we’re ALL in it'],
   ['M','(server) i’m not'],
   [AN,'(server) u’re literally in the middle. the armchair. star clip. u’re holding the popcorn'],
   ['','You look again. There is a girl in the armchair with a star clip, holding the popcorn, looking at the camera. You counted her. You counted her as furniture.'],
-  ['','There were twelve. There were always twelve.'],
+  ['','There were four. There were always four.'],
   ['M','(server) oh. yeah. there i am'],
   ['','You set the photo as your lock screen, not because you believe it, but so that you will have to look at the evidence every time you check the time.']]
  :[
-  ['','Angel posts the photo from movie night. Twelve people, three dogs, one bowl of popcorn.'],
+  ['','Angel posts the photo from movie night. Four people, the hounds in a line behind them, one bowl of popcorn.'],
   ['hitmeuppp','(server) good pic. who took it'],
   [AN,'(server) timer!! we’re ALL in it'],
   ['hitmeuppp','(server) i’m not'],
@@ -183,14 +182,14 @@ PT_EV.push({id:'pt_proofs',when:()=>pt_after('air'),run:done=>{pt_set();pt_mark(
  const L=[
   ['',pt_M()?'V asks you to come to the archive. There is a notebook on the desk. The label says PROOFS in his small capitals.':'You put the notebook on the archive desk between you. You have been keeping it for three weeks. The label says PROOFS.'],
   ['K9','I have been keeping evidence. I thought you might respect evidence.'],
-  ['K9','One. Your radial pulse: seventy-two, then sixty-eight, then eighty-one when Biscuit stood on your foot.'],
+  ['K9','One. Your radial pulse: seventy-two, then sixty-eight, then eighty-one when the grey hound put its head on your knee.'],
   ['hitmeuppp','bodies keep going for a bit. hair grows. you know that. you’ve seen it.'],
-  ['K9','Two. You pulled the konbini door yourself. Ronin has a video.'],
+  ['K9','Two. You pulled the corner-store door yourself. Ronin has a video.'],
   ['hitmeuppp','doors don’t care who pulls them.'],
   ['K9','Three. You ate a bowl of soup and identified the ginger.'],
   ['hitmeuppp','i identified the ginger because you always put too much in. i was remembering. that’s not tasting.'],
-  ['K9','Four. The dogs greet you at the door.'],
-  ['hitmeuppp','the dogs greet the postman. the dogs greet a bin bag if it moves.'],
+  ['K9','Four. The hounds let you walk past them. They do not let anyone walk past them.'],
+  ['hitmeuppp','they let the butcher’s van past too. they know who’s carrying meat.'],
   ['',pt_M()?'It goes on. Twenty-three entries. You have an answer for every one, and every answer is clean, and quick, and better than the proof.':'It goes on. Twenty-three entries. She has an answer for every one, and every answer is clean, and quick, and better than the proof.'],
   ['',pt_M()?'You can see him realise it somewhere around entry fifteen: every proof he hands you, you take apart, and you get faster at it. He is training you.':'Somewhere around entry fifteen you understand it: every proof you hand her, she takes apart, and she is getting faster at it. You are training her.'],
   ['','He closes the notebook.'],
@@ -199,7 +198,7 @@ PT_EV.push({id:'pt_proofs',when:()=>pt_after('air'),run:done=>{pt_set();pt_mark(
   ['K9','I will ask you something smaller. On the days you are sure, text the server one word. Anyone who sees it gives you a job. Carry the dog food. Hold the ladder. Stir the pot. You may do it dead. It still has to be done.'],
   ['hitmeuppp','what word'],
   ['K9','You choose. It will be a stupid one. That is how I will know it is yours.'],
-  ['',pt_M()?'You think about it for the length of time it takes Biscuit to give up on the biscuit tin.':'She thinks about it for the length of time it takes Biscuit to give up on the biscuit tin.'],
+  ['',pt_M()?'You think about it for a long minute, turning the notebook over like it might have a back door.':'She thinks about it for a long minute, turning the notebook over like it might have a back door.'],
   ['hitmeuppp','“boo.”']];
  pt_say(L,()=>{note('pt_proofs','V kept twenty-three proofs that she is alive. She took every one apart. So now: on bad days she texts “boo”, and somebody gives her a chore.');apply({aff:4});if(typeof relApply==='function')relApply({trust:6});done()},'loss')}});
 
@@ -222,11 +221,11 @@ PT_EV.push({id:'pt_cell',when:()=>pt_after('proofs',2)&&['after','act2','act3','
 
 /* ---------- the protocol: boo ---------- */
 const PT_CHORES=[
- ['K9','Carry the dog food from the garage to the kennel. It is fifteen kilos. Ghosts cannot lift fifteen kilos. I am not making a point. The dogs are hungry.','You carry the dog food. It is heavy in exactly the way heavy things are. Biscuit supervises.'],
+ ['K9','Carry the dog food from the garage to the kennel. It is fifteen kilos. Ghosts cannot lift fifteen kilos. I am not making a point. The hounds are hungry.','You carry the sack down to the pens. It is heavy in exactly the way heavy things are. The grey hound watches you the whole way, the way it watches things it has not decided about yet.'],
  [AN,'hold the ring light for 20 mins. ur not allowed to be dead on my set, union rules','You hold the ring light. Your arms ache by minute twelve. Angel says “higher” forty times. The aching is annoying and specific and yours.'],
  [RN,'Come hold the ladder, darlin’. Gutters. If I fall, it’s on your conscience, and ghosts ain’t got one, so you’d better be somethin’ else.','You hold the ladder for an hour while Ronin pulls leaves out of a gutter and sings badly. Twice it wobbles and twice you catch it.'],
  ['K9','Stir the soup. Clockwise. If it sticks to the bottom it will be your fault, which requires a self, which I am told you lack. We will find out.','You stir the soup for forty minutes. It does not stick. When you taste it to check, you say “salt” before you can stop yourself.'],
- [AN,'come walk biscuit with me. V said i could borrow her. she pulls. she only pulls when someone’s actually holding the lead lol','Biscuit pulls the whole way round the park. Your shoulder hurts for the rest of the day. Angel says “told u” every time you rub it.'],
+ [AN,'come help me carry the lighting rig up four flights. the lift is broken and i am a delicate flower','The rig weighs more than Angel. Your shoulder hurts for the rest of the day. Angel says “told u” every time you rub it.'],
  [RN,'Dishes. My place. There’s a stack. I ain’t proud of it. Water’s hot enough to argue with you.','The water is too hot. Your hands go pink. You wash the whole stack and Ronin dries, and neither of you says anything about why you are there.'],
  ['K9','Read to me. Chapter nine. My eyes are tired. Ghosts do not do voices for the duke, so if you do the voice, I will draw my own conclusions.','You read chapter nine. You do the voice for the duke. You do not mean to. He turns a page he has not read, so that you will keep going.']];
 function pt_ghostDay(done){pt_set();const avail=PT_CHORES.filter(c=>c[0]==='K9'||(c[0]===AN&&frT('a')>=1)||(c[0]===RN&&frT('r')>=1));const ch=avail[(S.f.ptDays||0)%avail.length];
@@ -249,7 +248,7 @@ function pt_ghostDay(done){pt_set();const avail=PT_CHORES.filter(c=>c[0]==='K9'|
   ['K9','You have toast crumbs on your left sleeve and you reorganised my spice rack by colour while I was on a call. I do not know what the dead do, but I doubt it is that.'],
   ['K9','Yes. You are casting a shadow on my book. You have been casting it for twenty minutes. I have not turned the page, because I did not want you to move.'],
   ['K9','You are here. You are also frightened that you are not. Both of those are true, and only one of them is a fact.'],
-  ['K9','Biscuit is lying on your feet. She does not lie on furniture. She has opinions about furniture.']];
+  ['K9','The grey hound is lying across your feet. She does not lie near anyone. Last month a man with a gun stood where you are standing, and she did not lie down then.']];
   say([A[(S.talks.pt_here-1)%A.length],pt_today()?['hitmeuppp','...ok. noted. not convinced. noted.']:['hitmeuppp','ok. good. just checking the instruments.']],b)}});
  mIns({id:'pt_tense',label:()=>'“Which tense is it today?”',show:()=>!!S.f.pt_proofs&&S.phase!=='taken',run:b=>{warm('m','pt_tense',3);
   say(pt_today()?[['hitmeuppp','past. very past. ancient history.'],['K9','Then I have a job for you. The kennel gate sticks. Hold it while I oil it.'],['','She holds it. It sticks twice. The second time she swears at it in the present tense, and catches herself, and does not take it back.']]
@@ -258,4 +257,4 @@ function pt_ghostDay(done){pt_set();const avail=PT_CHORES.filter(c=>c[0]==='K9'|
 /* ---------- a few walking-around thoughts on past-tense days (her POV) ---------- */
 TDREACT.push(
  {id:'pt_r1',map:'trailer',visit:1,when:()=>pt_M()&&pt_today(),line:()=>pk(['(the mirror has the room in it. and the lamp. you have to wave before you find yourself.)','(your breath fogs the window. you look at it for a while. that’s a strange thing for a ghost to be able to do.)','(the kettle is hot. you know because the light is on. not because of your hand.)'])},
- {id:'pt_r2',map:'base',visit:1,when:()=>pt_M()&&pt_today(),line:()=>pk(['(the dogs look up when you come in. they look up at the postman too. it doesn’t mean anything.)','(somebody says your name in the next room. it sounds like it belongs to someone else, someone who used to live here.)','(V says good morning. you check the room behind you before you answer.)'])});
+ {id:'pt_r2',map:'base',visit:1,when:()=>pt_M()&&pt_today(),line:()=>pk(['(the hounds look up when you come in. they look up at everything that moves. it doesn’t mean anything.)','(somebody says your name in the next room. it sounds like it belongs to someone else, someone who used to live here.)','(V says good morning. you check the room behind you before you answer.)'])});
