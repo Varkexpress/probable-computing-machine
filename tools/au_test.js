@@ -9,7 +9,7 @@ const step=(side,mode,prefer,avoid)=>ev(([side,mode,prefer,avoid])=>{const TS=16
  if(ctrl&&ctrl.box){const os=[...ctrl.box.querySelectorAll('.opt:not(.dis)')];if(!os.length)return 'noopts';const h=document.querySelector('.panel h2');if(h&&/—/.test(h.textContent))return 'END '+h.textContent+' | '+[...document.querySelectorAll('.panel p')].map(x=>x.textContent).join(' / ');
   let o=null;for(const re of prefer){o=os.find(x=>new RegExp(re).test(x.textContent));if(o)break}
   if(!o)o=os.find(x=>!avoid.some(re=>new RegExp(re).test(x.textContent)))||os[0];const t=o.textContent.slice(0,34);o.click();return 'opt:'+t}
- const sc=scene;if(!sc||!sc.onTap)return 'idle';let n=0;const D=LL.dbg;
+ const sc=scene;if(!sc||!sc.onTap)return 'idle';if(LL.game==='walk'){for(const k in pressed)delete pressed[k];pressed.back=1;sc.update();return 'walk'}let n=0;const D=LL.dbg;
  const next=(e,tx,ty)=>{const [ex,ey]=llT(e);const d=llDist(tx,ty);let b=[ex,ey],bd=d[ey][ex]<0?1e9:d[ey][ex];for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){const nx=ex+dx,ny=ey+dy;if(llBlk(nx,ny,1))continue;if(d[ny][nx]>=0&&d[ny][nx]<bd){bd=d[ny][nx];b=[nx,ny]}}return b};
  while(scene===sc&&!dlg&&!(ctrl&&ctrl.box)&&n++<5000){for(const k in pressed)delete pressed[k];
   if(mode==='try'){if(LL.game==='hush'){if(LL.hush())pressed.act=1}else if(LL.game==='bench'){if(LL.bench())pressed.act=1}
@@ -33,6 +33,23 @@ for(const [side,mode,prefer,avoid] of RUNS){await ev(()=>{title()});await p.wait
  const pre=['Alternate universes','The Long Leash','The '+side].concat(prefer);let seen=0;
  for(let k=0;k<1400&&!end;k++){const r=await step(side==='Sergeant'?'v':'m',mode,seen<3?pre:prefer,avoid);if(/^opt:/.test(r))seen++;if(/^END/.test(r))end=r;else if(/^game/.test(r))log.push(r.slice(5));else if(r==='idle'||r==='noopts')await p.waitForTimeout(20);await p.waitForTimeout(8)}
  console.log(side,mode,'|',log.join(' '),'|',end.slice(0,330)||'NO ENDING')}
+/* walkable areas: every door leads somewhere walkable, every spot can be used, from both sides */
+for(const side of ['v','m']){console.log('areas '+side,await ev(side=>{const out=[];title();AUON=true;AUS[0].run(()=>{});for(let i=0;i<50&&dlg;i++)adv();const o=[...ctrl.box.querySelectorAll('.opt')].find(o=>o.textContent.includes(side==='v'?'Sergeant':'Researcher'));o.click();
+ const AR=LL.AR;let doors=0,spots=0,bad=[];
+ for(const k in AR){if(k==='ridge')continue;const A=AR[k];for(const key in A.doors){const [x,y]=key.split(',').map(Number);if(A.rows[y][x]!=='D')bad.push(k+' door '+key+' not D');const [to,sp]=A.doors[key];const B=AR[to];if(!B){bad.push(k+'→'+to);continue}const ch=B.rows[sp[1]][sp[0]];if(ch!=='.'&&ch!==',')bad.push(k+'→'+to+' spawn on '+ch);doors++}
+  for(const ch in A.sp){if(!A.tl[ch])bad.push(k+' spot '+ch+' missing')}}
+ /* reachability: every door and every spot can be reached from the area's start */
+ for(const k in AR){const A=AR[k];LLM=A.rows;const d=llDist(...A.start);if(A.startV&&llDist(...A.startV)[A.start[1]][A.start[0]]<0)bad.push(k+' startV cut off');
+  for(const key in A.doors){const [x,y]=key.split(',').map(Number);if(d[y][x]<0)bad.push(k+' door '+key+' unreachable')}
+  for(const ch in A.tl){const ok=A.tl[ch].some(([x,y])=>[[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]].some(([a,b])=>d[y+b]&&d[y+b][x+a]>=0));if(!ok)bad.push(k+' spot '+ch+' unreachable')}}
+ /* walk through a door for real */
+ for(let i=0;i<60&&dlg;i++)adv();const blk=(dlg?'dlg ':'')+(ctrl&&ctrl.box?'ctrl:'+ctrl.box.textContent.slice(0,40):'');if(ctrl&&ctrl.box){ctrl=null;ui.innerHTML=''}LL.walkTo('hall',[2,2]);for(const kk in pressed)delete pressed[kk];const xs=[];held.left=0;scene.update();held.left=1;for(let i=0;i<60;i++){scene.update();xs.push(Math.round(LL.wk.P.x)+(scene.onTap?'':'!'))}held.left=0;const went=xs.join(',')+' '+LL.wk.R.area+' '+blk+' LLMhall '+(LLM===AR.hall.rows)+' blk0 '+llBlk(0,2,0)+' row '+LLM[2]+' P '+Math.round(LL.wk.P.x)+','+Math.round(LL.wk.P.y)+' held '+JSON.stringify(held);
+ bad.push('(door test: '+went+')');
+ /* use every spot: stand next to it and press E */
+ let used=0;for(const k in AR){if(k==='ridge')continue;const A=AR[k];LLM=A.rows;const d=llDist(...A.start);for(const ch in A.tl){const t=A.tl[ch].map(([x,y])=>[[1,0],[-1,0],[0,1],[0,-1]].map(([a,b])=>[x+a,y+b])).flat().find(([x,y])=>d[y]&&d[y][x]>=0);if(!t)continue;
+   LL.walkTo(k,t);for(const kk in pressed)delete pressed[kk];scene.update();pressed.act=1;scene.update();const opened=!!dlg||!!(ctrl&&ctrl.box);if(!opened)bad.push(k+' spot '+ch+' did nothing');else used++;
+   for(let i=0;i<60&&dlg;i++)adv();if(ctrl&&ctrl.box){const nm=[...ctrl.box.querySelectorAll('.opt')].find(o=>/Never mind/.test(o.textContent));if(nm)nm.click()}for(let i=0;i<60&&dlg;i++)adv()}}
+ return 'doors '+doors+' · spots used '+used+' · bad '+JSON.stringify(bad)},side))}
 /* screenshots of each minigame */
 const S='/tmp/claude-0/-home-user-probable-computing-machine/fb953b83-67f4-577f-b1f2-c602f62e0513/scratchpad/';
 for(const [nm,fn] of [['inspect','llInspect("m",()=>{})'],['gen','llGen(()=>{})'],['scarf','llScarf("v",()=>{})'],['hush','llHush(()=>{})'],['bench','llBench("v",()=>{})'],['yard','llNight("m",1,()=>{},"yard")'],['theatre','llNight("v",1,()=>{},"theatre")']]){await ev(fn=>{AUON=true;eval(fn);for(let i=0;i<130;i++){if(i===100)pressed.act=1;scene.update()}},fn);await p.waitForTimeout(150);await (await p.$('#stage')).screenshot({path:S+'au_'+nm+'.png'})}
