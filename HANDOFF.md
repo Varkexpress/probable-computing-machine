@@ -309,3 +309,16 @@ See Build & check above. Playwright is installed globally (`require(execSync('np
 - **Graphics toggle** is now in the pause menu's Settings group (`td21`), so touch players can switch enhanced/classic. G still works.
 - Fixed a broken sentence in the Act II gala ending ("$Xk. , a little short").
 - Layout check script pattern: Playwright with `{viewport:{width:390,height:844},hasTouch:true,isMobile:true}`; remove `.splash`, `benchLoad(BENCH[1])`, then `pauseMenu()` / `openPhone('dm')` / `ask(...)` and screenshot.
+
+## What it costs (td24)
+
+Short scenes about what the work and the years before it left behind. All in `src/td24.js`; test with `node tools/w24_test.js` (runs every event option, call, prop and topic for both POVs).
+
+- **The date** (Misaki gave herself five years): `five_eve` → `five_day` (bench / work / show V, or Angel if alone) → `five_after`; V's side is `five_v`. Flags `fiveDay`, `fiveDone`, `fiveV`, `fiveTold`.
+- **Hour 70** (V, locked rooms, the dogs): `v_bowls` (repeats up to 3), `m_bowls`, `m_door` / `v_latch` (`doorAsk`), topic `hour70` (needs `vChildKnown`), thread `tx_m4am`, call `c_vfour`, prop `bd_wedge`.
+- **Hands** (Misaki's three washes): `m_hands`, `m_frogs` (V pov), thread `tx_vhands`, call `c_mtap`, topics `sleeping`, `menu`. `m_bento`: V stocks her after-job bento.
+- **Angel / Ronin**: `tx_aceil`, `tx_avface` (watching herself from the ceiling), `tx_roven`, `tx_rvdown` (the oven; the shed back home).
+- **Lighter threads**: `tx_aquiz`, `tx_rname`, `tx_vcactus` (Prickles), `tx_mbiscuit`.
+- **Props**: `tr_box` (trailer shoebox, "THINGS THAT ARE MINE", one line can be added at tier 2), `bd_wedge`.
+- 12 new server pings, 12 drift texts, 3 chat-log lines, 8 conditional ending lines.
+- Gotcha: `v_door` was already an event id; the new one is `v_latch`. Check ids with grep before adding events.
