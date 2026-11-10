@@ -29,6 +29,23 @@ Calm-down coloring: 30 kid-friendly mandalas built from hearts, stars, petals an
 ### 90-Page Kids Coloring Bundle (all 3 books): $9.99 (save 33%)
 Every ColorPop Kids coloring book in one download: Chibi Hero Friends, Kawaii Critters & Snacks and Magic Patterns. 90 pages for less than the price of one store-bought coloring book.
 
+### Christmas Cuties: Kawaii Holiday Coloring Book (30 pages): $4.99
+Snowmen, gingerbread cookies, a smiling Christmas tree, Santa Kitty, Rudy the Reindeer, cozy cocoa, stockings and gifts: 30 cheerful holiday pages with bold, easy outlines. Perfect for Christmas break, class parties, stocking stuffers and kids' tables at family dinners. Print as many copies as you need for siblings and cousins!
+Tags: christmas coloring pages, kids christmas activity, stocking stuffer, holiday printable, christmas party activity, kawaii christmas, classroom christmas, winter coloring
+
+### Space Pals: Rockets, Planets & Aliens Coloring Book (30 pages): $4.99
+Blast off with Zoom Rocket, Blip the Alien, Astro Kid, friendly UFOs and planets with happy faces. 30 out-of-this-world pages for ages 4–9.
+Tags: space coloring pages, rocket coloring, alien coloring, astronaut kids, planet printable, boys coloring book, kids printable
+
+### Big Kids Activity Book: 30 Mazes + 10 Word Searches (80 pages with answer keys): $5.99
+Mazes that get harder as you go (easy → expert), each with a mini story ("Help the kitty find the fish!"), plus 10 themed word searches (animals, space, Christmas, food, ocean and more). Every puzzle has an answer key. Great for screen-free quiet time, travel and early finishers in class.
+Tags: mazes for kids, word search for kids, kids activity book, printable puzzles, travel activities kids, homeschool printable, quiet time activity
+
+### MEGA Kids Printable Bundle: all 6 books (230+ pages): $14.99 (save 50%)
+Chibi Hero Friends, Kawaii Critters & Snacks, Magic Patterns, Christmas Cuties, Space Pals and the Big Kids Activity Book in one download. Over $29 of printables for $14.99, enough screen-free fun for the whole winter break.
+File: `coloring/MEGA-Kids-Printable-Bundle.zip`. Thumbnail: `out/thumb-mega.png`.
+**Lead with this bundle in ads.** A higher order value makes paid ads pay off.
+
 ### 2027 Digital Planner, hyperlinked (102 pages, 3 colors): $7.99
 See `../planner-2027/LISTING.md`.
 
@@ -50,9 +67,9 @@ Sound: any trending upbeat track. Hashtags: #coloringpages #momhack #kidsactivit
 
 ### Facebook and Instagram (paid, once the first organic sale proves the listing converts)
 - Budget: $5/day for 5 days, Advantage+ audience. Interests: parents of 3–8 year olds, homeschooling, coloring books.
-- Creative: `out/pin-bundle.png` (feed) and `out/thumb-bundle.png` (square).
-- Primary text: *Screen-free fun in 30 seconds ⏱️ Print, color, repeat. 90 original kids' coloring pages (anime chibis, kawaii critters, magic patterns) for $9.99. Instant download.*
-- Headline: *90 Coloring Pages · $9.99*. Button: Shop Now.
+- Creative: `out/pin-mega.png` (feed) and `out/thumb-mega.png` (square). In December, switch to `pin-christmas.png`.
+- Primary text: *Winter break, sorted ❄️ 230+ printable coloring pages and puzzles (Christmas cuties, anime chibis, space pals, mazes and word searches) for $14.99. Print at home, instantly.*
+- Headline: *230 Kids Printables · $14.99*. Button: Shop Now.
 - Stop the ad if no sales after $25. If it sells, raise the budget 20% every 3 days.
 
 ### Reddit (follow each sub's self-promo rules)

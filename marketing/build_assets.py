@@ -71,16 +71,16 @@ def thumb(spec, logo_im, size=(2000, 2000), name=None):
     while max(d.textlength(l, font=font("black", ts)) for l in lines) > W * 0.9: ts -= 4
     for line in lines:
         f = font("black", ts); w = d.textlength(line, font=f)
-        d.text(((W - w)/2 + 6, y + 8), line, font=f, fill="#2D2A32"); d.text(((W - w)/2, y), line, font=f, fill=spec["tcol"]); y += ts + 10
+        d.text(((W - w)/2 + 6, y + 8), line, font=f, fill="#000000" if spec["bg"] == "#1D1B3A" else "#2D2A32"); d.text(((W - w)/2, y), line, font=f, fill=spec["tcol"]); y += ts + 10
     ss = 70
     while d.textlength(spec["sub"], font=font("bold", ss)) > W * 0.9: ss -= 2
-    f = font("bold", ss); w = d.textlength(spec["sub"], font=f); d.text(((W - w)/2, y + 10), spec["sub"], font=f, fill="#2D2A32")
+    f = font("bold", ss); w = d.textlength(spec["sub"], font=f); d.text(((W - w)/2, y + 10), spec["sub"], font=f, fill="#FFFFFF" if spec["bg"] == "#1D1B3A" else "#2D2A32")
     # fanned pages
     pages = spec["pages"]; n = len(pages); top = y + 140; ph = int((H - top - 280) * 0.95)
     for k, (pdf, pg) in enumerate(pages):
         p = render_pdf_page(pdf, pg, 150, f"tmp/p{k}.png"); p = p.resize((int(ph * p.width / p.height), ph))
         ang = (k - (n - 1)/2) * 9; s = shadowed(p, ang)
-        cx = W/2 + (k - (n - 1)/2) * (W * 0.24); im.alpha_composite(s, (int(cx - s.width/2), int(top - 40 + abs(k - (n - 1)/2) * 30)))
+        cx = W/2 + (k - (n - 1)/2) * (W * (0.24 if n <= 3 else 0.2)); im.alpha_composite(s, (int(cx - s.width/2), int(top - 40 + abs(k - (n - 1)/2) * 30)))
     d = ImageDraw.Draw(im)
     bs = 54 if W >= 2000 else 40; bl = list(spec["badges"])
     total = lambda b: sum(d.textlength(t, font=font("black", bs)) + 96 for t, _ in b)
@@ -92,6 +92,7 @@ def thumb(spec, logo_im, size=(2000, 2000), name=None):
 
 CH = "../coloring/Anime-Chibi-Friends-Coloring-Book.pdf"; KW = "../coloring/Kawaii-Animals-and-Snacks-Coloring-Book.pdf"
 MD = "../coloring/Magic-Patterns-Mandala-Coloring-Book.pdf"; PL = "../planner-2027/Planner-2027-sage.pdf"
+XM = "../coloring/Christmas-Cuties-Coloring-Book.pdf"; SP = "../coloring/Space-Pals-Coloring-Book.pdf"; AB = "../coloring/Big-Kids-Activity-Book-Mazes-Word-Search.pdf"
 SPECS = [
   dict(file="thumb-chibi", title="CHIBI HERO\nFRIENDS", sub="Anime-style coloring book for kids", tcol="#6C5CE7", bg="#FFE8F3",
        dots=["#FFC6E0", "#D9D2FF", "#C9F2EE"], pages=[(CH, 1), (CH, 5), (CH, 9)], badges=[("30 PAGES", "#FF5DA2"), ("PRINT AT HOME", "#6C5CE7"), ("AGES 4-10", "#22A39F")]),
@@ -103,6 +104,14 @@ SPECS = [
        dots=["#DCD3FF", "#FFD3E8", "#FFF0B3"], pages=[(CH, 1), (KW, 1), (MD, 1)], tsize=130, badges=[("3 BOOKS", "#FF5DA2"), ("SAVE 33%", "#FF9F43"), ("PRINT AGAIN & AGAIN", "#6C5CE7")]),
   dict(file="thumb-planner", title="2027 DIGITAL\nPLANNER", sub="Hyperlinked · GoodNotes · Notability", tcol="#4F7A63", bg="#EEF5EF",
        dots=["#D6E8DB", "#F8E1E5", "#DCE6F2"], pages=[(PL, 4), (PL, 1), (PL, 17)], tsize=140, badges=[("102 PAGES", "#4F7A63"), ("3 COLORS", "#D49AA3"), ("iPAD & ANDROID", "#4F6D8F")]),
+  dict(file="thumb-christmas", title="CHRISTMAS\nCUTIES", sub="Kawaii holiday coloring for kids", tcol="#E63946", bg="#FDF1E7",
+       dots=["#FFD3D6", "#CDEBE6", "#FFF0B3"], pages=[(XM, 3), (XM, 1), (XM, 6)], badges=[("30 PAGES", "#E63946"), ("STOCKING STUFFER", "#2A9D8F"), ("AGES 3-8", "#E9A262")]),
+  dict(file="thumb-space", title="SPACE\nPALS", sub="Rockets, planets & aliens to color", tcol="#FFD43B", bg="#1D1B3A",
+       dots=["#3B3770", "#4A4590", "#2C2960"], pages=[(SP, 3), (SP, 1), (SP, 6)], badges=[("30 PAGES", "#FF9F43"), ("PRINT AT HOME", "#7B6CF6"), ("AGES 4-9", "#22A39F")]),
+  dict(file="thumb-activity", title="BIG KIDS\nACTIVITY BOOK", sub="30 mazes + 10 word searches + answers", tcol="#1E88E5", bg="#EAF6FF",
+       dots=["#CDE8FF", "#FFE3F0", "#E0F7E9"], pages=[(AB, 3), (AB, 1), (AB, 33)], tsize=140, badges=[("80 PAGES", "#1E88E5"), ("ANSWER KEYS", "#FF5DA2"), ("AGES 5-10", "#22A39F")]),
+  dict(file="thumb-mega", title="MEGA KIDS\nPRINTABLE BUNDLE", sub="6 books · 230 pages of coloring & puzzles", tcol="#FF5DA2", bg="#FFF7D6",
+       dots=["#FFE08A", "#FFD3E8", "#D3F3FF"], pages=[(XM, 1), (CH, 1), (SP, 1), (AB, 1)], tsize=130, badges=[("6 BOOKS", "#FF5DA2"), ("SAVE 50%", "#FF9F43"), ("BEST GIFT", "#6C5CE7")]),
 ]
 if __name__ == "__main__":
     lg = logo()
