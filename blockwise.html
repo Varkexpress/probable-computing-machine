@@ -1,0 +1,1044 @@
+<title>Blockwise Planner</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Blockwise: drag-and-drop weekly schedule builder with auto-fill, conflict checks, calendar export and a Pro plan.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: engineering-pad week grid (the work surface) with a narrow ledger sidebar; header + tool rail on top. Sidebar stacks under the grid on phones. */
+:root{
+  --acc-l:#2747d6; --acc-d:#8197ff;          /* cobalt ink; skins override these two */
+  --bg:#eef1f6;      /* desk */
+  --sheet:#ffffff;   /* the pad */
+  --ink:#141a2b;
+  --muted:#5b6478;
+  --line:#d6dce8;
+  --grid:#e6ebf4;
+  --accent:var(--acc-l);
+  --accent-ink:#ffffff;
+  --gold:#a8701a;    /* Pro */
+  --danger:#c6283d;
+  --ok:#1d8a5a;
+  --shadow:0 1px 2px rgba(20,26,43,.06),0 8px 24px rgba(20,26,43,.08);
+  --f-disp:'Bricolage Grotesque','Avenir Next','Segoe UI',system-ui,sans-serif;
+  --f-body:'IBM Plex Sans','Segoe UI',system-ui,sans-serif;
+  --f-mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+  --hh:52px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0c101c;--sheet:#141a2b;--ink:#e6e9f2;--muted:#98a1b8;--line:#283049;--grid:#1c2236;
+  --accent:var(--acc-d);--accent-ink:#0b0f1c;--gold:#e2b04a;--danger:#ff6b7d;--ok:#4cc98e;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35);color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0c101c;--sheet:#141a2b;--ink:#e6e9f2;--muted:#98a1b8;--line:#283049;--grid:#1c2236;
+  --accent:var(--acc-d);--accent-ink:#0b0f1c;--gold:#e2b04a;--danger:#ff6b7d;--ok:#4cc98e;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px rgba(0,0,0,.35);color-scheme:dark}
+:root[data-skin="riso"]{--acc-l:#d63a73;--acc-d:#ff7aa8}
+:root[data-skin="forest"]{--acc-l:#2c7a4b;--acc-d:#5fd394}
+:root[data-skin="ember"]{--acc-l:#c2410c;--acc-d:#ff9a5c}
+:root[data-skin="graphite"]{--acc-l:#2b2f3a;--acc-d:#d5d9e3}
+:root[data-skin="lagoon"]{--acc-l:#0e7490;--acc-d:#4fd1e8}
+
+*,*::before,*::after{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 var(--f-body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:12px 24px}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+h1,h2,h3{font-family:var(--f-disp);text-wrap:balance;margin:0;letter-spacing:-.01em}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.app{max-width:1440px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+
+/* header */
+.top{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px}
+.brand{display:flex;align-items:center;gap:8px;font:800 20px var(--f-disp);letter-spacing:-.02em}
+.brand svg{width:26px;height:26px}
+.sched-pick{display:flex;align-items:center;gap:6px;min-width:0}
+.sched-pick select{max-width:220px;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--sheet)}
+.spacer{flex:1}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:999px;font:600 12px var(--f-body);letter-spacing:.04em;text-transform:uppercase;border:1px solid var(--line);background:var(--sheet);color:var(--muted)}
+.pill.pro{border-color:color-mix(in srgb,var(--gold) 50%,transparent);color:var(--gold);background:color-mix(in srgb,var(--gold) 10%,var(--sheet))}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:8px;border:1px solid var(--line);background:var(--sheet);cursor:pointer;font-weight:500;white-space:nowrap;text-decoration:none;color:var(--ink)}
+.btn:hover{border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.primary:hover{filter:brightness(1.07)}
+.btn.gold{background:var(--gold);border-color:var(--gold);color:#fff}
+:root[data-theme="dark"] .btn.gold{color:#1a1206}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn.gold{color:#1a1206}}
+.btn.ghost{background:transparent;border-color:transparent}
+.btn.ghost:hover{background:color-mix(in srgb,var(--ink) 6%,transparent)}
+.btn.danger{color:var(--danger)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn svg{width:16px;height:16px;flex:none}
+.lock{font-size:11px;color:var(--gold);font-weight:600;letter-spacing:.03em}
+
+.rail{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:8px;background:var(--sheet);border:1px solid var(--line);border-radius:12px}
+.rail .sep{width:1px;height:22px;background:var(--line);margin:0 4px}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:999px;font-size:12.5px;font-weight:600;border:1px solid var(--line);background:var(--sheet);cursor:pointer}
+.chip.warn{color:var(--danger);border-color:color-mix(in srgb,var(--danger) 40%,var(--line));background:color-mix(in srgb,var(--danger) 8%,var(--sheet))}
+.chip.good{color:var(--ok)}
+
+/* main split */
+.main{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:12px;align-items:start}
+@media (max-width:960px){.main{grid-template-columns:minmax(0,1fr)}}
+
+/* calendar */
+.cal-wrap{background:var(--sheet);border:1px solid var(--line);border-radius:12px;overflow:auto;max-height:calc(100dvh - 150px);min-height:420px;position:relative;box-shadow:var(--shadow)}
+.cal{--g:54px;min-width:calc(var(--g) + var(--cols) * 104px)}
+.cal-head,.cal-body{display:grid;grid-template-columns:var(--g) repeat(var(--cols),minmax(0,1fr))}
+.cal-head{position:sticky;top:0;z-index:5;background:var(--sheet);border-bottom:1px solid var(--line)}
+.dh{padding:8px 8px 7px;border-left:1px solid var(--line);display:flex;align-items:baseline;justify-content:space-between;gap:6px}
+.dh b{font:700 13px var(--f-disp);text-transform:uppercase;letter-spacing:.06em}
+.dh span{font:12px var(--f-mono);color:var(--muted)}
+.dh.today b{color:var(--accent)}
+.dh.today{box-shadow:inset 0 -2px 0 var(--accent)}
+.gut{position:relative}
+.gut i{position:absolute;right:8px;transform:translateY(-50%);font:11px var(--f-mono);font-style:normal;color:var(--muted)}
+.col{position:relative;border-left:1px solid var(--line);cursor:crosshair;touch-action:pan-x pan-y;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(color-mix(in srgb,var(--grid) 55%,transparent) 1px,transparent 1px);
+  background-size:100% var(--hh),100% var(--hh);background-position:0 0,0 calc(var(--hh) / 2)}
+.col.weekend{background-color:color-mix(in srgb,var(--ink) 2.5%,transparent)}
+.now{position:absolute;left:0;right:0;height:2px;background:var(--danger);z-index:3;pointer-events:none}
+.now::before{content:"";position:absolute;left:-4px;top:-3px;width:8px;height:8px;border-radius:50%;background:var(--danger)}
+.blk{position:absolute;border-radius:7px;padding:4px 6px 6px 8px;overflow:hidden;cursor:grab;z-index:2;user-select:none;
+  background:color-mix(in srgb,var(--c) 17%,var(--sheet));border:1px solid color-mix(in srgb,var(--c) 40%,transparent);border-left:4px solid var(--c);
+  font-size:12px;line-height:1.25;transition:box-shadow .12s}
+.blk:hover{box-shadow:0 4px 14px color-mix(in srgb,var(--c) 30%,transparent);z-index:4}
+.blk.drag{cursor:grabbing;opacity:.85;z-index:6;box-shadow:0 10px 28px rgba(0,0,0,.25)}
+.blk .bt{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.blk .bm{font:11px var(--f-mono);color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.blk.conf{background-image:repeating-linear-gradient(135deg,color-mix(in srgb,var(--danger) 16%,transparent) 0 6px,transparent 6px 12px);border-color:var(--danger)}
+.blk.auto::after{content:"auto";position:absolute;right:5px;top:3px;font:600 9px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.blk .rz{position:absolute;left:0;right:0;bottom:0;height:7px;cursor:ns-resize}
+.ghost-blk{position:absolute;left:3px;right:3px;border-radius:7px;background:color-mix(in srgb,var(--accent) 18%,transparent);border:1.5px dashed var(--accent);z-index:3;pointer-events:none;font:600 11px var(--f-mono);color:var(--accent);padding:4px 6px}
+
+/* sidebar */
+.side{display:flex;flex-direction:column;gap:12px;min-width:0}
+.card{background:var(--sheet);border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.card h3{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.big{font:800 40px/1 var(--f-disp);letter-spacing:-.03em}
+.big small{font:500 14px var(--f-body);color:var(--muted);letter-spacing:0;margin-left:4px}
+.kv{display:grid;grid-template-columns:1fr auto;gap:4px 10px;font-size:13px}
+.kv span:nth-child(odd){color:var(--muted)}
+.kv span:nth-child(even){font-family:var(--f-mono);text-align:right}
+.catrow{display:grid;grid-template-columns:12px minmax(0,1fr) auto;gap:8px;align-items:center;font-size:13px;cursor:pointer;padding:2px 0}
+.catrow .sw{width:12px;height:12px;border-radius:3px;background:var(--c)}
+.catrow .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.catrow .hr{font:12px var(--f-mono);color:var(--muted)}
+.bar{grid-column:2/4;height:5px;border-radius:3px;background:var(--grid);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--c);border-radius:3px}
+.task{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 8px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-size:13px}
+.task b{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.task small{grid-column:1;color:var(--muted);font-family:var(--f-mono);font-size:11.5px}
+.task button{grid-row:1/3;grid-column:2;align-self:center}
+.meter{height:6px;border-radius:3px;background:var(--grid);overflow:hidden}
+.meter i{display:block;height:100%;background:var(--accent)}
+.meter.full i{background:var(--danger)}
+.hint{font-size:12.5px;color:var(--muted)}
+.sponsor{border-style:dashed}
+.sponsor .tag{font:600 10px var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.codebox{display:flex;gap:6px;align-items:center}
+.codebox code{flex:1;min-width:0;padding:6px 8px;border-radius:6px;background:var(--grid);font:500 13px var(--f-mono);letter-spacing:.06em;overflow:hidden;text-overflow:ellipsis}
+.row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.row input[type=text]{flex:1;min-width:0}
+
+/* modal */
+.scrim{position:fixed;inset:0;background:rgba(8,11,20,.5);z-index:50;display:flex;align-items:center;justify-content:center;
+  padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.modal{background:var(--sheet);color:var(--ink);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);width:min(560px,100%);max-height:100%;overflow:auto;padding:20px;display:flex;flex-direction:column;gap:14px}
+.modal.wide{width:min(940px,100%)}
+.modal-h{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.modal-h h2{font-size:22px}
+.field{display:flex;flex-direction:column;gap:5px;min-width:0}
+.field>span{font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.field input,.field select,.field textarea,.inp{padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--sheet);width:100%;min-width:0}
+.field textarea{resize:vertical;min-height:64px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media (max-width:480px){.grid2{grid-template-columns:1fr}}
+.days{display:flex;flex-wrap:wrap;gap:6px}
+.days label{display:inline-flex}
+.days input{position:absolute;opacity:0;pointer-events:none}
+.days span{padding:6px 10px;border:1px solid var(--line);border-radius:7px;font:600 12px var(--f-body);cursor:pointer;min-width:44px;text-align:center}
+.days input:checked+span{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.days input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
+.catpick{display:flex;flex-wrap:wrap;gap:6px}
+.catpick label{position:relative}
+.catpick input{position:absolute;opacity:0;pointer-events:none}
+.catpick span{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border:1px solid var(--line);border-radius:999px;font-size:12.5px;cursor:pointer}
+.catpick span::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--c)}
+.catpick input:checked+span{border-color:var(--c);background:color-mix(in srgb,var(--c) 16%,var(--sheet));font-weight:600}
+.catpick input:focus-visible+span{outline:2px solid var(--accent)}
+.foot{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end;align-items:center}
+.foot .left{margin-right:auto}
+.err{color:var(--danger);font-size:13px;min-height:1em}
+.confirm{border:1px solid color-mix(in srgb,var(--danger) 40%,var(--line));background:color-mix(in srgb,var(--danger) 6%,var(--sheet));border-radius:10px;padding:10px 12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.confirm p{margin:0;flex:1 1 220px}
+
+/* pricing */
+.why{margin:0;padding:10px 12px;border-radius:10px;background:color-mix(in srgb,var(--gold) 10%,var(--sheet));border:1px solid color-mix(in srgb,var(--gold) 35%,transparent)}
+.toggle{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px;gap:2px;align-self:center}
+.toggle button{border:0;background:transparent;padding:5px 14px;border-radius:999px;cursor:pointer;font-weight:600;font-size:13px}
+.toggle button[aria-pressed="true"]{background:var(--ink);color:var(--sheet)}
+.tiers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+@media (max-width:720px){.tiers{grid-template-columns:1fr}}
+.tier{border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.tier.hot{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
+.tier h3{font-size:18px;display:flex;justify-content:space-between;align-items:center}
+.price{font:800 32px/1 var(--f-disp)}
+.price small{font:500 13px var(--f-body);color:var(--muted)}
+.tier ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:5px;font-size:13px;flex:1}
+.tier li::before{content:"✓ ";color:var(--ok);font-weight:700}
+.tier li.no{color:var(--muted)}
+.tier li.no::before{content:"– ";color:var(--muted)}
+.save{font:600 11px var(--f-body);color:var(--ok);text-transform:uppercase;letter-spacing:.05em}
+
+/* galleries */
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.tpl{border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.tpl h4{margin:0;font:700 15px var(--f-disp)}
+.tpl p{margin:0;font-size:12.5px;color:var(--muted);flex:1}
+.tpl .mini{height:64px;border-radius:6px;background:var(--grid);position:relative;overflow:hidden}
+.tpl .mini i{position:absolute;border-radius:2px;opacity:.85}
+.tpl.sp{border-style:dashed}
+.skin{border:1px solid var(--line);border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:8px;cursor:pointer;background:var(--sheet);text-align:left}
+.skin.on{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.skin .sw{height:42px;border-radius:7px}
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.tabs button{border:0;background:transparent;padding:8px 12px;cursor:pointer;font-weight:600;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-1px}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--accent)}
+.out{width:100%;min-height:150px;font:12px var(--f-mono);padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);resize:vertical}
+.preview-img{max-width:100%;border:1px solid var(--line);border-radius:8px;display:block}
+
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--sheet);padding:9px 16px;border-radius:999px;font-weight:500;z-index:80;box-shadow:var(--shadow);max-width:calc(100% - 32px);text-align:center}
+.tryon{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:40;background:var(--sheet);border:1px solid var(--gold);border-radius:12px;padding:10px 12px;display:flex;gap:10px;align-items:center;box-shadow:var(--shadow);max-width:calc(100% - 32px);flex-wrap:wrap}
+.empty{position:absolute;inset:auto 0 40% 0;text-align:center;color:var(--muted);pointer-events:none;font-size:13px}
+@media (max-width:520px){#zoomIn,#zoomOut,.rail .sep{display:none}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="app" id="app">
+  <header class="top">
+    <div class="brand" aria-label="Blockwise">
+      <svg viewBox="0 0 26 26" aria-hidden="true"><rect x="1" y="1" width="24" height="24" rx="6" fill="var(--accent)"/><rect x="6" y="6" width="6" height="9" rx="1.5" fill="var(--accent-ink)"/><rect x="14" y="10" width="6" height="10" rx="1.5" fill="var(--accent-ink)" opacity=".7"/></svg>
+      Blockwise
+    </div>
+    <div class="sched-pick">
+      <select id="schedSel" aria-label="Schedule"></select>
+      <button class="btn ghost" id="newSched" title="New schedule">+ New</button>
+    </div>
+    <div class="spacer"></div>
+    <span class="pill" id="planPill">Free</span>
+    <button class="btn gold" id="upgradeBtn">Upgrade</button>
+    <button class="btn ghost" id="settingsBtn" title="Settings" aria-label="Settings">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+    </button>
+  </header>
+
+  <nav class="rail" aria-label="Tools">
+    <button class="btn primary" id="addBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg>Block</button>
+    <button class="btn" id="tplBtn">Templates</button>
+    <button class="btn" id="fillBtn">Auto-fill</button>
+    <button class="btn" id="exportBtn">Export</button>
+    <button class="btn" id="skinBtn">Themes</button>
+    <span class="sep"></span>
+    <button class="btn ghost" id="undoBtn" title="Undo (Ctrl+Z)" aria-label="Undo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/></svg></button>
+    <button class="btn ghost" id="redoBtn" title="Redo (Ctrl+Shift+Z)" aria-label="Redo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 14 5-5-5-5"/><path d="M20 9H9a5 5 0 0 0 0 10h3"/></svg></button>
+    <button class="btn ghost" id="zoomOut" aria-label="Zoom out">−</button>
+    <button class="btn ghost" id="zoomIn" aria-label="Zoom in">+</button>
+    <span class="spacer"></span>
+    <span id="confChip"></span>
+  </nav>
+
+  <div class="main">
+    <section class="cal-wrap" id="calWrap" aria-label="Week grid"></section>
+    <aside class="side" id="side"></aside>
+  </div>
+</div>
+
+<script>
+/* ===================== Owner configuration =====================
+   Paste your Stripe / Lemon Squeezy / Gumroad checkout links below.
+   With demoMode on, the pricing screen also offers a "Demo: unlock Pro" button
+   so you can try every paid feature. Turn it off before you launch. */
+const CONFIG = {
+  demoMode: true,
+  prices: { proMonthly: 5, proYearly: 36, lifetime: 79, template: 3 },
+  checkout: { proMonthly: '', proYearly: '', lifetime: '', template: '' },
+  licenseSalt: 'replace-this-salt-before-launch',
+  limits: { schedules: 1, blocks: 40, categories: 5, autofillPerWeek: 3 },
+  trialDays: 7,
+  referralDays: 7,
+  sponsor: { title: 'Advertise to weekly planners', blurb: 'One sponsor card shows here for free-plan users. Rent this slot by the week.', url: '', cta: 'Sponsor this slot' },
+  watermark: 'Made with Blockwise',
+};
+
+/* ===================== helpers ===================== */
+const $ = (s, el = document) => el.querySelector(s);
+const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const uid = () => Math.random().toString(36).slice(2, 9);
+const pad = n => String(n).padStart(2, '0');
+const DAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+const DAY_LETTER = { M: 0, T: 1, W: 2, R: 3, F: 4, S: 5, U: 6 };
+const todayIdx = () => (new Date().getDay() + 6) % 7;
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const DAY_MS = 864e5;
+
+function fmt(min) {
+  min = clamp(Math.round(min), 0, 1440);
+  const h = Math.floor(min / 60), m = min % 60;
+  if (S.prefs.h24) return `${pad(h % 24 === 0 && h ? 24 : h)}:${pad(m)}`;
+  const h12 = ((h + 11) % 12) + 1, ap = h < 12 || h === 24 ? 'am' : 'pm';
+  return `${h12}${m ? ':' + pad(m) : ''}${ap}`;
+}
+const toHHMM = min => `${pad(Math.floor(min / 60) % 24)}:${pad(min % 60)}`;
+const fromHHMM = s => { const [h, m] = String(s).split(':').map(Number); return isNaN(h) ? null : h * 60 + (m || 0); };
+const hrs = min => { const h = min / 60; return (Math.round(h * 10) / 10).toString(); };
+function weekKey(d = new Date()) { const x = new Date(d); x.setHours(0, 0, 0, 0); x.setDate(x.getDate() - ((x.getDay() + 6) % 7)); return x.toISOString().slice(0, 10); }
+
+function hash32(str) { let h = 0x811c9dc5; for (const ch of str) { h ^= ch.charCodeAt(0); h = Math.imul(h, 0x01000193) >>> 0; } return h >>> 0; }
+const B32 = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+const enc = (n, len) => { let s = ''; for (let i = 0; i < len; i++) { s += B32[n % 32]; n = Math.floor(n / 32); } return s; };
+const randCode = len => Array.from({ length: len }, () => B32[Math.floor(Math.random() * 32)]).join('');
+
+/* ===================== state ===================== */
+const KEY = 'blockwise_v1';
+const DEFAULT_CATS = [
+  { id: 'c1', name: 'Work', color: '#3b5bdb' },
+  { id: 'c2', name: 'Study', color: '#7c4dff' },
+  { id: 'c3', name: 'Health', color: '#12a150' },
+  { id: 'c4', name: 'Personal', color: '#e8590c' },
+  { id: 'c5', name: 'Errands', color: '#868e96' },
+];
+const PALETTE = ['#3b5bdb', '#7c4dff', '#12a150', '#e8590c', '#868e96', '#d6336c', '#0c8599', '#f08c00', '#5c940d', '#ae3ec9', '#1971c2', '#c92a2a'];
+
+function sampleSchedule() {
+  const s = { id: uid(), name: 'Example week', startHour: 6, endHour: 23, days: [0, 1, 2, 3, 4, 5, 6], snap: 15, blocks: [], tasks: [] };
+  const add = (days, span, title, cat, loc = '') => {
+    const [a, b] = span.split('-').map(fromHHMM);
+    for (const ch of days) s.blocks.push({ id: uid(), day: DAY_LETTER[ch], start: a, end: b, title, cat, loc, notes: '' });
+  };
+  add('MWF', '07:00-08:00', 'Gym', 'c3', 'Northside gym');
+  add('MTWRF', '09:00-12:30', 'Deep work', 'c1');
+  add('MTWRF', '13:30-17:30', 'Meetings & email', 'c1');
+  add('TR', '19:00-21:00', 'Spanish course', 'c2', 'Library room 2');
+  add('S', '08:00-09:30', 'Long run', 'c3', 'River trail');
+  add('S', '11:00-12:00', 'Groceries', 'c5');
+  add('U', '16:00-17:30', 'Meal prep', 'c4');
+  add('F', '19:30-22:00', 'Dinner with friends', 'c4');
+  s.tasks = [
+    { id: uid(), title: 'Read', dur: 45, times: 3, win: 'evening', cat: 'c4' },
+    { id: uid(), title: 'Portfolio project', dur: 90, times: 2, win: 'any', cat: 'c2' },
+  ];
+  return s;
+}
+function fresh() {
+  const s = sampleSchedule();
+  return {
+    v: 1, schedules: [s], active: s.id, cats: structuredClone(DEFAULT_CATS),
+    plan: { tier: 'free', trialEnds: 0, trialUsed: false, proUntil: 0, license: '' },
+    credits: { week: weekKey(), used: 0 },
+    referral: { mine: makeReferral(), redeemed: '' },
+    prefs: { h24: false, zoom: 1, skin: 'graph' },
+    owned: [],
+  };
+}
+let S;
+try { S = JSON.parse(localStorage.getItem(KEY)); } catch (e) { S = null; }
+if (!S || !S.schedules || !S.schedules.length) S = fresh();
+S.prefs = Object.assign({ h24: false, zoom: 1, skin: 'graph' }, S.prefs);
+S.owned = S.owned || [];
+function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { } }
+const sched = () => S.schedules.find(s => s.id === S.active) || S.schedules[0];
+const cat = id => S.cats.find(c => c.id === id) || S.cats[0] || { id: '', name: 'None', color: '#868e96' };
+
+/* ===================== plan & monetization ===================== */
+function isPro() {
+  const p = S.plan, now = Date.now();
+  return p.tier === 'pro' || p.tier === 'lifetime' || p.trialEnds > now || p.proUntil > now;
+}
+function planLabel() {
+  const p = S.plan, now = Date.now();
+  if (p.tier === 'lifetime') return 'Lifetime';
+  if (p.tier === 'pro') return 'Pro';
+  const until = Math.max(p.trialEnds, p.proUntil);
+  if (until > now) return `Pro · ${Math.ceil((until - now) / DAY_MS)}d left`;
+  return 'Free';
+}
+function creditsLeft() {
+  if (S.credits.week !== weekKey()) S.credits = { week: weekKey(), used: 0 };
+  return Math.max(0, CONFIG.limits.autofillPerWeek - S.credits.used);
+}
+function gate(reason) { if (isPro()) return true; openUpgrade(reason); return false; }
+
+function checkLicense(k) {
+  const m = /^BW-([A-Z2-9]{4})-([A-Z2-9]{4})-([A-Z2-9]{4})$/.exec(String(k).trim().toUpperCase());
+  if (!m || enc(hash32(m[1] + m[2] + CONFIG.licenseSalt), 4) !== m[3]) return null;
+  return m[1][0] === 'L' ? 'lifetime' : 'pro';
+}
+function makeReferral() { const a = randCode(5); return `BWR-${a}${enc(hash32('ref' + a), 1)}`; }
+function checkReferral(k) { const m = /^BWR-([A-Z2-9]{5})([A-Z2-9])$/.exec(String(k).trim().toUpperCase()); return !!m && enc(hash32('ref' + m[1]), 1) === m[2]; }
+
+/* ===================== undo ===================== */
+const undoStack = [], redoStack = [];
+const snap = () => JSON.stringify({ schedules: S.schedules, active: S.active, cats: S.cats });
+function pushUndo() { undoStack.push(snap()); if (undoStack.length > 80) undoStack.shift(); redoStack.length = 0; }
+function restore(str) { const o = JSON.parse(str); S.schedules = o.schedules; S.active = o.active; S.cats = o.cats; save(); render(); }
+function undo() { if (!undoStack.length) return; redoStack.push(snap()); restore(undoStack.pop()); toast('Undone'); }
+function redo() { if (!redoStack.length) return; undoStack.push(snap()); restore(redoStack.pop()); toast('Redone'); }
+function mutate(fn) { pushUndo(); fn(); save(); render(); }
+
+/* ===================== analysis ===================== */
+function overlaps(a, b) { return a.day === b.day && a.start < b.end && b.start < a.end; }
+function conflicts(sc) {
+  const ids = new Set(), bl = sc.blocks;
+  for (let i = 0; i < bl.length; i++) for (let j = i + 1; j < bl.length; j++) if (overlaps(bl[i], bl[j])) { ids.add(bl[i].id); ids.add(bl[j].id); }
+  return ids;
+}
+function layoutDay(blocks) {
+  const sorted = [...blocks].sort((a, b) => a.start - b.start || b.end - a.end);
+  const out = new Map(); let cluster = [], clusterEnd = -1;
+  const flush = () => {
+    const lanes = [];
+    for (const b of cluster) { let i = lanes.findIndex(e => e <= b.start); if (i < 0) { i = lanes.length; lanes.push(0); } lanes[i] = b.end; out.set(b.id, { lane: i }); }
+    for (const b of cluster) out.get(b.id).lanes = lanes.length;
+    cluster = [];
+  };
+  for (const b of sorted) { if (b.start >= clusterEnd && cluster.length) flush(); cluster.push(b); clusterEnd = Math.max(clusterEnd, b.end); }
+  if (cluster.length) flush();
+  return out;
+}
+function busyMinutes(blocks, lo, hi) {
+  const iv = blocks.map(b => [Math.max(lo, b.start), Math.min(hi, b.end)]).filter(([a, b]) => b > a).sort((x, y) => x[0] - y[0]);
+  let tot = 0, cs = -1, ce = -1;
+  for (const [a, b] of iv) { if (a > ce) { if (ce > cs) tot += ce - cs; cs = a; ce = b; } else ce = Math.max(ce, b); }
+  if (ce > cs) tot += ce - cs; return tot;
+}
+function stats(sc) {
+  const lo = sc.startHour * 60, hi = sc.endHour * 60;
+  const byCat = {}, byDay = Array(7).fill(0); let total = 0;
+  for (const b of sc.blocks) { const d = b.end - b.start; total += d; byCat[b.cat] = (byCat[b.cat] || 0) + d; byDay[b.day] += d; }
+  let free = 0; for (const d of sc.days) free += (hi - lo) - busyMinutes(sc.blocks.filter(b => b.day === d), lo, hi);
+  let busiest = sc.days[0] ?? 0; for (const d of sc.days) if (byDay[d] > byDay[busiest]) busiest = d;
+  return { total, byCat, byDay, free, busiest };
+}
+
+/* ===================== render ===================== */
+let showConf = false;
+function render() {
+  document.documentElement.dataset.skin = tryOn ? tryOn.skin : S.prefs.skin;
+  document.documentElement.style.setProperty('--hh', Math.round(52 * S.prefs.zoom) + 'px');
+  const sc = sched();
+  // header
+  $('#schedSel').innerHTML = S.schedules.map(s => `<option value="${s.id}" ${s.id === sc.id ? 'selected' : ''}>${esc(s.name)}</option>`).join('');
+  const pro = isPro();
+  $('#planPill').textContent = planLabel();
+  $('#planPill').classList.toggle('pro', pro);
+  $('#upgradeBtn').hidden = S.plan.tier === 'pro' || S.plan.tier === 'lifetime';
+  $('#upgradeBtn').textContent = pro ? 'Keep Pro' : 'Upgrade';
+  $('#undoBtn').disabled = !undoStack.length; $('#redoBtn').disabled = !redoStack.length;
+  $('#fillBtn').innerHTML = 'Auto-fill' + (pro ? '' : ` <span class="lock">${creditsLeft()} left</span>`);
+  const conf = conflicts(sc);
+  $('#confChip').innerHTML = conf.size
+    ? `<button class="chip warn" id="confToggle">${conf.size} blocks overlap${showConf ? ' · hide' : ' · show'}</button>`
+    : `<span class="chip good">No overlaps</span>`;
+  if ($('#confToggle')) $('#confToggle').onclick = () => { showConf = !showConf; render(); };
+  renderGrid(sc, conf);
+  renderSide(sc, conf);
+}
+
+function renderGrid(sc, conf) {
+  const HH = Math.round(52 * S.prefs.zoom), lo = sc.startHour * 60, hi = sc.endHour * 60;
+  const H = (sc.endHour - sc.startHour) * HH, ppm = HH / 60, st = stats(sc), td = todayIdx();
+  let gut = '';
+  for (let h = sc.startHour + 1; h < sc.endHour; h++) gut += `<i style="top:${(h - sc.startHour) * HH}px">${fmt(h * 60)}</i>`;
+  const cols = sc.days.map(d => {
+    const bl = sc.blocks.filter(b => b.day === d), lay = layoutDay(bl);
+    const items = bl.map(b => {
+      const L = lay.get(b.id), c = cat(b.cat);
+      const top = (clamp(b.start, lo, hi) - lo) * ppm, h = Math.max(14, (clamp(b.end, lo, hi) - clamp(b.start, lo, hi)) * ppm - 2);
+      const w = 100 / L.lanes;
+      const cls = ['blk', b.auto ? 'auto' : '', showConf && conf.has(b.id) ? 'conf' : ''].join(' ');
+      return `<div class="${cls}" data-id="${b.id}" tabindex="0" role="button" aria-label="${esc(b.title)}, ${DAYS[b.day]} ${fmt(b.start)} to ${fmt(b.end)}"
+        style="--c:${c.color};top:${top}px;height:${h}px;left:calc(${L.lane * w}% + 3px);width:calc(${w}% - 6px)">
+        <div class="bt">${esc(b.title)}</div>${h > 30 ? `<div class="bm">${fmt(b.start)}–${fmt(b.end)}${b.loc ? ' · ' + esc(b.loc) : ''}</div>` : ''}<div class="rz" data-rz="1"></div></div>`;
+    }).join('');
+    const now = new Date(), nm = now.getHours() * 60 + now.getMinutes();
+    const nowLine = d === td && nm > lo && nm < hi ? `<div class="now" style="top:${(nm - lo) * ppm}px"></div>` : '';
+    return `<div class="col ${d >= 5 ? 'weekend' : ''}" data-day="${d}">${items}${nowLine}</div>`;
+  }).join('');
+  $('#calWrap').innerHTML = `<div class="cal" style="--cols:${sc.days.length}">
+    <div class="cal-head"><div></div>${sc.days.map(d => `<div class="dh ${d === td ? 'today' : ''}"><b>${DAYS[d]}</b><span>${hrs(st.byDay[d])}h</span></div>`).join('')}</div>
+    <div class="cal-body" style="height:${H}px"><div class="gut">${gut}</div>${cols}</div></div>
+    ${sc.blocks.length ? '' : '<div class="empty">Drag on the grid to add your first block, or pick a template.</div>'}`;
+}
+
+function renderSide(sc, conf) {
+  const st = stats(sc), pro = isPro();
+  const maxCat = Math.max(1, ...Object.values(st.byCat));
+  const cats = S.cats.map(c => {
+    const m = st.byCat[c.id] || 0;
+    return `<div class="catrow" data-cat="${c.id}" style="--c:${c.color}" title="Edit category"><span class="sw"></span><span class="nm">${esc(c.name)}</span><span class="hr">${hrs(m)}h</span><div class="bar"><i style="width:${m / maxCat * 100}%"></i></div></div>`;
+  }).join('');
+  const winName = { any: 'any time', morning: 'mornings', afternoon: 'afternoons', evening: 'evenings' };
+  const tasks = (sc.tasks || []).map(t => `<div class="task"><b>${esc(t.title)}</b><small>${t.dur}m × ${t.times}/wk · ${winName[t.win]}</small><button class="btn ghost" data-deltask="${t.id}" aria-label="Remove ${esc(t.title)}">✕</button></div>`).join('') || '<p class="hint">Add recurring tasks like “Read 30m × 4”. Auto-fill finds free slots for them.</p>';
+  const blkUse = sc.blocks.length / CONFIG.limits.blocks;
+  let html = `
+  <div class="card"><h3>This week</h3>
+    <div class="big mono">${hrs(st.total)}<small>hours planned</small></div>
+    <div class="kv"><span>Free in your hours</span><span>${hrs(st.free)}h</span><span>Busiest day</span><span>${DAYS[st.busiest]} · ${hrs(st.byDay[st.busiest])}h</span><span>Overlaps</span><span>${conf.size ? conf.size + ' blocks' : 'none'}</span><span>Blocks</span><span>${sc.blocks.length}</span></div>
+  </div>
+  <div class="card"><h3>Categories <button class="btn ghost" id="addCat">+ Add</button></h3>${cats}</div>
+  <div class="card"><h3>Auto-fill tasks <button class="btn ghost" id="addTask">+ Add</button></h3>${tasks}
+    <button class="btn primary" id="fillBtn2">Auto-fill this week</button>
+    ${pro ? '<p class="hint">Unlimited auto-fill on Pro.</p>' : `<p class="hint">${creditsLeft()} of ${CONFIG.limits.autofillPerWeek} free runs left this week. Resets Monday.</p>`}
+  </div>`;
+  if (!pro) html += `
+  <div class="card"><h3>Free plan</h3>
+    <div class="kv"><span>Blocks</span><span>${sc.blocks.length}/${CONFIG.limits.blocks}</span></div>
+    <div class="meter ${blkUse >= 1 ? 'full' : ''}"><i style="width:${Math.min(100, blkUse * 100)}%"></i></div>
+    <div class="kv"><span>Schedules</span><span>${S.schedules.length}/${CONFIG.limits.schedules}</span><span>Categories</span><span>${S.cats.length}/${CONFIG.limits.categories}</span></div>
+    <button class="btn gold" id="sideUp">${S.plan.trialUsed ? 'See Pro plans' : `Try Pro free for ${CONFIG.trialDays} days`}</button>
+  </div>`;
+  html += `
+  <div class="card"><h3>Give ${CONFIG.referralDays} days of Pro</h3>
+    <p class="hint">Share your code. A friend who enters it gets ${CONFIG.referralDays} days of Pro.</p>
+    <div class="codebox"><code id="myRef">${S.referral.mine}</code><button class="btn" id="copyRef">Copy</button></div>
+    ${S.referral.redeemed ? `<p class="hint">You redeemed ${esc(S.referral.redeemed)}.</p>` : `<div class="row"><input type="text" class="inp" id="refIn" placeholder="Friend’s code" aria-label="Friend’s referral code"><button class="btn" id="refGo">Redeem</button></div><div class="err" id="refErr"></div>`}
+  </div>`;
+  if (!pro) html += `
+  <div class="card sponsor"><span class="tag">Sponsored</span><h3 style="color:var(--ink);text-transform:none;letter-spacing:0;font-size:16px">${esc(CONFIG.sponsor.title)}</h3><p class="hint" style="margin:0">${esc(CONFIG.sponsor.blurb)}</p>
+    <div class="row">${CONFIG.sponsor.url ? `<a class="btn" href="${esc(CONFIG.sponsor.url)}" target="_blank" rel="noopener sponsored">${esc(CONFIG.sponsor.cta)}</a>` : ''}<button class="btn ghost" id="hideAds">Remove ads with Pro</button></div></div>`;
+  $('#side').innerHTML = html;
+
+  $$('.catrow').forEach(r => r.onclick = () => openCat(r.dataset.cat));
+  $('#addCat').onclick = () => openCat(null);
+  $('#addTask').onclick = openTask;
+  $('#fillBtn2').onclick = runAutofill;
+  $$('[data-deltask]').forEach(b => b.onclick = () => mutate(() => { sc.tasks = sc.tasks.filter(t => t.id !== b.dataset.deltask); }));
+  if ($('#sideUp')) $('#sideUp').onclick = () => openUpgrade('');
+  if ($('#hideAds')) $('#hideAds').onclick = () => openUpgrade('Pro removes sponsor cards.');
+  $('#copyRef').onclick = () => copy(S.referral.mine, $('#myRef'));
+  if ($('#refGo')) $('#refGo').onclick = () => {
+    const v = $('#refIn').value.trim().toUpperCase();
+    if (v === S.referral.mine) return $('#refErr').textContent = 'That is your own code. Share it with a friend instead.';
+    if (!checkReferral(v)) return $('#refErr').textContent = 'That code isn’t valid. Codes look like BWR-ABC234.';
+    S.referral.redeemed = v; S.plan.proUntil = Math.max(Date.now(), S.plan.proUntil) + CONFIG.referralDays * DAY_MS;
+    save(); render(); toast(`${CONFIG.referralDays} days of Pro added`);
+  };
+}
+
+/* ===================== modal / toast ===================== */
+function modal(html, { wide = false, onClose } = {}) {
+  const scrim = document.createElement('div'); scrim.className = 'scrim';
+  scrim.innerHTML = `<div class="modal ${wide ? 'wide' : ''}" role="dialog" aria-modal="true">${html}</div>`;
+  document.body.appendChild(scrim);
+  const m = scrim.firstElementChild;
+  const close = () => { scrim.remove(); onClose && onClose(); };
+  scrim.addEventListener('pointerdown', e => { if (e.target === scrim) close(); });
+  $$('[data-close]', m).forEach(b => b.onclick = close);
+  setTimeout(() => { const f = $('[autofocus]', m) || $('input,select,button', m); f && f.focus(); }, 20);
+  m.close = close; return m;
+}
+const closeX = '<button class="btn ghost" data-close aria-label="Close">✕</button>';
+let toastT;
+function toast(msg) { $$('.toast').forEach(t => t.remove()); const t = document.createElement('div'); t.className = 'toast'; t.textContent = msg; document.body.appendChild(t); clearTimeout(toastT); toastT = setTimeout(() => t.remove(), 2400); }
+function copy(text, selEl) {
+  const fallback = () => { if (selEl) { if (selEl.select) selEl.select(); else { const r = document.createRange(); r.selectNodeContents(selEl); const s = getSelection(); s.removeAllRanges(); s.addRange(r); } } toast('Selected. Press Ctrl+C to copy'); };
+  try { navigator.clipboard.writeText(text).then(() => toast('Copied'), fallback); } catch (e) { fallback(); }
+}
+function tryDownload(name, text, type) {
+  try { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([text], { type })); a.download = name; document.body.appendChild(a); a.click(); a.remove(); } catch (e) { }
+}
+function confirmIn(container, text, yesLabel, onYes) {
+  container.innerHTML = `<div class="confirm"><p>${esc(text)}</p><button class="btn" data-no>Cancel</button><button class="btn primary" data-yes>${esc(yesLabel)}</button></div>`;
+  $('[data-no]', container).onclick = () => container.innerHTML = '';
+  $('[data-yes]', container).onclick = onYes;
+}
+
+/* ===================== block editor ===================== */
+function canAddBlocks(n) {
+  if (isPro() || sched().blocks.length + n <= CONFIG.limits.blocks) return true;
+  openUpgrade(`The free plan holds ${CONFIG.limits.blocks} blocks per schedule. This schedule has ${sched().blocks.length}. Pro has no limit.`);
+  return false;
+}
+function openEditor(block, isNew = false) {
+  const sc = sched();
+  const b = block || { id: uid(), day: sc.days.includes(todayIdx()) ? todayIdx() : sc.days[0], start: 9 * 60, end: 10 * 60, title: '', cat: S.cats[0]?.id, loc: '', notes: '' };
+  const m = modal(`
+    <div class="modal-h"><h2>${isNew ? 'New block' : 'Edit block'}</h2>${closeX}</div>
+    <form id="ed" class="field" style="gap:12px" novalidate>
+      <label class="field"><span>Title</span><input id="ed-title" value="${esc(b.title)}" placeholder="e.g. Deep work" autofocus required></label>
+      <div class="field"><span>Category</span><div class="catpick">${S.cats.map(c => `<label style="--c:${c.color}"><input type="radio" name="cat" value="${c.id}" ${c.id === b.cat ? 'checked' : ''}><span>${esc(c.name)}</span></label>`).join('')}</div></div>
+      <div class="grid2">
+        <label class="field"><span>Starts</span><input type="time" id="ed-start" step="300" value="${toHHMM(b.start)}"></label>
+        <label class="field"><span>Ends</span><input type="time" id="ed-end" step="300" value="${toHHMM(b.end % 1440)}"></label>
+      </div>
+      <div class="field"><span>${isNew ? 'Days' : 'On these days'}</span><div class="days">${DAYS.map((d, i) => `<label><input type="checkbox" name="day" value="${i}" ${i === b.day ? 'checked' : ''}><span>${d}</span></label>`).join('')}</div>
+        <small class="hint">${isNew ? 'Pick several days to repeat the block.' : 'Tick more days to copy this block there. Untick its day to move it.'}</small></div>
+      <label class="field"><span>Location</span><input id="ed-loc" value="${esc(b.loc)}" placeholder="Optional"></label>
+      <label class="field"><span>Notes</span><textarea id="ed-notes" placeholder="Optional">${esc(b.notes)}</textarea></label>
+      <div class="err" id="ed-err"></div>
+      <div id="ed-confirm"></div>
+      <div class="foot">${isNew ? '' : '<button type="button" class="btn danger left" id="ed-del">Delete</button>'}<button type="button" class="btn" data-close>Cancel</button><button class="btn primary" type="submit">Save</button></div>
+    </form>`);
+  $('#ed', m).onsubmit = e => {
+    e.preventDefault();
+    const title = $('#ed-title', m).value.trim() || 'Untitled';
+    const start = fromHHMM($('#ed-start', m).value); let end = fromHHMM($('#ed-end', m).value);
+    if (end === 0) end = 1440;
+    const days = $$('input[name=day]:checked', m).map(i => +i.value);
+    const catId = ($('input[name=cat]:checked', m) || {}).value || S.cats[0]?.id;
+    const err = $('#ed-err', m);
+    if (start == null || end == null) return err.textContent = 'Enter a start and end time.';
+    if (end <= start) return err.textContent = 'The block has to end after it starts.';
+    if (!days.length) return err.textContent = 'Pick at least one day.';
+    const extra = isNew ? days.length : days.length - 1;
+    if (extra > 0 && !canAddBlocks(extra)) return;
+    mutate(() => {
+      const base = { title, start, end, cat: catId, loc: $('#ed-loc', m).value.trim(), notes: $('#ed-notes', m).value.trim() };
+      if (!isNew) sc.blocks = sc.blocks.filter(x => x.id !== b.id);
+      days.forEach((d, i) => sc.blocks.push({ ...base, id: !isNew && i === 0 ? b.id : uid(), day: d }));
+      for (const d of days) if (!sc.days.includes(d)) { sc.days.push(d); sc.days.sort(); }
+      sc.startHour = Math.min(sc.startHour, Math.floor(start / 60)); sc.endHour = Math.max(sc.endHour, Math.ceil(end / 60));
+    });
+    m.close(); toast(isNew ? (days.length > 1 ? `Added on ${days.length} days` : 'Block added') : 'Saved');
+  };
+  if ($('#ed-del', m)) $('#ed-del', m).onclick = () => { mutate(() => { sc.blocks = sc.blocks.filter(x => x.id !== b.id); }); m.close(); toast('Deleted. Ctrl+Z to undo'); };
+}
+
+/* ===================== grid interactions ===================== */
+let drag = null;
+function colAt(x, y) { for (const el of document.elementsFromPoint(x, y)) if (el.classList?.contains('col')) return el; return null; }
+function minAt(col, y) { const sc = sched(), r = col.getBoundingClientRect(), HH = Math.round(52 * S.prefs.zoom); return sc.startHour * 60 + (y - r.top) / HH * 60; }
+const snapM = m => Math.round(m / sched().snap) * sched().snap;
+
+$('#calWrap').addEventListener('pointerdown', e => {
+  if (e.button !== 0) return;
+  const col = e.target.closest('.col'); if (!col) return;
+  const sc = sched(), blkEl = e.target.closest('.blk');
+  const touch = e.pointerType === 'touch';
+  if (blkEl) {
+    const b = sc.blocks.find(x => x.id === blkEl.dataset.id); if (!b) return;
+    drag = { type: e.target.dataset.rz && !touch ? 'resize' : 'move', b, el: blkEl, x0: e.clientX, y0: e.clientY, off: minAt(col, e.clientY) - b.start, orig: { ...b }, moved: false, touch };
+  } else {
+    const m = clamp(Math.floor(minAt(col, e.clientY) / sc.snap) * sc.snap, 0, 1440 - sc.snap);
+    drag = { type: 'create', col, day: +col.dataset.day, a: m, b: m + sc.snap, x0: e.clientX, y0: e.clientY, moved: false, touch };
+  }
+  if (!touch) { e.preventDefault(); $('#calWrap').setPointerCapture(e.pointerId); }
+});
+$('#calWrap').addEventListener('pointermove', e => {
+  if (!drag) return;
+  const dist = Math.hypot(e.clientX - drag.x0, e.clientY - drag.y0);
+  if (drag.touch) { if (dist > 10) drag = null; return; }   // touch: let the grid scroll
+  if (!drag.moved && dist < 4) return;
+  const sc = sched();
+  if (!drag.moved) { drag.moved = true; if (drag.type !== 'create') pushUndo(); }
+  if (drag.type === 'create') {
+    const m = clamp(snapM(minAt(drag.col, e.clientY)), 0, 1440);
+    const a = Math.min(drag.a, m), b = Math.max(drag.a + sc.snap, m);
+    drag.lo = a; drag.hi = b;
+    let g = $('.ghost-blk', drag.col); if (!g) { g = document.createElement('div'); g.className = 'ghost-blk'; drag.col.appendChild(g); }
+    const HH = Math.round(52 * S.prefs.zoom), ppm = HH / 60;
+    g.style.top = (a - sc.startHour * 60) * ppm + 'px'; g.style.height = (b - a) * ppm + 'px'; g.textContent = `${fmt(a)}–${fmt(b)}`;
+  } else if (drag.type === 'move') {
+    const col = colAt(e.clientX, e.clientY) || $(`.col[data-day="${drag.b.day}"]`);
+    const dur = drag.orig.end - drag.orig.start;
+    const st = clamp(snapM(minAt(col, e.clientY) - drag.off), 0, 1440 - dur);
+    drag.b.day = +col.dataset.day; drag.b.start = st; drag.b.end = st + dur;
+    renderGrid(sc, conflicts(sc)); $(`.blk[data-id="${drag.b.id}"]`)?.classList.add('drag');
+  } else {
+    const col = $(`.col[data-day="${drag.b.day}"]`);
+    drag.b.end = clamp(snapM(minAt(col, e.clientY)), drag.b.start + sc.snap, 1440);
+    renderGrid(sc, conflicts(sc)); $(`.blk[data-id="${drag.b.id}"]`)?.classList.add('drag');
+  }
+});
+function endDrag(e, cancel) {
+  if (!drag) return; const d = drag; drag = null;
+  const sc = sched();
+  if (cancel) { if (d.b && d.moved) Object.assign(d.b, d.orig); render(); return; }
+  if (d.type === 'create') {
+    $$('.ghost-blk').forEach(g => g.remove());
+    const a = d.moved ? d.lo : d.a, b = d.moved ? d.hi : Math.min(1440, d.a + 60);
+    if (!canAddBlocks(1)) return;
+    openEditor({ id: uid(), day: d.day, start: a, end: b, title: '', cat: S.cats[0]?.id, loc: '', notes: '' }, true);
+  } else if (!d.moved) { openEditor(d.b); }
+  else { save(); render(); }
+}
+$('#calWrap').addEventListener('pointerup', e => endDrag(e, false));
+$('#calWrap').addEventListener('pointercancel', e => endDrag(e, true));
+$('#calWrap').addEventListener('keydown', e => {
+  const el = e.target.closest('.blk'); if (!el) return;
+  const b = sched().blocks.find(x => x.id === el.dataset.id); if (!b) return;
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openEditor(b); }
+  if (e.key === 'Delete' || e.key === 'Backspace') { e.preventDefault(); mutate(() => { sched().blocks = sched().blocks.filter(x => x.id !== b.id); }); toast('Deleted. Ctrl+Z to undo'); }
+});
+
+/* ===================== categories & tasks ===================== */
+function openCat(id) {
+  const c = id ? S.cats.find(x => x.id === id) : null;
+  if (!c && S.cats.length >= CONFIG.limits.categories && !gate(`The free plan has ${CONFIG.limits.categories} categories. Pro lets you add as many as you like.`)) return;
+  const used = c ? sched().blocks.filter(b => b.cat === c.id).length : 0;
+  const color = c?.color || PALETTE.find(p => !S.cats.some(x => x.color === p)) || PALETTE[0];
+  const m = modal(`<div class="modal-h"><h2>${c ? 'Edit category' : 'New category'}</h2>${closeX}</div>
+    <form id="cf" style="display:flex;flex-direction:column;gap:12px">
+      <label class="field"><span>Name</span><input id="cf-name" value="${esc(c?.name || '')}" autofocus placeholder="e.g. Side project"></label>
+      <div class="field"><span>Colour</span><div class="catpick">${PALETTE.map(p => `<label style="--c:${p}"><input type="radio" name="col" value="${p}" ${p === color ? 'checked' : ''}><span>${p.toUpperCase()}</span></label>`).join('')}</div></div>
+      <div id="cf-confirm"></div>
+      <div class="foot">${c && S.cats.length > 1 ? '<button type="button" class="btn danger left" id="cf-del">Delete</button>' : ''}<button type="button" class="btn" data-close>Cancel</button><button class="btn primary">Save</button></div>
+    </form>`);
+  $('#cf', m).onsubmit = e => {
+    e.preventDefault();
+    const name = $('#cf-name', m).value.trim() || 'Untitled', col = $('input[name=col]:checked', m).value;
+    mutate(() => { if (c) Object.assign(c, { name, color: col }); else S.cats.push({ id: 'c' + uid(), name, color: col }); });
+    m.close();
+  };
+  if ($('#cf-del', m)) $('#cf-del', m).onclick = () => {
+    const doIt = () => { mutate(() => { S.cats = S.cats.filter(x => x.id !== c.id); const f = S.cats[0].id; S.schedules.forEach(s => s.blocks.forEach(b => { if (b.cat === c.id) b.cat = f; })); }); m.close(); };
+    used ? confirmIn($('#cf-confirm', m), `${used} blocks use “${c.name}”. They will move to “${S.cats.find(x => x.id !== c.id).name}”.`, 'Delete category', doIt) : doIt();
+  };
+}
+function openTask() {
+  const m = modal(`<div class="modal-h"><h2>New auto-fill task</h2>${closeX}</div>
+    <form id="tf" style="display:flex;flex-direction:column;gap:12px">
+      <label class="field"><span>Task</span><input id="tf-t" autofocus placeholder="e.g. Read, Practise guitar"></label>
+      <div class="grid2">
+        <label class="field"><span>Minutes per session</span><input id="tf-d" type="number" min="15" max="480" step="15" value="60"></label>
+        <label class="field"><span>Sessions per week</span><input id="tf-n" type="number" min="1" max="14" value="3"></label>
+      </div>
+      <div class="grid2">
+        <label class="field"><span>When</span><select id="tf-w"><option value="any">Any time</option><option value="morning">Mornings</option><option value="afternoon">Afternoons</option><option value="evening">Evenings</option></select></label>
+        <label class="field"><span>Category</span><select id="tf-c">${S.cats.map(c => `<option value="${c.id}">${esc(c.name)}</option>`).join('')}</select></label>
+      </div>
+      <div class="foot"><button type="button" class="btn" data-close>Cancel</button><button class="btn primary">Add task</button></div>
+    </form>`);
+  $('#tf', m).onsubmit = e => {
+    e.preventDefault();
+    const t = { id: uid(), title: $('#tf-t', m).value.trim() || 'Task', dur: clamp(+$('#tf-d', m).value || 60, 15, 480), times: clamp(+$('#tf-n', m).value || 1, 1, 14), win: $('#tf-w', m).value, cat: $('#tf-c', m).value };
+    mutate(() => { const sc = sched(); (sc.tasks = sc.tasks || []).push(t); }); m.close();
+  };
+}
+
+/* ===================== auto-fill ===================== */
+function autofill(sc) {
+  const lo = sc.startHour * 60, hi = sc.endHour * 60, BUF = 10;
+  const win = { any: [Math.max(lo, 480), Math.min(hi, 1290)], morning: [Math.max(lo, 360), 720], afternoon: [720, 1020], evening: [1020, Math.min(hi, 1380)] };
+  const blocks = sc.blocks.filter(b => !b.auto), placed = [], missed = [];
+  for (const t of sc.tasks || []) {
+    let [a, z] = win[t.win] || win.any; a = Math.max(a, lo); z = Math.min(z, hi);
+    for (let k = 0; k < t.times; k++) {
+      const all = blocks.concat(placed);
+      const load = d => all.filter(b => b.day === d).reduce((s, b) => s + b.end - b.start, 0);
+      const same = d => placed.filter(b => b.day === d && b.task === t.id).length;
+      const order = [...sc.days].sort((x, y) => same(x) - same(y) || load(x) - load(y) || x - y);
+      let ok = null;
+      outer: for (const d of order) {
+        for (let s = Math.ceil(a / sc.snap) * sc.snap; s + t.dur <= z; s += sc.snap) {
+          const e = s + t.dur;
+          if (!all.some(b => b.day === d && s < b.end + BUF && b.start - BUF < e)) { ok = { d, s, e }; break outer; }
+        }
+      }
+      if (ok) placed.push({ id: uid(), day: ok.d, start: ok.s, end: ok.e, title: t.title, cat: t.cat, loc: '', notes: '', auto: true, task: t.id });
+      else missed.push(t.title);
+    }
+  }
+  return { placed, missed };
+}
+function runAutofill() {
+  const sc = sched();
+  if (!sc.tasks?.length) { openTask(); return; }
+  if (!isPro() && creditsLeft() <= 0) { openUpgrade(`You’ve used this week’s ${CONFIG.limits.autofillPerWeek} free auto-fill runs. Pro has unlimited runs, or wait until Monday.`); return; }
+  const { placed, missed } = autofill(sc);
+  const keep = sc.blocks.filter(b => !b.auto).length;
+  if (!isPro() && keep + placed.length > CONFIG.limits.blocks) { openUpgrade(`Auto-fill wants to place ${placed.length} blocks, which would take this schedule past the free limit of ${CONFIG.limits.blocks}.`); return; }
+  mutate(() => { sc.blocks = sc.blocks.filter(b => !b.auto).concat(placed); if (!isPro()) S.credits.used++; });
+  const u = [...new Set(missed)];
+  toast(`Placed ${placed.length} sessions` + (u.length ? `. No room for: ${u.join(', ')}` : ''));
+}
+
+/* ===================== templates ===================== */
+const TEMPLATES = [
+  { id: 'blank', name: 'Blank week', desc: 'Clear grid, your categories kept.', tier: 'free', spec: [] },
+  { id: 'student', name: 'Student', desc: 'Lectures, labs, study sessions and a training slot.', tier: 'free', spec: [
+    ['MWF', '09:00-10:15', 'Calculus lecture', 'Study'], ['MWF', '10:30-11:45', 'Biology lecture', 'Study'], ['TR', '13:00-15:50', 'Chem lab', 'Study'],
+    ['MTWR', '19:00-21:00', 'Study session', 'Study'], ['TR', '07:30-08:30', 'Swim', 'Health'], ['S', '10:00-12:00', 'Laundry & groceries', 'Errands'], ['U', '18:00-19:00', 'Plan next week', 'Personal']] },
+  { id: 'nine', name: '9-to-5 focus', desc: 'Protected deep work mornings, meetings after lunch.', tier: 'free', spec: [
+    ['MTWRF', '09:00-11:30', 'Deep work', 'Work'], ['MTWRF', '11:30-12:00', 'Email', 'Work'], ['MTWRF', '13:00-15:00', 'Meetings', 'Work'], ['MTWRF', '15:00-17:00', 'Project time', 'Work'], ['MWF', '17:30-18:30', 'Gym', 'Health']] },
+  { id: 'shift', name: 'Rotating shifts', desc: 'Three 12-hour day shifts with sleep and recovery blocked out.', tier: 'pro', spec: [
+    ['MTW', '07:00-19:00', 'Day shift', 'Work'], ['MTW', '20:30-21:30', 'Wind down', 'Personal'], ['R', '10:00-11:00', 'Recovery walk', 'Health'], ['F', '09:00-10:30', 'Errands', 'Errands'], ['SU', '09:00-10:00', 'Yoga', 'Health'], ['U', '17:00-18:30', 'Batch cook', 'Personal']] },
+  { id: 'founder', name: 'Founder week', desc: 'Maker mornings, customer afternoons, a hard stop on Fridays.', tier: 'pro', spec: [
+    ['MTWR', '08:00-11:00', 'Build', 'Work'], ['MTWR', '13:00-15:00', 'Customer calls', 'Work'], ['MR', '15:30-16:30', 'Hiring', 'Work'], ['F', '09:00-12:00', 'Metrics & planning', 'Work'], ['TR', '06:45-07:30', 'Run', 'Health'], ['W', '18:00-19:30', 'Investor updates', 'Work']] },
+  { id: 'marathon', name: 'Marathon build', desc: 'Five runs a week with strength work and a long Sunday run.', tier: 'pro', spec: [
+    ['TR', '06:30-07:30', 'Tempo run', 'Health'], ['W', '06:30-07:15', 'Easy run', 'Health'], ['MF', '18:00-18:45', 'Strength', 'Health'], ['S', '08:00-08:40', 'Shakeout', 'Health'], ['U', '07:00-09:30', 'Long run', 'Health'], ['U', '17:00-17:30', 'Foam roll', 'Health']] },
+  { id: 'cram', name: 'Exam cram', desc: 'Pomodoro-style study sprints with breaks and practice tests.', tier: 'pro', spec: [
+    ['MTWRF', '08:30-10:00', 'Sprint 1', 'Study'], ['MTWRF', '10:20-11:50', 'Sprint 2', 'Study'], ['MTWRF', '13:30-15:00', 'Sprint 3', 'Study'], ['SU', '09:00-12:00', 'Practice exam', 'Study'], ['MTWRF', '16:00-16:45', 'Walk', 'Health']] },
+];
+function tplBlocks(t) {
+  const out = [];
+  for (const [days, span, title, cn] of t.spec) {
+    const [a, b] = span.split('-').map(fromHHMM), c = S.cats.find(x => x.name === cn) || S.cats[0];
+    for (const ch of days) out.push({ id: uid(), day: DAY_LETTER[ch], start: a, end: b, title, cat: c.id, loc: '', notes: '' });
+  }
+  return out;
+}
+function miniPreview(t) {
+  return tplBlocks(t).map(b => `<i style="left:${b.day / 7 * 100 + 1}%;width:${100 / 7 - 2}%;top:${(b.start - 360) / (17 * 60) * 100}%;height:${Math.max(3, (b.end - b.start) / (17 * 60) * 100)}%;background:${cat(b.cat).color}"></i>`).join('');
+}
+function openTemplates() {
+  const pro = isPro();
+  const cards = TEMPLATES.map(t => {
+    const locked = t.tier === 'pro' && !pro && !S.owned.includes(t.id);
+    return `<div class="tpl"><div class="mini">${miniPreview(t)}</div><h4>${esc(t.name)} ${t.tier === 'pro' ? '<span class="lock">PRO</span>' : ''}</h4><p>${esc(t.desc)}</p>
+      <div class="row">${locked
+        ? `<button class="btn gold" data-unlock="${t.id}">Unlock with Pro</button>${CONFIG.checkout.template ? `<a class="btn" href="${esc(CONFIG.checkout.template)}" target="_blank" rel="noopener">Buy $${CONFIG.prices.template}</a>` : ''}`
+        : `<button class="btn primary" data-use="${t.id}">Use</button>`}</div></div>`;
+  }).join('');
+  const sp = pro ? '' : `<div class="tpl sp"><span class="lock" style="color:var(--muted)">SPONSORED</span><h4>${esc(CONFIG.sponsor.title)}</h4><p>Brands can feature a branded template here.</p>${CONFIG.sponsor.url ? `<a class="btn" href="${esc(CONFIG.sponsor.url)}" target="_blank" rel="noopener sponsored">${esc(CONFIG.sponsor.cta)}</a>` : ''}</div>`;
+  const m = modal(`<div class="modal-h"><h2>Templates</h2>${closeX}</div><div id="tp-confirm"></div><div class="gallery">${cards}${sp}</div>`, { wide: true });
+  $$('[data-unlock]', m).forEach(b => b.onclick = () => openUpgrade(`“${TEMPLATES.find(t => t.id === b.dataset.unlock).name}” is a Pro template. Pro includes every template, plus new ones each month.`));
+  $$('[data-use]', m).forEach(b => b.onclick = () => {
+    const t = TEMPLATES.find(x => x.id === b.dataset.use), sc = sched(), bl = tplBlocks(t);
+    if (!pro && bl.length > CONFIG.limits.blocks) return openUpgrade('This template has more blocks than the free plan allows.');
+    const apply = () => { mutate(() => { sc.blocks = bl; if (t.id !== 'blank' && sc.name === 'Example week') sc.name = t.name; }); m.close(); toast(`Applied “${t.name}”`); };
+    sc.blocks.length ? confirmIn($('#tp-confirm', m), `Replace the ${sc.blocks.length} blocks in “${sc.name}” with “${t.name}”? You can undo this.`, 'Replace blocks', apply) : apply();
+    $('#tp-confirm', m).scrollIntoView({ block: 'nearest' });
+  });
+}
+
+/* ===================== themes (skins) ===================== */
+const SKINS = [
+  { id: 'graph', name: 'Cobalt', tier: 'free', c: ['#2747d6', '#8197ff'] },
+  { id: 'lagoon', name: 'Lagoon', tier: 'free', c: ['#0e7490', '#4fd1e8'] },
+  { id: 'riso', name: 'Riso pink', tier: 'pro', c: ['#d63a73', '#ff7aa8'] },
+  { id: 'forest', name: 'Forest', tier: 'pro', c: ['#2c7a4b', '#5fd394'] },
+  { id: 'ember', name: 'Ember', tier: 'pro', c: ['#c2410c', '#ff9a5c'] },
+  { id: 'graphite', name: 'Graphite', tier: 'pro', c: ['#2b2f3a', '#d5d9e3'] },
+];
+let tryOn = null;
+function openSkins() {
+  const pro = isPro();
+  const m = modal(`<div class="modal-h"><h2>Themes</h2>${closeX}</div>
+    <p class="hint" style="margin:0">Pro themes can be tried for 60 seconds before you decide.</p>
+    <div class="gallery">${SKINS.map(s => `<button class="skin ${S.prefs.skin === s.id ? 'on' : ''}" data-skin="${s.id}"><div class="sw" style="background:linear-gradient(90deg,${s.c[0]} 50%,${s.c[1]} 50%)"></div><b>${s.name}</b>${s.tier === 'pro' && !pro ? '<span class="lock">PRO · tap to try</span>' : '<span class="hint">Included</span>'}</button>`).join('')}</div>`);
+  $$('[data-skin]', m).forEach(b => b.onclick = () => {
+    const s = SKINS.find(x => x.id === b.dataset.skin);
+    if (s.tier === 'pro' && !pro) { m.close(); startTryOn(s); return; }
+    S.prefs.skin = s.id; save(); render(); m.close();
+  });
+}
+function startTryOn(s) {
+  endTryOn(); let left = 60;
+  const bar = document.createElement('div'); bar.className = 'tryon';
+  bar.innerHTML = `<span>Trying <b>${s.name}</b> · <span class="mono" id="tryLeft">60</span>s</span><button class="btn gold" id="tryKeep">Keep it with Pro</button><button class="btn ghost" id="tryEnd">End</button>`;
+  document.body.appendChild(bar);
+  tryOn = { skin: s.id, bar, t: setInterval(() => { left--; const el = $('#tryLeft'); if (el) el.textContent = left; if (left <= 0) { endTryOn(); toast('Preview ended'); } }, 1000) };
+  $('#tryKeep').onclick = () => { const id = s.id; endTryOn(); openUpgrade(`Keep the ${s.name} theme and unlock every other Pro theme.`, () => { S.prefs.skin = id; save(); render(); }); };
+  $('#tryEnd').onclick = endTryOn;
+  render();
+}
+function endTryOn() { if (!tryOn) return; clearInterval(tryOn.t); tryOn.bar.remove(); tryOn = null; render(); }
+
+/* ===================== upgrade / pricing ===================== */
+let billing = 'yearly';
+function openUpgrade(reason, onUnlock) {
+  const p = CONFIG.prices, ck = CONFIG.checkout, now = Date.now();
+  const trialOpen = !S.plan.trialUsed && !isPro();
+  const proFeat = ['Unlimited schedules and blocks', 'Unlimited categories', 'Unlimited auto-fill', 'Calendar (.ics) export', 'Images without watermark', 'All themes and Pro templates', 'No sponsor cards'];
+  const freeFeat = [`${CONFIG.limits.schedules} schedule, ${CONFIG.limits.blocks} blocks`, `${CONFIG.limits.categories} categories`, `${CONFIG.limits.autofillPerWeek} auto-fill runs a week`, 'Image export with watermark', 'Share codes and backups'];
+  const buy = (url, label, cls) => url ? `<a class="btn ${cls}" href="${esc(url)}" target="_blank" rel="noopener">${label}</a>` : `<button class="btn ${cls}" data-nolink>${label}</button>`;
+  const m = modal(`<div class="modal-h"><h2>Blockwise Pro</h2>${closeX}</div>
+    ${reason ? `<p class="why">${esc(reason)}</p>` : ''}
+    <div class="toggle" role="group" aria-label="Billing period"><button data-bill="monthly" aria-pressed="${billing === 'monthly'}">Monthly</button><button data-bill="yearly" aria-pressed="${billing === 'yearly'}">Yearly <span class="save">save ${Math.round((1 - p.proYearly / (p.proMonthly * 12)) * 100)}%</span></button></div>
+    <div class="tiers">
+      <div class="tier"><h3>Free</h3><div class="price">$0</div><ul>${freeFeat.map(f => `<li>${f}</li>`).join('')}<li class="no">Calendar export</li></ul><button class="btn" disabled>${isPro() ? 'Included' : 'Current plan'}</button></div>
+      <div class="tier hot"><h3>Pro <span class="lock">MOST POPULAR</span></h3>
+        <div class="price">${billing === 'yearly' ? `$${p.proYearly}<small>/year · $${(p.proYearly / 12).toFixed(2)}/mo</small>` : `$${p.proMonthly}<small>/month</small>`}</div>
+        <ul>${proFeat.map(f => `<li>${f}</li>`).join('')}</ul>
+        ${buy(billing === 'yearly' ? ck.proYearly : ck.proMonthly, `Get Pro ${billing}`, 'gold')}</div>
+      <div class="tier"><h3>Lifetime</h3><div class="price">$${p.lifetime}<small> once</small></div><ul><li>Everything in Pro</li><li>Every future template</li><li>Pay once, keep it</li></ul>${buy(ck.lifetime, 'Buy lifetime', '')}</div>
+    </div>
+    <div class="err" id="up-msg"></div>
+    <div class="row">
+      ${trialOpen ? `<button class="btn primary" id="trial">Start ${CONFIG.trialDays}-day free trial</button>` : ''}
+      ${CONFIG.demoMode ? '<button class="btn" id="demo">Demo: unlock Pro now</button>' : ''}
+    </div>
+    <div class="field"><span>Have a license key?</span><div class="row"><input class="inp" type="text" id="lic" placeholder="BW-XXXX-XXXX-XXXX" aria-label="License key" style="flex:1;min-width:0"><button class="btn" id="licGo">Activate</button></div></div>
+    <p class="hint" style="margin:0">Your schedules stay yours on any plan. If Pro ends you keep everything you made and can still view and edit it.</p>`, { wide: true });
+  const unlocked = msg => { save(); m.close(); render(); toast(msg); onUnlock && onUnlock(); };
+  $$('[data-bill]', m).forEach(b => b.onclick = () => { billing = b.dataset.bill; m.close(); openUpgrade(reason, onUnlock); });
+  $$('[data-nolink]', m).forEach(b => b.onclick = () => { $('#up-msg', m).textContent = 'Checkout isn’t connected yet. Add your payment link in CONFIG.checkout.'; });
+  if ($('#trial', m)) $('#trial', m).onclick = () => { S.plan.trialUsed = true; S.plan.trialEnds = now + CONFIG.trialDays * DAY_MS; unlocked(`Pro trial started: ${CONFIG.trialDays} days`); };
+  if ($('#demo', m)) $('#demo', m).onclick = () => { S.plan.tier = 'pro'; unlocked('Pro unlocked (demo)'); };
+  $('#licGo', m).onclick = () => {
+    const k = $('#lic', m).value.trim().toUpperCase(), tier = checkLicense(k);
+    if (!tier) return $('#up-msg', m).textContent = 'That key isn’t valid. Check for typos; keys look like BW-PABC-DEFG-HJKM.';
+    S.plan.tier = tier; S.plan.license = k; unlocked(tier === 'lifetime' ? 'Lifetime unlocked. Thank you!' : 'Pro activated. Thank you!');
+  };
+}
+
+/* ===================== export ===================== */
+function nextMonday() { const d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() + ((8 - d.getDay()) % 7 || 7)); return d; }
+function icsText(sc) {
+  const mon = nextMonday(), stamp = new Date().toISOString().replace(/[-:]/g, '').slice(0, 15) + 'Z';
+  const e = s => String(s).replace(/\\/g, '\\\\').replace(/\n/g, '\\n').replace(/[,;]/g, m => '\\' + m);
+  const dt = (day, min) => { const d = new Date(mon.getTime() + day * DAY_MS); d.setHours(0, min, 0, 0); return `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}T${pad(d.getHours())}${pad(d.getMinutes())}00`; };
+  const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Blockwise//Planner//EN', 'CALSCALE:GREGORIAN', `X-WR-CALNAME:${e(sc.name)}`];
+  for (const b of sc.blocks) lines.push('BEGIN:VEVENT', `UID:${b.id}-${sc.id}@blockwise`, `DTSTAMP:${stamp}`, `DTSTART:${dt(b.day, b.start)}`, `DTEND:${dt(b.day, b.end)}`, 'RRULE:FREQ=WEEKLY',
+    `SUMMARY:${e(b.title)}`, ...(b.loc ? [`LOCATION:${e(b.loc)}`] : []), `DESCRIPTION:${e([cat(b.cat).name, b.notes].filter(Boolean).join(' · '))}`, `CATEGORIES:${e(cat(b.cat).name)}`, 'END:VEVENT');
+  lines.push('END:VCALENDAR'); return lines.join('\r\n');
+}
+function renderPNG(sc, watermark) {
+  const days = sc.days, colW = 170, gut = 64, headH = 92, HH = 46, H = (sc.endHour - sc.startHour) * HH, W = gut + days.length * colW + 24;
+  const cv = document.createElement('canvas'), k = 2; cv.width = W * k; cv.height = (headH + H + 56) * k;
+  const g = cv.getContext('2d'); g.scale(k, k);
+  const font = (w, s, f = 'IBM Plex Sans') => g.font = `${w} ${s}px "${f}", system-ui, sans-serif`;
+  g.fillStyle = '#ffffff'; g.fillRect(0, 0, W, headH + H + 56);
+  g.fillStyle = '#141a2b'; font(800, 26, 'Bricolage Grotesque'); g.fillText(sc.name, gut, 40);
+  const st = stats(sc); font(400, 13); g.fillStyle = '#5b6478'; g.fillText(`${hrs(st.total)} hours planned · ${sc.blocks.length} blocks`, gut, 62);
+  days.forEach((d, i) => { font(700, 12); g.fillStyle = '#141a2b'; g.fillText(DAYS[d].toUpperCase(), gut + i * colW + 8, headH - 8); });
+  const y0 = headH;
+  for (let h = sc.startHour; h <= sc.endHour; h++) { const y = y0 + (h - sc.startHour) * HH; g.strokeStyle = '#e6ebf4'; g.lineWidth = 1; g.beginPath(); g.moveTo(gut, y + .5); g.lineTo(W - 24, y + .5); g.stroke(); if (h > sc.startHour && h < sc.endHour) { font(400, 11, 'IBM Plex Mono'); g.fillStyle = '#5b6478'; g.textAlign = 'right'; g.fillText(fmt(h * 60), gut - 8, y + 4); g.textAlign = 'left'; } }
+  days.forEach((d, i) => { g.strokeStyle = '#d6dce8'; g.beginPath(); g.moveTo(gut + i * colW + .5, y0); g.lineTo(gut + i * colW + .5, y0 + H); g.stroke(); });
+  const lo = sc.startHour * 60, hi = sc.endHour * 60, ppm = HH / 60;
+  const rr = (x, y, w, h, r) => { g.beginPath(); g.moveTo(x + r, y); g.arcTo(x + w, y, x + w, y + h, r); g.arcTo(x + w, y + h, x, y + h, r); g.arcTo(x, y + h, x, y, r); g.arcTo(x, y, x + w, y, r); g.closePath(); };
+  days.forEach((d, i) => {
+    const bl = sc.blocks.filter(b => b.day === d), lay = layoutDay(bl);
+    for (const b of bl) {
+      const L = lay.get(b.id), c = cat(b.cat).color, w = (colW - 8) / L.lanes;
+      const x = gut + i * colW + 4 + L.lane * w, y = y0 + (clamp(b.start, lo, hi) - lo) * ppm + 1, h = Math.max(14, (clamp(b.end, lo, hi) - clamp(b.start, lo, hi)) * ppm - 2);
+      g.fillStyle = c + '2e'; rr(x, y, w - 3, h, 6); g.fill(); g.fillStyle = c; g.fillRect(x, y + 2, 3.5, h - 4);
+      g.save(); rr(x, y, w - 3, h, 6); g.clip();
+      g.fillStyle = '#141a2b'; font(600, 12); g.fillText(b.title, x + 9, y + 15);
+      if (h > 30) { font(400, 10.5, 'IBM Plex Mono'); g.fillStyle = '#5b6478'; g.fillText(`${fmt(b.start)}–${fmt(b.end)}`, x + 9, y + 29); }
+      g.restore();
+    }
+  });
+  if (watermark) { font(600, 12); g.fillStyle = '#2747d6'; g.textAlign = 'right'; g.fillText(CONFIG.watermark + ' · upgrade to remove', W - 24, headH + H + 34); g.textAlign = 'left'; }
+  return cv.toDataURL('image/png');
+}
+const shareCode = sc => 'BW1:' + btoa(unescape(encodeURIComponent(JSON.stringify({ n: sc.name, h: [sc.startHour, sc.endHour], d: sc.days, c: S.cats, b: sc.blocks.map(b => [b.day, b.start, b.end, b.title, b.cat, b.loc || '', b.notes || '']) }))));
+function readShare(code) {
+  const o = JSON.parse(decodeURIComponent(escape(atob(code.trim().replace(/^BW1:/, '')))));
+  const catMap = {};
+  for (const c of o.c || []) { let mine = S.cats.find(x => x.name.toLowerCase() === c.name.toLowerCase()); catMap[c.id] = mine ? mine.id : (S.cats.length < CONFIG.limits.categories || isPro() ? (S.cats.push({ id: 'c' + uid(), name: c.name, color: c.color }), S.cats.at(-1).id) : S.cats[0].id); }
+  return { id: uid(), name: o.n || 'Imported', startHour: o.h?.[0] ?? 7, endHour: o.h?.[1] ?? 22, days: o.d || [0, 1, 2, 3, 4, 5, 6], snap: 15, tasks: [],
+    blocks: (o.b || []).map(([day, start, end, title, c, loc, notes]) => ({ id: uid(), day, start, end, title, cat: catMap[c] || S.cats[0].id, loc, notes })) };
+}
+function openExport(tab = 'image') {
+  const sc = sched(), pro = isPro();
+  const m = modal(`<div class="modal-h"><h2>Export “${esc(sc.name)}”</h2>${closeX}</div>
+    <div class="tabs" role="tablist">${[['image', 'Image'], ['ics', 'Calendar' + (pro ? '' : ' · Pro')], ['share', 'Share code'], ['backup', 'Backup']].map(([k, l]) => `<button role="tab" data-tab="${k}" aria-selected="${k === tab}">${l}</button>`).join('')}</div>
+    <div id="ex-body"></div>`, { wide: true });
+  $$('[data-tab]', m).forEach(b => b.onclick = () => { m.close(); openExport(b.dataset.tab); });
+  const body = $('#ex-body', m);
+  if (tab === 'image') {
+    const url = renderPNG(sc, !pro);
+    body.innerHTML = `<p class="hint">Right-click or long-press the image to save or share it.${pro ? '' : ' Free exports carry a small watermark.'}</p><img class="preview-img" src="${url}" alt="Week grid image of ${esc(sc.name)}">
+      <div class="foot">${pro ? '' : '<button class="btn gold" id="ex-up">Remove watermark</button>'}<button class="btn primary" id="ex-dl">Download PNG</button></div>`;
+    $('#ex-dl', m).onclick = () => { const a = document.createElement('a'); a.href = url; a.download = sc.name.replace(/[^\w-]+/g, '_') + '.png'; a.click(); };
+    if ($('#ex-up', m)) $('#ex-up', m).onclick = () => openUpgrade('Pro exports clean images with no watermark.');
+  } else if (tab === 'ics') {
+    if (!pro) { body.innerHTML = `<p class="why">Send your week to Google Calendar, Apple Calendar or Outlook as repeating weekly events. Calendar export is part of Pro.</p><div class="foot"><button class="btn gold" id="ex-up">See Pro</button></div>`; $('#ex-up', m).onclick = () => openUpgrade(''); return; }
+    const t = icsText(sc);
+    body.innerHTML = `<p class="hint">Events repeat weekly starting ${nextMonday().toDateString()}. Download the file, or copy the text into a file named <span class="mono">schedule.ics</span>, then import it in your calendar app.</p><textarea class="out" id="ex-t" readonly aria-label="Calendar file text">${esc(t)}</textarea>
+      <div class="foot"><button class="btn" id="ex-c">Copy</button><button class="btn primary" id="ex-dl">Download .ics</button></div>`;
+    $('#ex-c', m).onclick = () => copy(t, $('#ex-t', m));
+    $('#ex-dl', m).onclick = () => tryDownload('schedule.ics', t, 'text/calendar');
+  } else if (tab === 'share') {
+    const code = shareCode(sc);
+    body.innerHTML = `<p class="hint">Send this code to anyone with Blockwise. They paste it under “Import a code” to get a copy of this week.</p><textarea class="out" id="ex-t" readonly aria-label="Share code">${esc(code)}</textarea>
+      <div class="foot"><button class="btn primary" id="ex-c">Copy code</button></div>
+      <h3 style="font-size:16px">Import a code</h3><textarea class="out" id="ex-in" placeholder="Paste a BW1: code" aria-label="Code to import" style="min-height:80px"></textarea><div class="err" id="ex-err"></div><div id="ex-confirm"></div>
+      <div class="foot"><button class="btn" id="ex-rep">Replace current week</button><button class="btn primary" id="ex-new">Import as new schedule</button></div>`;
+    $('#ex-c', m).onclick = () => copy(code, $('#ex-t', m));
+    const parse = () => { try { return readShare($('#ex-in', m).value); } catch (e) { $('#ex-err', m).textContent = 'That code couldn’t be read. Paste the whole code, starting with BW1:'; return null; } };
+    $('#ex-new', m).onclick = () => {
+      if (S.schedules.length >= CONFIG.limits.schedules && !gate(`The free plan keeps ${CONFIG.limits.schedules} schedule. Use “Replace current week”, or get Pro for unlimited schedules.`)) return;
+      pushUndo(); const n = parse(); if (!n) { undoStack.pop(); return; }
+      if (!isPro() && n.blocks.length > CONFIG.limits.blocks) { undoStack.pop(); return openUpgrade(`That schedule has ${n.blocks.length} blocks; the free plan holds ${CONFIG.limits.blocks}.`); }
+      S.schedules.push(n); S.active = n.id; save(); render(); m.close(); toast(`Imported “${n.name}”`);
+    };
+    $('#ex-rep', m).onclick = () => confirmIn($('#ex-confirm', m), `Replace all ${sc.blocks.length} blocks in “${sc.name}”?`, 'Replace', () => {
+      pushUndo(); const n = parse(); if (!n) { undoStack.pop(); return; }
+      if (!isPro() && n.blocks.length > CONFIG.limits.blocks) { undoStack.pop(); return openUpgrade(`That schedule has ${n.blocks.length} blocks; the free plan holds ${CONFIG.limits.blocks}.`); }
+      Object.assign(sc, { blocks: n.blocks, startHour: n.startHour, endHour: n.endHour, days: n.days }); save(); render(); m.close(); toast('Week replaced');
+    });
+  } else {
+    const t = JSON.stringify(S);
+    body.innerHTML = `<p class="hint">A full backup of every schedule, category and setting on this device. Keep it somewhere safe; restoring replaces everything here.</p><textarea class="out" id="ex-t" readonly aria-label="Backup">${esc(t)}</textarea>
+      <div class="foot"><button class="btn" id="ex-c">Copy</button><button class="btn primary" id="ex-dl">Download .json</button></div>
+      <h3 style="font-size:16px">Restore</h3><textarea class="out" id="ex-in" placeholder="Paste a backup" aria-label="Backup to restore" style="min-height:80px"></textarea><div class="err" id="ex-err"></div><div id="ex-confirm"></div>
+      <div class="foot"><button class="btn danger" id="ex-rs">Restore backup</button></div>`;
+    $('#ex-c', m).onclick = () => copy(t, $('#ex-t', m));
+    $('#ex-dl', m).onclick = () => tryDownload('blockwise-backup.json', t, 'application/json');
+    $('#ex-rs', m).onclick = () => confirmIn($('#ex-confirm', m), 'Replace everything on this device with the backup?', 'Restore', () => {
+      try { const o = JSON.parse($('#ex-in', m).value); if (!o.schedules?.length) throw 0; const plan = S.plan; pushUndo(); S = Object.assign(fresh(), o, { plan }); save(); render(); m.close(); toast('Backup restored'); }
+      catch (e) { $('#ex-err', m).textContent = 'That doesn’t look like a Blockwise backup.'; }
+    });
+  }
+}
+
+/* ===================== schedules & settings ===================== */
+function newSchedule() {
+  if (S.schedules.length >= CONFIG.limits.schedules && !gate(`The free plan keeps ${CONFIG.limits.schedules} schedule. Pro lets you keep one for work, school, shifts, a partner’s week and more.`)) return;
+  const m = modal(`<div class="modal-h"><h2>New schedule</h2>${closeX}</div><form id="ns" style="display:flex;flex-direction:column;gap:12px">
+    <label class="field"><span>Name</span><input id="ns-n" autofocus placeholder="e.g. Spring semester"></label>
+    <div class="foot"><button type="button" class="btn" data-close>Cancel</button><button class="btn primary">Create</button></div></form>`);
+  $('#ns', m).onsubmit = e => { e.preventDefault(); const s = { id: uid(), name: $('#ns-n', m).value.trim() || 'Untitled week', startHour: 7, endHour: 22, days: [0, 1, 2, 3, 4, 5, 6], snap: 15, blocks: [], tasks: [] }; mutate(() => { S.schedules.push(s); S.active = s.id; }); m.close(); };
+}
+function openSettings() {
+  const sc = sched();
+  const hourOpts = (sel, from, to) => Array.from({ length: to - from + 1 }, (_, i) => from + i).map(h => `<option value="${h}" ${h === sel ? 'selected' : ''}>${fmt(h * 60)}</option>`).join('');
+  const m = modal(`<div class="modal-h"><h2>Settings</h2>${closeX}</div>
+    <form id="st" style="display:flex;flex-direction:column;gap:12px">
+      <label class="field"><span>Schedule name</span><input id="st-n" value="${esc(sc.name)}"></label>
+      <div class="grid2"><label class="field"><span>Day starts</span><select id="st-a">${hourOpts(sc.startHour, 0, 12)}</select></label><label class="field"><span>Day ends</span><select id="st-b">${hourOpts(sc.endHour, 13, 24)}</select></label></div>
+      <div class="field"><span>Show days</span><div class="days">${DAYS.map((d, i) => `<label><input type="checkbox" name="sd" value="${i}" ${sc.days.includes(i) ? 'checked' : ''}><span>${d}</span></label>`).join('')}</div></div>
+      <div class="grid2"><label class="field"><span>Snap to</span><select id="st-s">${[5, 10, 15, 30].map(v => `<option value="${v}" ${v === sc.snap ? 'selected' : ''}>${v} minutes</option>`).join('')}</select></label>
+        <label class="field"><span>Clock</span><select id="st-h"><option value="0">12-hour</option><option value="1" ${S.prefs.h24 ? 'selected' : ''}>24-hour</option></select></label></div>
+      <div class="err" id="st-err"></div>
+      <div class="field"><span>Plan</span><p class="hint" style="margin:0">${planLabel()}${S.plan.license ? ` · key ${esc(S.plan.license)}` : ''}</p></div>
+      <div id="st-confirm"></div>
+      <div class="foot">${S.schedules.length > 1 ? '<button type="button" class="btn danger left" id="st-del">Delete schedule</button>' : '<button type="button" class="btn danger left" id="st-reset">Reset all data</button>'}<button type="button" class="btn" data-close>Cancel</button><button class="btn primary">Save</button></div>
+    </form>`);
+  $('#st', m).onsubmit = e => {
+    e.preventDefault();
+    const days = $$('input[name=sd]:checked', m).map(i => +i.value);
+    if (!days.length) return $('#st-err', m).textContent = 'Show at least one day.';
+    mutate(() => { Object.assign(sc, { name: $('#st-n', m).value.trim() || sc.name, startHour: +$('#st-a', m).value, endHour: +$('#st-b', m).value, days, snap: +$('#st-s', m).value }); S.prefs.h24 = $('#st-h', m).value === '1'; });
+    m.close(); toast('Settings saved');
+  };
+  if ($('#st-del', m)) $('#st-del', m).onclick = () => confirmIn($('#st-confirm', m), `Delete “${sc.name}” and its ${sc.blocks.length} blocks?`, 'Delete', () => { mutate(() => { S.schedules = S.schedules.filter(s => s.id !== sc.id); S.active = S.schedules[0].id; }); m.close(); toast('Schedule deleted. Ctrl+Z to undo'); });
+  if ($('#st-reset', m)) $('#st-reset', m).onclick = () => confirmIn($('#st-confirm', m), 'Erase every schedule and start over with the example week? Your plan stays.', 'Reset', () => { const plan = S.plan, ref = S.referral; S = fresh(); S.plan = plan; S.referral = ref; undoStack.length = redoStack.length = 0; save(); render(); m.close(); toast('Reset'); });
+}
+
+/* ===================== wiring ===================== */
+$('#schedSel').onchange = e => { S.active = e.target.value; save(); render(); };
+$('#newSched').onclick = newSchedule;
+$('#upgradeBtn').onclick = () => openUpgrade('');
+$('#settingsBtn').onclick = openSettings;
+$('#addBtn').onclick = () => { if (canAddBlocks(1)) openEditor(null, true); };
+$('#tplBtn').onclick = openTemplates;
+$('#fillBtn').onclick = runAutofill;
+$('#exportBtn').onclick = () => openExport('image');
+$('#skinBtn').onclick = openSkins;
+$('#undoBtn').onclick = undo; $('#redoBtn').onclick = redo;
+$('#zoomIn').onclick = () => { S.prefs.zoom = clamp(+(S.prefs.zoom + .2).toFixed(1), .6, 2); save(); render(); };
+$('#zoomOut').onclick = () => { S.prefs.zoom = clamp(+(S.prefs.zoom - .2).toFixed(1), .6, 2); save(); render(); };
+document.addEventListener('keydown', e => {
+  const typing = /INPUT|TEXTAREA|SELECT/.test(document.activeElement?.tagName);
+  if (e.key === 'Escape') { const s = $$('.scrim').at(-1); if (s) s.firstElementChild.close(); return; }
+  if ($('.scrim') || typing) return;
+  const mod = e.ctrlKey || e.metaKey;
+  if (mod && e.key.toLowerCase() === 'z') { e.preventDefault(); e.shiftKey ? redo() : undo(); }
+  else if (mod && e.key.toLowerCase() === 'y') { e.preventDefault(); redo(); }
+  else if (!mod && e.key.toLowerCase() === 'n') { e.preventDefault(); $('#addBtn').click(); }
+});
+setInterval(() => { if (!drag && !$('.scrim')) render(); }, 60000);   // keeps the now-line and trial countdown current
+
+render();
+// scroll the grid to ~1h before the first block
+requestAnimationFrame(() => { const sc = sched(), first = Math.min(...sc.blocks.map(b => b.start), 9 * 60); $('#calWrap').scrollTop = Math.max(0, (first - 60 - sc.startHour * 60) / 60 * Math.round(52 * S.prefs.zoom)); });
+</script>
