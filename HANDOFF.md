@@ -334,10 +334,12 @@ Short scenes about what the work and the years before it left behind. All in `sr
 
 ## Alternate universes (td25)
 
-- Title screen → **Alternate universes** (added by wrapping `panel` when the title panel is drawn). Runs with `S` null and never touches a run; results in `META.au[id]`.
+- Title screen → **Alternate universes** (added by wrapping `panel` when the title panel is drawn). Runs with `S` null and never touches a run; results in `META.au[id]`. `AUON` is true while inside; `pauseMenu` is a no-op without a run, and `helpPanel` shows AU help (and now toggles closed on a second H everywhere, which also fixed duplicated help lines).
 - Add a universe: `AUS.push({id,name,sub,run(back)})`.
-- **The Long Leash** (`llRun`, `llNight(side,n,cb)`): Misaki as a genius researcher with a living scarf, V as the commander ordered to keep her on station. The premise follows the user's brief (the Mitya/Valerie dynamic from Genshin) but uses no names, places or lore from that game; keep it that way. Three nights on one 20×10 grid (`LL.MAP`), playable from either side; she grabs instrument cases then holds at a green door. Endings: Escort, Gone, Leash.
-- `LL.dbg` exposes positions for `node tools/au_test.js`, which plays both sides with a bot and reaches all three endings.
+- **The Long Leash** (`llRun`): Misaki as a loose-mouthed genius researcher with a living scarf, V as the sergeant ordered to keep her on station. The premise follows the user's brief (the Mitya/Valeriy dynamic from Genshin: "Sarge", the scarf gagging classified leaks, the smokehouse food run and picnic, the prototype test, the theatre and the blizzard) but uses no names, places or lore from that game; keep it that way.
+- Structure: five days, a hub (`hub()`) with two picks a day from `SC` (scenes: `radio`, `lunch`, `bench`, `sarge`, `wash`, `report`, `chair`, `leak`, `theatre`), then a night (`night()`), then `finale()` and `end()`. State `R={side,day,slot,out,in,coat,slack,leaks,data,done}`. `slack` (the bond) unlocks walking out together at night and staying put in the theatre. Endings Escort / Gone / Leash, plus epilogue lines from `R.done` and `R.leaks`.
+- Minigames: `llNight(side,n,cb,mapKey)` chase on `LL.MAPS` (station, yard, theatre; add a map with rows, start tiles, pickups, palette); `llHush(cb)` (you are the scarf: E on red words); `llBench(side,cb)` (E in the green band). `gag(pre,word,then)` is the reusable scarf-chokes-her beat.
+- `LL.game`, `LL.dbg`, `LL.hush()`, `LL.bench()` exist for `node tools/au_test.js`, which plays six full weeks with different policies (trying, idle, mashing, quitting) and checks map reachability.
 
 ## V is now a practised killer (decision pending with the author)
 
