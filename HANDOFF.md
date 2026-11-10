@@ -327,7 +327,7 @@ Short scenes about what the work and the years before it left behind. All in `sr
 
 - `docs/voice_sample.md` is the author's own writing (one piece per killer); `docs/VOICE.md` is the guide distilled from it. Read both before writing any dialogue.
 - About 1,150 strings re-voiced across `src/td3…td24` and Ronin/Angel lines in the original region of `index.html`. Ronin no longer says "darlin'" (his `nick()` pool changed too). Profanity now exists for Ronin, Misaki and narration; never V.
-- **Not done:** Misaki's and V's lines in the original (non-generated) region of `index.html`, about 2,800 lines.
+- V's and Misaki's lines in the original region were done in a follow-up round: about 1,390 replacements, produced as JSON pair lists and applied with `tools/apply_pairs.py <pairs.json> START END --write` (checks each old string is in the line range and the new one has no raw quote/backtick). Use that tool for any parallel edit of `index.html`.
 - **Open canon question:** the old plot treats V as a philanthropist with a conscience meter who has barely killed; the sample V is a practised butcher who feeds his animals. New lines lean toward the sample ("my animals ate well", the metal table); the old plot beats (the river, "You killed a man to keep me alive", td19's job deal) still assume the softer V.
 - Three `VARY` keys were updated because they match dialogue by prefix. If you reword a line, grep `VARY` for its opening words.
 - Watch for catchphrase pile-up when several people edit at once ("Sucks t'be you" hit 17 uses and was cut to 4).
@@ -338,3 +338,12 @@ Short scenes about what the work and the years before it left behind. All in `sr
 - Add a universe: `AUS.push({id,name,sub,run(back)})`.
 - **The Long Leash** (`llRun`, `llNight(side,n,cb)`): Misaki as a genius researcher with a living scarf, V as the commander ordered to keep her on station. The premise follows the user's brief (the Mitya/Valerie dynamic from Genshin) but uses no names, places or lore from that game; keep it that way. Three nights on one 20×10 grid (`LL.MAP`), playable from either side; she grabs instrument cases then holds at a green door. Endings: Escort, Gone, Leash.
 - `LL.dbg` exposes positions for `node tools/au_test.js`, which plays both sides with a bot and reaches all three endings.
+
+## V is now a practised killer (decision pending with the author)
+
+The V/Misaki pass resolved the open canon question toward the author's sample. Facts that changed, all revertible by editing the lines:
+- V says outright that he killed Misaki's kidnappers and fed them to the dogs (laundry TV, wheel "ledger" lines, shrine prayer, gate).
+- His creed is now "paper for most of them, the knife for the ones who have earned worse"; the old premise was paper-only, with violence as a fall on the dark path. The paper options and conscience stat still work as before.
+- The training-hall weapon wall now has knives (was "batons, no blades"). The care-home man at the laundry sink is dead (was beaten). Sergeant the dog was retired for biting a superior officer (was "too gentle with suspects").
+- Two conscience beats were removed: V's doubt after killing the guard who brought water, and "the old V would have been horrified" at the errand boy's hand.
+- V is still vegan in the original scenes; the meat is for the dogs.
