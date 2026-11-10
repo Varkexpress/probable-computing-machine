@@ -331,3 +331,10 @@ Short scenes about what the work and the years before it left behind. All in `sr
 - **Open canon question:** the old plot treats V as a philanthropist with a conscience meter who has barely killed; the sample V is a practised butcher who feeds his animals. New lines lean toward the sample ("my animals ate well", the metal table); the old plot beats (the river, "You killed a man to keep me alive", td19's job deal) still assume the softer V.
 - Three `VARY` keys were updated because they match dialogue by prefix. If you reword a line, grep `VARY` for its opening words.
 - Watch for catchphrase pile-up when several people edit at once ("Sucks t'be you" hit 17 uses and was cut to 4).
+
+## Alternate universes (td25)
+
+- Title screen → **Alternate universes** (added by wrapping `panel` when the title panel is drawn). Runs with `S` null and never touches a run; results in `META.au[id]`.
+- Add a universe: `AUS.push({id,name,sub,run(back)})`.
+- **The Long Leash** (`llRun`, `llNight(side,n,cb)`): Misaki as a genius researcher with a living scarf, V as the commander ordered to keep her on station. The premise follows the user's brief (the Mitya/Valerie dynamic from Genshin) but uses no names, places or lore from that game; keep it that way. Three nights on one 20×10 grid (`LL.MAP`), playable from either side; she grabs instrument cases then holds at a green door. Endings: Escort, Gone, Leash.
+- `LL.dbg` exposes positions for `node tools/au_test.js`, which plays both sides with a bot and reaches all three endings.
