@@ -266,6 +266,44 @@ h1,h2,h3{font-family:var(--f-disp);text-wrap:balance;margin:0;letter-spacing:-.0
 #ex-body{display:flex;flex-direction:column;gap:10px}
 .tier h3 small{font:500 12px var(--f-body);color:var(--muted);letter-spacing:0}
 @media (max-width:520px){.ros{min-width:calc(104px + var(--cols) * 104px)}.rrow{grid-template-columns:104px repeat(var(--cols),minmax(0,1fr))}}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.grid7{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+@media (max-width:560px){.grid7{grid-template-columns:repeat(4,minmax(0,1fr))}.grid3{grid-template-columns:1fr}}
+.avail{display:flex;flex-direction:column;gap:6px}
+.av{display:grid;grid-template-columns:60px minmax(0,1fr) minmax(0,1fr);gap:6px;align-items:center}
+.av .inp{padding:5px 8px}
+.avd{position:relative;display:block}
+.avd input{position:absolute;opacity:0;pointer-events:none}
+.avd span{display:block;padding:6px 0;border:1px solid var(--line);border-radius:7px;font:600 12px var(--f-body);cursor:pointer;text-align:center}
+.avd input:checked+span{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.avd input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
+.av:has(input[name=avon]:not(:checked)) .inp{opacity:.35}
+.presets{display:flex;flex-wrap:wrap;gap:6px}
+.daybars small{font-size:9px;line-height:1}
+.tablewrap{overflow-x:auto}
+.fair{width:100%;border-collapse:collapse;font-size:13px}
+.fair th,.fair td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+.fair th:first-child,.fair td:first-child{text-align:left}
+.fair th{font:600 11px var(--f-body);text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.fair td{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.fair td:first-child{font-family:var(--f-body);font-weight:600}
+.fair .hi{color:var(--danger);font-weight:600}
+.todaylist{display:flex;flex-direction:column;gap:6px}
+.trow{display:grid;grid-template-columns:10px minmax(0,1fr) auto;gap:8px;align-items:center;font-size:13px}
+.trow .sw{width:10px;height:10px;border-radius:50%;background:var(--c)}
+.trow .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.trow .t{font:12px var(--f-mono);color:var(--muted)}
+.trow.now .t{color:var(--ok);font-weight:600}
+.ai{border-color:color-mix(in srgb,var(--accent) 45%,var(--line))}
+.ai textarea{width:100%;min-height:64px;resize:vertical;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--sheet)}
+.ai .ex{display:flex;flex-wrap:wrap;gap:6px}
+.ai .ex .chip{font-weight:500;text-align:left}
+.chg{display:flex;flex-direction:column;gap:6px;margin:0;padding:0;list-style:none}
+.chg li{padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-size:13px}
+.delta{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+.delta div{border:1px solid var(--line);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:2px}
+.delta b{font:700 20px var(--f-disp)}
+.delta small{color:var(--muted)}
 @media (max-width:520px){#zoomIn,#zoomOut,.rail .sep{display:none}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
@@ -320,7 +358,7 @@ const CONFIG = {
   prices: { proMonthly: 5, proYearly: 36, lifetime: 79, teamMonthly: 19, teamYearly: 180, template: 3 },
   checkout: { proMonthly: '', proYearly: '', lifetime: '', teamMonthly: '', teamYearly: '', template: '' },
   licenseSalt: 'replace-this-salt-before-launch',
-  limits: { schedules: 2, blocks: 40, categories: 5, autofillPerWeek: 3, staff: 5, coverRules: 2 },
+  limits: { schedules: 2, blocks: 40, categories: 5, autofillPerWeek: 3, staff: 5, coverRules: 2, aiPerWeek: 2 },
   trialDays: 7,
   referralDays: 7,
   sponsor: { title: 'Advertise to weekly planners', blurb: 'One sponsor card shows here for free-plan users. Rent this slot by the week.', url: '', cta: 'Sponsor this slot' },
@@ -379,8 +417,10 @@ function cafeSchedule() {
   add(ines, 'TR', '12:00-18:30', 'Barista'); add(ines, 'S', '11:00-18:30', 'Barista'); add(ines, 'U', '08:00-16:00', 'Barista');
   add(sam, 'MTWR', '07:00-15:00', 'Kitchen');
   add(tariq, 'MW', '13:00-18:30', 'Barista'); add(tariq, 'S', '14:00-20:30', 'Barista'); add(tariq, 'U', '06:30-13:00', 'Barista');
-  add('', 'S', '08:00-14:00', 'Kitchen'); add('', 'F', '14:30-18:30', 'Barista');
-  s.cover = [{ id: uid(), days: [0, 1, 2, 3, 4, 5, 6], start: 480, end: 960, need: 2 }];
+  add('', 'S', '07:00-15:00', 'Kitchen'); add('', 'F', '14:30-18:30', 'Barista');
+  s.cover = [{ id: uid(), days: [0, 1, 2, 3, 4, 5, 6], start: 480, end: 960, need: 2 }, { id: uid(), days: [0, 1, 2, 3, 4, 5], start: 420, end: 900, need: 1, role: 'Kitchen' }];
+  s.staff[1].minH = 30; s.staff[4].minH = 16; s.staff[2].avail = { 1: [720, 1440], 3: [720, 1440] };
+  s.sales = [1900, 1700, 1800, 1900, 2300, 2600, 2200]; s.targetPct = 28;
   return s;
 }
 
@@ -538,6 +578,7 @@ function render() {
   if ($('#confToggle')) $('#confToggle').onclick = () => { showConf = !showConf; render(); };
   roster ? renderRoster(sc) : renderGrid(sc, conf);
   team ? renderTeamSide(sc) : renderSide(sc, conf);
+  afterRender(sc);
 }
 
 function renderGrid(sc, conf) {
@@ -654,6 +695,7 @@ function openEditor(block, isNew = false) {
         <label class="field"><span>Starts</span><input type="time" id="ed-start" step="300" value="${toHHMM(b.start)}"></label>
         <label class="field"><span>Ends</span><input type="time" id="ed-end" step="300" value="${toHHMM(b.end % 1440)}"></label>
       </div>
+      ${presetsHTML(sc)}
       <div class="field"><span>${isNew ? 'Days' : 'On these days'}</span><div class="days">${DAYS.map((d, i) => `<label><input type="checkbox" name="day" value="${i}" ${i === b.day ? 'checked' : ''}><span>${d}</span></label>`).join('')}</div>
         <small class="hint">${isNew ? 'Pick several days to repeat the block.' : 'Tick more days to copy this block there. Untick its day to move it.'}</small></div>
       <label class="field"><span>Location</span><input id="ed-loc" value="${esc(b.loc)}" placeholder="Optional"></label>
@@ -662,6 +704,7 @@ function openEditor(block, isNew = false) {
       <div id="ed-confirm"></div>
       <div class="foot">${isNew ? '' : '<button type="button" class="btn danger left" id="ed-del">Delete</button>'}<button type="button" class="btn" data-close>Cancel</button><button class="btn primary" type="submit">Save</button></div>
     </form>`);
+  $$('[data-ps]', m).forEach(c => c.onclick = () => { const [a, z] = c.dataset.ps.split('-').map(Number); $('#ed-start', m).value = toHHMM(a); $('#ed-end', m).value = toHHMM(z % 1440); });
   $('#ed', m).onsubmit = e => {
     e.preventDefault();
     const title = $('#ed-title', m).value.trim() || (team ? '' : 'Untitled');
@@ -927,9 +970,9 @@ function openUpgrade(reason, onUnlock, focus) {
   focus = focus || (isTeamSched(sched()) ? 'team' : 'pro');
   const trialOpen = !S.plan.trialUsed && !isTeam(), tier = S.plan.tier;
   const feats = {
-    free: [`${L.schedules} schedules`, `Rotas for up to ${L.staff} people`, 'Live labour cost and rule checks', `${L.autofillPerWeek} Auto-staff or auto-fill runs a week`, 'Image export with watermark'],
-    pro: ['Unlimited personal schedules, blocks and categories', 'Unlimited auto-fill', 'Calendar (.ics) export', 'Images without watermark', 'All themes and templates', 'No sponsor cards'],
-    team: ['Everything in Pro', 'Unlimited team members and coverage rules', 'Unlimited Auto-staff', 'Weekly labour budget meter', 'Ready-to-send shift message for each person', 'Per-person calendars and payroll CSV'],
+    free: [`${L.schedules} schedules`, `Rotas for up to ${L.staff} people`, 'Live labour cost and rule checks', `${L.autofillPerWeek} Auto-staff or auto-fill runs a week`, `${L.aiPerWeek} AI requests a week`, 'Sales forecast and labour %', 'Image export with watermark'],
+    pro: ['Unlimited personal schedules, blocks and categories', 'Unlimited auto-fill', 'Calendar (.ics) export', 'Images without watermark', 'All themes and templates', 'No sponsor cards', 'Unlimited AI planning for personal schedules'],
+    team: ['Everything in Pro', 'Unlimited team members and coverage rules', 'Unlimited Auto-staff', 'Weekly labour budget meter', 'Ready-to-send shift message for each person', 'Per-person calendars and payroll CSV', 'Fairness report', 'Unlimited AI rota assistant'],
   };
   const price = (m, y) => yr ? `$${y}<small>/year · $${(y / 12).toFixed(2)}/mo</small>` : `$${m}<small>/month</small>`;
   const buy = (url, label, cls) => url ? `<a class="btn ${cls}" href="${esc(url)}" target="_blank" rel="noopener">${label}</a>` : `<button class="btn ${cls}" data-nolink>${label}</button>`;
@@ -1189,7 +1232,7 @@ function openSettings() {
       <div class="err" id="st-err"></div>
       <div class="field"><span>Plan</span><p class="hint" style="margin:0">${planLabel()}${S.plan.license ? ` · key ${esc(S.plan.license)}` : ''}</p></div>
       <div id="st-confirm"></div>
-      <div class="foot">${S.schedules.length > 1 ? '<button type="button" class="btn danger left" id="st-del">Delete schedule</button>' : '<button type="button" class="btn danger left" id="st-reset">Reset all data</button>'}<button type="button" class="btn" data-close>Cancel</button><button class="btn primary">Save</button></div>
+      <div class="foot">${S.schedules.length > 1 ? '<button type="button" class="btn danger left" id="st-del">Delete schedule</button>' : '<button type="button" class="btn danger left" id="st-reset">Reset all data</button>'}<button type="button" class="btn" id="st-dup">Duplicate</button><button type="button" class="btn" data-close>Cancel</button><button class="btn primary">Save</button></div>
     </form>`);
   $('#st', m).onsubmit = e => {
     e.preventDefault();
@@ -1199,6 +1242,11 @@ function openSettings() {
     m.close(); toast('Settings saved');
   };
   if ($('#st-del', m)) $('#st-del', m).onclick = () => confirmIn($('#st-confirm', m), `Delete “${sc.name}” and its ${sc.blocks.length} blocks?`, 'Delete', () => { mutate(() => { S.schedules = S.schedules.filter(s => s.id !== sc.id); S.active = S.schedules[0].id; }); m.close(); toast('Schedule deleted. Ctrl+Z to undo'); });
+  $('#st-dup', m).onclick = () => {
+    if (S.schedules.length >= CONFIG.limits.schedules && !gate(`The free plan keeps ${CONFIG.limits.schedules} schedules. Paid plans keep as many as you need, so this week and next can sit side by side.`)) return;
+    const c = structuredClone(sc); c.id = uid(); c.name = sc.name.replace(/ \(copy\)$/, '') + ' (copy)'; c.blocks.forEach(b => { b.id = uid(); });
+    mutate(() => { S.schedules.push(c); S.active = c.id; }); m.close(); toast(`Duplicated as “${c.name}”`);
+  };
   if ($('#st-reset', m)) $('#st-reset', m).onclick = () => confirmIn($('#st-confirm', m), 'Erase every schedule and start over with the example schedules? Your plan stays.', 'Reset', () => { const plan = S.plan, ref = S.referral; S = fresh(); S.plan = plan; S.referral = ref; undoStack.length = redoStack.length = 0; save(); render(); m.close(); toast('Reset'); });
 }
 
@@ -1221,15 +1269,18 @@ function teamStats(sc) {
 }
 function coverageGaps(sc, countOpen) {
   const out = [];
-  for (const rule of sc.cover || []) for (const d of rule.days) {
-    if (!sc.days.includes(d)) continue;
-    const bl = sc.blocks.filter(b => b.day === d && (countOpen || person(sc, b.who))); let run = null;
-    for (let t = rule.start; t < rule.end; t += 15) {
-      const have = bl.filter(b => b.start <= t && b.end >= t + 15).length;
-      if (have < rule.need) { if (run && run.have === have) run.b = t + 15; else { run && out.push(run); run = { day: d, a: t, b: t + 15, have, need: rule.need }; } }
-      else if (run) { out.push(run); run = null; }
+  for (const rule of sc.cover || []) {
+    const role = (rule.role || '').trim().toLowerCase();
+    for (const d of rule.days) {
+      if (!sc.days.includes(d)) continue;
+      const bl = sc.blocks.filter(b => b.day === d && (countOpen || person(sc, b.who)) && (!role || roleOf(b, sc) === role)); let run = null;
+      for (let t = rule.start; t < rule.end; t += 15) {
+        const have = bl.filter(b => b.start <= t && b.end >= t + 15).length;
+        if (have < rule.need) { if (run && run.have === have) run.b = t + 15; else { run && out.push(run); run = { day: d, a: t, b: t + 15, have, need: rule.need, role: rule.role || '' }; } }
+        else if (run) { out.push(run); run = null; }
+      }
+      run && out.push(run);
     }
-    run && out.push(run);
   }
   return out;
 }
@@ -1239,7 +1290,8 @@ function teamIssues(sc) {
   for (const p of sc.staff) {
     const sh = sc.blocks.filter(b => b.who === p.id).sort((a, b) => a.day - b.day || a.start - b.start), s = st.per[p.id];
     if (s.paid / 60 > p.maxH) add('bad', `${p.name} has ${hrs(s.paid)}h, over the ${p.maxH}h limit`);
-    for (const b of sh) if ((p.off || []).includes(b.day)) add('bad', `${p.name} is off on ${DAYS[b.day]} but has a shift`, [b.id]);
+    for (const b of sh) { const a = availOf(p, b.day); if (!a) add('bad', `${p.name} is off on ${DAYS[b.day]} but has a shift`, [b.id]); else if (b.start < a[0] || b.end > a[1]) add('bad', `${p.name} is only available ${spanTxt(a)} on ${DAYS[b.day]}`, [b.id]); }
+    if (p.minH && s.paid / 60 < p.minH) add('warn', `${p.name} is ${hrs(p.minH * 60 - s.paid)}h short of their ${p.minH}h minimum`);
     for (let i = 0; i < sh.length; i++) for (let j = i + 1; j < sh.length; j++) if (overlaps(sh[i], sh[j])) add('bad', `${p.name} is double-booked on ${DAYS[sh[i].day]}`, [sh[i].id, sh[j].id]);
     for (let i = 0, n = sh.length === 2 ? 1 : sh.length; i < n && sh.length > 1; i++) {
       const a = sh[i], b = sh[(i + 1) % sh.length]; if (a.day === b.day) continue;
@@ -1253,7 +1305,8 @@ function teamIssues(sc) {
   }
   const open = sc.blocks.filter(b => !person(sc, b.who));
   if (open.length) add('warn', `${open.length} open shift${open.length > 1 ? 's' : ''} with nobody assigned`, open.map(b => b.id), false);
-  for (const g of coverageGaps(sc, false)) add('bad', `${DAYS[g.day]} ${fmt(g.a)}–${fmt(g.b)}: ${g.have} of ${g.need} people on`);
+  for (const g of coverageGaps(sc, false)) add('bad', `${DAYS[g.day]} ${fmt(g.a)}–${fmt(g.b)}: ${g.have} of ${g.need} ${g.role ? g.role + ' staff' : 'people'} on`);
+  const si = salesInfo(sc, st); if (si && si.pct > si.target) add('warn', `Labour is ${si.pct.toFixed(1)}% of forecast sales (target ${si.target}%)`);
   if (sc.budget > 0 && st.cost > sc.budget) add('bad', `Labour is ${money(sc, Math.round(st.cost - sc.budget))} over the weekly budget`);
   return out.sort((a, b) => (a.lvl === 'bad' ? 0 : 1) - (b.lvl === 'bad' ? 0 : 1));
 }
@@ -1262,7 +1315,7 @@ function teamBadIds(sc, issues = teamIssues(sc)) { const s = new Set(); for (con
 /* ===================== team rota: auto-staff ===================== */
 function canWork(sc, p, b, mine) {
   const r = sc.rules;
-  if ((p.off || []).includes(b.day)) return false;
+  if (!fitsAvail(p, b)) return false;
   if (mine.some(s => overlaps(s, b))) return false;
   if (mine.some(s => s.day !== b.day && restGap(s, b) < r.restH * 60)) return false;
   if (mine.reduce((t, s) => t + paidMin(s, sc), 0) + paidMin(b, sc) > p.maxH * 60) return false;
@@ -1276,16 +1329,17 @@ function autoStaff(sc) {
     let a = g.a, b = g.b;
     if (b - a > 480) b = a + Math.ceil((b - a) / 2 / 30) * 30;
     if (b - a < 180) { b = Math.min(1440, a + 180); a = Math.min(a, b - 180); }
-    sc.blocks.push({ id: uid(), day: g.day, start: a, end: b, title: 'Cover', who: '', cat: '', loc: '', notes: '', auto: true }); added++;
+    sc.blocks.push({ id: uid(), day: g.day, start: a, end: b, title: g.role || 'Cover', who: '', cat: '', loc: '', notes: '', auto: true }); added++;
   }
   const roles = new Set(sc.staff.map(p => (p.role || '').toLowerCase()).filter(Boolean));
   const mine = p => sc.blocks.filter(s => s.who === p.id);
+  const under = p => p.minH && mine(p).reduce((s, x) => s + paidMin(x, sc), 0) < p.minH * 60 ? 1 : 0;
   const fill = p => mine(p).reduce((s, x) => s + paidMin(x, sc), 0) / (p.maxH * 60 || 1);
   const open = sc.blocks.filter(b => !person(sc, b.who)).sort((x, y) => (y.end - y.start) - (x.end - x.start) || x.day - y.day);
   for (const b of open) {                   // 2. give each open shift to the least-loaded person who can take it
     const t = (b.title || '').toLowerCase();
     const pool = roles.has(t) ? sc.staff.filter(p => (p.role || '').toLowerCase() === t) : sc.staff;
-    const ok = pool.filter(p => canWork(sc, p, b, mine(p))).sort((x, y) => fill(x) - fill(y) || x.wage - y.wage);
+    const ok = pool.filter(p => canWork(sc, p, b, mine(p))).sort((x, y) => under(y) - under(x) || fill(x) - fill(y) || x.wage - y.wage);
     if (!ok.length) { b.who = ''; continue; }
     b.who = ok[0].id; if (b.title === 'Cover') b.title = ok[0].role || ''; filled++;
   }
@@ -1312,7 +1366,7 @@ function renderRoster(sc) {
     const cells = sc.days.map(d => {
       const bl = sc.blocks.filter(b => b.day === d && (p ? b.who === p.id : !person(sc, b.who))).sort((a, b) => a.start - b.start);
       const off = p && (p.off || []).includes(d);
-      return `<div class="rc ${off ? 'off' : ''}" data-who="${p ? p.id : ''}" data-day="${d}">${bl.map(chip).join('')}${off && !bl.length ? '<span class="offl">off</span>' : ''}</div>`;
+      return `<div class="rc ${off ? 'off' : ''}" data-who="${p ? p.id : ''}" data-day="${d}">${bl.map(chip).join('')}${off && !bl.length ? '<span class="offl">off</span>' : ''}${p && !off && !bl.length && p.avail?.[d] ? `<span class="offl">${spanTxt(p.avail[d])}</span>` : ''}</div>`;
     }).join('');
     const head = p
       ? `<button class="rp ${s.paid / 60 > p.maxH ? 'over' : ''}" data-person="${p.id}" style="--c:${p.color}" title="Edit ${esc(p.name)}"><b><i></i>${esc(p.name)}</b><small>${esc(p.role || 'Staff')}</small><small>${hrs(s.paid)}/${p.maxH}h · ${money(sc, Math.round(s.cost))}</small></button>`
@@ -1322,7 +1376,7 @@ function renderRoster(sc) {
   const cov = sc.days.map(d => {
     const g = gaps.filter(x => x.day === d), has = (sc.cover || []).some(r => r.days.includes(d));
     return `<div class="rc">${!has ? '<span>no rule</span>' : !g.length ? '<span class="ok">✓ covered</span>'
-      : g.slice(0, 2).map(x => `<span class="gap">${fmt(x.a)}–${fmt(x.b)} · ${x.have}/${x.need}</span>`).join('') + (g.length > 2 ? `<span class="gap">+${g.length - 2} more</span>` : '')}</div>`;
+      : g.slice(0, 2).map(x => `<span class="gap">${fmt(x.a)}–${fmt(x.b)} · ${x.role ? esc(x.role) + ' ' : ''}${x.have}/${x.need}</span>`).join('') + (g.length > 2 ? `<span class="gap">+${g.length - 2} more</span>` : '')}</div>`;
   }).join('');
   $('#calWrap').innerHTML = `<div class="ros" style="--cols:${sc.days.length}">
     <div class="rrow head"><div class="rp" style="cursor:default"><small>WEEKLY ROTA</small><small>cost per day</small></div>${sc.days.map(d => `<div class="dh ${d === td ? 'today' : ''}"><b>${DAYS[d]}</b><span>${money(sc, Math.round(st.byDay[d]))}</span></div>`).join('')}</div>
@@ -1404,7 +1458,7 @@ function renderTeamSide(sc) {
   <div class="card"><h3>Labour this week</h3>
     <div class="big mono">${money(sc, Math.round(st.cost))}<small>${hrs(st.paid)} paid hours</small></div>
     ${budget}
-    <div class="daybars" aria-hidden="true">${DAYS.map((d, i) => `<div><i style="height:${Math.round(st.byDay[i] / maxDay * 40)}px"></i>${d[0]}</div>`).join('')}</div>
+    ${labourBars(sc, st)}
     <div class="kv"><span>Average hourly cost</span><span>${st.paid ? money(sc, st.cost / (st.paid / 60)) : '–'}</span><span>Overtime premium</span><span>${money(sc, Math.round(st.ot))}</span><span>Open shifts</span><span>${st.open}</span></div>
   </div>
   <div class="card"><h3>Rota check <span class="pill" style="${issues.length ? 'color:var(--danger)' : 'color:var(--ok)'}">${issues.length ? issues.length + ' to fix' : 'clean'}</span></h3>
@@ -1416,7 +1470,7 @@ function renderTeamSide(sc) {
     ${sc.staff.map(p => { const s = st.per[p.id]; return `<button class="prow ${s.paid / 60 > p.maxH ? 'over' : ''}" data-person="${p.id}" style="--c:${p.color}" title="Edit ${esc(p.name)}"><span class="sw"></span><span class="nm">${esc(p.name)} <span class="hint">${esc(p.role || '')}</span></span><span class="hr">${hrs(s.paid)}/${p.maxH}h</span><div class="bar"><i style="width:${Math.min(100, s.paid / 60 / (p.maxH || 1) * 100)}%"></i></div></button>`; }).join('') || '<p class="hint" style="margin:0">Add the people you schedule, with their hourly rate and days off.</p>'}
   </div>
   <div class="card"><h3>Coverage needs <button class="btn ghost" id="addCover">+ Add</button></h3>
-    ${(sc.cover || []).map(r => `<div class="task"><b>${r.need} ${r.need > 1 ? 'people' : 'person'} · ${fmt(r.start)}–${fmt(r.end)}</b><small>${daysLabel(r.days)}</small><button class="btn ghost" data-delcover="${r.id}" aria-label="Remove rule">✕</button></div>`).join('') || '<p class="hint" style="margin:0">Say how many people you need and when. Blockwise flags every gap.</p>'}
+    ${(sc.cover || []).map(r => `<div class="task"><b>${r.need} ${r.role ? esc(r.role) : r.need > 1 ? 'people' : 'person'} · ${fmt(r.start)}–${fmt(r.end)}</b><small>${daysLabel(r.days)}</small><button class="btn ghost" data-delcover="${r.id}" aria-label="Remove rule">✕</button></div>`).join('') || '<p class="hint" style="margin:0">Say how many people you need and when. Blockwise flags every gap.</p>'}
   </div>`;
   if (!team) html += `
   <div class="card"><h3>${pro ? 'Pro plan' : 'Free plan'}</h3>
@@ -1447,16 +1501,18 @@ function openStaff(id) {
     <form id="pf" style="display:flex;flex-direction:column;gap:12px">
       <div class="grid2"><label class="field"><span>Name</span><input id="pf-n" value="${esc(p?.name || '')}" autofocus placeholder="e.g. Alex"></label>
         <label class="field"><span>Role</span><input id="pf-r" list="pf-roles" value="${esc(p?.role || '')}" placeholder="e.g. Barista"><datalist id="pf-roles">${roles.map(r => `<option value="${esc(r)}">`).join('')}</datalist></label></div>
-      <div class="grid2"><label class="field"><span>Hourly rate (${esc(sc.cur || '$')})</span><input id="pf-w" type="number" min="0" step="0.05" value="${p?.wage ?? 15}"></label>
-        <label class="field"><span>Max hours a week</span><input id="pf-m" type="number" min="1" max="100" step="0.5" value="${p?.maxH ?? 40}"></label></div>
-      <div class="field"><span>Days off</span><div class="days">${DAYS.map((d, i) => `<label><input type="checkbox" name="off" value="${i}" ${(p?.off || []).includes(i) ? 'checked' : ''}><span>${d}</span></label>`).join('')}</div><small class="hint">Auto-staff never books these days, and manual shifts on them get flagged.</small></div>
+      <div class="grid3"><label class="field"><span>Hourly rate (${esc(sc.cur || '$')})</span><input id="pf-w" type="number" min="0" step="0.05" value="${p?.wage ?? 15}"></label>
+        <label class="field"><span>Min hours / week</span><input id="pf-min" type="number" min="0" max="100" step="0.5" value="${p?.minH || ''}" placeholder="none"></label>
+        <label class="field"><span>Max hours / week</span><input id="pf-m" type="number" min="1" max="100" step="0.5" value="${p?.maxH ?? 40}"></label></div>
+      <div class="field"><span>Availability</span><div class="avail">${DAYS.map((d, i) => { const off = (p?.off || []).includes(i), a = p?.avail?.[i]; return `<div class="av"><label class="avd"><input type="checkbox" name="avon" value="${i}" ${off ? '' : 'checked'}><span>${d}</span></label><input class="inp" type="time" step="900" data-af="${i}" value="${a && a[0] > 0 ? toHHMM(a[0]) : ''}" aria-label="${d} available from"><input class="inp" type="time" step="900" data-at="${i}" value="${a && a[1] < 1440 ? toHHMM(a[1]) : ''}" aria-label="${d} available until"></div>`; }).join('')}</div>
+        <small class="hint">Untick a day for a day off. Leave the times empty if they can work any time that day. Auto-staff never books outside these hours, and manual shifts outside them get flagged.</small></div>
       <div class="field"><span>Colour</span><div class="catpick">${PALETTE.map(c => `<label style="--c:${c}"><input type="radio" name="col" value="${c}" ${c === color ? 'checked' : ''}><span>${c.toUpperCase()}</span></label>`).join('')}</div></div>
       <div id="pf-confirm"></div>
       <div class="foot">${p ? '<button type="button" class="btn danger left" id="pf-del">Remove</button>' : ''}<button type="button" class="btn" data-close>Cancel</button><button class="btn primary">Save</button></div>
     </form>`);
   $('#pf', m).onsubmit = e => {
     e.preventDefault();
-    const v = { name: $('#pf-n', m).value.trim() || 'Unnamed', role: $('#pf-r', m).value.trim(), wage: Math.max(0, +$('#pf-w', m).value || 0), maxH: clamp(+$('#pf-m', m).value || 40, 1, 100), off: $$('input[name=off]:checked', m).map(i => +i.value), color: $('input[name=col]:checked', m).value };
+    const v = { name: $('#pf-n', m).value.trim() || 'Unnamed', role: $('#pf-r', m).value.trim(), wage: Math.max(0, +$('#pf-w', m).value || 0), maxH: clamp(+$('#pf-m', m).value || 40, 1, 100), minH: clamp(+$('#pf-min', m).value || 0, 0, 100), off: $$('input[name=avon]', m).filter(i => !i.checked).map(i => +i.value), avail: readAvail(m), color: $('input[name=col]:checked', m).value };
     mutate(() => { if (p) Object.assign(p, v); else sc.staff.push({ id: 'p' + uid(), ...v }); });
     m.close();
   };
@@ -1472,7 +1528,8 @@ function openCover() {
     <form id="cv" style="display:flex;flex-direction:column;gap:12px">
       <div class="field"><span>On these days</span><div class="days">${DAYS.map((d, i) => `<label><input type="checkbox" name="cd" value="${i}" checked><span>${d}</span></label>`).join('')}</div></div>
       <div class="grid2"><label class="field"><span>From</span><input type="time" id="cv-a" step="900" value="11:00"></label><label class="field"><span>Until</span><input type="time" id="cv-b" step="900" value="14:00"></label></div>
-      <label class="field"><span>People needed at once</span><input type="number" id="cv-n" min="1" max="50" value="3" autofocus></label>
+      <div class="grid2"><label class="field"><span>People needed at once</span><input type="number" id="cv-n" min="1" max="50" value="2" autofocus></label>
+        <label class="field"><span>Role (optional)</span><input id="cv-r" list="cv-roles" placeholder="Anyone"><datalist id="cv-roles">${[...new Set(sc.staff.map(p => p.role).filter(Boolean))].map(r => `<option value="${esc(r)}">`).join('')}</datalist></label></div>
       <div class="err" id="cv-err"></div>
       <div class="foot"><button type="button" class="btn" data-close>Cancel</button><button class="btn primary">Add need</button></div>
     </form>`);
@@ -1481,7 +1538,7 @@ function openCover() {
     const days = $$('input[name=cd]:checked', m).map(i => +i.value), a = fromHHMM($('#cv-a', m).value); let b = fromHHMM($('#cv-b', m).value); if (b === 0) b = 1440;
     if (!days.length) return $('#cv-err', m).textContent = 'Pick at least one day.';
     if (a == null || b == null || b <= a) return $('#cv-err', m).textContent = 'The end time has to be after the start.';
-    mutate(() => { (sc.cover = sc.cover || []).push({ id: uid(), days, start: a, end: b, need: clamp(+$('#cv-n', m).value || 1, 1, 50) }); });
+    mutate(() => { (sc.cover = sc.cover || []).push({ id: uid(), days, start: a, end: b, need: clamp(+$('#cv-n', m).value || 1, 1, 50), role: $('#cv-r', m).value.trim() }); });
     m.close();
   };
 }
@@ -1503,6 +1560,211 @@ function saveTeamFields(sc, m) {
   sc.cur = $('#st-cur', m).value.trim() || '$';
   if (isTeam()) sc.budget = Math.max(0, num('#st-bud', 0));
   Object.assign(sc.rules, { restH: num('#st-rest', 11), maxDayH: num('#st-maxd', 10), breakMin: num('#st-brk', 0), breakAfterH: num('#st-brka', 6), otAfterH: num('#st-ot', 0), otMult: Math.max(1, num('#st-otm', 1.5)) });
+}
+
+/* ===================== availability, roles, sales, fairness, presets ===================== */
+const spanTxt = a => a[0] <= 0 ? `until ${fmt(a[1])}` : a[1] >= 1440 ? `from ${fmt(a[0])}` : `${fmt(a[0])}–${fmt(a[1])}`;
+const availOf = (p, d) => (p.off || []).includes(d) ? null : (p.avail?.[d] || [0, 1440]);
+const fitsAvail = (p, b) => { const a = availOf(p, b.day); return !!a && b.start >= a[0] && b.end <= a[1]; };
+const roleOf = (b, sc) => (b.title || person(sc, b.who)?.role || '').trim().toLowerCase();
+function aiLeft() { creditsLeft(); return Math.max(0, CONFIG.limits.aiPerWeek - (S.credits.ai || 0)); }
+function readAvail(m) {
+  const o = {}, tv = v => v ? fromHHMM(v) : null;
+  for (let i = 0; i < 7; i++) {
+    const a = tv($(`[data-af="${i}"]`, m).value); let b = tv($(`[data-at="${i}"]`, m).value); if (b === 0) b = 1440;
+    const lo = a ?? 0, hi = b ?? 1440;
+    if ((a != null || b != null) && hi > lo && (lo > 0 || hi < 1440)) o[i] = [lo, hi];
+  }
+  return o;
+}
+function salesInfo(sc, st) {
+  const sales = sc.sales || [], tot = sc.days.reduce((s, d) => s + (+sales[d] || 0), 0);
+  if (!tot) return null;
+  return { tot, pct: st.cost / tot * 100, day: d => (+sales[d] ? st.byDay[d] / sales[d] * 100 : null), target: sc.targetPct || 30 };
+}
+function labourBars(sc, st) {
+  const si = salesInfo(sc, st), maxDay = Math.max(1, ...st.byDay);
+  const bars = `<div class="daybars" aria-hidden="true">${DAYS.map((d, i) => { const p = si?.day(i); return `<div><i style="height:${Math.round(st.byDay[i] / maxDay * 40)}px;${p != null && p > si.target ? 'background:var(--danger)' : ''}"></i>${d[0]}${p != null ? `<small>${Math.round(p)}%</small>` : ''}</div>`; }).join('')}</div>`;
+  const line = si
+    ? `<div class="kv"><span>Labour % of forecast sales</span><span style="color:${si.pct > si.target ? 'var(--danger)' : 'var(--ok)'}">${si.pct.toFixed(1)}% / ${si.target}%</span></div><button class="btn ghost" id="salesBtn" style="align-self:flex-start">Edit sales forecast</button>`
+    : `<button class="btn" id="salesBtn">Add a sales forecast to see labour %</button>`;
+  return bars + line;
+}
+function openSales() {
+  const sc = sched(), s = sc.sales || [];
+  const m = modal(`<div class="modal-h"><h2>Sales forecast</h2>${closeX}</div>
+    <p class="hint" style="margin:0">Expected takings per day. Blockwise shows labour as a share of sales, so you can see which days are over- or under-staffed. Days above your target turn red.</p>
+    <form id="sf" style="display:flex;flex-direction:column;gap:12px"><div class="grid7">${DAYS.map((d, i) => `<label class="field"><span>${d}</span><input type="number" min="0" step="10" id="sf-${i}" value="${s[i] || ''}" placeholder="0" ${i ? '' : 'autofocus'}></label>`).join('')}</div>
+      <label class="field"><span>Target labour % of sales</span><input type="number" id="sf-t" min="5" max="80" step="0.5" value="${sc.targetPct || 30}"></label>
+      <div class="foot"><button type="button" class="btn" data-close>Cancel</button><button class="btn primary">Save forecast</button></div></form>`);
+  $('#sf', m).onsubmit = e => { e.preventDefault(); mutate(() => { sc.sales = DAYS.map((_, i) => Math.max(0, +$('#sf-' + i, m).value || 0)); sc.targetPct = clamp(+$('#sf-t', m).value || 30, 5, 80); }); m.close(); toast('Forecast saved'); };
+}
+function presetsHTML(sc) {
+  const n = {}; for (const b of sc.blocks) { const k = b.start + '-' + b.end; n[k] = (n[k] || 0) + 1; }
+  const top = Object.entries(n).sort((a, b) => b[1] - a[1]).slice(0, 6).map(e => e[0]).sort((a, b) => +a.split('-')[0] - +b.split('-')[0]);
+  return top.length ? `<div class="field"><span>Common times</span><div class="presets">${top.map(k => { const [a, z] = k.split('-').map(Number); return `<button type="button" class="chip" data-ps="${k}">${fmt(a)}–${fmt(z)}</button>`; }).join('')}</div></div>` : '';
+}
+function fairness(sc) {
+  const late = Math.max(19 * 60, sc.endHour * 60 - 90);
+  return sc.staff.map(p => {
+    const sh = sc.blocks.filter(b => b.who === p.id), paid = sh.reduce((s, b) => s + paidMin(b, sc), 0);
+    return { p, shifts: sh.length, h: paid / 60, pct: p.maxH ? paid / 60 / p.maxH * 100 : 0, days: new Set(sh.map(b => b.day)).size,
+      wknd: sh.filter(b => b.day >= 5).length, early: sh.filter(b => b.start < 480).length, late: sh.filter(b => b.end >= late).length };
+  });
+}
+function openFairness() {
+  const sc = sched();
+  if (!gateTeam('The fairness report shows who is getting the weekends, early starts and late finishes, so the same people aren’t always stuck with them. It is part of Team.')) return;
+  const rows = fairness(sc), late = Math.max(19 * 60, sc.endHour * 60 - 90);
+  const cols = [['shifts', 'Shifts'], ['h', 'Paid hours'], ['pct', '% of max'], ['days', 'Days in'], ['wknd', 'Weekend shifts'], ['early', 'Starts before 8am'], ['late', `Finishes after ${fmt(late)}`]];
+  const avg = k => rows.reduce((s, r) => s + r[k], 0) / (rows.length || 1), max = k => Math.max(0, ...rows.map(r => r[k]));
+  const cell = (r, k) => { const v = r[k], hot = ['wknd', 'early', 'late'].includes(k) && v > 0 && v === max(k) && v >= avg(k) + 1; return `<td class="${hot ? 'hi' : ''}">${k === 'h' ? hrs(v * 60) : k === 'pct' ? Math.round(v) + '%' : v}</td>`; };
+  modal(`<div class="modal-h"><h2>Fairness report</h2>${closeX}</div>
+    <p class="hint" style="margin:0">Red marks the person carrying clearly more than the team average of a less popular shift type.</p>
+    <div class="tablewrap"><table class="fair"><thead><tr><th>Person</th>${cols.map(c => `<th>${c[1]}</th>`).join('')}</tr></thead>
+    <tbody>${rows.map(r => `<tr><td>${esc(r.p.name)}</td>${cols.map(([k]) => cell(r, k)).join('')}</tr>`).join('') || `<tr><td colspan="${cols.length + 1}">Add team members first.</td></tr>`}</tbody></table></div>`, { wide: true });
+}
+function todayCard(sc) {
+  const d = todayIdx(); if (!sc.days.includes(d)) return '';
+  const now = new Date(), nm = now.getHours() * 60 + now.getMinutes();
+  const sh = sc.blocks.filter(b => b.day === d).sort((a, b) => a.start - b.start);
+  return `<div class="card"><h3>On today · ${DAYS[d]}</h3><div class="todaylist">${sh.map(b => { const p = person(sc, b.who), on = nm >= b.start && nm < b.end;
+    return `<div class="trow ${on ? 'now' : ''}" style="--c:${bColor(b, sc)}"><span class="sw"></span><span class="nm">${esc(p ? p.name : 'Open shift')}${b.title ? ` <span class="hint">${esc(b.title)}</span>` : ''}</span><span class="t">${on ? 'on now · ' : ''}${fmt(b.start)}–${fmt(b.end)}</span></div>`; }).join('') || '<p class="hint" style="margin:0">Nobody is scheduled today.</p>'}</div></div>`;
+}
+
+/* ===================== AI assistant (Claude via the sample capability) ===================== */
+let SAMPLE = null, aiBusy = null, aiDraft = '';
+(async () => { try { SAMPLE = (await window.claude?.use?.('sample')) ?? null; } catch (e) { } if (SAMPLE && !drag && !$('.scrim')) render(); })();
+function aiCardHTML(sc) {
+  const team = isTeamSched(sc), unl = team ? isTeam() : isPro(), n = sc.staff?.map(p => p.name) || [];
+  const ex = team ? [`${n[1] || 'Leo'} is off sick on Friday, find cover`, 'Cut about 10 hours from the weekend', `${n[0] || 'Maya'} wants Wednesdays off from now on`]
+    : ['Add the gym 3 mornings a week', 'Keep Wednesday evening free', 'Move study blocks to before 6pm'];
+  return `<div class="card ai"><h3>Ask Blockwise <span class="lock">AI</span></h3>
+    <textarea id="aiIn" placeholder="${team ? 'Say what changed, e.g. “Maya is on holiday Monday”' : 'Say what you need, e.g. “Fit in 3 runs this week”'}" aria-label="Ask Blockwise">${esc(aiDraft)}</textarea>
+    <div class="ex">${ex.map(t => `<button class="chip" data-aiex="${esc(t)}">${esc(t)}</button>`).join('')}</div>
+    <div class="row"><button class="btn primary" id="aiGo" ${aiBusy ? 'disabled' : ''}>${aiBusy ? 'Thinking…' : 'Suggest changes'}</button>${aiBusy ? '<button class="btn ghost" id="aiStop">Stop</button>' : ''}</div>
+    <p class="hint" style="margin:0" id="aiNote">${unl ? '' : `${aiLeft()} of ${CONFIG.limits.aiPerWeek} free requests left this week. `}You review every change before it’s applied.</p></div>`;
+}
+function aiPrompt(sc, text) {
+  const team = isTeamSched(sc), T = toHHMM, E = m => m >= 1440 ? '24:00' : T(m);
+  const data = team ? {
+    rules: { minRestHoursBetweenShifts: sc.rules.restH, maxHoursPerDay: sc.rules.maxDayH, overtimeAfterHoursPerWeek: sc.rules.otAfterH },
+    coverageNeeds: (sc.cover || []).map(r => ({ days: r.days, from: T(r.start), until: E(r.end), peopleNeeded: r.need, role: r.role || 'anyone' })),
+    staff: sc.staff.map(p => ({ id: p.id, name: p.name, role: p.role, hourlyRate: p.wage, minHours: p.minH || 0, maxHours: p.maxH, daysOff: p.off || [], limitedAvailability: Object.fromEntries(Object.entries(p.avail || {}).map(([d, a]) => [d, T(a[0]) + '-' + E(a[1])])) })),
+    shifts: sc.blocks.map(b => ({ id: b.id, day: b.day, start: T(b.start), end: E(b.end), who: b.who || '', role: b.title || '' })),
+    currentIssues: teamIssues(sc).map(i => i.text), weeklyLabourCost: Math.round(teamStats(sc).cost),
+  } : {
+    visibleHours: `${sc.startHour}:00-${sc.endHour}:00`,
+    categories: S.cats.map(c => ({ id: c.id, name: c.name, weeklyTargetHours: c.goal || 0 })),
+    blocks: sc.blocks.map(b => ({ id: b.id, day: b.day, start: T(b.start), end: E(b.end), title: b.title, category: b.cat })),
+  };
+  const ops = team
+    ? `{"op":"assign","id":"<shift id>","who":"<person id, or empty string to make it an open shift>"}
+{"op":"move","id":"<shift id>","day":0,"start":"HH:MM","end":"HH:MM"}
+{"op":"add","day":0,"start":"HH:MM","end":"HH:MM","who":"<person id or empty string>","role":"<role>"}
+{"op":"remove","id":"<shift id>"}
+{"op":"person","id":"<person id>","daysOff":[0],"minHours":0,"maxHours":40}  (only when the request says a person's regular days off or hour limits change; include only the fields that change)`
+    : `{"op":"move","id":"<block id>","day":0,"start":"HH:MM","end":"HH:MM"}
+{"op":"add","day":0,"start":"HH:MM","end":"HH:MM","title":"<title>","category":"<category id>"}
+{"op":"remove","id":"<block id>"}
+{"op":"retitle","id":"<block id>","title":"<new title>"}`;
+  return `You edit a ${team ? 'weekly staff rota for a small business' : 'personal weekly schedule'} in an app called Blockwise. The week repeats; days are numbered 0=Mon, 1=Tue, 2=Wed, 3=Thu, 4=Fri, 5=Sat, 6=Sun. Times are 24-hour HH:MM.
+
+Current ${team ? 'rota' : 'schedule'} as JSON:
+${JSON.stringify(data)}
+
+Request from the ${team ? 'manager' : 'user'}:
+"""${text.slice(0, 1200)}"""
+
+Make the fewest changes that satisfy the request. ${team ? "Stay within each person's days off, availability, hour limits and the rest rule unless the request explicitly overrides them; prefer people who are below their minimum hours; keep coverage needs met; never invent people." : 'Do not overlap existing blocks unless asked, and keep new blocks at sensible waking hours.'} Use only ids that appear in the data. If the request cannot be done, return no ops and say why in the summary.
+
+Reply with JSON only, in this shape:
+{"summary":"<one or two plain sentences for the ${team ? 'manager' : 'user'}>","ops":[<op>, ...]}
+Each op is one of:
+${ops}`;
+}
+function applyOps(sc, ops) {
+  const next = structuredClone(sc), team = isTeamSched(sc), lines = [];
+  const tm = s => { const v = /^\d{1,2}:\d{2}$/.test(String(s)) ? fromHHMM(s) : null; return v == null ? null : clamp(v, 0, 1440); };
+  const lbl = b => `${DAYS[b.day]} ${fmt(b.start)}–${fmt(b.end)}${team ? '' : ' ' + b.title}`;
+  const who = id => (id && person(next, id)?.name) || 'open shift';
+  const okDay = d => Number.isInteger(d) && d >= 0 && d <= 6;
+  for (const o of Array.isArray(ops) ? ops : []) {
+    if (!o || typeof o !== 'object') continue;
+    const b = o.id ? next.blocks.find(x => x.id === o.id) : null;
+    if (o.op === 'assign' && b && team && (o.who === '' || person(next, o.who))) { if (b.who === o.who) continue; lines.push(`${lbl(b)}: ${who(b.who)} → ${who(o.who)}`); b.who = o.who; delete b.auto; }
+    else if (o.op === 'move' && b) {
+      const a = tm(o.start), z = tm(o.end), d = +o.day; if (a == null || z == null || z <= a || !okDay(d)) continue;
+      const before = lbl(b); Object.assign(b, { day: d, start: a, end: z }); lines.push(`${team ? who(b.who) + ': ' : ''}${before} → ${DAYS[d]} ${fmt(a)}–${fmt(z)}`);
+    } else if (o.op === 'add') {
+      const a = tm(o.start), z = tm(o.end), d = +o.day; if (a == null || z == null || z <= a || !okDay(d)) continue;
+      const nb = team ? { id: uid(), day: d, start: a, end: z, who: person(next, o.who) ? o.who : '', title: String(o.role || '').slice(0, 40), cat: '', loc: '', notes: '' }
+        : { id: uid(), day: d, start: a, end: z, title: String(o.title || 'Untitled').slice(0, 60), cat: S.cats.some(c => c.id === o.category) ? o.category : S.cats[0].id, loc: '', notes: '' };
+      next.blocks.push(nb); if (!next.days.includes(d)) { next.days.push(d); next.days.sort(); }
+      lines.push(`Add ${team ? who(nb.who) + ', ' : ''}${lbl(nb)}${team && nb.title ? ' (' + nb.title + ')' : ''}`);
+    } else if (o.op === 'remove' && b) { next.blocks = next.blocks.filter(x => x !== b); lines.push(`Remove ${team ? who(b.who) + ', ' : ''}${lbl(b)}`); }
+    else if (o.op === 'retitle' && b && !team && o.title) { lines.push(`Rename ${lbl(b)} to “${String(o.title).slice(0, 60)}”`); b.title = String(o.title).slice(0, 60); }
+    else if (o.op === 'person' && team) {
+      const p = person(next, o.id); if (!p) continue; const ch = [];
+      if (Array.isArray(o.daysOff)) { p.off = [...new Set(o.daysOff.map(Number).filter(okDay))]; ch.push('days off ' + (p.off.map(d => DAYS[d]).join(', ') || 'none')); }
+      if (o.minHours != null && !isNaN(+o.minHours)) { p.minH = clamp(+o.minHours, 0, 100); ch.push('minimum ' + p.minH + 'h'); }
+      if (o.maxHours != null && !isNaN(+o.maxHours)) { p.maxH = clamp(+o.maxHours, 1, 100); ch.push('maximum ' + p.maxH + 'h'); }
+      if (ch.length) lines.push(`${p.name}: ${ch.join(', ')}`);
+    }
+  }
+  for (const b of next.blocks) { next.startHour = Math.min(next.startHour, Math.floor(b.start / 60)); next.endHour = Math.max(next.endHour, Math.ceil(b.end / 60)); }
+  return { next, lines };
+}
+async function askAI(text) {
+  const sc = sched(), team = isTeamSched(sc), unl = team ? isTeam() : isPro();
+  if (!text.trim()) return $('#aiIn')?.focus();
+  if (!unl && aiLeft() <= 0) return openUpgrade(`You’ve used this week’s ${CONFIG.limits.aiPerWeek} free AI requests. ${team ? 'Team' : 'Pro'} has unlimited requests.`, null, team ? 'team' : 'pro');
+  aiBusy = new AbortController(); render();
+  try {
+    const res = await SAMPLE.json(aiPrompt(sc, text), { signal: aiBusy.signal, modelTier: 'default' });
+    if (!unl) S.credits.ai = (S.credits.ai || 0) + 1;
+    save(); aiBusy = null; render(); aiPreview(sc, res, text);
+  } catch (e) {
+    aiBusy = null; render();
+    const msg = { cancelled: 'Stopped.', not_granted: 'Blockwise needs your permission to use Claude for this. Allow it when asked.', rate_limited: 'Too many requests right now. Try again in a minute.',
+      invalid_json: 'The answer came back in the wrong shape. Try rephrasing the request.', prompt_too_large: 'This schedule is too large to send in one request.', refused: 'Claude declined that request.' }[e?.code] || 'That didn’t work. Try again in a moment.';
+    const n = $('#aiNote'); if (n) { n.textContent = msg; n.style.color = e?.code === 'cancelled' ? '' : 'var(--danger)'; }
+  }
+}
+function aiPreview(sc, res, text) {
+  const { next, lines } = applyOps(sc, res?.ops), team = isTeamSched(sc), summary = String(res?.summary || '').slice(0, 600);
+  let delta;
+  if (team) {
+    const a = teamStats(sc), b = teamStats(next), ia = teamIssues(sc).length, ib = teamIssues(next).length, d = Math.round(b.cost - a.cost);
+    delta = `<div class="delta"><div><small>Labour cost</small><b>${money(sc, Math.round(b.cost))}</b><small>${d ? (d > 0 ? '+' : '−') + money(sc, Math.abs(d)) : 'no change'}</small></div><div><small>Rota issues</small><b>${ib}</b><small>was ${ia}</small></div><div><small>Paid hours</small><b>${hrs(b.paid)}</b><small>was ${hrs(a.paid)}</small></div></div>`;
+  } else delta = `<div class="delta"><div><small>Blocks</small><b>${next.blocks.length}</b><small>was ${sc.blocks.length}</small></div><div><small>Overlapping blocks</small><b>${conflicts(next).size}</b><small>was ${conflicts(sc).size}</small></div></div>`;
+  const m = modal(`<div class="modal-h"><h2>Suggested changes</h2>${closeX}</div>
+    <p class="hint" style="margin:0">You asked: “${esc(text)}”</p>
+    ${summary ? `<p style="margin:0">${esc(summary)}</p>` : ''}
+    ${lines.length ? `<ul class="chg">${lines.map(l => `<li>${esc(l)}</li>`).join('')}</ul>${delta}` : '<p class="why">No changes were suggested.</p>'}
+    <div class="foot"><button class="btn" data-close>${lines.length ? 'Discard' : 'Close'}</button>${lines.length ? '<button class="btn primary" id="aiApply">Apply changes</button>' : ''}</div>`, { wide: true });
+  if ($('#aiApply', m)) $('#aiApply', m).onclick = () => {
+    if (!team && !isPro() && next.blocks.length > CONFIG.limits.blocks) return openUpgrade(`These changes would take the schedule past the free limit of ${CONFIG.limits.blocks} blocks.`, null, 'pro');
+    mutate(() => { const i = S.schedules.findIndex(s => s.id === sc.id); if (i >= 0) S.schedules[i] = next; });
+    aiDraft = ''; m.close(); toast(`Applied ${lines.length} change${lines.length > 1 ? 's' : ''}. Ctrl+Z to undo`);
+  };
+}
+function afterRender(sc) {
+  if (isTeamSched(sc)) {
+    const cards = $$('#side > .card');
+    cards[1]?.insertAdjacentHTML('beforeend', `<button class="btn" id="fairBtn">Fairness report${isTeam() ? '' : ' <span class="lock">TEAM</span>'}</button>`);
+    cards[1]?.insertAdjacentHTML('afterend', todayCard(sc));
+    if ($('#fairBtn')) $('#fairBtn').onclick = openFairness;
+    if ($('#salesBtn')) $('#salesBtn').onclick = openSales;
+  }
+  if (SAMPLE) {
+    $('#side').insertAdjacentHTML('afterbegin', aiCardHTML(sc));
+    $('#aiIn').oninput = e => { aiDraft = e.target.value; };
+    $('#aiIn').onkeydown = e => { if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) { e.preventDefault(); $('#aiGo').click(); } };
+    $$('[data-aiex]').forEach(c => c.onclick = () => { aiDraft = c.dataset.aiex; $('#aiIn').value = aiDraft; $('#aiIn').focus(); });
+    $('#aiGo').onclick = () => { if (!aiBusy) askAI($('#aiIn').value); };
+    if ($('#aiStop')) $('#aiStop').onclick = () => aiBusy?.abort();
+  }
 }
 
 /* ===================== wiring ===================== */
@@ -1527,7 +1789,7 @@ document.addEventListener('keydown', e => {
   else if (mod && e.key.toLowerCase() === 'y') { e.preventDefault(); redo(); }
   else if (!mod && e.key.toLowerCase() === 'n') { e.preventDefault(); $('#addBtn').click(); }
 });
-setInterval(() => { if (!drag && !$('.scrim')) render(); }, 60000);   // keeps the now-line and trial countdown current
+setInterval(() => { if (!drag && !$('.scrim') && !document.activeElement?.closest?.('#side')) render(); }, 60000);   // keeps the now-line and trial countdown current
 
 render();
 // scroll the grid to ~1h before the first block
