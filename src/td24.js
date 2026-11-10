@@ -125,7 +125,7 @@ txDef('tx_roven',{with:'r',pov:'m',prio:2,when:()=>frT('r')>=1&&S.day>=5&&W24(),
  more:{in:()=>['what d’you do with it. the after. and don’t gimme “nothin’,” I’ve seen you after'],opts:()=>[
    {t:'“wash my hands. three times.”',fx:()=>{fr('r',4);S.f.ronHands=1},reply:()=>['three. alright. least it stops','I got pies, you got soap, V’s got his mutts, princess has a ring light. bunch of fuckin’ head cases. don’t tell ’em I said so']},
    {t:'“eat a bento and sleep 12 hrs”',fx:()=>fr('r',3),reply:()=>['the fuck. that’s the sanest thing anybody’s ever said in this server. you’re makin’ the rest of us look bad']},
-   {t:'“nothing. it doesn’t weigh anything.”',fx:()=>fr('r',1),reply:()=>['bullshit','I ran that line eleven years. then one night it was nine pies and I ain’t talkin’ about the seventh. it’ll get you too. sucks t’be you']}]}}});
+   {t:'“nothing. it doesn’t weigh anything.”',fx:()=>fr('r',1),reply:()=>['bullshit','I ran that line eleven years. then one night it was nine pies and I ain’t talkin’ about the seventh. it’ll get you too']}]}}});
 txDef('tx_rvdown',{with:'r',pov:'v',prio:2,when:()=>frT('r')>=1&&S.day>=6&&W24(),nodes:{
  start:{in:()=>['got a question. you can tell me t’fuck off','that house of yours goes down a long fuckin’ way. you ever go back down to the bottom?'],expire:3,
   opts:()=>[{t:'“Once a year. To check the locks.”',reply:()=>['from which side'],next:'side'},

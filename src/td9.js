@@ -259,7 +259,7 @@ const _chatDP=chatLog;chatLog=function(){const L=_chatDP();if(!S||S.phase==='tak
  if(k===0){m('an','ai hua posted vince carrying her shopping bags. the sunset slasher, on a leash. i’d be jealous if it wasn’t so funny');m('ro','man’s gone soft as shit. bet the cat’s got a higher body count now')}
  else if(k===1){m('ro','luca ate shit at the point again. fuckin’ hilarious. somebody film it next time');m('mi','his board’s in V’s basement. he can come visit it')}
  else if(k===2){m('mi','felicie sent a pic of a “small” fire. it is NOT small. there’s a fire engine in it');m('k9','Please tell Felicie I received her postcard. And that I would prefer she not send another from that address.')}
- else if(k===3){m('an','luca asked felicie on a date and she set the restaurant on fire. he said it was the best date of his life');m('ro','kid’s gonna die happy. sucks t’be him')}
+ else if(k===3){m('an','luca asked felicie on a date and she set the restaurant on fire. he said it was the best date of his life');m('ro','kid’s gonna die happy. good for him')}
  return L};
 /* mornings: the deep house opening up */
 EVENTS.push({id:'dp_deepnote',when:()=>isM()&&S.pov!=='v'&&deepOpen()&&!tdF('deepCode')&&!S.seen.dp_deepnote,run:done=>say([['','A text from V, 7:02 a.m.: “The door in the garage is open for you now. Do not reorganise anything down there. I am aware that you will.”'],['hitmeuppp','THE GARAGE DOOR. the keypad door. it’s OPEN.']],done)},

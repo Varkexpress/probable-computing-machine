@@ -2,7 +2,7 @@
 /* Misaki never expected to last. Five years, tops, she figured, when she started. Then a sniping forum, a reply from a
    stranger called Angelic about wind drift, an invite link, a server full of people exactly as bad as her. Lucky. */
 PINGS.push(
- ['ro','hardware store on 4th is outta tarps again. some asshole in this server’s buyin’ all of ’em. it’s me. I’m the asshole. sucks t’be the rest of you'],
+ ['ro','hardware store on 4th is outta tarps again. some asshole in this server’s buyin’ all of ’em. it’s me. I’m the asshole. buy your own'],
  ['an','how do u get blood out of suede. don’t say “don’t wear suede.” he had it coming and so did the boots'],
  ['k9','The foundation’s bake sale is Saturday. Bring nothing “from work.” That meat is spoken for.'],
  ['mi','found a guy’s whole fucking diary in his car. he rated his own haircuts. 6/10 every time. babe that was a 4, rest in peace'],
@@ -38,7 +38,7 @@ txDef('tx_rhow',{with:'r',pov:'m',prio:2,when:()=>frT('r')>=1&&S.day>=5,nodes:{
    {t:'“luck. pure stupid luck.”',reply:()=>['luck my ass. you’re a mean little shot and Angel wanted you where she could see you. I’d’ve done the same'],next:'more'}]},
  more:{in:()=>['what’d you think we’d be like'],opts:()=>[
    {t:'“scarier.”',fx:()=>fr('r',3),reply:()=>['scarier. the fuck. come watch me work sometime, then say that to my face']},
-   {t:'“i didn’t think i’d live long enough to find out.”',fx:()=>{fr('r',5);S.f.luckyTold=1},reply:()=>['yeah, well. I had me dead in a parkin’ garage by thirty. sucks t’be wrong','you’re stuck with us now, gremlin. anybody puts you in the ground, that one’s mine to kill']}]}}});
+   {t:'“i didn’t think i’d live long enough to find out.”',fx:()=>{fr('r',5);S.f.luckyTold=1},reply:()=>['yeah, well. I had me dead in a parkin’ garage by thirty. missed it by a mile','you’re stuck with us now, gremlin. anybody puts you in the ground, that one’s mine to kill']}]}}});
 txDef('tx_tarps',{with:'r',prio:1,when:()=>frT('r')>=1,nodes:{
  start:{in:()=>['hypothetically','how many tarps is too many tarps'],expire:2,
   opts:()=>[{t:phMe()==='v'?'“There is no such number. Bulk discounts exist.”':'“there’s no such thing as too many tarps.”',fx:()=>fr('r',2),reply:()=>['THANK you. cashier looked at me like I was a fuckin’ serial killer. rude']},
@@ -65,7 +65,7 @@ txDef('tx_rangel',{with:'r',prio:1,when:()=>frT('r')>=1&&frT('a')>=1&&S.f.mariaK
  start:{in:()=>['princess is doin’ the heartsick face again','starin’ at the wall goin’ “i’m FINE” like she’s about t’shoot it','bring snacks. the bad ones.'],expire:2,onExpire:()=>fr('a',-1),
   opts:()=>[{t:phMe()==='v'?'“On my way. Which bad ones.”':'“omw. which bad ones”',fx:()=>{fr('a',3);fr('r',2)},reply:()=>['the cheese puffs that turn your fingers orange. she likes to leave prints on maria’s mirror.']},
    {t:phMe()==='v'?'“What happened?”':'“what happened”',reply:()=>['some asshole in her comments said maria looks “tired.” six years of blowin’ throats out with a shotgun and THAT’S what gets her'],next:'go'}]},
- go:{in:()=>['you comin?'],opts:()=>[{t:'“coming.”',fx:()=>{fr('a',4)},reply:()=>['good. I’m outta jokes. did the one about the priest and she threw a shoe at my fuckin’ head']},{t:'“can’t.”',fx:()=>fr('a',-1),reply:()=>['sucks t’be me then. priest joke again. she’s got one shoe left']}]}}});
+ go:{in:()=>['you comin?'],opts:()=>[{t:'“coming.”',fx:()=>{fr('a',4)},reply:()=>['good. I’m outta jokes. did the one about the priest and she threw a shoe at my fuckin’ head']},{t:'“can’t.”',fx:()=>fr('a',-1),reply:()=>['fine. priest joke again. she’s got one shoe left']}]}}});
 /* --- small one-off texts that land on their own, dark or daft --- */
 const DRIFT={a:['sent u a pic of a pigeon. his name is detective. he’s watching me.','if i ever go missing check the sephora first','maria just got sent a free blender. the heartsick angel has ideas for the blender','lipstick shade name: “crime scene.” i bought four.'],
  r:['(photo of a raccoon in a dumpster) him.','found a guy’s mixtape in his glovebox. it fuckin’ slaps. shame about his head','crumble’s out. come get some or don’t, more for me, asshole','landlord asked why my bins smell like bleach. told him I’m a clean fuckin’ guy. he quit askin’'],

@@ -322,3 +322,12 @@ Short scenes about what the work and the years before it left behind. All in `sr
 - **Props**: `tr_box` (trailer shoebox, "THINGS THAT ARE MINE", one line can be added at tier 2), `bd_wedge`.
 - 12 new server pings, 12 drift texts, 3 chat-log lines, 8 conditional ending lines.
 - Gotcha: `v_door` was already an event id; the new one is `v_latch`. Check ids with grep before adding events.
+
+## Voice pass (author's sample)
+
+- `docs/voice_sample.md` is the author's own writing (one piece per killer); `docs/VOICE.md` is the guide distilled from it. Read both before writing any dialogue.
+- About 1,150 strings re-voiced across `src/td3…td24` and Ronin/Angel lines in the original region of `index.html`. Ronin no longer says "darlin'" (his `nick()` pool changed too). Profanity now exists for Ronin, Misaki and narration; never V.
+- **Not done:** Misaki's and V's lines in the original (non-generated) region of `index.html`, about 2,800 lines.
+- **Open canon question:** the old plot treats V as a philanthropist with a conscience meter who has barely killed; the sample V is a practised butcher who feeds his animals. New lines lean toward the sample ("my animals ate well", the metal table); the old plot beats (the river, "You killed a man to keep me alive", td19's job deal) still assume the softer V.
+- Three `VARY` keys were updated because they match dialogue by prefix. If you reword a line, grep `VARY` for its opening words.
+- Watch for catchphrase pile-up when several people edit at once ("Sucks t'be you" hit 17 uses and was cut to 4).

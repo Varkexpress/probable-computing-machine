@@ -73,7 +73,7 @@ txDef('tx_mrent',{with:'m',pov:'v',prio:3,when:()=>S.phase==='normal'&&S.day>=3&
 txDef('tx_rpick',{with:'r',prio:2,when:()=>frT('r')>=1&&!S.dark&&S.phase!=='taken'&&S.day>=4,nodes:{
  start:{in:()=>['need a driver tonight. 2am. no fuckin’ questions.','bring gloves. real ones. show up in dish gloves and you’re walkin’ home.'],expire:2,onExpire:()=>{S.f.ronAlone=S.day},
   opts:()=>[{t:'“i’ll drive.”',fx:()=>{S.f.ronDrive=S.day},reply:()=>['course you will. knew you couldn’t fuckin’ resist me.']},
-   {t:'“can’t. be careful.”',fx:()=>{S.f.ronAlone=S.day;fr('r',-1)},reply:()=>['careful. sure. sucks t’be you, you’re gonna miss a hell of a show.']},
+   {t:'“can’t. be careful.”',fx:()=>{S.f.ronAlone=S.day;fr('r',-1)},reply:()=>['careful. sure. you’re gonna miss a hell of a show.']},
    {t:phMe()==='m'?'“i’m telling v.”':'“I am calling the police.”',ok:()=>phMe()==='v'||tier()>=1,fx:()=>{S.f.ronTold=S.day;fr('r',-3);if(phMe()==='v')relApply({rivalry:8});else relApply({trust:3})},reply:()=>phMe()==='v'?['you fuckin’ WOULDN’T.','...shit. you would. fine. i’m stayin’ in. you owe me a crumble, asshole.']:['SNITCH.','great. he just called. now he’s comin’ with me. like doin’ a job with a fuckin’ hall monitor. thanks a lot.']}]}}});
 /* Ronin to V at 3am: June */
 txDef('tx_rjune',{with:'r',pov:'v',prio:1,when:()=>frT('r')>=1&&(S.rivalry||0)<70,nodes:{
