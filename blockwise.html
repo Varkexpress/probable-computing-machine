@@ -222,7 +222,7 @@ h1,h2,h3{font-family:var(--f-disp);text-wrap:balance;margin:0;letter-spacing:-.0
 .rp{position:sticky;left:0;z-index:4;background:var(--sheet);padding:9px 10px;display:flex;flex-direction:column;gap:2px;min-width:0;border:0;border-right:1px solid var(--line);cursor:pointer;text-align:left;font:inherit;color:inherit}
 .rp b{display:flex;align-items:center;gap:6px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .rp b i{width:9px;height:9px;border-radius:50%;background:var(--c);flex:none}
-.rp small{font:11px var(--f-mono);color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rp small{font:10.5px var(--f-mono);color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .rp.over small:last-child{color:var(--danger)}
 .rc{border-left:1px solid var(--line);padding:5px;display:flex;flex-direction:column;gap:4px;min-height:58px;cursor:pointer;min-width:0}
 .rc.off{background-image:repeating-linear-gradient(135deg,color-mix(in srgb,var(--ink) 7%,transparent) 0 5px,transparent 5px 10px)}
@@ -304,6 +304,49 @@ h1,h2,h3{font-family:var(--f-disp);text-wrap:balance;margin:0;letter-spacing:-.0
 .delta div{border:1px solid var(--line);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:2px}
 .delta b{font:700 20px var(--f-disp)}
 .delta small{color:var(--muted)}
+.qa{position:relative;flex:1 1 240px;min-width:0;max-width:440px}
+.qa input{width:100%;padding:7px 34px 7px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg)}
+.qa input:focus{background:var(--sheet);border-color:var(--accent);outline:none;box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent)}
+.qa kbd,.keys kbd{font:11px var(--f-mono);color:var(--muted);border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:0 5px;background:var(--sheet)}
+.qa kbd{position:absolute;right:8px;top:50%;transform:translateY(-50%);pointer-events:none}
+.qa input:focus+kbd{display:none}
+.qa-hint{position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:30;background:var(--sheet);border:1px solid var(--line);border-radius:10px;box-shadow:var(--shadow);padding:8px 10px;font-size:13px}
+.qa-hint.err{color:var(--muted)}
+.qa-hint b{color:var(--accent);font-weight:600}
+.toast{display:flex;align-items:center;gap:14px}
+.toast-undo{border:0;background:transparent;color:inherit;font-weight:700;text-decoration:underline;cursor:pointer;padding:0}
+.btn.sm{padding:3px 9px;font-size:12px;border-radius:6px}
+.issue{grid-template-columns:8px minmax(0,1fr) auto}
+.issue .itext{border:0;background:none;padding:0;text-align:left;color:inherit;font:inherit;cursor:pointer}
+.issue .itext:hover{text-decoration:underline}
+@keyframes flashing{0%,100%{box-shadow:0 0 0 0 transparent}35%{box-shadow:0 0 0 4px var(--gold)}}
+.flash{animation:flashing .9s ease 3}
+.dh[data-dayhead]{cursor:pointer}
+.dh[data-dayhead]:hover b,.dh[data-dayhead]:focus-visible b{text-decoration:underline}
+.rc[data-who]:empty::after{content:"+";margin:auto;color:var(--muted);font-size:18px;opacity:0;transition:opacity .1s}
+.rc[data-who]:hover:empty::after{opacity:1}
+.check{display:flex;gap:8px;align-items:center;font-size:13px;cursor:pointer}
+.check input{width:16px;height:16px;accent-color:var(--accent)}
+.steps{display:flex;align-items:center;gap:6px;margin-bottom:4px;font-size:12px;color:var(--muted)}
+.steps i{width:22px;height:4px;border-radius:2px;background:var(--line)}
+.steps i.on{background:var(--accent)}
+.steps span{margin-left:4px}
+.big2{grid-template-columns:1fr 1fr}
+@media (max-width:520px){.big2{grid-template-columns:1fr}}
+.pick{display:flex;flex-direction:column;gap:6px;text-align:left;border:1px solid var(--line);border-radius:12px;padding:16px;background:var(--sheet);cursor:pointer;color:inherit;font:inherit}
+.pick b{font:700 18px var(--f-disp)}
+.pick small{color:var(--muted);font-size:13px;line-height:1.45}
+.pick:hover{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.guide{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:720px){.guide{grid-template-columns:1fr}}
+.guide h3{font-size:15px;margin-bottom:4px}
+.guide p{margin:0;font-size:13px;color:var(--muted)}
+.guide .mono{color:var(--ink);font-size:12px;background:var(--grid);padding:1px 5px;border-radius:4px;white-space:nowrap}
+.keys{border-collapse:collapse;font-size:13px}
+.keys td{padding:5px 14px 5px 0;border-bottom:1px solid var(--line)}
+.seg{margin:0}
+.seg button{padding:5px 12px}
+#helpBtn{font-weight:700;width:34px;justify-content:center}
 @media (max-width:520px){#zoomIn,#zoomOut,.rail .sep{display:none}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
@@ -321,6 +364,7 @@ h1,h2,h3{font-family:var(--f-disp);text-wrap:balance;margin:0;letter-spacing:-.0
     <div class="spacer"></div>
     <span class="pill" id="planPill">Free</span>
     <button class="btn gold" id="upgradeBtn">Upgrade</button>
+    <button class="btn ghost" id="helpBtn" title="Quick guide (?)" aria-label="Quick guide and shortcuts">?</button>
     <button class="btn ghost" id="settingsBtn" title="Settings" aria-label="Settings">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
     </button>
@@ -328,10 +372,11 @@ h1,h2,h3{font-family:var(--f-disp);text-wrap:balance;margin:0;letter-spacing:-.0
 
   <nav class="rail" aria-label="Tools">
     <button class="btn primary" id="addBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg><span id="addLbl">Block</span></button>
+    <form class="qa" id="qa" autocomplete="off"><input id="qaIn" type="text" placeholder="Quick add" aria-label="Quick add: type who, days and time" aria-describedby="qaHint" enterkeyhint="done"><kbd>/</kbd><div class="qa-hint" id="qaHint" role="status" hidden></div></form>
     <button class="btn" id="tplBtn">Templates</button>
     <button class="btn" id="fillBtn">Auto-fill</button>
     <button class="btn" id="exportBtn">Export</button>
-    <button class="btn" id="viewBtn" hidden>Timeline view</button>
+    <div class="toggle seg" id="viewSeg" role="group" aria-label="View" hidden><button data-view="roster" aria-pressed="true">Roster</button><button data-view="time" aria-pressed="false">Timeline</button></div>
     <button class="btn" id="skinBtn">Themes</button>
     <span class="sep"></span>
     <button class="btn ghost" id="undoBtn" title="Undo (Ctrl+Z)" aria-label="Undo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/></svg></button>
@@ -407,7 +452,7 @@ function restGap(a, b) {   // minutes of rest between two shifts on a repeating 
   return Math.min(g1, g2);
 }
 function cafeSchedule() {
-  const s = { id: uid(), kind: 'team', name: 'Corner Café (example rota)', startHour: 6, endHour: 21, days: [0, 1, 2, 3, 4, 5, 6], snap: 15, blocks: [], tasks: [],
+  const s = { id: uid(), kind: 'team', example: true, name: 'Corner Café (example rota)', startHour: 6, endHour: 21, days: [0, 1, 2, 3, 4, 5, 6], snap: 15, blocks: [], tasks: [],
     staff: [], cover: [], rules: { ...RULES0 }, budget: 0, cur: '$' };
   const P = (name, role, wage, maxH, off) => { const p = { id: 'p' + uid(), name, role, wage, maxH, off, color: PALETTE[[0, 2, 3, 5, 6][s.staff.length]] }; s.staff.push(p); return p.id; };
   const maya = P('Maya', 'Manager', 24, 40, [6]), leo = P('Leo', 'Barista', 17, 40, [1]), ines = P('Inés', 'Barista', 17, 32, [0, 2]), sam = P('Sam', 'Kitchen', 19, 40, [6]), tariq = P('Tariq', 'Barista', 16.5, 24, [3, 4]);
@@ -436,7 +481,7 @@ const DEFAULT_CATS = [
 const PALETTE = ['#3b5bdb', '#7c4dff', '#12a150', '#e8590c', '#868e96', '#d6336c', '#0c8599', '#f08c00', '#5c940d', '#ae3ec9', '#1971c2', '#c92a2a'];
 
 function sampleSchedule() {
-  const s = { id: uid(), name: 'Example week', startHour: 6, endHour: 23, days: [0, 1, 2, 3, 4, 5, 6], snap: 15, blocks: [], tasks: [] };
+  const s = { id: uid(), example: true, name: 'Example week', startHour: 6, endHour: 23, days: [0, 1, 2, 3, 4, 5, 6], snap: 15, blocks: [], tasks: [] };
   const add = (days, span, title, cat, loc = '') => {
     const [a, b] = span.split('-').map(fromHHMM);
     for (const ch of days) s.blocks.push({ id: uid(), day: DAY_LETTER[ch], start: a, end: b, title, cat, loc, notes: '' });
@@ -458,7 +503,7 @@ function sampleSchedule() {
 function fresh() {
   const s = sampleSchedule(), c = cafeSchedule();
   return {
-    v: 1, seenTeam: true, schedules: [c, s], active: c.id, cats: structuredClone(DEFAULT_CATS),
+    v: 1, seenTeam: true, onboarded: false, schedules: [c, s], active: c.id, cats: structuredClone(DEFAULT_CATS),
     plan: { tier: 'free', trialEnds: 0, trialUsed: false, proUntil: 0, license: '' },
     credits: { week: weekKey(), used: 0 },
     referral: { mine: makeReferral(), redeemed: '' },
@@ -472,6 +517,7 @@ if (!S || !S.schedules || !S.schedules.length) S = fresh();
 S.prefs = Object.assign({ h24: false, zoom: 1, skin: 'graph' }, S.prefs);
 S.owned = S.owned || [];
 function migrate() {
+  for (const s of S.schedules) if (s.example == null && /^(Example week|Corner Café \(example rota\))$/.test(s.name)) s.example = true;
   for (const s of S.schedules) if (isTeamSched(s)) { s.rules = Object.assign({}, RULES0, s.rules); s.staff = s.staff || []; s.cover = s.cover || []; }
   if (!S.seenTeam) { if (!S.schedules.some(isTeamSched)) { const c = cafeSchedule(); S.schedules.unshift(c); S.active = c.id; } S.seenTeam = true; }
 }
@@ -566,16 +612,18 @@ function render() {
   $('#upgradeBtn').textContent = S.plan.tier === 'pro' || S.plan.tier === 'lifetime' ? 'Get Team' : 'Upgrade';
   $('#undoBtn').disabled = !undoStack.length; $('#redoBtn').disabled = !redoStack.length;
   $('#addLbl').textContent = team ? 'Shift' : 'Block';
-  $('#tplBtn').hidden = team; $('#viewBtn').hidden = !team;
-  $('#viewBtn').textContent = roster ? 'Timeline view' : 'Roster view';
+  $('#tplBtn').hidden = team; $('#viewSeg').hidden = !team;
+  $$('#viewSeg button').forEach(b => b.setAttribute('aria-pressed', String((b.dataset.view === 'roster') === roster)));
+  $('#qaIn').placeholder = team ? `Quick add: ${sc.staff[0]?.name || 'Sam'} Mon-Fri 8-4` : 'Quick add: Gym Mon Wed Fri 7-8am';
   $('#zoomIn').hidden = $('#zoomOut').hidden = roster;
   $('#exportBtn').textContent = team ? 'Publish' : 'Export';
   $('#fillBtn').innerHTML = (team ? 'Auto-staff' : 'Auto-fill') + (unl ? '' : ` <span class="lock">${creditsLeft()} left</span>`);
   const issues = team ? teamIssues(sc) : null, conf = team ? teamBadIds(sc, issues) : conflicts(sc), n = team ? issues.length : conf.size;
   $('#confChip').innerHTML = !n ? `<span class="chip good">${team ? 'Rota is clean' : 'No overlaps'}</span>`
-    : roster ? `<span class="chip warn" style="cursor:default">${n} rota issue${n > 1 ? 's' : ''}</span>`
+    : roster ? `<button class="chip warn" id="confJump">${n} rota issue${n > 1 ? 's' : ''} · fix</button>`
     : `<button class="chip warn" id="confToggle">${team ? n + ' rota issue' + (n > 1 ? 's' : '') : conf.size + ' blocks overlap'}${showConf ? ' · hide' : ' · show'}</button>`;
   if ($('#confToggle')) $('#confToggle').onclick = () => { showConf = !showConf; render(); };
+  if ($('#confJump')) $('#confJump').onclick = () => { const c = $('#rotaCheck'); if (!c) return; c.scrollIntoView({ behavior: 'smooth', block: 'start' }); c.classList.remove('flash'); void c.offsetWidth; c.classList.add('flash'); };
   roster ? renderRoster(sc) : renderGrid(sc, conf);
   team ? renderTeamSide(sc) : renderSide(sc, conf);
   afterRender(sc);
@@ -602,7 +650,7 @@ function renderGrid(sc, conf) {
     return `<div class="col ${d >= 5 ? 'weekend' : ''}" data-day="${d}">${items}${nowLine}</div>`;
   }).join('');
   $('#calWrap').innerHTML = `<div class="cal" style="--cols:${sc.days.length}">
-    <div class="cal-head"><div></div>${sc.days.map(d => `<div class="dh ${d === td ? 'today' : ''}"><b>${DAYS[d]}</b><span>${hrs(st.byDay[d])}h</span></div>`).join('')}</div>
+    <div class="cal-head"><div></div>${sc.days.map(d => `<div class="dh ${d === td ? 'today' : ''}" data-dayhead="${d}" tabindex="0" role="button" title="Copy or clear ${DAYS_LONG[d]}"><b>${DAYS[d]}</b><span>${hrs(st.byDay[d])}h</span></div>`).join('')}</div>
     <div class="cal-body" style="height:${H}px"><div class="gut">${gut}</div>${cols}</div></div>
     ${sc.blocks.length ? '' : '<div class="empty">Drag on the grid to add your first block, or pick a template.</div>'}`;
 }
@@ -631,7 +679,7 @@ function renderSide(sc, conf) {
   <div class="card"><h3>Free plan</h3>
     <div class="kv"><span>Blocks</span><span>${sc.blocks.length}/${CONFIG.limits.blocks}</span></div>
     <div class="meter ${blkUse >= 1 ? 'full' : ''}"><i style="width:${Math.min(100, blkUse * 100)}%"></i></div>
-    <div class="kv"><span>Schedules</span><span>${S.schedules.length}/${CONFIG.limits.schedules}</span><span>Categories</span><span>${S.cats.length}/${CONFIG.limits.categories}</span></div>
+    <div class="kv"><span>Your schedules</span><span>${ownCount()}/${CONFIG.limits.schedules}</span><span>Categories</span><span>${S.cats.length}/${CONFIG.limits.categories}</span></div>
     <button class="btn gold" id="sideUp">${S.plan.trialUsed ? 'See Pro plans' : `Try everything free for ${CONFIG.trialDays} days`}</button>
   </div>`;
   html += tailHTML(pro);
@@ -659,7 +707,14 @@ function modal(html, { wide = false, onClose } = {}) {
 }
 const closeX = '<button class="btn ghost" data-close aria-label="Close">✕</button>';
 let toastT;
-function toast(msg) { $$('.toast').forEach(t => t.remove()); const t = document.createElement('div'); t.className = 'toast'; t.textContent = msg; document.body.appendChild(t); clearTimeout(toastT); toastT = setTimeout(() => t.remove(), 2400); }
+function toast(msg) {
+  $$('.toast').forEach(t => t.remove());
+  const undoable = /Ctrl\+Z to undo\.?$/.test(msg); msg = msg.replace(/\.?\s*Ctrl\+Z to undo\.?$/, '');
+  const t = document.createElement('div'); t.className = 'toast'; t.setAttribute('role', 'status');
+  const sp = document.createElement('span'); sp.textContent = msg; t.appendChild(sp);
+  if (undoable) { const b = document.createElement('button'); b.className = 'toast-undo'; b.textContent = 'Undo'; b.onclick = () => { t.remove(); undo(); }; t.appendChild(b); }
+  document.body.appendChild(t); clearTimeout(toastT); toastT = setTimeout(() => t.remove(), undoable ? 6000 : 2600);
+}
 function copy(text, selEl) {
   const fallback = () => { if (selEl) { if (selEl.select) selEl.select(); else { const r = document.createRange(); r.selectNodeContents(selEl); const s = getSelection(); s.removeAllRanges(); s.addRange(r); } } toast('Selected. Press Ctrl+C to copy'); };
   try { navigator.clipboard.writeText(text).then(() => toast('Copied'), fallback); } catch (e) { fallback(); }
@@ -924,7 +979,7 @@ function openTemplates() {
   $$('[data-use]', m).forEach(b => b.onclick = () => {
     const t = TEMPLATES.find(x => x.id === b.dataset.use), sc = sched(), bl = tplBlocks(t);
     if (!pro && bl.length > CONFIG.limits.blocks) return openUpgrade('This template has more blocks than the free plan allows.');
-    const apply = () => { mutate(() => { sc.blocks = bl; if (t.id !== 'blank' && sc.name === 'Example week') sc.name = t.name; }); m.close(); toast(`Applied “${t.name}”`); };
+    const apply = () => { mutate(() => { sc.blocks = bl; if (t.id !== 'blank' && sc.name === 'Example week') sc.name = t.name; }); m.close(); toast(`Applied “${t.name}”. Ctrl+Z to undo`); };
     sc.blocks.length ? confirmIn($('#tp-confirm', m), `Replace the ${sc.blocks.length} blocks in “${sc.name}” with “${t.name}”? You can undo this.`, 'Replace blocks', apply) : apply();
     $('#tp-confirm', m).scrollIntoView({ block: 'nearest' });
   });
@@ -1178,7 +1233,7 @@ function openExport(tab = 'image') {
     $('#ex-c', m).onclick = () => copy(code, $('#ex-t', m));
     const parse = () => { const before = snap(); try { const n = readShare($('#ex-in', m).value); undoStack.push(before); redoStack.length = 0; return n; } catch (e) { $('#ex-err', m).textContent = 'That code couldn’t be read. Paste the whole code, starting with BW2:'; return null; } };
     $('#ex-new', m).onclick = () => {
-      if (S.schedules.length >= CONFIG.limits.schedules && !gate(`The free plan keeps ${CONFIG.limits.schedules} schedules. Use “Replace this schedule”, or upgrade for unlimited schedules.`)) return;
+      if (ownCount() >= CONFIG.limits.schedules && !gate(`The free plan keeps ${CONFIG.limits.schedules} schedules. Use “Replace this schedule”, or upgrade for unlimited schedules.`)) return;
       const n = parse(); if (!n) return; if (!importLimit(n)) { restore(undoStack.pop()); return; }
       S.schedules.push(n); S.active = n.id; save(); render(); m.close(); toast(`Imported “${n.name}”`);
     };
@@ -1203,16 +1258,17 @@ function openExport(tab = 'image') {
 
 /* ===================== schedules & settings ===================== */
 function newSchedule() {
-  if (S.schedules.length >= CONFIG.limits.schedules && !gate(`The free plan keeps ${CONFIG.limits.schedules} schedules. Paid plans keep as many as you need: one per location, season or person.`)) return;
+  if (ownCount() >= CONFIG.limits.schedules && !gate(`The free plan keeps ${CONFIG.limits.schedules} schedules. Paid plans keep as many as you need: one per location, season or person.`)) return;
   const t = isTeamSched(sched());
   const m = modal(`<div class="modal-h"><h2>New schedule</h2>${closeX}</div><form id="ns" style="display:flex;flex-direction:column;gap:12px">
-    <div class="kind"><label><input type="radio" name="kind" value="team" ${t ? 'checked' : ''}><span><b>Team rota</b><small>Shifts for staff, with labour cost, coverage and rule checks.</small></span></label>
+    <div class="kind"><label><input type="radio" name="kind" value="team" ${t ? 'checked' : ''}><span><b>Team rota</b><small>A short setup builds the first rota for you, with costs and rule checks.</small></span></label>
       <label><input type="radio" name="kind" value="me" ${t ? '' : 'checked'}><span><b>Personal week</b><small>Time blocks for your own classes, work and habits.</small></span></label></div>
     <label class="field"><span>Name</span><input id="ns-n" autofocus placeholder="e.g. Harbour Street shop, Spring semester"></label>
     <div class="foot"><button type="button" class="btn" data-close>Cancel</button><button class="btn primary">Create</button></div></form>`);
   $('#ns', m).onsubmit = e => {
     e.preventDefault();
     const team = $('input[name=kind]:checked', m).value === 'team';
+    if (team) { const nm = $('#ns-n', m).value.trim(); m.close(); return openWizard(nm); }
     const s = { id: uid(), name: $('#ns-n', m).value.trim() || (team ? 'New rota' : 'Untitled week'), startHour: team ? 6 : 7, endHour: 22, days: [0, 1, 2, 3, 4, 5, 6], snap: 15, blocks: [], tasks: [] };
     if (team) Object.assign(s, { kind: 'team', staff: [], cover: [], rules: { ...RULES0 }, budget: 0, cur: sched().cur || '$' });
     mutate(() => { S.schedules.push(s); S.active = s.id; }); m.close();
@@ -1243,7 +1299,7 @@ function openSettings() {
   };
   if ($('#st-del', m)) $('#st-del', m).onclick = () => confirmIn($('#st-confirm', m), `Delete “${sc.name}” and its ${sc.blocks.length} blocks?`, 'Delete', () => { mutate(() => { S.schedules = S.schedules.filter(s => s.id !== sc.id); S.active = S.schedules[0].id; }); m.close(); toast('Schedule deleted. Ctrl+Z to undo'); });
   $('#st-dup', m).onclick = () => {
-    if (S.schedules.length >= CONFIG.limits.schedules && !gate(`The free plan keeps ${CONFIG.limits.schedules} schedules. Paid plans keep as many as you need, so this week and next can sit side by side.`)) return;
+    if (ownCount() >= CONFIG.limits.schedules && !gate(`The free plan keeps ${CONFIG.limits.schedules} schedules. Paid plans keep as many as you need, so this week and next can sit side by side.`)) return;
     const c = structuredClone(sc); c.id = uid(); c.name = sc.name.replace(/ \(copy\)$/, '') + ' (copy)'; c.blocks.forEach(b => { b.id = uid(); });
     mutate(() => { S.schedules.push(c); S.active = c.id; }); m.close(); toast(`Duplicated as “${c.name}”`);
   };
@@ -1276,7 +1332,7 @@ function coverageGaps(sc, countOpen) {
       const bl = sc.blocks.filter(b => b.day === d && (countOpen || person(sc, b.who)) && (!role || roleOf(b, sc) === role)); let run = null;
       for (let t = rule.start; t < rule.end; t += 15) {
         const have = bl.filter(b => b.start <= t && b.end >= t + 15).length;
-        if (have < rule.need) { if (run && run.have === have) run.b = t + 15; else { run && out.push(run); run = { day: d, a: t, b: t + 15, have, need: rule.need, role: rule.role || '' }; } }
+        if (have < rule.need) { if (run && run.have === have) run.b = t + 15; else { run && out.push(run); run = { day: d, a: t, b: t + 15, have, need: rule.need, role: rule.role || '', ra: rule.start, rb: rule.end }; } }
         else if (run) { out.push(run); run = null; }
       }
       run && out.push(run);
@@ -1286,28 +1342,29 @@ function coverageGaps(sc, countOpen) {
 }
 function teamIssues(sc) {
   const out = [], r = sc.rules, st = teamStats(sc);
-  const add = (lvl, text, ids = [], mark = true) => out.push({ lvl, text, ids, mark });
+  const add = (lvl, text, ids = [], mark = true, fix = null, show = ids) => out.push({ lvl, text, ids, mark, fix, show });
   for (const p of sc.staff) {
-    const sh = sc.blocks.filter(b => b.who === p.id).sort((a, b) => a.day - b.day || a.start - b.start), s = st.per[p.id];
-    if (s.paid / 60 > p.maxH) add('bad', `${p.name} has ${hrs(s.paid)}h, over the ${p.maxH}h limit`);
-    for (const b of sh) { const a = availOf(p, b.day); if (!a) add('bad', `${p.name} is off on ${DAYS[b.day]} but has a shift`, [b.id]); else if (b.start < a[0] || b.end > a[1]) add('bad', `${p.name} is only available ${spanTxt(a)} on ${DAYS[b.day]}`, [b.id]); }
-    if (p.minH && s.paid / 60 < p.minH) add('warn', `${p.name} is ${hrs(p.minH * 60 - s.paid)}h short of their ${p.minH}h minimum`);
-    for (let i = 0; i < sh.length; i++) for (let j = i + 1; j < sh.length; j++) if (overlaps(sh[i], sh[j])) add('bad', `${p.name} is double-booked on ${DAYS[sh[i].day]}`, [sh[i].id, sh[j].id]);
+    const sh = sc.blocks.filter(b => b.who === p.id).sort((a, b) => a.day - b.day || a.start - b.start), s = st.per[p.id], all = sh.map(b => b.id);
+    const shortest = () => [...sh].sort((a, b) => (a.end - a.start) - (b.end - b.start)).map(b => b.id);
+    if (s.paid / 60 > p.maxH) add('bad', `${p.name} has ${hrs(s.paid)}h, over the ${p.maxH}h limit`, [], true, { k: 'move', ids: shortest() }, all);
+    for (const b of sh) { const a = availOf(p, b.day); if (!a) add('bad', `${p.name} is off on ${DAYS[b.day]} but has a shift`, [b.id], true, { k: 'move', ids: [b.id], force: true }); else if (b.start < a[0] || b.end > a[1]) add('bad', `${p.name} is only available ${spanTxt(a)} on ${DAYS[b.day]}`, [b.id], true, { k: 'move', ids: [b.id], force: true }); }
+    if (p.minH && s.paid / 60 < p.minH) add('warn', `${p.name} is ${hrs(p.minH * 60 - s.paid)}h short of their ${p.minH}h minimum`, [], true, { k: 'person', id: p.id }, all);
+    for (let i = 0; i < sh.length; i++) for (let j = i + 1; j < sh.length; j++) if (overlaps(sh[i], sh[j])) add('bad', `${p.name} is double-booked on ${DAYS[sh[i].day]}`, [sh[i].id, sh[j].id], true, { k: 'move', ids: [sh[j].id, sh[i].id], force: true });
     for (let i = 0, n = sh.length === 2 ? 1 : sh.length; i < n && sh.length > 1; i++) {
       const a = sh[i], b = sh[(i + 1) % sh.length]; if (a.day === b.day) continue;
       const g = restGap(a, b);
-      if (g < r.restH * 60) add('warn', `${p.name} gets ${hrs(g)}h rest between ${DAYS[a.day]} and ${DAYS[b.day]} (minimum ${r.restH}h)`, [a.id, b.id]);
+      if (g < r.restH * 60) add('warn', `${p.name} gets ${hrs(g)}h rest between ${DAYS[a.day]} and ${DAYS[b.day]} (minimum ${r.restH}h)`, [a.id, b.id], true, { k: 'move', ids: [b.id, a.id] });
     }
     const dayMin = Array(7).fill(0); sh.forEach(b => dayMin[b.day] += b.end - b.start);
-    dayMin.forEach((m, d) => { if (m > r.maxDayH * 60) add('warn', `${p.name} works ${hrs(m)}h on ${DAYS[d]}`, sh.filter(b => b.day === d).map(b => b.id)); });
-    if (dayMin.every(m => m > 0)) add('warn', `${p.name} works all 7 days`);
-    if (s.otH > 0) add('warn', `${p.name} earns ${hrs(s.otH * 60)}h of overtime`);
+    dayMin.forEach((m, d) => { if (m > r.maxDayH * 60) { const ids = sh.filter(b => b.day === d).map(b => b.id); add('warn', `${p.name} works ${hrs(m)}h on ${DAYS[d]}`, ids, true, { k: 'move', ids: [...ids].reverse() }); } });
+    if (dayMin.every(m => m > 0)) add('warn', `${p.name} works all 7 days`, [], true, { k: 'move', ids: shortest() }, all);
+    if (s.otH > 0) add('warn', `${p.name} earns ${hrs(s.otH * 60)}h of overtime`, [], true, { k: 'move', ids: shortest() }, all);
   }
   const open = sc.blocks.filter(b => !person(sc, b.who));
-  if (open.length) add('warn', `${open.length} open shift${open.length > 1 ? 's' : ''} with nobody assigned`, open.map(b => b.id), false);
-  for (const g of coverageGaps(sc, false)) add('bad', `${DAYS[g.day]} ${fmt(g.a)}–${fmt(g.b)}: ${g.have} of ${g.need} ${g.role ? g.role + ' staff' : 'people'} on`);
-  const si = salesInfo(sc, st); if (si && si.pct > si.target) add('warn', `Labour is ${si.pct.toFixed(1)}% of forecast sales (target ${si.target}%)`);
-  if (sc.budget > 0 && st.cost > sc.budget) add('bad', `Labour is ${money(sc, Math.round(st.cost - sc.budget))} over the weekly budget`);
+  if (open.length) add('warn', `${open.length} open shift${open.length > 1 ? 's' : ''} with nobody assigned`, open.map(b => b.id), false, { k: 'auto' });
+  for (const g of coverageGaps(sc, false)) add('bad', `${DAYS[g.day]} ${fmt(g.a)}–${fmt(g.b)}: ${g.have} of ${g.need} ${g.role ? g.role + ' staff' : 'people'} on`, [], true, { k: 'auto' });
+  const si = salesInfo(sc, st); if (si && si.pct > si.target) add('warn', `Labour is ${si.pct.toFixed(1)}% of forecast sales (target ${si.target}%)`, [], true, { k: 'sales' });
+  if (sc.budget > 0 && st.cost > sc.budget) add('bad', `Labour is ${money(sc, Math.round(st.cost - sc.budget))} over the weekly budget`, [], true, { k: 'settings' });
   return out.sort((a, b) => (a.lvl === 'bad' ? 0 : 1) - (b.lvl === 'bad' ? 0 : 1));
 }
 function teamBadIds(sc, issues = teamIssues(sc)) { const s = new Set(); for (const i of issues) if (i.mark) i.ids.forEach(id => s.add(id)); return s; }
@@ -1316,6 +1373,7 @@ function teamBadIds(sc, issues = teamIssues(sc)) { const s = new Set(); for (con
 function canWork(sc, p, b, mine) {
   const r = sc.rules;
   if (!fitsAvail(p, b)) return false;
+  const ds = new Set(mine.map(s => s.day)); if (!ds.has(b.day) && ds.size >= 6) return false;   // at least one day off a week
   if (mine.some(s => overlaps(s, b))) return false;
   if (mine.some(s => s.day !== b.day && restGap(s, b) < r.restH * 60)) return false;
   if (mine.reduce((t, s) => t + paidMin(s, sc), 0) + paidMin(b, sc) > p.maxH * 60) return false;
@@ -1327,8 +1385,8 @@ function autoStaff(sc) {
   for (let i = 0; i < 80; i++) {            // 1. open a shift for every coverage gap
     const g = coverageGaps(sc, true)[0]; if (!g) break;
     let a = g.a, b = g.b;
-    if (b - a > 480) b = a + Math.ceil((b - a) / 2 / 30) * 30;
-    if (b - a < 180) { b = Math.min(1440, a + 180); a = Math.min(a, b - 180); }
+    if (b - a > 540) b = a + 480;                                   // full 8h shifts first
+    if (b - a < 240) { a -= Math.min(240 - (b - a), a - g.ra); b = Math.min(g.rb, Math.max(b, a + 240)); }   // top-ups of 4h, kept inside the needed hours
     sc.blocks.push({ id: uid(), day: g.day, start: a, end: b, title: g.role || 'Cover', who: '', cat: '', loc: '', notes: '', auto: true }); added++;
   }
   const roles = new Set(sc.staff.map(p => (p.role || '').toLowerCase()).filter(Boolean));
@@ -1351,7 +1409,7 @@ function runAutoStaff() {
   if (!isTeam() && creditsLeft() <= 0) return openUpgrade(`You’ve used this week’s ${CONFIG.limits.autofillPerWeek} free Auto-staff runs. Team has unlimited runs, or wait until Monday.`, null, 'team');
   pushUndo(); const r = autoStaff(sc); if (!r.added && !r.filled) undoStack.pop(); else if (!isTeam()) S.credits.used++; save(); render();
   toast(!r.added && !r.filled && !r.open ? 'Nothing to fix. The rota is fully staffed'
-    : `Assigned ${r.filled} shift${r.filled === 1 ? '' : 's'}` + (r.added ? `, ${r.added} added for coverage` : '') + (r.open ? `. ${r.open} still open: nobody is free within your rules` : ''));
+    : `Assigned ${r.filled} shift${r.filled === 1 ? '' : 's'}` + (r.added ? `, ${r.added} added for coverage` : '') + (r.open ? `. ${r.open} still open: nobody is free within your rules` : '') + '. Ctrl+Z to undo');
 }
 
 /* ===================== team rota: roster view ===================== */
@@ -1359,7 +1417,7 @@ function renderRoster(sc) {
   const st = teamStats(sc), bad = teamBadIds(sc), td = todayIdx(), gaps = coverageGaps(sc, false);
   const chip = b => {
     const p = person(sc, b.who);
-    return `<div class="sh ${p ? '' : 'open'} ${bad.has(b.id) ? 'bad' : ''}" data-id="${b.id}" tabindex="0" role="button" style="--c:${bColor(b, sc)}" aria-label="${esc(bTitle(b, sc))}, ${DAYS[b.day]} ${fmt(b.start)} to ${fmt(b.end)}"><b>${fmt(b.start)}–${fmt(b.end)}</b><span>${esc(b.title || (p ? p.role : '') || 'Shift')}</span></div>`;
+    return `<div class="sh ${p ? '' : 'open'} ${bad.has(b.id) ? 'bad' : ''}" data-id="${b.id}" title="Drag to another person or day. Click to edit." tabindex="0" role="button" style="--c:${bColor(b, sc)}" aria-label="${esc(bTitle(b, sc))}, ${DAYS[b.day]} ${fmt(b.start)} to ${fmt(b.end)}"><b>${fmt(b.start)}–${fmt(b.end)}</b><span>${esc(b.title || (p ? p.role : '') || 'Shift')}</span></div>`;
   };
   const row = p => {
     const s = p && st.per[p.id];
@@ -1379,7 +1437,7 @@ function renderRoster(sc) {
       : g.slice(0, 2).map(x => `<span class="gap">${fmt(x.a)}–${fmt(x.b)} · ${x.role ? esc(x.role) + ' ' : ''}${x.have}/${x.need}</span>`).join('') + (g.length > 2 ? `<span class="gap">+${g.length - 2} more</span>` : '')}</div>`;
   }).join('');
   $('#calWrap').innerHTML = `<div class="ros" style="--cols:${sc.days.length}">
-    <div class="rrow head"><div class="rp" style="cursor:default"><small>WEEKLY ROTA</small><small>cost per day</small></div>${sc.days.map(d => `<div class="dh ${d === td ? 'today' : ''}"><b>${DAYS[d]}</b><span>${money(sc, Math.round(st.byDay[d]))}</span></div>`).join('')}</div>
+    <div class="rrow head"><div class="rp" style="cursor:default"><small>WEEKLY ROTA</small><small>click a day to copy</small></div>${sc.days.map(d => `<div class="dh ${d === td ? 'today' : ''}" data-dayhead="${d}" tabindex="0" role="button" title="Copy or clear ${DAYS_LONG[d]}"><b>${DAYS[d]}</b><span>${money(sc, Math.round(st.byDay[d]))}</span></div>`).join('')}</div>
     ${sc.staff.map(row).join('')}${row(null)}
     <div class="rrow cov"><div class="rp" style="cursor:default"><b>Coverage</b><small>vs your needs</small></div>${cov}</div></div>
     ${sc.staff.length ? '' : '<div class="empty" style="position:static;padding:28px 16px">Add your first team member in the sidebar, then click a cell to give them a shift.</div>'}`;
@@ -1420,7 +1478,7 @@ $('#calWrap').addEventListener('keydown', e => {
   if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openEditor(b); }
   if (e.key === 'Delete' || e.key === 'Backspace') { e.preventDefault(); mutate(() => { sched().blocks = sched().blocks.filter(x => x.id !== b.id); }); toast('Deleted. Ctrl+Z to undo'); }
 });
-$('#viewBtn').onclick = () => { S.prefs.view = S.prefs.view === 'time' ? 'roster' : 'time'; save(); render(); };
+$$('#viewSeg button').forEach(b => b.onclick = () => { S.prefs.view = b.dataset.view; save(); render(); });
 
 /* ===================== team rota: sidebar ===================== */
 const daysLabel = d => { const k = [...d].sort().join(''); return k === '0123456' ? 'Every day' : k === '01234' ? 'Weekdays' : k === '56' ? 'Weekends' : [...d].sort().map(i => DAYS[i]).join(', '); };
@@ -1461,8 +1519,8 @@ function renderTeamSide(sc) {
     ${labourBars(sc, st)}
     <div class="kv"><span>Average hourly cost</span><span>${st.paid ? money(sc, st.cost / (st.paid / 60)) : '–'}</span><span>Overtime premium</span><span>${money(sc, Math.round(st.ot))}</span><span>Open shifts</span><span>${st.open}</span></div>
   </div>
-  <div class="card"><h3>Rota check <span class="pill" style="${issues.length ? 'color:var(--danger)' : 'color:var(--ok)'}">${issues.length ? issues.length + ' to fix' : 'clean'}</span></h3>
-    ${issues.length ? issues.slice(0, 7).map(i => `<div class="issue ${i.lvl}"><span>${esc(i.text)}</span></div>`).join('') + (issues.length > 7 ? `<p class="hint" style="margin:0">and ${issues.length - 7} more</p>` : '') : '<p class="hint" style="margin:0">Every shift is covered and inside your rules.</p>'}
+  <div class="card" id="rotaCheck"><h3>Rota check <span class="pill" style="${issues.length ? 'color:var(--danger)' : 'color:var(--ok)'}">${issues.length ? issues.length + ' to fix' : 'clean'}</span></h3>
+    ${issues.length ? issueRows(issues) : '<p class="hint" style="margin:0">Every shift is covered and inside your rules.</p>'}
     <button class="btn primary" id="staffBtn2">Auto-staff: fill gaps and open shifts</button>
     <p class="hint" style="margin:0">Respects days off, rest time and hour limits. ${team ? 'Unlimited on Team.' : `${creditsLeft()} of ${L.autofillPerWeek} free runs left this week.`}</p>
   </div>
@@ -1751,9 +1809,10 @@ function aiPreview(sc, res, text) {
 }
 function afterRender(sc) {
   if (isTeamSched(sc)) {
-    const cards = $$('#side > .card');
-    cards[1]?.insertAdjacentHTML('beforeend', `<button class="btn" id="fairBtn">Fairness report${isTeam() ? '' : ' <span class="lock">TEAM</span>'}</button>`);
-    cards[1]?.insertAdjacentHTML('afterend', todayCard(sc));
+    const rc = $('#rotaCheck');
+    rc?.insertAdjacentHTML('beforeend', `<button class="btn" id="fairBtn">Fairness report${isTeam() ? '' : ' <span class="lock">TEAM</span>'}</button>`);
+    rc?.insertAdjacentHTML('afterend', todayCard(sc));
+    bindIssues();
     if ($('#fairBtn')) $('#fairBtn').onclick = openFairness;
     if ($('#salesBtn')) $('#salesBtn').onclick = openSales;
   }
@@ -1767,11 +1826,265 @@ function afterRender(sc) {
   }
 }
 
+/* ===================== ease of use: quick add, fixes, day menu, wizard, welcome, help ===================== */
+const DAYS_LONG = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+const ownCount = () => S.schedules.filter(s => !s.example).length;
+function flash(ids) {
+  requestAnimationFrame(() => {
+    const els = ids.map(id => $(`[data-id="${id}"]`)).filter(Boolean);
+    els.forEach(e => { e.classList.remove('flash'); void e.offsetWidth; e.classList.add('flash'); });
+    els[0]?.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'smooth' });
+  });
+}
+
+// ---- quick add: "Maya Mon-Fri 8-4", "Leo and Inés Sat 9-5 close", "Gym MWF 7-8am"
+const DAYWORDS = { mon: 0, monday: 0, tue: 1, tues: 1, tuesday: 1, wed: 2, weds: 2, wednesday: 2, thu: 3, thur: 3, thurs: 3, thursday: 3, fri: 4, friday: 4, sat: 5, saturday: 5, sun: 6, sunday: 6 };
+const FILLER = new Set(['and', '&', 'on', 'at', 'from', 'every', 'shift', 'shifts', 'for', 'the', 'a', 'an', 'in', 'with', '+']);
+const dayWord = t => DAYWORDS[t] ?? DAYWORDS[t.replace(/s$/, '')];
+function parseQuick(text, sc) {
+  const team = isTeamSched(sc);
+  const norm = String(text).replace(/every\s+day/gi, 'daily').replace(/\s*[–—-]\s*/g, '-').replace(/\s+(?:to|until|till)\s+/gi, '-').replace(/(\d)\s+(am|pm|a|p)\b/gi, '$1$2');
+  const toks = norm.split(/[\s,]+/).filter(Boolean);
+  const who = [], days = new Set(), words = []; let time = null, cat0 = null, role = null;
+  for (const raw of toks) {
+    const t = raw.toLowerCase().replace(/[.;:!?]+$/, '');
+    let m;
+    if (FILLER.has(t)) continue;
+    if (/^(daily|everyday|all)$/.test(t)) { [0, 1, 2, 3, 4, 5, 6].forEach(d => days.add(d)); continue; }
+    if (/^(weekdays?|wkdays?)$/.test(t)) { [0, 1, 2, 3, 4].forEach(d => days.add(d)); continue; }
+    if (/^weekends?$/.test(t)) { days.add(5); days.add(6); continue; }
+    if (t === 'today') { days.add(todayIdx()); continue; }
+    if (t === 'tomorrow') { days.add((todayIdx() + 1) % 7); continue; }
+    if (dayWord(t) != null) { days.add(dayWord(t)); continue; }
+    if ((m = t.match(/^([a-z]+)-([a-z]+)$/)) && dayWord(m[1]) != null && dayWord(m[2]) != null) {
+      for (let d = dayWord(m[1]); ; d = (d + 1) % 7) { days.add(d); if (d === dayWord(m[2])) break; } continue;
+    }
+    if (/^[MTWRFSU]{2,7}$/.test(raw)) { for (const ch of raw) days.add(DAY_LETTER[ch]); continue; }
+    if ((m = t.match(/^(\d{1,2})(?::(\d{2}))?(am|pm|a|p)?-(\d{1,2})(?::(\d{2}))?(am|pm|a|p)?$/))) {
+      const mk = (h, mm, ap) => { h = +h; mm = +(mm || 0); if (ap) { if (ap[0] === 'p' && h < 12) h += 12; if (ap[0] === 'a' && h === 12) h = 0; } return h * 60 + mm; };
+      let a = mk(m[1], m[2], m[3]), b = mk(m[4], m[5], m[6]);
+      if (!m[3] && !m[6] && +m[1] <= 5) a += 720;                       // "2-10" means 2pm–10pm
+      if (!m[3] && m[6] && m[6][0] === 'p' && a + 720 <= b) a += 720;   // "1-5pm"
+      if (!m[6]) { if (b <= a) b += 720; if (b <= a) b += 720; }
+      b = Math.min(b, 1440);
+      if (b > a) time = { a, b };
+      continue;
+    }
+    if (team) {
+      const p = sc.staff.find(x => x.name.toLowerCase() === t || x.name.toLowerCase().split(/\s+/)[0] === t);
+      if (p) { if (!who.includes(p.id)) who.push(p.id); continue; }
+      if (t === 'open' || t === 'nobody') { if (!who.includes('')) who.push(''); continue; }
+      const r = sc.staff.map(x => x.role).find(x => x && x.toLowerCase() === t);
+      if (r && !role) { role = r; continue; }
+    } else {
+      const c = S.cats.find(x => x.name.toLowerCase() === t);
+      if (c && !cat0) { cat0 = c; continue; }
+    }
+    words.push(raw);
+  }
+  const extra = words.join(' ').trim();
+  if (!time) return { error: `Add a time, like ${team ? '8-4 or 7am-3pm' : '9-10am'}` };
+  if (!days.size) return { error: 'Add a day, like Mon, Mon-Fri, weekdays or daily' };
+  if (team && !who.length && extra && !role) return { error: `No team member called “${extra}”. Add them in the Team list first.` };
+  const ds = [...days].sort(), list = team ? (who.length ? who : ['']) : [null];
+  const items = [];
+  for (const w of list) for (const d of ds) {
+    if (team) items.push({ id: uid(), day: d, start: time.a, end: time.b, who: w, title: role || extra || person(sc, w)?.role || '', cat: '', loc: '', notes: '' });
+    else items.push({ id: uid(), day: d, start: time.a, end: time.b, title: extra || cat0?.name || 'Untitled', cat: (cat0 || S.cats[0]).id, loc: '', notes: '' });
+  }
+  const names = team ? list.map(w => person(sc, w)?.name || 'open shift').join(', ') : items[0].title;
+  return { items, desc: `${items.length} ${team ? 'shift' : 'block'}${items.length > 1 ? 's' : ''}: ${names} · ${daysLabel(ds)} · ${fmt(time.a)}–${fmt(time.b)}${team && items[0].title ? ' · ' + items[0].title : ''}` };
+}
+function quickAdd(text) {
+  const sc = sched(), r = parseQuick(text, sc), hint = $('#qaHint');
+  if (r.error) { hint.hidden = false; hint.className = 'qa-hint err'; hint.textContent = r.error; return false; }
+  if (!canAddBlocks(r.items.length)) return false;
+  mutate(() => {
+    sc.blocks.push(...r.items);
+    for (const b of r.items) { if (!sc.days.includes(b.day)) { sc.days.push(b.day); sc.days.sort(); } sc.startHour = Math.min(sc.startHour, Math.floor(b.start / 60)); sc.endHour = Math.max(sc.endHour, Math.ceil(b.end / 60)); }
+  });
+  toast(`Added ${r.desc}. Ctrl+Z to undo`); flash(r.items.map(b => b.id));
+  return true;
+}
+function bindQuickAdd() {
+  const inp = $('#qaIn'), hint = $('#qaHint');
+  const show = () => {
+    const v = inp.value.trim(); if (!v) { hint.hidden = true; return; }
+    const r = parseQuick(v, sched()); hint.hidden = false;
+    if (r.error) { hint.className = 'qa-hint err'; hint.textContent = r.error; }
+    else { hint.className = 'qa-hint'; hint.innerHTML = `<b>Enter</b> to add ${esc(r.desc)}`; }
+  };
+  inp.addEventListener('input', show); inp.addEventListener('focus', show);
+  inp.addEventListener('blur', () => setTimeout(() => { hint.hidden = true; }, 150));
+  inp.addEventListener('keydown', e => { if (e.key === 'Escape') { inp.value = ''; hint.hidden = true; inp.blur(); } });
+  $('#qa').addEventListener('submit', e => { e.preventDefault(); if (inp.value.trim() && quickAdd(inp.value)) { inp.value = ''; hint.hidden = true; } });
+}
+
+// ---- one-click fixes for rota issues
+function bestFor(sc, b) {
+  const mine = p => sc.blocks.filter(s => s.who === p.id && s.id !== b.id);
+  const load = p => mine(p).reduce((s, x) => s + paidMin(x, sc), 0);
+  const under = p => p.minH && load(p) < p.minH * 60 ? 1 : 0;
+  const t = (b.title || '').toLowerCase(), roles = new Set(sc.staff.map(p => (p.role || '').toLowerCase()).filter(Boolean));
+  const pool = roles.has(t) ? sc.staff.filter(p => (p.role || '').toLowerCase() === t) : sc.staff;
+  return pool.filter(p => p.id !== b.who && canWork(sc, p, b, mine(p))).sort((x, y) => under(y) - under(x) || load(x) / (x.maxH * 60) - load(y) / (y.maxH * 60) || x.wage - y.wage)[0] || null;
+}
+let lastIssues = [];
+const FIX_LABEL = { auto: 'Auto-staff', move: 'Reassign', person: 'Edit person', sales: 'Edit forecast', settings: 'Edit budget' };
+function fixIssue(i) {
+  const sc = sched(), f = i?.fix; if (!f) return;
+  if (f.k === 'auto') return runAutoStaff();
+  if (f.k === 'person') return openStaff(f.id);
+  if (f.k === 'sales') return openSales();
+  if (f.k === 'settings') return openSettings();
+  const ids = (f.ids || []).filter(id => sc.blocks.some(x => x.id === id)); if (!ids.length) return;
+  for (const id of ids) {
+    const b = sc.blocks.find(x => x.id === id), p = bestFor(sc, b); if (!p) continue;
+    const from = person(sc, b.who)?.name || 'nobody';
+    mutate(() => { b.who = p.id; delete b.auto; });
+    toast(`${DAYS[b.day]} ${fmt(b.start)}–${fmt(b.end)} moved from ${from} to ${p.name}. Ctrl+Z to undo`); flash([b.id]); return;
+  }
+  if (f.force) {
+    const b = sc.blocks.find(x => x.id === ids[0]);
+    mutate(() => { b.who = ''; delete b.auto; });
+    toast(`Nobody else can take ${DAYS[b.day]} ${fmt(b.start)}–${fmt(b.end)} within your rules, so it is now an open shift. Ctrl+Z to undo`); flash([b.id]); return;
+  }
+  toast(`Nobody else can take ${ids.length > 1 ? 'these shifts' : 'this shift'} within your rules. Change ${ids.length > 1 ? 'their' : 'its'} times, add someone, or adjust the rules in Settings.`); flash(ids);
+}
+function issueRows(issues) {
+  lastIssues = issues;
+  return issues.slice(0, 8).map((i, n) => `<div class="issue ${i.lvl}">${i.show.length ? `<button class="itext" data-show="${n}" title="Show on the rota">${esc(i.text)}</button>` : `<span>${esc(i.text)}</span>`}${i.fix ? `<button class="btn sm" data-fix="${n}">${FIX_LABEL[i.fix.k]}</button>` : ''}</div>`).join('')
+    + (issues.length > 8 ? `<p class="hint" style="margin:0">and ${issues.length - 8} more</p>` : '');
+}
+function bindIssues() {
+  $$('[data-fix]').forEach(b => b.onclick = () => fixIssue(lastIssues[+b.dataset.fix]));
+  $$('[data-show]').forEach(b => b.onclick = () => { const i = lastIssues[+b.dataset.show]; if (!i) return; flash(i.show); });
+}
+
+// ---- day menu: copy a day to other days, or clear it
+function openDayMenu(d) {
+  const sc = sched(), team = isTeamSched(sc), bl = sc.blocks.filter(b => b.day === d), noun = team ? 'shift' : 'block';
+  const m = modal(`<div class="modal-h"><h2>${DAYS_LONG[d]}</h2>${closeX}</div>
+    <p class="hint" style="margin:0">${bl.length} ${noun}${bl.length === 1 ? '' : 's'} · ${team ? money(sc, Math.round(teamStats(sc).byDay[d])) : hrs(bl.reduce((s, b) => s + b.end - b.start, 0)) + 'h'}</p>
+    <div class="field"><span>Copy ${DAYS_LONG[d]} to</span><div class="days">${DAYS.map((x, i) => i === d ? '' : `<label><input type="checkbox" name="cp" value="${i}"><span>${x}</span></label>`).join('')}</div>
+      <div class="row"><button type="button" class="chip" data-pick="0,1,2,3,4">Weekdays</button><button type="button" class="chip" data-pick="5,6">Weekend</button><button type="button" class="chip" data-pick="0,1,2,3,4,5,6">Every day</button><button type="button" class="chip" data-pick="">None</button></div></div>
+    <label class="check"><input type="checkbox" id="dm-rep" checked> Replace anything already on those days</label>
+    <div class="err" id="dm-err"></div><div id="dm-confirm"></div>
+    <div class="foot"><button class="btn danger left" id="dm-clear" ${bl.length ? '' : 'disabled'}>Clear ${DAYS[d]}</button><button class="btn" data-close>Cancel</button><button class="btn primary" id="dm-copy" ${bl.length ? '' : 'disabled'}>Copy</button></div>`);
+  $$('[data-pick]', m).forEach(c => c.onclick = () => { const set = c.dataset.pick ? c.dataset.pick.split(',').map(Number) : []; $$('input[name=cp]', m).forEach(i => { i.checked = set.includes(+i.value); }); });
+  $('#dm-copy', m).onclick = () => {
+    const to = $$('input[name=cp]:checked', m).map(i => +i.value), rep = $('#dm-rep', m).checked;
+    if (!to.length) return $('#dm-err', m).textContent = 'Pick at least one day to copy to.';
+    const removed = rep ? sc.blocks.filter(b => to.includes(b.day)).length : 0;
+    if (!canAddBlocks(bl.length * to.length - removed)) return;
+    mutate(() => {
+      if (rep) sc.blocks = sc.blocks.filter(b => !to.includes(b.day));
+      for (const t of to) { for (const b of bl) sc.blocks.push({ ...b, id: uid(), day: t }); if (!sc.days.includes(t)) { sc.days.push(t); sc.days.sort(); } }
+    });
+    m.close(); toast(`Copied ${DAYS_LONG[d]} to ${daysLabel(to)}. Ctrl+Z to undo`);
+  };
+  $('#dm-clear', m).onclick = () => confirmIn($('#dm-confirm', m), `Remove all ${bl.length} ${noun}s on ${DAYS_LONG[d]}?`, 'Clear day', () => { mutate(() => { sc.blocks = sc.blocks.filter(b => b.day !== d); }); m.close(); toast(`${DAYS_LONG[d]} cleared. Ctrl+Z to undo`); });
+}
+
+// ---- setup wizard: a staffed rota from a list of names
+function parsePeople(text) {
+  return String(text).split(/\n+/).map(l => l.trim()).filter(Boolean).map(l => {
+    const parts = l.split(/\s*[,;\t]\s*|\s+-\s+/).filter(Boolean), num = parts.findIndex((x, i) => i > 0 && /^[^\d]{0,3}\d+(\.\d+)?\s*(\/h|ph|an hour)?$/i.test(x));
+    const wage = num > 0 ? parseFloat(parts[num].replace(/[^\d.]/g, '')) : null;
+    const rest = parts.filter((_, i) => i !== num);
+    return { name: rest[0].slice(0, 40), role: (rest[1] || '').slice(0, 30), wage };
+  }).filter(p => p.name).slice(0, 60);
+}
+function openWizard(presetName = '') {
+  if (ownCount() >= CONFIG.limits.schedules && !gate(`The free plan keeps ${CONFIG.limits.schedules} schedules of your own. Paid plans keep as many as you need: one per location, season or person.`)) return;
+  const w = { step: 1, name: presetName, days: [0, 1, 2, 3, 4, 5, 6], open: '08:00', close: '18:00', people: '', need: 2, rush: false, rushFrom: '11:30', rushTo: '14:00', extra: 1, wage: 15 };
+  const m = modal('<div id="wz" style="display:flex;flex-direction:column;gap:14px"></div>');
+  const read = () => {
+    const v = id => $('#' + id, m)?.value;
+    if (w.step === 1) { w.name = v('wz-name').trim(); w.days = $$('input[name=wzd]:checked', m).map(i => +i.value); w.open = v('wz-open'); w.close = v('wz-close'); }
+    if (w.step === 2) { w.people = v('wz-people'); w.wage = Math.max(0, parseFloat(v('wz-wage')) || 0); }
+    if (w.step === 3) { w.need = clamp(+v('wz-need') || 1, 1, 30); w.rush = $('#wz-rush', m).checked; w.rushFrom = v('wz-rf'); w.rushTo = v('wz-rt'); w.extra = clamp(+v('wz-extra') || 1, 1, 20); }
+  };
+  const valid = () => {
+    if (w.step === 1) { const a = fromHHMM(w.open), b = fromHHMM(w.close) || 1440; if (!w.days.length) return 'Pick the days you are open.'; if (!w.open || !w.close || b <= a) return 'Closing time has to be after opening time.'; }
+    if (w.step === 2 && !parsePeople(w.people).length) return 'Add at least one person, one per line.';
+    if (w.step === 3 && w.rush) { const a = fromHHMM(w.rushFrom), b = fromHHMM(w.rushTo); if (!w.rushFrom || !w.rushTo || b <= a) return 'The busy period has to end after it starts.'; }
+    return '';
+  };
+  const peoplePreview = () => { const ps = parsePeople($('#wz-people', m)?.value || ''); return ps.length ? `${ps.length} ${ps.length === 1 ? 'person' : 'people'}: ` + ps.slice(0, 6).map(p => `${p.name}${p.role ? ' (' + p.role + ')' : ''}`).join(', ') + (ps.length > 6 ? '…' : '') : 'One person per line. Role and hourly rate are optional.'; };
+  const draw = () => {
+    const dots = [1, 2, 3].map(i => `<i class="${i <= w.step ? 'on' : ''}"></i>`).join('');
+    const head = `<div class="modal-h"><div><div class="steps">${dots}<span>Step ${w.step} of 3</span></div><h2>${['Your business', 'Your team', 'How many people at once?'][w.step - 1]}</h2></div>${closeX}</div>`;
+    let body = '';
+    if (w.step === 1) body = `<label class="field"><span>Name</span><input id="wz-name" value="${esc(w.name)}" placeholder="e.g. Harbour Street Bakery" autofocus></label>
+      <div class="field"><span>Open on</span><div class="days">${DAYS.map((d, i) => `<label><input type="checkbox" name="wzd" value="${i}" ${w.days.includes(i) ? 'checked' : ''}><span>${d}</span></label>`).join('')}</div></div>
+      <div class="grid2"><label class="field"><span>Opens</span><input type="time" id="wz-open" step="900" value="${w.open}"></label><label class="field"><span>Closes</span><input type="time" id="wz-close" step="900" value="${w.close}"></label></div>
+      <p class="hint" style="margin:0">Include any time staff need before opening or after closing.</p>`;
+    if (w.step === 2) body = `<label class="field"><span>Who works for you?</span><textarea id="wz-people" rows="7" autofocus placeholder="Ana, Barista, 16\nBen, Kitchen, 18.50\nChloe, Barista\nDev">${esc(w.people)}</textarea></label>
+      <p class="hint" style="margin:0" id="wz-prev">${esc(peoplePreview())}</p>
+      <label class="field"><span>Hourly rate for anyone without one</span><input id="wz-wage" type="number" min="0" step="0.05" value="${w.wage}"></label>
+      <p class="hint" style="margin:0">You can paste straight from a spreadsheet. Days off, availability and hour limits can be set per person afterwards.</p>`;
+    if (w.step === 3) body = `<label class="field"><span>People needed whenever you’re open</span><input id="wz-need" type="number" min="1" max="30" value="${w.need}" autofocus></label>
+      <label class="check"><input type="checkbox" id="wz-rush" ${w.rush ? 'checked' : ''}> We get busier at certain times</label>
+      <div class="grid3" id="wz-rushf" ${w.rush ? '' : 'hidden'}><label class="field"><span>Busy from</span><input type="time" id="wz-rf" step="900" value="${w.rushFrom}"></label><label class="field"><span>Until</span><input type="time" id="wz-rt" step="900" value="${w.rushTo}"></label><label class="field"><span>Extra people</span><input type="number" id="wz-extra" min="1" max="20" value="${w.extra}"></label></div>
+      <p class="hint" style="margin:0">Blockwise will create the shifts and share them fairly across your team, within 40 hours a week each. Everything can be changed afterwards.</p>`;
+    $('#wz', m).innerHTML = head + body + `<div class="err" id="wz-err"></div><div class="foot">${w.step > 1 ? '<button type="button" class="btn left" id="wz-back">Back</button>' : ''}<button type="button" class="btn primary" id="wz-next">${w.step < 3 ? 'Next' : 'Build my rota'}</button></div>`;
+    $$('[data-close]', m).forEach(b => b.onclick = m.close);
+    if ($('#wz-people', m)) $('#wz-people', m).oninput = () => { $('#wz-prev', m).textContent = peoplePreview(); };
+    if ($('#wz-rush', m)) $('#wz-rush', m).onchange = e => { $('#wz-rushf', m).hidden = !e.target.checked; };
+    if ($('#wz-back', m)) $('#wz-back', m).onclick = () => { read(); w.step--; draw(); };
+    $('#wz-next', m).onclick = () => { read(); const e = valid(); if (e) return $('#wz-err', m).textContent = e; if (w.step < 3) { w.step++; draw(); } else build(); };
+    $$('#wz input:not([type=checkbox])', m).forEach(i => i.onkeydown = e => { if (e.key === 'Enter') { e.preventDefault(); $('#wz-next', m).click(); } });
+    setTimeout(() => $('[autofocus]', m)?.focus(), 20);
+  };
+  const build = () => {
+    let ps = parsePeople(w.people), capped = 0;
+    if (!isTeam() && ps.length > CONFIG.limits.staff) { capped = ps.length - CONFIG.limits.staff; ps = ps.slice(0, CONFIG.limits.staff); }
+    const a = fromHHMM(w.open), b = fromHHMM(w.close) || 1440;
+    const s = { id: uid(), kind: 'team', name: w.name || 'My rota', startHour: Math.max(0, Math.floor(a / 60) - 1), endHour: Math.min(24, Math.ceil(b / 60) + 1), days: [...w.days].sort(), snap: 15, blocks: [], tasks: [],
+      staff: ps.map((p, i) => ({ id: 'p' + uid(), name: p.name, role: p.role, wage: p.wage ?? w.wage, maxH: 40, minH: 0, off: [], color: PALETTE[i % PALETTE.length] })),
+      cover: [{ id: uid(), days: [...w.days], start: a, end: b, need: w.need }], rules: { ...RULES0 }, budget: 0, cur: sched().cur || '$' };
+    if (w.rush) s.cover.push({ id: uid(), days: [...w.days], start: fromHHMM(w.rushFrom), end: fromHHMM(w.rushTo), need: w.need + w.extra });
+    pushUndo(); autoStaff(s); S.schedules.push(s); S.active = s.id; S.prefs.view = 'roster'; save(); render(); m.close();
+    const open = s.blocks.filter(x => !x.who).length;
+    toast(`Built “${s.name}”: ${s.blocks.length} shifts for ${s.staff.length} people.` + (open ? ` ${open} left open, since everyone hit 40 hours. Add people or raise limits.` : '') + (capped ? ` The free plan covers ${CONFIG.limits.staff} people; ${capped} more ${capped === 1 ? 'needs' : 'need'} Team.` : ''));
+    if (capped) setTimeout(() => openUpgrade(`Your list has ${ps.length + capped} people. The free plan covers ${CONFIG.limits.staff}; Team adds everyone.`, null, 'team'), 600);
+  };
+  draw();
+}
+
+// ---- first-run welcome and help
+function openWelcome() {
+  const m = modal(`<div class="modal-h"><h2>What are you scheduling?</h2>${closeX}</div>
+    <div class="kind big2">
+      <button class="pick" id="wl-team" autofocus><b>My team’s shifts</b><small>Build a staff rota in about a minute. Paste your people, say how many you need, and Blockwise creates fair shifts with costs and rule checks.</small></button>
+      <button class="pick" id="wl-me"><b>My own week</b><small>Plan classes, work and habits on a weekly grid by dragging, or by typing “Gym Mon Wed Fri 7-8am”.</small></button>
+    </div>
+    <div class="foot"><button class="btn ghost" data-close>Look around the examples first</button></div>`, { onClose: () => { S.onboarded = true; save(); } });
+  $('#wl-team', m).onclick = () => { m.close(); openWizard(); };
+  $('#wl-me', m).onclick = () => { m.close(); const s = { id: uid(), name: 'My week', startHour: 7, endHour: 22, days: [0, 1, 2, 3, 4, 5, 6], snap: 15, blocks: [], tasks: [] }; mutate(() => { S.schedules.push(s); S.active = s.id; }); openTemplates(); };
+}
+function openHelp() {
+  const k = (keys, what) => `<tr><td>${keys.map(x => `<kbd>${x}</kbd>`).join(' ')}</td><td>${what}</td></tr>`;
+  const team = isTeamSched(sched());
+  modal(`<div class="modal-h"><h2>Quick guide</h2>${closeX}</div>
+    <div class="guide">
+      <div><h3>Add</h3><p>Type in the quick-add box: <span class="mono">${team ? 'Maya Mon-Fri 8-4' : 'Gym Mon Wed Fri 7-8am'}</span>, <span class="mono">${team ? 'Leo and Inés Sat 9-5' : 'Study weekdays 7-9pm'}</span>${team ? ', <span class="mono">open Sun 10-2 kitchen</span>' : ''}. Or ${team ? 'click any empty cell' : 'drag on an empty part of the grid'}.</p></div>
+      <div><h3>Change</h3><p>${team ? 'Drag a shift to another person or day to reassign it. Click it to edit times.' : 'Drag a block to move it, drag its bottom edge to resize, click to edit.'} Click a day’s name to copy that day to other days.</p></div>
+      <div><h3>Fix</h3><p>${team ? 'The rota check lists every problem. Click one to see it on the rota, or press its button to fix it.' : 'Overlapping blocks are flagged in the toolbar.'} Every change has an Undo button.</p></div>
+    </div>
+    <table class="keys">${k(['/'], 'Quick add')}${k(['N'], team ? 'New shift' : 'New block')}${k(['Ctrl', 'Z'], 'Undo')}${k(['Ctrl', 'Shift', 'Z'], 'Redo')}${k(['Enter'], 'Open the selected item')}${k(['Delete'], 'Delete the selected item')}${k(['Esc'], 'Close a window')}${k(['?'], 'This guide')}</table>`, { wide: true });
+}
+
 /* ===================== wiring ===================== */
 $('#schedSel').onchange = e => { S.active = e.target.value; save(); render(); };
 $('#newSched').onclick = newSchedule;
 $('#upgradeBtn').onclick = () => openUpgrade('');
 $('#settingsBtn').onclick = openSettings;
+$('#helpBtn').onclick = openHelp;
+bindQuickAdd();
+$('#calWrap').addEventListener('click', e => { const dh = e.target.closest('[data-dayhead]'); if (dh) openDayMenu(+dh.dataset.dayhead); });
+$('#calWrap').addEventListener('keydown', e => { const dh = e.target.closest('[data-dayhead]'); if (dh && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); openDayMenu(+dh.dataset.dayhead); } });
 $('#addBtn').onclick = () => { if (canAddBlocks(1)) openEditor(null, true); };
 $('#tplBtn').onclick = openTemplates;
 $('#fillBtn').onclick = () => isTeamSched(sched()) ? runAutoStaff() : runAutofill();
@@ -1788,10 +2101,13 @@ document.addEventListener('keydown', e => {
   if (mod && e.key.toLowerCase() === 'z') { e.preventDefault(); e.shiftKey ? redo() : undo(); }
   else if (mod && e.key.toLowerCase() === 'y') { e.preventDefault(); redo(); }
   else if (!mod && e.key.toLowerCase() === 'n') { e.preventDefault(); $('#addBtn').click(); }
+  else if (!mod && e.key === '/') { e.preventDefault(); $('#qaIn').focus(); }
+  else if (!mod && e.key === '?') { e.preventDefault(); openHelp(); }
 });
 setInterval(() => { if (!drag && !$('.scrim') && !document.activeElement?.closest?.('#side')) render(); }, 60000);   // keeps the now-line and trial countdown current
 
 render();
+if (S.onboarded === false) setTimeout(openWelcome, 300);
 // scroll the grid to ~1h before the first block
 requestAnimationFrame(() => { const sc = sched(); if (isTeamSched(sc) && S.prefs.view !== 'time') return; const first = Math.min(...sc.blocks.map(b => b.start), 9 * 60); $('#calWrap').scrollTop = Math.max(0, (first - 60 - sc.startHour * 60) / 60 * Math.round(52 * S.prefs.zoom)); });
 </script>

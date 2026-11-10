@@ -2,6 +2,13 @@
 
 `blockwise.html` is a single-file staff rota builder for small teams (cafés, shops, clinics, crews), with a personal weekly planner as a second mode. Open it in any browser or host it on any static host. Data is saved in the browser's localStorage.
 
+## Easiest rota app to use
+- **Rota in a minute.** First visit asks what you are scheduling. For a team, a three-step setup takes the business hours, a pasted list of people ("Ana, Baker, 16", straight from a spreadsheet) and how many people you need, then builds a complete, fairly shared rota with 8-hour shifts, short top-ups for busy periods and at least one day off each.
+- **Type it, don't click it.** The quick-add box (press `/`) understands plain text: `Maya Mon-Fri 8-4`, `Leo and Inés Sat 9 to 5`, `open Sun 10am-2pm kitchen`, `Gym MWF 7-8am`. It shows what it will add before you press Enter.
+- **Every problem has a button.** Each rota-check item can be clicked to highlight the shifts involved, and has a fix: Reassign (finds the best person who can legally take the shift), Auto-staff, or a jump to the right setting.
+- **Copy a day.** Click any day's name to copy it to weekdays, the weekend or every day, or clear it.
+- **Nothing is scary.** Every change shows an Undo button; `?` opens a one-screen guide and shortcuts.
+
 ## Why someone would pay for it
 Most rota tools need accounts for every employee and cost per seat. Blockwise works the moment the page opens and answers the three questions a manager has while building a rota:
 
