@@ -13,7 +13,7 @@
   - Everything outside those markers is the original game, edited in place in `index.html`. Story beats like `takenM`, `afterBase` and `startAct2` live there.
 - `src/`: the source of the two generated regions.
   - `td1_engine.js`, `td2_scene.js`, `td3_trailer.js`, `td4_base.js`, `td5_story.js` → TD block.
-  - `ui2.js`, `td6.js` … `td22.js` → UI2 block. Load order is in `tools/build.py`; td12 loads before td11 on purpose.
+  - `ui2.js`, `td6.js` … `td23.js` → UI2 block. Load order is in `tools/build.py`; td12 loads before td11 on purpose.
   - `maps.json`: tile rows for every top-down map.
   - `deep_rooms.json`, `city_rooms.json`: room rectangles, emitted as `TD_DEEPROOMS` / `TD_CITYROOMS`.
 - `tools/`:
@@ -277,7 +277,8 @@ The trailer and all of V's base are no longer side-view backdrops: they are 3/4 
   - `tools/perf_test.js` prints frame cost per area, enhanced vs classic. Headless numbers are relative only.
 - **UI:** interaction prompts no longer sit on top of the objective banner (minimum y is 40).
 - **Writing:** varied or cut about 80 uses of "for a long time" and "very carefully/quietly/slowly/gently". Similes were left alone on purpose.
-- **`tools/days_test.js`:** plays 12 days as each POV (answers texts, takes calls, wanders, pokes things, sleeps) and reports errors. It found the ending crash.
+- **`tools/days_test.js`:** plays 16 days as each POV (answers texts, takes calls, wanders, pokes things, sleeps) and reports errors. Misaki pays rent on days 2 and 4, so her run goes normal → taken → after; V's reaches Act II. Misaki's run then parks in the finale's stealth minigame, which the script can't play. It found the ending crash.
+- **td23:** the help panel covers the phone, late nights and the G toggle. A toast warns before a text expires unanswered, and a one-time hint points to Messages.
 
 ## Mirror Protocol (mirror-protocol.html)
 - Chapter 4 cases (all unlocked): lessons, mastery practice, 3D missions, final Ledger + 20-question exam.
