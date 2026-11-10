@@ -302,3 +302,10 @@ See Build & check above. Playwright is installed globally (`require(execSync('np
 - `tools/audit.js` always reports the garage bike as unreachable. That's intended: it sits behind a crate-push puzzle (push the lower crate right).
 - At late night (slot 3), V and Misaki are asleep in bed, so talking to them means waking them. Night wake-ups fire on about 30% of sleeps.
 - Recent rounds were checked by the audit, fuzz, scripted playthroughs of each new scene, and screenshots. They have not been hand-played start to finish.
+
+## Phone-layout pass
+
+- **Portrait phones** (`td23`, CSS under `@media (orientation:portrait) and (max-width:640px)`): panels and the pause menu are `position:fixed` and fill the space under the HUD; the dialogue box sits below the game frame instead of over it (choices used to be cut off); touch buttons move to the bottom of the screen; the hint line is hidden. `--uitop` / `--uibot` are set from `#stage`'s rect on resize.
+- **Graphics toggle** is now in the pause menu's Settings group (`td21`), so touch players can switch enhanced/classic. G still works.
+- Fixed a broken sentence in the Act II gala ending ("$Xk. , a little short").
+- Layout check script pattern: Playwright with `{viewport:{width:390,height:844},hasTouch:true,isMobile:true}`; remove `.splash`, `benchLoad(BENCH[1])`, then `pauseMenu()` / `openPhone('dm')` / `ask(...)` and screenshot.

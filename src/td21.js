@@ -36,3 +36,5 @@ function tdPost(z,cam){if(META.fx===0||!S)return;c.save();c.setTransform(1,0,0,1
  c.restore()}
 const _wfxPost=tdWeatherFX;tdWeatherFX=function(zone,cam){_wfxPost(zone,cam);try{tdPost(scene&&scene.zone,cam)}catch(e){}};
 if(typeof window!=='undefined')addEventListener('keydown',e=>{if(e.key.toLowerCase()==='g'&&!dlg&&S){META.fx=META.fx===0?1:0;saveMeta();toast(META.fx===0?'Graphics: classic (G)':'Graphics: enhanced (G)')}});
+/* the same switch in the pause menu, for touch players */
+const _pmFx=pauseMenu;pauseMenu=function(){_pmFx();const box=document.querySelector('.pausebox .pbtns');if(!box)return;const b=document.createElement('button');const lab=()=>'Graphics: '+(META.fx===0?'classic':'enhanced');b.textContent=lab();b.onclick=e=>{e.stopPropagation();META.fx=META.fx===0?1:0;saveMeta();b.textContent=lab()};const hd=[...box.children].reverse().find(e=>e.tagName!=='BUTTON');box.insertBefore(b,hd&&hd!==box.firstElementChild?hd:box.lastElementChild)};

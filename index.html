@@ -1776,7 +1776,7 @@ function act2Climax(){const sus=SUS(),db=clueDB();const venue=S.f.galaHome?'V’
 function act2Ending(){META.done++;saveMeta();const sus=SUS(),C=S.case,L=[];
  let name=C.wrong?'The Coat on the Rack':C.escaped?'A Name, At Least':C.end==='police'?'Paper':C.end==='ronin'?'Devil’s Due':'Off the Record';
  L.push(C.wrong?`The Mimic was never caught. ${sus[C.cul].n} left the city a month later. V found out who it had been far too late.`:`The Mimic was ${sus[C.cul].n}. ${C.cul==='dale'?'He never forgave V for the paper that ruined him.':C.cul==='heir'?'He wanted V to feel what his organisation felt: watched, named, cornered.':'He had spent four years hunting a vigilante nobody believed in, and decided to make one.'}`);
- L.push(S.gala>=S.galaGoal?`The gala raised $${S.gala}k — past the goal. Forty-one shelters stay open through winter.`:`The gala raised $${S.gala}k. , a little short. V covers the difference himself and tells no one.`);
+ L.push(S.gala>=S.galaGoal?`The gala raised $${S.gala}k — past the goal. Forty-one shelters stay open through winter.`:`The gala raised $${S.gala}k, a little short. V covers the difference himself and tells no one.`);
  L.push(S.trust>=60?'V and Misaki keep their promises now. Small ones, mostly. Those turn out to be the ones that count.':S.tension>=50?'Things between V and Misaki stay complicated. They keep talking anyway.':'V and Misaki find a rhythm, lopsided and theirs.');
  L.push((S.rivalry||0)<30?'V and Ronin are, against every law of nature, friends. V will deny this under oath.':(S.rivalry||0)>=70?'V and Ronin still cannot be in the same room for more than ten minutes. Angel times it.':'V tolerates Ronin now. Mostly. There is a crowbar hook by V’s door that nobody talks about.');
  L.push(S.morale>=60?'The server holds a movie night every Friday. Ronin picks Heathers every single time. Nobody objects.':S.morale<30?'The server is quieter than it used to be. Angel keeps posting memes into the silence, stubbornly, until someone answers.':'The server goes back to memes. Ronin posts the crowbar in a tiny hat again. Angel still hates it.');
@@ -11012,6 +11012,8 @@ function tdPost(z,cam){if(META.fx===0||!S)return;c.save();c.setTransform(1,0,0,1
  c.restore()}
 const _wfxPost=tdWeatherFX;tdWeatherFX=function(zone,cam){_wfxPost(zone,cam);try{tdPost(scene&&scene.zone,cam)}catch(e){}};
 if(typeof window!=='undefined')addEventListener('keydown',e=>{if(e.key.toLowerCase()==='g'&&!dlg&&S){META.fx=META.fx===0?1:0;saveMeta();toast(META.fx===0?'Graphics: classic (G)':'Graphics: enhanced (G)')}});
+/* the same switch in the pause menu, for touch players */
+const _pmFx=pauseMenu;pauseMenu=function(){_pmFx();const box=document.querySelector('.pausebox .pbtns');if(!box)return;const b=document.createElement('button');const lab=()=>'Graphics: '+(META.fx===0?'classic':'enhanced');b.textContent=lab();b.onclick=e=>{e.stopPropagation();META.fx=META.fx===0?1:0;saveMeta();b.textContent=lab()};const hd=[...box.children].reverse().find(e=>e.tagName!=='BUTTON');box.insertBefore(b,hd&&hd!==box.firstElementChild?hd:box.lastElementChild)};
 
 /* ===================== MORE MESSAGES: the killers' group chat, and Misaki's luck ===================== */
 /* Misaki never expected to last. Five years, tops, she figured, when she started. Then a sniping forum, a reply from a
@@ -11113,6 +11115,9 @@ const _helpR=helpPanel;helpPanel=function(){_helpR();const lb=document.querySele
 /* a nudge before a message goes unanswered, and a one-time pointer to where replies live */
 const _txTickR=txTick;txTick=function(){_txTickR();if(!S||!S.tx)return;const P=S.tx,n=phNow();for(const id in P.run){const r=P.run[id];if(r.await&&r.exp&&r.exp-n<=1&&!r.warned){r.warned=1;toast('⏳ '+PNM[TXS[id].with]+' is still waiting on a reply');save();break}}};
 const _phDelR=phDeliver;phDeliver=function(){const before=S&&S.tx?Object.values(S.tx.un).reduce((a,b)=>a+(b||0),0):0;_phDelR();if(!S||!S.tx)return;const after=Object.values(S.tx.un).reduce((a,b)=>a+(b||0),0);if(after>before&&!META.txHint){META.txHint=1;saveMeta();setTimeout(()=>toast('Phone → Messages to read and reply'),1400)}};
+/* portrait phones: panels and menus use the empty space under the frame instead of squeezing into it */
+if(typeof document!=='undefined'&&document.head){const st=document.createElement('style');st.textContent=`@media (orientation:portrait) and (max-width:640px){#ui>.panel,#ui>.pausebox,.pausebox{position:fixed;inset:var(--uitop,0px) 0 0 0;z-index:8}.pausebox{align-items:flex-start}.pausebox .pm{max-width:100%;max-height:100%;width:100%;box-sizing:border-box}#tbtns{position:fixed;right:10px;bottom:14px;z-index:9}#wrap>.hint{display:none}#ui>.dlg{position:fixed;left:6px;right:6px;top:calc(var(--uibot,40vh) + 6px);bottom:auto;max-height:calc(100dvh - var(--uibot,40vh) - 84px);min-height:96px;box-sizing:border-box}}`;document.head.appendChild(st);
+ const fit=()=>{const s=document.getElementById('stage');if(s){const r=s.getBoundingClientRect(),d=document.documentElement.style;d.setProperty('--uitop',Math.max(0,Math.round(r.top))+'px');d.setProperty('--uibot',Math.round(r.bottom)+'px')}};addEventListener('resize',fit);addEventListener('orientationchange',fit);setTimeout(fit,0);setTimeout(fit,600)}
 /* ===UI2-END=== */
 requestAnimationFrame(frame);splash();
 
