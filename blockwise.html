@@ -1,6 +1,6 @@
 <title>Blockwise Planner</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Blockwise: drag-and-drop weekly schedule builder with auto-fill, conflict checks, calendar export and a Pro plan.">
+<meta name="description" content="Blockwise: staff rota and weekly schedule builder with live labour cost, rule checks, auto-staffing and calendar export.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -40,6 +40,7 @@
 :root[data-skin="lagoon"]{--acc-l:#0e7490;--acc-d:#4fd1e8}
 
 *,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
 html,body{height:100%}
 body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 var(--f-body);
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:12px 24px}
@@ -214,6 +215,57 @@ h1,h2,h3{font-family:var(--f-disp);text-wrap:balance;margin:0;letter-spacing:-.0
 .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--sheet);padding:9px 16px;border-radius:999px;font-weight:500;z-index:80;box-shadow:var(--shadow);max-width:calc(100% - 32px);text-align:center}
 .tryon{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:40;background:var(--sheet);border:1px solid var(--gold);border-radius:12px;padding:10px 12px;display:flex;gap:10px;align-items:center;box-shadow:var(--shadow);max-width:calc(100% - 32px);flex-wrap:wrap}
 .empty{position:absolute;inset:auto 0 40% 0;text-align:center;color:var(--muted);pointer-events:none;font-size:13px}
+/* roster */
+.ros{min-width:calc(150px + var(--cols) * 112px)}
+.rrow{display:grid;grid-template-columns:150px repeat(var(--cols),minmax(0,1fr));border-bottom:1px solid var(--line)}
+.rrow.head{position:sticky;top:0;z-index:6;background:var(--sheet)}
+.rp{position:sticky;left:0;z-index:4;background:var(--sheet);padding:9px 10px;display:flex;flex-direction:column;gap:2px;min-width:0;border:0;border-right:1px solid var(--line);cursor:pointer;text-align:left;font:inherit;color:inherit}
+.rp b{display:flex;align-items:center;gap:6px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rp b i{width:9px;height:9px;border-radius:50%;background:var(--c);flex:none}
+.rp small{font:11px var(--f-mono);color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rp.over small:last-child{color:var(--danger)}
+.rc{border-left:1px solid var(--line);padding:5px;display:flex;flex-direction:column;gap:4px;min-height:58px;cursor:pointer;min-width:0}
+.rc.off{background-image:repeating-linear-gradient(135deg,color-mix(in srgb,var(--ink) 7%,transparent) 0 5px,transparent 5px 10px)}
+.rc:hover{background-color:color-mix(in srgb,var(--accent) 6%,transparent)}
+.rc.drop{background-color:color-mix(in srgb,var(--accent) 14%,transparent);box-shadow:inset 0 0 0 2px var(--accent)}
+.rc .offl{font:11px var(--f-mono);color:var(--muted);margin:auto}
+.sh{border-radius:6px;padding:4px 6px 4px 8px;background:color-mix(in srgb,var(--c) 17%,var(--sheet));border:1px solid color-mix(in srgb,var(--c) 40%,transparent);border-left:4px solid var(--c);cursor:grab;user-select:none;font-size:12px;line-height:1.25;min-width:0}
+.sh b{display:block;font:500 11.5px var(--f-mono);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sh span{display:block;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sh.bad{border-color:var(--danger);box-shadow:0 0 0 1px var(--danger)}
+.sh.open{border-style:dashed;border-left-style:solid;background:transparent}
+.sh.drag{position:relative;z-index:9;opacity:.92;box-shadow:0 10px 28px rgba(0,0,0,.25);cursor:grabbing;pointer-events:none}
+.rrow.openrow .rp b{color:var(--muted)}
+.rrow.cov{background:color-mix(in srgb,var(--ink) 3%,transparent);border-bottom:0}
+.rrow.cov .rc{cursor:default;font:11px var(--f-mono);min-height:0;padding:8px 6px;color:var(--muted)}
+.rrow.cov .rc:hover{background-color:transparent}
+.rrow.cov .ok{color:var(--ok)}
+.rrow.cov .gap{color:var(--danger)}
+.issue{display:grid;grid-template-columns:8px minmax(0,1fr);gap:8px;font-size:13px;align-items:baseline}
+.issue::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--gold)}
+.issue.bad::before{background:var(--danger)}
+.daybars{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;align-items:end}
+.daybars div{display:flex;flex-direction:column;align-items:center;gap:3px;font:10px var(--f-mono);color:var(--muted)}
+.daybars i{display:block;width:100%;background:var(--accent);border-radius:3px 3px 0 0;min-height:2px}
+.prow{display:grid;grid-template-columns:10px minmax(0,1fr) auto;gap:4px 8px;align-items:center;cursor:pointer;padding:2px 0;background:none;border:0;text-align:left;color:inherit;font:inherit;font-size:13px;width:100%}
+.prow .sw{width:10px;height:10px;border-radius:50%;background:var(--c)}
+.prow .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.prow .hr{font:12px var(--f-mono);color:var(--muted)}
+.prow.over .hr{color:var(--danger)}
+.kind{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media (max-width:480px){.kind{grid-template-columns:1fr}}
+.kind label{position:relative;display:block}
+.kind input{position:absolute;opacity:0}
+.kind span{display:block;border:1px solid var(--line);border-radius:10px;padding:10px 12px;cursor:pointer;height:100%}
+.kind span b{display:block;font:700 15px var(--f-disp)}
+.kind span small{color:var(--muted)}
+.kind input:checked+span{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.kind input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
+.msg{border:1px solid var(--line);border-radius:10px;padding:10px;display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+.msg .out{min-height:110px}
+#ex-body{display:flex;flex-direction:column;gap:10px}
+.tier h3 small{font:500 12px var(--f-body);color:var(--muted);letter-spacing:0}
+@media (max-width:520px){.ros{min-width:calc(104px + var(--cols) * 104px)}.rrow{grid-template-columns:104px repeat(var(--cols),minmax(0,1fr))}}
 @media (max-width:520px){#zoomIn,#zoomOut,.rail .sep{display:none}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
@@ -237,10 +289,11 @@ h1,h2,h3{font-family:var(--f-disp);text-wrap:balance;margin:0;letter-spacing:-.0
   </header>
 
   <nav class="rail" aria-label="Tools">
-    <button class="btn primary" id="addBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg>Block</button>
+    <button class="btn primary" id="addBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg><span id="addLbl">Block</span></button>
     <button class="btn" id="tplBtn">Templates</button>
     <button class="btn" id="fillBtn">Auto-fill</button>
     <button class="btn" id="exportBtn">Export</button>
+    <button class="btn" id="viewBtn" hidden>Timeline view</button>
     <button class="btn" id="skinBtn">Themes</button>
     <span class="sep"></span>
     <button class="btn ghost" id="undoBtn" title="Undo (Ctrl+Z)" aria-label="Undo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-3"/></svg></button>
@@ -264,10 +317,10 @@ h1,h2,h3{font-family:var(--f-disp);text-wrap:balance;margin:0;letter-spacing:-.0
    so you can try every paid feature. Turn it off before you launch. */
 const CONFIG = {
   demoMode: true,
-  prices: { proMonthly: 5, proYearly: 36, lifetime: 79, template: 3 },
-  checkout: { proMonthly: '', proYearly: '', lifetime: '', template: '' },
+  prices: { proMonthly: 5, proYearly: 36, lifetime: 79, teamMonthly: 19, teamYearly: 180, template: 3 },
+  checkout: { proMonthly: '', proYearly: '', lifetime: '', teamMonthly: '', teamYearly: '', template: '' },
   licenseSalt: 'replace-this-salt-before-launch',
-  limits: { schedules: 1, blocks: 40, categories: 5, autofillPerWeek: 3 },
+  limits: { schedules: 2, blocks: 40, categories: 5, autofillPerWeek: 3, staff: 5, coverRules: 2 },
   trialDays: 7,
   referralDays: 7,
   sponsor: { title: 'Advertise to weekly planners', blurb: 'One sponsor card shows here for free-plan users. Rent this slot by the week.', url: '', cta: 'Sponsor this slot' },
@@ -303,6 +356,34 @@ const B32 = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 const enc = (n, len) => { let s = ''; for (let i = 0; i < len; i++) { s += B32[n % 32]; n = Math.floor(n / 32); } return s; };
 const randCode = len => Array.from({ length: len }, () => B32[Math.floor(Math.random() * 32)]).join('');
 
+/* ===================== team rota: core ===================== */
+const isTeamSched = sc => sc.kind === 'team';
+const person = (sc, id) => (sc.staff || []).find(p => p.id === id);
+const bColor = (b, sc) => isTeamSched(sc) ? (person(sc, b.who)?.color || '#868e96') : cat(b.cat).color;
+const bTitle = (b, sc) => isTeamSched(sc) ? (person(sc, b.who)?.name || 'Open') + (b.title ? ' · ' + b.title : '') : b.title;
+const RULES0 = { restH: 11, maxDayH: 10, breakMin: 30, breakAfterH: 6, otAfterH: 40, otMult: 1.5 };
+const money = (sc, n) => (sc.cur || '$') + n.toLocaleString('en-US', { maximumFractionDigits: Math.abs(n) >= 100 ? 0 : 2 });
+function paidMin(b, sc) { const d = b.end - b.start, r = sc.rules; return d - (r.breakMin && d > r.breakAfterH * 60 ? r.breakMin : 0); }
+function restGap(a, b) {   // minutes of rest between two shifts on a repeating week, the short way round
+  const W = 10080, g1 = ((b.day * 1440 + b.start) - (a.day * 1440 + a.end) + W) % W, g2 = ((a.day * 1440 + a.start) - (b.day * 1440 + b.end) + W) % W;
+  return Math.min(g1, g2);
+}
+function cafeSchedule() {
+  const s = { id: uid(), kind: 'team', name: 'Corner Café (example rota)', startHour: 6, endHour: 21, days: [0, 1, 2, 3, 4, 5, 6], snap: 15, blocks: [], tasks: [],
+    staff: [], cover: [], rules: { ...RULES0 }, budget: 0, cur: '$' };
+  const P = (name, role, wage, maxH, off) => { const p = { id: 'p' + uid(), name, role, wage, maxH, off, color: PALETTE[[0, 2, 3, 5, 6][s.staff.length]] }; s.staff.push(p); return p.id; };
+  const maya = P('Maya', 'Manager', 24, 40, [6]), leo = P('Leo', 'Barista', 17, 40, [1]), ines = P('Inés', 'Barista', 17, 32, [0, 2]), sam = P('Sam', 'Kitchen', 19, 40, [6]), tariq = P('Tariq', 'Barista', 16.5, 24, [3, 4]);
+  const add = (who, days, span, title) => { const [a, b] = span.split('-').map(fromHHMM); for (const ch of days) s.blocks.push({ id: uid(), day: DAY_LETTER[ch], start: a, end: b, title, who, cat: '', loc: '', notes: '' }); };
+  add(maya, 'MTWRF', '08:00-16:00', 'Manager');
+  add(leo, 'MWRF', '06:30-14:30', 'Barista'); add(leo, 'S', '07:00-14:00', 'Barista');
+  add(ines, 'TR', '12:00-18:30', 'Barista'); add(ines, 'S', '11:00-18:30', 'Barista'); add(ines, 'U', '08:00-16:00', 'Barista');
+  add(sam, 'MTWR', '07:00-15:00', 'Kitchen');
+  add(tariq, 'MW', '13:00-18:30', 'Barista'); add(tariq, 'S', '14:00-20:30', 'Barista'); add(tariq, 'U', '06:30-13:00', 'Barista');
+  add('', 'S', '08:00-14:00', 'Kitchen'); add('', 'F', '14:30-18:30', 'Barista');
+  s.cover = [{ id: uid(), days: [0, 1, 2, 3, 4, 5, 6], start: 480, end: 960, need: 2 }];
+  return s;
+}
+
 /* ===================== state ===================== */
 const KEY = 'blockwise_v1';
 const DEFAULT_CATS = [
@@ -335,9 +416,9 @@ function sampleSchedule() {
   return s;
 }
 function fresh() {
-  const s = sampleSchedule();
+  const s = sampleSchedule(), c = cafeSchedule();
   return {
-    v: 1, schedules: [s], active: s.id, cats: structuredClone(DEFAULT_CATS),
+    v: 1, seenTeam: true, schedules: [c, s], active: c.id, cats: structuredClone(DEFAULT_CATS),
     plan: { tier: 'free', trialEnds: 0, trialUsed: false, proUntil: 0, license: '' },
     credits: { week: weekKey(), used: 0 },
     referral: { mine: makeReferral(), redeemed: '' },
@@ -350,33 +431,38 @@ try { S = JSON.parse(localStorage.getItem(KEY)); } catch (e) { S = null; }
 if (!S || !S.schedules || !S.schedules.length) S = fresh();
 S.prefs = Object.assign({ h24: false, zoom: 1, skin: 'graph' }, S.prefs);
 S.owned = S.owned || [];
+function migrate() {
+  for (const s of S.schedules) if (isTeamSched(s)) { s.rules = Object.assign({}, RULES0, s.rules); s.staff = s.staff || []; s.cover = s.cover || []; }
+  if (!S.seenTeam) { if (!S.schedules.some(isTeamSched)) { const c = cafeSchedule(); S.schedules.unshift(c); S.active = c.id; } S.seenTeam = true; }
+}
+migrate();
 function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) { } }
 const sched = () => S.schedules.find(s => s.id === S.active) || S.schedules[0];
 const cat = id => S.cats.find(c => c.id === id) || S.cats[0] || { id: '', name: 'None', color: '#868e96' };
 
 /* ===================== plan & monetization ===================== */
-function isPro() {
-  const p = S.plan, now = Date.now();
-  return p.tier === 'pro' || p.tier === 'lifetime' || p.trialEnds > now || p.proUntil > now;
-}
+function isTeam() { const p = S.plan; return p.tier === 'team' || p.trialEnds > Date.now(); }
+function isPro() { const p = S.plan; return isTeam() || p.tier === 'pro' || p.tier === 'lifetime' || p.proUntil > Date.now(); }
 function planLabel() {
-  const p = S.plan, now = Date.now();
+  const p = S.plan, now = Date.now(), left = t => Math.ceil((t - now) / DAY_MS);
+  if (p.tier === 'team') return 'Team';
+  if (p.trialEnds > now) return `Team trial · ${left(p.trialEnds)}d left`;
   if (p.tier === 'lifetime') return 'Lifetime';
   if (p.tier === 'pro') return 'Pro';
-  const until = Math.max(p.trialEnds, p.proUntil);
-  if (until > now) return `Pro · ${Math.ceil((until - now) / DAY_MS)}d left`;
+  if (p.proUntil > now) return `Pro · ${left(p.proUntil)}d left`;
   return 'Free';
 }
 function creditsLeft() {
   if (S.credits.week !== weekKey()) S.credits = { week: weekKey(), used: 0 };
   return Math.max(0, CONFIG.limits.autofillPerWeek - S.credits.used);
 }
-function gate(reason) { if (isPro()) return true; openUpgrade(reason); return false; }
+function gate(reason) { if (isPro()) return true; openUpgrade(reason, null, 'pro'); return false; }
+function gateTeam(reason) { if (isTeam()) return true; openUpgrade(reason, null, 'team'); return false; }
 
 function checkLicense(k) {
   const m = /^BW-([A-Z2-9]{4})-([A-Z2-9]{4})-([A-Z2-9]{4})$/.exec(String(k).trim().toUpperCase());
   if (!m || enc(hash32(m[1] + m[2] + CONFIG.licenseSalt), 4) !== m[3]) return null;
-  return m[1][0] === 'L' ? 'lifetime' : 'pro';
+  return m[1][0] === 'L' ? 'lifetime' : m[1][0] === 'T' ? 'team' : 'pro';
 }
 function makeReferral() { const a = randCode(5); return `BWR-${a}${enc(hash32('ref' + a), 1)}`; }
 function checkReferral(k) { const m = /^BWR-([A-Z2-9]{5})([A-Z2-9])$/.exec(String(k).trim().toUpperCase()); return !!m && enc(hash32('ref' + m[1]), 1) === m[2]; }
@@ -433,20 +519,25 @@ function render() {
   const sc = sched();
   // header
   $('#schedSel').innerHTML = S.schedules.map(s => `<option value="${s.id}" ${s.id === sc.id ? 'selected' : ''}>${esc(s.name)}</option>`).join('');
-  const pro = isPro();
+  const pro = isPro(), team = isTeamSched(sc), unl = team ? isTeam() : pro, roster = team && S.prefs.view !== 'time';
   $('#planPill').textContent = planLabel();
   $('#planPill').classList.toggle('pro', pro);
-  $('#upgradeBtn').hidden = S.plan.tier === 'pro' || S.plan.tier === 'lifetime';
-  $('#upgradeBtn').textContent = pro ? 'Keep Pro' : 'Upgrade';
+  $('#upgradeBtn').hidden = S.plan.tier === 'team';
+  $('#upgradeBtn').textContent = S.plan.tier === 'pro' || S.plan.tier === 'lifetime' ? 'Get Team' : 'Upgrade';
   $('#undoBtn').disabled = !undoStack.length; $('#redoBtn').disabled = !redoStack.length;
-  $('#fillBtn').innerHTML = 'Auto-fill' + (pro ? '' : ` <span class="lock">${creditsLeft()} left</span>`);
-  const conf = conflicts(sc);
-  $('#confChip').innerHTML = conf.size
-    ? `<button class="chip warn" id="confToggle">${conf.size} blocks overlap${showConf ? ' · hide' : ' · show'}</button>`
-    : `<span class="chip good">No overlaps</span>`;
+  $('#addLbl').textContent = team ? 'Shift' : 'Block';
+  $('#tplBtn').hidden = team; $('#viewBtn').hidden = !team;
+  $('#viewBtn').textContent = roster ? 'Timeline view' : 'Roster view';
+  $('#zoomIn').hidden = $('#zoomOut').hidden = roster;
+  $('#exportBtn').textContent = team ? 'Publish' : 'Export';
+  $('#fillBtn').innerHTML = (team ? 'Auto-staff' : 'Auto-fill') + (unl ? '' : ` <span class="lock">${creditsLeft()} left</span>`);
+  const issues = team ? teamIssues(sc) : null, conf = team ? teamBadIds(sc, issues) : conflicts(sc), n = team ? issues.length : conf.size;
+  $('#confChip').innerHTML = !n ? `<span class="chip good">${team ? 'Rota is clean' : 'No overlaps'}</span>`
+    : roster ? `<span class="chip warn" style="cursor:default">${n} rota issue${n > 1 ? 's' : ''}</span>`
+    : `<button class="chip warn" id="confToggle">${team ? n + ' rota issue' + (n > 1 ? 's' : '') : conf.size + ' blocks overlap'}${showConf ? ' · hide' : ' · show'}</button>`;
   if ($('#confToggle')) $('#confToggle').onclick = () => { showConf = !showConf; render(); };
-  renderGrid(sc, conf);
-  renderSide(sc, conf);
+  roster ? renderRoster(sc) : renderGrid(sc, conf);
+  team ? renderTeamSide(sc) : renderSide(sc, conf);
 }
 
 function renderGrid(sc, conf) {
@@ -457,13 +548,13 @@ function renderGrid(sc, conf) {
   const cols = sc.days.map(d => {
     const bl = sc.blocks.filter(b => b.day === d), lay = layoutDay(bl);
     const items = bl.map(b => {
-      const L = lay.get(b.id), c = cat(b.cat);
+      const L = lay.get(b.id), c = { color: bColor(b, sc) };
       const top = (clamp(b.start, lo, hi) - lo) * ppm, h = Math.max(14, (clamp(b.end, lo, hi) - clamp(b.start, lo, hi)) * ppm - 2);
       const w = 100 / L.lanes;
       const cls = ['blk', b.auto ? 'auto' : '', showConf && conf.has(b.id) ? 'conf' : ''].join(' ');
-      return `<div class="${cls}" data-id="${b.id}" tabindex="0" role="button" aria-label="${esc(b.title)}, ${DAYS[b.day]} ${fmt(b.start)} to ${fmt(b.end)}"
+      return `<div class="${cls}" data-id="${b.id}" tabindex="0" role="button" aria-label="${esc(bTitle(b, sc))}, ${DAYS[b.day]} ${fmt(b.start)} to ${fmt(b.end)}"
         style="--c:${c.color};top:${top}px;height:${h}px;left:calc(${L.lane * w}% + 3px);width:calc(${w}% - 6px)">
-        <div class="bt">${esc(b.title)}</div>${h > 30 ? `<div class="bm">${fmt(b.start)}–${fmt(b.end)}${b.loc ? ' · ' + esc(b.loc) : ''}</div>` : ''}<div class="rz" data-rz="1"></div></div>`;
+        <div class="bt">${esc(bTitle(b, sc))}</div>${h > 30 ? `<div class="bm">${fmt(b.start)}–${fmt(b.end)}${b.loc ? ' · ' + esc(b.loc) : ''}</div>` : ''}<div class="rz" data-rz="1"></div></div>`;
     }).join('');
     const now = new Date(), nm = now.getHours() * 60 + now.getMinutes();
     const nowLine = d === td && nm > lo && nm < hi ? `<div class="now" style="top:${(nm - lo) * ppm}px"></div>` : '';
@@ -480,7 +571,7 @@ function renderSide(sc, conf) {
   const maxCat = Math.max(1, ...Object.values(st.byCat));
   const cats = S.cats.map(c => {
     const m = st.byCat[c.id] || 0;
-    return `<div class="catrow" data-cat="${c.id}" style="--c:${c.color}" title="Edit category"><span class="sw"></span><span class="nm">${esc(c.name)}</span><span class="hr">${hrs(m)}h</span><div class="bar"><i style="width:${m / maxCat * 100}%"></i></div></div>`;
+    return `<div class="catrow" data-cat="${c.id}" style="--c:${c.color}" title="Edit category"><span class="sw"></span><span class="nm">${esc(c.name)}</span><span class="hr">${hrs(m)}${c.goal ? "/" + c.goal : ""}h</span><div class="bar"><i style="width:${Math.min(100, c.goal ? m / 60 / c.goal * 100 : m / maxCat * 100)}%"></i></div></div>`;
   }).join('');
   const winName = { any: 'any time', morning: 'mornings', afternoon: 'afternoons', evening: 'evenings' };
   const tasks = (sc.tasks || []).map(t => `<div class="task"><b>${esc(t.title)}</b><small>${t.dur}m × ${t.times}/wk · ${winName[t.win]}</small><button class="btn ghost" data-deltask="${t.id}" aria-label="Remove ${esc(t.title)}">✕</button></div>`).join('') || '<p class="hint">Add recurring tasks like “Read 30m × 4”. Auto-fill finds free slots for them.</p>';
@@ -500,17 +591,9 @@ function renderSide(sc, conf) {
     <div class="kv"><span>Blocks</span><span>${sc.blocks.length}/${CONFIG.limits.blocks}</span></div>
     <div class="meter ${blkUse >= 1 ? 'full' : ''}"><i style="width:${Math.min(100, blkUse * 100)}%"></i></div>
     <div class="kv"><span>Schedules</span><span>${S.schedules.length}/${CONFIG.limits.schedules}</span><span>Categories</span><span>${S.cats.length}/${CONFIG.limits.categories}</span></div>
-    <button class="btn gold" id="sideUp">${S.plan.trialUsed ? 'See Pro plans' : `Try Pro free for ${CONFIG.trialDays} days`}</button>
+    <button class="btn gold" id="sideUp">${S.plan.trialUsed ? 'See Pro plans' : `Try everything free for ${CONFIG.trialDays} days`}</button>
   </div>`;
-  html += `
-  <div class="card"><h3>Give ${CONFIG.referralDays} days of Pro</h3>
-    <p class="hint">Share your code. A friend who enters it gets ${CONFIG.referralDays} days of Pro.</p>
-    <div class="codebox"><code id="myRef">${S.referral.mine}</code><button class="btn" id="copyRef">Copy</button></div>
-    ${S.referral.redeemed ? `<p class="hint">You redeemed ${esc(S.referral.redeemed)}.</p>` : `<div class="row"><input type="text" class="inp" id="refIn" placeholder="Friend’s code" aria-label="Friend’s referral code"><button class="btn" id="refGo">Redeem</button></div><div class="err" id="refErr"></div>`}
-  </div>`;
-  if (!pro) html += `
-  <div class="card sponsor"><span class="tag">Sponsored</span><h3 style="color:var(--ink);text-transform:none;letter-spacing:0;font-size:16px">${esc(CONFIG.sponsor.title)}</h3><p class="hint" style="margin:0">${esc(CONFIG.sponsor.blurb)}</p>
-    <div class="row">${CONFIG.sponsor.url ? `<a class="btn" href="${esc(CONFIG.sponsor.url)}" target="_blank" rel="noopener sponsored">${esc(CONFIG.sponsor.cta)}</a>` : ''}<button class="btn ghost" id="hideAds">Remove ads with Pro</button></div></div>`;
+  html += tailHTML(pro);
   $('#side').innerHTML = html;
 
   $$('.catrow').forEach(r => r.onclick = () => openCat(r.dataset.cat));
@@ -518,16 +601,7 @@ function renderSide(sc, conf) {
   $('#addTask').onclick = openTask;
   $('#fillBtn2').onclick = runAutofill;
   $$('[data-deltask]').forEach(b => b.onclick = () => mutate(() => { sc.tasks = sc.tasks.filter(t => t.id !== b.dataset.deltask); }));
-  if ($('#sideUp')) $('#sideUp').onclick = () => openUpgrade('');
-  if ($('#hideAds')) $('#hideAds').onclick = () => openUpgrade('Pro removes sponsor cards.');
-  $('#copyRef').onclick = () => copy(S.referral.mine, $('#myRef'));
-  if ($('#refGo')) $('#refGo').onclick = () => {
-    const v = $('#refIn').value.trim().toUpperCase();
-    if (v === S.referral.mine) return $('#refErr').textContent = 'That is your own code. Share it with a friend instead.';
-    if (!checkReferral(v)) return $('#refErr').textContent = 'That code isn’t valid. Codes look like BWR-ABC234.';
-    S.referral.redeemed = v; S.plan.proUntil = Math.max(Date.now(), S.plan.proUntil) + CONFIG.referralDays * DAY_MS;
-    save(); render(); toast(`${CONFIG.referralDays} days of Pro added`);
-  };
+  bindTail();
 }
 
 /* ===================== modal / toast ===================== */
@@ -560,18 +634,22 @@ function confirmIn(container, text, yesLabel, onYes) {
 
 /* ===================== block editor ===================== */
 function canAddBlocks(n) {
-  if (isPro() || sched().blocks.length + n <= CONFIG.limits.blocks) return true;
+  if (isTeamSched(sched()) || isPro() || sched().blocks.length + n <= CONFIG.limits.blocks) return true;
   openUpgrade(`The free plan holds ${CONFIG.limits.blocks} blocks per schedule. This schedule has ${sched().blocks.length}. Pro has no limit.`);
   return false;
 }
 function openEditor(block, isNew = false) {
   const sc = sched();
-  const b = block || { id: uid(), day: sc.days.includes(todayIdx()) ? todayIdx() : sc.days[0], start: 9 * 60, end: 10 * 60, title: '', cat: S.cats[0]?.id, loc: '', notes: '' };
+  const b = block || { id: uid(), day: sc.days.includes(todayIdx()) ? todayIdx() : sc.days[0], start: 9 * 60, end: 10 * 60, title: '', who: '', cat: S.cats[0]?.id, loc: '', notes: '' };
+  const team = isTeamSched(sc);
   const m = modal(`
-    <div class="modal-h"><h2>${isNew ? 'New block' : 'Edit block'}</h2>${closeX}</div>
+    <div class="modal-h"><h2>${isNew ? 'New ' : 'Edit '}${team ? 'shift' : 'block'}</h2>${closeX}</div>
     <form id="ed" class="field" style="gap:12px" novalidate>
-      <label class="field"><span>Title</span><input id="ed-title" value="${esc(b.title)}" placeholder="e.g. Deep work" autofocus required></label>
-      <div class="field"><span>Category</span><div class="catpick">${S.cats.map(c => `<label style="--c:${c.color}"><input type="radio" name="cat" value="${c.id}" ${c.id === b.cat ? 'checked' : ''}><span>${esc(c.name)}</span></label>`).join('')}</div></div>
+      ${team
+        ? `<label class="field"><span>Who</span><select id="ed-who" autofocus><option value="">Open shift (nobody yet)</option>${sc.staff.map(p => `<option value="${p.id}" ${p.id === b.who ? 'selected' : ''}>${esc(p.name)}${p.role ? ' · ' + esc(p.role) : ''}</option>`).join('')}</select></label>
+           <label class="field"><span>Role or shift name</span><input id="ed-title" list="ed-roles" value="${esc(b.title)}" placeholder="e.g. Barista, Open, Close"><datalist id="ed-roles">${[...new Set(sc.staff.map(p => p.role).filter(Boolean))].map(r => `<option value="${esc(r)}">`).join('')}</datalist></label>`
+        : `<label class="field"><span>Title</span><input id="ed-title" value="${esc(b.title)}" placeholder="e.g. Deep work" autofocus required></label>
+           <div class="field"><span>Category</span><div class="catpick">${S.cats.map(c => `<label style="--c:${c.color}"><input type="radio" name="cat" value="${c.id}" ${c.id === b.cat ? 'checked' : ''}><span>${esc(c.name)}</span></label>`).join('')}</div></div>`}
       <div class="grid2">
         <label class="field"><span>Starts</span><input type="time" id="ed-start" step="300" value="${toHHMM(b.start)}"></label>
         <label class="field"><span>Ends</span><input type="time" id="ed-end" step="300" value="${toHHMM(b.end % 1440)}"></label>
@@ -586,7 +664,7 @@ function openEditor(block, isNew = false) {
     </form>`);
   $('#ed', m).onsubmit = e => {
     e.preventDefault();
-    const title = $('#ed-title', m).value.trim() || 'Untitled';
+    const title = $('#ed-title', m).value.trim() || (team ? '' : 'Untitled');
     const start = fromHHMM($('#ed-start', m).value); let end = fromHHMM($('#ed-end', m).value);
     if (end === 0) end = 1440;
     const days = $$('input[name=day]:checked', m).map(i => +i.value);
@@ -598,7 +676,7 @@ function openEditor(block, isNew = false) {
     const extra = isNew ? days.length : days.length - 1;
     if (extra > 0 && !canAddBlocks(extra)) return;
     mutate(() => {
-      const base = { title, start, end, cat: catId, loc: $('#ed-loc', m).value.trim(), notes: $('#ed-notes', m).value.trim() };
+      const base = { title, start, end, cat: catId, who: team ? $('#ed-who', m).value : '', loc: $('#ed-loc', m).value.trim(), notes: $('#ed-notes', m).value.trim() };
       if (!isNew) sc.blocks = sc.blocks.filter(x => x.id !== b.id);
       days.forEach((d, i) => sc.blocks.push({ ...base, id: !isNew && i === 0 ? b.id : uid(), day: d }));
       for (const d of days) if (!sc.days.includes(d)) { sc.days.push(d); sc.days.sort(); }
@@ -685,6 +763,7 @@ function openCat(id) {
   const m = modal(`<div class="modal-h"><h2>${c ? 'Edit category' : 'New category'}</h2>${closeX}</div>
     <form id="cf" style="display:flex;flex-direction:column;gap:12px">
       <label class="field"><span>Name</span><input id="cf-name" value="${esc(c?.name || '')}" autofocus placeholder="e.g. Side project"></label>
+      <label class="field"><span>Weekly target in hours (optional)</span><input id="cf-goal" type="number" min="0" max="168" step="0.5" value="${c?.goal || ''}" placeholder="e.g. 6"></label>
       <div class="field"><span>Colour</span><div class="catpick">${PALETTE.map(p => `<label style="--c:${p}"><input type="radio" name="col" value="${p}" ${p === color ? 'checked' : ''}><span>${p.toUpperCase()}</span></label>`).join('')}</div></div>
       <div id="cf-confirm"></div>
       <div class="foot">${c && S.cats.length > 1 ? '<button type="button" class="btn danger left" id="cf-del">Delete</button>' : ''}<button type="button" class="btn" data-close>Cancel</button><button class="btn primary">Save</button></div>
@@ -692,7 +771,8 @@ function openCat(id) {
   $('#cf', m).onsubmit = e => {
     e.preventDefault();
     const name = $('#cf-name', m).value.trim() || 'Untitled', col = $('input[name=col]:checked', m).value;
-    mutate(() => { if (c) Object.assign(c, { name, color: col }); else S.cats.push({ id: 'c' + uid(), name, color: col }); });
+    const goal = Math.max(0, parseFloat($('#cf-goal', m).value) || 0);
+    mutate(() => { if (c) Object.assign(c, { name, color: col, goal }); else S.cats.push({ id: 'c' + uid(), name, color: col, goal }); });
     m.close();
   };
   if ($('#cf-del', m)) $('#cf-del', m).onclick = () => {
@@ -842,59 +922,84 @@ function endTryOn() { if (!tryOn) return; clearInterval(tryOn.t); tryOn.bar.remo
 
 /* ===================== upgrade / pricing ===================== */
 let billing = 'yearly';
-function openUpgrade(reason, onUnlock) {
-  const p = CONFIG.prices, ck = CONFIG.checkout, now = Date.now();
-  const trialOpen = !S.plan.trialUsed && !isPro();
-  const proFeat = ['Unlimited schedules and blocks', 'Unlimited categories', 'Unlimited auto-fill', 'Calendar (.ics) export', 'Images without watermark', 'All themes and Pro templates', 'No sponsor cards'];
-  const freeFeat = [`${CONFIG.limits.schedules} schedule, ${CONFIG.limits.blocks} blocks`, `${CONFIG.limits.categories} categories`, `${CONFIG.limits.autofillPerWeek} auto-fill runs a week`, 'Image export with watermark', 'Share codes and backups'];
+function openUpgrade(reason, onUnlock, focus) {
+  const p = CONFIG.prices, ck = CONFIG.checkout, L = CONFIG.limits, yr = billing === 'yearly';
+  focus = focus || (isTeamSched(sched()) ? 'team' : 'pro');
+  const trialOpen = !S.plan.trialUsed && !isTeam(), tier = S.plan.tier;
+  const feats = {
+    free: [`${L.schedules} schedules`, `Rotas for up to ${L.staff} people`, 'Live labour cost and rule checks', `${L.autofillPerWeek} Auto-staff or auto-fill runs a week`, 'Image export with watermark'],
+    pro: ['Unlimited personal schedules, blocks and categories', 'Unlimited auto-fill', 'Calendar (.ics) export', 'Images without watermark', 'All themes and templates', 'No sponsor cards'],
+    team: ['Everything in Pro', 'Unlimited team members and coverage rules', 'Unlimited Auto-staff', 'Weekly labour budget meter', 'Ready-to-send shift message for each person', 'Per-person calendars and payroll CSV'],
+  };
+  const price = (m, y) => yr ? `$${y}<small>/year · $${(y / 12).toFixed(2)}/mo</small>` : `$${m}<small>/month</small>`;
   const buy = (url, label, cls) => url ? `<a class="btn ${cls}" href="${esc(url)}" target="_blank" rel="noopener">${label}</a>` : `<button class="btn ${cls}" data-nolink>${label}</button>`;
-  const m = modal(`<div class="modal-h"><h2>Blockwise Pro</h2>${closeX}</div>
+  const li = a => a.map(f => `<li>${f}</li>`).join('');
+  const m = modal(`<div class="modal-h"><h2>Blockwise plans</h2>${closeX}</div>
     ${reason ? `<p class="why">${esc(reason)}</p>` : ''}
-    <div class="toggle" role="group" aria-label="Billing period"><button data-bill="monthly" aria-pressed="${billing === 'monthly'}">Monthly</button><button data-bill="yearly" aria-pressed="${billing === 'yearly'}">Yearly <span class="save">save ${Math.round((1 - p.proYearly / (p.proMonthly * 12)) * 100)}%</span></button></div>
+    <div class="toggle" role="group" aria-label="Billing period"><button data-bill="monthly" aria-pressed="${!yr}">Monthly</button><button data-bill="yearly" aria-pressed="${yr}">Yearly <span class="save">save ${Math.round((1 - p.teamYearly / (p.teamMonthly * 12)) * 100)}%</span></button></div>
     <div class="tiers">
-      <div class="tier"><h3>Free</h3><div class="price">$0</div><ul>${freeFeat.map(f => `<li>${f}</li>`).join('')}<li class="no">Calendar export</li></ul><button class="btn" disabled>${isPro() ? 'Included' : 'Current plan'}</button></div>
-      <div class="tier hot"><h3>Pro <span class="lock">MOST POPULAR</span></h3>
-        <div class="price">${billing === 'yearly' ? `$${p.proYearly}<small>/year · $${(p.proYearly / 12).toFixed(2)}/mo</small>` : `$${p.proMonthly}<small>/month</small>`}</div>
-        <ul>${proFeat.map(f => `<li>${f}</li>`).join('')}</ul>
-        ${buy(billing === 'yearly' ? ck.proYearly : ck.proMonthly, `Get Pro ${billing}`, 'gold')}</div>
-      <div class="tier"><h3>Lifetime</h3><div class="price">$${p.lifetime}<small> once</small></div><ul><li>Everything in Pro</li><li>Every future template</li><li>Pay once, keep it</li></ul>${buy(ck.lifetime, 'Buy lifetime', '')}</div>
+      <div class="tier"><h3>Free</h3><div class="price">$0</div><ul>${li(feats.free)}</ul><button class="btn" disabled>${isPro() ? 'Included' : 'Current plan'}</button></div>
+      <div class="tier ${focus === 'pro' ? 'hot' : ''}"><h3>Pro <small>for your own week</small></h3><div class="price">${price(p.proMonthly, p.proYearly)}</div><ul>${li(feats.pro)}</ul>
+        ${tier === 'pro' || tier === 'lifetime' ? '<button class="btn" disabled>Current plan</button>' : buy(yr ? ck.proYearly : ck.proMonthly, `Get Pro ${billing}`, focus === 'pro' ? 'gold' : '') + buy(ck.lifetime, `or $${p.lifetime} once, for life`, 'ghost')}</div>
+      <div class="tier ${focus === 'team' ? 'hot' : ''}"><h3>Team <small>per location</small></h3><div class="price">${price(p.teamMonthly, p.teamYearly)}</div><ul>${li(feats.team)}</ul>
+        ${tier === 'team' ? '<button class="btn" disabled>Current plan</button>' : buy(yr ? ck.teamYearly : ck.teamMonthly, `Get Team ${billing}`, focus === 'team' ? 'gold' : '')}</div>
     </div>
     <div class="err" id="up-msg"></div>
     <div class="row">
-      ${trialOpen ? `<button class="btn primary" id="trial">Start ${CONFIG.trialDays}-day free trial</button>` : ''}
-      ${CONFIG.demoMode ? '<button class="btn" id="demo">Demo: unlock Pro now</button>' : ''}
+      ${trialOpen ? `<button class="btn primary" id="trial">Start ${CONFIG.trialDays}-day free trial of Team</button>` : ''}
+      ${CONFIG.demoMode ? '<button class="btn" id="demoPro">Demo: unlock Pro</button><button class="btn" id="demoTeam">Demo: unlock Team</button>' : ''}
     </div>
     <div class="field"><span>Have a license key?</span><div class="row"><input class="inp" type="text" id="lic" placeholder="BW-XXXX-XXXX-XXXX" aria-label="License key" style="flex:1;min-width:0"><button class="btn" id="licGo">Activate</button></div></div>
-    <p class="hint" style="margin:0">Your schedules stay yours on any plan. If Pro ends you keep everything you made and can still view and edit it.</p>`, { wide: true });
+    <p class="hint" style="margin:0">Your schedules stay yours on any plan. If a paid plan ends you keep everything you made and can still view and edit it.</p>`, { wide: true });
   const unlocked = msg => { save(); m.close(); render(); toast(msg); onUnlock && onUnlock(); };
-  $$('[data-bill]', m).forEach(b => b.onclick = () => { billing = b.dataset.bill; m.close(); openUpgrade(reason, onUnlock); });
+  $$('[data-bill]', m).forEach(b => b.onclick = () => { billing = b.dataset.bill; m.close(); openUpgrade(reason, onUnlock, focus); });
   $$('[data-nolink]', m).forEach(b => b.onclick = () => { $('#up-msg', m).textContent = 'Checkout isn’t connected yet. Add your payment link in CONFIG.checkout.'; });
-  if ($('#trial', m)) $('#trial', m).onclick = () => { S.plan.trialUsed = true; S.plan.trialEnds = now + CONFIG.trialDays * DAY_MS; unlocked(`Pro trial started: ${CONFIG.trialDays} days`); };
-  if ($('#demo', m)) $('#demo', m).onclick = () => { S.plan.tier = 'pro'; unlocked('Pro unlocked (demo)'); };
+  if ($('#trial', m)) $('#trial', m).onclick = () => { S.plan.trialUsed = true; S.plan.trialEnds = Date.now() + CONFIG.trialDays * DAY_MS; unlocked(`Team trial started: ${CONFIG.trialDays} days`); };
+  if ($('#demoPro', m)) $('#demoPro', m).onclick = () => { S.plan.tier = 'pro'; unlocked('Pro unlocked (demo)'); };
+  if ($('#demoTeam', m)) $('#demoTeam', m).onclick = () => { S.plan.tier = 'team'; unlocked('Team unlocked (demo)'); };
   $('#licGo', m).onclick = () => {
-    const k = $('#lic', m).value.trim().toUpperCase(), tier = checkLicense(k);
-    if (!tier) return $('#up-msg', m).textContent = 'That key isn’t valid. Check for typos; keys look like BW-PABC-DEFG-HJKM.';
-    S.plan.tier = tier; S.plan.license = k; unlocked(tier === 'lifetime' ? 'Lifetime unlocked. Thank you!' : 'Pro activated. Thank you!');
+    const k = $('#lic', m).value.trim().toUpperCase(), t = checkLicense(k);
+    if (!t) return $('#up-msg', m).textContent = 'That key isn’t valid. Check for typos; keys look like BW-PABC-DEFG-HJKM.';
+    S.plan.tier = t; S.plan.license = k; unlocked(`${{ pro: 'Pro', team: 'Team', lifetime: 'Lifetime' }[t]} activated. Thank you!`);
   };
 }
 
-/* ===================== export ===================== */
+/* ===================== export / publish ===================== */
+let DL = null;
+(async () => { try { DL = (await window.claude?.use?.('downloads')) ?? null; } catch (e) { } })();
+const inViewer = () => !!window.claude;
+function dataURLBytes(u) { const s = atob(u.split(',')[1]), a = new Uint8Array(s.length); for (let i = 0; i < s.length; i++) a[i] = s.charCodeAt(i); return a; }
+async function saveFile(filename, data, type) {
+  if (DL) { try { await DL.save({ filename, data }); toast('Saved'); } catch (e) { if (e?.code !== 'declined') toast('Saving isn’t available here. Use Copy instead.'); } return; }
+  try { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([data], { type })); a.download = filename; document.body.appendChild(a); a.click(); a.remove(); } catch (e) { toast('Download failed. Use Copy instead.'); }
+}
+const fileBase = sc => sc.name.replace(/[^\w-]+/g, '_').replace(/^_+|_+$/g, '') || 'schedule';
 function nextMonday() { const d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() + ((8 - d.getDay()) % 7 || 7)); return d; }
-function icsText(sc) {
-  const mon = nextMonday(), stamp = new Date().toISOString().replace(/[-:]/g, '').slice(0, 15) + 'Z';
+const weekOf = () => nextMonday().toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+function icsText(sc, who) {
+  const mon = nextMonday(), stamp = new Date().toISOString().replace(/[-:]/g, '').slice(0, 15) + 'Z', team = isTeamSched(sc);
   const e = s => String(s).replace(/\\/g, '\\\\').replace(/\n/g, '\\n').replace(/[,;]/g, m => '\\' + m);
   const dt = (day, min) => { const d = new Date(mon.getTime() + day * DAY_MS); d.setHours(0, min, 0, 0); return `${d.getFullYear()}${pad(d.getMonth() + 1)}${pad(d.getDate())}T${pad(d.getHours())}${pad(d.getMinutes())}00`; };
   const lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Blockwise//Planner//EN', 'CALSCALE:GREGORIAN', `X-WR-CALNAME:${e(sc.name)}`];
-  for (const b of sc.blocks) lines.push('BEGIN:VEVENT', `UID:${b.id}-${sc.id}@blockwise`, `DTSTAMP:${stamp}`, `DTSTART:${dt(b.day, b.start)}`, `DTEND:${dt(b.day, b.end)}`, 'RRULE:FREQ=WEEKLY',
-    `SUMMARY:${e(b.title)}`, ...(b.loc ? [`LOCATION:${e(b.loc)}`] : []), `DESCRIPTION:${e([cat(b.cat).name, b.notes].filter(Boolean).join(' · '))}`, `CATEGORIES:${e(cat(b.cat).name)}`, 'END:VEVENT');
+  for (const b of sc.blocks) {
+    if (who != null && b.who !== who) continue;
+    const sum = team ? (who != null ? `${b.title || 'Shift'} shift` : bTitle(b, sc)) : b.title;
+    lines.push('BEGIN:VEVENT', `UID:${b.id}-${sc.id}@blockwise`, `DTSTAMP:${stamp}`, `DTSTART:${dt(b.day, b.start)}`, `DTEND:${dt(b.day, b.end)}`, 'RRULE:FREQ=WEEKLY',
+      `SUMMARY:${e(sum)}`, ...(b.loc ? [`LOCATION:${e(b.loc)}`] : []), `DESCRIPTION:${e([team ? sc.name : cat(b.cat).name, b.notes].filter(Boolean).join(' · '))}`, 'END:VEVENT');
+  }
   lines.push('END:VCALENDAR'); return lines.join('\r\n');
+}
+function mkCanvas(W, H) {
+  const cv = document.createElement('canvas'), k = 2; cv.width = W * k; cv.height = H * k;
+  const g = cv.getContext('2d'); g.scale(k, k); g.fillStyle = '#ffffff'; g.fillRect(0, 0, W, H);
+  const font = (w, s, f = 'IBM Plex Sans') => g.font = `${w} ${s}px "${f}", system-ui, sans-serif`;
+  const rr = (x, y, w, h, r) => { g.beginPath(); g.moveTo(x + r, y); g.arcTo(x + w, y, x + w, y + h, r); g.arcTo(x + w, y + h, x, y + h, r); g.arcTo(x, y + h, x, y, r); g.arcTo(x, y, x + w, y, r); g.closePath(); };
+  const mark = (on, x, y) => { if (!on) return; font(600, 12); g.fillStyle = '#2747d6'; g.textAlign = 'right'; g.fillText(CONFIG.watermark + ' · upgrade to remove', x, y); g.textAlign = 'left'; };
+  return { cv, g, font, rr, mark };
 }
 function renderPNG(sc, watermark) {
   const days = sc.days, colW = 170, gut = 64, headH = 92, HH = 46, H = (sc.endHour - sc.startHour) * HH, W = gut + days.length * colW + 24;
-  const cv = document.createElement('canvas'), k = 2; cv.width = W * k; cv.height = (headH + H + 56) * k;
-  const g = cv.getContext('2d'); g.scale(k, k);
-  const font = (w, s, f = 'IBM Plex Sans') => g.font = `${w} ${s}px "${f}", system-ui, sans-serif`;
-  g.fillStyle = '#ffffff'; g.fillRect(0, 0, W, headH + H + 56);
+  const { cv, g, font, rr, mark } = mkCanvas(W, headH + H + 56);
   g.fillStyle = '#141a2b'; font(800, 26, 'Bricolage Grotesque'); g.fillText(sc.name, gut, 40);
   const st = stats(sc); font(400, 13); g.fillStyle = '#5b6478'; g.fillText(`${hrs(st.total)} hours planned · ${sc.blocks.length} blocks`, gut, 62);
   days.forEach((d, i) => { font(700, 12); g.fillStyle = '#141a2b'; g.fillText(DAYS[d].toUpperCase(), gut + i * colW + 8, headH - 8); });
@@ -902,79 +1007,152 @@ function renderPNG(sc, watermark) {
   for (let h = sc.startHour; h <= sc.endHour; h++) { const y = y0 + (h - sc.startHour) * HH; g.strokeStyle = '#e6ebf4'; g.lineWidth = 1; g.beginPath(); g.moveTo(gut, y + .5); g.lineTo(W - 24, y + .5); g.stroke(); if (h > sc.startHour && h < sc.endHour) { font(400, 11, 'IBM Plex Mono'); g.fillStyle = '#5b6478'; g.textAlign = 'right'; g.fillText(fmt(h * 60), gut - 8, y + 4); g.textAlign = 'left'; } }
   days.forEach((d, i) => { g.strokeStyle = '#d6dce8'; g.beginPath(); g.moveTo(gut + i * colW + .5, y0); g.lineTo(gut + i * colW + .5, y0 + H); g.stroke(); });
   const lo = sc.startHour * 60, hi = sc.endHour * 60, ppm = HH / 60;
-  const rr = (x, y, w, h, r) => { g.beginPath(); g.moveTo(x + r, y); g.arcTo(x + w, y, x + w, y + h, r); g.arcTo(x + w, y + h, x, y + h, r); g.arcTo(x, y + h, x, y, r); g.arcTo(x, y, x + w, y, r); g.closePath(); };
   days.forEach((d, i) => {
     const bl = sc.blocks.filter(b => b.day === d), lay = layoutDay(bl);
     for (const b of bl) {
-      const L = lay.get(b.id), c = cat(b.cat).color, w = (colW - 8) / L.lanes;
+      const L = lay.get(b.id), c = bColor(b, sc), w = (colW - 8) / L.lanes;
       const x = gut + i * colW + 4 + L.lane * w, y = y0 + (clamp(b.start, lo, hi) - lo) * ppm + 1, h = Math.max(14, (clamp(b.end, lo, hi) - clamp(b.start, lo, hi)) * ppm - 2);
       g.fillStyle = c + '2e'; rr(x, y, w - 3, h, 6); g.fill(); g.fillStyle = c; g.fillRect(x, y + 2, 3.5, h - 4);
       g.save(); rr(x, y, w - 3, h, 6); g.clip();
-      g.fillStyle = '#141a2b'; font(600, 12); g.fillText(b.title, x + 9, y + 15);
+      g.fillStyle = '#141a2b'; font(600, 12); g.fillText(bTitle(b, sc), x + 9, y + 15);
       if (h > 30) { font(400, 10.5, 'IBM Plex Mono'); g.fillStyle = '#5b6478'; g.fillText(`${fmt(b.start)}–${fmt(b.end)}`, x + 9, y + 29); }
       g.restore();
     }
   });
-  if (watermark) { font(600, 12); g.fillStyle = '#2747d6'; g.textAlign = 'right'; g.fillText(CONFIG.watermark + ' · upgrade to remove', W - 24, headH + H + 34); g.textAlign = 'left'; }
+  mark(watermark, W - 24, headH + H + 34);
   return cv.toDataURL('image/png');
 }
-const shareCode = sc => 'BW1:' + btoa(unescape(encodeURIComponent(JSON.stringify({ n: sc.name, h: [sc.startHour, sc.endHour], d: sc.days, c: S.cats, b: sc.blocks.map(b => [b.day, b.start, b.end, b.title, b.cat, b.loc || '', b.notes || '']) }))));
+function renderRosterPNG(sc, watermark) {   // staff-facing: shows hours, never pay
+  const st = teamStats(sc), days = sc.days, nameW = 170, colW = 138, chipH = 38, headH = 96, pad = 24;
+  const rows = [...sc.staff, null].map(p => {
+    const cells = days.map(d => sc.blocks.filter(b => b.day === d && (p ? b.who === p.id : !person(sc, b.who))).sort((a, b) => a.start - b.start));
+    return { p, cells, h: Math.max(1, ...cells.map(c => c.length)) * (chipH + 4) + 10 };
+  }).filter(r => r.p || r.cells.some(c => c.length));
+  const W = pad * 2 + nameW + days.length * colW, H = headH + rows.reduce((s, r) => s + r.h, 0) + 56;
+  const { cv, g, font, rr, mark } = mkCanvas(W, H);
+  g.fillStyle = '#141a2b'; font(800, 26, 'Bricolage Grotesque'); g.fillText(sc.name, pad, 40);
+  font(400, 13); g.fillStyle = '#5b6478'; g.fillText(`Week of ${weekOf()} · ${hrs(st.paid)} paid hours`, pad, 62);
+  days.forEach((d, i) => { font(700, 12); g.fillStyle = '#141a2b'; g.fillText(DAYS[d].toUpperCase(), pad + nameW + i * colW + 6, headH - 10); });
+  let y = headH;
+  for (const r of rows) {
+    g.strokeStyle = '#d6dce8'; g.lineWidth = 1; g.beginPath(); g.moveTo(pad, y + .5); g.lineTo(W - pad, y + .5); g.stroke();
+    g.fillStyle = r.p ? '#141a2b' : '#5b6478'; font(600, 14); g.fillText(r.p ? r.p.name : 'Open shifts', pad, y + 22);
+    font(400, 11, 'IBM Plex Mono'); g.fillStyle = '#5b6478'; g.fillText(r.p ? `${r.p.role || 'Staff'} · ${hrs(st.per[r.p.id].paid)}h` : 'to be filled', pad, y + 38);
+    r.cells.forEach((cell, i) => cell.forEach((b, j) => {
+      const c = bColor(b, sc), x = pad + nameW + i * colW + 3, cy = y + 6 + j * (chipH + 4), w = colW - 8;
+      g.fillStyle = c + '2e'; rr(x, cy, w, chipH, 6); g.fill(); g.fillStyle = c; g.fillRect(x, cy + 2, 3.5, chipH - 4);
+      g.save(); rr(x, cy, w, chipH, 6); g.clip();
+      g.fillStyle = '#141a2b'; font(500, 11.5, 'IBM Plex Mono'); g.fillText(`${fmt(b.start)}–${fmt(b.end)}`, x + 9, cy + 15);
+      font(400, 11.5); g.fillStyle = '#5b6478'; g.fillText(b.title || 'Shift', x + 9, cy + 30);
+      g.restore();
+    }));
+    y += r.h;
+  }
+  g.strokeStyle = '#d6dce8'; g.beginPath(); g.moveTo(pad, y + .5); g.lineTo(W - pad, y + .5); g.stroke();
+  mark(watermark, W - pad, y + 34);
+  return cv.toDataURL('image/png');
+}
+function staffMessage(sc, p) {
+  const sh = sc.blocks.filter(b => b.who === p.id).sort((a, b) => a.day - b.day || a.start - b.start);
+  if (!sh.length) return `Hi ${p.name}, you have no shifts in the week of ${weekOf()}.`;
+  return `Hi ${p.name}, here are your shifts for the week of ${weekOf()}:\n` + sh.map(b => `${DAYS[b.day]} ${fmt(b.start)}–${fmt(b.end)}${b.title ? ' (' + b.title + ')' : ''}`).join('\n')
+    + `\nTotal: ${hrs(sh.reduce((s, b) => s + paidMin(b, sc), 0))} paid hours. Reply if anything clashes.`;
+}
+function rotaText(sc) {
+  return `${sc.name}, week of ${weekOf()}\n` + sc.days.map(d => {
+    const bl = sc.blocks.filter(b => b.day === d).sort((a, b) => a.start - b.start);
+    return `\n${DAYS[d]}\n` + (bl.map(b => `  ${fmt(b.start)}–${fmt(b.end)}  ${person(sc, b.who)?.name || 'OPEN'}${b.title ? ' (' + b.title + ')' : ''}`).join('\n') || '  closed');
+  }).join('\n');
+}
+function payrollCSV(sc) {
+  const st = teamStats(sc), q = s => `"${String(s).replace(/"/g, '""')}"`, n = x => (Math.round(x * 100) / 100).toFixed(2);
+  const rows = sc.staff.map(p => { const s = st.per[p.id]; return [q(p.name), q(p.role || ''), s.shifts, n(s.min / 60), n(s.paid / 60), n(s.otH), n(p.wage), n(s.cost)].join(','); });
+  return ['Name,Role,Shifts,Scheduled hours,Paid hours,Overtime hours,Hourly rate,Gross pay', ...rows, ['"Total"', '""', sc.blocks.length - st.open, '', n(st.paid / 60), '', '', n(st.cost)].join(',')].join('\n');
+}
+const b64 = { enc: o => btoa(unescape(encodeURIComponent(JSON.stringify(o)))), dec: s => JSON.parse(decodeURIComponent(escape(atob(s)))) };
+const shareCode = sc => 'BW2:' + b64.enc({ s: sc, c: isTeamSched(sc) ? [] : S.cats });
 function readShare(code) {
-  const o = JSON.parse(decodeURIComponent(escape(atob(code.trim().replace(/^BW1:/, '')))));
-  const catMap = {};
-  for (const c of o.c || []) { let mine = S.cats.find(x => x.name.toLowerCase() === c.name.toLowerCase()); catMap[c.id] = mine ? mine.id : (S.cats.length < CONFIG.limits.categories || isPro() ? (S.cats.push({ id: 'c' + uid(), name: c.name, color: c.color }), S.cats.at(-1).id) : S.cats[0].id); }
-  return { id: uid(), name: o.n || 'Imported', startHour: o.h?.[0] ?? 7, endHour: o.h?.[1] ?? 22, days: o.d || [0, 1, 2, 3, 4, 5, 6], snap: 15, tasks: [],
-    blocks: (o.b || []).map(([day, start, end, title, c, loc, notes]) => ({ id: uid(), day, start, end, title, cat: catMap[c] || S.cats[0].id, loc, notes })) };
+  const o = b64.dec(code.trim().replace(/^BW\d:/, ''));
+  if (!o.s || !Array.isArray(o.s.blocks)) throw new Error('bad code');
+  const s = o.s, team = isTeamSched(s), catMap = {};
+  for (const c of o.c || []) { const mine = S.cats.find(x => x.name.toLowerCase() === c.name.toLowerCase()); catMap[c.id] = mine ? mine.id : (S.cats.length < CONFIG.limits.categories || isPro() ? (S.cats.push({ id: 'c' + uid(), name: c.name, color: c.color }), S.cats.at(-1).id) : S.cats[0].id); }
+  s.id = uid(); s.tasks = s.tasks || [];
+  s.blocks.forEach(b => { b.id = uid(); if (!team) b.cat = catMap[b.cat] || S.cats[0].id; });
+  if (team) { s.rules = Object.assign({}, RULES0, s.rules); s.staff = s.staff || []; s.cover = s.cover || []; }
+  return s;
+}
+function importLimit(n) {
+  if (isTeamSched(n)) { if (!isTeam() && n.staff.length > CONFIG.limits.staff) { openUpgrade(`That rota has ${n.staff.length} people; the free plan covers ${CONFIG.limits.staff}.`, null, 'team'); return false; } return true; }
+  if (!isPro() && n.blocks.length > CONFIG.limits.blocks) { openUpgrade(`That schedule has ${n.blocks.length} blocks; the free plan holds ${CONFIG.limits.blocks}.`, null, 'pro'); return false; }
+  return true;
 }
 function openExport(tab = 'image') {
-  const sc = sched(), pro = isPro();
-  const m = modal(`<div class="modal-h"><h2>Export “${esc(sc.name)}”</h2>${closeX}</div>
-    <div class="tabs" role="tablist">${[['image', 'Image'], ['ics', 'Calendar' + (pro ? '' : ' · Pro')], ['share', 'Share code'], ['backup', 'Backup']].map(([k, l]) => `<button role="tab" data-tab="${k}" aria-selected="${k === tab}">${l}</button>`).join('')}</div>
+  const sc = sched(), pro = isPro(), team = isTeamSched(sc), paid = team ? isTeam() : pro;
+  const tabs = team ? [['image', 'Rota image'], ['msgs', 'Staff messages'], ['csv', 'Payroll CSV'], ['ics', 'Calendars'], ['share', 'Share code'], ['backup', 'Backup']]
+    : [['image', 'Image'], ['ics', 'Calendar' + (pro ? '' : ' · Pro')], ['share', 'Share code'], ['backup', 'Backup']];
+  const m = modal(`<div class="modal-h"><h2>${team ? 'Publish' : 'Export'} “${esc(sc.name)}”</h2>${closeX}</div>
+    <div class="tabs" role="tablist">${tabs.map(([k, l]) => `<button role="tab" data-tab="${k}" aria-selected="${k === tab}">${l}</button>`).join('')}</div>
     <div id="ex-body"></div>`, { wide: true });
   $$('[data-tab]', m).forEach(b => b.onclick = () => { m.close(); openExport(b.dataset.tab); });
   const body = $('#ex-body', m);
+  const upsell = (text, focus) => { body.innerHTML += `<p class="why">${text}</p><div class="foot"><button class="btn gold" id="ex-up">See plans</button></div>`; $('#ex-up', m).onclick = () => openUpgrade('', null, focus); };
   if (tab === 'image') {
-    const url = renderPNG(sc, !pro);
-    body.innerHTML = `<p class="hint">Right-click or long-press the image to save or share it.${pro ? '' : ' Free exports carry a small watermark.'}</p><img class="preview-img" src="${url}" alt="Week grid image of ${esc(sc.name)}">
+    const url = team ? renderRosterPNG(sc, !pro) : renderPNG(sc, !pro);
+    body.innerHTML = `<p class="hint" style="margin:0">${team ? 'Made for the staffroom wall or the group chat: it shows hours but never pay. ' : ''}Right-click or long-press the image to save or share it.${pro ? '' : ' Free exports carry a small watermark.'}</p><img class="preview-img" src="${url}" alt="Image of ${esc(sc.name)}">
       <div class="foot">${pro ? '' : '<button class="btn gold" id="ex-up">Remove watermark</button>'}<button class="btn primary" id="ex-dl">Download PNG</button></div>`;
-    $('#ex-dl', m).onclick = () => { const a = document.createElement('a'); a.href = url; a.download = sc.name.replace(/[^\w-]+/g, '_') + '.png'; a.click(); };
-    if ($('#ex-up', m)) $('#ex-up', m).onclick = () => openUpgrade('Pro exports clean images with no watermark.');
-  } else if (tab === 'ics') {
-    if (!pro) { body.innerHTML = `<p class="why">Send your week to Google Calendar, Apple Calendar or Outlook as repeating weekly events. Calendar export is part of Pro.</p><div class="foot"><button class="btn gold" id="ex-up">See Pro</button></div>`; $('#ex-up', m).onclick = () => openUpgrade(''); return; }
-    const t = icsText(sc);
-    body.innerHTML = `<p class="hint">Events repeat weekly starting ${nextMonday().toDateString()}. Download the file, or copy the text into a file named <span class="mono">schedule.ics</span>, then import it in your calendar app.</p><textarea class="out" id="ex-t" readonly aria-label="Calendar file text">${esc(t)}</textarea>
-      <div class="foot"><button class="btn" id="ex-c">Copy</button><button class="btn primary" id="ex-dl">Download .ics</button></div>`;
+    $('#ex-dl', m).onclick = () => saveFile(fileBase(sc) + '.png', dataURLBytes(url), 'image/png');
+    if ($('#ex-up', m)) $('#ex-up', m).onclick = () => openUpgrade('Paid plans export clean images with no watermark.');
+  } else if (tab === 'msgs') {
+    const people = paid ? sc.staff : sc.staff.slice(0, 1);
+    const card = (id, title, text) => `<div class="msg"><b>${esc(title)}</b><textarea class="out" id="${id}" readonly aria-label="${esc(title)}">${esc(text)}</textarea><div class="foot"><button class="btn" data-copy="${id}">Copy</button></div></div>`;
+    body.innerHTML = `<p class="hint" style="margin:0">Paste the whole rota into your group chat, or send each person only their own shifts.</p>`
+      + card('mg-all', 'Whole rota', rotaText(sc)) + people.map(p => card('mg-' + p.id, `For ${p.name}`, staffMessage(sc, p))).join('');
+    $$('[data-copy]', m).forEach(b => b.onclick = () => { const t = $('#' + b.dataset.copy, m); copy(t.value, t); });
+    if (!paid && sc.staff.length > 1) upsell(`Team writes a ready-to-send message for all ${sc.staff.length} people, each with only their own shifts and paid hours.`, 'team');
+  } else if (tab === 'csv') {
+    const t = payrollCSV(sc);
+    if (!paid) { body.innerHTML = `<textarea class="out" readonly aria-label="Payroll preview" style="min-height:70px">${esc(t.split('\n').slice(0, 2).join('\n'))}\n…</textarea>`; upsell('The payroll CSV lists every person’s scheduled hours, paid hours after breaks, overtime and gross pay, ready for your payroll tool or a spreadsheet. It is part of Team.', 'team'); return; }
+    body.innerHTML = `<p class="hint" style="margin:0">Hours and gross pay per person for this rota, after unpaid breaks and overtime. Opens in Excel, Google Sheets or your payroll tool.</p><textarea class="out" id="ex-t" readonly aria-label="Payroll CSV">${esc(t)}</textarea>
+      <div class="foot"><button class="btn" id="ex-c">Copy</button><button class="btn primary" id="ex-dl">Download .csv</button></div>`;
     $('#ex-c', m).onclick = () => copy(t, $('#ex-t', m));
-    $('#ex-dl', m).onclick = () => tryDownload('schedule.ics', t, 'text/calendar');
+    $('#ex-dl', m).onclick = () => saveFile(fileBase(sc) + '_payroll.csv', t, 'text/csv');
+  } else if (tab === 'ics') {
+    if (!paid) { body.innerHTML = ''; upsell(team ? 'Give each person a calendar file with only their own shifts, repeating weekly, for Google Calendar, Apple Calendar or Outlook. Per-person calendars are part of Team.' : 'Send your week to Google Calendar, Apple Calendar or Outlook as repeating weekly events. Calendar export is part of Pro.', team ? 'team' : 'pro'); return; }
+    body.innerHTML = `${team ? `<label class="field"><span>Calendar for</span><select id="ex-who"><option value="">Everyone (whole rota)</option>${sc.staff.map(p => `<option value="${p.id}">${esc(p.name)}</option>`).join('')}</select></label>` : ''}
+      <p class="hint" style="margin:0">Events repeat weekly starting ${nextMonday().toDateString()}. ${inViewer() ? 'Copy the text into' : 'Download the file, or copy the text into'} a file named <span class="mono">schedule.ics</span>, then import it in the calendar app.</p><textarea class="out" id="ex-t" readonly aria-label="Calendar file text"></textarea>
+      <div class="foot"><button class="btn ${inViewer() ? 'primary' : ''}" id="ex-c">Copy</button>${inViewer() ? '' : '<button class="btn primary" id="ex-dl">Download .ics</button>'}</div>`;
+    const who = () => team && $('#ex-who', m).value ? $('#ex-who', m).value : null;
+    const fill = () => { $('#ex-t', m).value = icsText(sc, who()); }; fill();
+    if (team) $('#ex-who', m).onchange = fill;
+    $('#ex-c', m).onclick = () => copy(icsText(sc, who()), $('#ex-t', m));
+    if ($('#ex-dl', m)) $('#ex-dl', m).onclick = () => saveFile((who() ? person(sc, who()).name.replace(/[^\w-]+/g, '_') : fileBase(sc)) + '.ics', icsText(sc, who()), 'text/calendar');
   } else if (tab === 'share') {
     const code = shareCode(sc);
-    body.innerHTML = `<p class="hint">Send this code to anyone with Blockwise. They paste it under “Import a code” to get a copy of this week.</p><textarea class="out" id="ex-t" readonly aria-label="Share code">${esc(code)}</textarea>
+    body.innerHTML = `<p class="hint" style="margin:0">Send this code to anyone with Blockwise${team ? ', such as another manager' : ''}. They paste it under “Import a code” to get their own copy.</p><textarea class="out" id="ex-t" readonly aria-label="Share code">${esc(code)}</textarea>
       <div class="foot"><button class="btn primary" id="ex-c">Copy code</button></div>
-      <h3 style="font-size:16px">Import a code</h3><textarea class="out" id="ex-in" placeholder="Paste a BW1: code" aria-label="Code to import" style="min-height:80px"></textarea><div class="err" id="ex-err"></div><div id="ex-confirm"></div>
-      <div class="foot"><button class="btn" id="ex-rep">Replace current week</button><button class="btn primary" id="ex-new">Import as new schedule</button></div>`;
+      <h3 style="font-size:16px">Import a code</h3><textarea class="out" id="ex-in" placeholder="Paste a code that starts with BW2:" aria-label="Code to import" style="min-height:80px"></textarea><div class="err" id="ex-err"></div><div id="ex-confirm"></div>
+      <div class="foot"><button class="btn" id="ex-rep">Replace this schedule</button><button class="btn primary" id="ex-new">Import as new schedule</button></div>`;
     $('#ex-c', m).onclick = () => copy(code, $('#ex-t', m));
-    const parse = () => { try { return readShare($('#ex-in', m).value); } catch (e) { $('#ex-err', m).textContent = 'That code couldn’t be read. Paste the whole code, starting with BW1:'; return null; } };
+    const parse = () => { const before = snap(); try { const n = readShare($('#ex-in', m).value); undoStack.push(before); redoStack.length = 0; return n; } catch (e) { $('#ex-err', m).textContent = 'That code couldn’t be read. Paste the whole code, starting with BW2:'; return null; } };
     $('#ex-new', m).onclick = () => {
-      if (S.schedules.length >= CONFIG.limits.schedules && !gate(`The free plan keeps ${CONFIG.limits.schedules} schedule. Use “Replace current week”, or get Pro for unlimited schedules.`)) return;
-      pushUndo(); const n = parse(); if (!n) { undoStack.pop(); return; }
-      if (!isPro() && n.blocks.length > CONFIG.limits.blocks) { undoStack.pop(); return openUpgrade(`That schedule has ${n.blocks.length} blocks; the free plan holds ${CONFIG.limits.blocks}.`); }
+      if (S.schedules.length >= CONFIG.limits.schedules && !gate(`The free plan keeps ${CONFIG.limits.schedules} schedules. Use “Replace this schedule”, or upgrade for unlimited schedules.`)) return;
+      const n = parse(); if (!n) return; if (!importLimit(n)) { restore(undoStack.pop()); return; }
       S.schedules.push(n); S.active = n.id; save(); render(); m.close(); toast(`Imported “${n.name}”`);
     };
-    $('#ex-rep', m).onclick = () => confirmIn($('#ex-confirm', m), `Replace all ${sc.blocks.length} blocks in “${sc.name}”?`, 'Replace', () => {
-      pushUndo(); const n = parse(); if (!n) { undoStack.pop(); return; }
-      if (!isPro() && n.blocks.length > CONFIG.limits.blocks) { undoStack.pop(); return openUpgrade(`That schedule has ${n.blocks.length} blocks; the free plan holds ${CONFIG.limits.blocks}.`); }
-      Object.assign(sc, { blocks: n.blocks, startHour: n.startHour, endHour: n.endHour, days: n.days }); save(); render(); m.close(); toast('Week replaced');
+    $('#ex-rep', m).onclick = () => confirmIn($('#ex-confirm', m), `Replace everything in “${sc.name}” with the imported schedule?`, 'Replace', () => {
+      const n = parse(); if (!n) return; if (!importLimit(n)) { restore(undoStack.pop()); return; }
+      const i = S.schedules.findIndex(s => s.id === sc.id); n.id = sc.id; S.schedules[i] = n; save(); render(); m.close(); toast('Schedule replaced. Ctrl+Z to undo');
     });
   } else {
     const t = JSON.stringify(S);
-    body.innerHTML = `<p class="hint">A full backup of every schedule, category and setting on this device. Keep it somewhere safe; restoring replaces everything here.</p><textarea class="out" id="ex-t" readonly aria-label="Backup">${esc(t)}</textarea>
+    body.innerHTML = `<p class="hint" style="margin:0">A full backup of every schedule, rota and setting on this device. Keep it somewhere safe; restoring replaces everything here.</p><textarea class="out" id="ex-t" readonly aria-label="Backup">${esc(t)}</textarea>
       <div class="foot"><button class="btn" id="ex-c">Copy</button><button class="btn primary" id="ex-dl">Download .json</button></div>
       <h3 style="font-size:16px">Restore</h3><textarea class="out" id="ex-in" placeholder="Paste a backup" aria-label="Backup to restore" style="min-height:80px"></textarea><div class="err" id="ex-err"></div><div id="ex-confirm"></div>
       <div class="foot"><button class="btn danger" id="ex-rs">Restore backup</button></div>`;
     $('#ex-c', m).onclick = () => copy(t, $('#ex-t', m));
-    $('#ex-dl', m).onclick = () => tryDownload('blockwise-backup.json', t, 'application/json');
+    $('#ex-dl', m).onclick = () => saveFile('blockwise-backup.json', t, 'application/json');
     $('#ex-rs', m).onclick = () => confirmIn($('#ex-confirm', m), 'Replace everything on this device with the backup?', 'Restore', () => {
-      try { const o = JSON.parse($('#ex-in', m).value); if (!o.schedules?.length) throw 0; const plan = S.plan; pushUndo(); S = Object.assign(fresh(), o, { plan }); save(); render(); m.close(); toast('Backup restored'); }
+      try { const o = JSON.parse($('#ex-in', m).value); if (!o.schedules?.length) throw 0; const plan = S.plan; pushUndo(); S = Object.assign(fresh(), o, { plan }); migrate(); save(); render(); m.close(); toast('Backup restored'); }
       catch (e) { $('#ex-err', m).textContent = 'That doesn’t look like a Blockwise backup.'; }
     });
   }
@@ -982,11 +1160,20 @@ function openExport(tab = 'image') {
 
 /* ===================== schedules & settings ===================== */
 function newSchedule() {
-  if (S.schedules.length >= CONFIG.limits.schedules && !gate(`The free plan keeps ${CONFIG.limits.schedules} schedule. Pro lets you keep one for work, school, shifts, a partner’s week and more.`)) return;
+  if (S.schedules.length >= CONFIG.limits.schedules && !gate(`The free plan keeps ${CONFIG.limits.schedules} schedules. Paid plans keep as many as you need: one per location, season or person.`)) return;
+  const t = isTeamSched(sched());
   const m = modal(`<div class="modal-h"><h2>New schedule</h2>${closeX}</div><form id="ns" style="display:flex;flex-direction:column;gap:12px">
-    <label class="field"><span>Name</span><input id="ns-n" autofocus placeholder="e.g. Spring semester"></label>
+    <div class="kind"><label><input type="radio" name="kind" value="team" ${t ? 'checked' : ''}><span><b>Team rota</b><small>Shifts for staff, with labour cost, coverage and rule checks.</small></span></label>
+      <label><input type="radio" name="kind" value="me" ${t ? '' : 'checked'}><span><b>Personal week</b><small>Time blocks for your own classes, work and habits.</small></span></label></div>
+    <label class="field"><span>Name</span><input id="ns-n" autofocus placeholder="e.g. Harbour Street shop, Spring semester"></label>
     <div class="foot"><button type="button" class="btn" data-close>Cancel</button><button class="btn primary">Create</button></div></form>`);
-  $('#ns', m).onsubmit = e => { e.preventDefault(); const s = { id: uid(), name: $('#ns-n', m).value.trim() || 'Untitled week', startHour: 7, endHour: 22, days: [0, 1, 2, 3, 4, 5, 6], snap: 15, blocks: [], tasks: [] }; mutate(() => { S.schedules.push(s); S.active = s.id; }); m.close(); };
+  $('#ns', m).onsubmit = e => {
+    e.preventDefault();
+    const team = $('input[name=kind]:checked', m).value === 'team';
+    const s = { id: uid(), name: $('#ns-n', m).value.trim() || (team ? 'New rota' : 'Untitled week'), startHour: team ? 6 : 7, endHour: 22, days: [0, 1, 2, 3, 4, 5, 6], snap: 15, blocks: [], tasks: [] };
+    if (team) Object.assign(s, { kind: 'team', staff: [], cover: [], rules: { ...RULES0 }, budget: 0, cur: sched().cur || '$' });
+    mutate(() => { S.schedules.push(s); S.active = s.id; }); m.close();
+  };
 }
 function openSettings() {
   const sc = sched();
@@ -998,6 +1185,7 @@ function openSettings() {
       <div class="field"><span>Show days</span><div class="days">${DAYS.map((d, i) => `<label><input type="checkbox" name="sd" value="${i}" ${sc.days.includes(i) ? 'checked' : ''}><span>${d}</span></label>`).join('')}</div></div>
       <div class="grid2"><label class="field"><span>Snap to</span><select id="st-s">${[5, 10, 15, 30].map(v => `<option value="${v}" ${v === sc.snap ? 'selected' : ''}>${v} minutes</option>`).join('')}</select></label>
         <label class="field"><span>Clock</span><select id="st-h"><option value="0">12-hour</option><option value="1" ${S.prefs.h24 ? 'selected' : ''}>24-hour</option></select></label></div>
+      ${teamFields(sc)}
       <div class="err" id="st-err"></div>
       <div class="field"><span>Plan</span><p class="hint" style="margin:0">${planLabel()}${S.plan.license ? ` · key ${esc(S.plan.license)}` : ''}</p></div>
       <div id="st-confirm"></div>
@@ -1007,11 +1195,314 @@ function openSettings() {
     e.preventDefault();
     const days = $$('input[name=sd]:checked', m).map(i => +i.value);
     if (!days.length) return $('#st-err', m).textContent = 'Show at least one day.';
-    mutate(() => { Object.assign(sc, { name: $('#st-n', m).value.trim() || sc.name, startHour: +$('#st-a', m).value, endHour: +$('#st-b', m).value, days, snap: +$('#st-s', m).value }); S.prefs.h24 = $('#st-h', m).value === '1'; });
+    mutate(() => { Object.assign(sc, { name: $('#st-n', m).value.trim() || sc.name, startHour: +$('#st-a', m).value, endHour: +$('#st-b', m).value, days, snap: +$('#st-s', m).value }); S.prefs.h24 = $('#st-h', m).value === '1'; saveTeamFields(sc, m); });
     m.close(); toast('Settings saved');
   };
   if ($('#st-del', m)) $('#st-del', m).onclick = () => confirmIn($('#st-confirm', m), `Delete “${sc.name}” and its ${sc.blocks.length} blocks?`, 'Delete', () => { mutate(() => { S.schedules = S.schedules.filter(s => s.id !== sc.id); S.active = S.schedules[0].id; }); m.close(); toast('Schedule deleted. Ctrl+Z to undo'); });
-  if ($('#st-reset', m)) $('#st-reset', m).onclick = () => confirmIn($('#st-confirm', m), 'Erase every schedule and start over with the example week? Your plan stays.', 'Reset', () => { const plan = S.plan, ref = S.referral; S = fresh(); S.plan = plan; S.referral = ref; undoStack.length = redoStack.length = 0; save(); render(); m.close(); toast('Reset'); });
+  if ($('#st-reset', m)) $('#st-reset', m).onclick = () => confirmIn($('#st-confirm', m), 'Erase every schedule and start over with the example schedules? Your plan stays.', 'Reset', () => { const plan = S.plan, ref = S.referral; S = fresh(); S.plan = plan; S.referral = ref; undoStack.length = redoStack.length = 0; save(); render(); m.close(); toast('Reset'); });
+}
+
+/* ===================== team rota: analysis ===================== */
+function teamStats(sc) {
+  const r = sc.rules, per = {}, byDay = Array(7).fill(0); let cost = 0, paid = 0, ot = 0, open = 0;
+  for (const p of sc.staff) per[p.id] = { min: 0, paid: 0, shifts: 0, cost: 0, otH: 0 };
+  for (const b of sc.blocks) {
+    const s = per[b.who]; if (!s) { open++; continue; }
+    const pm = paidMin(b, sc); s.min += b.end - b.start; s.paid += pm; s.shifts++;
+    byDay[b.day] += pm / 60 * person(sc, b.who).wage;
+  }
+  for (const p of sc.staff) {
+    const s = per[p.id], h = s.paid / 60;
+    s.otH = r.otAfterH > 0 ? Math.max(0, h - r.otAfterH) : 0;
+    s.cost = (h - s.otH) * p.wage + s.otH * p.wage * r.otMult;
+    cost += s.cost; paid += s.paid; ot += s.otH * p.wage * (r.otMult - 1);
+  }
+  return { per, byDay, cost, paid, ot, open };
+}
+function coverageGaps(sc, countOpen) {
+  const out = [];
+  for (const rule of sc.cover || []) for (const d of rule.days) {
+    if (!sc.days.includes(d)) continue;
+    const bl = sc.blocks.filter(b => b.day === d && (countOpen || person(sc, b.who))); let run = null;
+    for (let t = rule.start; t < rule.end; t += 15) {
+      const have = bl.filter(b => b.start <= t && b.end >= t + 15).length;
+      if (have < rule.need) { if (run && run.have === have) run.b = t + 15; else { run && out.push(run); run = { day: d, a: t, b: t + 15, have, need: rule.need }; } }
+      else if (run) { out.push(run); run = null; }
+    }
+    run && out.push(run);
+  }
+  return out;
+}
+function teamIssues(sc) {
+  const out = [], r = sc.rules, st = teamStats(sc);
+  const add = (lvl, text, ids = [], mark = true) => out.push({ lvl, text, ids, mark });
+  for (const p of sc.staff) {
+    const sh = sc.blocks.filter(b => b.who === p.id).sort((a, b) => a.day - b.day || a.start - b.start), s = st.per[p.id];
+    if (s.paid / 60 > p.maxH) add('bad', `${p.name} has ${hrs(s.paid)}h, over the ${p.maxH}h limit`);
+    for (const b of sh) if ((p.off || []).includes(b.day)) add('bad', `${p.name} is off on ${DAYS[b.day]} but has a shift`, [b.id]);
+    for (let i = 0; i < sh.length; i++) for (let j = i + 1; j < sh.length; j++) if (overlaps(sh[i], sh[j])) add('bad', `${p.name} is double-booked on ${DAYS[sh[i].day]}`, [sh[i].id, sh[j].id]);
+    for (let i = 0, n = sh.length === 2 ? 1 : sh.length; i < n && sh.length > 1; i++) {
+      const a = sh[i], b = sh[(i + 1) % sh.length]; if (a.day === b.day) continue;
+      const g = restGap(a, b);
+      if (g < r.restH * 60) add('warn', `${p.name} gets ${hrs(g)}h rest between ${DAYS[a.day]} and ${DAYS[b.day]} (minimum ${r.restH}h)`, [a.id, b.id]);
+    }
+    const dayMin = Array(7).fill(0); sh.forEach(b => dayMin[b.day] += b.end - b.start);
+    dayMin.forEach((m, d) => { if (m > r.maxDayH * 60) add('warn', `${p.name} works ${hrs(m)}h on ${DAYS[d]}`, sh.filter(b => b.day === d).map(b => b.id)); });
+    if (dayMin.every(m => m > 0)) add('warn', `${p.name} works all 7 days`);
+    if (s.otH > 0) add('warn', `${p.name} earns ${hrs(s.otH * 60)}h of overtime`);
+  }
+  const open = sc.blocks.filter(b => !person(sc, b.who));
+  if (open.length) add('warn', `${open.length} open shift${open.length > 1 ? 's' : ''} with nobody assigned`, open.map(b => b.id), false);
+  for (const g of coverageGaps(sc, false)) add('bad', `${DAYS[g.day]} ${fmt(g.a)}–${fmt(g.b)}: ${g.have} of ${g.need} people on`);
+  if (sc.budget > 0 && st.cost > sc.budget) add('bad', `Labour is ${money(sc, Math.round(st.cost - sc.budget))} over the weekly budget`);
+  return out.sort((a, b) => (a.lvl === 'bad' ? 0 : 1) - (b.lvl === 'bad' ? 0 : 1));
+}
+function teamBadIds(sc, issues = teamIssues(sc)) { const s = new Set(); for (const i of issues) if (i.mark) i.ids.forEach(id => s.add(id)); return s; }
+
+/* ===================== team rota: auto-staff ===================== */
+function canWork(sc, p, b, mine) {
+  const r = sc.rules;
+  if ((p.off || []).includes(b.day)) return false;
+  if (mine.some(s => overlaps(s, b))) return false;
+  if (mine.some(s => s.day !== b.day && restGap(s, b) < r.restH * 60)) return false;
+  if (mine.reduce((t, s) => t + paidMin(s, sc), 0) + paidMin(b, sc) > p.maxH * 60) return false;
+  if (mine.filter(s => s.day === b.day).reduce((t, s) => t + s.end - s.start, 0) + b.end - b.start > r.maxDayH * 60) return false;
+  return true;
+}
+function autoStaff(sc) {
+  let added = 0, filled = 0;
+  for (let i = 0; i < 80; i++) {            // 1. open a shift for every coverage gap
+    const g = coverageGaps(sc, true)[0]; if (!g) break;
+    let a = g.a, b = g.b;
+    if (b - a > 480) b = a + Math.ceil((b - a) / 2 / 30) * 30;
+    if (b - a < 180) { b = Math.min(1440, a + 180); a = Math.min(a, b - 180); }
+    sc.blocks.push({ id: uid(), day: g.day, start: a, end: b, title: 'Cover', who: '', cat: '', loc: '', notes: '', auto: true }); added++;
+  }
+  const roles = new Set(sc.staff.map(p => (p.role || '').toLowerCase()).filter(Boolean));
+  const mine = p => sc.blocks.filter(s => s.who === p.id);
+  const fill = p => mine(p).reduce((s, x) => s + paidMin(x, sc), 0) / (p.maxH * 60 || 1);
+  const open = sc.blocks.filter(b => !person(sc, b.who)).sort((x, y) => (y.end - y.start) - (x.end - x.start) || x.day - y.day);
+  for (const b of open) {                   // 2. give each open shift to the least-loaded person who can take it
+    const t = (b.title || '').toLowerCase();
+    const pool = roles.has(t) ? sc.staff.filter(p => (p.role || '').toLowerCase() === t) : sc.staff;
+    const ok = pool.filter(p => canWork(sc, p, b, mine(p))).sort((x, y) => fill(x) - fill(y) || x.wage - y.wage);
+    if (!ok.length) { b.who = ''; continue; }
+    b.who = ok[0].id; if (b.title === 'Cover') b.title = ok[0].role || ''; filled++;
+  }
+  return { added, filled, open: sc.blocks.filter(b => !person(sc, b.who)).length };
+}
+function runAutoStaff() {
+  const sc = sched();
+  if (!sc.staff.length) return openStaff(null);
+  if (!isTeam() && creditsLeft() <= 0) return openUpgrade(`You’ve used this week’s ${CONFIG.limits.autofillPerWeek} free Auto-staff runs. Team has unlimited runs, or wait until Monday.`, null, 'team');
+  pushUndo(); const r = autoStaff(sc); if (!r.added && !r.filled) undoStack.pop(); else if (!isTeam()) S.credits.used++; save(); render();
+  toast(!r.added && !r.filled && !r.open ? 'Nothing to fix. The rota is fully staffed'
+    : `Assigned ${r.filled} shift${r.filled === 1 ? '' : 's'}` + (r.added ? `, ${r.added} added for coverage` : '') + (r.open ? `. ${r.open} still open: nobody is free within your rules` : ''));
+}
+
+/* ===================== team rota: roster view ===================== */
+function renderRoster(sc) {
+  const st = teamStats(sc), bad = teamBadIds(sc), td = todayIdx(), gaps = coverageGaps(sc, false);
+  const chip = b => {
+    const p = person(sc, b.who);
+    return `<div class="sh ${p ? '' : 'open'} ${bad.has(b.id) ? 'bad' : ''}" data-id="${b.id}" tabindex="0" role="button" style="--c:${bColor(b, sc)}" aria-label="${esc(bTitle(b, sc))}, ${DAYS[b.day]} ${fmt(b.start)} to ${fmt(b.end)}"><b>${fmt(b.start)}–${fmt(b.end)}</b><span>${esc(b.title || (p ? p.role : '') || 'Shift')}</span></div>`;
+  };
+  const row = p => {
+    const s = p && st.per[p.id];
+    const cells = sc.days.map(d => {
+      const bl = sc.blocks.filter(b => b.day === d && (p ? b.who === p.id : !person(sc, b.who))).sort((a, b) => a.start - b.start);
+      const off = p && (p.off || []).includes(d);
+      return `<div class="rc ${off ? 'off' : ''}" data-who="${p ? p.id : ''}" data-day="${d}">${bl.map(chip).join('')}${off && !bl.length ? '<span class="offl">off</span>' : ''}</div>`;
+    }).join('');
+    const head = p
+      ? `<button class="rp ${s.paid / 60 > p.maxH ? 'over' : ''}" data-person="${p.id}" style="--c:${p.color}" title="Edit ${esc(p.name)}"><b><i></i>${esc(p.name)}</b><small>${esc(p.role || 'Staff')}</small><small>${hrs(s.paid)}/${p.maxH}h · ${money(sc, Math.round(s.cost))}</small></button>`
+      : `<div class="rp" style="cursor:default"><b>Open shifts</b><small>${st.open} to fill</small></div>`;
+    return `<div class="rrow ${p ? '' : 'openrow'}">${head}${cells}</div>`;
+  };
+  const cov = sc.days.map(d => {
+    const g = gaps.filter(x => x.day === d), has = (sc.cover || []).some(r => r.days.includes(d));
+    return `<div class="rc">${!has ? '<span>no rule</span>' : !g.length ? '<span class="ok">✓ covered</span>'
+      : g.slice(0, 2).map(x => `<span class="gap">${fmt(x.a)}–${fmt(x.b)} · ${x.have}/${x.need}</span>`).join('') + (g.length > 2 ? `<span class="gap">+${g.length - 2} more</span>` : '')}</div>`;
+  }).join('');
+  $('#calWrap').innerHTML = `<div class="ros" style="--cols:${sc.days.length}">
+    <div class="rrow head"><div class="rp" style="cursor:default"><small>WEEKLY ROTA</small><small>cost per day</small></div>${sc.days.map(d => `<div class="dh ${d === td ? 'today' : ''}"><b>${DAYS[d]}</b><span>${money(sc, Math.round(st.byDay[d]))}</span></div>`).join('')}</div>
+    ${sc.staff.map(row).join('')}${row(null)}
+    <div class="rrow cov"><div class="rp" style="cursor:default"><b>Coverage</b><small>vs your needs</small></div>${cov}</div></div>
+    ${sc.staff.length ? '' : '<div class="empty" style="position:static;padding:28px 16px">Add your first team member in the sidebar, then click a cell to give them a shift.</div>'}`;
+}
+let rdrag = null, rJust = 0;
+const cellAt = (x, y) => document.elementsFromPoint(x, y).find(el => el.matches?.('.rc[data-who]')) || null;
+$('#calWrap').addEventListener('pointerdown', e => {
+  const el = e.target.closest('.sh'); if (!el || e.button !== 0) return;
+  const b = sched().blocks.find(x => x.id === el.dataset.id); if (!b) return;
+  rdrag = { b, el, x0: e.clientX, y0: e.clientY, moved: false, touch: e.pointerType === 'touch' };
+  if (!rdrag.touch) { e.preventDefault(); $('#calWrap').setPointerCapture(e.pointerId); }
+});
+$('#calWrap').addEventListener('pointermove', e => {
+  if (!rdrag) return;
+  const dx = e.clientX - rdrag.x0, dy = e.clientY - rdrag.y0, dist = Math.hypot(dx, dy);
+  if (rdrag.touch) { if (dist > 10) rdrag = null; return; }
+  if (!rdrag.moved && dist < 5) return;
+  rdrag.moved = true; rdrag.el.classList.add('drag'); rdrag.el.style.transform = `translate(${dx}px,${dy}px)`;
+  $$('.rc.drop').forEach(c => c.classList.remove('drop')); cellAt(e.clientX, e.clientY)?.classList.add('drop');
+});
+$('#calWrap').addEventListener('pointerup', e => {
+  if (!rdrag) return; const d = rdrag; rdrag = null; rJust = Date.now();
+  if (!d.moved) return openEditor(d.b);
+  const cell = cellAt(e.clientX, e.clientY);
+  if (cell) mutate(() => { d.b.who = cell.dataset.who; d.b.day = +cell.dataset.day; delete d.b.auto; }); else render();
+});
+$('#calWrap').addEventListener('pointercancel', () => { if (rdrag) { rdrag = null; render(); } });
+$('#calWrap').addEventListener('click', e => {
+  if (Date.now() - rJust < 60) return;
+  const pb = e.target.closest('[data-person]'); if (pb) return openStaff(pb.dataset.person);
+  const cell = e.target.closest('.rc[data-who]'); if (!cell || e.target.closest('.sh')) return;
+  const sc = sched(), who = cell.dataset.who, last = sc.blocks.filter(b => b.who === who).at(-1);
+  openEditor({ id: uid(), day: +cell.dataset.day, start: last?.start ?? 540, end: last?.end ?? 1020, title: last?.title ?? person(sc, who)?.role ?? '', who, cat: '', loc: '', notes: '' }, true);
+});
+$('#calWrap').addEventListener('keydown', e => {
+  const el = e.target.closest('.sh'); if (!el) return;
+  const b = sched().blocks.find(x => x.id === el.dataset.id); if (!b) return;
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openEditor(b); }
+  if (e.key === 'Delete' || e.key === 'Backspace') { e.preventDefault(); mutate(() => { sched().blocks = sched().blocks.filter(x => x.id !== b.id); }); toast('Deleted. Ctrl+Z to undo'); }
+});
+$('#viewBtn').onclick = () => { S.prefs.view = S.prefs.view === 'time' ? 'roster' : 'time'; save(); render(); };
+
+/* ===================== team rota: sidebar ===================== */
+const daysLabel = d => { const k = [...d].sort().join(''); return k === '0123456' ? 'Every day' : k === '01234' ? 'Weekdays' : k === '56' ? 'Weekends' : [...d].sort().map(i => DAYS[i]).join(', '); };
+function tailHTML(pro) {
+  let html = `
+  <div class="card"><h3>Give ${CONFIG.referralDays} days of Pro</h3>
+    <p class="hint" style="margin:0">Share your code. A friend who enters it gets ${CONFIG.referralDays} days of Pro.</p>
+    <div class="codebox"><code id="myRef">${S.referral.mine}</code><button class="btn" id="copyRef">Copy</button></div>
+    ${S.referral.redeemed ? `<p class="hint" style="margin:0">You redeemed ${esc(S.referral.redeemed)}.</p>` : `<div class="row"><input type="text" class="inp" id="refIn" placeholder="Friend’s code" aria-label="Friend’s referral code"><button class="btn" id="refGo">Redeem</button></div><div class="err" id="refErr"></div>`}
+  </div>`;
+  if (!pro) html += `
+  <div class="card sponsor"><span class="tag">Sponsored</span><h3 style="color:var(--ink);text-transform:none;letter-spacing:0;font-size:16px">${esc(CONFIG.sponsor.title)}</h3><p class="hint" style="margin:0">${esc(CONFIG.sponsor.blurb)}</p>
+    <div class="row">${CONFIG.sponsor.url ? `<a class="btn" href="${esc(CONFIG.sponsor.url)}" target="_blank" rel="noopener sponsored">${esc(CONFIG.sponsor.cta)}</a>` : ''}<button class="btn ghost" id="hideAds">Remove ads with Pro</button></div></div>`;
+  return html;
+}
+function bindTail() {
+  if ($('#sideUp')) $('#sideUp').onclick = () => openUpgrade('');
+  if ($('#hideAds')) $('#hideAds').onclick = () => openUpgrade('Pro and Team remove sponsor cards.', null, 'pro');
+  $('#copyRef').onclick = () => copy(S.referral.mine, $('#myRef'));
+  if ($('#refGo')) $('#refGo').onclick = () => {
+    const v = $('#refIn').value.trim().toUpperCase();
+    if (v === S.referral.mine) return $('#refErr').textContent = 'That is your own code. Share it with a friend instead.';
+    if (!checkReferral(v)) return $('#refErr').textContent = 'That code isn’t valid. Codes look like BWR-ABC234.';
+    S.referral.redeemed = v; S.plan.proUntil = Math.max(Date.now(), S.plan.proUntil) + CONFIG.referralDays * DAY_MS;
+    save(); render(); toast(`${CONFIG.referralDays} days of Pro added`);
+  };
+}
+function renderTeamSide(sc) {
+  const st = teamStats(sc), issues = teamIssues(sc), team = isTeam(), pro = isPro(), L = CONFIG.limits;
+  const maxDay = Math.max(1, ...st.byDay);
+  const budget = sc.budget > 0
+    ? `<div class="meter ${st.cost > sc.budget ? 'full' : ''}"><i style="width:${Math.min(100, st.cost / sc.budget * 100)}%"></i></div><p class="hint" style="margin:0">${st.cost > sc.budget ? money(sc, Math.round(st.cost - sc.budget)) + ' over' : money(sc, Math.round(sc.budget - st.cost)) + ' under'} your ${money(sc, sc.budget)} weekly budget</p>`
+    : `<button class="btn" id="setBudget">Set a weekly budget${team ? '' : ' <span class="lock">TEAM</span>'}</button>`;
+  let html = `
+  <div class="card"><h3>Labour this week</h3>
+    <div class="big mono">${money(sc, Math.round(st.cost))}<small>${hrs(st.paid)} paid hours</small></div>
+    ${budget}
+    <div class="daybars" aria-hidden="true">${DAYS.map((d, i) => `<div><i style="height:${Math.round(st.byDay[i] / maxDay * 40)}px"></i>${d[0]}</div>`).join('')}</div>
+    <div class="kv"><span>Average hourly cost</span><span>${st.paid ? money(sc, st.cost / (st.paid / 60)) : '–'}</span><span>Overtime premium</span><span>${money(sc, Math.round(st.ot))}</span><span>Open shifts</span><span>${st.open}</span></div>
+  </div>
+  <div class="card"><h3>Rota check <span class="pill" style="${issues.length ? 'color:var(--danger)' : 'color:var(--ok)'}">${issues.length ? issues.length + ' to fix' : 'clean'}</span></h3>
+    ${issues.length ? issues.slice(0, 7).map(i => `<div class="issue ${i.lvl}"><span>${esc(i.text)}</span></div>`).join('') + (issues.length > 7 ? `<p class="hint" style="margin:0">and ${issues.length - 7} more</p>` : '') : '<p class="hint" style="margin:0">Every shift is covered and inside your rules.</p>'}
+    <button class="btn primary" id="staffBtn2">Auto-staff: fill gaps and open shifts</button>
+    <p class="hint" style="margin:0">Respects days off, rest time and hour limits. ${team ? 'Unlimited on Team.' : `${creditsLeft()} of ${L.autofillPerWeek} free runs left this week.`}</p>
+  </div>
+  <div class="card"><h3>Team <button class="btn ghost" id="addStaff">+ Add</button></h3>
+    ${sc.staff.map(p => { const s = st.per[p.id]; return `<button class="prow ${s.paid / 60 > p.maxH ? 'over' : ''}" data-person="${p.id}" style="--c:${p.color}" title="Edit ${esc(p.name)}"><span class="sw"></span><span class="nm">${esc(p.name)} <span class="hint">${esc(p.role || '')}</span></span><span class="hr">${hrs(s.paid)}/${p.maxH}h</span><div class="bar"><i style="width:${Math.min(100, s.paid / 60 / (p.maxH || 1) * 100)}%"></i></div></button>`; }).join('') || '<p class="hint" style="margin:0">Add the people you schedule, with their hourly rate and days off.</p>'}
+  </div>
+  <div class="card"><h3>Coverage needs <button class="btn ghost" id="addCover">+ Add</button></h3>
+    ${(sc.cover || []).map(r => `<div class="task"><b>${r.need} ${r.need > 1 ? 'people' : 'person'} · ${fmt(r.start)}–${fmt(r.end)}</b><small>${daysLabel(r.days)}</small><button class="btn ghost" data-delcover="${r.id}" aria-label="Remove rule">✕</button></div>`).join('') || '<p class="hint" style="margin:0">Say how many people you need and when. Blockwise flags every gap.</p>'}
+  </div>`;
+  if (!team) html += `
+  <div class="card"><h3>${pro ? 'Pro plan' : 'Free plan'}</h3>
+    <div class="kv"><span>Team members</span><span>${sc.staff.length}/${L.staff}</span></div>
+    <div class="meter ${sc.staff.length >= L.staff ? 'full' : ''}"><i style="width:${Math.min(100, sc.staff.length / L.staff * 100)}%"></i></div>
+    <div class="kv"><span>Coverage rules</span><span>${(sc.cover || []).length}/${L.coverRules}</span></div>
+    <button class="btn gold" id="sideUp">${S.plan.trialUsed ? 'See the Team plan' : `Try Team free for ${CONFIG.trialDays} days`}</button>
+  </div>`;
+  $('#side').innerHTML = html + tailHTML(pro);
+  $$('#side [data-person]').forEach(b => b.onclick = () => openStaff(b.dataset.person));
+  $('#addStaff').onclick = () => openStaff(null);
+  $('#addCover').onclick = openCover;
+  $('#staffBtn2').onclick = runAutoStaff;
+  $$('[data-delcover]').forEach(b => b.onclick = () => mutate(() => { sc.cover = sc.cover.filter(r => r.id !== b.dataset.delcover); }));
+  if ($('#setBudget')) $('#setBudget').onclick = () => { if (gateTeam('A weekly labour budget, with a live over/under meter as you build the rota, is part of Team.')) openSettings(); };
+  bindTail();
+  if ($('#sideUp')) $('#sideUp').onclick = () => openUpgrade('', null, 'team');
+}
+
+/* ===================== team rota: people, coverage, settings ===================== */
+function openStaff(id) {
+  const sc = sched(), p = id ? person(sc, id) : null;
+  if (!p && sc.staff.length >= CONFIG.limits.staff && !gateTeam(`The free plan covers a team of ${CONFIG.limits.staff}. Team has no limit on people.`)) return;
+  const color = p?.color || PALETTE.find(c => !sc.staff.some(x => x.color === c)) || PALETTE[sc.staff.length % PALETTE.length];
+  const roles = [...new Set(sc.staff.map(x => x.role).filter(Boolean))];
+  const n = p ? sc.blocks.filter(b => b.who === p.id).length : 0;
+  const m = modal(`<div class="modal-h"><h2>${p ? 'Edit team member' : 'New team member'}</h2>${closeX}</div>
+    <form id="pf" style="display:flex;flex-direction:column;gap:12px">
+      <div class="grid2"><label class="field"><span>Name</span><input id="pf-n" value="${esc(p?.name || '')}" autofocus placeholder="e.g. Alex"></label>
+        <label class="field"><span>Role</span><input id="pf-r" list="pf-roles" value="${esc(p?.role || '')}" placeholder="e.g. Barista"><datalist id="pf-roles">${roles.map(r => `<option value="${esc(r)}">`).join('')}</datalist></label></div>
+      <div class="grid2"><label class="field"><span>Hourly rate (${esc(sc.cur || '$')})</span><input id="pf-w" type="number" min="0" step="0.05" value="${p?.wage ?? 15}"></label>
+        <label class="field"><span>Max hours a week</span><input id="pf-m" type="number" min="1" max="100" step="0.5" value="${p?.maxH ?? 40}"></label></div>
+      <div class="field"><span>Days off</span><div class="days">${DAYS.map((d, i) => `<label><input type="checkbox" name="off" value="${i}" ${(p?.off || []).includes(i) ? 'checked' : ''}><span>${d}</span></label>`).join('')}</div><small class="hint">Auto-staff never books these days, and manual shifts on them get flagged.</small></div>
+      <div class="field"><span>Colour</span><div class="catpick">${PALETTE.map(c => `<label style="--c:${c}"><input type="radio" name="col" value="${c}" ${c === color ? 'checked' : ''}><span>${c.toUpperCase()}</span></label>`).join('')}</div></div>
+      <div id="pf-confirm"></div>
+      <div class="foot">${p ? '<button type="button" class="btn danger left" id="pf-del">Remove</button>' : ''}<button type="button" class="btn" data-close>Cancel</button><button class="btn primary">Save</button></div>
+    </form>`);
+  $('#pf', m).onsubmit = e => {
+    e.preventDefault();
+    const v = { name: $('#pf-n', m).value.trim() || 'Unnamed', role: $('#pf-r', m).value.trim(), wage: Math.max(0, +$('#pf-w', m).value || 0), maxH: clamp(+$('#pf-m', m).value || 40, 1, 100), off: $$('input[name=off]:checked', m).map(i => +i.value), color: $('input[name=col]:checked', m).value };
+    mutate(() => { if (p) Object.assign(p, v); else sc.staff.push({ id: 'p' + uid(), ...v }); });
+    m.close();
+  };
+  if ($('#pf-del', m)) $('#pf-del', m).onclick = () => {
+    const doIt = () => { mutate(() => { sc.staff = sc.staff.filter(x => x.id !== p.id); sc.blocks.forEach(b => { if (b.who === p.id) b.who = ''; }); }); m.close(); toast(`${p.name} removed. Ctrl+Z to undo`); };
+    n ? confirmIn($('#pf-confirm', m), `${p.name} has ${n} shift${n > 1 ? 's' : ''}. They will become open shifts.`, 'Remove', doIt) : doIt();
+  };
+}
+function openCover() {
+  const sc = sched();
+  if ((sc.cover || []).length >= CONFIG.limits.coverRules && !gateTeam(`The free plan has ${CONFIG.limits.coverRules} coverage rules. Team lets you set different needs for rushes, weekends and closing.`)) return;
+  const m = modal(`<div class="modal-h"><h2>New coverage need</h2>${closeX}</div>
+    <form id="cv" style="display:flex;flex-direction:column;gap:12px">
+      <div class="field"><span>On these days</span><div class="days">${DAYS.map((d, i) => `<label><input type="checkbox" name="cd" value="${i}" checked><span>${d}</span></label>`).join('')}</div></div>
+      <div class="grid2"><label class="field"><span>From</span><input type="time" id="cv-a" step="900" value="11:00"></label><label class="field"><span>Until</span><input type="time" id="cv-b" step="900" value="14:00"></label></div>
+      <label class="field"><span>People needed at once</span><input type="number" id="cv-n" min="1" max="50" value="3" autofocus></label>
+      <div class="err" id="cv-err"></div>
+      <div class="foot"><button type="button" class="btn" data-close>Cancel</button><button class="btn primary">Add need</button></div>
+    </form>`);
+  $('#cv', m).onsubmit = e => {
+    e.preventDefault();
+    const days = $$('input[name=cd]:checked', m).map(i => +i.value), a = fromHHMM($('#cv-a', m).value); let b = fromHHMM($('#cv-b', m).value); if (b === 0) b = 1440;
+    if (!days.length) return $('#cv-err', m).textContent = 'Pick at least one day.';
+    if (a == null || b == null || b <= a) return $('#cv-err', m).textContent = 'The end time has to be after the start.';
+    mutate(() => { (sc.cover = sc.cover || []).push({ id: uid(), days, start: a, end: b, need: clamp(+$('#cv-n', m).value || 1, 1, 50) }); });
+    m.close();
+  };
+}
+function teamFields(sc) {
+  if (!isTeamSched(sc)) return '';
+  const r = sc.rules, team = isTeam();
+  return `<div class="grid2"><label class="field"><span>Currency symbol</span><input id="st-cur" maxlength="3" value="${esc(sc.cur || '$')}"></label>
+      <label class="field"><span>Weekly labour budget${team ? '' : ' (Team)'}</span><input id="st-bud" type="number" min="0" step="10" value="${sc.budget || ''}" placeholder="${team ? 'e.g. 2500' : 'Team plan'}" ${team ? '' : 'disabled'}></label></div>
+    <div class="grid2"><label class="field"><span>Minimum rest between shifts (h)</span><input id="st-rest" type="number" min="0" max="24" step="0.5" value="${r.restH}"></label>
+      <label class="field"><span>Longest day (h)</span><input id="st-maxd" type="number" min="1" max="24" step="0.5" value="${r.maxDayH}"></label></div>
+    <div class="grid2"><label class="field"><span>Unpaid break (min)</span><input id="st-brk" type="number" min="0" max="120" step="5" value="${r.breakMin}"></label>
+      <label class="field"><span>…on shifts longer than (h)</span><input id="st-brka" type="number" min="0" max="24" step="0.5" value="${r.breakAfterH}"></label></div>
+    <div class="grid2"><label class="field"><span>Overtime after (h/week, 0 = off)</span><input id="st-ot" type="number" min="0" max="100" step="1" value="${r.otAfterH}"></label>
+      <label class="field"><span>Overtime pay multiplier</span><input id="st-otm" type="number" min="1" max="3" step="0.05" value="${r.otMult}"></label></div>`;
+}
+function saveTeamFields(sc, m) {
+  if (!isTeamSched(sc)) return;
+  const num = (id, d) => { const v = parseFloat($(id, m).value); return isNaN(v) ? d : v; };
+  sc.cur = $('#st-cur', m).value.trim() || '$';
+  if (isTeam()) sc.budget = Math.max(0, num('#st-bud', 0));
+  Object.assign(sc.rules, { restH: num('#st-rest', 11), maxDayH: num('#st-maxd', 10), breakMin: num('#st-brk', 0), breakAfterH: num('#st-brka', 6), otAfterH: num('#st-ot', 0), otMult: Math.max(1, num('#st-otm', 1.5)) });
 }
 
 /* ===================== wiring ===================== */
@@ -1021,7 +1512,7 @@ $('#upgradeBtn').onclick = () => openUpgrade('');
 $('#settingsBtn').onclick = openSettings;
 $('#addBtn').onclick = () => { if (canAddBlocks(1)) openEditor(null, true); };
 $('#tplBtn').onclick = openTemplates;
-$('#fillBtn').onclick = runAutofill;
+$('#fillBtn').onclick = () => isTeamSched(sched()) ? runAutoStaff() : runAutofill();
 $('#exportBtn').onclick = () => openExport('image');
 $('#skinBtn').onclick = openSkins;
 $('#undoBtn').onclick = undo; $('#redoBtn').onclick = redo;
@@ -1040,5 +1531,5 @@ setInterval(() => { if (!drag && !$('.scrim')) render(); }, 60000);   // keeps t
 
 render();
 // scroll the grid to ~1h before the first block
-requestAnimationFrame(() => { const sc = sched(), first = Math.min(...sc.blocks.map(b => b.start), 9 * 60); $('#calWrap').scrollTop = Math.max(0, (first - 60 - sc.startHour * 60) / 60 * Math.round(52 * S.prefs.zoom)); });
+requestAnimationFrame(() => { const sc = sched(); if (isTeamSched(sc) && S.prefs.view !== 'time') return; const first = Math.min(...sc.blocks.map(b => b.start), 9 * 60); $('#calWrap').scrollTop = Math.max(0, (first - 60 - sc.startHour * 60) / 60 * Math.round(52 * S.prefs.zoom)); });
 </script>
