@@ -47,7 +47,11 @@ const _bqKD=kdBlankQ;kdBlankQ=function(n,cb){go({draw(){drawInterro()}});say([['
 const KD_INJ=[[['','Your wrists itch under the cable ties. You don’t look at them. Itching means healing.']],
  [['','Your left hand has gone to sleep. You tuck it inside your hoodie and let it.'],['hitmeuppp','(nothing’s broken. i’d know. i’ve had broken.)']],
  [['','There is a tooth on the floor by the drain. You wonder whose it is, and nudge it under the cot with your shoe so nobody steps on it.'],['hitmeuppp','(honestly? feeling pretty good. bit tired.)']]];
-const _doseKD=kdDose;kdDose=function(cb){_doseKD(()=>say(KD_INJ[Math.min(3,Math.max(1,KD().ses))-1],cb))};
+/* injuries-only setting (kc36): she knows exactly what is broken, and has had most of it before */
+const KD_INJ_OFF=[[['','The cable ties have gone through the skin on both wrists. You know what that looks like in a week if it isn’t cleaned. You spit on it, which is what there is.']],
+ [['','Your left hand is broken: the two outside bones, behind the ring finger. You know because you felt them go, and because it is the third time.'],['hitmeuppp','(it’ll set crooked if they leave it. they’ll leave it. ok. done that before too.)']],
+ [['','There is a tooth on the floor by the drain. It’s yours; you can feel the gap with your tongue. You put it in your pocket, because you don’t leave things of yours lying around for other people.'],['hitmeuppp','(ribs, hand, tooth, wrists, foot. that’s five. i’ve had a worse week. i can’t remember which one, but i have.)']]];
+const _doseKD=kdDose;kdDose=function(cb){const L=(typeof kdSA==='function'&&!kdSA())?KD_INJ_OFF:KD_INJ;_doseKD(()=>say(L[Math.min(3,Math.max(1,KD().ses))-1],cb))};
 /* a second stage to her way out */
 function kdDock(r1){const fin=r=>{if(r.ok){S.f.selfEscape=1;S.bodies+=(r1.bodies||0)+(r.bodies||0);save();escaped(r)}else failedEscape('The roller door was right there. You could smell the river.')};
  cut([['','That was the inside. Between you and the river there is still the loading dock, lit like a football pitch.'],['hitmeuppp','(One: don’t run. Two: the foot’s just asleep. Three: run when it wakes up.)']],()=>

@@ -16,74 +16,97 @@ KD_SA_TX.forEach(id=>{const t=TXS[id];if(t){const w=t.when;t.when=()=>kdSA()&&w(
 const _xeSA=extraEnding;extraEnding=function(){const L=_xeSA();if(kdSA())return L;
  return L.filter(x=>!/did the sum|second page of the doctor|said yes|window closed|false name|“dentist”|remembers a ceiling|turned up first/.test(x))};
 
-/* ---------- injuries only: the medical horror of what was done to her body ---------- */
-const kdInj=(id,d,when,run)=>{kdEv2(id,d,()=>!kdSA()&&(!when||when()),run);const e=EVENTS[EVENTS.length-1];e.inj=1};
-kdInj('kd_inj_hand',1,null,done=>{const m=kdMe();say([
- ['','The doctor puts the hand films up on the lightbox. The first is from the night she came in. The two bones behind her ring finger and her little finger had broken on the first day and started knitting by the third, crooked, at an angle you could see across the room.'],
- [kdDoc,'Bone starts to set in about three days whether you want it to or not. So before I could pin it I had to break it again, in two places.'],
- ['hitmeuppp',MV('cool.','cool. didn’t feel it.','Did you? I didn’t feel it.','You broke my hand? Again? While I was there? I didn’t feel a thing. You’re good. That’s a compliment.')],
- ['',m?'She did feel it. She was awake for it, and she counted the hounds out loud, and she has filed that hour with the others.':'She was awake for it. He held the lamp. She counted his hounds out loud the whole time, grey, old, black, pale, and asked afterwards if it was done yet.']],()=>ask(m?'hitmeuppp':'K9',m?'(The second film. Two pins, straight.)':'(She is admiring the pins.)',m?[
-  KD_NO('Say that you felt it.'),
-  {t:'“can i have the x-ray. for the fridge.”',fn:()=>{kdDeny();S.f.kdInjFilm=1;save();say([['','The doctor gives her a copy. She puts it on V’s fridge under a magnet shaped like a bone, which nobody admits to having bought.']],done)}},
-  {t:'Ask how long until it works.',fn:()=>{calm(-2);say([[kdDoc,'Six weeks in the cast. After that it depends on how much work you put in. Some people get all of it back.'],['hitmeuppp',MV('i will.','i will. obviously.','I will. Obviously.','I will. I’ll get all of it back, plus interest. Watch me.')]],done)}}]:[
-  {t:'“You were awake. I was there.”',fn:()=>{kdDeny();apply({aff:2});say([['hitmeuppp',MV('was not.','nope. slept through it.','No. I slept through it.','I slept through the whole thing. You must be thinking of a different hand.')],['','He lets her have it.']],done)}},
-  {t:'Pin the film to the fridge.',fn:()=>{apply({aff:3});S.f.kdInjFilm=1;save();say([['','He puts it on the fridge. She stands in front of it eating cereal out of the box and tells it that it looks great.']],done)}}]))});
-kdInj('kd_inj_foot',2,null,done=>{const m=kdMe();say([
- ['','The foot she walked two kilometres on was broken before she started. The walk moved it. It is in a boot now, a big grey plastic one with three straps, and she is meant to wear it at all times.'],
- ['',m?'She takes it off to walk the hounds. She takes it off for the stairs, because the boot is loud on the stairs, and loud is how people find you.':'She takes it off. He finds it on the stairs, in the yard and once in the bath, and he puts it back by the bed each time.']],()=>ask(m?'hitmeuppp':'K9',m?'(The boot is by the bed.)':'(The boot is on the stairs again.)',m?[
-  {t:'Wear the boot. It’s loud. Wear it anyway.',fn:()=>{const k=KD();if(k.rx)k.rx.heal++;calm(-2);save();say([['','She wears it. Every step on the stairs goes off like a door. She stops halfway down the first time and waits to see who comes.'],['','Nobody comes. The black hound looks up from the bottom step and goes back to sleep.']],done)}},
-  {t:'Leave it off. You can walk fine.',fn:()=>{kdDeny();const k=KD();k.shake=Math.min(3,(k.shake||0)+1);apply({energy:-8});save();say([['hitmeuppp',MV('see. fine.','see. walking. fine.','Look at that. Walking. Fine.','Look. Walking. Two whole legs. The boot’s for people who can’t walk, and I can, so.')],['','By the evening the foot is the size of a grapefruit. She keeps it under the blanket and says she is cold.']],done)}}]:[
-  {t:'Put it back by the bed. Say nothing.',fn:()=>{kdDeny();say([['','He puts it back. In the morning it is on the stairs again. They do this for nine days, and neither of them ever mentions it.']],done)}},
-  {t:'Wear it yourself around the house for an hour.',fn:()=>{apply({aff:4});const k=KD();if(k.rx)k.rx.heal++;save();say([['','He wears it on his left foot, over the shoe, with the coat, for an hour, and goes up and down the stairs eleven times.'],['hitmeuppp',MV('...fine.','omg. fine. FINE. give it.','All right. Fine. Give it here.','Oh my God. Fine. You look insane. Give it to me before Ronin sees you and I have to live with it.')]],done)}}]))});
-kdInj('kd_inj_fever',3,null,done=>{const m=kdMe();const k=KD();say([
- ['','The wrists were cut to the tendon by cable ties and were dirty for days. On the third night the left one goes hot. There is a thin red line running up the inside of the arm toward the elbow, under the cast, where she cannot see it.'],
- ['',m?'She feels it climbing. She knows what a red line means. She has watched one climb up a man she was paid not to help.':'He sees it when she reaches for the salt: the line has come out from under the cast, and she has pulled her sleeve down over it.']],()=>ask(m?'hitmeuppp':'K9',m?'(Thirty-nine point two. You checked with his thermometer.)':'(She has pulled her sleeve down.)',m?[
-  {t:'Tell him. Now.',fn:()=>{if(k.rx)k.rx.heal++;calm(2);apply({aff:2});save();say([['','He has the doctor on the phone before she finishes the sentence. By midnight there is a drip back in her hand and something cold going into it.'],['hitmeuppp',MV('ugh.','ugh. back on the drip.','Back on the drip. Brilliant.','Back on the drip. My arm’s going to look like a pincushion. Thanks, though. Don’t say anything.')]],done)}},
-  {t:'Hide it. It’ll go down by itself.',fn:()=>{kdDeny(2);k.shake=Math.min(3,(k.shake||0)+1);apply({energy:-20});save();say([['','It doesn’t go down. At four in the morning she wakes up talking, and V is already in the doorway, because he heard her teeth.'],['','The doctor comes at five. She says another twelve hours and they would have been talking about the arm and not the wrist. Misaki says “what arm.”']],done)}}]:[
-  {t:'Ring the doctor. Don’t ask her first.',fn:()=>{if(k.rx)k.rx.heal++;apply({tension:3});save();say([['hitmeuppp',MV('i’m FINE.','i’m fine. it’s nothing. it’s a scratch.','It’s nothing. It’s a scratch.','It’s a scratch! It’s a red scratch! You’ve all seen a scratch before!')],['','The doctor comes. It is not a scratch. Misaki watches the drip go back in with the expression of someone being served a parking fine.']],done)}},
-  {t:'Ask to see the arm.',fn:()=>{apply({aff:2});if(k.rx)k.rx.heal++;save();say([['','She looks at him for a long time and then rolls the sleeve up herself, all the way, and lets him see the line. That is the most she has let him see of anything since the river.']],done)}}]))});
-kdInj('kd_inj_ribs',3,()=>frT('r')>=1,done=>{const m=kdMe();say([
- [RN,'—and the priest goes, “son, that ain’t holy water,” and I go, “it is now, Father.”'],
- ['','She laughs. It catches on the third broken rib, and for a second she can’t breathe in or out, and she folds over the table with her good hand flat on the wood.'],
- [RN,'...Shit. You good?'],
- ['hitmeuppp',MV('fine. ur not funny.','fine. you’re just not that funny.','I’m fine. You’re just not as funny as you think.','I’m fine! I’m fine. Your joke was bad and my body rejected it. That’s all that was.')],
- ['',m?'From then on she laughs with her mouth shut, through her nose, holding her side, and Ronin tells his worst jokes on purpose to watch her try.':'From then on Ronin tells jokes that are not funny on purpose. She laughs at them through her nose, holding her side. V notices that Ronin’s stories have got worse, and that he has never seen him so careful.']],()=>{kdDeny();fr('r',3);done()})});
-kdInj('kd_inj_nerve',4,null,done=>{const m=kdMe();say([
- ['','The doctor tests the hand with a pin. Thumb: yes. First finger: yes. Middle finger: yes. Ring finger. Little finger.'],
- [kdDoc,'Tell me when you feel it.'],
- ['hitmeuppp',MV('now.','now. ...now.','Now. Yes. Now.','Now. Yeah. Definitely now. Very sharp. Ow.')],
- ['','The doctor has not touched the ring finger yet. She has been holding the pin in the air, a centimetre away.'],
- [kdDoc,'The nerve was crushed. It may come back over months. It may not.'],
- ['hitmeuppp',MV('it’s asleep.','it’s just asleep.','It’s just asleep.','It’s asleep. It’s been asleep since the van. It’ll wake up. Things wake up.')]],()=>ask(m?'hitmeuppp':'K9',m?'(“Since the van.” You said that out loud.)':'(She said “since the van.”)',m?[
-  KD_NO('Say that you can’t feel those two fingers.'),
-  {t:'Ask to try again.',fn:()=>{kdDeny();calm(-3);say([['','They try again with her eyes shut. She guesses. She guesses right three times out of ten, which the doctor writes down, and which Misaki says is better than half.']],done)}},
-  {t:'“lol whatever. i pick with the right.”',fn:()=>{kdDeny();S.f.kdHandBad=1;save();say([['','She does pick with the right. She also used to change magazines with the left, without looking, in under a second. She has not tried since.']],done)}}]:[
-  {t:'Write it in the file.',fn:()=>{kdDeny();save();say([['','He writes it down: ring and little finger, no sensation, date. He writes it in the file for the man with the radio, not in hers.']],done)}},
-  {t:'Hold the hand.',fn:()=>{apply({aff:3});say([['','He holds the hand. She can feel his thumb on the back of it and not his fingers on the side, and she doesn’t tell him which part she can feel.']],done)}}]))});
-kdInj('kd_inj_shoulder',5,null,done=>{const m=kdMe();say([
- ['','She reaches up for a mug on the top shelf, and the right shoulder, the one they put back on the first night, comes out again with a noise like a drawer shutting.'],
- ['',m?'She doesn’t scream. She sits down on the kitchen floor very slowly and says, conversationally, “V.”':'He hears her say his name once, in her ordinary voice, from the kitchen. He knows the voice. It is the one she used on the loading-bay floor.']],()=>ask(m?'hitmeuppp':'K9',m?'(The arm is the wrong shape.)':'(She is on the floor. The arm is the wrong shape.)',m?[
-  {t:'Let him put it back.',fn:()=>{calm(2);apply({aff:3});say([['','He kneels in front of her, foot against her side, and asks her to count. On three he pulls. On two, actually, so she wouldn’t brace. It goes in.'],['hitmeuppp',MV('...cheater.','u went on two. cheater.','You went on two. Cheater.','You went on two, you absolute fraud. I’ll remember that. Thank you.')]],done)}},
-  {t:'Do it yourself, against the doorframe.',fn:()=>{kdDeny();calm(-3);apply({edge:2});say([['','She stands up, sets the arm against the doorframe, and walks into it. It goes in on the second try. She makes no sound either time.'],['','When V gets there she is drinking water out of the mug she wanted. She says she dropped something.']],done)}}]:[
-  {t:'Kneel, and do it on two.',fn:()=>{apply({aff:3});calm(2);say([['','He tells her he will pull on three. He pulls on two. It goes in.'],['hitmeuppp',MV('cheater.','cheater. u went on two.','You went on two.','You went on two! You lying bastard. Thank you.')]],done)}},
-  {t:'Call the doctor first.',fn:()=>{apply({tension:2});say([['hitmeuppp',MV('just DO it.','just do it. i know u know how.','Just do it. I know you know how.','Just do it. You’ve put back worse on worse people. Don’t make me sit here while a phone rings.')],['','He does it. Then he calls the doctor anyway.']],done)}}]))});
-kdInj('kd_inj_back',3,()=>S.f.kdChart||S.f.kdChartV,done=>{const m=kdMe();say([
- ['','The photographs of her back are in the chart, eleven of them, with a ruler along the edge of each. They show what a doubled cable does, when it is used on somebody who is not allowed to fall over.'],
- ['hitmeuppp',MV('van.','that’s from the van.','That’s from the van. Lots of corners in a van.','That’s from the van! Vans have corners, I’ve been in a van, I know about vans.')],
- ['',m?'She has been in a van. Van corners do not come in parallel lines, a hand’s width apart, eleven times.':'He has used a doubled cable himself, on men who earned it. He knows the spacing. He says nothing about vans.']],()=>ask(m?'hitmeuppp':'K9',m?'(Eleven.)':'(She is waiting for him to agree about the van.)',m?[
-  KD_NO('Count them.'),
-  {t:'Shut the chart.',fn:()=>{kdDeny();save();say([['','She shuts it. She has counted them anyway. She counted them the first time she looked, without meaning to, the way she counts guards.']],done)}},
-  {t:'Get dressed facing the wall from now on.',fn:()=>{kdDeny();calm(-2);save();say([['','From now on she gets dressed facing the wall, and calls it a habit, and tells anybody who asks that she has always done it that way.']],done)}}]:[
-  {t:'“The van.”',fn:()=>{kdDeny();apply({heart:-1,aff:2});say([['','“The van,” he says. She nods, and goes to find a hound to stand next to.']],done)}},
-  {t:'Add the man with the radio’s name to a page of its own.',fn:()=>{apply({veng:8});say([['','There was a cable in the radio man’s car. V knows because he has already been to look at the car.']],done)}}]))});
-txDef('tx_kd_physio',{with:'v',pov:'m',prio:2,when:()=>!kdSA()&&kdPost()&&tier()>=1&&kdD()>=3,nodes:{
- start:{in:()=>['The doctor has left a sheet of exercises for the hand. Ten of each, three times a day.','You have done none of them. I have been counting.'],expire:3,
-  opts:()=>[{t:'“they’re boring”',fx:()=>kdDeny(),reply:()=>['Yes. So is a hand that does not close.','I will do them with you, if that helps. I have two hands that work. I will hold one of them still.']},
-   {t:'“ok. tonight. u count”',fx:()=>{apply({aff:2});S.f.kdGripN=(S.f.kdGripN||0)+1;const k=KD();if(k.rx)k.rx.heal++},reply:()=>['I will count. I am very good at counting.','Bring the foam ball. Not the hound. The hound will eat the foam ball.']}]}}});
+/* ---------- injuries only ----------
+   No denial and no doctor. She knows exactly what is broken, says so in the tone she uses for a weather report, and
+   does not care. The horror is that nothing about it is new to her: the old fractures on the films, the stitches she
+   takes out herself, the exercises nobody taught her. V does the treatment. Recovery is something you play: physio and
+   walking, once a day each, in the infirmary and after it. */
+const kdOff=()=>!kdSA();
+const KD_OFF_GONE=['kd_konbini','kd_angelsees','kd_card','kd_discharge','kd_checkup','kd_pins','kd_wrists'];
+EVENTS.forEach(e=>{if(KD_OFF_GONE.includes(e.id)){const w=e.when;e.when=()=>kdSA()&&w()}});
+['tx_kd_fine','tx_kd_selfie','tx_kd_adoc'].forEach(id=>{const t=TXS[id];if(t){const w=t.when;t.when=()=>kdSA()&&w()}});
+const kdRec=(id,d,when,run)=>{kdEv2(id,d,()=>kdOff()&&(!when||when()),run);EVENTS[EVENTS.length-1].inj=1};
+const kdHeal=n=>{const k=KD();k.rx=k.rx||{heal:0,pills:0,palmed:0};k.rx.heal+=(n||1);save()};
+/* the infirmary, in this setting */
+(function(){const R=ROOMS.medbay,hi=()=>kdClar()>=2,lo=()=>kdClar()<2;const wrap=(lab,fn)=>{const sp=R.spots.find(s=>s.label===lab);if(!sp)return;const a=sp.act;sp.act=function(){return kdOff()?fn.apply(this,arguments):a.apply(this,arguments)}};
+ wrap('Their notes',()=>{S.f.kdChart=1;kdClarUp();save();say(KD_CHART.slice(0,1).concat([['','“Back: lacerations, see photographs. L foot: fracture. Wrists: ligature wounds, both, to the tendon. Scalp: 14 sutures. Two molars. Weight: minus 7 kg.”'],
+   ['hitmeuppp','(that’s me. that’s my week. ok.)'],['','She reads it the way she reads a contract: what is broken, what it costs, how long. She adds a line at the bottom in pencil: “L hand: 3rd time.”']]))});
+ wrap('Your chart',()=>{S.f.kdChart=1;save();say([['','Her own pencil note is still at the bottom: “L hand: 3rd time.” Under it, in fountain pen, V has written: “When were the first two?”'],['','Under that, in pencil: “dunno. before i was counting.”']])});
+ wrap('The mirror',()=>{if(S.f.kdMirror)return say([['hitmeuppp','(swelling’s down on the eye. jaw’s going yellow. yellow’s the good colour.)']]);S.f.kdMirror=1;save();say([
+   ['','She takes the towel down herself and has a proper look: the shaved patch and the fourteen stitches, the eye, the jaw, the gap where two teeth were.'],
+   ['hitmeuppp',MV('(could be worse.)','(could be worse. has been.)','(It could be worse. It has been.)','(I’ve looked worse. I don’t remember when, but I know the face I make at it. That’s the face. I’ve made it before.)')],
+   ['','She puts the towel in the laundry. She doesn’t need it.']])});
+ wrap('Treatment trolley',()=>{const o=[],did=k=>S.done['kdRx_'+k],mark=k=>{S.done['kdRx_'+k]=1;S.done.kdRxN=(S.done.kdRxN||0)+1;save()};
+  if((S.done.kdRxN||0)>=2)return say([['hitmeuppp','(two’s the limit. he says more is showing off.)']]);
+  if(!did('dress'))o.push({t:'Dressings: wrists and back',sub:'healing',fn:()=>{mark('dress');kdHeal();say([['','V does the wrists. She talks him through it, because she has dressed wrists before: “not that tape, it pulls. the paper one.”'],['K9','Who taught you this?'],['hitmeuppp',MV('nobody.','nobody. u figure it out.','Nobody. You work it out.','Nobody taught me. You do it wrong a few times and then you do it right. I was probably eight. Hand me the paper one.')]])}});
+  if(!did('pins'))o.push({t:'Clean the pin sites',sub:'hold still · healing',fn:()=>{mark('pins');kdTurn(ok=>{toRoom('medbay',[150,150]);if(ok)kdHeal();say([['',ok?'She keeps the hand flat and still and watches him swab round each pin, with interest, like it’s somebody else’s homework.':'The hand jumps when the swab catches. She says “ow, fuck,” in a normal voice, and holds it still for the rest.']])},{bg:kdDrawMed,title:'Left hand · pin sites',unit:'pins',hint:'Press E when the swab is clear of the pin.',ok:'Clean.',bad:'It catches.',fast:.2})}});
+  if(!did('pills'))o.push({t:'Painkillers',sub:'two white tablets',fn:()=>{mark('pills');kdHeal();apply({energy:10});say([['','She takes them and says thank you. She takes painkillers when she is in pain. It is not complicated.']])}});
+  if(!o.length)return say([['hitmeuppp','(done for today.)']]);ask('hitmeuppp','(V does the dressings. Two things a day.)',o.concat([{t:'Not now',fn:()=>{}}]))});
+ wrap('The monitor',()=>{const h=(KD().rx||{heal:0}).heal;say([['',`Pulse ${118-Math.min(30,h*5)}, temperature 38.${Math.max(0,6-h)}. When V asks for a number out of ten she says six, and then, because he waits, seven.`],['hitmeuppp','(it’s a seven. sevens are fine. sevens go down.)']])});
+ R.spots.push({at:[90,128],mark:[90,96],label:'The lightbox',show:()=>kdOff()&&hi(),act:()=>{if(S.f.kdOld)return say([['','The films are still up. Five breaks from this week, and four older ones, already healed, that nobody ever set.']]);S.f.kdOld=1;save();say([
+   ['','V has put her films up on the lightbox: the hand, the ribs, the foot. The breaks from this week are bright and new.'],
+   ['','There are others. The same hand, broken twice before and healed crooked without a cast. Two ribs on the right that knitted lumpy. A line in the left forearm. None of them was ever set. All of them happened before she was old enough to have a medical record, because she doesn’t have one.'],
+   ['K9','Misaki. How old were you?'],
+   ['hitmeuppp',MV('dunno.','dunno. small.','I don’t know. Small.','Don’t know. Little. They’re from before. I don’t have before. It’s fine, they healed, look, they’re all healed.')],
+   ['','She is right: they all healed. He looks at them for the rest of the afternoon, after she has gone to sleep.']])}},
+  {at:[200,150],mark:[200,140],label:'Walk the corridor',show:()=>kdOff()&&hi(),act:()=>{if(S.done.kdLap)return say([['hitmeuppp','(did my laps. foot says that’s it.)']]);S.done.kdLap=1;S.f.kdLaps=(S.f.kdLaps||0)+1;kdHeal();apply({energy:-6});save();
+   say([['',`Laps of the sublevel-two corridor in the boot, one hand on the rail. ${[2,4,7,10,15][Math.min(4,S.f.kdLaps-1)]} today.`],['hitmeuppp',S.f.kdLaps>=3?'(faster than yesterday. the foot’s doing its job. good foot.)':'(slow. it’s fine. slow is how it goes for the first bit. i know how it goes.)']])}})})();
+/* recovery, after the infirmary */
+kdRec('kd_rec_list',1,null,done=>{const m=kdMe();say([
+ ['',m?'V asks how she is. She tells him, in order, the way she would report a job.':'He asks how she is. She tells him, in order, the way she reports a job.'],
+ ['hitmeuppp',MV('hand, ribs, foot, wrists, teeth.','hand’s broken, ribs are broken, foot’s broken, wrists are cut up, two teeth gone. eating’s fine.','Hand, three ribs, foot, both wrists, two teeth. I’m eating fine. Sleeping fine.','Left hand, third time. Three ribs, second time I think. Foot, first time, so that’s new. Wrists, teeth. Eating, sleeping, fine. Any questions.')],
+ ['K9','“Third time.”'],
+ ['hitmeuppp',MV('ya.','yeah. it’s a bad hand.','Yes. It’s an unlucky hand.','Yeah. It’s a bad hand. It goes. It’s gone before. You set it this time, so it’s already doing better than the other two.')],
+ ['',m?'She says it the way you’d say it was going to rain. He writes it down, and his pen goes through the paper on “third.”':'She says it the way you would say it was going to rain. He writes it down, and his pen goes through the paper on “third.”']],()=>{kdHeal();done()})});
+kdRec('kd_rec_stitches',2,null,done=>{const m=kdMe();say([
+ ['',m?'The scalp stitches are ready. She takes them out herself in the bathroom with nail scissors and tweezers, by feel, in about four minutes.':'He finds her in the bathroom with nail scissors, taking out her own scalp stitches by feel. She has done eleven of the fourteen.'],
+ ['','Under the new line, along the hairline, there are three old ones. Thin, white, years old, and badly done, as if somebody had closed them in a hurry with whatever was there.'],
+ ['hitmeuppp',MV('done.','done. easy.','Done. Easy.','Done. I’m quick at these. I’ve done my own before, I think. My hands know where the knots are.')]],()=>ask(m?'hitmeuppp':'K9',m?'(Three old ones, under the new one.)':'(Three old scars, under the new one.)',m?[
+  {t:'Show V how fast you are.',fn:()=>{apply({aff:1});kdHeal();say([['','She shows him the last three. He watches the scissors and not her face, and asks, carefully, who did the old ones.'],['hitmeuppp',MV('me probably.','me, probably. they’re bad enough.','Me, probably. They’re bad enough to be mine.','Me, probably. They’re bad enough to be mine. Or someone who didn’t care. Same result.')]],done)}},
+  {t:'Put the scissors away and keep it to yourself.',fn:()=>{kdHeal();say([['','She drops the stitches in the bin. Nobody asked, and she doesn’t think of it as something anyone would ask about.']],done)}}]:[
+  {t:'Hold the mirror for the last three.',fn:()=>{apply({aff:2});kdHeal();say([['','He holds the mirror. She does the last three without hurrying. He keeps his eyes on the old scars, and she lets him.']],done)}},
+  {t:'Ask who did the old ones.',fn:()=>{apply({veng:4});say([['hitmeuppp',MV('dunno.','dunno. before.','I don’t know. Before.','Before. Somebody who was in a hurry, or me. It doesn’t matter. They closed.')],['K9','(It matters to me.)']],done)}}]))});
+kdRec('kd_rec_ronin',2,()=>frT('r')>=1,done=>{say([
+ [RN,'Brought you a get-well basket. Vet painkillers, three beers, a cookie shaped like a crowbar. Don’t cha cry.'],
+ ['hitmeuppp','what’d the cookie cost'],
+ [RN,'A guy. So, what’s the damage? Gimme the tally.'],
+ ['hitmeuppp',MV('hand ribs foot wrists teeth.','hand, three ribs, foot, wrists, two teeth.','Hand, three ribs, foot, both wrists, two teeth.','Hand, three ribs, foot, wrists to the tendon, two teeth. And the hand’s the third time, so it doesn’t count, it’s a repeat.')],
+ [RN,'Aw, that’s nothin’. I had a broken back once. Sat up the next day, had a cigarette. Third time for the hand, what, since when?'],
+ ['hitmeuppp',MV('since before.','since before. little.','Since I was little.','Since before I was counting. I was little. It heals funny now, it’s used to it.')],
+ ['','Ronin opens one of the beers and doesn’t drink it. He tells a story about the broken back instead, and the story gets longer and stupider the whole way through, until she is laughing through her nose and holding her ribs.']],()=>{fr('r',4);kdHeal();done()})});
+kdRec('kd_rec_angel',3,()=>frT('a')>=1,done=>{say([
+ ['','Angel cuts her hair around the shaved patch, so that it looks like she meant it.'],
+ [AN,'does it hurt'],
+ ['hitmeuppp',MV('yeah. normal amount.','yeah. a normal amount.','Yes. A normal amount.','Yeah. It hurts a normal amount. The head’s nothing, it’s the ribs, every time I breathe in. That’s normal for ribs.')],
+ [AN,'what’s a normal amount for you'],
+ ['hitmeuppp',MV('...more than u.','more than for you probably.','More than for you, probably.','More than yours, I think. I didn’t know that until I said it. Is that bad? Don’t answer, cut.')],
+ ['','Angel cuts. Her hands are perfectly steady, and she doesn’t speak again until it’s finished, and then she says it’s the best she has ever looked, which is true.']],()=>{fr('a',4);done()})});
+kdRec('kd_rec_vpins',3,null,done=>{const m=kdMe();say([
+ ['','The pins come out. V does it on the kitchen island with a pair of pliers he boiled, because he has taken pins out of hounds and the procedure is the same.'],
+ ['hitmeuppp',MV('k go.','ok. go. one, two—','Go on. I’m ready.','Go. Don’t count, just go. Counting’s worse. I know that one from somewhere.')],
+ ['','He goes. She makes one sound on the first pin and none on the second. Then she flexes the hand, watches the two small holes, and asks whether she can keep the pins.']],()=>{kdHeal(2);if(KD().shake>0)KD().shake--;done()})});
+kdRec('kd_rec_eat',4,null,done=>{const m=kdMe();say([
+ ['','She is seven kilos down. V cooks four times a day, small, and leaves it where she will pass it.'],
+ ['',m?'She eats all of it, steadily, without enjoying any of it, like filling a car. She has done this before. Putting weight back on after a bad few weeks is a thing she knows how to do.':'She eats all of it, steadily, like filling a car. She is good at this. Somebody has had to get good at putting weight back on.'],
+ ['hitmeuppp',MV('two kilos back.','two kilos back. five to go.','Two kilos back. Five to go.','Two kilos in four days. That’s good going. The first time I did this I didn’t have someone cooking.')]],()=>{kdHeal();apply({energy:15});done()})});
+kdRec('kd_rec_job',6,()=>kdMe(),done=>say([
+ ['','First contract since. One hand and a boot. She sets up on a roof she knows, with the rifle on a bag because she can’t hold the fore-end.'],
+ ['','It goes clean. On the way home she stops at a pharmacy and buys dressings and tape, the paper kind, without having to think about which aisle.'],
+ ['hitmeuppp',MV('(easy.)','(easy. easier than some.)','(That was easy. I’ve worked worse hurt.)','(Easy. I’ve worked with worse than this, I think. Hands remember. Hands always remember.)')]],()=>{apply({edge:3,rep:1});done()}));
+/* recovery as something to do: physio and walking, once a day each, until done */
+const _shREC=sideHub;sideHub=function(late){const o=_shREC(late);if(!S||!kdOff()||!kdPost()||isLone()||S.phase!=='after')return o;const g=S.f.kdGripN||0,w=S.f.kdWalk||0;if(g>=6&&w>=6)return o;
+ o.push({h:'Recovery'});
+ if(g<6)o.push({t:'Physio: the hand',sub:S.done.kdPhys?'done today':`session ${g+1} of 6 · costs time`,dis:late||!!S.done.kdPhys,fn:()=>{spend();S.done.kdPhys=1;kdTurn(ok=>{if(ok){S.f.kdGripN=g+1;kdHeal()}save();go(cutBg('#0a0c0e'));
+   say([['',ok?(g+1>=6?'She makes a full fist. It takes everything she has, and she holds it for a count of three.':'The ball, the putty, the rubber band. Ten of each. She does them while watching television, with the face she uses for tax forms.'):'The hand won’t do it today. She tries twice more and then stops, because she knows when to stop.'],
+    S.pov==='v'?['K9',ok?'(She is doing them correctly. Nobody taught her.)':'(She stopped at the right point. Nobody taught her that either.)']:['hitmeuppp',ok?'(getting there.)':'(tomorrow.)']],hub)},{bg:()=>{rect(0,0,W,H,'#0e0c12')},title:'Left hand · physio',unit:'reps',hint:'Press E as the grip closes.',ok:'Good.',bad:'Not today.',fast:Math.max(0,.6-g*.1)})}});
+ if(w<6)o.push({t:'Walk the hounds, a bit further',sub:S.done.kdWalk?'done today':`walk ${w+1} of 6 · costs time`,dis:late||!!S.done.kdWalk,fn:()=>{spend();S.done.kdWalk=1;S.f.kdWalk=w+1;kdHeal();if(w+1>=4&&KD().shake>0)KD().shake--;apply({energy:-8});save();go(cutBg('#0a0c0e'));
+   say([['',`${['To the gate and back.','To the end of the drive.','Round the yard twice.','Down to the road.','The long loop, with one stop.','The long loop. No stops. The boot comes off for good tomorrow.'][w]} The four hounds keep to her pace without being told.`],w>=4?['hitmeuppp','(foot’s back. it always comes back.)']:['hitmeuppp','(slow. fine.)']],hub)}});
+ return o};
 const _xeINJ=extraEnding;extraEnding=function(){const L=_xeINJ();if(kdSA()||!S||!S.f||!S.kd||!S.kd.t0)return L;
- L.push(S.f.kdHandBad?'Two fingers of her left hand never woke up. She changes magazines with the right now, and tells people the left was always slow.':'The hand came back, mostly. She can make a fist. She does not show anyone that she has to think about it.');
+ if(S.f.kdOld)L.push('Nine breaks on her films: five from that week, and four from before she was old enough to remember. V has a file on the first four. It is empty, and he keeps it anyway.');
+ L.push((S.f.kdGripN||0)>=6?'The hand came back. She did the physio every day and never once complained, and she never asked who had taught her how.':'The hand closes most of the way. She works around it. She has worked around worse.');
  return L};
-(function(){const i=KD_ORDER.indexOf('kd_card');KD_ORDER.splice(i+1,0,'kd_inj_hand','kd_inj_foot','kd_inj_back','kd_inj_fever','kd_inj_ribs','kd_inj_nerve','kd_inj_shoulder')})();
+(function(){const i=KD_ORDER.indexOf('kd_count');KD_ORDER.splice(i+1,0,'kd_rec_list','kd_rec_stitches','kd_rec_ronin','kd_rec_angel','kd_rec_vpins','kd_rec_eat','kd_rec_job')})();
 
 /* ---------- the setting itself ---------- */
 const KD_SA_HELP='Kidnapping aftermath — <b>full story</b> includes a strand about what may have been done to Misaki during the hours she cannot remember: a doctor’s examination she refuses, photographs she denies, and what that implies. It is never shown or named. <b>Injuries only</b> removes that strand entirely; the aftermath is about her injuries and her treatment.';
