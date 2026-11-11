@@ -12381,17 +12381,17 @@ tdMap('cell',Object.assign({floor:'concrete',wall:'brick',backLabel:'there is no
   {id:'ce_drain',kind:'deco',flat:1,solid:false,x:158,y:84,w:8,d:8,draw:(x,y)=>{rect(x,y,8,8,'#1a1814');for(let k=0;k<3;k++)rect(x+1,y+1+k*3,6,1,'#3a362e');if(S.kd&&S.kd.ses>=3)rect(x-6,y+5,2,2,'#ece4da')}},
   {id:'ce_ties',kind:'deco',flat:1,solid:false,x:60,y:92,w:8,d:4,draw:(x,y)=>{rect(x,y,6,1,'#0e0e0e');rect(x+2,y+2,6,1,'#0e0e0e');rect(x+9,y+1,3,2,'#5a1414')}}]},kdNoLeave));
 tdMap('medbay',Object.assign({floor:'lino',wall:'tile',backLabel:'stay in bed',rows:TDROWS.MEDBAY,
- zones:{medbay:{r:[2,3,12,5],floor:'lino',wall:'tile',main:1,under:1,arrive:[7,6,'u']}},
+ zones:{medbay:{r:[2,3,12,5],floor:'lino',wall:'tile',main:1,under:1,arrive:[7,5,'d']}},
  lights:[{x:128,y:74,r:84,i:.9,col:'255,226,170'}],
  props:[{id:'mb_bed',x:36,y:62,w:46,d:18,h:10,legacy:['Cot','Bed'],draw:(x,y)=>{const lo=kdClar()<2;tdBox(x,y,46,18,10,lo?'#5a5040':'#ece4da',lo?'#2a261e':'#b8b0a0',lo?'#6a6050':'#fff');rect(x+2,y-9,12,14,lo?'#4a4236':'#c8d0d8');if(!lo&&kdMed()&&S.kd.med.d>=2){rect(x+22,y-8,18,10,'#c49a5a');rect(x+36,y-10,5,5,'#b0864a')}}},
   {id:'mb_iv',x:88,y:64,w:6,d:6,h:34,legacy:['The line in your hand','The drip'],draw:(x,y)=>{rect(x+2,y-34,2,38,'#b0b0b0');rect(x-2,y-36,10,2,'#b0b0b0');rect(x-1,y-34,6,10,'rgba(200,230,240,.75)');rect(x-1,y+3,8,2,'#8a8a8a')}},
   {id:'mb_eye',wall:1,x:118,y:20,w:12,d:26,legacy:['The eye in the ceiling','Smoke detector'],draw:(x,y)=>{rect(x+2,y+2,8,4,'#d8d4c8');if((T>>6)%4===0)rect(x+5,y+3,2,2,'#d0283f')}},
   {id:'mb_chart',x:86,y:88,w:10,d:5,h:12,legacy:['Their notes','Your chart'],draw:(x,y)=>{rect(x,y-12,10,13,'#5a4030');rect(x+1,y-10,8,10,'#ece4da');for(let k=0;k<4;k++)rect(x+2,y-9+k*2,6,1,'#3a4a6a')}},
-  {id:'mb_tray',x:120,y:98,w:20,d:10,h:8,legacy:['Tray','Soup'],draw:(x,y)=>{tdBox(x,y,20,10,8,'#8a8a96','#5a5a64');rect(x+6,y-7,8,5,kdClar()<2?'#6a6a70':'#c8b89a')}},
+  {id:'mb_tray',x:152,y:104,w:20,d:10,h:8,legacy:['Tray','Soup'],draw:(x,y)=>{tdBox(x,y,20,10,8,'#8a8a96','#5a5a64');rect(x+6,y-7,8,5,kdClar()<2?'#6a6a70':'#c8b89a')}},
   {id:'mb_mirror',wall:1,x:148,y:18,w:20,d:28,legacy:['Something covered up','The mirror'],draw:(x,y)=>{rect(x,y+2,20,22,'#3a4a46');if(S.f.kdMirror&&kdClar()>=2)rect(x+2,y+4,16,18,'#9ab0b8');else{rect(x+1,y+3,18,21,'#c8b89a');rect(x+1,y+3,18,2,'#a89878')}}},
   {id:'mb_door',wall:1,x:184,y:16,w:22,d:32,legacy:['Door','The door'],draw:(x,y)=>{const lo=kdClar()<2;rect(x,y,22,32,lo?'#2a2a2e':'#3a4a46');rect(x+1,y+1,20,30,lo?'#3a3a40':'#5a6a64');if(!lo){rect(x+17,y+18,2,5,'#c9a46a');rect(x+3,y+5,16,7,'#ece4da');rect(x+5,y+7,12,1,'#9aa8a2');rect(x+5,y+9,9,1,'#9aa8a2')}}},
   {id:'mb_phone',flat:1,solid:false,x:170,y:112,w:6,d:9,legacy:'Your phone',show:()=>kdMed()&&S.kd.med.d>=1,draw:(x,y)=>{rect(x,y,6,9,'#141018');rect(x+1,y+1,4,6,(T>>5)%2?'#5fd4c4':'#2a3a4a')}},
-  {id:'mb_ball',flat:1,solid:false,x:142,y:118,w:6,d:6,legacy:'Foam ball',show:()=>kdClar()>=2,draw:(x,y)=>{c.fillStyle='#e0c84a';c.beginPath();c.arc(x+3,y+3,3,0,7);c.fill()}},
+  {id:'mb_ball',flat:1,solid:false,x:112,y:118,w:6,d:6,legacy:'Foam ball',show:()=>kdClar()>=2,draw:(x,y)=>{c.fillStyle='#e0c84a';c.beginPath();c.arc(x+3,y+3,3,0,7);c.fill()}},
   {id:'mb_dogbed',kind:'deco',flat:1,solid:false,x:196,y:104,w:22,d:14,show:()=>kdClar()>=2,draw:(x,y)=>{rect(x,y,22,14,'#5a4030');rect(x+2,y+2,18,10,'#8a6a4a')}}]},kdNoLeave));
 const _tdAmbKD=tdAmbient;tdAmbient=function(M,z){if(M&&(M.id==='cell'||(M.id==='medbay'&&kdClar()<2)))return{d:.66,col:'12,8,4'};if(M&&M.id==='medbay')return{d:.3,col:'8,10,16'};return _tdAmbKD(M,z)};
 

@@ -44,6 +44,11 @@ console.log('stubbed stealth',await ev(()=>{const out=[];const _s=stealth;const 
  benchLoad(BENCH[0]);for(let i=0;i<60&&dlg;i++)adv();S.captor='sato';S.phase='after';S.kd=null;KD();S.kd.t0=S.day;
  for(const res of [{ok:false},{ok:true,kills:0,bodies:0},{ok:true,kills:1,bodies:1}]){S.kd.med={d:1,clar:0,run:0};run(res,kdMedRun,()=>'clar'+S.kd.med.clar+(S.f.kdStab?' stab':''))}
  stealth=_s;return out}));
+/* she must be able to walk on arrival in both rooms, from every position the code sends her to */
+console.log('spawn clear',await ev(()=>{const out=[];benchLoad(BENCH[0]);for(let i=0;i<60&&dlg;i++)adv();S.captor='sato';S.kd=null;KD();
+ for(const [room,ph,pts] of [['cell','taken',[[120,150],[212,128],[246,140]]],['medbay','after',[[120,150],[178,150],[64,150],[246,150]]]]){S.phase=ph;if(ph==='after'){S.kd.t0=S.day;S.kd.med={d:1,clar:3,run:0}}
+  for(const pt of [null].concat(pts)){TD.resume=null;if(pt)toRoom(room,pt);else{toRoom(room,[160,150])}const b=tdBlocked(scene.M,scene.p.x,scene.p.y);out.push(room+(pt?pt.join(','):'arrive')+':'+(b?'BLOCKED':'ok'))}}
+ window.__sp=out.some(x=>/BLOCKED/.test(x));return out.join(' ')}));ok(!(await ev(()=>window.__sp)),'spawn blocked');
 /* --- V's search --- */
 await load(1);await ev(()=>{S.orgs={sato:1};takenV()});await p.waitForTimeout(50);await drain(0);
 console.log('V hub opts',await ev(()=>{S.f.traced=1;hub();const P=(typeof WH!=='undefined'&&WH.opts)||[];return [...document.querySelectorAll('.opt')].map(o=>o.textContent.slice(0,40)).join(' | ')||'(world hub)'}));
