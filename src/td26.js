@@ -5,9 +5,9 @@
    pool sometimes gives a second scene the same morning. */
 /* events that can only happen before the kidnapping have a short window, so they jump the queue */
 const EV_LIMC={};const EV_LIM=e=>EV_LIMC[e.id]!==undefined?EV_LIMC[e.id]:(EV_LIMC[e.id]=/phase===.normal./.test(String(e.when)));
-const EV_REPEAT=new Set(['drift_txt','v_bowls']);
+const EV_REPEAT=new Set(['drift_txt','v_bowls','kd_lost']);
 function evPick(pool){S.evAge=S.evAge||{};for(const e of pool)S.evAge[e.id]=(S.evAge[e.id]||0)+1;
- const w=e=>(1+S.evAge[e.id]*1.5)*(EV_ORIG.has(e.id)?2:1)*(/^x_/.test(e.id)?2:1)*(EV_LIM(e)?2:1)*(EV_REPEAT.has(e.id)?.35:1);
+ const w=e=>(1+S.evAge[e.id]*1.5)*(EV_ORIG.has(e.id)?2:1)*(/^x_/.test(e.id)?2:1)*(EV_LIM(e)?2:1)*(EV_REPEAT.has(e.id)?.35:1)*(/^kd_/.test(e.id)?3:1);
  let tot=0;for(const e of pool)tot+=w(e);let r=Math.random()*tot;for(const e of pool){r-=w(e);if(r<=0)return e}return pool[pool.length-1]}
 function evRun(pool,done){const e=evPick(pool);S.seen[e.id]=1;S.evAge[e.id]=0;save();
  e.run(()=>{if(!S||pool.length<12||S.evTwo===S.day||Math.random()<.5)return done();S.evTwo=S.day;

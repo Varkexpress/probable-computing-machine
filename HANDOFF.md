@@ -2,18 +2,19 @@
 
 **Two separate builds.** `index.html` is Killer Chat, the game. `mirror-protocol.html` is Mirror Protocol, the math/study build (Chapter 4 cases, Study hall, exam, AMC prep, proof toolbox, 3D rooftop sniper contracts). Killer Chat contains no math, does not load three.js, and does not embed Mirror Protocol. A stub (`mpHub` returns []) keeps old hooks working, and old saves keep harmless `S.f.mp`/`S.f.geo` fields.
 
-- Repo: varkexpress/probable-computing-machine · branch `claude/kind-hamilton-9u4jq0`
+- Repo: varkexpress/probable-computing-machine · branch `claude/peaceful-babbage-efje6m` (the game branch `claude/kind-hamilton-9u4jq0` was merged into it, together with the AMC work on `mirror-protocol.html`; both Mirror Protocol blocks are kept)
 - Killer Chat (shared by link): https://claude.ai/artifact/MnV6pegwS3EnxwNsdFiqbk. Publish `index.html` to this URL; it declares the `downloads` capability (save export).
 - Mirror Protocol (private, current): https://claude.ai/artifact/28zaMP5DnkNWXGy949BPfJ. An older copy is at https://claude.ai/artifact/PYHmmvPdLM33Asj4tNc3rp.
 
 ## Start here (state as of the last round)
 - **Writing rules:** read `docs/VOICE.md` (voice per character + the author's ten-tic list) and `docs/voice_sample.md` (the author's own writing) before writing any line. Every line in the game has been through a voice pass and a tic pass.
-- **Latest work:** the alternate-universe mode (title screen → Alternate universes → The Long Leash, `td25`); night fixes (people asleep only some nights, fairer morning-event picker, `td26`); city-map pins for Angel and Ronin moved out from under the TODAY notes panel (`td6` WHPLACES).
+- **Latest work:** the harder kidnapping and its aftermath, and the expanded memory blank (`td27`, see “The room with one bulb” at the end). Before that: the alternate-universe mode (title screen → Alternate universes → The Long Leash, `td25`); night fixes (people asleep only some nights, fairer morning-event picker, `td26`); city-map pins for Angel and Ronin moved out from under the TODAY notes panel (`td6` WHPLACES).
 - **Open decisions for the author:**
   - V's history: the rewrite made him a practised killer who feeds his animals (see "V is now a practised killer"). Ask whether the old fall-from-grace arc (paper-only creed, conscience beats) should come back.
   - Ronin's backstory detail added by us: a shed back home he burned when he left town (td24 `tx_rvdown`). Unconfirmed.
+  - td27 added canon about Misaki’s blank (see the list at the end of “The room with one bulb”). Confirm or revert.
   - Option labels the tic pass changed, e.g. "He looked back. Now you look back." → "Find him and kill him". Revert any the author dislikes.
-- **Workflow:** after each round build, run the suite below, update this file, commit, `git push -u origin claude/kind-hamilton-9u4jq0`, republish `index.html` to the Killer Chat artifact. Commit messages end with the attribution lines given by the session.
+- **Workflow:** after each round build, run the suite below, update this file, commit, `git push -u origin claude/peaceful-babbage-efje6m`, republish `index.html` to the Killer Chat artifact. Commit messages end with the attribution lines given by the session.
 - **Big text passes:** split `index.html`'s original region into line ranges and have each worker produce `["old","new"]` JSON pairs, applied with `python3 tools/apply_pairs.py pairs.json START END --write` (pairs never add lines, so ranges stay valid). Edit `src/` files directly. Afterwards check structure with a token diff (strings masked) and compare menus/events before and after.
 
 ## Files
@@ -23,14 +24,14 @@
   - Everything outside those markers is the original game, edited in place in `index.html`. Story beats like `takenM`, `afterBase` and `startAct2` live there.
 - `src/`: the source of the two generated regions.
   - `td1_engine.js`, `td2_scene.js`, `td3_trailer.js`, `td4_base.js`, `td5_story.js` → TD block.
-  - `ui2.js`, `td6.js` … `td26.js` → UI2 block. Load order is in `tools/build.py`; td12 loads before td11 on purpose. td24 = "what it costs" scenes, td25 = alternate universes, td26 = morning-event picker. `td1_engine.js` snapshots `EV_ORIG` (the original morning events) at the top of the TD block.
+  - `ui2.js`, `td6.js` … `td27.js` → UI2 block. Load order is in `tools/build.py`; td12 loads before td11 on purpose. td24 = "what it costs" scenes, td25 = alternate universes, td26 = morning-event picker, td27 = the harder kidnapping, its aftermath and the blank. `td1_engine.js` snapshots `EV_ORIG` (the original morning events) at the top of the TD block.
   - `maps.json`: tile rows for every top-down map.
   - `deep_rooms.json`, `city_rooms.json`: room rectangles, emitted as `TD_DEEPROOMS` / `TD_CITYROOMS`.
 - `tools/`:
   - `build.py`: rebuilds the generated regions of index.html from src/.
   - `gen2.py`: deep house B3–B5 and the forest. `gen3.py`: city districts. `gen4.py`: widens Ronin's/Angel's flats. Each rewrites its maps in `src/maps.json`.
   - `audit.js`: reachability of every tile and object, plus every interaction on four benchmark saves.
-  - `fuzz2.js`: random play. `phone_test.js`: every phone thread path. `days_test.js`: 16-day scripted run per POV. `w24_test.js`: every td24 scene/call/prop. `au_test.js`: plays The Long Leash on both sides, checks every door/spot. `apply_pairs.py`: applies text replacement lists to a line range of index.html. `gfx_test.js`: enhanced vs classic screenshots. `mz.js`: offline render and level check of every music track. `bal.js`: bracket-balance finder. `aiscan.py`: lists dialogue using contrast-reveal constructions.
+  - `fuzz2.js`: random play. `phone_test.js`: every phone thread path. `days_test.js`: 16-day scripted run per POV. `w24_test.js`: every td24 scene/call/prop. `kd_test.js`: the td27 captivity loop, V’s search, every `kd_` event option for both POVs, topics, ending lines. `au_test.js`: plays The Long Leash on both sides, checks every door/spot. `apply_pairs.py`: applies text replacement lists to a line range of index.html. `gfx_test.js`: enhanced vs classic screenshots. `mz.js`: offline render and level check of every music track. `bal.js`: bracket-balance finder. `aiscan.py`: lists dialogue using contrast-reveal constructions.
 - `art/`: expression charts (`*_expressions_source.webp`), `art/portraits_build.py`, output `art/portraits/*.png`.
 - `mirror-protocol.html`: separate three.js (r128, cdnjs) study game.
 - `docs/`: `VOICE.md` (writing guide), `voice_sample.md` (author's sample).
@@ -43,6 +44,7 @@ node tools/audit.js
 node tools/fuzz2.js
 node tools/phone_test.js
 node tools/w24_test.js
+node tools/kd_test.js
 node tools/au_test.js
 node tools/days_test.js
 ```
@@ -382,3 +384,33 @@ The V/Misaki pass resolved the open canon question toward the author's sample. F
 - **Morning events:** the pool passed thirty, so one-at-random starved scenes (the hotel door, the wet roof). `evRun`/`evPick` (td26) weight by how many mornings an event was passed over, favour the original vignettes (`EV_ORIG`, snapshotted at the top of td1) and short-window `phase==='normal'` events, and a big pool can give a second scene. `x_wrong_door` now fires from day 3 and also after the rescue.
 - **Tic pass:** the author's ten-tic list is in `docs/VOICE.md`. About 1,300 strings were rewritten across `index.html` and `src/`; code was token-checked unchanged and menus/events compared identical before and after.
 - Biscuit is she/her.
+
+## The room with one bulb (td27): harder kidnapping, longer shadow, the blank
+
+All in `src/td27.js`, plus small in-place edits to the original region (V's taken hub, `lockpick`, `escapeRun`, `vRescue`, `theList`). Test with `node tools/kd_test.js`. State lives in `S.kd = {hrs, ses, said, clock, dose, anc, lost, shake, t0, days}`; `kdPost()` is true once she is out. Saves made before this module get a modest record from `kdEnsure()` (on `hub`).
+
+**Captivity is harder (Misaki):**
+- The sedative: `kdWoozy()` (0–2) narrows the lockpick window and raises stealth sensitivity (`kdEscapeCfg`). It wears off as cell actions pass. A second escape attempt meets one more guard.
+- The cell has a clock (`S.kd.clock`). Every action that is not a ready escape costs one; at six, they come for another session (`kdTheyCome`), take the tray, and the guard rhythm has to be learned again. The vent now needs the tray *and* having listened at the door.
+- Sessions: `interrogate` is wrapped. Resolve starts lower each session. After the original questions comes a question about her life before nine (`kdBlankQ`): the truth costs nothing in resolve and is written down as "uncooperative"; in session two the boss offers her a mother he invented. Later sessions are `kdShort`. Every session ends with a dose (`kdDose`): hours go missing (`hrs`), and if her resolve was low she talks without knowing it (`said`, 0–3; unlike `S.leaks`, the player is never shown what).
+- New cell spots: "Your arm" (punctures she doesn't remember), "The radio down the hall" (counting the bank jingle is a clock; each dose then takes two fewer hours).
+
+**The search is harder (V):** the trace is one round longer and only gives the district. A third lead is required, "Hunt along the river" (`kdScout`, `S.f.kdBldg`): pick the right warehouse of three (the fourth; the clue is the tyre ruts and the bank jingle), or Angel's fans find it if he has called them. A wrong door sets `S.f.kdAlert` (one more guard). Each night she is gone raises rescue sensitivity; two or more adds a guard (`kdRescueGuards`). Morning event `kd_tape` (the 40-second voicemail).
+
+**After (the after-phase is now six days, `kdSettle`):**
+- `kd_count`: she thinks it was two days; it was `days`, with `hrs` missing. V's POV can round it down (`kdRound`), which comes back in `kd_round`.
+- `kd_card`: no blood type, no allergies, a birthday she made up. V writes her first true medical card.
+- **The notebook** (`kd_book`, fires once the note-taker on the list is handled): read it / have V hold it / burn it (`S.f.kdBook` = `read|v|vsolo|burn`). If the note-taker is never handled, a page arrives in Act II (`kd_bookout`, `out`).
+- `kd_knock1..3`: what she said under the needle is acted on (her trailer, Ronin's blue door, Biscuit at the gate), one per `said`. If somebody read the notebook, each is an ambush on the visitors; otherwise she loses money, Ronin gets stitches, Biscuit spends a night at the vet (`S.f.kdHit` counts unwarned hits).
+- **Keep it or let it go blank** (`kd_blank`, `S.f.kdKeep`): keeping costs composure and adds a fifth name to the list ("The one behind the chair", so one fewer guard in the finale if handled). Letting go gives composure, ends flashbacks, hides the "third day" topic, and blanks one list entry (`x.gone`; it can no longer be chosen, so that guard stays). `kd_van` (Act II onward) shows her body still reacting when she let it go.
+- `kd_lost` (repeating): lost afternoons cost Misaki the morning slot until she has three anchors (`S.kd.anc`: writing it down, V's timestamps, the medical card, Angel's album, the backup promise).
+- Hands: `stealth` is wrapped; her sensitivity is up 6% per `S.kd.shake` (max 3) after the rescue and drops one per clean stealth job.
+- Topics: `kd_file` (both POVs: V looked for chapter one), `kd_backup`, `kd_shoes`. Threads: `tx_kd_ron` (he lies about a debt to see if she can tell), `tx_kd_angel` (the "misaki was here" album), `tx_kd_mv`. Act II: `kd_hara` (the truth, "don't remember", or Maria's timestamps). Epilogue: `kd_epi`. Ending lines via `extraEnding`.
+
+**Canon this round added about the blank (confirm with the author, all in td27 text):**
+- Nothing on paper exists for Misaki before age nine (no school, clinic or birth record); V thinks somebody removed it professionally.
+- The earliest document is a school enrolment form where she wrote "March" in the birthday box herself.
+- She reacts badly to the sedative, which nobody could have known because she has no medical history.
+- She asks for the first time whether the missing nine years were done to her. Nothing answers it; V is still looking.
+- The captor's "mother in Saitama" is a lie inside the story. No new character exists.
+
