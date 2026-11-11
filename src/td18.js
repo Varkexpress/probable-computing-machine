@@ -2,12 +2,14 @@
 const LATE=()=>S&&S.slot>=3&&!S.dark&&S.phase!=='taken'&&!isLone();
 const youV=()=>tdWho()==='v';
 /* where people sleep */
-const sleepsV=()=>LATE()&&!youV();
-const sleepsM=k=>LATE()&&youV()&&(k==='base'?!!S.f.movedIn:!S.f.movedIn);
-const sleepsR=()=>LATE()&&!(S.vrom==='r'&&youV()&&false);
-const sleepsA=()=>LATE();
+/* nobody is asleep every night: each person sleeps through roughly two nights in five, on their own schedule */
+const sleepNight=k=>{const c={v:1,m:2,r:3,a:4}[k]||0;return ((S.day*7+c*3)%5)<2};
+const sleepsV=()=>LATE()&&!youV()&&sleepNight('v');
+const sleepsM=k=>LATE()&&youV()&&sleepNight('m')&&(k==='base'?!!S.f.movedIn:!S.f.movedIn);
+const sleepsR=()=>LATE()&&sleepNight('r');
+const sleepsA=()=>LATE()&&sleepNight('a');
 /* V stops wandering the house at night: he's in bed */
-const _vwNight=vWhere;vWhere=function(){if(LATE()&&S.pov!=='v'&&S.visitAs!=='v')return'bedroom';return _vwNight()};
+const _vwNight=vWhere;vWhere=function(){if(sleepsV()&&S.pov!=='v'&&S.visitAs!=='v')return'bedroom';return _vwNight()};
 /* a figure under a blanket */
 function zzz(x,y){for(let k=0;k<3;k++){const t=(T/50+k*.33)%1;c.globalAlpha=1-t;txt('z',x+k*3+t*6,y-t*14,'#c8c0e0',5+k,'left')}c.globalAlpha=1}
 function sleeper(x,y,hair,skin,blanket,flip){const b=Math.sin(T/45)*.6;c.fillStyle=blanket;c.beginPath();c.ellipse(x+(flip?-8:8),y+4+b*.5,16,7,0,0,7);c.fill();c.fillStyle='rgba(255,255,255,.12)';c.fillRect(x+(flip?-20:-4),y+1,24,1);
@@ -29,14 +31,14 @@ const mSleep=where=>()=>sleepMenu('Misaki','her',[
 TD.maps.trailer.props.push({id:'sl_m_tr',x:30,y:54,w:44,d:22,flat:1,solid:false,show:()=>sleepsM('trailer'),label:'Misaki (asleep)',draw:(x,y)=>sleeper(x+22,y+8,'#1b1626','#f0c8a8','#5a3a5a',false),act:mSleep('trailer')});
 TD.maps.ewing.props.push({id:'sl_m_bd',x:150,y:58,w:30,d:24,flat:1,solid:false,show:()=>sleepsM('base'),label:'Misaki (asleep)',draw:(x,y)=>sleeper(x+12,y+8,'#1b1626','#f0c8a8','#c2253a',true),act:mSleep('atrium')});
 /* ---------- Ronin, asleep on the couch ---------- */
-TD.maps.ronin.props.push({id:'sl_r',x:142,y:104,w:58,d:14,flat:1,solid:false,show:()=>sleepsA(),label:'Ronin (asleep)',draw:(x,y)=>{sleeper(x+28,y+2,'#3a2a2a','#f0d0b8','#4a1424',true);rect(x+8,y-4,22,2,'#8a8a96')},
+TD.maps.ronin.props.push({id:'sl_r',x:142,y:104,w:58,d:14,flat:1,solid:false,show:()=>sleepsR(),label:'Ronin (asleep)',draw:(x,y)=>{sleeper(x+28,y+2,'#3a2a2a','#f0d0b8','#4a1424',true);rect(x+8,y-4,22,2,'#8a8a96')},
  act:()=>sleepMenu('Ronin','him',[
   {t:'Let him sleep.',fn:()=>{fr('r',1);tdSay([['','He sleeps with the good crowbar under one arm and his boots on the armrest. Heathers is still playing, on mute, on the croquet lawn.']])}},
   {t:'Turn off the TV.',fn:()=>{fr('r',1);tdSay([['','The second the screen goes dark, without opening his eyes:'],[RN,'I was fuckin’ watchin’ that.'],['','He was not. He’s asleep again before you’ve put the remote down.']])}},
   {t:'Put a blanket over him.',fn:()=>{fr('r',2);tdSay([['','You drape the throw over him. In his sleep he mutters “June, fuck off,” and pulls it up to his chin.'],['','You leave in your socks.']])}},
-  {t:'Wake him.',fn:()=>{fr('r',1);tdSay([['','Wrong move. You are on the floor before you know you’ve fallen, a crowbar resting politely on your collarbone.'],[RN,'Oh, it’s you. Shit. Nearly had a new skull for the shelf. You’re makin’ the coffee.']])}}])});
+  {t:'Wake him.',fn:()=>{fr('r',1);tdSay([['','Wrong move. You are on the floor before you know you’ve fallen, a crowbar resting politely on your collarbone.'],[RN,'Oh, it’s you. Shit. Nearly had a new skull for the shelf. You’re makin’ the coffee.']],()=>talkRonin())}}])});
 TD.maps.ronin.props.forEach(p=>{if(p.id==='sl_r')p.zb=4});
-const _rnNpc=ROOMS.ronin.npcs;ROOMS.ronin.npcs=()=>{const L=_rnNpc?_rnNpc():[];return LATE()?L.filter(n=>!/Ronin/.test(n.label||'')):L};
+const _rnNpc=ROOMS.ronin.npcs;ROOMS.ronin.npcs=()=>{const L=_rnNpc?_rnNpc():[];return sleepsR()?L.filter(n=>!/Ronin/.test(n.label||'')):L};
 /* ---------- Angel, asleep on the daybed in the set ---------- */
 TD.maps.studio.props.push({id:'sl_daybed',x:TX(27),y:TX(7)+2,w:44,d:14,h:8,label:'Daybed',draw:(x,y)=>{tdBox(x,y,44,14,8,'#f8d8e8','#e0b8c8','#ffe8f0');rect(x+2,y-10,10,5,'#ffffff')},act:who=>tdSay([['',who==='v'?'A daybed covered in eleven cushions. One of them has your face printed on it. You decide not to ask.':'a daybed with eleven cushions. one has V’s face on it. she said it was “for a bit.” it is not for a bit.']])},
  {id:'sl_a',x:TX(27),y:TX(7),w:44,d:14,flat:1,solid:false,show:()=>sleepsA(),label:'Angel (asleep)',draw:(x,y)=>{sleeper(x+22,y-2,'#f2a0b8','#f4e0d0','#ff8ab0',false);c.fillStyle='rgba(255,255,255,.75)';c.fillRect(x+9,y-5,6,4)},
@@ -44,8 +46,8 @@ TD.maps.studio.props.push({id:'sl_daybed',x:TX(27),y:TX(7)+2,w:44,d:14,h:8,label
    {t:'Let her sleep.',fn:()=>{fr('a',1);tdSay([['','Full sheet mask, satin bonnet, Beyoncé in reach on the floor beside an alarm labelled GLOW UP OR DIE. She is snoring, very slightly; she would deny it under oath.']])}},
    {t:'Turn the ring light off.',fn:()=>{fr('a',1);tdSay([['','The ring light clicks off. From under the sheet mask: “…no, the other one had it coming too…” and then nothing.']])}},
    {t:'Fix her bonnet, it’s slipping.',fn:()=>{fr('a',2);tdSay([['','You tug it back over her hair. She smiles in her sleep, the real one, with teeth, and says “pull,” to nobody.']])}},
-   {t:'Wake her.',fn:()=>{fr('a',1);tdSay([['','She sits bolt upright with a hand already on the shotgun. It takes her a second to decide you’re you.'],[AN,'who is it. who do i get to kill. two minutes, i need my lashes.']])}}])});
-const _stNpc=ROOMS.studio.npcs;ROOMS.studio.npcs=()=>{const L=_stNpc?_stNpc():[];return LATE()?L.filter(n=>!/Angel/.test(n.label||'')):L};
+   {t:'Wake her.',fn:()=>{fr('a',1);tdSay([['','She sits bolt upright with a hand already on the shotgun. It takes her a second to decide you’re you.'],[AN,'who is it. who do i get to kill. two minutes, i need my lashes.']],()=>talkAngel())}}])});
+const _stNpc=ROOMS.studio.npcs;ROOMS.studio.npcs=()=>{const L=_stNpc?_stNpc():[];return sleepsA()?L.filter(n=>!/Angel/.test(n.label||'')):L};
 for(const id of ['ewing','trailer','ronin','studio']){const M=TD.maps[id];M.props.forEach((p,n)=>{p.id=p.id||id+'#n'+n;p.map=M;if(p.solid===undefined)p.solid=!p.flat&&!p.wall&&!p.exit;p.w=p.w||TS;p.d=p.d===undefined?TS:p.d})}
 /* ---------- waking in the middle of the night ---------- */
 function nightWake(go){const v=S.pov==='v',moved=!!S.f.movedIn,t=tier();let L,O;
@@ -77,7 +79,7 @@ const _slNW=sleep;sleep=function(){if(S&&!S.dark&&S.phase!=='taken'&&!isLone()&&
 EVENTS.push({id:'nw_angel3am',when:()=>frT('a')>=2&&!S.dark&&S.phase!=='taken',run:done=>say([['','3:30am. A call from Angel. No hello.'],[AN,'are you asleep. don’t answer that. i had the comments dream again. stay on the line while i make tea, or i’m going out with the shotgun, and i’d rather sleep.'],['','You stay on the line. She makes tea and narrates it, then narrates what she’d do to the commenters, in order, in Maria’s sweetest voice, until she falls asleep mid-threat. You hang up.']],()=>{fr('a',3);done()})},
  {id:'nw_ronin3am',when:()=>frT('r')>=2&&!S.dark&&S.phase!=='taken',run:done=>say([['','4am. A text from Ronin: a photo of a full moon over a graveyard, slightly blurry.'],[RN,'(text) june liked these. dunno why im tellin you. fuck off back to sleep'],['','You don’t. You send him a photo of your ceiling. He sends back a middle finger.']],()=>{fr('r',3);done()})});
 /* when he's the one awake, she isn't wandering the house at 3am either */
-HOUSE.forEach(r=>{const R=ROOMS[r];if(!R)return;const o=R.npcs;R.npcs=()=>{const L=o?o():[];return LATE()&&youV()?L.filter(n=>!/Misaki/.test(n.label||'')):L}});
+HOUSE.forEach(r=>{const R=ROOMS[r];if(!R)return;const o=R.npcs;R.npcs=()=>{const L=o?o():[];return LATE()&&youV()&&sleepNight('m')?L.filter(n=>!/Misaki/.test(n.label||'')):L}});
 /* sleepers draw on top of the furniture they're lying on */
 [['ewing','sl_v'],['ewing','sl_m_bd'],['trailer','sl_m_tr'],['ronin','sl_r'],['studio','sl_a']].forEach(([m,id])=>{const p=TD.maps[m].props.find(q=>q.id===id);if(p){p.flat=false;p.solid=false;p.h=2;p.zb=40}});
 /* anchor the sleepers to wherever the beds ended up */

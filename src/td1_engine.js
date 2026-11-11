@@ -1,3 +1,5 @@
+/* the morning events that existed before any of the add-on modules; the picker favours them */
+const EV_ORIG=new Set((typeof EVENTS!=='undefined'?EVENTS:[]).map(e=>e.id));
 /* ===================== TOP-DOWN HOUSE: the trailer and V's base as walkable 3/4-view interiors =====================
    Rooms in TD.room are drawn as tile maps you physically walk through (doors, stairs, clutter, lamps, drawers, seats).
    Every legacy spot in ROOMS[id].spots still works: a prop with `legacy:'Label'` takes it over, anything unclaimed is
