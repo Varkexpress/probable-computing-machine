@@ -19,7 +19,7 @@ How the merge was done, so it can be audited:
 - Restored by hand after the merge: this session's `takenM` and `takenV` text (the rework had edited those lines).
 - The rework's rules were then applied to the `kc` modules' text: hounds have no names in visible text ("the grey hound", "the old hound", "the black hound", "the pale hound"; she counts "grey, old, black, pale" in the chair); "dog" → "hound"; no konbini/onigiri/yen/shrine/pachinko; Inspector Hara → Hale. `kc25` (The Long Leash, a separate universe) was left alone.
 - Removed for breaking the rework's rules: the sock scene (`g_pancake`), the stray cat and its thread (`g_cat`, `tx_g_receipt`), the dolls'-day birthday options, the "name the wing after the oldest dog" option. `tx_rjune` is disabled (June is no longer canon). The night market is under a flyover.
-- **Not yet reconciled:** the `kc` modules still refer to things the rework removed or changed in places (the flower room copy, teamLab, Kururin Land in text, V's childhood in B5 / "hour 70", the coach). They do not crash; they are canon conflicts to clean up. `docs/VOICE.md` is unchanged and still applies.
+- Reconciled afterwards: V’s childhood in the lower floor is gone from the `kc` modules (the “hour 70” topic, the logbook lines, “since I was nine”); the Ferris-wheel promise is now just “I told you once that I would find out”; no coach, June, flower-room-as-exhibit or theme-park references remain in `kc` text. `docs/VOICE.md` is unchanged and still applies.
 
 ## The aftermath scheduler (kc35) — why scenes were not appearing
 
