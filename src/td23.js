@@ -1,0 +1,12 @@
+/* ===================== SMALL REFINEMENTS ===================== */
+/* help covers what was added since it was written */
+const _helpR=helpPanel;helpPanel=function(){_helpR();const lb=document.querySelector('.logbox');if(!lb)return;[
+ 'Phone → Messages: texts arrive a little later, some wait for a reply, and waiting too long is an answer too. Calls can be declined. Each choice is remembered.',
+ 'Late night: people are asleep where they sleep. You can let them be, or not.',
+ 'G — enhanced / classic graphics · Shift — sprint (forest chase).'].forEach(t=>{const p=document.createElement('p');p.textContent=t;lb.appendChild(p)})};
+/* a nudge before a message goes unanswered, and a one-time pointer to where replies live */
+const _txTickR=txTick;txTick=function(){_txTickR();if(!S||!S.tx)return;const P=S.tx,n=phNow();for(const id in P.run){const r=P.run[id];if(r.await&&r.exp&&r.exp-n<=1&&!r.warned){r.warned=1;toast('⏳ '+PNM[TXS[id].with]+' is still waiting on a reply');save();break}}};
+const _phDelR=phDeliver;phDeliver=function(){const before=S&&S.tx?Object.values(S.tx.un).reduce((a,b)=>a+(b||0),0):0;_phDelR();if(!S||!S.tx)return;const after=Object.values(S.tx.un).reduce((a,b)=>a+(b||0),0);if(after>before&&!META.txHint){META.txHint=1;saveMeta();setTimeout(()=>toast('Phone → Messages to read and reply'),1400)}};
+/* portrait phones: panels and menus use the empty space under the frame instead of squeezing into it */
+if(typeof document!=='undefined'&&document.head){const st=document.createElement('style');st.textContent=`@media (orientation:portrait) and (max-width:640px){#ui>.panel,#ui>.pausebox,.pausebox{position:fixed;inset:var(--uitop,0px) 0 0 0;z-index:8}.pausebox{align-items:flex-start}.pausebox .pm{max-width:100%;max-height:100%;width:100%;box-sizing:border-box}#tbtns{position:fixed;right:10px;bottom:14px;z-index:9}#wrap>.hint{display:none}#ui>.dlg{position:fixed;left:6px;right:6px;top:calc(var(--uibot,40vh) + 6px);bottom:auto;max-height:calc(100dvh - var(--uibot,40vh) - 84px);min-height:96px;box-sizing:border-box}}`;document.head.appendChild(st);
+ const fit=()=>{const s=document.getElementById('stage');if(s){const r=s.getBoundingClientRect(),d=document.documentElement.style;d.setProperty('--uitop',Math.max(0,Math.round(r.top))+'px');d.setProperty('--uibot',Math.round(r.bottom)+'px')}};addEventListener('resize',fit);addEventListener('orientationchange',fit);setTimeout(fit,0);setTimeout(fit,600)}
