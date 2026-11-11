@@ -24,7 +24,7 @@
   - Everything outside those markers is the original game, edited in place in `index.html`. Story beats like `takenM`, `afterBase` and `startAct2` live there.
 - `src/`: the source of the two generated regions.
   - `td1_engine.js`, `td2_scene.js`, `td3_trailer.js`, `td4_base.js`, `td5_story.js` → TD block.
-  - `ui2.js`, `td6.js` … `td30.js` → UI2 block. Load order is in `tools/build.py`; td12 loads before td11 on purpose. td24 = "what it costs" scenes, td25 = alternate universes, td26 = morning-event picker, td27 = the harder kidnapping, its aftermath and the blank, td28 = longer captivity, the infirmary, the injuries she does not register, more texts, td29 = the hours she will not account for, td30 = more of the arc (the water, V's wait, the trailer, the clip, the cast). `td1_engine.js` snapshots `EV_ORIG` (the original morning events) at the top of the TD block.
+  - `ui2.js`, `td6.js` … `td31.js` → UI2 block. Load order is in `tools/build.py`; td12 loads before td11 on purpose. td24 = "what it costs" scenes, td25 = alternate universes, td26 = morning-event picker, td27 = the harder kidnapping, its aftermath and the blank, td28 = longer captivity, the infirmary, the injuries she does not register, more texts, td29 = the hours she will not account for, td30 = more of the arc (the water, V's wait, the trailer, the clip, the cast), td31 = what she says she doesn't remember. `td1_engine.js` snapshots `EV_ORIG` (the original morning events) at the top of the TD block.
   - `maps.json`: tile rows for every top-down map.
   - `deep_rooms.json`, `city_rooms.json`: room rectangles, emitted as `TD_DEEPROOMS` / `TD_CITYROOMS`.
 - `tools/`:
@@ -472,4 +472,16 @@ About the hours Misaki cannot remember. She has enough to work out what probably
 - **The cast:** `kd_cast` at the start of Act II. If she did the foam ball at least twice in the infirmary (`S.f.kdGripN`) the hand works. If not, `S.f.kdHandBad` makes lockpicking one step harder for the rest of the game (`kdPick`).
 
 **How to reach the drip-needle scene:** play as Misaki, and in the infirmary use the Door while she still believes it is a cell (the door is labelled "Door", not "The door": the first day, or the second if she has not read the chart or been talked round by text). Choose "Go. Now, while you can stand.", take down either figure in the corridor from behind with E, and reach the exit. Reaching the exit without touching anyone gives the Biscuit scene instead; being seen gives V kneeling.
+
+## What she says she doesn't remember (td31)
+
+Same rules as td29 (never named; honest option greyed with `KD_NO`; each pretence is a `kdDeny()`). The new idea: **the missing hours are not all missing.** She has pieces (a ceiling, the radio being turned up first) and files them under "gone", because nobody can ask her about a thing she cannot remember. `S.f.kdHas` marks that the player has been shown this.
+
+- `kd_recount`: the receipt says N hours; the true number is smaller, and she leaves it or rounds it up.
+- `kd_slip`: at dinner she uses a detail from the hours she claims to have slept through. Everyone hears it.
+- `kd_sleeptalk`: what she says asleep. V tells her she counted the dogs, which is true as far as it goes.
+- `kd_bank` (Misaki): she closes the account she swore at in the cell; the lobby plays the jingle. `kd_jacket`: Angel helps her out of a coat from behind (adds a journal note). `kd_shop`: no more shorts. `kd_box` (Misaki, deny ≥ 3): a page headed THINGS THAT DIDN'T HAPPEN, numbered, with every line empty.
+- Other people finding out without being told: `tx_kd_ronsoft` (Ronin is nice to her, which is how she knows he knows), `tx_kd_ronknows` (V's side).
+- The bill: `kd_crash` (deny ≥ 6, Act II on: she collapses on the stairs and loses most of a day) and `kd_crash2` (deny ≥ 9: her trigger finger doesn't close on a windless roof; heat +8).
+- Relief: `kd_march` (needs the enrolment form opened): Angel makes her pick a day for the birthday she invented at nine. The 3rd, the 14th, or all thirty-one.
 
