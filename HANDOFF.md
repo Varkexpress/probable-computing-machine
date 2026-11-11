@@ -8,11 +8,11 @@
 
 ## Start here (state as of the last round)
 - **Writing rules:** read `docs/VOICE.md` (voice per character + the author's ten-tic list) and `docs/voice_sample.md` (the author's own writing) before writing any line. Every line in the game has been through a voice pass and a tic pass.
-- **Latest work:** the kidnapping arc rewritten end to end (`td27`, `td28` and the original functions; see the last two sections). Before that: the alternate-universe mode (title screen → Alternate universes → The Long Leash, `td25`); night fixes (people asleep only some nights, fairer morning-event picker, `td26`); city-map pins for Angel and Ronin moved out from under the TODAY notes panel (`td6` WHPLACES).
+- **Latest work:** the kidnapping arc rewritten end to end (`kc27`, `kc28` and the original functions; see the last two sections). Before that: the alternate-universe mode (title screen → Alternate universes → The Long Leash, `kc25`); night fixes (people asleep only some nights, fairer morning-event picker, `kc26`); city-map pins for Angel and Ronin moved out from under the TODAY notes panel (`td6` WHPLACES).
 - **Open decisions for the author:**
   - V's history: the rewrite made him a practised killer who feeds his animals (see "V is now a practised killer"). Ask whether the old fall-from-grace arc (paper-only creed, conscience beats) should come back.
-  - Ronin's backstory detail added by us: a shed back home he burned when he left town (td24 `tx_rvdown`). Unconfirmed.
-  - td27 added canon about Misaki’s blank (see the list at the end of “The room with one bulb”). Confirm or revert.
+  - Ronin's backstory detail added by us: a shed back home he burned when he left town (kc24 `tx_rvdown`). Unconfirmed.
+  - kc27 added canon about Misaki’s blank (see the list at the end of “The room with one bulb”). Confirm or revert.
   - Option labels the tic pass changed, e.g. "He looked back. Now you look back." → "Find him and kill him". Revert any the author dislikes.
 - **Workflow:** after each round build, run the suite below, update this file, commit, `git push -u origin claude/peaceful-babbage-efje6m`, republish `index.html` to the Killer Chat artifact. Commit messages end with the attribution lines given by the session.
 - **Big text passes:** split `index.html`'s original region into line ranges and have each worker produce `["old","new"]` JSON pairs, applied with `python3 tools/apply_pairs.py pairs.json START END --write` (pairs never add lines, so ranges stay valid). Edit `src/` files directly. Afterwards check structure with a token diff (strings masked) and compare menus/events before and after.
@@ -24,14 +24,14 @@
   - Everything outside those markers is the original game, edited in place in `index.html`. Story beats like `takenM`, `afterBase` and `startAct2` live there.
 - `src/`: the source of the two generated regions.
   - `td1_engine.js`, `td2_scene.js`, `td3_trailer.js`, `td4_base.js`, `td5_story.js` → TD block.
-  - `ui2.js`, `td6.js` … `td34.js` → UI2 block. Load order is in `tools/build.py`; td12 loads before td11 on purpose. td24 = "what it costs" scenes, td25 = alternate universes, td26 = morning-event picker, td27 = the harder kidnapping, its aftermath and the blank, td28 = longer captivity, the infirmary, the injuries she does not register, more texts, td29 = the hours she will not account for, td30 = more of the arc (the water, V's wait, the trailer, the clip, the cast), td31 = what she says she doesn't remember, td32 = what was done with care (the medical side). `td1_engine.js` snapshots `EV_ORIG` (the original morning events) at the top of the TD block.
+  - `ui2.js`, `td6.js` … `kc34.js` → UI2 block. Load order is in `tools/build.py`; td12 loads before td11 on purpose. kc24 = "what it costs" scenes, kc25 = alternate universes, kc26 = morning-event picker, kc27 = the harder kidnapping, its aftermath and the blank, kc28 = longer captivity, the infirmary, the injuries she does not register, more texts, kc29 = the hours she will not account for, kc30 = more of the arc (the water, V's wait, the trailer, the clip, the cast), kc31 = what she says she doesn't remember, kc32 = what was done with care (the medical side). `td1_engine.js` snapshots `EV_ORIG` (the original morning events) at the top of the TD block.
   - `maps.json`: tile rows for every top-down map.
   - `deep_rooms.json`, `city_rooms.json`: room rectangles, emitted as `TD_DEEPROOMS` / `TD_CITYROOMS`.
 - `tools/`:
   - `build.py`: rebuilds the generated regions of index.html from src/.
   - `gen2.py`: deep house B3–B5 and the forest. `gen3.py`: city districts. `gen4.py`: widens Ronin's/Angel's flats. Each rewrites its maps in `src/maps.json`.
   - `audit.js`: reachability of every tile and object, plus every interaction on four benchmark saves.
-  - `fuzz2.js`: random play. `phone_test.js`: every phone thread path. `days_test.js`: 16-day scripted run per POV. `w24_test.js`: every td24 scene/call/prop. `kd_test.js`: the td27 captivity loop, V’s search, every `kd_` event option for both POVs, topics, ending lines. `au_test.js`: plays The Long Leash on both sides, checks every door/spot. `apply_pairs.py`: applies text replacement lists to a line range of index.html. `gfx_test.js`: enhanced vs classic screenshots. `mz.js`: offline render and level check of every music track. `bal.js`: bracket-balance finder. `aiscan.py`: lists dialogue using contrast-reveal constructions.
+  - `fuzz2.js`: random play. `phone_test.js`: every phone thread path. `days_test.js`: 16-day scripted run per POV. `w24_test.js`: every kc24 scene/call/prop. `kd_test.js`: the kc27 captivity loop, V’s search, every `kd_` event option for both POVs, topics, ending lines. `au_test.js`: plays The Long Leash on both sides, checks every door/spot. `apply_pairs.py`: applies text replacement lists to a line range of index.html. `gfx_test.js`: enhanced vs classic screenshots. `mz.js`: offline render and level check of every music track. `bal.js`: bracket-balance finder. `aiscan.py`: lists dialogue using contrast-reveal constructions.
 - `art/`: expression charts (`*_expressions_source.webp`), `art/portraits_build.py`, output `art/portraits/*.png`.
 - `mirror-protocol.html`: separate three.js (r128, cdnjs) study game.
 - `docs/`: `VOICE.md` (writing guide), `voice_sample.md` (author's sample).
@@ -235,15 +235,15 @@ The trailer and all of V's base are no longer side-view backdrops: they are 3/4 
 - The planter ring is solid via invisible segments, with gaps at the four compass points.
 - Freight-lift shortcut: once you've reached B5 (`b5seen`, set by `deep.tick`), a lift appears in the garage (to B5), and the B5 landing has a lift back up.
 
-## Phone 2, Angel's two masks, glasses, graphics (td19–td21)
-- td19 Phone 2 (`S.tx`):
+## Phone 2, Angel's two masks, glasses, graphics (kc19–kc21)
+- kc19 Phone 2 (`S.tx`):
   - Each contact (V/Misaki/Angel/Ronin) has a thread. Replies are queued and arrive later (`phQueue`/`phDeliver`, on hub).
   - Branching threads: `txDef(id,{with,pov,prio,when,nodes:{start:{in,opts,expire,onExpire}}})`. Options take `fx`, `reply`, `next`, `ok`. Ignoring a thread past `expire` runs `onExpire`.
   - At most one new thread a day (`txTick`). Incoming calls (`call({...answer,miss})`) ring at most once a day and can be declined. Outgoing calls: one per contact a day (`outcall`).
   - Threads: `tx_vjob`, `tx_mrent`, `tx_rpick`, `tx_rjune`, `tx_ahurt`, `tx_vroof`, `tx_amaria`, `tx_avhouse`. Calls: `c_angel3am`, `c_vjob`, `c_ronlift`, `c_mlate`.
   - Payoff events: `pay_vdrove`, `pay_ronalone`, `pay_rondrive`, `pay_angellie`, `pay_roof`. Ending lines via `extraEnding`.
   - `tools/phone_test.js` walks every option path and checks expiry.
-- td20 Angel's two masks: **Maria de la Rosa** (the channel and modelling; her livestreams are timestamped alibis) and **the Heartsick Angel** (the press's name for her killer side). "Angel" is just for the server.
+- kc20 Angel's two masks: **Maria de la Rosa** (the channel and modelling; her livestreams are timestamped alibis) and **the Heartsick Angel** (the press's name for her killer side). "Angel" is just for the server.
   - Content:
     - the studio neon (`mariaKnown`)
     - `tx_amaria` → `mariaShoot` (rooftop shoot, 3 ways to help)
@@ -252,13 +252,13 @@ The trailer and all of V's base are no longer side-view backdrops: they are 3/4 
     - `maria_end` (kill Maria / keep her as armour / introduce them; the last needs `mariaReal` + the shoot)
     - V's `tx_avhouse` (shoot at his house, the keypad-door scare)
     - a feed view in Messages
-- td21: V's reading glasses exist **in text only** (no sprite or portrait changes): the nightstand prop (wear / steal / freezer), the `gl_first` and `gl_found` events.
-- td21 graphics:
+- kc21: V's reading glasses exist **in text only** (no sprite or portrait changes): the nightstand prop (wear / steal / freezer), the `gl_first` and `gl_found` events.
+- kc21 graphics:
   - Sprite outlines via cached silhouettes in a `tdPx` wrapper.
   - Screen-space pass after `tdWeatherFX`: additive light glow, per-place soft-light grade (`fxGrade`), vignette, film grain (off with reduce motion).
   - **G** toggles `META.fx` between enhanced and classic.
 
-## More messages: the group chat, and Misaki's luck (td22)
+## More messages: the group chat, and Misaki's luck (kc22)
 - Theme: Misaki expected to be dead within about five years of starting. Then Angel corrected her wind maths on a sniping forum, sent her a server invite, and everyone kept her. "I really didn't expect to be lucky."
 - New threads:
   - `tx_lucky` (Angel's forum-versary)
@@ -295,7 +295,7 @@ The trailer and all of V's base are no longer side-view backdrops: they are 3/4 
 - **UI:** interaction prompts no longer sit on top of the objective banner (minimum y is 40).
 - **Writing:** varied or cut about 80 uses of "for a long time" and "very carefully/quietly/slowly/gently". Similes were left alone on purpose.
 - **`tools/days_test.js`:** plays 16 days as each POV (answers texts, takes calls, wanders, pokes things, sleeps) and reports errors. Misaki pays rent on days 2 and 4, so her run goes normal → taken → after; V's reaches Act II. Misaki's run then parks in the finale's stealth minigame, which the script can't play. It found the ending crash.
-- **td23:** the help panel covers the phone, late nights and the G toggle. A toast warns before a text expires unanswered, and a one-time hint points to Messages.
+- **kc23:** the help panel covers the phone, late nights and the G toggle. A toast warns before a text expires unanswered, and a one-time hint points to Messages.
 
 ## Mirror Protocol (mirror-protocol.html)
 - Chapter 4 cases (all unlocked): lessons, mastery practice, 3D missions, final Ledger + 20-question exam.
@@ -316,7 +316,7 @@ The trailer and all of V's base are no longer side-view backdrops: they are 3/4 
 See Build & check above. Playwright is installed globally (`require(execSync('npm root -g')+'/playwright')`). cdnjs is blocked in this container: route `**/three.min.js` to abort (or a local copy via `npm pack three@0.128.0`). Typical checks: generate each TYPE 600× and validate answer is in choices / no NaN; take each test answering from `window.__curItem`; random fuzz of the main game.
 
 ## Known gaps / honest status
-- Only the Ferris-wheel gondola and minigame screens remain side-view. The cell and the infirmary are walkable maps (`tdMap('cell')`, `tdMap('medbay')` at the end of `td28.js`, rows `CELL`/`MEDBAY` in `maps.json`); they share one floor plan on purpose, and the infirmary is lit and drawn like the cell until `med.clar` reaches 2.
+- Only the Ferris-wheel gondola and minigame screens remain side-view. The cell and the infirmary are walkable maps (`tdMap('cell')`, `tdMap('medbay')` at the end of `kc28.js`, rows `CELL`/`MEDBAY` in `maps.json`); they share one floor plan on purpose, and the infirmary is lit and drawn like the cell until `med.clar` reaches 2.
 - Two Wardrobe spots exist in the bedroom; `legacyN:1` picks the second.
 - The five areas and the detachment arc (pall block) were never fully play-tested.
 - Chapter 5 problems are original, modeled on Big Ideas style (the online textbook was unreachable).
@@ -329,14 +329,14 @@ See Build & check above. Playwright is installed globally (`require(execSync('np
 
 ## Phone-layout pass
 
-- **Portrait phones** (`td23`, CSS under `@media (orientation:portrait) and (max-width:640px)`): panels and the pause menu are `position:fixed` and fill the space under the HUD; the dialogue box sits below the game frame instead of over it (choices used to be cut off); touch buttons move to the bottom of the screen; the hint line is hidden. `--uitop` / `--uibot` are set from `#stage`'s rect on resize.
-- **Graphics toggle** is now in the pause menu's Settings group (`td21`), so touch players can switch enhanced/classic. G still works.
+- **Portrait phones** (`kc23`, CSS under `@media (orientation:portrait) and (max-width:640px)`): panels and the pause menu are `position:fixed` and fill the space under the HUD; the dialogue box sits below the game frame instead of over it (choices used to be cut off); touch buttons move to the bottom of the screen; the hint line is hidden. `--uitop` / `--uibot` are set from `#stage`'s rect on resize.
+- **Graphics toggle** is now in the pause menu's Settings group (`kc21`), so touch players can switch enhanced/classic. G still works.
 - Fixed a broken sentence in the Act II gala ending ("$Xk. , a little short").
 - Layout check script pattern: Playwright with `{viewport:{width:390,height:844},hasTouch:true,isMobile:true}`; remove `.splash`, `benchLoad(BENCH[1])`, then `pauseMenu()` / `openPhone('dm')` / `ask(...)` and screenshot.
 
-## What it costs (td24)
+## What it costs (kc24)
 
-Short scenes about what the work and the years before it left behind. All in `src/td24.js`; test with `node tools/w24_test.js` (runs every event option, call, prop and topic for both POVs).
+Short scenes about what the work and the years before it left behind. All in `src/kc24.js`; test with `node tools/w24_test.js` (runs every event option, call, prop and topic for both POVs).
 
 - **The date** (Misaki gave herself five years): `five_eve` → `five_day` (bench / work / show V, or Angel if alone) → `five_after`; V's side is `five_v`. Flags `fiveDay`, `fiveDone`, `fiveV`, `fiveTold`.
 - **Hour 70** (V, locked rooms, the dogs): `v_bowls` (repeats up to 3), `m_bowls`, `m_door` / `v_latch` (`doorAsk`), topic `hour70` (needs `vChildKnown`), thread `tx_m4am`, call `c_vfour`, prop `bd_wedge`.
@@ -350,13 +350,13 @@ Short scenes about what the work and the years before it left behind. All in `sr
 ## Voice pass (author's sample)
 
 - `docs/voice_sample.md` is the author's own writing (one piece per killer); `docs/VOICE.md` is the guide distilled from it. Read both before writing any dialogue.
-- About 1,150 strings re-voiced across `src/td3…td24` and Ronin/Angel lines in the original region of `index.html`. Ronin no longer says "darlin'" (his `nick()` pool changed too). Profanity now exists for Ronin, Misaki and narration; never V.
+- About 1,150 strings re-voiced across `src/td3…kc24` and Ronin/Angel lines in the original region of `index.html`. Ronin no longer says "darlin'" (his `nick()` pool changed too). Profanity now exists for Ronin, Misaki and narration; never V.
 - V's and Misaki's lines in the original region were done in a follow-up round: about 1,390 replacements, produced as JSON pair lists and applied with `tools/apply_pairs.py <pairs.json> START END --write` (checks each old string is in the line range and the new one has no raw quote/backtick). Use that tool for any parallel edit of `index.html`.
-- **Open canon question:** the old plot treats V as a philanthropist with a conscience meter who has barely killed; the sample V is a practised butcher who feeds his animals. New lines lean toward the sample ("my animals ate well", the metal table); the old plot beats (the river, "You killed a man to keep me alive", td19's job deal) still assume the softer V.
+- **Open canon question:** the old plot treats V as a philanthropist with a conscience meter who has barely killed; the sample V is a practised butcher who feeds his animals. New lines lean toward the sample ("my animals ate well", the metal table); the old plot beats (the river, "You killed a man to keep me alive", kc19's job deal) still assume the softer V.
 - Three `VARY` keys were updated because they match dialogue by prefix. If you reword a line, grep `VARY` for its opening words.
 - Watch for catchphrase pile-up when several people edit at once ("Sucks t'be you" hit 17 uses and was cut to 4).
 
-## Alternate universes (td25)
+## Alternate universes (kc25)
 
 - Title screen → **Alternate universes** (added by wrapping `panel` when the title panel is drawn). Runs with `S` null and never touches a run; results in `META.au[id]`. `AUON` is true while inside; `pauseMenu` is a no-op without a run, and `helpPanel` shows AU help (and now toggles closed on a second H everywhere, which also fixed duplicated help lines).
 - Add a universe: `AUS.push({id,name,sub,run(back)})`.
@@ -381,13 +381,13 @@ The V/Misaki pass resolved the open canon question toward the author's sample. F
 ## Night fixes and the tic pass
 
 - **Night bug:** td18 put Angel, Ronin and V to bed every night (slot 3), which hid their talk/affection options. Now `sleepNight(k)` puts each person to sleep about two nights in five; waking Ronin or Angel leads into `talkRonin`/`talkAngel`.
-- **Morning events:** the pool passed thirty, so one-at-random starved scenes (the hotel door, the wet roof). `evRun`/`evPick` (td26) weight by how many mornings an event was passed over, favour the original vignettes (`EV_ORIG`, snapshotted at the top of td1) and short-window `phase==='normal'` events, and a big pool can give a second scene. `x_wrong_door` now fires from day 3 and also after the rescue.
+- **Morning events:** the pool passed thirty, so one-at-random starved scenes (the hotel door, the wet roof). `evRun`/`evPick` (kc26) weight by how many mornings an event was passed over, favour the original vignettes (`EV_ORIG`, snapshotted at the top of td1) and short-window `phase==='normal'` events, and a big pool can give a second scene. `x_wrong_door` now fires from day 3 and also after the rescue.
 - **Tic pass:** the author's ten-tic list is in `docs/VOICE.md`. About 1,300 strings were rewritten across `index.html` and `src/`; code was token-checked unchanged and menus/events compared identical before and after.
 - Biscuit is she/her.
 
-## The room with one bulb (td27): harder kidnapping, longer shadow, the blank
+## The room with one bulb (kc27): harder kidnapping, longer shadow, the blank
 
-All in `src/td27.js`, plus small in-place edits to the original region (V's taken hub, `lockpick`, `escapeRun`, `vRescue`, `theList`). Test with `node tools/kd_test.js`. State lives in `S.kd = {hrs, ses, said, clock, dose, anc, lost, shake, t0, days}`; `kdPost()` is true once she is out. Saves made before this module get a modest record from `kdEnsure()` (on `hub`).
+All in `src/kc27.js`, plus small in-place edits to the original region (V's taken hub, `lockpick`, `escapeRun`, `vRescue`, `theList`). Test with `node tools/kd_test.js`. State lives in `S.kd = {hrs, ses, said, clock, dose, anc, lost, shake, t0, days}`; `kdPost()` is true once she is out. Saves made before this module get a modest record from `kdEnsure()` (on `hub`).
 
 **Captivity is harder (Misaki):**
 - The sedative: `kdWoozy()` (0–2) narrows the lockpick window and raises stealth sensitivity (`kdEscapeCfg`). It wears off as cell actions pass. A second escape attempt meets one more guard.
@@ -407,16 +407,16 @@ All in `src/td27.js`, plus small in-place edits to the original region (V's take
 - Hands: `stealth` is wrapped; her sensitivity is up 6% per `S.kd.shake` (max 3) after the rescue and drops one per clean stealth job.
 - Topics: `kd_file` (both POVs: V looked for chapter one), `kd_backup`, `kd_shoes`. Threads: `tx_kd_ron` (he lies about a debt to see if she can tell), `tx_kd_angel` (the "misaki was here" album), `tx_kd_mv`. Act II: `kd_hara` (the truth, "don't remember", or Maria's timestamps). Epilogue: `kd_epi`. Ending lines via `extraEnding`.
 
-**Canon this round added about the blank (confirm with the author, all in td27 text):**
+**Canon this round added about the blank (confirm with the author, all in kc27 text):**
 - Nothing on paper exists for Misaki before age nine (no school, clinic or birth record); V thinks somebody removed it professionally.
 - The earliest document is a school enrolment form where she wrote "March" in the birthday box herself.
 - She reacts badly to the sedative, which nobody could have known because she has no medical history.
 - She asks for the first time whether the missing nine years were done to her. Nothing answers it; V is still looking.
 - The captor's "mother in Saitama" is a lie inside the story. No new character exists.
 
-## The long way out, and the room that says LAUNDRY (td28)
+## The long way out, and the room that says LAUNDRY (kc28)
 
-`src/td28.js` plus in-place edits to the original region. `node tools/kd_test.js` covers it (set `globalThis.KD_AUTO=1` to make the new minigames resolve instantly; `days_test.js` does this too).
+`src/kc28.js` plus in-place edits to the original region. `node tools/kd_test.js` covers it (set `globalThis.KD_AUTO=1` to make the new minigames resolve instantly; `days_test.js` does this too).
 
 **Original kidnapping text was replaced** (in `index.html`, not in `src/`): `takenM` (now in the trailer lot; her left hand is broken in the van), `takenV` (the fence post, the fingernails), `failedEscape` (the radio man stands on the hand), the last-chance passage, `vRescueCut`, `escaped`, `rescued`, the cell spots and the session intros. The "Things are different after" paragraph is gone from `after()`; `afterBase` (dead code) was deleted. Friends' reactions to leaks now arrive as texts on Misaki's phone (`kdTell`), and stay as narration in V's POV.
 
@@ -433,7 +433,7 @@ All in `src/td27.js`, plus small in-place edits to the original region (V's take
 - `after()` now hands over to `kdMedStart`. She wakes in V's infirmary on sublevel two (door marked LAUNDRY, never seen before) and takes it for another cell. Misaki's hub is the side-view room `medbay`; V keeps his hub and gets "The infirmary" (`kdSit`).
 - Clarity `med.clar` 0–3 rises each morning and from the chart, texts and failed escapes. Below 2 the room is drawn as the cell and the spots carry her reading of them (Cot, The line in your hand, The eye in the ceiling, Their notes, Tray, Something covered up, Door); from 2 they become Bed, The drip, Smoke detector, Your chart, Soup, The mirror, The door, plus the foam-ball physio.
 - She can run (`kdMedRun`, stealth; the "guards" are V and the doctor). Caught: V kneels and tells her the day. Out clean: Biscuit in the garage. Out with a takedown: she has put the drip needle in V's arm (`S.f.kdStab`).
-- `kdMedMorning` replaces morning events for the three days (both POVs), ends with the walk upstairs, resets `S.kd.t0`, then shows the short after-text. All td27 scenes wait for discharge (`kdPost()` is false during it). The after-phase is nine days in total.
+- `kdMedMorning` replaces morning events for the three days (both POVs), ends with the walk upstairs, resets `S.kd.t0`, then shows the short after-text. All kc27 scenes wait for discharge (`kdPost()` is false during it). The after-phase is nine days in total.
 - For three days after discharge she starts each morning 20 energy down.
 
 **Phone:** the backlog of messages sent while she was gone, with day stamps (`kdBacklog`, delivered when V slides her phone under the door); threads `tx_kd_help`, `tx_kd_fine` (one line of the list, all of it, or no), `tx_kd_selfie`, `tx_kd_rvis` for Misaki; `tx_kd_mdoor`, `tx_kd_adoc`, `tx_kd_rhand` for V. The phone is blocked on her first infirmary day.
@@ -444,15 +444,15 @@ The TODAY notes column on the city map (`cityMap` in `td6.js`) drew one note eve
 
 A comparison of the build from before the voice and tic passes (commit `89ca4cd`) with the current one found no other loss: same event ids, functions, threads, spot labels, hub options, topics and places on all eight benchmark saves, and every morning event runs to completion on every benchmark in both. If something else is missing, it needs a specific example to chase.
 
-## Her condition on screen (end of td28)
+## Her condition on screen (end of kc28)
 
 `kdCond()` returns 0–4. In the cell it is the session count plus one for a failed escape; in the infirmary it runs 4, 3, 3, 2 by day; it is 2 for three days after discharge and 1 for the rest of the after-phase. It applies to Misaki wherever she is drawn in walkable rooms (as the player, and as an NPC in V's POV) and in the interrogation screen.
 - **Sprite:** `kdRag(a,n,care)` edits the sprite grid and caches the result. In the cell: one shoe missing from the start, red at the wrists, the clip gone after the first failed escape, then a swollen arm, a shut eye, blood at the mouth, on the shirt and in the hair. `kdGrime` darkens her palette with each level. In care: the grime is gone and she has a cast and a head dressing. `tdActor` is wrapped to set the flag `KDF`, which the `tdPx` and `spr` wrappers read.
 - **Movement:** `kdSpeed()` multiplies walking speed in `td2_scene.js` (about 13% slower per level, a little more while sedated, never below 45%). She also drops a pixel on one step in four, and stands a pixel lower from level 3.
 
-## The sum she won't do (td29)
+## The sum she won't do (kc29)
 
-About the hours Misaki cannot remember. She has enough to work out what probably happened in them and refuses to. `src/td29.js`; covered by `tools/kd_test.js`.
+About the hours Misaki cannot remember. She has enough to work out what probably happened in them and refuses to. `src/kc29.js`; covered by `tools/kd_test.js`.
 
 **Rules for writing in this module (keep them):**
 - What happened is never named, by her, by anyone else, or by the narration. The evidence is shown (the hours, the photographs of her back, clothes that were not hers, the examination she declines, a cologne) and she explains each piece away.
@@ -464,7 +464,7 @@ About the hours Misaki cannot remember. She has enough to work out what probably
 **Drafts:** `kd_draft` repeats over four nights. Misaki's thread with V shows system lines "draft, not sent" that get shorter each night; V's side shows "is typing… stopped". On the fourth night she sends a question about the cactus.
 **Talk:** `kd_second` in both directions (the doctor's second page). **Threads:** `tx_kd_sleep`, `tx_kd_ask`, `tx_kd_vdots`. **Ending:** one line by `deny`.
 
-## More of the arc (td30)
+## More of the arc (kc30)
 
 - **Cell:** "A cup of water" appears after every dose (`S.f.kdCup`). Drinking clears the sedative faster; thanking the man through the slot twice (`S.f.kdThanks`) means he looks at the floor on the dock stairs and that stage has one guard fewer. The radio spot now also gives three overheard exchanges (`S.f.kdHear`; the buyer comes Friday, the driver sings, the photograph for "the dog man").
 - **V while she is gone:** `kd_vphoto` (her hand on a table: study it for the guard schedule, reply and warn them, or show Ronin, who claims the man who did it: `S.f.kdRonCall`), `kd_vfloor` (Ronin and Angel on the atrium floor).
@@ -473,9 +473,9 @@ About the hours Misaki cannot remember. She has enough to work out what probably
 
 **How to reach the drip-needle scene:** play as Misaki, and in the infirmary use the Door while she still believes it is a cell (the door is labelled "Door", not "The door": the first day, or the second if she has not read the chart or been talked round by text). Choose "Go. Now, while you can stand.", take down either figure in the corridor from behind with E, and reach the exit. Reaching the exit without touching anyone gives the Biscuit scene instead; being seen gives V kneeling.
 
-## What she says she doesn't remember (td31)
+## What she says she doesn't remember (kc31)
 
-Same rules as td29 (never named; honest option greyed with `KD_NO`; each pretence is a `kdDeny()`). The new idea: **the missing hours are not all missing.** She has pieces (a ceiling, the radio being turned up first) and files them under "gone", because nobody can ask her about a thing she cannot remember. `S.f.kdHas` marks that the player has been shown this.
+Same rules as kc29 (never named; honest option greyed with `KD_NO`; each pretence is a `kdDeny()`). The new idea: **the missing hours are not all missing.** She has pieces (a ceiling, the radio being turned up first) and files them under "gone", because nobody can ask her about a thing she cannot remember. `S.f.kdHas` marks that the player has been shown this.
 
 - `kd_recount`: the receipt says N hours; the true number is smaller, and she leaves it or rounds it up.
 - `kd_slip`: at dinner she uses a detail from the hours she claims to have slept through. Everyone hears it.
@@ -485,11 +485,11 @@ Same rules as td29 (never named; honest option greyed with `KD_NO`; each pretenc
 - The bill: `kd_crash` (deny ≥ 6, Act II on: she collapses on the stairs and loses most of a day) and `kd_crash2` (deny ≥ 9: her trigger finger doesn't close on a windless roof; heat +8).
 - Relief: `kd_march` (needs the enrolment form opened): Angel makes her pick a day for the birthday she invented at nine. The 3rd, the 14th, or all thirty-one.
 
-## What it would prove (td32)
+## What it would prove (kc32)
 
-The author's correction: the medical horror is **not** the wounds (she dislikes acknowledging those too, but that is td28's unreliable narration). It is the doctor's examination and the photographs, which she denies loudly, because she knows exactly what they would prove. An earlier version of this module invented a surgical mystery (old stitches, clips on an X-ray, an unidentified drug, extracted molars, the note-taker as an anaesthetist); **all of that was removed** and is not canon.
+The author's correction: the medical horror is **not** the wounds (she dislikes acknowledging those too, but that is kc28's unreliable narration). It is the doctor's examination and the photographs, which she denies loudly, because she knows exactly what they would prove. An earlier version of this module invented a surgical mystery (old stitches, clips on an X-ray, an unidentified drug, extracted molars, the note-taker as an anaesthetist); **all of that was removed** and is not canon.
 
-The doctor is correct and kind throughout. The horror is the procedure: a required question, a form, a kit with a time limit, a ruler and a date card in every photograph, a sealed numbered envelope, follow-up dates. td29's rules hold (never named; honest option greyed with `KD_NO`; `kdDeny()` per pretence), and here she is vehement.
+The doctor is correct and kind throughout. The horror is the procedure: a required question, a form, a kit with a time limit, a ruler and a date card in every photograph, a sealed numbered envelope, follow-up dates. kc29's rules hold (never named; honest option greyed with `KD_NO`; `kdDeny()` per pretence), and here she is vehement.
 
 - `kd_ask`: the doctor is required to ask one question a day until Saturday. "NOTHING HAPPENED. Write it down." The doctor writes it with quotation marks.
 - `kd_window`: the examination is only useful for a few more days. She has the day and hour worked out, and marks Saturday "FREE".
@@ -501,9 +501,9 @@ The doctor is correct and kind throughout. The horror is the procedure: a requir
 - `kd_vdoc` (V): the doctor may not say what she thinks, has no doubt, and leaves a leaflet that says "do not push".
 - Thread: `tx_kd_docstop` (Misaki to V about the doctor).
 - Kept from the earlier version: `kd_pins`, `kd_wrists`, `kd_vtable` and the infirmary cabinet (treatment without sedation).
-- Related scenes elsewhere: `kd_exam` and `kd_photos` (td29), the sealed box in the fridge and `kd_kitgone` (td33).
+- Related scenes elsewhere: `kd_exam` and `kd_photos` (kc29), the sealed box in the fridge and `kd_kitgone` (kc33).
 
-## The ward round (td33): the infirmary as a system
+## The ward round (kc33): the infirmary as a system
 
 - **Treatment** (`S.kd.rx = {heal, pills, palmed}`): once she knows where she is (`med.clar >= 2`) the "Treatment trolley" offers up to two treatments a day (flags `S.done.kdRx_*`, count `S.done.kdRxN`): dressings, the pin sites (`kdTurn`, hold still), breathing on three broken ribs (`ground`), and the painkillers, which she can take or hide in the bed frame (a `kdDeny()`). While she still thinks it is a cell the same spot is "A tray of instruments" and she will not be treated, so refusing to recognise the room slows her recovery.
 - **What `heal` does:** `kdCond` is wrapped. `heal >= 6` takes a level off her condition after discharge (she walks faster sooner); `heal <= 1` adds one for five days. In V's POV she gains 2 per infirmary morning once her head is clear.
@@ -514,7 +514,7 @@ The doctor is correct and kind throughout. The horror is the procedure: a requir
 
 **Voice pass on Angel and Ronin (this session's lines):** Ronin's reassuring lines were made ruder ("I'll lie to you too, but I'm funnier about it"; the soup is from a can and he spat in it), a narrated closer inside a text bubble was cut, and he no longer types "u". Angel lost filler ("cute!! 💕", stray "babe") and gained appetite ("who did the eye. asking for a friend. the friend is a shotgun"; "i go and have a night out"). On camera she is Maria, in full soft sentences; off it she is the Angel.
 
-## The one who knows, and ordinary days (td34)
+## The one who knows, and ordinary days (kc34)
 
 **Nobody tells Angel or Ronin.** The threads where they were told outright were removed (`tx_kd_ronknows`, where V answered "Yes"; `tx_kd_leaflet`, where the doctor gave Angel a leaflet). What they have, they worked out: the slip at dinner, the jacket, the shopping, Ronin being nice. Keep it that way.
 
