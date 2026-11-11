@@ -24,7 +24,7 @@
   - Everything outside those markers is the original game, edited in place in `index.html`. Story beats like `takenM`, `afterBase` and `startAct2` live there.
 - `src/`: the source of the two generated regions.
   - `td1_engine.js`, `td2_scene.js`, `td3_trailer.js`, `td4_base.js`, `td5_story.js` → TD block.
-  - `ui2.js`, `td6.js` … `td29.js` → UI2 block. Load order is in `tools/build.py`; td12 loads before td11 on purpose. td24 = "what it costs" scenes, td25 = alternate universes, td26 = morning-event picker, td27 = the harder kidnapping, its aftermath and the blank, td28 = longer captivity, the infirmary, the injuries she does not register, more texts, td29 = the hours she will not account for. `td1_engine.js` snapshots `EV_ORIG` (the original morning events) at the top of the TD block.
+  - `ui2.js`, `td6.js` … `td30.js` → UI2 block. Load order is in `tools/build.py`; td12 loads before td11 on purpose. td24 = "what it costs" scenes, td25 = alternate universes, td26 = morning-event picker, td27 = the harder kidnapping, its aftermath and the blank, td28 = longer captivity, the infirmary, the injuries she does not register, more texts, td29 = the hours she will not account for, td30 = more of the arc (the water, V's wait, the trailer, the clip, the cast). `td1_engine.js` snapshots `EV_ORIG` (the original morning events) at the top of the TD block.
   - `maps.json`: tile rows for every top-down map.
   - `deep_rooms.json`, `city_rooms.json`: room rectangles, emitted as `TD_DEEPROOMS` / `TD_CITYROOMS`.
 - `tools/`:
@@ -463,4 +463,13 @@ About the hours Misaki cannot remember. She has enough to work out what probably
 **Scenes** (all after discharge, staggered by day; each has a V-side version unless noted): `kd_math` (the sum), `kd_clothes` (the paper bag), `kd_exam` (the form with two boxes), `kd_photos` (the envelope marked "do not show patient"), `kd_wash` (Misaki only: the fifth wash), `kd_smell` (the konbini queue), `kd_notask` (Angel asks to ask), `kd_vknows` (V only), `kd_later` (Act II onward, deny ≥ 3).
 **Drafts:** `kd_draft` repeats over four nights. Misaki's thread with V shows system lines "draft, not sent" that get shorter each night; V's side shows "is typing… stopped". On the fourth night she sends a question about the cactus.
 **Talk:** `kd_second` in both directions (the doctor's second page). **Threads:** `tx_kd_sleep`, `tx_kd_ask`, `tx_kd_vdots`. **Ending:** one line by `deny`.
+
+## More of the arc (td30)
+
+- **Cell:** "A cup of water" appears after every dose (`S.f.kdCup`). Drinking clears the sedative faster; thanking the man through the slot twice (`S.f.kdThanks`) means he looks at the floor on the dock stairs and that stage has one guard fewer. The radio spot now also gives three overheard exchanges (`S.f.kdHear`; the buyer comes Friday, the driver sings, the photograph for "the dog man").
+- **V while she is gone:** `kd_vphoto` (her hand on a table: study it for the guard schedule, reply and warn them, or show Ronin, who claims the man who did it: `S.f.kdRonCall`), `kd_vfloor` (Ronin and Angel on the atrium floor).
+- **After:** `kd_home` (the first trip back to the trailer: sleep there, move it three metres, or leave), `kd_parcel` (her star clip posted back, cleaned: wear it for one extra smoke in the finale, file it, or the river), `kd_ronradio` (if Ronin called the radio man and nobody has handled him by day three, Ronin does, which crosses him off the list) and `kd_ronmad` (if somebody else got there first).
+- **The cast:** `kd_cast` at the start of Act II. If she did the foam ball at least twice in the infirmary (`S.f.kdGripN`) the hand works. If not, `S.f.kdHandBad` makes lockpicking one step harder for the rest of the game (`kdPick`).
+
+**How to reach the drip-needle scene:** play as Misaki, and in the infirmary use the Door while she still believes it is a cell (the door is labelled "Door", not "The door": the first day, or the second if she has not read the chart or been talked round by text). Choose "Go. Now, while you can stand.", take down either figure in the corridor from behind with E, and reach the exit. Reaching the exit without touching anyone gives the Biscuit scene instead; being seen gives V kneeling.
 

@@ -189,7 +189,7 @@ txDef('tx_kd_selfie',{with:'a',pov:'m',prio:2,when:()=>(kdMed()&&S.kd.med.d>=1||
 txDef('tx_kd_rvis',{with:'r',pov:'m',prio:2,when:()=>(kdMed()&&S.kd.med.d>=1||kdPost())&&frT('r')>=1,nodes:{
  start:{in:()=>['came by Vee’s basement hospital. you were out cold','left you a thing on the chair. don’t make it weird'],expire:3,
   opts:()=>[{t:'“why didn’t u wake me”',fx:()=>fr('r',3),reply:()=>['cause you looked like shit and I ain’t any good at the face part','had t’go stand in the yard a minute. Vee’s dogs came and stood with me. fuckin’ embarrassing']},
-   {t:'“i look FINE”',fx:()=>fr('r',2),reply:()=>['sure. yeah. you look fine','(nothing for six minutes)','whoever did the hand is mine t’kill. tell Vee I called it']}]}}});
+   {t:'“i look FINE”',fx:()=>{fr('r',2);S.f.kdRonCall=1},reply:()=>['sure. yeah. you look fine','(nothing for six minutes)','whoever did the hand is mine t’kill. tell Vee I called it']}]}}});
 txDef('tx_kd_mdoor',{with:'m',pov:'v',prio:3,when:()=>kdMed()&&S.kd.med.d>=1&&S.kd.med.clar<3,nodes:{
  start:{in:()=>['V','im in another one. room, bulb, needle in my hand','dont come. its what they want. just telling u so u know i didnt leave on purpose'],expire:2,
   opts:()=>[{t:'“You are in my house. Sublevel two.”',reply:()=>['thats what theyd say'],next:'knock'},
@@ -206,7 +206,7 @@ txDef('tx_kd_adoc',{with:'a',pov:'v',prio:2,when:()=>(kdMed()||kdPost())&&frT('a
    {t:'“She should be told.”',fx:()=>{S.f.kdPolicy='tell'},reply:()=>['then u do it. i’ll hold the hand that isn’t in a cast']}]}}});
 txDef('tx_kd_rhand',{with:'r',pov:'v',prio:2,when:()=>(kdMed()||kdPost())&&frT('r')>=1,nodes:{
  start:{in:()=>['which one did the hand'],expire:3,
-  opts:()=>[{t:'“The man with the radio stood on it. It was already broken.”',fx:()=>{apply({veng:4});fr('r',2)},reply:()=>['mine','you get the rest. that one’s mine t’kill. I’m askin’ nice']},
+  opts:()=>[{t:'“The man with the radio stood on it. It was already broken.”',fx:()=>{apply({veng:4});fr('r',2);S.f.kdRonCall=1},reply:()=>['mine','you get the rest. that one’s mine t’kill. I’m askin’ nice']},
    {t:'“She does not know that it is broken.”',fx:()=>fr('r',2),reply:()=>['...the fuck d’you mean she don’t know','(typing for a long time)','okay. then nobody tells her it was him. she finds out when he’s already in my freezer']}]}}});
 const _xeKD2=extraEnding;extraEnding=function(){const L=_xeKD2();if(!S||!S.f||!S.kd||!S.kd.t0)return L;const f=S.f;
  if(f.kdStab)L.push('V has a small round scar on his left forearm from a drip needle. He says a dog did it, and the dog he names changes each time.');
