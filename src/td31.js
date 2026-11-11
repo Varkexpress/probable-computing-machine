@@ -68,21 +68,14 @@ txDef('tx_kd_ronsoft',{with:'r',pov:'m',prio:2,when:()=>kdPost()&&frT('r')>=1&&(
  two:{in:()=>['right?'],
   opts:()=>[{t:'“right”',fx:()=>{kdDeny();fr('r',2)},reply:()=>['right','good','you look like shit and you owe me 2000 yen']},
    {t:'“right. now be an asshole again”',fx:()=>{kdDeny();fr('r',3)},reply:()=>['you look like shit, you owe me 2000 yen, and I spat in the soup','better?','there she is']}]}}});
-txDef('tx_kd_ronknows',{with:'r',pov:'v',prio:2,when:()=>kdPost()&&frT('r')>=1&&S.f.kd_math,nodes:{
- start:{in:()=>['Vee','is it what I think it is'],expire:3,
-  opts:()=>[{t:'“Yes.”',fx:()=>apply({veng:5}),reply:()=>['(nothing for eleven minutes)','which ones'],next:'which'},
-   {t:'“It is hers to say.”',reply:()=>['that’s a yes','okay','which ones'],next:'which'}]},
- which:{in:()=>['all four? or we don’t know'],
-  opts:()=>[{t:'“We do not know. She will not look.”',fx:()=>{S.f.kdRonAll=1;fr('r',2)},reply:()=>['then all four','I ain’t askin’ her. I ain’t ever gonna ask her','I’m just gonna be real fuckin’ thorough']},
-   {t:'“Do not ask her.”',fx:()=>fr('r',1),reply:()=>['I look like I’d ask her?','I’m gonna go fix her fuckin’ step. then I’m gonna go find somebody and take my time']}]}}});
 /* the bill */
-kdEv('kd_crash',()=>S.phase!=='after'&&(S.kd.deny||0)>=6&&!S.f.kdCrash,done=>{S.f.kdCrash=S.day;const m=kdMe();if(m){S.slot=Math.max(S.slot,2);S.energy=clamp(S.energy-30)}save();say([
+kdEv('kd_crash',()=>S.phase!=='after'&&!S.f.kdTold&&(S.kd.deny||0)>=6&&!S.f.kdCrash,done=>{S.f.kdCrash=S.day;const m=kdMe();if(m){S.slot=Math.max(S.slot,2);S.energy=clamp(S.energy-30)}save();say([
  ['',m?'She goes down on the stairs at V’s. There is no warning. She is carrying a bowl, and then she is looking at the underside of the banister and the bowl is in four pieces.':'She goes down on the stairs with a bowl in her hand. He hears the bowl. He is there before it has stopped moving.'],
  ['','She has slept eleven hours in four days.'],
  ['hitmeuppp',MV('low blood sugar.','low blood sugar. it’s a thing. i skipped lunch.','Low blood sugar. I skipped lunch, that’s all.','Blood sugar. I skipped lunch. Don’t carry me, V, I’m — fine, carry me, but it’s blood sugar.')],
  ['K9','(It is not her blood sugar. I made her lunch and watched her eat it.)'],
  ['',m?'(Most of the day is gone.)':'He carries her to the couch and agrees about the blood sugar, and brings her a second lunch.']],()=>{kdDeny();done()})});
-kdEv('kd_crash2',()=>S.phase!=='after'&&(S.kd.deny||0)>=9&&S.f.kdCrash&&S.day>S.f.kdCrash+1&&!S.f.kdCrash2,done=>{S.f.kdCrash2=1;apply({heat:8,edge:4});save();const m=kdMe();say([
+kdEv('kd_crash2',()=>S.phase!=='after'&&!S.f.kdTold&&(S.kd.deny||0)>=9&&S.f.kdCrash&&S.day>S.f.kdCrash+1&&!S.f.kdCrash2,done=>{S.f.kdCrash2=1;apply({heat:8,edge:4});save();const m=kdMe();say([
  ['',m?'She is on a roof with a man in the scope, four hundred metres, no wind. Her finger does not close. She tells it to, and nothing happens, and he walks out of the frame with his coffee.':'She comes back from a job at noon with the rifle clean. It has not been fired. She has never once come back with it clean.'],
  ['hitmeuppp',MV('wind.','wind. bad wind. called it off.','The wind was wrong. I called it off.','The wind was wrong. I called it. It’s professional judgement, people pay extra for that.')],
  ['',m?'There was no wind. She checked three times, the way she checks everything now.':'There was no wind today. He looked.'],
@@ -95,7 +88,7 @@ kdEv2('kd_march',8,()=>S.f.kdFile==='open'&&S.phase!=='after'&&frT('a')>=1,done=
   {t:m?'“the 14th. it’s when u give stuff back.”':'“The fourteenth. One returns gifts on that day.”',fn:()=>{S.f.kdBday=14;fr('a',3);apply({aff:3});save();say([['','V gives her a card on the fourteenth, in fountain pen. It says “Returned with thanks: one year.” She doesn’t understand it until the evening, and then she has to go and sit in the truck.']],done)}},
   {t:m?'“all of them. i’m owed like twenty.”':'“All thirty-one. She is owed arrears.”',fn:()=>{S.f.kdBday=31;fr('a',4);apply({aff:2});save();say([[AN,'THIRTY-ONE CAKES. finally somebody in this house with ambition.'],['','By the ninth of March the dogs have learned the song.']],done)}}]))});
 const _xeKD5=extraEnding;extraEnding=function(){const L=_xeKD5();if(!S||!S.f||!S.kd||!S.kd.t0)return L;const f=S.f;
- if(f.kdHas)L.push('She still says she remembers none of it. She remembers a ceiling, and that the radio was turned up first. She has never told anyone, and three people know.');
+ if(f.kdHas)L.push('She still says she remembers none of it. She remembers a ceiling, and that the radio was turned up first. She has never told anyone.');
  if(f.kdCrash2)L.push('There are jobs she turns down now, on windless days, and she blames the wind.');
  if(f.kdBday)L.push(f.kdBday===31?'She has thirty-one birthdays a year, all in March. Angel keeps a spreadsheet of cakes.':'Her birthday is the '+(f.kdBday===3?'third':'fourteenth')+' of March. She picked the month at nine and the day at twenty-two.');
  return L};

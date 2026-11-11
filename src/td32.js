@@ -61,7 +61,7 @@ kdEv2('kd_results',5,()=>S.f.kd_cup,done=>{const m=kdMe();say([
   {t:'“u open it. tell me if i’m dying. nothing else.”',dis:tier()<2,sub:tier()<2?'not close enough':'',fn:()=>{kdDeny();S.f.kdRes='v';apply({aff:3});save();say([['','He reads it standing up.'],['K9','You are not dying.'],['hitmeuppp',MV('k.','k. that’s all i wanted.','Good. That’s all I asked.','Good. That’s all I asked for, so that’s all you say. Not one more word off that page, ever.')],['','He folds it along its own creases. The dates for six weeks and three months go into the kitchen calendar in his handwriting. He writes “dentist.”']],done)}}]:[
   {t:'Read it. Tell her only whether she is dying.',fn:()=>{kdDeny();S.f.kdRes='v';apply({aff:3});save();say([['K9','You are not dying.'],['hitmeuppp',MV('k.','k. good. shred it.','Good. Shred it.','Good. That’s the only thing on that page I’m interested in. Shred the rest.')],['','He does not shred it. He writes two dates in the kitchen calendar, six weeks and three months, and beside each he writes “dentist.”']],done)}},
   {t:'Put it in the archive, sealed.',fn:()=>{kdDeny();S.f.kdRes='sealed';save();say([['','It goes under M, unopened, with the photographs. He writes the two follow-up dates in the calendar himself, and writes “dentist” beside them.']],done)}}]))});
-kdEv('kd_dentist',()=>S.phase!=='after'&&S.f.kdRes&&!S.f.kd_dentist&&kdD()>=10,done=>{S.f.kd_dentist=1;save();const m=kdMe();say([
+kdEv('kd_dentist',()=>S.phase!=='after'&&!S.f.kdTold&&S.f.kdRes&&!S.f.kd_dentist&&kdD()>=10,done=>{S.f.kd_dentist=1;save();const m=kdMe();say([
  ['','The kitchen calendar says “dentist” today, in his handwriting. It is the six-week date.'],
  ['',m?'She drives herself. The clinic is on the second floor, above a pharmacy.':'She says she will drive herself. He lets her.']],()=>ask(m?'hitmeuppp':'K9',m?'(The car park. Engine off.)':'(She has been gone three hours for a twenty-minute appointment.)',m?[
   KD_NO('Go up.'),
@@ -110,10 +110,6 @@ txDef('tx_kd_docstop',{with:'v',pov:'m',prio:2,when:()=>kdPost()&&S.f.kd_ask&&ti
  two:{in:()=>['Is there anything you want me to tell her?'],
   opts:()=>[{t:'“tell her nothing happened”',fx:()=>kdDeny(),reply:()=>['I will tell her that you said so.','(he has put it in quotation marks, the way she did)']},
    {t:'“tell her thanks for the vitamins”',fx:()=>{apply({aff:2})},reply:()=>['I will tell her.','They are working. You may take that as you like.']}]}}});
-txDef('tx_kd_leaflet',{with:'a',pov:'m',prio:2,when:()=>kdPost()&&S.f.kd_ask&&frT('a')>=1,nodes:{
- start:{in:()=>['so ur doctor cornered me in the drive','she wanted me to “have a word.” i said i’d rather eat my ring light','she gave me a leaflet. i’m not giving u the leaflet'],expire:3,
-  opts:()=>[{t:'“good. burn it”',fx:()=>{kdDeny();fr('a',2)},reply:()=>['can’t. it’s in my bag now. it lives there','i’m not going to read it at u. i read it in the car and then i sat there a while','wear the pink tomorrow. i’m doing ur nails and we’re talking about NOTHING']},
-   {t:'“what’s it say”',fx:()=>{fr('a',3);S.f.kdAskedOnce=1},reply:()=>['...','it says don’t push','so i’m not','that’s the first thing u’ve asked anybody. i’m not making it weird. i’m making it normal. what do u want for lunch']}]}}});
 const _xeKD6=extraEnding;extraEnding=function(){const L=_xeKD6();if(!S||!S.f||!S.kd||!S.kd.t0)return L;const f=S.f;
  if(f.kd_window)L.push('The window closed on a Saturday at about four in the afternoon. She had it marked. There is a sealed envelope in the archive with a number on it, and eleven photographs of a back she says is not hers.');
  if(f.kdBloodGiven)L.push('She went to the six-week appointment under a false name and never rang for the result. It is the only time she came near it.');

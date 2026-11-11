@@ -4,7 +4,7 @@
    Rule for every scene here: what happened is never named, by her or by the narration. The honest option is always on
    the menu, greyed out. Each time she pretends, S.kd.deny goes up, and it costs her sleep (energy each morning) and
    lowers the ceiling on her composure. Nothing in the game lets her say it. */
-const kdDeny=n=>{const k=KD();k.deny=(k.deny||0)+(n||1);save()};
+let kdDeny=n=>{const k=KD();k.deny=(k.deny||0)+(n||1);save()};
 const KD_NO=(t,why)=>({t,sub:why||'she is not going to',dis:true,fn:()=>{}});
 const kdEv2=(id,d,when,run)=>kdEv(id,()=>kdD()>=d&&!S.f[id]&&(!when||when()),done=>{S.f[id]=1;save();run(done)});
 /* the cost: she sleeps badly and says she doesn't */
@@ -114,6 +114,6 @@ txDef('tx_kd_vdots',{with:'m',pov:'v',prio:2,when:()=>kdPost()&&(S.f.kdDraft||0)
   opts:()=>[{t:'“I would read the half that arrived.”',fx:()=>{apply({aff:3});calm(2)},reply:()=>['ok','ok. good','im not sending one. just checking']},
    {t:'“I would not be normal. I would be on the stairs.”',fx:()=>apply({aff:2}),reply:()=>['ur always on the stairs','...its fine. i like knowing where the stairs are']}]}}});
 const _xeKD3=extraEnding;extraEnding=function(){const L=_xeKD3();if(!S||!S.kd||!S.kd.t0)return L;const d=S.kd.deny||0;
- if(d>=3)L.push('She never did the sum. Everyone who loves her has done it for her and kept the answer to themselves. She sleeps four hours a night and says six, and it is the thing most likely to kill her, and it is on nobody’s list.');
+ if(d>=3)L.push('She never did the sum. The people who love her have each guessed at part of the answer, and none of them has said so. She sleeps four hours a night and says six, and it is the thing most likely to kill her, and it is on nobody’s list.');
  else if(d>0)L.push('There is a second page of the doctor’s notes that she has not read. It is in the archive under M, and it will keep.');
  return L};

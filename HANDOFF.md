@@ -24,7 +24,7 @@
   - Everything outside those markers is the original game, edited in place in `index.html`. Story beats like `takenM`, `afterBase` and `startAct2` live there.
 - `src/`: the source of the two generated regions.
   - `td1_engine.js`, `td2_scene.js`, `td3_trailer.js`, `td4_base.js`, `td5_story.js` → TD block.
-  - `ui2.js`, `td6.js` … `td33.js` → UI2 block. Load order is in `tools/build.py`; td12 loads before td11 on purpose. td24 = "what it costs" scenes, td25 = alternate universes, td26 = morning-event picker, td27 = the harder kidnapping, its aftermath and the blank, td28 = longer captivity, the infirmary, the injuries she does not register, more texts, td29 = the hours she will not account for, td30 = more of the arc (the water, V's wait, the trailer, the clip, the cast), td31 = what she says she doesn't remember, td32 = what was done with care (the medical side). `td1_engine.js` snapshots `EV_ORIG` (the original morning events) at the top of the TD block.
+  - `ui2.js`, `td6.js` … `td34.js` → UI2 block. Load order is in `tools/build.py`; td12 loads before td11 on purpose. td24 = "what it costs" scenes, td25 = alternate universes, td26 = morning-event picker, td27 = the harder kidnapping, its aftermath and the blank, td28 = longer captivity, the infirmary, the injuries she does not register, more texts, td29 = the hours she will not account for, td30 = more of the arc (the water, V's wait, the trailer, the clip, the cast), td31 = what she says she doesn't remember, td32 = what was done with care (the medical side). `td1_engine.js` snapshots `EV_ORIG` (the original morning events) at the top of the TD block.
   - `maps.json`: tile rows for every top-down map.
   - `deep_rooms.json`, `city_rooms.json`: room rectangles, emitted as `TD_DEEPROOMS` / `TD_CITYROOMS`.
 - `tools/`:
@@ -481,7 +481,7 @@ Same rules as td29 (never named; honest option greyed with `KD_NO`; each pretenc
 - `kd_slip`: at dinner she uses a detail from the hours she claims to have slept through. Everyone hears it.
 - `kd_sleeptalk`: what she says asleep. V tells her she counted the dogs, which is true as far as it goes.
 - `kd_bank` (Misaki): she closes the account she swore at in the cell; the lobby plays the jingle. `kd_jacket`: Angel helps her out of a coat from behind (adds a journal note). `kd_shop`: no more shorts. (The shoebox scene `kd_box` was removed at the author's request.)
-- Other people finding out without being told: `tx_kd_ronsoft` (Ronin is nice to her, which is how she knows he knows), `tx_kd_ronknows` (V's side).
+- Other people catching on without being told: `tx_kd_ronsoft` (Ronin is nice to her, which is how she knows he has guessed).
 - The bill: `kd_crash` (deny ≥ 6, Act II on: she collapses on the stairs and loses most of a day) and `kd_crash2` (deny ≥ 9: her trigger finger doesn't close on a windless roof; heat +8).
 - Relief: `kd_march` (needs the enrolment form opened): Angel makes her pick a day for the birthday she invented at nine. The 3rd, the 14th, or all thirty-one.
 
@@ -499,7 +499,7 @@ The doctor is correct and kind throughout. The horror is the procedure: a requir
 - `kd_results`: the lab envelope for the addressee only; the repeat dates go in the kitchen calendar as "dentist" (`S.f.kdRes`).
 - `kd_dentist` (Act II on): the six-week date. Sit in the car park and report no cavities, or go up under a false name and never ring for the result (`S.f.kdBloodGiven`, the nearest she comes).
 - `kd_vdoc` (V): the doctor may not say what she thinks, has no doubt, and leaves a leaflet that says "do not push".
-- Threads: `tx_kd_docstop` (Misaki to V about the doctor), `tx_kd_leaflet` (Angel was given the leaflet and won't hand it over).
+- Thread: `tx_kd_docstop` (Misaki to V about the doctor).
 - Kept from the earlier version: `kd_pins`, `kd_wrists`, `kd_vtable` and the infirmary cabinet (treatment without sedation).
 - Related scenes elsewhere: `kd_exam` and `kd_photos` (td29), the sealed box in the fridge and `kd_kitgone` (td33).
 
@@ -513,4 +513,23 @@ The doctor is correct and kind throughout. The horror is the procedure: a requir
 - **Other scenes:** `kd_maria` (V, while she is gone: Maria asks two million viewers for leads, then picks up the shotgun; sets `angelHelp`), `kd_vod` (Misaki watches it afterwards), `kd_roncrow` (Ronin wants one name off the list: the driver, none, or a lucky dip; `S.f.kdRonGot`).
 
 **Voice pass on Angel and Ronin (this session's lines):** Ronin's reassuring lines were made ruder ("I'll lie to you too, but I'm funnier about it"; the soup is from a can and he spat in it), a narrated closer inside a text bubble was cut, and he no longer types "u". Angel lost filler ("cute!! 💕", stray "babe") and gained appetite ("who did the eye. asking for a friend. the friend is a shotgun"; "i go and have a night out"). On camera she is Maria, in full soft sentences; off it she is the Angel.
+
+## The one who knows, and ordinary days (td34)
+
+**Nobody tells Angel or Ronin.** The threads where they were told outright were removed (`tx_kd_ronknows`, where V answered "Yes"; `tx_kd_leaflet`, where the doctor gave Angel a leaflet). What they have, they worked out: the slip at dinner, the jacket, the shopping, Ronin being nice. Keep it that way.
+
+**The hidden route** (`kd_last`, Misaki's POV only). On the last Saturday the examination would still show, with V out walking the dogs, the doctor asks for the last time. "Answer the question." is greyed out as usual unless `kdCanTell()` is true, which needs all five:
+1. she kept the room and wrote it down (`S.f.kdKeep === 1`, from `kd_blank`);
+2. she read the note-taker's notebook herself (`S.f.kdBook === 'read'`, so the note-taker must be dealt with on the list first);
+3. she looked at the photographs and did not later tear them up (`S.f.kdPhotos === 'seen'`: "Look." in `kd_photos`, then "Hand them back" in `kd_photodeny`);
+4. she took the "precaution" tablets without asking (`S.f.kdCupTook === 1`);
+5. she found the white box in the infirmary fridge (`S.f.kdKit`), which means recognising the infirmary before discharge.
+`kd_window` must also have fired. `kd_kitgone` now waits for `kd_last`, so the window cannot close first.
+
+On that route she breaks down, allows the examination and the questions, and makes the doctor promise that nobody ever learns she admitted it, V included. It is still never named. Sets `S.f.kdTold`. After it: `deny` is halved and only one pretence in three counts; the collapse scenes (`kd_crash`, `kd_crash2`) do not happen; `kd_told_box`, `kd_told_dentist` (she keeps the appointment under her own name, reads the result at a post-office box, and still tells V "no cavities") and `kd_told_sleep` replace the usual ones; the ending says one person knows. **To everyone else she behaves exactly as before, and no text in V's POV may show that he knows she said it.**
+
+**Ordinary days** (nothing to do with the kidnapping; gated by `G34()`: not dark, not taken, not the after-phase, not Act III):
+- Morning scenes: `g_pancake`, `g_review` (4.4 stars, docked for humming), `g_board` (V), `g_couch` (Ronin), `g_brand` (Maria's knife sponsorship), `g_cat` (V; Misaki names him Receipt, `S.f.gCat`), `g_leak` (rain, trailer), `g_book` (the group reads Persuasion).
+- Threads: `tx_g_bet`, `tx_g_knife`, `tx_g_stars`, `tx_g_receipt`.
+- **Night market at the shrine:** an evening option every third day (`gMarket`): shooting gallery (Misaki clears the shelf; V loses to a seven-year-old), takoyaki, a fortune.
 

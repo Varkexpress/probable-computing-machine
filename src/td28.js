@@ -185,7 +185,7 @@ txDef('tx_kd_fine',{with:'v',pov:'m',prio:2,when:()=>kdPost()&&tier()>=1,nodes:{
 txDef('tx_kd_selfie',{with:'a',pov:'m',prio:2,when:()=>(kdMed()&&S.kd.med.d>=1||kdPost())&&frT('a')>=1,nodes:{
  start:{in:()=>['proof of life. selfie. NOW'],expire:3,
   opts:()=>[{t:'[Send one. Thumbs up.]',fx:()=>{fr('a',3);S.f.kdSelfie=1},reply:()=>['(typing for four minutes)','cute. who did the eye. asking for a friend. the friend is a shotgun','i’m coming over. don’t look in any mirrors til i get there. i’m bringing the BIG palette and i need u to not ask why']},
-   {t:'“i look fine, i’ll send one later”',fx:()=>fr('a',1),reply:()=>['V sent me the chart, babe','u don’t have to send one. i’m coming anyway. i just wanted to hear u say “fine” so i could be mad at somebody']}]}}});
+   {t:'“i look fine, i’ll send one later”',fx:()=>fr('a',1),reply:()=>['V told me about the hand','u don’t have to send one. i’m coming anyway. i just wanted to hear u say “fine” so i could be mad at somebody']}]}}});
 txDef('tx_kd_rvis',{with:'r',pov:'m',prio:2,when:()=>(kdMed()&&S.kd.med.d>=1||kdPost())&&frT('r')>=1,nodes:{
  start:{in:()=>['came by Vee’s basement hospital. you were out cold','left you a thing on the chair. don’t make it weird'],expire:3,
   opts:()=>[{t:'“why didn’t u wake me”',fx:()=>fr('r',3),reply:()=>['’cause you looked like somethin’ I’d leave in a ditch. I’m the one who makes people look like that. didn’t care for seein’ it on you','had t’go stand in the yard a minute. Vee’s dogs came and stood with me. fuckin’ embarrassing']},

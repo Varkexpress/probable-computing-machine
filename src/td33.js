@@ -47,7 +47,7 @@ kdEv('kd_discharge',()=>S.f.kdNoteDue&&!S.f.kdNote&&S.kd.rx,done=>{S.f.kdNote=1;
   rx.palmed?['',`“Analgesia: ${rx.palmed*2} tablets recovered from the bed frame, in a row. She reports no pain. I do not believe her and I would like someone to count them out to her.”`]:['','“Analgesia taken as given. Reports pain 2/10. See monitor record.”'],
   ['hitmeuppp',rx.palmed?MV('snitch.','she went through my BED. snitch.','She went through my bed. That’s a violation.','She searched my bed frame. I hid a screw in one of those for three days and nobody found it. She’s better than they were.'):MV('model patient.','“compliant.” that’s me. frame it.','“Compliant.” Put that on the fridge.','“Compliant.” Nobody has ever called me that. Put it on the fridge next to March.')],
   m?null:['K9',rx.palmed?'(I will count them out to her. She will take them if a dog is watching.)':'(She let herself be looked after. I had not been sure that she would.)']].filter(Boolean),done)});
-kdEv2('kd_kitgone',3,()=>S.f.kdKit,done=>{const m=kdMe();say([
+kdEv2('kd_kitgone',3,()=>S.f.kdKit&&!S.f.kdTold&&(S.f.kd_last||!S.f.kd_window||!kdMe()),done=>{const m=kdMe();say([
  ['','The white box has gone from the bottom shelf of the infirmary fridge. The date on it was yesterday. Somebody has wiped the shelf.'],
  ['hitmeuppp',MV('more room for soup.','more room for soup. good.','Good. More room for soup.','Good. That shelf was wasted. You can get four tubs on there now.')],
  ['',m?'She counted the five days. She could tell anyone the hour that it ran out, and she isn’t going to.':'She counted the five days. He watched her do it, a finger at a time, on the hand that works.']],()=>{kdDeny();done()})});
