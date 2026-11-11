@@ -24,7 +24,7 @@
   - Everything outside those markers is the original game, edited in place in `index.html`. Story beats like `takenM`, `afterBase` and `startAct2` live there.
 - `src/`: the source of the two generated regions.
   - `td1_engine.js`, `td2_scene.js`, `td3_trailer.js`, `td4_base.js`, `td5_story.js` → TD block.
-  - `ui2.js`, `td6.js` … `td28.js` → UI2 block. Load order is in `tools/build.py`; td12 loads before td11 on purpose. td24 = "what it costs" scenes, td25 = alternate universes, td26 = morning-event picker, td27 = the harder kidnapping, its aftermath and the blank, td28 = longer captivity, the infirmary, the injuries she does not register, more texts. `td1_engine.js` snapshots `EV_ORIG` (the original morning events) at the top of the TD block.
+  - `ui2.js`, `td6.js` … `td29.js` → UI2 block. Load order is in `tools/build.py`; td12 loads before td11 on purpose. td24 = "what it costs" scenes, td25 = alternate universes, td26 = morning-event picker, td27 = the harder kidnapping, its aftermath and the blank, td28 = longer captivity, the infirmary, the injuries she does not register, more texts, td29 = the hours she will not account for. `td1_engine.js` snapshots `EV_ORIG` (the original morning events) at the top of the TD block.
   - `maps.json`: tile rows for every top-down map.
   - `deep_rooms.json`, `city_rooms.json`: room rectangles, emitted as `TD_DEEPROOMS` / `TD_CITYROOMS`.
 - `tools/`:
@@ -449,4 +449,18 @@ A comparison of the build from before the voice and tic passes (commit `89ca4cd`
 `kdCond()` returns 0–4. In the cell it is the session count plus one for a failed escape; in the infirmary it runs 4, 3, 3, 2 by day; it is 2 for three days after discharge and 1 for the rest of the after-phase. It applies to Misaki wherever she is drawn in walkable rooms (as the player, and as an NPC in V's POV) and in the interrogation screen.
 - **Sprite:** `kdRag(a,n,care)` edits the sprite grid and caches the result. In the cell: one shoe missing from the start, red at the wrists, the clip gone after the first failed escape, then a swollen arm, a shut eye, blood at the mouth, on the shirt and in the hair. `kdGrime` darkens her palette with each level. In care: the grime is gone and she has a cast and a head dressing. `tdActor` is wrapped to set the flag `KDF`, which the `tdPx` and `spr` wrappers read.
 - **Movement:** `kdSpeed()` multiplies walking speed in `td2_scene.js` (about 13% slower per level, a little more while sedated, never below 45%). She also drops a pixel on one step in four, and stands a pixel lower from level 3.
+
+## The sum she won't do (td29)
+
+About the hours Misaki cannot remember. She has enough to work out what probably happened in them and refuses to. `src/td29.js`; covered by `tools/kd_test.js`.
+
+**Rules for writing in this module (keep them):**
+- What happened is never named, by her, by anyone else, or by the narration. The evidence is shown (the hours, the photographs of her back, clothes that were not hers, the examination she declines, a cologne) and she explains each piece away.
+- She knows. Tier-3 lines say so ("I know what that comes to. I've known since the car."). So does V.
+- The honest option is always on the menu and always greyed out (`KD_NO(label)`). Nothing in the game lets her say it. V can decline to force it; he cannot make her.
+- Each pretence calls `kdDeny()` (`S.kd.deny`). From then on she starts every morning with less energy (2 per point, up to 14), and in the after-phase her composure is capped at 100 − 4 × deny (floor 60).
+
+**Scenes** (all after discharge, staggered by day; each has a V-side version unless noted): `kd_math` (the sum), `kd_clothes` (the paper bag), `kd_exam` (the form with two boxes), `kd_photos` (the envelope marked "do not show patient"), `kd_wash` (Misaki only: the fifth wash), `kd_smell` (the konbini queue), `kd_notask` (Angel asks to ask), `kd_vknows` (V only), `kd_later` (Act II onward, deny ≥ 3).
+**Drafts:** `kd_draft` repeats over four nights. Misaki's thread with V shows system lines "draft, not sent" that get shorter each night; V's side shows "is typing… stopped". On the fourth night she sends a question about the cactus.
+**Talk:** `kd_second` in both directions (the doctor's second page). **Threads:** `tx_kd_sleep`, `tx_kd_ask`, `tx_kd_vdots`. **Ending:** one line by `deny`.
 
