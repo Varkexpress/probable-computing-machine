@@ -3,7 +3,7 @@
 /** Pseudo-submissions the prior is worth. Higher = real data takes longer to override the seed bands. */
 export const PRIOR_STRENGTH = 150;
 /** Prior weight given to a valid answer that was not in the seed list (found by the LLM or a moderator). */
-export const DISCOVERED_WEIGHT = 0.1;
+export const DISCOVERED_WEIGHT = 0.02; // seed weights sum to 100, so this is a 0.02% prior
 export const ROUND_SECONDS = 25;
 export const ROUNDS = 7;
 export const MAX_POINTS = 1000;

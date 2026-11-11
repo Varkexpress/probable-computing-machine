@@ -10,7 +10,7 @@
   "scripts": {
     "start": "node --no-warnings server/server.js",
     "dev": "node --no-warnings --watch server/server.js",
-    "test": "node --no-warnings --test test/",
+    "test": "node --no-warnings --test test/*.test.js",
     "check-content": "node scripts/check-content.js",
     "build-static": "node scripts/build-static.js"
   },

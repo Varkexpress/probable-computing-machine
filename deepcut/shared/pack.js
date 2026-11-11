@@ -7,11 +7,16 @@
 // An answer may list aliases with "=": the first name is the display name.
 //   e.g.  `Egypt; Democratic Republic of the Congo=DRC=DR Congo | ...`
 // The band sets the answer's prior weight: an estimate of how often players
-// would give it before any real submission data exists.
+// would give it before any real submission data exists. Each band holds a fixed share of
+// all answers (BAND_MASS, in %), split evenly across the answers in that band, so a long
+// list doesn't dilute how obvious the reflexive answers are.
 
 import { norm, squash } from './normalize.js';
 
-export const BAND_WEIGHTS = [40, 12, 4, 1, 0.25];
+export const BAND_MASS = [55, 25, 12, 6, 2];
+// A band is treated as at least this many answers wide, so a tiny band (e.g. only four
+// "deep cut" US states) can't make each of its answers look more common than the band above.
+export const BAND_MIN_WIDTH = [1, 5, 12, 30, 60];
 
 /** Parse one prompt's answer DSL into [{display, aliases:[norm...], band, weight}]. */
 export function parseAnswers(src) {
@@ -25,11 +30,15 @@ export function parseAnswers(src) {
       out.push({
         display: names[0],
         aliases,
-        band: Math.min(bi, BAND_WEIGHTS.length - 1) + 1,
-        weight: BAND_WEIGHTS[Math.min(bi, BAND_WEIGHTS.length - 1)],
+        band: Math.min(bi, BAND_MASS.length - 1) + 1,
       });
     }
   });
+  // Spread each band's mass across its answers, then rescale so all weights sum to 100.
+  const counts = BAND_MASS.map((_, i) => out.filter((a) => a.band === i + 1).length);
+  for (const a of out) a.weight = BAND_MASS[a.band - 1] / Math.max(counts[a.band - 1], BAND_MIN_WIDTH[a.band - 1]);
+  const sum = out.reduce((s, a) => s + a.weight, 0) || 1;
+  for (const a of out) a.weight *= 100 / sum;
   return out;
 }
 

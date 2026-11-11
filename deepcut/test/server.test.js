@@ -26,6 +26,12 @@ test('HTTP: static assets, content stays private, full daily game', async () => 
     assert.equal((await fetch(base + '/shared/scoring.js')).status, 200);
     assert.equal((await fetch(base + '/shared/content/pack-a.js')).status, 404, 'answer packs must not be served');
 
+    // Odd request paths must not crash the process (regression: "//" used to throw outside try/catch).
+    for (const odd of ['//', '//evil.com/x', '/%zz']) {
+      const r = await new Promise((resolve) => http.get({ host: '127.0.0.1', port: server.address().port, path: odd }, resolve));
+      assert.ok(r.statusCode < 500, `${odd} -> ${r.statusCode}`);
+      r.resume();
+    }
     const cfg = await call('GET', '/api/config');
     assert.equal(cfg.body.mode, 'server');
 

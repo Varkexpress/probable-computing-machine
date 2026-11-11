@@ -72,8 +72,9 @@ export async function createApp({ dbFile = ':memory:', validator, now } = {}) {
   }
 
   async function handler(req, res) {
-    const url = new URL(req.url, 'http://x');
     try {
+      // Prefix rather than resolve, so odd paths like "//" or "//evil.com" cannot throw or change host.
+      const url = new URL('http://x' + (req.url.startsWith('/') ? req.url : '/' + req.url));
       if (url.pathname.startsWith('/api/')) {
         const ip = req.headers['x-forwarded-for']?.split(',')[0].trim() || req.socket.remoteAddress;
         if (!limiter(ip)) return json(res, 429, { error: 'slow_down', message: 'Too many requests' });

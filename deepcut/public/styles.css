@@ -32,7 +32,7 @@ a { color: var(--magma2); }
 /* ---------- header ---------- */
 .top {
   position: sticky; top: 0; z-index: 20; display: flex; align-items: center; justify-content: space-between;
-  padding: 10px 14px 10px calc(var(--shaft) + 12px);
+  margin-left: var(--shaft); padding: 10px 14px 10px 12px;
   background: linear-gradient(var(--bg) 70%, transparent);
 }
 .brand { font-weight: 900; letter-spacing: .14em; font-size: 18px; display: flex; gap: 8px; align-items: center; }
@@ -85,6 +85,7 @@ p { line-height: 1.5; }
 .btn[disabled] { opacity: .5; pointer-events: none; }
 .btns { display: grid; gap: 10px; }
 .btns.two { grid-template-columns: 1fr 1fr; }
+.btns.two .btn { flex-direction: column; gap: 2px; text-align: center; }
 
 .pill { display: inline-flex; gap: 6px; align-items: center; padding: 5px 10px; border-radius: 99px; background: var(--card2); border: 1px solid var(--line); font-size: 13px; font-weight: 700; color: var(--dim); }
 .streak { color: var(--magma2); }
@@ -155,7 +156,7 @@ p { line-height: 1.5; }
 .score-hero { text-align: center; padding: 22px 16px; }
 .score-hero .km { font-size: clamp(44px, 13vw, 64px); font-weight: 900; line-height: 1; font-variant-numeric: tabular-nums; }
 .score-hero .layer { font-weight: 800; color: var(--magma2); margin-top: 6px; }
-.grid-emoji { font-size: 30px; letter-spacing: 4px; margin: 14px 0 4px; }
+.grid-emoji { font-size: clamp(20px, 6.2vw, 30px); letter-spacing: 2px; margin: 14px 0 4px; white-space: nowrap; }
 .share-box { white-space: pre-wrap; font-family: var(--mono); font-size: 13px; color: var(--dim); background: var(--bg2); border-radius: 12px; padding: 12px; text-align: left; margin: 12px 0; }
 .rv { padding: 14px; }
 .rv + .rv { margin-top: 10px; }

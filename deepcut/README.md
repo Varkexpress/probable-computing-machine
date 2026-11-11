@@ -23,7 +23,7 @@ Requires Node 22.5+ (uses the built-in `node:sqlite`; no other runtime dependenc
 ## 1. Architecture
 
 ```
-            ┌───────────────────────── browser (vanilla ES modules, no build, ~45 KB gzipped) ─┐
+            ┌───────────────────────── browser (vanilla ES modules, no build, ~25 KB gzipped) ─┐
             │ app.js   screens, timer (rAF), shaft animation, share card, anti-cheat listeners   │
             │ api.js   server adapter ──────────┐   offline adapter: same Engine in-browser    │
             │ sound.js WebAudio synth sfx        │   (MemoryStore persisted to localStorage)     │
@@ -101,9 +101,10 @@ https://deepcut.example
 
 ## 4. Dynamic rarity scoring
 
-Each answer has a **prior weight** from its popularity band in the content pack
-(band 1 reflexive = 40, 2 = 12, 3 = 4, 4 = 1, 5 deep cut = 0.25, LLM-discovered = 0.1). Live submissions then
-take over with Bayesian smoothing:
+Each answer has a **prior weight** from its popularity band in the content pack. Each band holds a fixed
+share of all answers (band 1 reflexive 55%, 2: 25%, 3: 12%, 4: 6%, 5 deep cuts 2%), split evenly across the
+answers in it; an answer found by the LLM validator gets 0.02%. Live submissions then take over with
+Bayesian smoothing:
 
 ```
 prior  = weight / Σ weights for the prompt

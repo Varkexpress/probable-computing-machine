@@ -10,6 +10,8 @@ export function norm(s) {
     .replace(/[̀-ͯ]/g, '')
     .toLowerCase()
     .replace(/&/g, ' and ')
+    .replace(/\+\+/g, ' plus plus ')          // C++ -> c plus plus
+    .replace(/([a-z])#/g, '$1 sharp ')        // C#, F# -> c sharp
     .replace(/['’`]/g, '')
     .replace(/[^a-z0-9]+/g, ' ')
     .trim()

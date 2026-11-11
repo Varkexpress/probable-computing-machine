@@ -189,7 +189,7 @@ function home() {
     <div class="card small">
       <p style="margin-top:0">Each answer is ranked by how many players gave it. 1 point = 1 km of depth.</p>
       ${legendHTML()}
-      <p class="muted" style="margin-bottom:0">“Name a fruit” → <b>Apple</b> ≈ 5 km. <b>Rambutan</b> ≈ 400 km. <b>Salak</b> ≈ 700 km.
+      <p class="muted" style="margin-bottom:0">“Name a fruit” → <b>Apple</b> ≈ 15 km. <b>Rambutan</b> ≈ 400 km. <b>Abiu</b> ≈ 750 km.
       Typos are forgiven. Leaving the tab mid-round voids it.</p>
     </div>
     ${api.mode === 'offline' ? '<p class="muted small">Playing offline: scores are ranked against built-in estimates instead of live players.</p>' : ''}
@@ -497,7 +497,7 @@ function duelHTML(res) {
     <div class="card stack">
       <div class="vs"><div><div class="n">${m.mine.toLocaleString()}</div><span class="muted small">you</span></div>
         <div class="pill">${m.outcome === 'win' ? '🏆 You win' : m.outcome === 'loss' ? '💀 They win' : '🤝 Tie'}</div>
-        <div><div class="n">${m.theirs.toLocaleString()}</div><span class="muted small">${d.isCreator ? 'challenger' : 'challenger who sent it'}</span></div></div>
+        <div><div class="n">${m.theirs.toLocaleString()}</div><span class="muted small">${d.isCreator ? 'challenger' : 'your friend'}</span></div></div>
       <table class="duel-table"><tbody>${rows}</tbody></table>
       <p class="muted small" style="margin:0">Red rows: you both said the same thing, so both lost half.</p>
     </div>
@@ -619,7 +619,7 @@ function statsModal() {
     </div>
     <p class="muted small">Average ${avg.toLocaleString()} km · Endless best ${formatKm(profile.endlessBest || 0)} · Duels ${profile.duels.w}W ${profile.duels.l}L ${profile.duels.t}T</p>
     <h2>Answers by rarity</h2>
-    <div class="bars">${counts.map(([t, c]) => `<div class="t-${t.key}"><span style="width:84px">${t.emoji} ${t.name}</span><i style="width:${(c / maxC) * 60}%"></i><b>${c}</b></div>`).join('')}</div>
+    <div class="bars">${counts.map(([t, c]) => `<div class="t-${t.key}"><span style="width:120px;white-space:nowrap">${t.emoji} ${t.name}</span><i style="width:${(c / maxC) * 60}%"></i><b>${c}</b></div>`).join('')}</div>
     <h2>Sync across devices</h2>
     ${sync}
     ${api.mode === 'server' ? `<div class="row" style="margin-top:10px"><input class="text grow" id="codeIn" placeholder="ENTER-A-CODE-0000" aria-label="Sync code"><button class="btn" style="width:auto" data-act="syncLoad">Load</button></div>` : ''}

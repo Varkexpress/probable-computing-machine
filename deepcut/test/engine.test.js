@@ -56,8 +56,8 @@ test('scoring: obvious answers score little, deep cuts score a lot', () => {
   const [fruit] = compilePrompts(FIXTURE);
   const weightSum = fruit.answers.reduce((s, a) => s + a.weight, 0);
   const pts = (name) => pointsFor(rarityShare({ count: 0, total: 0, weight: fruit.answers.find((a) => a.display === name).weight, weightSum }));
-  assert.ok(pts('Apple') < 60, `apple ${pts('Apple')}`);
-  assert.ok(pts('Salak') > 450, `salak ${pts('Salak')}`);
+  assert.ok(pts('Apple') < 20, `apple ${pts('Apple')}`);
+  assert.ok(pts('Salak') > 300, `salak ${pts('Salak')}`);
   assert.ok(pts('Apple') < pts('Mango') && pts('Mango') < pts('Kiwi') && pts('Kiwi') < pts('Rambutan') && pts('Rambutan') < pts('Salak'));
   // Player data overrides the prior: if everyone says Salak, it stops being rare.
   const crowded = pointsFor(rarityShare({ count: 900, total: 1000, weight: 0.25, weightSum }));
@@ -211,7 +211,7 @@ test('LLM fallback adds discovered answers and they match next time', async () =
   }
   const res = await engine.submit(g.id, 'l1', i, 'pitaya');
   assert.equal(res.round.display, 'Dragon fruit');
-  assert.ok(['epic', 'legendary'].includes(res.round.tier));
+  assert.equal(res.round.tier, 'legendary');
   const prompt = await store.getPrompt('fruit');
   assert.ok(prompt.answers.some((a) => a.display === 'Dragon fruit'));
   assert.equal(calls, 1);
