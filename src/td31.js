@@ -60,14 +60,6 @@ kdEv2('kd_shop',5,()=>S.f.kd_clothes&&frT('a')>=1,done=>{const m=kdMe();say([
  ['',m?'Everything she picks is two sizes too big and has a drawstring she can knot.':'She comes home with four bags. Everything in them is two sizes too big and ties at the waist with a knot.'],
  ['hitmeuppp',MV('new look.','new look. it’s called comfort. look it up.','It’s a new look. It’s called being comfortable.','It’s a look. Oversized is in. I read it somewhere. You wouldn’t know, you’ve worn the same coat since the war.')],
  [AN,m?'it’s a great look. i’m paying. don’t argue, i’m armed.':'(to V, later, in the kitchen) i didn’t ask. i paid and i didn’t ask. i want a medal.']],()=>{kdDeny();fr('a',2);done()})});
-/* the shoebox */
-kdEv2('kd_box',6,()=>kdMe()&&(S.kd.deny||0)>=3,done=>say([
- ['','She has a shoebox marked THINGS THAT ARE MINE. Tonight she takes the lid off and puts a second sheet of paper in it.'],
- ['','At the top she writes THINGS THAT DIDN’T HAPPEN, and under it a “1.” and a full stop.'],
- ['','She looks at the 1 for a while. Then she writes “2.” under it, and “3.”, down to the bottom of the page, and leaves every line empty.']],()=>ask('hitmeuppp','(A numbered page with nothing on it.)',[
-  KD_NO('Fill in line one.'),
-  {t:'Put it at the bottom of the box.',fn:()=>{kdDeny();S.f.kdList0=1;save();say([['','It goes under the New Year cards and the rent receipt. The box shuts. It is the most honest thing she has written, and nobody could use it for anything.']],done)}},
-  {t:'Burn it.',fn:()=>{kdDeny();calm(2);say([['','She burns it in the sink. The numbers go last.']],done)}}])));
 /* Ronin being nice is how she knows that he knows */
 txDef('tx_kd_ronsoft',{with:'r',pov:'m',prio:2,when:()=>kdPost()&&frT('r')>=1&&(S.kd.deny||0)>=3,nodes:{
  start:{in:()=>['left soup on your step','also fixed your step. it was loose'],expire:3,

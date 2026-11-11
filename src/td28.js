@@ -19,10 +19,10 @@ const kdFlipG=G=>G.map(p=>p.map(([x,y])=>[19-x,y]));
 
 /* ---------- 1. MORE TO GET THROUGH ---------- */
 /* the chair: stay level while the band narrows */
-function kdHoldOn(cb){cb=once(cb);if(kdAuto())return cb(kdAuto()>0);let y=50,v=0,t=0,inb=0,band=36;const N=560;const say3=['Count the dogs.','Biscuit. Sergeant. Mochi. Pancake.','Again. From Biscuit.','Don’t listen to the radio. Count.'];
+function kdHoldOn(cb,o){cb=once(cb);if(kdAuto())return cb(kdAuto()>0);o=o||{};let y=50,v=0,t=0,inb=0,band=36;const N=o.len||560;const say3=o.lines||['Count the dogs.','Biscuit. Sergeant. Mochi. Pancake.','Again. From Biscuit.','Don’t listen to the radio. Count.'];
  go({onTap(){},update(){t++;v+=held.act?-.1:.075;v+=Math.sin(t/23)*.03+(Math.random()-.5)*.09;v=Math.max(-1.7,Math.min(1.7,v));y+=v;if(y<0){y=0;v=0}if(y>100){y=100;v=0}
    band=36-16*t/N;if(Math.abs(y-50)<=band/2)inb++;if(t>=N)cb(inb/N>=.55)},
-  draw(){drawInterro();rect(0,0,W,H,'rgba(0,0,0,.6)');hudBar('The chair','hold E to stay level');
+  draw(){(o.bg||drawInterro)();rect(0,0,W,H,'rgba(0,0,0,.6)');hudBar(o.title||'The chair',o.hint||'hold E to stay level');
    rect(150,28,20,120,'#1a1612');rect(150,28+(50-band/2)*1.2,20,band*1.2,'#3a5a3a');rect(146,28+y*1.2-1,28,3,'#ece4da');
    bar(110,158,100,4,t/N*100,'#5fd4c4');txt(say3[Math.min(3,Math.floor(t/140))],160,172,'#c9c39a',11,'center')}})}
 /* a timing bar: used for the vent screws and, later, the foam ball */

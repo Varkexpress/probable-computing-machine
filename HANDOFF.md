@@ -24,7 +24,7 @@
   - Everything outside those markers is the original game, edited in place in `index.html`. Story beats like `takenM`, `afterBase` and `startAct2` live there.
 - `src/`: the source of the two generated regions.
   - `td1_engine.js`, `td2_scene.js`, `td3_trailer.js`, `td4_base.js`, `td5_story.js` → TD block.
-  - `ui2.js`, `td6.js` … `td31.js` → UI2 block. Load order is in `tools/build.py`; td12 loads before td11 on purpose. td24 = "what it costs" scenes, td25 = alternate universes, td26 = morning-event picker, td27 = the harder kidnapping, its aftermath and the blank, td28 = longer captivity, the infirmary, the injuries she does not register, more texts, td29 = the hours she will not account for, td30 = more of the arc (the water, V's wait, the trailer, the clip, the cast), td31 = what she says she doesn't remember. `td1_engine.js` snapshots `EV_ORIG` (the original morning events) at the top of the TD block.
+  - `ui2.js`, `td6.js` … `td32.js` → UI2 block. Load order is in `tools/build.py`; td12 loads before td11 on purpose. td24 = "what it costs" scenes, td25 = alternate universes, td26 = morning-event picker, td27 = the harder kidnapping, its aftermath and the blank, td28 = longer captivity, the infirmary, the injuries she does not register, more texts, td29 = the hours she will not account for, td30 = more of the arc (the water, V's wait, the trailer, the clip, the cast), td31 = what she says she doesn't remember, td32 = what was done with care (the medical side). `td1_engine.js` snapshots `EV_ORIG` (the original morning events) at the top of the TD block.
   - `maps.json`: tile rows for every top-down map.
   - `deep_rooms.json`, `city_rooms.json`: room rectangles, emitted as `TD_DEEPROOMS` / `TD_CITYROOMS`.
 - `tools/`:
@@ -480,8 +480,30 @@ Same rules as td29 (never named; honest option greyed with `KD_NO`; each pretenc
 - `kd_recount`: the receipt says N hours; the true number is smaller, and she leaves it or rounds it up.
 - `kd_slip`: at dinner she uses a detail from the hours she claims to have slept through. Everyone hears it.
 - `kd_sleeptalk`: what she says asleep. V tells her she counted the dogs, which is true as far as it goes.
-- `kd_bank` (Misaki): she closes the account she swore at in the cell; the lobby plays the jingle. `kd_jacket`: Angel helps her out of a coat from behind (adds a journal note). `kd_shop`: no more shorts. `kd_box` (Misaki, deny ≥ 3): a page headed THINGS THAT DIDN'T HAPPEN, numbered, with every line empty.
+- `kd_bank` (Misaki): she closes the account she swore at in the cell; the lobby plays the jingle. `kd_jacket`: Angel helps her out of a coat from behind (adds a journal note). `kd_shop`: no more shorts. (The shoebox scene `kd_box` was removed at the author's request.)
 - Other people finding out without being told: `tx_kd_ronsoft` (Ronin is nice to her, which is how she knows he knows), `tx_kd_ronknows` (V's side).
 - The bill: `kd_crash` (deny ≥ 6, Act II on: she collapses on the stairs and loses most of a day) and `kd_crash2` (deny ≥ 9: her trigger finger doesn't close on a windless roof; heat +8).
 - Relief: `kd_march` (needs the enrolment form opened): Angel makes her pick a day for the birthday she invented at nine. The 3rd, the 14th, or all thirty-one.
+
+## What was done with care (td32)
+
+The author asked for the missing hours to lean medical. The evidence on her body is not that of a beating: somebody in that building could operate, dose on a schedule and keep a chart, and she was being kept well for the buyer. Nobody finds out for what. td29's rules still apply (nothing named, honest option greyed, `kdDeny()`). `kd_test.js` now takes about three minutes.
+
+**What they find:**
+- `kd_sutures`: nine stitches in her back that V's doctor did not put in, a week older, a surgeon's work.
+- `kd_xray`: three surgical clips under them. Something was tied off inside. She will not let it be opened.
+- `kd_blood`: a prophylactic antibiotic, an anticoagulant, and a fourth substance sent to Osaka (`S.f.kdOsaka`; thread `tx_kd_lab`).
+- `kd_light`: she remembers a round lamp with six bulbs and a voice counting backwards, and decides it was a dentist. She stops eating under V's kitchen lamp.
+- `kd_weight`: "52.4" and a date in marker on her forearm. V has written weights on things on his own table.
+- `kd_teeth`: the two molars were extracted with forceps; they held her only dental record.
+- `kd_obs` (needs the notebook decided and the X-ray seen): the notebook's four side columns are pulse, pressure, breaths and depth. The note-taker was an anaesthetist; his list entry text changes.
+
+**Treatment in V's house, without sedation:**
+- `kd_pins`: the pins come out with pliers. Misaki plays `kdHoldOn` (now takes options: title, hint, lines, length, background); V chooses whether to hold her hand.
+- `kd_wrists`: the dressing changes, and the tendon she finds interesting.
+- `kd_vtable` (V): her hand was repaired on the table he butchers on. He can tell her or say it was the dog-washing room.
+- Infirmary: a cabinet spot ("Steel cabinet" while she thinks it is a cell, "Supply cabinet" after: she is being treated out of the dogs' medicine cupboard).
+- Thread `tx_kd_awell` (V): Angel asks what they did. "They kept her well."
+
+**New canon to confirm:** the nine sutures, three clips and unidentified drug; the extracted molars; the weight in marker; the note-taker as an anaesthetist; an unnamed dentist (speaker label "Dentist") alongside the unnamed doctor ("The doctor").
 
