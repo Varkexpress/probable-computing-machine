@@ -444,3 +444,9 @@ The TODAY notes column on the city map (`cityMap` in `td6.js`) drew one note eve
 
 A comparison of the build from before the voice and tic passes (commit `89ca4cd`) with the current one found no other loss: same event ids, functions, threads, spot labels, hub options, topics and places on all eight benchmark saves, and every morning event runs to completion on every benchmark in both. If something else is missing, it needs a specific example to chase.
 
+## Her condition on screen (end of td28)
+
+`kdCond()` returns 0–4. In the cell it is the session count plus one for a failed escape; in the infirmary it runs 4, 3, 3, 2 by day; it is 2 for three days after discharge and 1 for the rest of the after-phase. It applies to Misaki wherever she is drawn in walkable rooms (as the player, and as an NPC in V's POV) and in the interrogation screen.
+- **Sprite:** `kdRag(a,n,care)` edits the sprite grid and caches the result. In the cell: one shoe missing from the start, red at the wrists, the clip gone after the first failed escape, then a swollen arm, a shut eye, blood at the mouth, on the shirt and in the hair. `kdGrime` darkens her palette with each level. In care: the grime is gone and she has a cast and a head dressing. `tdActor` is wrapped to set the flag `KDF`, which the `tdPx` and `spr` wrappers read.
+- **Movement:** `kdSpeed()` multiplies walking speed in `td2_scene.js` (about 13% slower per level, a little more while sedated, never below 45%). She also drops a pixel on one step in four, and stands a pixel lower from level 3.
+

@@ -243,3 +243,36 @@ tdMap('medbay',Object.assign({floor:'lino',wall:'tile',backLabel:'stay in bed',r
   {id:'mb_ball',flat:1,solid:false,x:142,y:118,w:6,d:6,legacy:'Foam ball',show:()=>kdClar()>=2,draw:(x,y)=>{c.fillStyle='#e0c84a';c.beginPath();c.arc(x+3,y+3,3,0,7);c.fill()}},
   {id:'mb_dogbed',kind:'deco',flat:1,solid:false,x:196,y:104,w:22,d:14,show:()=>kdClar()>=2,draw:(x,y)=>{rect(x,y,22,14,'#5a4030');rect(x+2,y+2,18,10,'#8a6a4a')}}]},kdNoLeave));
 const _tdAmbKD=tdAmbient;tdAmbient=function(M,z){if(M&&(M.id==='cell'||(M.id==='medbay'&&kdClar()<2)))return{d:.66,col:'12,8,4'};if(M&&M.id==='medbay')return{d:.3,col:'8,10,16'};return _tdAmbKD(M,z)};
+
+/* ---------- 5. WHAT IT DOES TO HER: the sprite and her pace ---------- */
+/* kdCond() 0–4. In the cell it climbs with each session and failed escape. In the infirmary it starts at 4 and comes
+   down a step at a time; a cast and a head dressing stay for the rest of the after-phase. Her walking speed follows it. */
+function kdCond(){if(!S||!S.kd||isLone())return 0;const k=S.kd;if(S.phase==='taken')return S.pov==='v'?0:Math.min(4,k.ses+((S.tries||0)>=1?1:0));
+ if(S.phase!=='after'||!k.t0)return 0;if(k.med)return [4,3,3,2][Math.min(3,k.med.d)];return S.day-k.t0<3?2:1}
+function kdSpeed(){if(typeof tdWho!=='function'||tdWho()!=='m')return 1;const n=kdCond();if(!n)return 1;return Math.max(.45,1-.13*n-(S.phase==='taken'?kdWoozy()*.06:0))}
+const KD_RAG=new Map();
+function kdRag(a,n,care){const key=n+(care?'c':'t')+((S.tries||0)>=1?'x':'');let m=KD_RAG.get(a);if(!m){m=new Map();KD_RAG.set(a,m)}let b=m.get(key);if(b)return b;
+ const g=a.map(r=>r.split(''));const H=g.length,Wd=g[0].length;const at=(j,i)=>j>=0&&j<H&&i>=0&&i<Wd?g[j][i]:'.';const set=(j,i,from,to)=>{if(from.includes(at(j,i)))g[j][i]=to};
+ const front=a.some(r=>r.includes('e'));
+ if(care){/* cleaned up: a cast to the elbow, a dressing over the stitches */
+  for(let j=13;j<=19;j++)for(let i=13;i<=16;i++)set(j,i,'sb','w');if(front){for(let i=3;i<=9;i++)set(6,i,'kKr','w');set(7,4,'kKr','w')}else for(let i=3;i<=12;i++)set(6,i,'kKr','w');
+  if(n>=2&&front){set(9,10,'e','K');set(10,5,'s','o')}if(n>=3&&front){set(9,11,'s','o');set(11,10,'so','o');set(10,6,'s','o')}
+  if(n>=3)for(let j=30;j<H;j++)for(let i=9;i<Wd;i++){set(j,i,'w','s');set(j,i,'b','.')}}
+ else{/* in the cell */
+  for(let j=30;j<H;j++)for(let i=9;i<Wd;i++){set(j,i,'w','s');set(j,i,'b','.')}          /* one shoe stayed in the lot */
+  set(17,3,'s','h');set(17,15,'s','h');set(18,3,'sb','h');set(18,15,'sb','h');            /* the cable ties */
+  if((S.tries||0)>=1)for(let j=2;j<=6;j++)for(let i=12;i<=15;i++)set(j,i,'w','k');        /* they took the clip */
+  if(n>=2){for(let j=14;j<=18;j++)set(j,15,'s','o');if(front){set(10,5,'s','o');set(10,6,'s','o')}set(24,11,'s','h')}
+  if(n>=3){if(front){set(9,10,'e','K');set(9,11,'s','o');set(11,10,'so','h');set(12,9,'bh','h')}set(15,6,'b','h');set(15,7,'b','h');set(25,6,'g','h');set(21,8,'wb','.');set(22,9,'wb','.')}
+  if(n>=4){for(let i=4;i<=7;i++)set(4,i,'kK',front?'h':'K');set(5,4,'kK','h');set(16,8,'r','b');set(16,9,'r','h');set(26,11,'b','h');set(27,6,'b','h');if(front)set(11,6,'s','h')}}
+ b=g.map(r=>r.join(''));b.P=a.P;b.S=a.S;m.set(key,b);return b}
+const KD_PALC=new Map();
+function kdGrime(P,n){const key=n+'|'+Object.values(P).join(',');let o=KD_PALC.get(key);if(o)return o;const t=Math.min(.34,n*.085);const mix=h=>{if(!/^#[0-9a-f]{6}$/i.test(h))return h;const v=parseInt(h.slice(1),16);const ch=(s,d)=>Math.round(((v>>s)&255)*(1-t)+d*t);return'#'+[ch(16,58),ch(8,46),ch(0,42)].map(x=>x.toString(16).padStart(2,'0')).join('')};
+ o={};for(const k in P)o[k]=k==='h'?P[k]:mix(P[k]);if(KD_PALC.size>40)KD_PALC.clear();KD_PALC.set(key,o);return o}
+let KDF=0;
+const _pxKD=tdPx;tdPx=function(a,cx,fy,flip,ps,pal){if(KDF&&a&&a.length>=30){const care=S.phase!=='taken';a=kdRag(a,KDF,care);if(!care)pal=kdGrime(pal||a.P||PAL,KDF)}return _pxKD(a,cx,fy,flip,ps===undefined?1:ps,pal)};
+const _actKD=tdActor;tdActor=function(k,x,y,dir,moving,fr,opt){const n=k==='m'?kdCond():0;if(!n)return _actKD(k,x,y,dir,moving,fr,opt);
+ /* a limp: she drops on one step of the four, and from three up she carries herself lower */
+ const limp=moving&&Math.floor(fr/6)%4===1?1:0;KDF=n;try{_actKD(k,x,y+limp+(n>=3?1:0),dir,moving,fr,opt)}finally{KDF=0}};
+const _sprKD=spr;spr=function(a,x,y,flip,s){if(KDF&&(a===MIS||a===MISW||a===MISW2))a=kdRag(a,KDF,S.phase!=='taken');return s===undefined?_sprKD(a,x,y,flip):_sprKD(a,x,y,flip,s)};
+const _diKD=drawInterro;drawInterro=function(){KDF=kdCond();try{_diKD()}finally{KDF=0}};
