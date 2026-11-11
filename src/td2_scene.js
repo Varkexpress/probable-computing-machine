@@ -14,7 +14,7 @@ function tdCollect(sc){const M=sc.M,who=tdWho(),L=[];const claimed={};
   if(M.props.some(p=>p.legacy&&(p.room||(p.room=tdPropRoom(M,p)))===room&&(Array.isArray(p.legacy)?p.legacy:[p.legacy]).some(k=>s.label.startsWith(k))))return;
   const q=tdAutoPos(M,room,s);if(!q)return;L.push({k:'spot',s,room,x:q.x,y:q.y,r:[q.x-7,q.y-8,14,12],label:s.label,top:q.y-14})})}
  sc.npcList.forEach(n=>L.push({k:'npc',n,r:[n.x-8,n.y-8,16,12],label:n.label,top:n.y-38}));
- sc.dogs.forEach(d=>L.push({k:'dog',d,r:[d.x-8,d.y-6,16,10],label:(d.sleep?'Wake ':'Pet ')+d.n,top:d.y-14}));
+ sc.dogs.forEach(d=>L.push({k:'dog',d,r:[d.x-8,d.y-6,16,10],label:(d.sleep?'Wake ':'Approach ')+houndN(d.n),top:d.y-14}));
  for(const k in M.doors){const d=M.doors[k];const x=d.i*TS,y=d.j*TS;if(d.hidden&&d.hidden())continue;if(d.noUse&&d.noUse())continue;const op=tdDoorOpen(M,d);L.push({k:'door',d,r:[x-2,y-2,TS+4,TS+4],label:d.label?d.label(op):(op?'Close the door':'Open the door'),top:y-(d.face?20:6),low:1})}
  return L}
 function tdPick(sc){const p=sc.p;const f={u:[0,-1],d:[0,1],l:[-1,0],r:[1,0]}[p.dir];const px=p.x+f[0]*9,py=p.y-2+f[1]*8;
@@ -26,6 +26,10 @@ function tdGridBlock(M){const B=new Uint8Array(M.W*M.H);for(let j=0;j<M.H;j++)fo
  for(const p of M.props){if(!p.solid||(p.show&&!p.show())||(p.gone&&p.gone()))continue;for(let j=Math.floor(p.y/TS);j<=Math.floor((p.y+p.d-1)/TS);j++)for(let i=Math.floor(p.x/TS);i<=Math.floor((p.x+p.w-1)/TS);i++){const cx=i*TS+8,cy=j*TS+8;if(cx>=p.x-3&&cx<=p.x+p.w+3&&cy>=p.y-3&&cy<=p.y+p.d+3&&i>=0&&j>=0&&i<M.W&&j<M.H)B[j*M.W+i]=1}}return B}
 function tdBFS(M,sx,sy){const B=tdGridBlock(M),N=M.W*M.H,D=new Int32Array(N).fill(-1),P=new Int32Array(N).fill(-1);const s=Math.floor(sy/TS)*M.W+Math.floor(sx/TS);if(s<0||s>=N)return{D,P};D[s]=0;const q=[s];
  for(let h=0;h<q.length;h++){const u=q[h],i=u%M.W,j=(u/M.W)|0;for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){const ni=i+dx,nj=j+dy;if(ni<0||nj<0||ni>=M.W||nj>=M.H)continue;const v=nj*M.W+ni;if(D[v]>=0||B[v])continue;D[v]=D[u]+1;P[v]=u;q.push(v)}}return{D,P,B}}
+/* like tdFree, but refuses a spot that is sealed off (a 1-tile pocket in a curved wall, a gap between planters): it must sit on an open tile with room to walk */
+function tdFreeReach(M,x,y,z){const f=tdFree(M,x,y);const ok=(px,py)=>{const {D,B}=tdBFS(M,px,py);const s=Math.floor(py/TS)*M.W+Math.floor(px/TS);if(!B||B[s])return false;let n=0;for(let i=0;i<D.length&&n<24;i++)if(D[i]>=0)n++;return n>=24};
+ if(ok(f[0],f[1]))return f;const r=(z&&z.r)||[0,0,M.W,M.H];const C=[];for(let j=r[1];j<r[1]+r[3];j++)for(let i=r[0];i<r[0]+r[2];i++){const cx=i*TS+8,cy=j*TS+12;if(!tdBlocked(M,cx,cy))C.push([Math.hypot(cx-x,cy-y),cx,cy])}
+ C.sort((a,b)=>a[0]-b[0]);for(const [,cx,cy] of C)if(ok(cx,cy))return[cx,cy];return f}
 function tdPathTo(M,sx,sy,test){const {D,P}=tdBFS(M,sx,sy);let best=-1,bs=1e9;for(let v=0;v<D.length;v++){if(D[v]<0)continue;const sc=test(v%M.W,(v/M.W)|0);if(sc===null)continue;const t=sc*4+D[v]*.2;if(t<bs){bs=t;best=v}}
  if(best<0)return null;const out=[];let u=best;while(u>=0&&D[u]>0){out.unshift([(u%M.W)*TS+8,((u/M.W)|0)*TS+12]);u=P[u]}return out}
 /* ---------- the scene ---------- */
@@ -35,8 +39,8 @@ function tdScene(mapId,x,y,dir,opt={}){const M=TD.maps[mapId];const p={x,y,dir:d
   near(){return this.cur?{label:this.cur.label,at:tdToLegacy(S.room,p.x,p.y)}:null},
   enter(){const z=tdZoneNear(M,p.x,p.y);this.cam={x:clamp(p.x-W/2,Math.min(0,M.pw-W)/1,Math.max(0,M.pw-W)),y:clamp(p.y-H/2-10,Math.min(0,M.ph-H),Math.max(0,M.ph-H))};if(M.pw<W)this.cam.x=(M.pw-W)/2;if(M.ph<H)this.cam.y=(M.ph-H)/2;
    if(z){S.room=z.room}S.roomPos=this.pos();TD.bark=null;this.exitLock=M.props.some(q=>q.exit&&p.x>q.x&&p.x<q.x+q.w&&p.y>q.y&&p.y<q.y+q.d)?1:0;TD.parts=[];this.spawnDogs();if(M.enter)M.enter(this);if(z)this.zoneIn(z,true)},
-  spawnDogs(){this.dogs=[];const cols={Biscuit:'#c98a3a',Sergeant:'#3a3030',Mochi:'#f4f0ea',Pancake:'#9a6a40'};
-   M.zl.forEach(z=>{const R=ROOMS[z.room];if(!R||!R.dogs||z.room!==z.id)return;R.dogs().forEach((d,i)=>{const pos=tdFree(M,z.px[0]+20+((i*53)%(z.px[2]-40)),z.px[1]+24+((i*29)%(z.px[3]-40)));this.dogs.push(Object.assign({x:pos[0],y:pos[1],vx:0,vy:0,t:ri(30,120),z,R,f:false,sleep:d.n==='Sergeant'&&tdNight()},d))})})},
+  spawnDogs(){this.dogs=[];const cols={Biscuit:'#5a5650',Sergeant:'#2a2626',Mochi:'#141216',Pancake:'#a8a49a'};
+   M.zl.forEach(z=>{const R=ROOMS[z.room];if(!R||!R.dogs||z.room!==z.id)return;R.dogs().forEach((d,i)=>{const pos=tdFree(M,z.px[0]+20+((i*53)%(z.px[2]-40)),z.px[1]+24+((i*29)%(z.px[3]-40)));this.dogs.push(Object.assign({x:pos[0],y:pos[1],vx:0,vy:0,t:ri(30,120),z,R,f:false,sleep:d.n==='Sergeant'&&tdNight()},d,{col:cols[d.n]||'#3a3436'}))})})},
   zoneIn(z,first){const prev=this.zone;this.zone=z;if(!first&&prev&&prev.room!==z.room&&TD.bark&&TD.bark.self)TD.bark=null;if(p.hold==='can'&&z.id!=='green'&&!first){p.hold=null;tdThink(tdWho()==='v'?'He puts the can back by the bench. Order.':'can goes back. i’m not a thief. (i am. but not of cans.)',120)}if(!first&&prev&&prev.room===z.room&&prev.id===z.id)return;const roomChanged=!prev||prev.room!==z.room||first;S.room=z.room;
    if(z.onEnter)try{z.onEnter(this,first)}catch(e){console.error(e)}
    if(roomChanged){const R=ROOMS[z.room];if(R&&R.enter&&!dlg&&!ctrl)try{R.enter()}catch(e){console.error(e)}}
@@ -51,7 +55,7 @@ function tdScene(mapId,x,y,dir,opt={}){const M=TD.maps[mapId];const p={x,y,dir:d
   arrive(){const it=this.goal;this.goal=null;this.path=null;if(!it)return;const r=it.r,cx=r[0]+r[2]/2,cy=r[1]+r[3]/2;const dx=cx-p.x,dy=cy-(p.y-2);p.dir=Math.abs(dx)>Math.abs(dy)?(dx<0?'l':'r'):(dy<0?'u':'d');this.use(it)},
   use(it){if(!it)return;const who=tdWho();const room=it.k==='spot'?it.room:it.k==='prop'?(it.p.room||tdPropRoom(M,it.p)):this.zone?this.zone.room:S.room;if(room&&ROOMS[room])S.room=room;S.roomPos=this.pos();sfx('sel');
    try{if(it.k==='prop'){const P=it.p;const L=it.leg?()=>tdRunSpot(it.leg):null;tdMark(P.id);if(P.seen)tdMark(P.seen);if(P.act)P.act(who,L,P,this);else if(L)L()}
-    else if(it.k==='spot')tdRunSpot(it.s);else if(it.k==='npc'){it.n.face=1;it.n.act()}else if(it.k==='dog'){if(it.d.sleep){it.d.sleep=false;tdSay([['',it.d.n+' opens one eye, decides you are not dinner, and closes it again. Then thinks better of it and gets up.']])}else it.d.R.petDog(it.d)}
+    else if(it.k==='spot')tdRunSpot(it.s);else if(it.k==='npc'){it.n.face=1;it.n.act()}else if(it.k==='dog'){if(it.d.sleep){it.d.sleep=false;tdSay([['',(t=>t[0].toUpperCase()+t.slice(1))(houndN(it.d.n))+' was not asleep. Its eyes were open the whole time; you only thought they were shut. It gets up, unhurried, and stands too close.']])}else it.d.R.petDog(it.d)}
     else if(it.k==='door')this.toggleDoor(it.d)}catch(e){console.error(e)}},
   toggleDoor(d,auto){const op=tdDoorOpen(M,d);if(!op&&d.locked&&d.locked()){if(d.onLocked)d.onLocked(this);else tdSay([['','Locked.']]);return false}
    if(op&&tdBlocked(M,p.x,p.y,true)===false){const x=d.i*TS,y=d.j*TS;if(p.x+5>x&&p.x-5<x+TS&&p.y>y&&p.y-4<y+TS)return false}
@@ -82,11 +86,11 @@ function tdScene(mapId,x,y,dir,opt={}){const M=TD.maps[mapId];const p={x,y,dir:d
    q.x=nx;q.y=ny;sfx('snap');for(let k=0;k<6;k++)TD.parts.push({k:'dust',x:q.x+rnd(0,q.w),y:q.y+q.d,vx:rnd(-.3,.3),vy:rnd(-.3,0),t:0,m:40});if(!this.pushedOnce){this.pushedOnce=1;tdThink(tdWho()==='v'?'Heavy. Paper, mostly. Paper is heavy.':'*shove* ...heavy. what’s IN these.',120)}},
   bumpDoor(dx,dy){const i=Math.floor((p.x+dx*7)/TS),j=Math.floor((p.y-2+dy*6)/TS);const d=M.doors[i+','+j];if(!d||tdDoorOpen(M,d))return;this.bump=(this.bump||0)+1;if(this.bump>7){this.bump=0;if(this.toggleDoor(d,true))TD.parts.push({k:'dust',x:i*TS+8,y:j*TS+12,vx:0,vy:-.2,t:0,m:30})}},
   leaveMenu(){const L=M.leave?M.leave(this):[{t:'Head out',fn:()=>hub()}];ask(tdN(),M.leaveText?M.leaveText():'Head out?',L.concat([{t:'Stay',fn:()=>{}}]))},
-  tick(){if(this.M.tick)this.M.tick(this);this.syncNpcs();this.updDogs();this.inter=tdCollect(this);this.cur=(!dlg&&!ctrl)?tdPick(this):null;if(this.cur!==this.lastCur){if(this.cur)sfx('blip');this.lastCur=this.cur}
+  tick(){if(this.M.tick)this.M.tick(this);this.syncNpcs();this.updDogs();this.inter=tdCollect(this);this.cur=(!dlg&&!ctrl)?tdPick(this):null;{const ck=this.cur?(this.cur.label||'')+'|'+(this.cur.r?this.cur.r.map(Math.round).join(','):''):'';if(ck!==this.lastCurK){if(ck&&T-(this.blipT||-99)>18){sfx('blip');this.blipT=T}this.lastCurK=ck}this.lastCur=this.cur}
    if(T%15===0)tdReact(this)},
   syncNpcs(){const seen={};const L=[];for(const room of tdRoomsOf(M)){const R=ROOMS[room];if(!R.npcs)continue;let arr=[];try{arr=R.npcs()||[]}catch(e){}
     arr.forEach((n,i)=>{const lab=n.label||'';const key=room+'|'+lab+'|'+i;seen[key]=1;let st=this.ns[key];const kk=/(^| )V$|K9/.test(lab)?'v':/Misaki/.test(lab)?'m':/Angel/.test(lab)?'a':/Ronin/.test(lab)?'r':'x';
-     if(!st){let q=tdToMap(room,n.at[0],n.at[1]-4);if(!q)return;if(q.map!==M.id)return;const ov=(M.npcAt||{})[room+':'+kk];if(ov){q={x:ov[0]*TS,y:ov[1]*TS}}const f=tdFree(M,q.x,q.y);st=this.ns[key]={x:f[0],y:f[1],ax:f[0],ay:f[1],dir:'d',t:ri(60,200),tx:null,ty:null,k:kk,fr:0}}
+     if(!st){let q=tdToMap(room,n.at[0],n.at[1]-4);if(!q)return;if(q.map!==M.id)return;const ov=(M.npcAt||{})[room+':'+kk];if(ov){q={x:ov[0]*TS,y:ov[1]*TS}}const f=['v','m','a','r'].includes(kk)?tdFreeReach(M,q.x,q.y,tdZoneAt(M,q.x,q.y)):tdFree(M,q.x,q.y);st=this.ns[key]={x:f[0],y:f[1],ax:f[0],ay:f[1],dir:'d',t:ri(60,200),tx:null,ty:null,k:kk,fr:0}}
      st.label=lab;st.act=n.act;st.draw=n.draw;st.at=n.at;L.push(st)})}
    for(const k in this.ns)if(!seen[k])delete this.ns[k];
    L.forEach(n=>{const d=Math.hypot(p.x-n.x,p.y-n.y);if(d<46&&!n.tx){const dx=p.x-n.x,dy=p.y-n.y;n.dir=Math.abs(dx)>Math.abs(dy)*1.3?(dx<0?'l':'r'):(dy<0?'u':'d');return}
@@ -111,7 +115,7 @@ function tdScene(mapId,x,y,dir,opt={}){const M=TD.maps[mapId];const p={x,y,dir:d
     const who=tdWho();const moving=Math.hypot(p.vx,p.vy)>.15;
     E.push({y:p.y,f:()=>{tdActor(who,p.x,p.y,p.dir,moving,p.fr,{sit:!!p.sit});if(p.hold&&TDHOLD[p.hold])TDHOLD[p.hold](p.x+(p.dir==='l'?-7:7),p.y-12)}});
     this.npcList.forEach(n=>E.push({y:n.y,f:()=>{if(n.k==='v'||n.k==='m'){tdActor(n.k,n.x,n.y,n.dir,n.tx!=null,n.fr,{})}else if((n.k==='a'&&typeof ANG!=='undefined')||(n.k==='r'&&typeof RON!=='undefined')){shadowAt(n.x,n.y-1,7);const A=n.k==='a'?ANG:RON;tdPx(n.dir==='u'?tdBack(A):A,n.x,n.y-((n.tx!=null&&(n.fr>>3)%2)?1:0),n.dir==='l',1)}else if(n.draw){shadowAt(n.x,n.y-1,7);c.save();const kk=.8;c.translate(n.x-n.at[0]*kk,n.y-(n.at[1]-9)*kk);c.scale(kk,kk);try{n.draw()}catch(e){}c.restore()}}}));
-    this.dogs.forEach(d=>E.push({y:d.y,f:()=>{tdDog(d.x,d.y,d.col,d.f,Math.hypot(d.vx,d.vy)>.1,d.sleep);if(d.sleep&&(T>>5)%2)txt('z',d.x+6,d.y-10-((T>>3)%4),'rgba(236,228,218,.7)',8)}}));
+    this.dogs.forEach(d=>E.push({y:d.y,f:()=>{tdDog(d.x,d.y,d.col,d.f,Math.hypot(d.vx,d.vy)>.1,d.sleep);void 0}}));
     tdFollower(this,E);
     E.sort((a,b)=>a.y-b.y).forEach(e=>{try{e.f()}catch(er){console.error(er)}});
     if(M.over)M.over(this);
@@ -138,12 +142,13 @@ function tdScene(mapId,x,y,dir,opt={}){const M=TD.maps[mapId];const p={x,y,dir:d
 function tdLight(cam,amb,lights,p){if(!TD.lm){TD.lm=document.createElement('canvas');TD.lm.width=W;TD.lm.height=H}const g=TD.lm.getContext('2d');if(!g)return;
  g.globalCompositeOperation='source-over';g.globalAlpha=1;g.clearRect(0,0,W,H);g.fillStyle=`rgba(${amb.col},${amb.d})`;g.fillRect(0,0,W,H);g.globalCompositeOperation='destination-out';
  lights.forEach(l=>{g.globalAlpha=Math.min(1,l.i);g.drawImage(tdGrad(l.r,'255,255,255'),l.x-cam.x-l.r,l.y-cam.y-l.r,l.r*2,l.r*2)});
- g.globalAlpha=.28;g.drawImage(tdGrad(30,'255,255,255'),p.x-cam.x-30,p.y-cam.y-46,60,60);g.globalAlpha=1;g.globalCompositeOperation='source-over';
+ g.globalAlpha=amb.d>.5?.5:.28;g.drawImage(tdGrad(30,'255,255,255'),p.x-cam.x-30,p.y-cam.y-46,60,60);g.globalAlpha=1;g.globalCompositeOperation='source-over';
  c.save();c.imageSmoothingEnabled=true;c.drawImage(TD.lm,0,0,W,H);c.globalCompositeOperation='lighter';
  lights.forEach(l=>{c.globalAlpha=Math.min(.5,.22*l.i*(amb.d+.2));const r=l.r*.75;c.drawImage(tdGrad(r,l.col),l.x-cam.x-r,l.y-cam.y-r,r*2,r*2)});c.restore()}
 function tdBeams(M,cam){if(tdNight()||META.reduceMotion&&false)return;const wx=weather();const str=(S.slot===0?.13:.09)*(wx==='clear'?1:wx==='snow'?.7:.4);if(str<=0)return;
  c.save();c.translate(-cam.x,-cam.y);c.globalCompositeOperation='lighter';const sk=M.beamSkew===undefined?14:M.beamSkew,L=M.beamLen||44;
- for(let j=0;j<M.H;j++)for(let i=0;i<M.W;i++){if(M.g[j][i]!=='w'||!TDWALK.includes(tdCh(M,i,j+1)))continue;const x=i*TS,y=(j+1)*TS;if(x<cam.x-60||x>cam.x+W+20||y<cam.y-20||y>cam.y+H+60)continue;
+ const bj0=Math.max(0,Math.floor((cam.y-60)/TS)),bj1=Math.min(M.H-1,Math.ceil((cam.y+H+20)/TS)),bi0=Math.max(0,Math.floor((cam.x-20-sk)/TS)),bi1=Math.min(M.W-1,Math.ceil((cam.x+W+60)/TS));
+ for(let j=bj0;j<=bj1;j++)for(let i=bi0;i<=bi1;i++){if(M.g[j][i]!=='w'||!TDWALK.includes(tdCh(M,i,j+1)))continue;const x=i*TS,y=(j+1)*TS;if(x<cam.x-60||x>cam.x+W+20||y<cam.y-20||y>cam.y+H+60)continue;
   const g=c.createLinearGradient(0,y,0,y+L);g.addColorStop(0,`rgba(255,240,205,${str})`);g.addColorStop(1,'rgba(255,240,205,0)');c.fillStyle=g;c.beginPath();c.moveTo(x+2,y);c.lineTo(x+14,y);c.lineTo(x+14+sk,y+L);c.lineTo(x+2+sk,y+L);c.closePath();c.fill();
   if(wx==='rain'){c.save();c.clip();c.globalCompositeOperation='source-over';c.fillStyle='rgba(0,0,20,.10)';for(let k=0;k<5;k++){const yy=(T*.5+k*11+i*7)%(L+10)-5;c.fillRect(x+3+((k*5+i*3)%11)+yy*sk/L,y+yy,1,5)}c.restore()}}
  c.restore()}
@@ -182,7 +187,7 @@ function tdReact(sc){if(dlg||ctrl||(TD.bark&&TD.bark.t>0))return;const t=tdS();c
 /* ---------- dog on a walk follows you through doors ---------- */
 function tdFollower(sc,E){if(!S.done||!S.done.walk)return;const F=sc.fol||(sc.fol={trail:[],x:sc.p.x-14,y:sc.p.y,f:false});const p=sc.p;const last=F.trail[F.trail.length-1];if(!last||Math.hypot(last[0]-p.x,last[1]-p.y)>3)F.trail.push([p.x,p.y]);if(F.trail.length>60)F.trail.shift();
  const tg=F.trail.length>9?F.trail[F.trail.length-9]:null;let mv=false;if(tg){const dx=tg[0]-F.x,dy=tg[1]-F.y,d=Math.hypot(dx,dy);if(d>2){const s=Math.min(1.6,d*.12);F.x+=dx/d*s;F.y+=dy/d*s;mv=true;F.f=dx<0}}
- const cols={Biscuit:'#c98a3a',Sergeant:'#3a3030',Mochi:'#f4f0ea',Pancake:'#9a6a40'};E.push({y:F.y,f:()=>tdDog(F.x,F.y,cols[S.done.walk]||'#d8b878',F.f,mv,false)})}
+ const cols={Biscuit:'#5a5650',Sergeant:'#2a2626',Mochi:'#141216',Pancake:'#a8a49a'};E.push({y:F.y,f:()=>tdDog(F.x,F.y,cols[S.done.walk]||'#d8b878',F.f,mv,false)})}
 /* ---------- hooking into the old room engine ---------- */
 let TDRS_LAST=null;
 const _tdGo=go;go=function(s){if(scene&&scene.td&&scene!==s&&scene.leaveTD)scene.leaveTD();_tdGo(s)};
@@ -195,4 +200,4 @@ const _tdRS=roomScene;roomScene=function(id,sp){const e=TD.room[id];if(!e||!tdOn
  if(R&&R.room===id&&R.map===e.map){return tdScene(e.map,R.x,R.y,R.dir,{noFade:false})}
  const key=sp[0]+','+sp[1];const z=e.z;if(z.at&&z.at[key]){const a=z.at[key];return tdScene(e.map,a[0]*TS+8,a[1]*TS+12,a[2]||'d',{banner:1})}
  if(!fromTD&&z.arrive){const a=typeof z.arrive==='function'?z.arrive():z.arrive;return tdScene(e.map,a[0]*TS+8,a[1]*TS+12,a[2]||'u',{banner:1})}
- const q=tdToMap(id,sp[0],sp[1]);const f=tdFree(M,q.x,q.y);return tdScene(e.map,f[0],f[1],'d',{banner:1})};
+ const q=tdToMap(id,sp[0],sp[1]);const f=tdFreeReach(M,q.x,q.y,z);return tdScene(e.map,f[0],f[1],'d',{banner:1})};

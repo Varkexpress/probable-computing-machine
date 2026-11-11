@@ -20,8 +20,8 @@ EVENTS.push({id:'five_eve',when:()=>mP()&&W24()&&S.day>=9&&!S.f.fiveDay,run:done
     ['hitmeuppp',MV('(yeah. i’m sure.)','(yeah i’m sure. u don’t get a vote, app.)','(Yes, I’m sure. I shot a man an hour ago, I can manage a button.)','(I pressed “delete” with the same finger I had on the trigger an hour ago. The trigger was easier. That sucker had it coming, and the calendar never did anything to anyone.)')]],()=>apply({edge:2,heat:1}))}];
   if(!isLone()&&tier()>=1)O.unshift({t:'Show V the reminder.',fn:fin('told',[
     ['','You hold the phone up across the kitchen island. He takes his reading glasses out of his pocket to look at it. It takes him a long time to read six words.'],
-    ['K9','You were sixteen when you wrote this.'],['hitmeuppp',MV('yeah. it’s today. surprise.','yeah. today’s the day. i overshot.','Yes. Today. I seem to have missed my appointment.','Yeah. I gave myself until today. I’m late for my own funeral and I’m standing in your kitchen in dog hair about it.')],
-    ['','He puts the phone face down. Then he makes you eggs, badly, because the dogs are leaning on his legs the whole time.'],
+    ['K9','You were sixteen when you wrote this.'],['hitmeuppp',MV('yeah. it’s today. surprise.','yeah. today’s the day. i overshot.','Yes. Today. I seem to have missed my appointment.','Yeah. I gave myself until today. I’m late for my own funeral and I’m standing in your kitchen in hound hair about it.')],
+    ['','He puts the phone face down. Then he makes you eggs, badly, because the hounds are leaning on his legs the whole time.'],
     ['K9','Eat. Then I would like you to put something for next year in the calendar. A dentist, if nothing else.']],()=>{apply({aff:4,heart:2});S.f.fiveTold=1})});
   else O.unshift({t:'Send Angel a screenshot.',fn:fin('angel',[
     ['','You send it before you can think about it. Three dots appear and stop, and then your phone rings, which Angel never does in daylight.'],
@@ -48,22 +48,22 @@ EVENTS.push({id:'five_eve',when:()=>mP()&&W24()&&S.day>=9&&!S.f.fiveDay,run:done
     ['','She eats two breakfasts and takes the toast off your plate.']],()=>{apply({aff:1});relApply({tension:2})})}])}});
 /* ---------- 2. HOUR 70 (V at nine: 72 hours in a locked room, asking if the dogs were fed) ---------- */
 EVENTS.push({id:'v_bowls',when:()=>vP()&&W24()&&S.day>=4&&(S.f.bowls||0)<3,run:done=>{S.seen.v_bowls=0;const n=S.f.bowls=(S.f.bowls||0)+1;S.f.bowlDay=S.day;save();
-  ask('K9',n===1?'4:10am. You are standing in the kitchen in the dark, looking at the dog bowls. They are full. You filled them at nine. You knew that when you got out of bed.':n===2?'4:10am again. The bowls are full. Biscuit watches you check from her bed with one eye open, the way a nurse watches a patient.':'4:10am. You are already in the kitchen before you are properly awake. The bowls are full. Of course they are full.',[
+  ask('K9',n===1?'4:10am. You are standing in the kitchen in the dark, looking at the hound bowls. They are full. You filled them at nine. You knew that when you got out of bed.':n===2?'4:10am again. The bowls are full. The grey hound watches you check from her bed with one eye open, the way a nurse watches a patient.':'4:10am. You are already in the kitchen before you are properly awake. The bowls are full. Of course they are full.',[
    {t:'Check the water as well.',fn:()=>{apply({edge:1,energy:-1});say([['','The water is fine. You top it up anyway and stand there until the tap stops dripping.'],['K9','(Fed. Watered. Fed. Go to bed.)']],done)}},
-   {t:'Sit on the floor with the dogs.',fn:()=>{apply({heart:1});say([['','You sit down on the tile in your good trousers. All four of them come over and lie on you, heavily, in order of rank.'],['K9',n>1?'(You are fed. I saw it. I did it myself.)':'(No one will tell me no. I hold the food now, and the keys.)']],done)}},
-   ...(!isLone()&&tier()>=2?[{t:'Text Misaki. She will be awake.',fn:()=>{S.f.bowlsTold=1;apply({aff:2});phQueue('m',['they’re FED v','i know bc u sent me a photo of the full bowls at 9pm with the caption “Fed.”','go to sleep. i’ll check them in my head. ok checked. still full. biscuit says fuck off'],0);phDeliver();say([['','You type “Are you awake.” The answer comes before you put the phone down.']],done)}}]:[])])}},
+   {t:'Sit on the floor with the hounds.',fn:()=>{apply({heart:1});say([['','You sit down on the tile in your good trousers. All four of them come over and lie on you, heavily, in order of rank.'],['K9',n>1?'(You are fed. I saw it. I did it myself.)':'(No one will tell me no. I hold the food now, and the keys.)']],done)}},
+   ...(!isLone()&&tier()>=2?[{t:'Text Misaki. She will be awake.',fn:()=>{S.f.bowlsTold=1;apply({aff:2});phQueue('m',['they’re FED v','i know bc u sent me a photo of the full bowls at 9pm with the caption “Fed.”','go to sleep. i’ll check them in my head. ok checked. still full. the grey one’s looking at me like i should fuck off'],0);phDeliver();say([['','You type “Are you awake.” The answer comes before you put the phone down.']],done)}}]:[])])}},
  {id:'m_bowls',when:()=>mP()&&W24()&&tier()>=2&&!isLone()&&S.day>=6&&!S.f.mBowls,run:done=>{const kn=tdF('vChildKnown');
-  ask('hitmeuppp','4am. You get up for water and find V in the kitchen with the light off, looking at the dog bowls. They’re full. He doesn’t hear you come in.',[
+  ask('hitmeuppp','4am. You get up for water and find V in the kitchen with the light off, looking at the hound bowls. They’re full. He doesn’t hear you come in.',[
    {t:'“they’re fed, v.”',fn:()=>{S.f.mBowls='said';apply({aff:3});say([['K9','Yes. I am aware. I checked.'],['hitmeuppp','how many times'],['K9','Twice. This is the third.'],
-     kn?['hitmeuppp',MV('i read the logbook. hour 70. u don’t have to explain.','i saw the logbook downstairs. hour 70. i know why.','I read the log from downstairs. Hour seventy. You asked if they’d been fed.','I read what those fuckers wrote about you at nine. Seventy hours, and the only thing you asked was whether the dogs got fed. So, yeah. I know why you’re standing here.')]:['hitmeuppp','ok. i’ll stand here w u for the fourth.'],
+     kn?['hitmeuppp',MV('i read the logbook. hour 70. u don’t have to explain.','i saw the logbook downstairs. hour 70. i know why.','I read the log from downstairs. Hour seventy. You asked if they’d been fed.','I read what those fuckers wrote about you at nine. Seventy hours, and the only thing you asked was whether the hounds got fed. So, yeah. I know why you’re standing here.')]:['hitmeuppp','ok. i’ll stand here w u for the fourth.'],
      kn?['K9','Then you know they said no.']:['K9','That is not necessary.'],kn?['hitmeuppp','yeah, and fuck them. i’m saying yes. they’re fed. look.']:['hitmeuppp','wasn’t asking.']],()=>{if(kn)S.f.hour70Told=1;done()})}},
-   {t:'Add one more scoop to each bowl while he watches.',fn:()=>{S.f.mBowls='scoop';apply({aff:4});say([['','You don’t say anything. You get the scoop and put a little extra in each bowl, slowly, where he can see it land.'],['','He breathes out. Biscuit, who has never turned down food in her life, gets up and eats it immediately.'],['K9','She was fed at nine. She is a glutton. Thank you.']],done)}},
+   {t:'Add one more scoop to each bowl while he watches.',fn:()=>{S.f.mBowls='scoop';apply({aff:4});say([['','You don’t say anything. You get the scoop and put a little extra in each bowl, slowly, where he can see it land.'],['','He breathes out. The grey hound, who has never turned down food in her life, gets up and eats it immediately.'],['K9','She was fed at nine. She is a glutton. Thank you.']],done)}},
    {t:'Go back to bed. Leave him to it.',fn:()=>{S.f.mBowls='left';say([['','You take your water and go. He comes back at five. His feet are cold. You pretend to be asleep and move over.']],done)}}])}},
  /* the door */
  {id:'m_door',when:()=>mP()&&W24()&&tier()>=2&&!isLone()&&S.day>=5&&!S.f.doorAsk,run:done=>{
   ask('hitmeuppp','You push his bedroom door shut behind you, the way you’d shut any door. The latch clicks. V stops reading mid-page.',[
    {t:'“...what.”',fn:()=>{S.f.doorAsk='asked';apply({aff:2});relApply({trust:3});say([['K9','Would you open it. A hand’s width is enough.'],['hitmeuppp','is it too hot or'],['K9','No.'],['','You open it a hand’s width. He finds his place on the page again. You look around the house in your head: you have never seen one door in it fully closed.'],
-     ['hitmeuppp',MV('(oh. ok. noted.)','(every door in this house is open a little. every one. how the fuck did i miss that)','(Every door here stands a little open. I thought it was for the dogs.)','(He leaves every door open a hand’s width. I thought that was for the dogs, like an idiot. He was nine and somebody shut one on him.)')]],done)}},
+     ['hitmeuppp',MV('(oh. ok. noted.)','(every door in this house is open a little. every one. how the fuck did i miss that)','(Every door here stands a little open. I thought it was for the hounds.)','(He leaves every door open a hand’s width. I thought that was for the hounds, like an idiot. He was nine and somebody shut one on him.)')]],done)}},
    {t:'Open it again without asking.',fn:()=>{S.f.doorAsk='opened';apply({aff:4});say([['','You open it again, a hand’s width, and sit down on the bed like that’s where you were always going.'],['K9','You did not need to do that.'],['hitmeuppp',MV('i know','i know. i like a draft.','I know. Shut up, I wanted to.','I know. I like a draft. And if anybody comes down that hallway I’d rather see them first; I sleep with a knife, babe, it works out.')]],done)}}])}},
  {id:'v_latch',when:()=>vP()&&W24()&&tier()>=2&&!isLone()&&S.day>=5&&!S.f.doorAsk,run:done=>{
   ask('K9','She closes the bedroom door behind her, as anyone would. The latch clicks. You have read the same line four times and you are counting, without wanting to, from one.',[
@@ -73,13 +73,13 @@ EVENTS.push({id:'v_bowls',when:()=>vP()&&W24()&&S.day>=4&&(S.f.bowls||0)<3,run:d
 /* ---------- 3. HANDS (three washes: one for the job, one for the walk home, one for luck) ---------- */
 EVENTS.push({id:'m_hands',when:()=>mP()&&W24()&&S.day>=3&&(S.heat||0)>0&&!S.f.handsDay,run:done=>{S.f.handsDay=S.day;save();
   ask('hitmeuppp','Your rule is three washes: one for the job, one for the walk home, one for luck. This morning you’re on the fourth and you don’t remember deciding to start it.',[
-   {t:'Turn the tap off at four.',fn:()=>{apply({edge:-1});say([['','You turn it off. Your hands are pink and they smell like the lemon soap from the konbini. They’re just hands.'],['hitmeuppp',MV('(four. fine. four is fine.)','(four’s allowed. nobody’s counting but me.)','(Four. I’ll allow it. I wrote the rule, I can amend it.)','(Four. Whatever. One for the job, one for the walk home, one for luck, and one because the guy was a bleeder. I wrote the rule, I can add a fucking clause.)')]],done)}},
+   {t:'Turn the tap off at four.',fn:()=>{apply({edge:-1});say([['','You turn it off. Your hands are pink and they smell like the lemon soap from the corner shop. They’re just hands.'],['hitmeuppp',MV('(four. fine. four is fine.)','(four’s allowed. nobody’s counting but me.)','(Four. I’ll allow it. I wrote the rule, I can amend it.)','(Four. Whatever. One for the job, one for the walk home, one for luck, and one because the guy was a bleeder. I wrote the rule, I can add a fucking clause.)')]],done)}},
    {t:'Keep going until the hot water runs out.',fn:()=>{S.f.handsBad=1;apply({edge:2,energy:-1});say([['','The water goes lukewarm, then cold. You count eleven. Your knuckles split a little at the creases.'],['','You put a plaster on the worst one. It has cartoon frogs on it. It was the only box they had.']],done)}},
-   ...(!isLone()?[{t:'Dry them and text someone about anything else.',fn:()=>{apply({heart:1});phQueue('v',['The dogs send their regards. Biscuit sends hers by sitting on my foot. Have you eaten.'],0);phDeliver();say([['','You type “hi” with wet thumbs and send it before you’ve picked who it’s to. It goes to V. Of course it goes to V.']],done)}}]:[])])}},
+   ...(!isLone()?[{t:'Dry them and text someone about anything else.',fn:()=>{apply({heart:1});phQueue('v',['The hounds send their regards. The grey hound sends hers by sitting on my foot. Have you eaten.'],0);phDeliver();say([['','You type “hi” with wet thumbs and send it before you’ve picked who it’s to. It goes to V. Of course it goes to V.']],done)}}]:[])])}},
  {id:'m_frogs',when:()=>vP()&&W24()&&tier()>=1&&!isLone()&&S.day>=4&&!S.f.frogs,run:done=>{S.f.frogs=1;save();
   ask('K9','Misaki has a plaster across one knuckle. It has cartoon frogs on it. The skin around it is red in the way skin gets from soap, and you know what soap damage looks like; you run a shelter.',[
-   {t:'“How many times do you wash them?”',fn:()=>{apply({aff:3});relApply({trust:2});say([['hitmeuppp','...three. usually. job, walk home, luck.'],['K9','And when it is more than three?'],['hitmeuppp',MV('then it’s a bad day. it’s fine.','then it was a bad one. it happens. it’s fine.','Then it was a bad day, and I count until I stop.','Then some asshole got on me somewhere soap doesn’t go, and I keep scrubbing anyway. It’s fine. Don’t look at me like I’m one of your three-legged dogs.')],['','You go and get the hand cream you use after bathing forty dogs. You put it down next to her without a word. She uses it, says it smells like an old man, and keeps it.']],done)}},
-   {t:'Say nothing. Buy the gentle soap.',fn:()=>{apply({aff:2});say([['','You replace every bar of soap in the house with the unscented kind the vet recommends for cracked paws. She notices in two days.'],['hitmeuppp','did u dog-soap me'],['K9','It is very good soap.']],done)}}])}});
+   {t:'“How many times do you wash them?”',fn:()=>{apply({aff:3});relApply({trust:2});say([['hitmeuppp','...three. usually. job, walk home, luck.'],['K9','And when it is more than three?'],['hitmeuppp',MV('then it’s a bad day. it’s fine.','then it was a bad one. it happens. it’s fine.','Then it was a bad day, and I count until I stop.','Then some asshole got on me somewhere soap doesn’t go, and I keep scrubbing anyway. It’s fine. Don’t look at me like I’m one of your three-legged hounds.')],['','You go and get the hand cream you use after bathing forty hounds. You put it down next to her without a word. She uses it, says it smells like an old man, and keeps it.']],done)}},
+   {t:'Say nothing. Buy the gentle soap.',fn:()=>{apply({aff:2});say([['','You replace every bar of soap in the house with the unscented kind the vet recommends for cracked paws. She notices in two days.'],['hitmeuppp','did u hound-soap me'],['K9','It is very good soap.']],done)}}])}});
 /* ---------- 4. THE BENTO (after every job: the same bento. She ate one after the first and woke up still owning all of herself.) ---------- */
 EVENTS.push({id:'m_bento',when:()=>mP()&&W24()&&tier()>=2&&!isLone()&&S.day>=7&&!S.f.bento,run:done=>{S.f.bento=1;save();say([
  ['','You open V’s fridge for water. On the second shelf are six salmon bentos from the station kiosk, stacked with the labels facing out. The kiosk is forty minutes from here.'],
@@ -88,9 +88,9 @@ EVENTS.push({id:'m_bento',when:()=>mP()&&W24()&&tier()>=2&&!isLone()&&S.day>=7&&
  ['K9','They expire on Thursday. Please do not have six jobs by Thursday.']],()=>{apply({aff:4});done()})}});
 /* ---------- talk topics ---------- */
 TDTOP_V.push({id:'hour70',label:()=>'“hour 70.”',show:()=>tdF('vChildKnown')&&tier()>=2&&!S.dark&&!(S.talks&&S.talks.hour70),run:b=>{warm('v','hour70',5);S.talks=S.talks||{};S.talks.hour70=1;S.f.hour70Told=1;
- say([['hitmeuppp','i read the logbook. downstairs. subject v, age 9.'],['','He takes his glasses off and folds them. It takes him three tries to get the arms flat.'],['K9','Then you know I lasted seventy hours.'],['hitmeuppp','and asked about the dogs.'],
+ say([['hitmeuppp','i read the logbook. downstairs. subject v, age 9.'],['','He takes his glasses off and folds them. It takes him three tries to get the arms flat.'],['K9','Then you know I lasted seventy hours.'],['hitmeuppp','and asked about the hounds.'],
   ['K9','There were four. I had named them, which was against the rules. I could hear them through the wall for the first day. After that I could not, and I did not know which was worse.'],
-  ['hitmeuppp',MV('were they ok','were they ok. after.','Were they all right? After?','Did anyone ever tell you what happened to them?')],['K9','No one told me. I have fed every dog I have met since; it does not answer the question. A thing that starves an animal to move a child is an aberration. I have put down several.']],b)}});
+  ['hitmeuppp',MV('were they ok','were they ok. after.','Were they all right? After?','Did anyone ever tell you what happened to them?')],['K9','No one told me. I have fed every hound I have met since; it does not answer the question. A thing that starves an animal to move a child is an aberration. I have put down several.']],b)}});
 if(!TOPICS_V.find(x=>x.id==='hour70'))TOPICS_V.splice(TOPICS_V.length-1,0,TDTOP_V[TDTOP_V.length-1]);
 TDTOP_V.push({id:'sleeping',label:()=>'“do u dream about work.”',show:()=>tier()>=1&&!S.dark&&!(S.talks&&S.talks.sleeping),run:b=>{warm('v','sleeping',4);S.talks=S.talks||{};S.talks.sleeping=1;
  say([['hitmeuppp','do u dream about work.'],['K9','Rarely. The work is finished when I leave the table. There is nothing left of them to dream about.'],['hitmeuppp',MV('i don’t dream about them at all. is that bad','i never dream about the jobs. ever. i dream about the locker room.','I never dream about the people. I dream about the week before I started.','The jobs never come back at night. None of them, and I’ve chainsawed people. The locker room does. My head filed the wrong fucking thing under “worst.”')],['K9','I do not think it filed it wrong.']],b)}});
@@ -111,7 +111,7 @@ txDef('tx_aceil',{with:'a',pov:'m',prio:3,when:()=>frT('a')>=2&&S.day>=6&&W24(),
 txDef('tx_avface',{with:'a',pov:'v',prio:2,when:()=>frT('a')>=1&&S.day>=5&&W24(),nodes:{
  start:{in:()=>['v. serious question. don’t be weird','do u remember their faces'],expire:3,
   opts:()=>[{t:'“All of them. In order.”',reply:()=>['of course u do. u probably have a spreadsheet'],next:'me'},
-   {t:'“I remember their dogs.”',fx:()=>fr('a',2),reply:()=>['that is the MOST u answer possible','did u rehome them','u did. i know u did. don’t even type it'],next:'me'},
+   {t:'“I remember their hounds.”',fx:()=>fr('a',2),reply:()=>['that is the MOST u answer possible','did u rehome them','u did. i know u did. don’t even type it'],next:'me'},
    {t:'“Why do you ask?”',reply:()=>['bc i can’t'],next:'me'}]},
  me:{in:()=>['i don’t remember any. i remember the lighting. i could tell u the colour temperature of every single one','is that broken'],opts:()=>[
    {t:'“They were things. One does not owe a thing the courtesy of remembering it.”',fx:()=>{fr('a',4);S.f.angelFace=1},reply:()=>['ok. cold. i like it','screenshotting that for a bad day. don’t let it go to ur head']},
@@ -137,25 +137,25 @@ txDef('tx_rvdown',{with:'r',pov:'v',prio:2,when:()=>frT('r')>=1&&S.day>=6&&W24()
    {t:'“I do not know.”',fx:()=>{fr('r',3);S.f.ronDown='dunno'},reply:()=>['huh','well, when you want it gone, I got matches and a crowbar. I’ll ask questions the whole fuckin’ time but I’ll do it']}]}}});
 txDef('tx_vhands',{with:'m',pov:'v',prio:3,when:()=>tier()>=1&&S.day>=4&&W24(),nodes:{
  start:{in:()=>['q','how many times do u wash ur hands after a job'],expire:2,
-  opts:()=>[{t:'“Once. Thoroughly. Then I walk the dogs.”',reply:()=>['ONCE???','u cube people, v. into cubes. once. ok'],next:'three'},
+  opts:()=>[{t:'“Once. Thoroughly. Then I walk the hounds.”',reply:()=>['ONCE???','u cube people, v. into cubes. once. ok'],next:'three'},
    {t:'“How many times do you?”',reply:()=>['3'],next:'three'},
    {t:'“What happened?”',fx:()=>apply({aff:1}),reply:()=>['nothing HAPPENED. it’s a survey. seriously'],next:'three'}]},
  three:{in:()=>['i do 3. job, walk home, luck','today i did 9','is that a thing or am i being a freak'],opts:()=>[
-   {t:'“It is a thing, and a common one. Half my shelter volunteers do it.”',fx:()=>{apply({aff:3});relApply({trust:3});S.f.handsTold=1},reply:()=>['ur volunteers wash DOGS','i was washing off a guy who owed my client forty grand','whatever. boring is good. i’m counting it']},
+   {t:'“It is a thing, and a common one. Half my shelter volunteers do it.”',fx:()=>{apply({aff:3});relApply({trust:3});S.f.handsTold=1},reply:()=>['ur volunteers wash HOUNDS','i was washing off a guy who owed my client forty grand','whatever. boring is good. i’m counting it']},
    {t:'“Come here. I will make tea and you can hold the cup.”',fx:()=>{apply({aff:4});S.f.handsTold=1},reply:()=>['so my hands have a job that isn’t the tap','ok that’s annoyingly smart','omw. not the smoky one, it tastes like a house fire']},
    {t:'“Nine is excessive. It is also not unusual. Show me the knuckles.”',fx:()=>{apply({aff:2});relApply({trust:2})},reply:()=>['ok dr. v','(thx)']}]}}});
 txDef('tx_m4am',{with:'v',pov:'m',prio:3,when:()=>tier()>=2&&S.day>=5&&S.slot>=2&&W24(),nodes:{
  start:{in:()=>['Are you awake.'],expire:1,onExpire:()=>phQueue('v',['Disregard. Good night.'],0),
-  opts:()=>[{t:'“yeah. what’s up”',reply:()=>['Nothing is “up.” I have checked the dog bowls three times. They are full. I am aware they are full.'],next:'fed'},
-   {t:'“no. i’m asleep. this is my ghost”',fx:()=>apply({aff:1}),reply:()=>['Then please ask the ghost whether the dogs have been fed.'],next:'fed'}]},
+  opts:()=>[{t:'“yeah. what’s up”',reply:()=>['Nothing is “up.” I have checked the hound bowls three times. They are full. I am aware they are full.'],next:'fed'},
+   {t:'“no. i’m asleep. this is my ghost”',fx:()=>apply({aff:1}),reply:()=>['Then please ask the ghost whether the hounds have been fed.'],next:'fed'}]},
  fed:{in:()=>['I would like someone else to say it.'],opts:()=>[
    {t:'“they’re fed, v.”',fx:()=>{apply({aff:4});relApply({trust:3});S.f.fedSaid=(S.f.fedSaid||0)+1},reply:()=>['Thank you.','It holds when you say it. I do not know why.','Go back to sleep. I will also attempt it.']},
-   {t:'“send a pic of the bowls. i’ll confirm”',fx:()=>{apply({aff:3});S.f.fedSaid=(S.f.fedSaid||0)+1},reply:()=>['(photo: four bowls, full, flash on. Biscuit’s eyes glow in the background like a small demon’s.)','Confirmed by a second party. Thank you. Good night.']},
+   {t:'“send a pic of the bowls. i’ll confirm”',fx:()=>{apply({aff:3});S.f.fedSaid=(S.f.fedSaid||0)+1},reply:()=>['(photo: four bowls, full, flash on. The grey hound’s eyes glow in the background like a small demon’s.)','Confirmed by a second party. Thank you. Good night.']},
    {t:'“v it’s 4am. go to bed”',fx:()=>relApply({tension:2}),reply:()=>['Yes. Of course. I apologise for the hour.']}]}}});
 /* lighter ones */
 txDef('tx_aquiz',{with:'a',pov:'m',prio:1,when:()=>frT('a')>=1&&S.day>=3&&W24(),nodes:{
  start:{in:()=>['QUIZ TIME','“which type of serial killer are u” it’s on a real website. with ADS','q1: ur ideal sunday'],expire:3,
-  opts:()=>[{t:'“asleep”',reply:()=>['boring. next'],next:'q2'},{t:'“konbini egg sandwich on a roof”',fx:()=>fr('a',2),reply:()=>['specific. i love her. next'],next:'q2'}]},
+  opts:()=>[{t:'“asleep”',reply:()=>['boring. next'],next:'q2'},{t:'“corner shop egg sandwich on a roof”',fx:()=>fr('a',2),reply:()=>['specific. i love her. next'],next:'q2'}]},
  q2:{in:()=>['q2: “how do you feel after?” options are A) powerful B) nothing C) hungry D) i have never done this'],opts:()=>[
    {t:'“C”',fx:()=>fr('a',2),reply:()=>['u got: “THE VISIONARY (mission-oriented)”','i got “THE HEDONIST” which, fine, yes. ronin got “please contact a mental health professional.” v took it and won’t say']},
    {t:'“D, officer”',fx:()=>fr('a',3),reply:()=>['liar','u got: “you are not a serial killer! :)” w a little balloon','i’m framing it for ur trial']},
@@ -174,20 +174,20 @@ txDef('tx_vcactus',{with:'v',pov:'m',prio:1,when:()=>tier()>=1&&S.day>=4&&W24(),
    {t:'“no. he lives or dies as he is”',fx:()=>{apply({aff:1});S.f.prickCut='left'},reply:()=>['Very well. He is yours to lose.','I have left a note by his pot regardless. It says “Do not water.” It is addressed to you.']}]}}});
 txDef('tx_mbiscuit',{with:'m',pov:'v',prio:1,when:()=>tier()>=1&&S.day>=3&&W24(),nodes:{
  start:{in:()=>['v','v emergency','biscuit is wearing ur reading glasses','i didn’t put them on her. she’s just wearing them. she looks like a tax lawyer'],expire:2,
-  opts:()=>[{t:'“Send a photograph.”',fx:()=>apply({aff:2}),reply:()=>['(photo: Biscuit, gold wire glasses, deeply serious)','she’s reviewing ur budget. she has notes'],next:'notes'},
+  opts:()=>[{t:'“Send a photograph.”',fx:()=>apply({aff:2}),reply:()=>['(photo: the grey hound, gold wire glasses, deeply serious)','she’s reviewing ur budget. she has notes'],next:'notes'},
    {t:'“Please take them off her before she eats them.”',reply:()=>['she’d never. she respects the craft','ok she licked a lens'],next:'notes'}]},
  notes:{in:()=>['can i keep the photo as ur contact pic'],opts:()=>[
-   {t:'“You may.”',fx:()=>{apply({aff:3});S.f.biscuitPic=1},reply:()=>['done. when u call me it’s a dog in glasses now. forever']},
+   {t:'“You may.”',fx:()=>{apply({aff:3});S.f.biscuitPic=1},reply:()=>['done. when u call me it’s a hound in glasses now. forever']},
    {t:'“What was it before?”',fx:()=>apply({aff:2}),reply:()=>['a blurry one of u reading. from the first week','shut up','i’m keeping that one too. the folder’s called “blackmail”']}]}}});
 /* ---------- 6. CALLS ---------- */
 call({id:'c_vfour',from:'v',when:()=>phMe()==='m'&&tier()>=2&&S.slot>=2&&S.day>=6&&W24(),hint:()=>'V calls at night about one thing.',
- answer:done=>say([['','You pick up. For a few seconds there’s only breathing, and a dog’s tags jingling close to the phone.'],['K9','I am sorry. I do not have a reason prepared.']],()=>ask('hitmeuppp','(...)',[
-  {t:'“bad one?”',fn:()=>{apply({aff:3});S.f.vNightCall=1;say([['K9','I dreamt of the small room. I was the age I am now, which was new, and I could not reach the handle.'],['hitmeuppp',MV('ur out. ur in ur kitchen. i can hear the fridge.','ur out, v. i can hear ur fridge humming. that’s ur fridge.','You’re out. I can hear your refrigerator. Nobody in that room had a refrigerator.','You’re in your own kitchen, V. I can hear the fridge and at least two dogs, and one of them is definitely eating something she shouldn’t. That room didn’t have shit.')],['K9','Yes. That is the refrigerator. That is Biscuit. Stay on the line a moment.']],done)}},
+ answer:done=>say([['','You pick up. For a few seconds there’s only breathing, and a hound’s tags jingling close to the phone.'],['K9','I am sorry. I do not have a reason prepared.']],()=>ask('hitmeuppp','(...)',[
+  {t:'“bad one?”',fn:()=>{apply({aff:3});S.f.vNightCall=1;say([['K9','I dreamt of the small room. I was the age I am now, which was new, and I could not reach the handle.'],['hitmeuppp',MV('ur out. ur in ur kitchen. i can hear the fridge.','ur out, v. i can hear ur fridge humming. that’s ur fridge.','You’re out. I can hear your refrigerator. Nobody in that room had a refrigerator.','You’re in your own kitchen, V. I can hear the fridge and at least two hounds, and one of them is definitely eating something she shouldn’t. That room didn’t have shit.')],['K9','Yes. That is the refrigerator. That is the grey hound. Stay on the line a moment.']],done)}},
   {t:'Tell him about your day until he’s breathing normally.',fn:()=>{apply({aff:4});S.f.vNightCall=1;say([['','You tell him about the egg sandwich, the bus that didn’t come, the man with nine spatulas. Somewhere around the spatulas his breathing evens out.'],['K9','Nine.'],['hitmeuppp','NINE, v.'],['K9','For whom.'],['hitmeuppp','THAT’S WHAT I SAID.']],done)}}])),
- miss:()=>{phQueue('v',['Disregard the call. Biscuit sat on the phone.','(She did not. Good night.)'],0)}});
+ miss:()=>{phQueue('v',['Disregard the call. The grey hound sat on the phone.','(She did not. Good night.)'],0)}});
 call({id:'c_mtap',from:'m',when:()=>phMe()==='v'&&tier()>=2&&W24()&&S.day>=5,hint:()=>'Misaki calls with the tap running.',
  answer:done=>say([['','She never calls. You answer on the first ring. Behind her, a tap is running hard.'],['hitmeuppp','hi. ok. talk to me. about anything, i don’t care, i need to hear something that isn’t fucking water.']],()=>ask('K9','(...)',[
-  {t:'Read her the shelter’s adoption list.',fn:()=>{apply({aff:4});S.f.handsTold=1;say([['K9','Dumpling. Eleven years old. Three legs. Dislikes umbrellas. Adopted Tuesday by a retired bus driver.'],['','You get through fourteen dogs. At the ninth the tap turns off. You keep going so she will not have to mention it.'],['hitmeuppp','...do another one.'],['K9','Kevin. Age unknown. Bites.']],done)}},
+  {t:'Read her the shelter’s adoption list.',fn:()=>{apply({aff:4});S.f.handsTold=1;say([['K9','Dumpling. Eleven years old. Three legs. Dislikes umbrellas. Adopted Tuesday by a retired bus driver.'],['','You get through fourteen hounds. At the ninth the tap turns off. You keep going so she will not have to mention it.'],['hitmeuppp','...do another one.'],['K9','Kevin. Age unknown. Bites.']],done)}},
   {t:'“Turn the tap off, Misaki. I will wait.”',fn:()=>{apply({aff:2});relApply({trust:2});say([['','A long pause. Then the water stops, and the line gets very quiet.'],['hitmeuppp',MV('ok. off.','ok. it’s off. my hands hurt.','It’s off. My hands hurt. I wasn’t going to stop on my own.','It’s off. My hands hurt like a bitch. I’d have stood there another hour, so, fine, good job bossing me around. Don’t get used to it.')]],done)}}])),
  miss:()=>{phQueue('m',['nvm. sorry. butt dial','(it wasn’t a butt dial)'],0);relApply({tension:1})}});
 /* ---------- 7. THINGS IN THE ROOMS ---------- */
@@ -208,10 +208,10 @@ PINGS.push(
  ['mi','does anyone else have a number. like a number of times u do a thing after. asking for science'],
  ['ro','pies. record’s nine. first one t’ask about the seventh gets the crowbar'],
  ['an','mine’s takes. i refilm everything 6 times. including, once, a guy. (i mean i filmed him 6 times. he only happened once)'],
- ['k9','Four. It is the number of dogs. I count them before bed. There have always been four when I counted.'],
+ ['k9','Four. It is the number of hounds. I count them before bed. There have always been four when I counted.'],
  ['an','group poll: is it self care if there’s a body in the next room. be honest'],
  ['ro','found a lighter in a coat I ain’t worn since I left home. works first strike. fuckin’ course it does'],
- ['mi','konbini guy asked if i was ok bc i bought 4 lemon soaps. i said “gifts”. he said “for who”. i left'],
+ ['mi','corner shop guy asked if i was ok bc i bought 4 lemon soaps. i said “gifts”. he said “for who”. i left'],
  ['k9','The shelter’s new volunteer asked what I do “outside of this.” I said that I read, and that I do not waste meat. Both are true.'],
  ['an','maria hit 400k. the heartsick angel hit 14. only one of those got a cake'],
  ['mi','sat in a guy’s apartment for 2 hrs waiting and his cat sat on me the whole time. felt bad after. for the cat. i left the window open and a tin of tuna'],
@@ -219,19 +219,19 @@ PINGS.push(
  ['k9','Addendum to Ronin’s message: the kitchen at the foundation is unlocked. There is soup. No one will ask.']);
 DRIFT.a.push('do u think the ceiling is lonely. asking for me','filmed a get-ready-with-me in the same mirror i cleaned a knife in. 80k likes. nobody ever checks the reflection','my mom commented “beautiful!!” on maria’s post. first thing she’s said to me in 3 yrs. she doesn’t know it’s me');
 DRIFT.r.push('pie five’s out. it’s yours. come get it warm or I’m feedin’ it to the raccoon','drove past a church and didn’t slow down. personal best','you eat today, or d’you need me t’come over there and be an asshole about it');
-DRIFT.v.push('The dogs are fed. I am telling you so that someone else knows.','I have wedged your trailer door open with a shoe while I unload the groceries. Do not be alarmed by the shoe.','There are now seven bentos. I miscounted in your favour.');
+DRIFT.v.push('The hounds are fed. I am telling you so that someone else knows.','I have wedged your trailer door open with a shoe while I unload the groceries. Do not be alarmed by the shoe.','There are now seven bentos. I miscounted in your favour.');
 DRIFT.m.push('washed my hands 3 times today. just 3. putting it on the fridge','what’s it called when ur happy and it makes u want to check the exits','calendar app asked if i want to “plan ahead.” i said yes. who the fuck am i');
 const _chatW=chatLog;chatLog=function(){const L=_chatW();if(!S||S.phase==='taken')return L;const k=(S.day*5+S.slot)%7;
  if(k===1)L.push(['ro','four killers in a group chat and every one of us has a fuckin’ bedtime routine. embarrassing']);
  if(k===3)L.push(['an','whoever said “the body keeps the score” mine keeps the lighting setup']);
- if(k===5)L.push(['k9','Good night. The dogs are fed. (I will continue to announce it. You may mute me.)']);
+ if(k===5)L.push(['k9','Good night. The hounds are fed. (I will continue to announce it. You may mute me.)']);
  return L};
 /* ---------- 9. WHERE IT ENDS UP ---------- */
 const _xeW=extraEnding;extraEnding=function(){const L=_xeW();if(!S||!S.f)return L;const f=S.f;
  if(f.fiveDone==='told'||f.fiveV==='entry')L.push('There is a dentist appointment in Misaki’s calendar every March now. She has never been. She has never deleted one.');
  else if(f.fiveDone==='angel')L.push('Angel keeps a flattened cake box in her closet that says HAPPY NOT DEAD DAY. She adds a tally mark to the lid every year.');
  else if(f.fiveDone==='bench')L.push('Once a year Misaki eats a salmon bento on a repainted station bench with her hood up. Then she flips off the departures board and goes home.');
- if(f.hour70Told||f.fedSaid>=1||f.mBowls==='scoop')L.push('At 4am, when V stands in the kitchen, somebody says “they’re fed.” Usually it is Misaki, from the bedroom, with her face in the pillow. Biscuit eats again regardless.');
+ if(f.hour70Told||f.fedSaid>=1||f.mBowls==='scoop')L.push('At 4am, when V stands in the kitchen, somebody says “they’re fed.” Usually it is Misaki, from the bedroom, with her face in the pillow. The grey hound eats again regardless.');
  if(f.doorAsk==='asked'||f.doorAsk==='opened')L.push('Every door in the house stays open a hand’s width. Misaki measures it with her hand, and once, to be funny, with a chainsaw bar.');
  if(f.handsTold||f.ronHands)L.push('She does three washes most days. On the days it’s nine, there’s hand cream by the sink that smells like an old man, and nobody counts out loud.');
  if(f.angelCeil==='ceiling'||f.angelCeil==='down')L.push('Angel says she comes down off the ceiling more often now, mostly at brunch when Ronin is being loud.');

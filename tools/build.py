@@ -18,10 +18,12 @@ B2='/* ===UI2-BEGIN=== */';E2='/* ===UI2-END=== */'
 if B2 in h:
     a=h.index(B2);b=h.index(E2)+len(E2)+1
     h=h[:a]+h[b:]
+# td19–td29 are the setting rework's modules; kc19–kc34 are the phone/voice/kidnapping lineage, loaded after them.
 # order matters: later modules wrap functions defined by earlier ones (td12 is loaded before td11 on purpose)
 ui2='\n'.join([rd('ui2.js'),rd('td6.js'),rd('td7.js'),rd('td8.js')])
 ui2+='\nconst TD_DEEPROOMS='+rd('deep_rooms.json').strip()+';\n'+rd('td9.js')
-ui2+='\nconst TD_CITYROOMS='+rd('city_rooms.json').strip()+';\n'+'\n'.join(rd(f) for f in ['td10.js','td12.js','td11.js','td13.js','td14.js','td15.js','td16.js','td17.js','td18.js','kc19.js','kc20.js','kc21.js','kc22.js','kc23.js','kc24.js','kc25.js','kc26.js','kc27.js','kc28.js','kc29.js','kc30.js','kc31.js','kc32.js','kc33.js','kc34.js'])
+ui2+='\nconst TD_CITYROOMS='+rd('city_rooms.json').strip()+';\n'+'\n'.join(rd(f) for f in ['td10.js','td12.js','td11.js','td13.js','td14.js','td15.js','td16.js','td17.js','td18.js','td19.js','td20.js','td21.js','td22.js','td23.js','td24.js','td25.js','td26.js','td27.js','td28.js','td29.js']
+ +['kc%d.js'%n for n in range(19,36)])
 h=h.replace(anchor,B+'\n'+body+E+'\n'+B2+'\n'+ui2+E2+'\n'+anchor)
 open(idx,'w',encoding='utf-8').write(h)
 s=h[h.index('<script>\n"use strict";')+8:h.rindex('</script>')]

@@ -8,7 +8,7 @@ EVENTS.push(
  ['hitmeuppp',MV('yeah my brother. he’s tall and a total problem.','yeah. my brother. he’s tall and he’s a massive problem.','Sure. My brother. I’ve got one of those now, apparently.','My brother, right. He’s so polite. He’s so polite I’m going to strangle him with his own coat.')],
  ['','He paid three months of rent she didn’t earn. She knows what happens to people who owe people; she collects from them for a living. (And the first thing she felt was relief, which is so fucked.)']],
  ()=>ask('hitmeuppp','(What do you do about March?)',[
-  {t:'Pay him back. Every yen.',sub:S.yen>0?'−¥'+Math.min(S.yen,120000).toLocaleString()+' · it’s yours':'you’re broke · you’ll owe him',fn:()=>{const p=Math.min(S.yen,120000);S.yen-=p;S.f.rentBack=1;apply({aff:2});save();say([
+  {t:'Pay him back. Every cent.',sub:S.yen>0?'−'+money(Math.min(S.yen,120000))+' · it’s yours':'you’re broke · you’ll owe him',fn:()=>{const p=Math.min(S.yen,120000);S.yen-=p;S.f.rentBack=1;apply({aff:2});save();say([
    ['','She leaves an envelope on his kitchen counter, under the okayest mug, with a note: “for march. don’t.”'],
    ['K9','(That evening.) You did not have to.'],['hitmeuppp','yeah. i did.'],
  ['K9','I am aware. I will not cash it. You may consider that my half of the argument.'],

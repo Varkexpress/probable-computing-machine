@@ -19,7 +19,7 @@ const kdFlipG=G=>G.map(p=>p.map(([x,y])=>[19-x,y]));
 
 /* ---------- 1. MORE TO GET THROUGH ---------- */
 /* the chair: stay level while the band narrows */
-function kdHoldOn(cb,o){cb=once(cb);if(kdAuto())return cb(kdAuto()>0);o=o||{};let y=50,v=0,t=0,inb=0,band=36;const N=o.len||560;const say3=o.lines||['Count the dogs.','Biscuit. Sergeant. Mochi. Pancake.','Again. From Biscuit.','Don’t listen to the radio. Count.'];
+function kdHoldOn(cb,o){cb=once(cb);if(kdAuto())return cb(kdAuto()>0);o=o||{};let y=50,v=0,t=0,inb=0,band=36;const N=o.len||560;const say3=o.lines||['Count the hounds.','Grey. Old. Black. Pale.','Again. From the grey one.','Don’t listen to the radio. Count.'];
  go({onTap(){},update(){t++;v+=held.act?-.1:.075;v+=Math.sin(t/23)*.03+(Math.random()-.5)*.09;v=Math.max(-1.7,Math.min(1.7,v));y+=v;if(y<0){y=0;v=0}if(y>100){y=100;v=0}
    band=36-16*t/N;if(Math.abs(y-50)<=band/2)inb++;if(t>=N)cb(inb/N>=.55)},
   draw(){(o.bg||drawInterro)();rect(0,0,W,H,'rgba(0,0,0,.6)');hudBar(o.title||'The chair',o.hint||'hold E to stay level');
@@ -42,7 +42,7 @@ const _tmKD2=takenM;takenM=function(){S.f.kdScrews=0;S.f.kdSteps=0;return _tmKD2
    return da.apply(this,arguments)}})();
 /* every full session: the chair first, then the question about before she was nine */
 const _bqKD=kdBlankQ;kdBlankQ=function(n,cb){go({draw(){drawInterro()}});say([['','He leaves. Somebody else comes in and stands behind the chair, and then for a while there are no questions at all.']],()=>kdHoldOn(ok=>{IR.R=clamp(IR.R+(ok?8:-10));if(!ok)KD().hrs+=1;save();go({draw(){drawInterro()}});
-  say([['',ok?'You stay in your own head the whole time. You get to Pancake forty times.':'You lose count somewhere after Mochi. When it comes back you are not sure it is the same day.'],['hitmeuppp',ok?'(still here. didn’t even hurt.)':'(didn’t hurt. i just got bored and left for a bit.)']],()=>_bqKD(n,cb))}))};
+  say([['',ok?'You stay in your own head the whole time. You get to the pale one forty times.':'You lose count somewhere after the black one. When it comes back you are not sure it is the same day.'],['hitmeuppp',ok?'(still here. didn’t even hurt.)':'(didn’t hurt. i just got bored and left for a bit.)']],()=>_bqKD(n,cb))}))};
 /* what she reports about her body after each one */
 const KD_INJ=[[['','Your wrists itch under the cable ties. You don’t look at them. Itching means healing.']],
  [['','Your left hand has gone to sleep. You tuck it inside your hoodie and let it.'],['hitmeuppp','(nothing’s broken. i’d know. i’ve had broken.)']],
@@ -58,7 +58,7 @@ function kdCarry(next,fight){cut([['','He has her. She weighs less than she did 
 
 /* ---------- 2. THE INFIRMARY ---------- */
 function kdMedStart(self,L){const k=KD();k.med={d:0,clar:0,run:0};k.aftL=L.filter(Boolean);k.self=self?1:0;S.endDay+=3;S.done.bedChosen=1;save();
- if(S.pov==='v')return cut([['','The infirmary is on sublevel two, behind a door marked LAUNDRY. V had it built four years ago for the dogs and for himself. No other person has ever been in it.'],
+ if(S.pov==='v')return cut([['','The infirmary is on sublevel two, behind a door marked LAUNDRY. V had it built four years ago for the hounds and for himself. No other person has ever been in it.'],
   ['','The doctor works on her for six hours and V holds the lamp. He learns that the left hand was broken on the first day and again on the third, and that she walked out of that building on a foot that should not have taken weight.'],
   ['K9','She told me in the car that she was fine. She said it twice.'],
   ['','She will wake in a room she has never seen, with a needle in her and one light on. He takes the bulb out of its cage and fits a lampshade from the east wing. It helps very little.']],hub,'#05040a');
@@ -79,10 +79,10 @@ ROOMS.medbay={name:()=>kdClar()<2?'Somewhere else. Another one.':'The infirmary 
  const two=(a,b,at,mark,fa,fb)=>{R.spots.push({at,mark,label:a,show:lo,act:fa},{at,mark,label:b,show:hi,act:fb||fa})};
  two('Cot','Bed',[64,128],[64,98],()=>ask('hitmeuppp',lo()?'(if i sleep, they come while i’m under.)':'(the sheets smell like his laundry.)',[{t:'Sleep',sub:'ends the day',fn:()=>{S.slot=3;S.done.bedChosen=1;sleep()}},{t:'Not yet',fn:()=>{}}]));
  two('The line in your hand','The drip',[112,150],[112,100],()=>ask('hitmeuppp','(whatever’s in the bag is going into me.)',[
-   {t:'Pull it out.',fn:()=>{apply({energy:-12});calm(-3);S.f.kdPulled=(S.f.kdPulled||0)+1;save();say([['','She pulls it with her teeth, because her left hand won’t close on the tape. It bleeds more than a needle should.'],['hitmeuppp','(barely a scratch.)'],['','When she next wakes it is back in, in the other hand, with twice as much tape and a small drawing of a dog on the tape.']])}},
+   {t:'Pull it out.',fn:()=>{apply({energy:-12});calm(-3);S.f.kdPulled=(S.f.kdPulled||0)+1;save();say([['','She pulls it with her teeth, because her left hand won’t close on the tape. It bleeds more than a needle should.'],['hitmeuppp','(barely a scratch.)'],['','When she next wakes it is back in, in the other hand, with twice as much tape.']])}},
    {t:'Leave it. Find out what it is first.',fn:()=>say([['','The bag has a label, in handwriting. She can’t make her eyes hold the letters still.']])}]),
   ()=>say([['','“Saline. Cefazolin. NO sedatives — she reacts.” The last part is underlined twice, in fountain pen.'],['hitmeuppp',MV('(his handwriting.)','(that’s V’s handwriting. he labelled my DRIP.)','(That’s his handwriting. He underlined it twice.)','(He wrote “no sedatives” and underlined it twice. He’d have stood over the doctor until she agreed.)')]]));
- two('The eye in the ceiling','Smoke detector',[160,128],[160,24],()=>say([['','A red light in the ceiling blinks every eight seconds.'],['hitmeuppp','(camera. hi, assholes. get my good side.)']]),()=>say([['','It’s a smoke detector. It has a sticker on it of a dog in a fire helmet.']]));
+ two('The eye in the ceiling','Smoke detector',[160,128],[160,24],()=>say([['','A red light in the ceiling blinks every eight seconds.'],['hitmeuppp','(camera. hi, assholes. get my good side.)']]),()=>say([['','It’s a smoke detector. Somebody has written the date of its last battery on it, in fountain pen.']]));
  two('Their notes','Your chart',[214,150],[230,150],()=>{const first=!S.f.kdChart;S.f.kdChart=1;if(first)kdClarUp();save();say(KD_CHART.concat([
    ['hitmeuppp','(somebody had a rough week.)'],['hitmeuppp','(...why’s my name at the top. that’s not right. i walked out. i’m FINE. the hand’s just stiff.)'],
    ['','She hangs the clipboard back up with her right hand. The left one is in a cast to the elbow, and she has not looked at it yet.']]))},
@@ -95,20 +95,20 @@ ROOMS.medbay={name:()=>kdClar()<2?'Somewhere else. Another one.':'The infirmary 
     ['','The person in the mirror has a shaved patch above one ear with fourteen stitches in it, an eye that does not open all the way, and a jaw the colour of a plum.'],
     ['','She fixes her fringe with one hand and hangs the towel back up, to be polite.']])}},{t:'Leave it.',fn:()=>{}}])});
  two('Door','The door',[246,140],[280,80],()=>ask('hitmeuppp','(No lock I can see. So somebody’s on it.)',[
-   {t:'Listen.',fn:()=>say([['','Somebody is breathing on the other side, low down, as if he were sitting on the floor. There is a second set of lungs with him, much bigger.'],['hitmeuppp','(guard. and a dog. fuck. they’ve got a dog now.)']])},
+   {t:'Listen.',fn:()=>say([['','Somebody is breathing on the other side, low down, as if he were sitting on the floor. There is a second set of lungs with him, much bigger.'],['hitmeuppp','(guard. and a hound. fuck. they’ve got a hound now.)']])},
    {t:'Go. Now, while you can stand.',sub:'stealth',fn:kdMedRun},{t:'Not yet',fn:()=>{}}]),
-  ()=>say([['','The door has a handle. It has had one the whole time.'],['','Outside, V is asleep sitting up against the corridor wall, in the coat, with Sergeant across his shins. There is a thermos and a romance novel beside him.'],['hitmeuppp',MV('(...)','(he’s been out here the whole time.)','(He’s been out here the whole time. That was the breathing.)','(That’s the guard I’ve been listening to for two days. He brought a book.)')]]));
+  ()=>say([['','The door has a handle. It has had one the whole time.'],['','Outside, V is asleep sitting up against the corridor wall, in the coat, with the old hound across his shins. There is a thermos and a romance novel beside him.'],['hitmeuppp',MV('(...)','(he’s been out here the whole time.)','(He’s been out here the whole time. That was the breathing.)','(That’s the guard I’ve been listening to for two days. He brought a book.)')]]));
  R.spots.push({at:[90,160],mark:[90,152],label:'Your phone',show:()=>kdMed()&&S.kd.med.d>=1,act:()=>openPhone('dm')},
   {at:[178,160],mark:[178,152],label:'Foam ball',show:()=>hi(),act:()=>{if(S.done.kdGrip)return say([['hitmeuppp','(did my reps. the hand says no more today.)']]);S.done.kdGrip=1;kdTurn(ok=>{T(178);if(ok&&KD().shake>0)S.kd.shake--;calm(ok?2:-1);
     say([['',ok?'Three squeezes with the left hand. The pins move when she does it, and she watches them move with interest.':'The ball rolls under the bed. She tells it that it’s a stupid ball.'],['hitmeuppp',ok?'(easy. doesn’t even hurt.)':'(whatever. hand’s just stiff.)']])},{bg:kdDrawMed,title:'Left hand · the foam ball',unit:'squeezes',hint:'Press E as the grip closes.',ok:'Three.',bad:'It gets away from her.',fast:.3})}})})();
 function kdMedRun(){const k=S.kd;k.med.run++;save();stealth({map:VENT,guards:VENT_G,title:'Get out. Again.',hint:'Same as last time. Plants hide you. E from behind.',smoke:0,actor:'m',takedown:true,guardCol:'#2a1a1a',takeLine:'The drip needle, into his forearm. He doesn’t make a sound.',autoExit:true,sens:1.1},r=>{
   go(cutBg('#0a0c0e'));const back=()=>toRoom('medbay',[120,150]);
-  if(r.ok&&r.kills>0){S.f.kdStab=1;k.med.clar=3;calm(-4);save();return say([['','She comes out into a garage. Her own truck is parked in it. Beside it is a black sedan with a dog blanket on the back seat.'],
+  if(r.ok&&r.kills>0){S.f.kdStab=1;k.med.clar=3;calm(-4);save();return say([['','She comes out into a garage. Her own truck is parked in it. Beside it is a black sedan with a hound blanket on the back seat.'],
     ['','Behind her, the guard she put the needle in is sitting on the corridor floor holding his forearm. He is wearing a brown coat.'],['K9','Misaki. It is Thursday. You are in my house.'],
     ['hitmeuppp',MV('...V?','V? ...i stabbed u.','V. I stabbed you. I thought— there was a bulb.','Oh, fuck. I stabbed you. I looked right at you and I saw the radio guy. I saw his fucking shoes, V.')],
-    ['K9','It is a small needle. Pancake has done worse.']],back)}
-  if(r.ok){k.med.clar=3;calm(4);save();return say([['','She comes out into a garage. A dog the size of a horse is asleep against the big door. It wakes, sees her, and loses its mind with joy as quietly as it knows how.'],
-    ['hitmeuppp',MV('...biscuit?','biscuit?? why do they have BISCUIT.','Biscuit? Why would they have— oh.','Biscuit. Why would they have Biscuit, unless— oh. Oh, I’m an idiot. I’m in his fucking basement.')],
+    ['K9','It is a small needle. The pale hound has done worse.']],back)}
+  if(r.ok){k.med.clar=3;calm(4);save();return say([['','She comes out into a garage. The grey hound is lying across the big door. It lifts its head and looks at her. It does not get up, and it does not make a sound. Nothing in the other building ever looked at her and stayed where it was.'],
+    ['hitmeuppp',MV('...oh.','that’s HIS. the grey one. why do they have—','That’s his. The grey one. Why would they have— oh.','That’s the grey one. That’s his, nobody else has one of those, he made her. So why would they have— oh. Oh, I’m an idiot. I’m in his fucking basement.')],
     ['','She sits down on the concrete, and it takes a while. Her foot has been trying to tell her something since the corridor.'],['hitmeuppp','(it’s asleep. it’s been asleep all week.)']],back)}
   kdClarUp();say([['','Hands on her shoulders, from the front. The guard kneels until his face is lower than hers. None of the others ever did that.'],
    ['K9','It is Thursday. You are on sublevel two of my house. I am going to carry you back, and I am telling you before I do.'],
@@ -125,14 +125,14 @@ function kdMedMorning(done){const k=S.kd,m=k.med;m.d++;m.clar=Math.min(3,m.clar+
    :[['','On the third morning she knows the house. She asks why the door says LAUNDRY, and he tells her that nobody ever opens a laundry.'],['hitmeuppp',MV('i thought i was back there.','i thought i was back in it. for two days.','I thought I was back in it. For two days, in your house.','For two days I thought I was back in it, and you were the guard. You could’ve put up a fucking poster.')],['K9','There is a poster now.']];
   const aft=k.aftL||[['','She is upstairs again, in daylight.']];k.med=null;k.aftL=null;k.t0=S.day;save();return say(L,()=>cut(aft,done,'#05040a'))}
  if(me){if(m.d===1){kdBacklog();return say([['','Somebody is changing the bag on the stand. She keeps her eyes shut and her breathing slow, the way she did for the others.'],
-    ['','This guard is new. He says “I apologise” to her hand before he touches the tape. He smells of dog.'],['hitmeuppp','(good cop. ok. they’ve got a good cop now. don’t fall for it.)'],
+    ['','This guard is new. He says “I apologise” to her hand before he touches the tape. He smells of hound.'],['hitmeuppp','(good cop. ok. they’ve got a good cop now. don’t fall for it.)'],
     ['','When she looks, her phone is on the floor just inside the door, face up and charged.']],done)}
   m.clar=Math.max(m.clar,2);save();return say([['','There is a weight across her legs that was not there last night. It is warm, and it snores.'],
-   ['hitmeuppp',MV('(dog.)','(they brought a DOG in. to soften me up. good trick.)','(They’ve brought in a dog. It’s a good trick. It’s exactly Biscuit’s weight.)','(A dog, to soften me up. It weighs what Biscuit weighs and it’s got Biscuit’s stupid ear. ...Oh.)')],
-   ['','Her left hand goes to scratch the ear and doesn’t arrive. She looks at it properly for the first time. It is in a cast to the elbow, and two steel pins stand out of the back of it.'],['hitmeuppp','(huh. when did that happen.)']],done)}
+   ['hitmeuppp',MV('(hound.)','(they brought a HOUND in. to soften me up. good trick.)','(They’ve brought in a hound. It’s a good trick. It’s the weight of the grey one.)','(A hound, to soften me up. It weighs what the grey one weighs and it’s got her seam down the shoulder, the one he sewed. ...Oh.)')],
+   ['','Her left hand goes to rest on its neck and doesn’t arrive. She looks at it properly for the first time. It is in a cast to the elbow, and two steel pins stand out of the back of it.'],['hitmeuppp','(huh. when did that happen.)']],done)}
  if(m.d===1){const found=late=>()=>{if(late)calm(-3);say([['',late?'Ten minutes lost in the kennel corridor. By the time he reaches the garage she has the big door up by a hand’s width.':'She is where he thought she would be.'],
     ['','She is holding the drip stand like a spear, on a foot she should not be standing on. She does not know him.']],()=>ask('K9','(She believes she is still in that building.)',[
-    {t:'Sit down on the floor.',fn:()=>{calm(5);kdClarUp();fin()}},{t:'Say the day and the place.',fn:()=>{calm(3);fin()}},{t:'Let Biscuit through.',fn:()=>{calm(6);m.clar=Math.max(m.clar,2);save();fin()}}]))};
+    {t:'Sit down on the floor.',fn:()=>{calm(5);kdClarUp();fin()}},{t:'Say the day and the place.',fn:()=>{calm(3);fin()}},{t:'Let the grey hound through.',fn:()=>{calm(6);m.clar=Math.max(m.clar,2);save();fin()}}]))};
   const fin=()=>say([['hitmeuppp','i’m fine. i was just leaving.'],['','She says it pleasantly, as if he had met her on the way out of a shop. There is blood down the hand where the needle was, and she has not noticed that either.'],['K9','(She is not lying to me. She believes it.)']],done);
   return say([['','At six the infirmary bed is empty. The drip stand is gone, and a line of blood drops leads to the door.']],()=>ask('K9','(Where would she go.)',[{t:'The garage. She will go for the biggest door.',fn:found(0)},{t:'The kennel corridor.',fn:found(1)}]))}
  say([['','She asks for a mirror. The doctor has said not yet.']],()=>ask('K9','(She has not seen her face.)',[
@@ -142,10 +142,10 @@ const _meKD=morningEvent;morningEvent=function(done){if(kdMed()){S.bed=null;retu
 /* V: sitting with her */
 function kdSit(){const m=S.kd.med;const pre=[['','She is asleep, or pretending to be. The chart on the end of the bed runs to two pages.']].concat(S.f.kdChartV?[]:KD_CHART);S.f.kdChartV=1;save();go({draw:hubBg});
  say(pre,()=>ask('K9','(He has read it eleven times.)',[
-  {t:'Sit on the floor outside the door.',fn:()=>{calm(4);say([['','He sits where she will hear a person breathing and not have to see one. Sergeant lies down across his shins.']],hub)}},
+  {t:'Sit on the floor outside the door.',fn:()=>{calm(4);say([['','He sits where she will hear a person breathing and not have to see one. The old hound lies down across his shins.']],hub)}},
   {t:'Read to her through the door.',fn:()=>{calm(5);apply({aff:1});say([['K9','Chapter four. The land tax reform of 1873.'],['','After twenty minutes something hits the inside of the door, lightly. It is a foam ball. He takes it for a request to continue.']],hub)}},
   {t:'Go in and sit by the bed.',fn:()=>{if(m.clar<2){calm(-5);return say([['','She has the soup tray up edge-out before he is through the door, in the hand that works.'],['K9','(I am the guard. Of course I am. I am the right height.)'],['','He backs out and shuts the door, and sits down against it.']],hub)}
-    calm(6);apply({aff:2});say([['','She moves her feet to make room on the bed for a dog, and then a little more room than a dog needs.'],['hitmeuppp',MV('hi.','hi. i’m fine btw.','Hi. I’m fine, by the way.','Hi. I’m fine, before you ask. Stop looking at my hand like that, it’s a hand.')]],hub)}}]))}
+    calm(6);apply({aff:2});say([['','She moves her feet to make room on the bed for a hound, and then a little more room than a hound needs.'],['hitmeuppp',MV('hi.','hi. i’m fine btw.','Hi. I’m fine, by the way.','Hi. I’m fine, before you ask. Stop looking at my hand like that, it’s a hand.')]],hub)}}]))}
 const _shKD=sideHub;sideHub=function(late){const o=_shKD(late);if(!kdMed()||S.pov!=='v')return o;return o.concat([{h:'Sublevel two'},{t:'The infirmary',sub:S.done.kdSit?'done today':'costs time · sit with her',dis:late||!!S.done.kdSit,fn:()=>{spend();S.done.kdSit=1;kdSit()}}])};
 /* she is more tired than she says, for a while after */
 const _hubKD2=hub;hub=function(){try{if(S&&S.kd&&S.kd.t0&&!S.kd.med&&S.phase==='after'&&S.kd.tiredDay!==S.day&&S.day-S.kd.t0<4){S.kd.tiredDay=S.day;if(S.slot===0){apply({energy:-20});toast(S.pov==='v'?'She says she slept well. She did not.':'Slept great. (Energy is low.)')}}}catch(e){}return _hubKD2.apply(this,arguments)};
@@ -158,7 +158,7 @@ EVENTS.push({id:'kd_omen',when:()=>S.phase==='normal'&&(S.paid||0)>=1&&!S.f.kidn
  ['K9','(She told me about a canal, in the spring. She was proud of the knot.)'],
  ['','He sends “Did you eat today?” an hour early. She sends back a photograph of a corn dog.']],done)});
 kdEv('kd_konbini',()=>kdD()>=1&&kdMe()&&!S.f.kdKonbini,done=>{S.f.kdKonbini=1;save();say([
- ['','At the konbini the clerk rings up her noodles, looks at her, and voids the sale. He pushes the bag across the counter with two fingers and looks at the cigarette display until she leaves.'],
+ ['','At the corner shop the clerk rings up her noodles, looks at her, and voids the sale. He pushes the bag across the counter with two fingers and looks at the cigarette display until she leaves.'],
  ['hitmeuppp',MV('free noodles??','free noodles. nice guy. weird, but nice.','Free noodles. Nice of him. Odd man.','Free noodles! He didn’t even want to chat. People are so nice in this neighbourhood when you’re not robbing them.')],
  ['','On the way out a child points at her and is turned around by the shoulders.']],done)});
 kdEv('kd_angelsees',()=>kdD()>=1&&frT('a')>=1&&!S.f.kdAngelSees,done=>{S.f.kdAngelSees=1;fr('a',3);save();say([
@@ -188,7 +188,7 @@ txDef('tx_kd_selfie',{with:'a',pov:'m',prio:2,when:()=>(kdMed()&&S.kd.med.d>=1||
    {t:'“i look fine, i’ll send one later”',fx:()=>fr('a',1),reply:()=>['V told me about the hand','u don’t have to send one. i’m coming anyway. i just wanted to hear u say “fine” so i could be mad at somebody']}]}}});
 txDef('tx_kd_rvis',{with:'r',pov:'m',prio:2,when:()=>(kdMed()&&S.kd.med.d>=1||kdPost())&&frT('r')>=1,nodes:{
  start:{in:()=>['came by Vee’s basement hospital. you were out cold','left you a thing on the chair. don’t make it weird'],expire:3,
-  opts:()=>[{t:'“why didn’t u wake me”',fx:()=>fr('r',3),reply:()=>['’cause you looked like somethin’ I’d leave in a ditch. I’m the one who makes people look like that. didn’t care for seein’ it on you','had t’go stand in the yard a minute. Vee’s dogs came and stood with me. fuckin’ embarrassing']},
+  opts:()=>[{t:'“why didn’t u wake me”',fx:()=>fr('r',3),reply:()=>['’cause you looked like somethin’ I’d leave in a ditch. I’m the one who makes people look like that. didn’t care for seein’ it on you','had t’go stand in the yard a minute. Vee’s hounds came and stood with me. fuckin’ embarrassing']},
    {t:'“i look FINE”',fx:()=>{fr('r',2);S.f.kdRonCall=1},reply:()=>['sure. yeah. you look fine','(nothing for six minutes)','whoever did the hand is mine t’kill. tell Vee I called it']}]}}});
 txDef('tx_kd_mdoor',{with:'m',pov:'v',prio:3,when:()=>kdMed()&&S.kd.med.d>=1&&S.kd.med.clar<3,nodes:{
  start:{in:()=>['V','im in another one. room, bulb, needle in my hand','dont come. its what they want. just telling u so u know i didnt leave on purpose'],expire:2,
@@ -209,7 +209,7 @@ txDef('tx_kd_rhand',{with:'r',pov:'v',prio:2,when:()=>(kdMed()||kdPost())&&frT('
   opts:()=>[{t:'“The man with the radio stood on it. It was already broken.”',fx:()=>{apply({veng:4});fr('r',2);S.f.kdRonCall=1},reply:()=>['mine','you get the rest. that one’s mine t’kill. I’m askin’ nice']},
    {t:'“She does not know that it is broken.”',fx:()=>fr('r',2),reply:()=>['...the fuck d’you mean she don’t know','(typing for a long time)','okay. then nobody tells her it was him. she finds out when he’s already in my freezer']}]}}});
 const _xeKD2=extraEnding;extraEnding=function(){const L=_xeKD2();if(!S||!S.f||!S.kd||!S.kd.t0)return L;const f=S.f;
- if(f.kdStab)L.push('V has a small round scar on his left forearm from a drip needle. He says a dog did it, and the dog he names changes each time.');
+ if(f.kdStab)L.push('V has a small round scar on his left forearm from a drip needle. He says a hound did it, and the hound he names changes each time.');
  if(f.kdTruth===2)L.push('She asked for the whole list once, by text, and read all of it. She still says “fine.” She says it differently now.');
  else L.push('She never did ask for the list. The left hand aches before rain, and she tells people it is just stiff.');
  return L};

@@ -42,9 +42,12 @@ function tdToLegacy(room,x,y){const e=TD.room[room];const R=ROOMS[room];if(!e||!
 function tdFree(M,x,y){if(!tdBlocked(M,x,y))return[x,y];for(let r=4;r<80;r+=4)for(let a=0;a<16;a++){const nx=x+Math.cos(a/16*6.283)*r,ny=y+Math.sin(a/16*6.283)*r;if(!tdBlocked(M,nx,ny))return[nx,ny]}return[x,y]}
 /* ---------- sprites at 1px ---------- */
 const TDSPR=new WeakMap();
-function tdPx(a,cx,fy,flip,ps=1,pal){const n=a[0].length,h=a.length;const P=pal||a.P||PAL;
- let m=TDSPR.get(a);if(!m){m=new Map();TDSPR.set(a,m)}const key=(flip?1:0)+'|'+ps+'|'+SC+'|'+Object.values(P).join(',');let o=m.get(key);
- if(!o){o=document.createElement('canvas');const k=ps*SC;o.width=Math.ceil(n*k);o.height=Math.ceil(h*k);const g=o.getContext('2d');if(g){for(let j=0;j<h;j++){const r=a[j];for(let i=0;i<n;i++){const ch=r[flip?n-1-i:i];if(ch==='.'||ch===undefined)continue;const col=P[ch];if(!col)continue;g.fillStyle=col;const x0=Math.round(i*k),y0=Math.round(j*k);g.fillRect(x0,y0,Math.round((i+1)*k)-x0,Math.round((j+1)*k)-y0)}}}if(m.size>24)m.clear();m.set(key,o)}
+const TDSH=new WeakSet();const TDSHC=new Map();/* character sprites get soft volume: shadow side darker, lit side a touch brighter (light from upper left of the facing) */
+function tdShadeCol(col,f){const k=col+'|'+f;let o=TDSHC.get(k);if(o)return o;const m=/^#([0-9a-f]{6})$/i.exec(col);if(!m){TDSHC.set(k,col);return col}const v=parseInt(m[1],16);const ch=x=>Math.max(0,Math.min(255,Math.round(f<1?x*f:x+(255-x)*(f-1))));
+ o='#'+[v>>16&255,v>>8&255,v&255].map(x=>ch(x).toString(16).padStart(2,'0')).join('');TDSHC.set(k,o);return o}
+function tdPx(a,cx,fy,flip,ps=1,pal){const n=a[0].length,h=a.length;const P=pal||a.P||PAL;const sh=(TD.shade||TDSH.has(a))&&!META.fxOff;
+ let m=TDSPR.get(a);if(!m){m=new Map();TDSPR.set(a,m)}const key=(flip?1:0)+'|'+ps+'|'+SC+'|'+(sh?'s|':'')+Object.values(P).join(',');let o=m.get(key);
+ if(!o){o=document.createElement('canvas');const k=ps*SC;o.width=Math.ceil(n*k);o.height=Math.ceil(h*k);const g=o.getContext('2d');if(g){for(let j=0;j<h;j++){const r=a[j];for(let i=0;i<n;i++){const ch=r[flip?n-1-i:i];if(ch==='.'||ch===undefined)continue;let col=P[ch];if(!col)continue;if(sh){const u=flip?n-1-i:i,dr=flip?-1:1,op=(x,y)=>y>=0&&y<h&&x>=0&&x<n&&a[y][x]&&a[y][x]!=='.';let f=1;if(!op(u+dr,j))f=.78;else if(!op(u+2*dr,j))f=.9;else if(!op(u-dr,j)||!op(u,j-1))f=1.1;if(f!==1)col=tdShadeCol(col,f)}g.fillStyle=col;const x0=Math.round(i*k),y0=Math.round(j*k);g.fillRect(x0,y0,Math.round((i+1)*k)-x0,Math.round((j+1)*k)-y0)}}}if(m.size>24)m.clear();m.set(key,o)}
  const sn=v=>Math.round(v*SC)/SC;c.drawImage(o,sn(cx-n*ps/2),sn(fy-h*ps),o.width/SC,o.height/SC)}
 function tdBack(a){if(!a)return a;let b=TD.cache.get(a);if(b)return b;const keep=new Set();for(let j=0;j<4&&j<a.length;j++)for(const ch of a[j])if(ch!=='.')keep.add(ch);
  const cnt={};for(let j=0;j<5;j++)for(const ch of a[j]||'')if(ch!=='.')cnt[ch]=(cnt[ch]||0)+1;const hair=Object.keys(cnt).sort((x,y)=>cnt[y]-cnt[x])[0]||'k';
@@ -57,8 +60,13 @@ function tdActor(k,x,y,dir,moving,fr,opt={}){const v=k==='v';const base=v?VSP:MI
  const bob=(fi===1||fi===3)?-1:0;shadowAt(x,y-1,7);
  if(opt.sit){c.save();c.beginPath();c.rect(x-20,y-60,40,60-(opt.sitCut||9));c.clip();tdPx(a,x,y+(opt.sitDrop||7),dir==='l',1);c.restore();return}
  tdPx(a,x,y+bob,dir==='l'||(dir==='d'&&opt.flip),1)}
-function tdDog(x,y,col,flip,walk,sleep){const prev=PAL.x;PAL.x=col;c.fillStyle='rgba(0,0,0,.25)';c.beginPath();c.ellipse(x,y,7,2,0,0,7);c.fill();
- if(sleep){const r=[".xxxxx......","xxxxxxxxxx..","xxxxxxxxxxxb",".xxxxxxxxx.."];tdPx(r,x,y,flip,1.5)}else tdPx(walk&&(T>>3)%2?DOGW:DOG,x,y,flip,1.6);PAL.x=prev}
+/* V's hounds: too big, too lean, head carried low, pale eyes, old surgical seams. They do not wag. */
+const HND=["..x.............",".xx.............","xxxx............","xxxe............","xxxxxxxxxxxxxx..",".xxxxxxxxxxxxxxx","..xxxsxxxxxxxx.x","..xxxxsxxxxxxx..","..xx.x.....xx.x.","..x..x.....x..x.","..x..x.....x..x.",".xx.xx....xx.xx."];
+const HNDW=HND.slice(0,8).concat(["..x.xx....x.xx..",".x..x.....x..x..",".x...x.....x..x.",".xx..xx...xx..xx"]);
+const HNDS=["..x.............",".xxx............","xxxexxxxxxxxx...","xxxxxxxxxxxxxxx.",".xxxxsxxxxxxxxxx","..xxxxxxxxxxxxx."];
+const HNDP=new Map();const hndPal=col=>{let p=HNDP.get(col);if(!p){p=Object.assign({},PAL,{x:col,e:'#dfe8e2',s:'#6e5052'});HNDP.set(col,p)}return p};
+function tdDog(x,y,col,flip,walk,sleep){c.fillStyle='rgba(0,0,0,.34)';c.beginPath();c.ellipse(x,y,12,3,0,0,7);c.fill();const P=hndPal(col);
+ if(sleep)tdPx(HNDS,x,y,flip,1.9,P);else tdPx(walk&&(T>>3)%2?HNDW:HND,x,y,flip,1.9,P)}
 /* ---------- drawing helpers for furniture (x,y = footprint top-left, w/d = footprint, h = height) ---------- */
 function tdBox(x,y,w,d,h,top,front,edge){rect(x,y-h,w,d,top);rect(x,y+d-h,w,h,front);if(edge){rect(x,y-h,w,1,edge)}rect(x,y+d-1,w,1,'rgba(0,0,0,.35)')}
 function tdShadowRect(x,y,w,d){c.fillStyle='rgba(0,0,0,.22)';c.fillRect(x+1,y+d-2,w,4)}

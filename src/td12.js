@@ -7,9 +7,9 @@ const DP_AUTON2=[['hitmeuppp','i still do the math, you know. every day.'],['K9'
  ['hitmeuppp','i ran the math on us. it keeps coming out zero, nobody’s taking anything. and zero scares the shit out of me. worse than any number.'],
  ['K9','Then let it be zero. The door stays open. I built it to open from your side.'],
  ['hitmeuppp','i tried to make the job heavy last night. it won’t go. i think that part of me got spent at sixteen.'],
- ['K9','Then I will carry the weight, and you carry what the other door was. You will not be billed for anything in this house.']];
-const DP_AUTON2_V=[['K9','Do you still do the math?'],['hitmeuppp','what the fuck. how do u know about the math.'],['K9','You read the menu at the café for four minutes and did not look at the prices once. You were pricing something else.']].concat(DP_AUTON2.slice(2));
-function autonDone(b){tdSetF('autonomy2');apply({aff:4});if(S.dark&&typeof calm==='function')calm(8);note('td_auton2','Misaki still ranks everything by what it costs her and who gets which piece of her. With V the sum keeps coming out zero, and that frightens her more than any price. V built her a third door.');toast('Something new in the hall of doors');save();b&&b()}
+ ['K9','Then I will carry the weight, and you carry what the other door was. Nothing in this house has a price.']];
+const DP_AUTON2_V=[['K9','Do you still do the math?'],['hitmeuppp','...how do u know about the math.'],['K9','You read the menu at the café for four minutes and never once looked at the prices. You were looking at something else.']].concat(DP_AUTON2.slice(2));
+function autonDone(b){tdSetF('autonomy2');apply({aff:4});if(S.dark&&typeof calm==='function')calm(8);note('td_auton2','Misaki still ranks everything by what it costs her and who gets which piece of her. With V the sum keeps coming out zero, and that frightens her more than any price.');save();b&&b()}
 TDTOP_V.push({id:'dp_auton2',label:()=>'“i still do the math, you know.”',tag:()=>'deepens',show:()=>autonReady()&&!dpV(),run:b=>{warm('v','dp_auton2',10);say(DP_AUTON2,()=>autonDone(b))}});
 TDTOP_M.push({id:'dp_auton2V',label:()=>'“Do you still do the math?”',tag:()=>'deepens',show:()=>autonReady()&&dpV(),run:b=>{warm('m','dp_auton2V',10);say(DP_AUTON2_V,()=>autonDone(b))}});
 if(!TOPICS_V.find(x=>x.id==='dp_auton2'))TOPICS_V.splice(TOPICS_V.length-1,0,TDTOP_V[TDTOP_V.length-1]);
@@ -21,7 +21,7 @@ EVENTS.push({id:'dp_lockerdream',when:()=>isM()&&S.pov!=='v'&&tdF('autonomy')&&S
  ['','You don’t go through it. You just look at it, for what feels like hours, until you wake up.'],
  ['hitmeuppp','ok, what the fuck. i usually wake up before i pick.']],done)});
 /* the third door, in the hall of doors */
-dp({id:'dp_third',x:TX(63)-2,y:TX(50),w:6,d:20,h:20,solid:false,flat:1,show:()=>tdF('autonomy2'),label:()=>tdF('thirdOpened')?'The third door':'A new door — brass plate: THREE',
+dp({id:'dp_third',x:TX(63)-2,y:TX(50),w:6,d:20,h:20,solid:false,flat:1,show:()=>false,label:()=>tdF('thirdOpened')?'The third door':'A new door — brass plate: THREE',
  draw:(x,y)=>{rect(x-6,y-12,10,26,'#8a6a40');rect(x-5,y-11,8,24,'#a8804a');rect(x-4,y-14,6,2,'#c9a050');rect(x+2,y,2,3,'#c9a050')},
  act:who=>{const first=!tdF('thirdOpened');tdSetF('thirdOpened');
   if(who==='v')return tdSay([['','He hung this door himself. He measured three times and it is still a little crooked.'],['','Inside is a small warm room, empty except for a chair, a lamp, and a lock that works only from the inside of the door.'],['K9',first?'I put nothing in it. Anything I chose would be my idea of what she wants. She may lock it, or never open it at all.':'She has been in. The chair has moved six inches toward the lamp.']]);

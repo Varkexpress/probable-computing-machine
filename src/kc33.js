@@ -35,7 +35,7 @@ const _condKD=kdCond;kdCond=function(){const n=_condKD();if(!n||!S.kd||S.phase!=
   {at:[232,170],mark:[232,160],label:'The small fridge',show:hi,act:()=>{if(S.f.kdKit)return say([['','Soup, labelled by day. The white box is still on the bottom shelf'+(S.f.kdKit==='turned'?', with its label to the back.':'.')]]);
     say([['','Soup, in eleven tubs, labelled by day in fountain pen. On the bottom shelf there is a sealed white box with her name on it, a date, and COLLECT WITHIN 5 DAYS.']],()=>ask('hitmeuppp','(A box with your name on it.)',[
      KD_NO('Ask what the box is for.'),
-     {t:'Take Thursday’s soup. Shut the door.',fn:()=>{kdDeny();S.f.kdKit='seen';save();say([['hitmeuppp','(it’s for the dogs. everything down here’s for the dogs.)']])}},
+     {t:'Take Thursday’s soup. Shut the door.',fn:()=>{kdDeny();S.f.kdKit='seen';save();say([['hitmeuppp','(it’s for the hounds. everything down here’s for the hounds.)']])}},
      {t:'Turn the box so the label faces the back.',fn:()=>{kdDeny();S.f.kdKit='turned';save();say([['','She turns it round. Now it is a white box. The date is still on the lid, and she has read it, and she can count to five.']])}}]))}});
 })();
 /* V's side: she is treated when she lets herself be */
@@ -46,7 +46,7 @@ kdEv('kd_discharge',()=>S.f.kdNoteDue&&!S.f.kdNote&&S.kd.rx,done=>{S.f.kdNote=1;
   ['',rx.heal>=6?'“Compliant. Dressings daily, pin care daily, full breaths. Ahead of where I would expect.”':rx.heal>=3?'“Partly compliant. Refused treatment on the first day; believed herself to be elsewhere. Has made up some of the ground.”':'“Refused most treatment. For the first two days she did not know where she was and would not be touched. Walking will be slow. Do not let her tell you otherwise.”'],
   rx.palmed?['',`“Analgesia: ${rx.palmed*2} tablets recovered from the bed frame, in a row. She reports no pain. I do not believe her and I would like someone to count them out to her.”`]:['','“Analgesia taken as given. Reports pain 2/10. See monitor record.”'],
   ['hitmeuppp',rx.palmed?MV('snitch.','she went through my BED. snitch.','She went through my bed. That’s a violation.','She searched my bed frame. I hid a screw in one of those for three days and nobody found it. She’s better than they were.'):MV('model patient.','“compliant.” that’s me. frame it.','“Compliant.” Put that on the fridge.','“Compliant.” Nobody has ever called me that. Put it on the fridge next to March.')],
-  m?null:['K9',rx.palmed?'(I will count them out to her. She will take them if a dog is watching.)':'(She let herself be looked after. I had not been sure that she would.)']].filter(Boolean),done)});
+  m?null:['K9',rx.palmed?'(I will count them out to her. She will take them if a hound is watching.)':'(She let herself be looked after. I had not been sure that she would.)']].filter(Boolean),done)});
 kdEv2('kd_kitgone',3,()=>S.f.kdKit&&!S.f.kdTold&&(S.f.kd_last||!S.f.kd_window||!kdMe()),done=>{const m=kdMe();say([
  ['','The white box has gone from the bottom shelf of the infirmary fridge. The date on it was yesterday. Somebody has wiped the shelf.'],
  ['hitmeuppp',MV('more room for soup.','more room for soup. good.','Good. More room for soup.','Good. That shelf was wasted. You can get four tubs on there now.')],
@@ -78,7 +78,7 @@ kdEv('kd_checkup',()=>S.phase!=='after'&&!S.f.kdCheckup&&S.f.kdNote,done=>{S.f.k
  ['hitmeuppp',MV('two.','two. same as always.','Two. It’s always two.','Two. It’s been two since March. Write two.')],
  ['',d>=6?'The doctor writes “2” and, beside it, the resting pulse. She underlines the pulse.':rx.heal>=6?'The doctor writes “2.” For the first time she does not put a question mark after it.':'The doctor writes “2?” and asks to see her make a fist.']],done)});
 const _xeKD7=extraEnding;extraEnding=function(){const L=_xeKD7();if(!S||!S.f||!S.kd||!S.kd.t0)return L;const rx=S.kd.rx;
- if(rx&&rx.palmed)L.push('She never took a painkiller that she could hide instead. V counts them out to her in front of a dog, which works about half the time.');
+ if(rx&&rx.palmed)L.push('She never took a painkiller that she could hide instead. V counts them out to her in front of a hound, which works about half the time.');
  if(S.f.kdRonGot)L.push('One name on the list was crossed out by Ronin. He has never said how, and he tells the story at every brunch.');
  return L};
 /* the new spots, drawn */

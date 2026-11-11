@@ -13,7 +13,7 @@ PINGS.push(
  ['ro','fortune cookie says “you will soon be in the news.” fuckin’ right I will'],
  ['an','therapist asked how i unwind. i said “i hunt.” she wrote down “outdoorsy”'],
  ['mi','standing in a guy’s kitchen at 3am. this man owns NINE fucking spatulas. for who.'],
- ['k9','Biscuit has learned to open the refrigerator. I have moved the work meat to the lower shelf, where she can reach it.']);
+ ['k9','The grey hound has learned to open the refrigerator. I have moved the work meat to the lower shelf, where she can reach it.']);
 /* --- threads --- */
 txDef('tx_lucky',{with:'a',pov:'m',prio:3,when:()=>frT('a')>=1&&S.day>=4&&S.phase!=='taken',nodes:{
  start:{in:()=>['guess what day it is','forum-versary. two years','u replied to my crosswind post with “ur math is wrong and ur also wrong as a person.” i screenshotted it. i keep everything'],expire:3,
@@ -31,7 +31,7 @@ txDef('tx_vlucky',{with:'m',pov:'v',prio:3,when:()=>tier()>=2&&S.slot>=2&&!S.dar
  odds:{in:()=>['i really didn’t expect to be lucky. that’s it, that’s the whole thought. it’s freaking me out'],opts:()=>[
    {t:'“You need do nothing with it. Stay.”',fx:()=>{apply({aff:4});S.f.vLucky='stay'},reply:()=>['obviously staying?? i’m past the five years. it’s all bonus levels now babe']},
    {t:'“You were merely difficult to kill. I approve of that in a person.”',fx:()=>{apply({aff:3});relApply({trust:3});S.f.vLucky='earned'},reply:()=>['wow. romantic','putting “difficult to kill” on a sticky note']},
-   {t:'“I expected to die young as well. Then the dogs needed walking.”',fx:()=>{apply({aff:5});S.f.vLucky='both'},reply:()=>['the DOGS kept u alive???','ok honestly same. biscuit sat on me the first night i stayed over and i couldn’t move till morning. can’t die if u can’t move']}]}}});
+   {t:'“I expected to die young as well. Then the hounds needed walking.”',fx:()=>{apply({aff:5});S.f.vLucky='both'},reply:()=>['the HOUNDS kept u alive???','ok honestly same. biscuit sat on me the first night i stayed over and i couldn’t move till morning. can’t die if u can’t move']}]}}});
 txDef('tx_rhow',{with:'r',pov:'m',prio:2,when:()=>frT('r')>=1&&S.day>=5,nodes:{
  start:{in:()=>['question, gremlin','how the fuck’d you end up with us anyway. Angel just showed up one day goin’ “i found a gremlin on a forum” like you were a stray'],expire:3,
   opts:()=>[{t:'“angel corrected my wind math. i corrected her back. then i got a link.”',reply:()=>['course she did. she drags people home like a cat with a dead bird. you’re the bird, by the way'],next:'more'},
@@ -46,7 +46,7 @@ txDef('tx_tarps',{with:'r',prio:1,when:()=>frT('r')>=1,nodes:{
    {t:phMe()==='v'?'“Please buy them in different stores.”':'“pls buy them at different stores. like a normal criminal.”',fx:()=>{fr('r',3);if(isM())apply({heat:-2})},reply:()=>['huh. yeah, alright. knew we kept you ’round for somethin’']}]},
  why:{in:()=>[],opts:()=>[{t:'“…how many did you buy.”',reply:()=>['forty.','it’s for a shed','ain’t no fuckin’ shed']}]}}});
 txDef('tx_vgroc',{with:'v',pov:'m',prio:1,when:()=>tier()>=1&&!S.dark,nodes:{
- start:{in:()=>['I am at the supermarket. Do you need anything?','My list so far: lemons, rice, dog food (large), bleach (large), a single lime.'],expire:2,
+ start:{in:()=>['I am at the supermarket. Do you need anything?','My list so far: lemons, rice, hound food (large), bleach (large), a single lime.'],expire:2,
   opts:()=>[{t:'“why ONE lime”',reply:()=>['One is sufficient. It is for the drink.','The bleach is for the table downstairs.','Do not confuse the two. It has happened.']},
    {t:'“egg sandwich pls”',fx:()=>apply({aff:2}),reply:()=>['They have two left. I have taken both. A woman wished to object, and then she looked at me properly.']},
    {t:'“don’t buy the bleach and the tarps at the same place”',fx:()=>{relApply({trust:2});apply({heat:-2})},reply:()=>['I never do. It is good that you think of it. Continue to think of it.']}]}}});
@@ -69,8 +69,8 @@ txDef('tx_rangel',{with:'r',prio:1,when:()=>frT('r')>=1&&frT('a')>=1&&S.f.mariaK
 /* --- small one-off texts that land on their own, dark or daft --- */
 const DRIFT={a:['sent u a pic of a pigeon. his name is detective. he’s watching me.','if i ever go missing check the sephora first','maria just got sent a free blender. the heartsick angel has ideas for the blender','lipstick shade name: “crime scene.” i bought four.'],
  r:['(photo of a raccoon in a dumpster) him.','found a guy’s mixtape in his glovebox. it fuckin’ slaps. shame about his head','crumble’s out. come get some or don’t, more for me, asshole','landlord asked why my bins smell like bleach. told him I’m a clean fuckin’ guy. he quit askin’'],
- v:['Biscuit stole a police officer’s glove from a crime scene. I have returned it with a note.','The board asked me to smile in photographs. I smiled. They have withdrawn the request.','I found one of your star clips in the car. It is on my keyring now. You may have it back. You may not.','Did you eat.'],
- m:['did u eat. (i didn’t. i’m asking so u feel guilty instead of me)','saw a guy jaywalk and thought “i could.” nobody’s paying me for him tho. his lucky day','pls tell biscuit i said she’s the best dog. not to u. to her. u can listen.','konbini has the good egg sandwich. i bought all four. don’t come at me']};
+ v:['The grey hound stole a police officer’s glove from a crime scene. I have returned it with a note.','The board asked me to smile in photographs. I smiled. They have withdrawn the request.','I found one of your star clips in the car. It is on my keyring now. You may have it back. You may not.','Did you eat.'],
+ m:['did u eat. (i didn’t. i’m asking so u feel guilty instead of me)','saw a guy jaywalk and thought “i could.” nobody’s paying me for him tho. his lucky day','pls tell the grey one i said she’s the best of them. not to u. to her. u can listen.','corner shop has the good egg sandwich. i bought all four. don’t come at me']};
 EVENTS.push({id:'drift_txt',when:()=>!S.dark&&S.phase!=='taken'&&!isLone(),run:done=>{S.seen.drift_txt=0;const ks=phContacts().filter(k=>k==='v'||k==='m'||frT(k)>=1);if(ks.length){const k=pk(ks);phQueue(k,[pk(DRIFT[k])],0);phDeliver()}done()}});
 /* --- the luck, in her own head --- */
 EVENTS.push({id:'lucky_morning',when:()=>isM()&&S.pov!=='v'&&S.day>=6&&!S.dark&&S.phase!=='taken'&&!S.seen.lucky_morning,run:done=>{say([

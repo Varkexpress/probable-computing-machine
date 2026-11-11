@@ -2,12 +2,12 @@
 function tdLayer(id,layers,who,done){const t=tdS();const k=t.dr[id]||0;const avail=layers.filter(l=>!l.need||l.need());if(k>=avail.length){tdSay(typeof done==='function'?done():done);return}
  t.dr[id]=k+1;save();sfx('step');const L=avail[k];tdSay(L.lines(),()=>{if(L.then)L.then()})}
 /* ----- V's coat ----- */
-function at_coat(who){if(who==='v'){tdSay([['','He checks his coat pockets out of habit: keys, two treats, and a star hair clip that is not his.'],['K9','...I put it back where it was.']]);return}
- if(!vHome()){tdSay([['','His coat is still on the stand. Nobody has moved it. Nobody is going to.'],['hitmeuppp','it still smells like him. cedar and dog. i’m not touching it. i’m just standing here.']]);return}
- tdLayer('coat',[{lines:()=>[['','His coat is heavier than it looks. You check the pockets, because you are who you are.'],['','You find loose dog treats, a lint roller, and a receipt for forty-one umbrellas marked “charity.”'],['hitmeuppp','forty-one umbrellas. what the fuck does one man do with forty-one umbrellas.']]},
-  {lines:()=>[['','Inside pocket: a folded index card in his small, square handwriting.'],['','“M. — strawberry milk (not banana). Horror manga. The third song on that album. Do not ask about her family. Ask about the dog photos.”'],['hitmeuppp','...he made a CHEAT SHEET. about ME.'],['hitmeuppp','“do not ask about her family.” ...ok, creepy. correct, but creepy.']],then:()=>note('td_card','V keeps an index card in his coat with notes on what Misaki likes. And what not to ask.')},
-  {need:()=>tier()>=2,lines:()=>[['','The other inside pocket. Something small and hard.'],['','One of your star clips. The one you lost on day three, the night of the rooftop job. You had looked everywhere.'],['hitmeuppp','he kept it.'],['hitmeuppp','he’s been carrying it around. in his coat. for weeks. like a weirdo.'],['hitmeuppp','...i’m putting it back. i’m saying nothing. oh, fuck, i’m gonna think about this in the middle of jobs.']],then:()=>{tdSetF('clip');note('td_clip','V has been carrying one of Misaki’s lost star clips in his coat pocket.')}}],
-  who,[['hitmeuppp',tdF('clip')?'the clip’s still in there. i checked. i check every time. this is my life now.':'treats, lint roller, receipts. he’s a man of simple pockets.']])}
+function at_coat(who){if(who==='v'){tdSay([['','His coat. He checks the pockets out of habit. Keys. A veterinary auto-injector. A star hair clip that is not his.'],['K9','...I put it back where it was.']]);return}
+ if(!vHome()){tdSay([['','His coat is still on the stand. Nobody has moved it. Nobody is going to.'],['hitmeuppp','it still smells like him. cedar and disinfectant. i’m not touching it. i’m just standing here.']]);return}
+ tdLayer('coat',[{lines:()=>[['','His coat. Heavier than it looks. You check the pockets, because you are who you are.'],['','A veterinary auto-injector, the big dose, for something much larger than a person. A lint roller. A receipt for forty-one umbrellas, “charity.”'],['hitmeuppp','forty-one umbrellas. for forty-one cities. he’s so normal.']]},
+  {lines:()=>[['','Inside pocket: a folded index card in his small, square handwriting.'],['','“M. — strawberry milk (not banana). Horror comics. The third song on that album. Do not ask about her family. Ask about the cities.”'],['hitmeuppp','...he made a CHEAT SHEET. about ME.'],['hitmeuppp','“do not ask about her family.” huh. ...he worked that out on his own.']],then:()=>note('td_card','V keeps an index card in his coat with notes on what Misaki likes. And what not to ask.')},
+  {need:()=>tier()>=2,lines:()=>[['','The other inside pocket. Something small and hard.'],['','One of your star clips. The one you lost on day three, the night of the rooftop job. You had looked everywhere.'],['hitmeuppp','he kept it.'],['hitmeuppp','he’s been carrying it around. in his coat. for weeks. like a weirdo.'],['hitmeuppp','...i’m putting it back. i’m not saying anything. i’m gonna think about it for the rest of my life but i’m not saying anything.']],then:()=>{tdSetF('clip');note('td_clip','V has been carrying one of Misaki’s lost star clips in his coat pocket.')}}],
+  who,[['hitmeuppp',tdF('clip')?'the clip’s still in there. i checked. i check every time. this is my life now.':'an injector. a lint roller. receipts. a man of simple pockets and one terrifying one.']])}
 /* ----- reading chair & book ----- */
 function at_rchair(who,P,sc){const book=!tdF('book');tdSit(sc,P,null);if(who==='v'){tdSay([['','The dent in the cushion of his chair is exactly his shape. He reads two lines of the same page he has been reading for a month.'],['K9','I keep starting it again from the letter.']]);return}
  if(!book){tdSay([['hitmeuppp','his chair. it’s too big. i fit in it sideways. this is my chair now when he isn’t looking.']]);return}
@@ -18,15 +18,15 @@ function at_table(who){if(who==='v'){tdSay([['','The crossword, in pen. Seven do
 /* ----- the couch ----- */
 function at_couch(who,L,P,sc){tdSit(sc,P,null);const vHere=sc.npcList.find(n=>n.k==='v'),mHere=sc.npcList.find(n=>n.k==='m');
  if(L&&who==='m'){L();return}
- tdSay(who==='v'?mHere?[['','He sits. Misaki, at the far end, puts her feet on him without looking up from her phone.'],['K9','This is my couch.'],['hitmeuppp',MV('and these r my feet','and? it’s a shared resource','Our couch. You said “our” last week, babe. No take-backs.','Ours. Now shh, I’m reading about a horse, and you make a totally decent footrest.')]]
-  :[['','He sits on his own couch, in his own house, and listens to it being very quiet.'],['K9',isLone()?'She used to put her feet on me. It is merely a couch now.':'Biscuit is on my foot. That is the whole report.']]
-  :[['','You sit. The couch is so soft it must have cost a fortune.']])}
+ tdSay(who==='v'?mHere?[['','He sits. Misaki, at the far end, puts her feet on him without looking up from her phone.'],['K9','This is my couch.'],['hitmeuppp',MV('and these r my feet','and? it’s a shared resource','Our couch. You said “our” last week. I wrote it down.','Ours. Shh. I’m reading about a horse.')]]
+  :[['','He sits on his own couch, in his own house, and listens to it being very quiet.'],['K9',isLone()?'She used to put her feet on me. The couch is the wrong temperature now.':'The grey hound is lying across the door. It has not moved in an hour. Neither have I.']]
+  :[['','You sit. The couch is the kind of soft that costs money.']])}
 /* ----- fridge & island ----- */
-function at_fridge(who){if(who==='v'){tdSay([['','He opens his fridge. There is kale and there are eggs, but he realises it is mostly her food now: strawberry milk, four types of instant ramen, a cake with one slice gone.'],['K9','I have been colonised. I did not resist.']]);return}
- tdSay([['',['Kale, more kale, and a jar labelled DOG TREATS (homemade, pumpkin + oat) in very neat capitals.','One shelf is labelled GUESTS on the edge and holds only strawberry milk, not banana.','Stacked Tupperware, each one labelled and dated in his handwriting: “MISAKI — EAT THIS.” The oldest one is from Tuesday.','A sticky note on the milk: “You are out of milk at the trailer. I checked. —V”'][tier()]],
-  ['hitmeuppp',[tdF('treatTaken')?'the treats are still here. so is my guilt.':'dog treats. biscuit can’t open fridges. probably. i’m taking one. for science.','he remembered NOT banana. i said that once, in passing, during a stabbing.','he labels my food. “eat this.” like i’m one of the dogs. ...ok i’m eating this.','he checked my FRIDGE?? when did he— ...ok. ok fine. milk’s nice.'][tier()]]],()=>{if(tier()===0&&!tdF('treatTaken')){tdSetF('treatTaken')}apply({energy:4})})}
-function at_island(who){if(S.done.tdCoffee){tdSay([[tdN(),who==='v'?'I have had my one coffee. A second would make my hands unsteady.':'i’ve had my one coffee. if i have a second one i can hear colours.']]);return}
- S.done.tdCoffee=1;save();TDP.coffee=T+500;apply({energy:10});tdSay([['','The coffee machine hisses like it’s been insulted. The kitchen fills with the smell of money.'],[tdN(),who==='v'?'Black, no sugar. I do not see the purpose of softening it.':pk(['four sugars. he can hear me doing it. i can hear him not saying anything.','i don’t know what half these buttons do. i press all of them. this is a latte now. probably.'])]])}
+function at_fridge(who){if(who==='v'){tdSay([['','He opens his fridge. Kale. Eggs. And, he realises, mostly her food now: strawberry milk, four types of instant ramen, a cake with one slice gone.'],['K9','I have been colonised. Peacefully.']]);return}
+ tdSay([['',['Kale. More kale. Vacuum-sealed packets of raw meat, labelled by weight and by hound, in very neat capitals.','A shelf with a label on the edge: GUESTS. It holds one thing: strawberry milk. Not banana.','Tupperware, stacked. Each one labelled in his handwriting: “MISAKI — EAT THIS.” With dates. The oldest one is from Tuesday.','A sticky note on the milk: “You are out of milk at the trailer. I checked. —V”'][tier()]],
+  ['hitmeuppp',['meat for the hounds, labelled to the gram. i don’t touch it. you don’t touch their food. nobody had to tell me that.','not banana. he remembered NOT banana. i said that once. in passing. during a stabbing.','he labels my food. “eat this.” the same handwriting as the hounds’ packets. ...ok i’m eating this.','he checked my FRIDGE?? when did he— ...ok. ok fine. milk’s nice.'][tier()]]],()=>{if(tier()===0&&!tdF('treatTaken')){tdSetF('treatTaken')}apply({energy:4})})}
+function at_island(who){if(S.done.tdCoffee){tdSay([[tdN(),who==='v'?'One coffee. Two is a symptom.':'i’ve had my one coffee. if i have a second one i can hear colours.']]);return}
+ S.done.tdCoffee=1;save();TDP.coffee=T+500;apply({energy:10});tdSay([['','The coffee machine hisses like it’s been insulted. The kitchen fills with the smell of money.'],[tdN(),who==='v'?'Black. Like my— no. Just black. It is coffee.':pk(['four sugars. he can hear me doing it. i can hear him not saying anything.','i don’t know what half these buttons do. i press all of them. this is a latte now. probably.'])]])}
 /* ----- archive bulb ----- */
 function ar_chain(who){const on=tdL('ar_bulb',0);tdSetL('ar_bulb',!on);if(on)return;
  if(!tdF('arLit')){tdSetF('arLit');tdSay(who==='v'?[['','The bulb comes on. It buzzes, the same note it always has.'],['K9','Everyone in these drawers got out. Someone had them, and then I had that someone. They are all somewhere dull now, and my animals ate well.']]
@@ -47,10 +47,10 @@ function tr2_dummy(who){const t=tdS().cnt;t.dummy=(t.dummy||0)+1;save();TDP.bag=
  tdSay(who==='v'?[['','He hits it twice, without thinking, left right. The wood rings.'],['K9','It was here when I bought the house. The arms are worn smooth at the height of a grown man’s hands. Somebody before me was very angry for a very long time.']]
   :t.dummy===1?[['','You smack the wooden dummy. It smacks back, technically.'],['hitmeuppp','ow. the arms are worn smooth. right at hand height. somebody’s hit this a LOT.']]:[['hitmeuppp',pk(['*thwack* ...ow. ok. respect.','i’m winning. it doesn’t know that yet.','elbow up. that’s what he says. elbow UP.'])]])}
 /* ----- kennel ----- */
-function kn_toys(who){tdSay([['',pk(['A bin of toys in every stage of destruction. One rope toy has been chewed into a sort of abstract sculpture.','Eleven tennis balls. Every one of them is damp. Nobody knows how.'])],[tdN(),who==='v'?'Mochi destroys one a day. I buy them in bulk. It is my most efficient charity.':'the squeaky ones are for biscuit. the quiet ones are for when V’s on a call.']])}
-function kn_leash(who){if(S.done&&S.done.walk){const n=S.done.walk;tdAsk(`${n} is still trotting after you, very pleased with the arrangement.`,[{t:`Hang up ${n}’s lead`,sub:'end the walk',fn:()=>{endWalk();toRoom('kennel',scene&&scene.pos?scene.pos():[160,150])}}]);return}
- if(S.done&&S.done.walkDone){tdSay([[tdN(),who==='v'?'They have had their walk. Any more and they will expect it.':'they’ve had their walk. look at them. destroyed. happy.']]);return}
- const dogs=Object.keys(S.dogs||{});tdAsk('Four leads on four hooks. Every dog in the room has heard the hooks rattle.',dogs.map(n=>({t:'Take '+n,fn:()=>startWalk(n)})))}
+function kn_toys(who){tdSay([['',pk(['A bin of femurs from the butcher, split lengthwise. The marrow has been licked out of every one, very thoroughly, all the way down.','Rawhide that would last a normal dog a month. These are in pieces. The bite marks are wider apart than your hand.'])],[tdN(),who==='v'?'Their jaws were the hardest part to save. I did not make them stronger on purpose. I only made them work.':'the bite marks are wider than my hand. i put my hand next to one to check. i don’t know why i did that.']])}
+function kn_leash(who){if(S.done&&S.done.walk){const n=S.done.walk;tdAsk(`${houndN(n)[0].toUpperCase()+houndN(n).slice(1)} is still at your heel. It has not taken its eyes off you once.`,[{t:`Hang up the lead`,sub:'end the walk',fn:()=>{endWalk();toRoom('kennel',scene&&scene.pos?scene.pos():[160,150])}}]);return}
+ if(S.done&&S.done.walkDone){tdSay([[tdN(),who==='v'?'They have been out. The street emptied ahead of them, the way it does.':'they’ve been out. people crossed the road the whole way. not because of me.']]);return}
+ const dogs=Object.keys(S.dogs||{});tdAsk('Four chain leads on four hooks. Nothing in the room barks when they rattle. Every head turns at once.',dogs.map(n=>({t:'Take '+houndN(n),fn:()=>startWalk(n)})))}
 /* ----- V's bathroom mirror ----- */
 function vb_mirror(who,sc){const fog=TDP.bath>T||(S.done&&S.done.bath);const t=tdS();
  if(who==='v'){if(t.f.vbMsg&&!t.f.vbSeen){t.f.vbSeen=1;save();tdSay([['','The mirror has fogged, and in the fog, in a fingertip, somebody has written: '+t.f.vbMsg],['K9','...She writes on my mirror. I do not wipe it. It comes back every time the room steams up.'],['K9','I have started taking longer showers.']]);return}
@@ -90,8 +90,8 @@ TDREACT.push(
  {id:'v_piano',map:'base',near:'at_piano',r:30,by:'v',when:()=>tdWho()==='m',line:()=>S.f.motherPhoto?'She played. My mother. Badly, and very loudly, every New Year.':'I do not play. Somebody used to.'},
  {id:'v_couch',map:'base',near:'at_couch',r:26,by:'v',visit:1,when:sc=>tdWho()==='m'&&!!sc.p.sit,line:()=>byT('Comfortable?','You look like you are planning to stay. ...Good.','Shoes off the cushions. ...Keep them on. Cushions can be replaced.','There you are.')},
  {id:'v_reading',map:'base',near:'at_rchair',r:22,by:'v',when:sc=>tdWho()==='m'&&!!sc.p.sit,line:()=>tdF('book')?'...You moved the ribbon. One page. I noticed.':'That is my chair. You are welcome to it. You are welcome to most things.'},
- {id:'v_gate',map:'base',near:[808,280,22],by:'v',visit:1,when:sc=>{const d=sc.M.doors['51,17'];return tdWho()==='m'&&d&&tdDoorOpen(sc.M,d)&&sc.zone&&sc.zone.id==='atrium'},far:400,line:'Misaki. The gate. Mochi is an escape artist.'},
- {id:'v_train',map:'base',zone:'training',by:'v',visit:1,when:()=>tdWho()==='m',line:()=>S.dark?'Sit if you need to. You do not have to do anything in here.':pk(['Shoes off the mats.','You may hit the bag. You may attempt to hit me.'])},
+ {id:'v_gate',map:'base',near:[808,280,22],by:'v',visit:1,when:sc=>{const d=sc.M.doors['51,17'];return tdWho()==='m'&&d&&tdDoorOpen(sc.M,d)&&sc.zone&&sc.zone.id==='atrium'},far:400,line:'Misaki. The gate. Close it. Not for their sake.'},
+ {id:'v_train',map:'base',zone:'training',by:'v',visit:1,when:()=>tdWho()==='m',line:()=>S.dark?'Sit if you need to. You do not have to do anything in here.':pk(['Shoes off the mats.','You may hit the bag. You may not hit me. ...You may hit me a little.'])},
  {id:'v_dummy',map:'base',near:'tr2_dummy',r:24,by:'v',when:()=>tdWho()==='m'&&(tdS().cnt.dummy||0)>0,line:'Elbow up. ...Better. Again.'},
  {id:'v_after',map:'base',near:[432,368,30],by:'v',visit:1,when:()=>tdWho()==='m'&&(S.phase==='after'||S.dark),line:'Both bolts when you go. Please.'},
  {id:'v_lights',map:'base',zone:'atrium',by:'v',when:()=>tdWho()==='m'&&S.f.dim&&tdNight(),line:'You dimmed them. ...It is better like this. I would never have thought to.'},
@@ -138,13 +138,42 @@ if(typeof TOPICS_M!=='undefined')TOPICS_M.splice(Math.max(0,TOPICS_M.length-1),0
 /* Misaki's mask: guarded = whimsical text-speak and forced cheer; as she trusts V the voice gets fuller, plainer, more exact,
    and the performance (smileys, lol, shouting, !!!) falls away. Built on the original mVoice, which expands slang and adds sentence case. */
 const _mVoiceBase=mVoice;
-mVoice=function(t){if(!t||!S)return t;let s=_mVoiceBase(t);const L=mLevel();if(L<2||typeof s!=='string')return s;
- s=s.replace(/\s*(:\)|:D|xD|:3|<3|\^\^)(?=\s|$)/g,'').replace(/\b(haha+|hehe+|lol|lmao|jk)\b[,.!]*\s*/gi,'').replace(/!{2,}/g,'!').replace(/\?{2,}/g,'?');
- if(L>=3){s=s.replace(/\b([A-Z]{3,})\b/g,w=>/^(DON|DO|NOT|CRT|TV|K9|OK|ID|DNA|ASAP|EAT)$/.test(w)?w:w[0]+w.slice(1).toLowerCase()).replace(/!(\s|$)/g,'.$1').replace(/\.\.(?!\.)/g,'.')}
- return s.replace(/\s{2,}/g,' ').replace(/(^|[.?!]\s+)([a-z])/g,(m,x,y)=>x+y.toUpperCase()).trim()};
-/* V loosens as he gets close: contractions start slipping in. Not every line, and never when things are dark. */
-function vVoice(t){if(!t||!S||S.dark||typeof t!=='string')return t;const k=tier();if(k<2)return t;let h=0;for(let i=0;i<t.length;i++)h=(h*31+t.charCodeAt(i))|0;if(((h>>>0)%100)>=(k>=3?60:32))return t;
- return t.replace(/\bI am\b/g,'I’m').replace(/\bdo not\b/g,'don’t').replace(/\bDo not\b/g,'Don’t').replace(/\bIt is\b/g,'It’s').replace(/\bit is\b/g,'it’s').replace(/\bthat is\b/g,'that’s').replace(/\bThat is\b/g,'That’s').replace(/\bI will\b/g,'I’ll').replace(/\bcannot\b/g,'can’t').replace(/\bis not\b/g,'isn’t').replace(/\bdoes not\b/g,'doesn’t').replace(/\bwould not\b/g,'wouldn’t').replace(/\bYou are\b/g,'You’re').replace(/\byou are\b/g,'you’re').replace(/\bdid not\b/g,'didn’t').replace(/\bhave not\b/g,'haven’t').replace(/\bwas not\b/g,'wasn’t').replace(/\bThere is\b/g,'There’s')}
+/* Misaki's voice matures with closeness. Below level 2 her texting style is left exactly as written.
+   From level 2 the shorthand expands and the tics drop; at level 3 the shouting and the stretched letters settle.
+   Written to keep grammar intact: ellipses stay three dots, ALL-CAPS words become lowercase (not Title Case),
+   names are capitalised, "ur" is read as "your" or "you’re" by what follows, and "i’m"/"i’d"/"i’ll" become "I’m". */
+const MV_NAMES={ronin:'Ronin',misaki:'Misaki',hale:'Hale',gerald:'Gerald',prickles:'Prickles',june:'June',luca:'Luca',vince:'Vince',felicie:'Felicie',beyoncé:'Beyoncé',beyonce:'Beyoncé',prague:'Prague',lisbon:'Lisbon',aldric:'Aldric',shakespeare:'Shakespeare',christmas:'Christmas',halloween:'Halloween',english:'English',january:'January',february:'February',march:'March',april:'April',july:'July',august:'August',september:'September',october:'October',november:'November',december:'December',monday:'Monday',tuesday:'Tuesday',wednesday:'Wednesday',thursday:'Thursday',friday:'Friday',saturday:'Saturday',sunday:'Sunday',k9:'K9',v:'V',angelic:'Angelic',heathers:'Heathers',hitomi:'Hitomi'};
+const MV_UR_RE=/^(so|not|the|a|an|gonna|going|being|such|really|very|literally|actually|always|never|kinda|too|my|welcome|right|wrong|kidding|joking|here|there|late|early|fine|okay|ok|safe|home|cute|sweet|mean|insane|crazy|weird|ridiculous|impossible|allowed|just|still|already|all|both|one|also|lying|like|dead|done|back|sure|nice|good|bad|rich|scary|annoying|banned|asleep|awake|tired|right|lucky|stuck|in|on|at|out|up|over|making|doing|\w+ing|\w+ed)$/i;
+const MV_CAPS_KEEP=/^(K9|TV|ID|DNA|ASAP|CRT|CCTV|GPS|ATM|DJ|PE|UK|US|NYC|AM|PM|SOS|OK|I|V|ABC|BBQ|MRI|ER|ICU|DIY|FAQ|NPC|RIP|SHŪTEN|LAST|B[1-5])$/;
+const MV_W={u:'you',r:'are',im:'I’m',i:'I',idk:'I don’t know',tho:'though',rn:'right now',pls:'please',plz:'please',bc:'because',omg:'oh my god',ok:'okay',srsly:'seriously',ppl:'people',thx:'thanks',ya:'yeah',cuz:'because',dont:'don’t',cant:'can’t',didnt:'didn’t',isnt:'isn’t',wasnt:'wasn’t',doesnt:'doesn’t',wont:'won’t',thats:'that’s',whats:'what’s',youre:'you’re',ive:'I’ve',tbh:'to be honest',ngl:'not going to lie',nvm:'never mind',bf:'boyfriend',gf:'girlfriend',bday:'birthday',w:'with',abt:'about',ily:'I love you'};
+mVoice=function(t){if(!t||!S||typeof t!=='string')return t;const L=mLevel();if(L<2)return t;
+ let s=t;const keep=[];const prot=x=>{keep.push(x);return '\u0001'+(keep.length-1)+'\u0002'};
+ s=s.replace(/hitmeuppp|<[^>]+>/gi,prot);
+ /* tics */
+ s=s.replace(/(^|\s)(:\)|:\(|:D|xD|XD|:3|<3|\^\^|:P|;\))(?=\s|$|[.,!?])/g,'$1').replace(/\b(a?ha(ha)+|he(he)+|lol+|lmao+|lmfao|jk|rofl)\b[,.!]*/gi,'');
+ if(L>=3)s=s.replace(/([a-z])\1{2,}/gi,'$1$1').replace(/\b(soo|noo|yess|okayy|heyy|hii|byee|whyy|pleasee|ohh|uhh|umm|ahh|ughh|yeahh|yayy|nooo|wayy|stopp|meann|lovee|cutee)\b/gi,w=>w.slice(0,-1));
+ /* ALL CAPS shouting: at level 3 it becomes ordinary lowercase (sentence case fixes the starts) */
+ if(L>=3)s=s.replace(/(^|[^\w’'])([A-ZĀĪŪĒŌ][A-ZĀĪŪĒŌ’']+)(?![\w’'])/g,(m,a,w)=>MV_CAPS_KEEP.test(w)?a+w:a+w.toLowerCase());
+ /* shorthand */
+ s=s.replace(/\bur\s+([A-Za-z’']+)/g,(m,nx)=>(MV_UR_RE.test(nx)?'you’re ':'your ')+nx).replace(/\bur\b/g,'your');
+ s=s.replace(/\bi(?=[’'](m|d|ll|ve)\b)/g,'I');
+ s=s.replace(/(^|[^\w’'-])([a-z][a-z’'-]*)(?![\w’'-])/g,(m,a,w)=>{if(MV_W[w]!==undefined)return a+MV_W[w];if(w==='gonna')return a+(L>=3?'going to':'gonna');if(w==='wanna')return a+(L>=3?'want to':'wanna');if(w==='gotta')return a+(L>=3?'have to':'gotta');
+  const n=MV_NAMES[w];if(n)return a+n;return m});
+ /* "angel" the person, not "an angel"; "biscuit" the dog, not "a biscuit" */
+ s=s.replace(/(^|[^\w])(angel|biscuit)(?![\w’'])/g,(m,a,w,o,str)=>/\b(an|a|the|little|my|tea|dog)\s+$/i.test(str.slice(Math.max(0,o-8),o+a.length))?m:a+w[0].toUpperCase()+w.slice(1));
+ /* punctuation */
+ s=s.replace(/!{2,}/g,'!').replace(/\?{2,}/g,'?').replace(/\?!+|!\?+/g,'?');
+ if(L>=3)s=s.replace(/!(?=[\s”)]|$)/g,'.');
+ s=s.replace(/(?<![.…])\.\.(?![.…])/g,'.').replace(/\s+([,.!?;:])(?!\.)/g,'$1').replace(/,\s*([.!?])/g,'$1').replace(/^[\s,;:]+/,'').replace(/\s{2,}/g,' ').trim();
+ if(L>=3&&/[a-z\u0002]$/i.test(s)&&!/[.!?…—–:”)]$/.test(s))s+='.';
+ /* sentence case: start of line, after . ! ? … and a space, after a short "(text) " tag; skipping opening quotes/brackets */
+ const up=(m,a,b,c)=>a+b+c.toUpperCase();
+ const tag=/^\([a-z][a-z ,:0-9]{0,15}\)\s+/.exec(s);let pre='';if(tag){pre=tag[0];s=s.slice(pre.length)}
+ s=s.replace(/^((?:\.\.\.|…)?)([“"(]*)([a-z])/,up).replace(/((?<![.…])[.!?][”"]?\s+)([“"(]*)([a-z])/g,up);s=pre+s;
+ s=s.replace(/\u0001(\d+)\u0002/g,(m,i)=>keep[+i]);
+ return s||t};
+/* V stays formal. He does not use contractions; closeness shows in what he says, not in slipped grammar. */
+function vVoice(t){return t}
 const _tdShowL=showL;showL=function(){if(dlg&&dlg.lines&&dlg.lines[dlg.i]){const L=dlg.lines[dlg.i];if(L&&whoKey(L[0])==='v'&&typeof L[1]==='string'){const n=vVoice(L[1]);if(n!==L[1])dlg.lines[dlg.i]=[L[0],n].concat(L.slice(2))}}return _tdShowL.apply(this,arguments)};
 /* ---------- settings: classic view toggle ---------- */
 const _pmTD=pauseMenu;pauseMenu=function(){_pmTD();const box=document.querySelector('.pausebox .pbtns');if(!box)return;const b=document.createElement('button');const lab=()=>'Rooms: '+(META.classicRooms?'classic (side view)':'walkable (top-down)');b.textContent=lab();

@@ -15,7 +15,7 @@ ROOMS.cell.spots.push({at:[232,160],mark:[232,152],label:'A cup of water',show:(
 (function(){const sp=ROOMS.cell.spots.find(s=>s.label==='The radio down the hall'),a=sp.act;const H=[
   [['','Under the jingle, two of them are talking. “Friday. The buyer comes Friday.” “For her?” “For what she knows.”'],['hitmeuppp','(friday. ok. so i’m out before friday.)']],
   [['','One of them is singing along with the bank jingle. He knows all the words, and he has a nice voice.'],['hitmeuppp','(that’s the driver. he sang the whole way here. i’m going to remember that voice.)']],
-  [['','“Clean Hands says not the face. He wants the face for the photograph.” “What photograph?” “The one we send the dog man.”'],['hitmeuppp','(the dog man. they mean V. ...they’re going to send him a picture of me. oh, he’s going to be so fucking calm about it.)']]];
+  [['','“Clean Hands says not the face. He wants the face for the photograph.” “What photograph?” “The one we send the hound man.”'],['hitmeuppp','(the hound man. they mean V. ...they’re going to send him a picture of me. oh, he’s going to be so fucking calm about it.)']]];
  sp.act=function(){if(!S.f.kdLoops||(S.f.kdHear||0)>=H.length)return a.apply(this,arguments);const r=a.apply(this,arguments);const i=S.f.kdHear||0;S.f.kdHear=i+1;if(i===0)S.f.kdFriday=1;save();
   for(let n=0;n<40&&dlg;n++)adv();say(H[i]);return r}})();
 /* the man with the water looks at the floor as she goes past */
@@ -29,7 +29,7 @@ EVENTS.push({id:'kd_vphoto',when:()=>S.phase==='taken'&&S.pov==='v'&&(S.f.missin
   {t:'Reply: “I am coming.”',fn:()=>{S.f.kdAlert=(S.f.kdAlert||0)+1;S.f.kdToldComing=1;apply({heart:-2});save();say([['','It says Delivered, and then Read. They will be ready for him now. They will also have read it out to her.']],done)}},
   {t:'Show Ronin.',fn:()=>{S.f.roninOwes=1;S.f.kdRonCall=1;save();say([['','Ronin looks at the photograph for a long time without saying anything, which is not like him.'],[RN,'Whoever did that hand is mine t’kill. I’m askin’ you nice, Vee. One time.'],['K9','Granted.']],done)}}]))}});
 EVENTS.push({id:'kd_vfloor',when:()=>S.phase==='taken'&&S.pov==='v'&&(S.f.missing||0)>=1&&S.f.called&&!S.f.kdVFloor,run:done=>{S.f.kdVFloor=1;apply({edge:-6});save();say([
- ['','Ronin and Angel are on the atrium floor when he comes down at five. Nobody asked them over. Angel has the big makeup case for a pillow, and Ronin is asleep sitting up with the crowbar across his knees and Pancake on his boots.'],
+ ['','Ronin and Angel are on the atrium floor when he comes down at five. Nobody asked them over. Angel has the big makeup case for a pillow, and Ronin is asleep sitting up with the crowbar across his knees and the pale hound on his boots.'],
  [AN,'don’t. we’re not leaving. make coffee.'],
  ['','He makes coffee for three. It is the first thing he has made since Tuesday that anybody drank.']],done)}});
 
