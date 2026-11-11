@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+<title>Deep Cut — the daily game where obscure answers win</title>
+<meta name="description" content="7 prompts a day. Obvious answers barely scratch the surface; rare, clever ones dig you toward the Earth's core. 25 seconds each. No sign-up.">
+<meta name="theme-color" content="#120d0a">
+<meta property="og:title" content="Deep Cut — how deep can you dig?">
+<meta property="og:description" content="The daily trivia game where the obvious answer is worth almost nothing.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="modulepreload" href="app.js">
+<link rel="modulepreload" href="api.js">
+<link rel="modulepreload" href="shared/scoring.js">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="shaft" aria-hidden="true">
+  <div class="layers"></div>
+  <div class="marks"></div>
+  <div id="driller"><div class="bit"></div></div>
+</div>
+<header class="top">
+  <button class="brand" id="homeBtn" aria-label="Deep Cut home"><span class="logo">⛏</span> DEEP<b>CUT</b></button>
+  <div class="top-actions">
+    <button class="icon" id="statsBtn" aria-label="Stats and sync">📊</button>
+    <button class="icon" id="helpBtn" aria-label="How to play">?</button>
+    <button class="icon mute" id="muteBtn" aria-label="Mute sounds" aria-pressed="false">🔊</button>
+  </div>
+</header>
+<main id="app" aria-live="polite">
+  <div class="boot">Digging in…</div>
+</main>
+<div id="toast" role="status" aria-live="assertive"></div>
+<dialog id="modal"><div class="modal-body"></div></dialog>
+<script type="module" src="app.js"></script>
+</body>
+</html>

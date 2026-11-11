@@ -1,0 +1,10 @@
+{
+  "name": "Deep Cut",
+  "short_name": "Deep Cut",
+  "description": "The daily game where obscure answers win.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#120d0a",
+  "theme_color": "#120d0a",
+  "icons": [{ "src": "icon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}
