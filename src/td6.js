@@ -81,7 +81,10 @@ function cityMap(){if(!S)return;if(WH.key!==S.day+'/'+S.slot+'/'+S.phase){const 
  const from=scene&&scene.isRoom?{room:S.room,pos:scene.pos()}:null;const pins=[],notes=[];let hdr='';
  WH.opts.forEach(o=>{if(o.h){hdr=o.h;return}if(whClaimed(o))return;const t=o.t.replace(/<[^>]+>/g,'');const P=WHPLACES.find(p=>p[0].test(t));if(P){let pin=pins.find(x=>x.n===P[1]);if(!pin){pin={n:P[1],x:P[2],y:P[3],o:[]};pins.push(pin)}pin.o.push(o)}else notes.push(Object.assign({hdr},o))});
  if(whMe()==='v'&&S.phase==='taken'&&!pins.find(p=>p.n==='Trailer lot'))pins.push({n:'Trailer lot',x:46,y:118,o:[{t:'Her trailer',sub:'free · where they took her',fn:()=>{S.visitAs='v';save();TD.resume=null;toRoom('trailer',[150,140])}}]});
- notes.forEach((o,i)=>{o.x=W-58;o.y=26+i*15});const all=pins.concat(notes.map(o=>({n:o.t.replace(/<[^>]+>/g,''),x:o.x,y:o.y,o:[o],note:1})));
+ /* the TODAY column holds about nine notes at full height: shrink the rows, and past twelve fold the rest into one note */
+ if(notes.length>12){const extra=notes.splice(11);notes.push({t:'More… ·'+extra.length,sub:extra.length+' more things to do today',group:extra,dis:extra.every(o=>o.dis)})}
+ const NH=Math.max(10,Math.min(15,Math.floor(122/Math.max(1,notes.length))));
+ notes.forEach((o,i)=>{o.x=W-58;o.y=26+i*NH});const all=pins.concat(notes.map(o=>({n:o.group?'More to do today':o.t.replace(/<[^>]+>/g,''),x:o.x,y:o.y,o:o.group||[o],note:1,src:o})));
  let sel=Math.max(0,all.findIndex(p=>!p.o.every(o=>o.dis)));let card=null,cardSel=0;const home=whHomeMap()==='trailer'?[46,118]:[212,40];
  const back=()=>{if(from)toRoom(from.room,from.pos);else whHome()};
  const pick=p=>{const live=p.o.filter(o=>!o.dis);if(p.o.length===1&&live.length===1){sfx('chime');live[0].fn();return}card=p;cardSel=Math.max(0,p.o.findIndex(o=>!o.dis));sfx('sel')};
@@ -94,8 +97,8 @@ function cityMap(){if(!S)return;if(WH.key!==S.day+'/'+S.slot+'/'+S.phase){const 
    const [hx,hy]=home;c.strokeStyle='rgba(95,212,196,.6)';c.beginPath();c.arc(hx,hy,7+Math.sin(t)*1.5,0,7);c.stroke();txt('home',hx,hy+16,'#5fd4c4',7,'center');
    pins.forEach((p,i)=>{const dis=p.o.every(o=>o.dis),on=all[sel]===p;const r=on?6:4;c.fillStyle='rgba(0,0,0,.5)';c.beginPath();c.ellipse(p.x,p.y+2,r,2,0,0,7);c.fill();c.fillStyle=dis?'#5a5262':on?'#f2d24a':'#d0283f';c.beginPath();c.arc(p.x,p.y-r,r,0,7);c.fill();c.beginPath();c.moveTo(p.x-r*.7,p.y-r*.4);c.lineTo(p.x+r*.7,p.y-r*.4);c.lineTo(p.x,p.y+1);c.fill();c.fillStyle='#0d0a12';c.beginPath();c.arc(p.x,p.y-r,r*.4,0,7);c.fill();
     if(on||p.o.length>1)txt(p.n+(p.o.length>1?' ·'+p.o.length:''),p.x,p.y-r*2-3,on?'#fff':dis?'#7a6f88':'#ece4da',on?9:7,'center')});
-   if(notes.length){rect(W-62,14,60,notes.length*15+12,'rgba(242,210,74,.08)');txt('TODAY',W-32,22,'#f2d24a',7,'center')}
-   notes.forEach(o=>{const on=all[sel]&&all[sel].o[0]===o;rect(o.x-2,o.y-6,58,13,o.dis?'#3a3428':on?'#f2d24a':'#e8d890');rect(o.x-2,o.y-6,58,1,'rgba(0,0,0,.2)');txt(fitTxt?fitTxt(o.t.replace(/<[^>]+>/g,''),7,54):o.t.slice(0,16),o.x,o.y+3,'#2a2016',7)});
+   if(notes.length){rect(W-62,14,60,notes.length*NH+12,'rgba(242,210,74,.08)');txt('TODAY',W-32,22,'#f2d24a',7,'center')}
+   notes.forEach(o=>{const on=all[sel]&&all[sel].src===o;rect(o.x-2,o.y-6,58,NH-2,o.dis?'#3a3428':on?'#f2d24a':'#e8d890');rect(o.x-2,o.y-6,58,1,'rgba(0,0,0,.2)');txt(fitTxt?fitTxt(o.t.replace(/<[^>]+>/g,''),7,54):o.t.slice(0,16),o.x,o.y+(NH>=13?3:1),'#2a2016',7)});
    const cur=all[sel];if(cur&&!card){const o=cur.o.length===1?cur.o[0]:null;const s=o?(o.sub||'').replace(/<[^>]+>/g,''):cur.o.length+' things to do here';rect(28,H-30,W-66,26,'rgba(10,8,14,.9)');rect(28,H-30,2,26,'#d0283f');txt(cur.n.slice(0,44),34,H-19,'#fff',10);txt(s.slice(0,64),34,H-9,o&&o.dis?'#8a7f98':'#c9c39a',8)}
    rect(W-34,H-16,32,14,'rgba(10,8,14,.9)');txt('back',W-18,H-6,'#ece4da',8,'center');
    if(card){const L=card.o;card.cw=150;card.cx=clamp(card.x-75,6,W-156);card.cy=clamp(card.y-20-L.length*12,16,H-30-L.length*12);rect(card.cx,card.cy,card.cw,16+L.length*12,'rgba(12,9,18,.96)');rect(card.cx,card.cy,card.cw,1,'#d0283f');txt(card.n,card.cx+6,card.cy+10,'#f2d24a',9);

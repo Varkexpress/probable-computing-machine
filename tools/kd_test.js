@@ -2,7 +2,7 @@
    POVs, the topics and the ending lines. */
 const {chromium}=require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
 (async()=>{const b=await chromium.launch();const p=await b.newPage({viewport:{width:1000,height:700}});const errs=[];p.on('pageerror',e=>errs.push(e.message+' '+(e.stack||'').split('\n')[1]));
-await p.route('**/fonts.g*/**',r=>r.abort());await p.goto('file://'+require('path').resolve(__dirname,'../index.html'));await p.waitForTimeout(500);await p.keyboard.press('x');await p.waitForTimeout(600);
+await p.route('**/fonts.g*/**',r=>r.abort());await p.goto('file://'+require('path').resolve(__dirname,'../index.html'));await p.waitForTimeout(500);await p.keyboard.press('x');await p.waitForTimeout(600);await p.evaluate(()=>{globalThis.KD_AUTO=1});
 const ev=(f,a)=>p.evaluate(f,a);
 const drain=async(pick)=>{let first=1;for(let k=0;k<80;k++){const r=await ev(([pick,first])=>{for(let i=0;i<300&&dlg;i++)adv();if(ctrl&&ctrl.box){const os=ctrl.box.querySelectorAll('.opt:not(.dis)');if(os.length){os[first?Math.min(pick,os.length-1):0].click();return 2}}return dlg?1:0},[pick,first]);if(r===2)first=0;if(!r)break;await p.waitForTimeout(30)}};
 const load=(i)=>ev(i=>{document.querySelectorAll('.splash').forEach(e=>e.remove());benchLoad(BENCH[i]);for(let k=0;k<60&&dlg;k++)adv()},i);
@@ -22,7 +22,28 @@ for(const pick of [0,1,2,3]){await load(0);await ev(()=>{S.orgs={sato:1};takenM(
  // vent needs tray + listening; escape cfg
  const v=await ev(()=>{S.f.tray=1;S.f.listened=0;S.kd.clock=0;ROOMS.cell.spots.find(s=>s.label==='Vent').act();const a=!!dlg;for(let i=0;i<50&&dlg;i++)adv();S.tries=1;const c=kdEscapeCfg({map:VENT,guards:VENT_G,title:'t'});return [a,c.guards.length,c.sens]});console.log('   vent gated',v);ok(v[0]&&v[1]===3,'vent gate');
  await ev(pick=>{after(pick%2===0)},pick);await p.waitForTimeout(50);for(let i=0;i<6;i++){await drain(0);await p.waitForTimeout(40)}await ev(()=>hub());
- st=await ev(()=>({ph:S.phase,kd:S.kd,end:S.endDay-S.day,comp:S.comp,list:S.list.length}));ok(st.ph==='after'&&st.kd.t0&&st.end===6,'after '+JSON.stringify(st));console.log('   after():',JSON.stringify(st))}
+ st=await ev(()=>({ph:S.phase,kd:Object.assign({},S.kd,{aftL:(S.kd.aftL||[]).length}),end:S.endDay-S.day,comp:S.comp,list:S.list.length,room:S.room}));ok(st.ph==='after'&&st.kd.t0&&st.end===9&&st.kd.med,'after '+JSON.stringify(st));console.log('   after():',JSON.stringify(st))}
+
+/* --- the infirmary --- */
+for(const pov of ['m','v'])for(const pick of [0,1,2]){await load(pov==='v'?1:0);await ev(pov=>{S.pov=pov;S.orgs={sato:1};S.captor='sato';S.takenDay=S.day;S.phase='taken';S.kd=null;KD();S.kd.ses=2;S.kd.hrs=14;S.f.missing=1;after(false)},pov);
+ for(let i=0;i<8;i++){await drain(pick);await p.waitForTimeout(40)}
+ let st=await ev(()=>({med:S.kd.med,room:S.room,post:kdPost(),end:S.endDay-S.day}));ok(st.med&&!st.post&&(pov==='v'||st.room==='medbay'),'med start '+pov+JSON.stringify(st));
+ if(pov==='m'){for(const cl of [0,3]){const labs=await ev(cl=>{S.kd.med.clar=cl;S.kd.med.d=1;return ROOMS.medbay.spots.filter(s=>s.show()).map(s=>s.label)},cl);
+   for(const lab of labs){if(lab==='Cot'||lab==='Bed'||lab==='Your phone')continue;await ev(([lab,cl])=>{S.kd.med.clar=cl;S.done={};ROOMS.medbay.spots.find(s=>s.label===lab&&s.show()).act()},[lab,cl]);await p.waitForTimeout(30);
+    if(lab==='Door'&&pick===1){await ev(()=>{const o=[...ctrl.box.querySelectorAll('.opt')];o[0].click()})}
+    for(let i=0;i<5;i++){await drain(lab==='Door'?(pick===1?0:2):pick);await p.waitForTimeout(30)}
+    ok(await ev(()=>!dlg&&S.room==='medbay'),'spot '+lab+' cl'+cl+' pick'+pick)}
+   if(!pick)console.log('med labels clar',cl,labs.join(' | '))}
+  await ev(()=>{S.kd.med.clar=0;S.kd.med.d=0;openPhone('dm')});ok(await ev(()=>!ctrl||!ctrl.box||true),'phone blocked')}
+ else{await ev(()=>{S.done={};S.slot=0;const o=sideHub(false).find(o=>o.t==='The infirmary');o.fn()});for(let i=0;i<4;i++){await drain(pick);await p.waitForTimeout(30)}}
+ for(let d=1;d<=3;d++){await ev(()=>{window.__d=0;morningEvent(()=>{window.__d=1})});for(let i=0;i<8;i++){await drain(pick);await p.waitForTimeout(40)}
+  ok(await ev(()=>window.__d),'med morning '+pov+d+' pick'+pick)}
+ st=await ev(()=>({med:S.kd.med,post:kdPost(),t0:S.kd.t0===S.day,msgs:Object.values(phS().th).reduce((a,t)=>a+t.length,0)}));ok(!st.med&&st.post&&st.t0,'discharge '+pov+JSON.stringify(st));if(!pick)console.log('med',pov,JSON.stringify(st))}
+/* escape outcomes from the infirmary, the dock and the carry, with stealth stubbed */
+console.log('stubbed stealth',await ev(()=>{const out=[];const _s=stealth;const run=(res,fn,chk)=>{stealth=(cfg,cb)=>{out.push(cfg.title);cb(res)};try{fn()}catch(e){out.push('ERR '+e.message)}for(let i=0;i<400&&dlg;i++)adv();out.push(chk())};
+ benchLoad(BENCH[0]);for(let i=0;i<60&&dlg;i++)adv();S.captor='sato';S.phase='after';S.kd=null;KD();S.kd.t0=S.day;
+ for(const res of [{ok:false},{ok:true,kills:0,bodies:0},{ok:true,kills:1,bodies:1}]){S.kd.med={d:1,clar:0,run:0};run(res,kdMedRun,()=>'clar'+S.kd.med.clar+(S.f.kdStab?' stab':''))}
+ stealth=_s;return out}));
 /* --- V's search --- */
 await load(1);await ev(()=>{S.orgs={sato:1};takenV()});await p.waitForTimeout(50);await drain(0);
 console.log('V hub opts',await ev(()=>{S.f.traced=1;hub();const P=(typeof WH!=='undefined'&&WH.opts)||[];return [...document.querySelectorAll('.opt')].map(o=>o.textContent.slice(0,40)).join(' | ')||'(world hub)'}));

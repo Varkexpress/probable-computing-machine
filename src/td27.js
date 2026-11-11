@@ -8,10 +8,10 @@
    lost afternoons, shaky hands, and one choice: keep the room, or let it go blank the way chapter one went.
    The blank: nothing before she was nine. The kidnapping makes her ask, for the first time, whether that was done to her. */
 const KD=()=>{if(!S.kd)S.kd={hrs:0,ses:0,said:0,clock:0,dose:0,anc:0,lost:0,shake:0};return S.kd};
-const kdPost=()=>!!(S&&S.kd&&S.kd.t0&&S.phase!=='taken'&&S.phase!=='normal'&&!isLone());
+const kdPost=()=>!!(S&&S.kd&&S.kd.t0&&!S.kd.med&&S.phase!=='taken'&&S.phase!=='normal'&&!isLone());
 const kdD=()=>S.day-S.kd.t0;
 const kdMe=()=>S.pov!=='v';
-const kdHrs=()=>S.kd.hrs,kdDays=()=>S.kd.days;
+const kdHrs=()=>S.kd?S.kd.hrs:0,kdDays=()=>S.kd?S.kd.days:0;
 const kdWarned=()=>['read','v','vsolo'].includes(S.f.kdBook);
 function kdWoozy(){if(!S||S.phase!=='taken'||!S.kd)return 0;return Math.max(0,2-Math.floor((S.kd.clock-S.kd.dose)/2))}
 function kdEscapeCfg(m){const wz=kdWoozy(),again=(S.tries||0)>=1;

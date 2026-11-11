@@ -1,7 +1,7 @@
 // Plays N days as each POV: drains morning events, answers every pending text, takes calls, wanders rooms, sleeps.
 const {chromium}=require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
 (async()=>{const b=await chromium.launch();const p=await b.newPage({viewport:{width:1000,height:640}});const errs=new Map();p.on('pageerror',e=>{const k=e.message+' @'+((e.stack||'').split('\n')[1]||'').trim().slice(0,90);errs.set(k,(errs.get(k)||0)+1)});
-await p.route('**/fonts.g*/**',r=>r.abort());await p.goto('file://'+require('path').resolve(__dirname,'../index.html'));await p.waitForTimeout(500);await p.keyboard.press('x');await p.waitForTimeout(500);
+await p.route('**/fonts.g*/**',r=>r.abort());await p.goto('file://'+require('path').resolve(__dirname,'../index.html'));await p.waitForTimeout(500);await p.keyboard.press('x');await p.evaluate(()=>{globalThis.KD_AUTO=1});await p.waitForTimeout(500);
 const ev=(f,a)=>p.evaluate(f,a);
 const drain=async(pick)=>{for(let k=0;k<60;k++){const r=await ev(pick=>{for(let i=0;i<300&&dlg;i++)adv();if(ctrl&&ctrl.box){const os=[...ctrl.box.querySelectorAll('.opt:not(.dis)')];if(os.length){os[pick==='rand'?Math.floor(Math.random()*os.length):0].click();return 1}}return dlg?1:0},pick);if(!r)break;await p.waitForTimeout(25)}};
 for(const pov of ['m','v']){await ev(pov=>{document.querySelectorAll('.splash').forEach(e=>e.remove());if(typeof wipeRun==='function'&&S)wipeRun();newRun(pov);S.fr={a:55,r:55};S.aff=55},pov);await drain();

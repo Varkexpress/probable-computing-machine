@@ -453,11 +453,11 @@ const ROOMS={
    {at:[160,170],mark:[160,176],label:'Back to atrium',act:()=>toRoom('atrium',[84,130])}]},
  cell:{name:()=>`Somewhere owned by ${ORG[S.captor].name}`,walk:[20,250,124,172],back:()=>{},backLabel:'there is no leaving',draw:drawCell,
   spots:[
-   {at:[64,128],mark:[64,98],label:'Cot',act:()=>{if(!S.f.cotSearched){S.f.cotSearched=1;say([['','Under the thin mattress: a bent spoon, a fingernail clipping (gross), and scratched into the frame, a tally. Forty-one marks.'],['hitmeuppp','forty-one days. fuck that. i’m not doing forty-one HOURS.']])}else say([['hitmeuppp','not sleeping on that.']])}},
-   {at:[140,152],mark:[140,148],label:'Meal tray',show:()=>!S.f.tray,act:()=>{S.f.tray=1;save();say([['hitmeuppp','metal tray with a good edge. good for screws, and for faces.'],['','(Got: tray. Also counts as one distraction on the way out.)']])}},
-   {at:[212,128],mark:[212,30],label:'Vent',act:()=>{if(!S.f.tray){say([['hitmeuppp','four screws. no screwdriver. need something flat.']]);return}ask('hitmeuppp','The tray edge fits the screws. The vent looks like it goes somewhere.',[{t:'Crawl out through the vent',sub:'fewer guards, tighter routes',fn:()=>escapeRun('vent')},{t:'Not yet',fn:()=>{}}])}},
-   {at:[246,140],mark:[280,80],label:'Door',act:()=>{if(!S.f.listened){S.f.listened=1;say([['','Two guards pace the hall. They swap every few minutes and one of them always stops to check his phone.'],['hitmeuppp','sloppy. good.']]);return}
-     ask('hitmeuppp','The lock is an old pin tumbler.',[{t:S.pick?'Use the pick from your boot':'Pick it with your star hair clip',sub:'lockpick → escape',fn:()=>lockpick(ok=>{if(ok)escapeRun('door');else failedEscape('The clip snaps. A guard hears it.')})},{t:'Not yet',fn:()=>{}}])}}]}};
+   {at:[64,128],mark:[64,98],label:'Cot',act:()=>{if(!S.f.cotSearched){S.f.cotSearched=1;say([['','Under the mattress there is a bent spoon, somebody’s fingernail, and a tally scratched into the frame. Forty-one marks. The forty-second stops halfway down.'],['hitmeuppp','forty-one. and then what, buddy. ...no. not asking.']])}else say([['hitmeuppp','not lying down on that. lying down is how they get you used to it.']])}},
+   {at:[140,152],mark:[140,148],label:'Meal tray',show:()=>!S.f.tray,act:()=>{S.f.tray=1;save();say([['hitmeuppp','steel tray, one good edge. it’ll take a screw head. or the bridge of a nose.'],['','(Got: tray. Also counts as one distraction on the way out.)']])}},
+   {at:[212,128],mark:[212,30],label:'Vent',act:()=>{if(!S.f.tray){say([['hitmeuppp','four screws and no driver. i need something flat. (the left hand won’t close on anything. it’s asleep.)']]);return}ask('hitmeuppp','The tray edge fits the screws. The vent looks like it goes somewhere.',[{t:'Crawl out through the vent',sub:'fewer guards, tighter routes',fn:()=>escapeRun('vent')},{t:'Not yet',fn:()=>{}}])}},
+   {at:[246,140],mark:[280,80],label:'Door',act:()=>{if(!S.f.listened){S.f.listened=1;say([['','Two of them walk the hall, eleven steps each way. One stops on every pass to look at his phone. The other hums the bank jingle and doesn’t know he is doing it.'],['hitmeuppp','sloppy. love that for me.']]);return}
+     ask('hitmeuppp','An old pin tumbler. You have opened worse drunk.',[{t:S.pick?'Use the pick from your boot':'Pick it with your star hair clip',sub:'lockpick → escape',fn:()=>lockpick(ok=>{if(ok)escapeRun('door');else failedEscape('The clip snaps. A guard hears it.')})},{t:'Not yet',fn:()=>{}}])}}]}};
 ROOMS.ops.spots.push(
  {at:[176,128],mark:[176,72],label:'Terminal',act:()=>{if(S.frag[0]){say([['hitmeuppp','the screen just says “3”. and “GO HOME MISAKI”. rude.']]);return}simon({title:'K9 // LEDGER DECRYPT',rounds:[4,5,6]},ok=>{toRoom('ops',[176,132]);if(ok){S.frag[0]=1;save();say([['','ACCESS GRANTED. A file opens: names, dates, dollar amounts. Every crooked donor V has quietly ruined. At the bottom, a single digit: 3.'],['hitmeuppp','a code piece. ooooh.']])}else say([['hitmeuppp','LOCKED OUT. it played a sad little beep at me']])})}},
  {at:[270,126],mark:[272,24],label:'Corkboard',act:()=>say([['','Photos, red string, and crossed-out names, all of them men. The note pinned at the edge says “Not my jurisdiction.” It’s crossed out too.'],['hitmeuppp',D('...V has a murder board. V. has. a murder board.','there’s a new photo on it. it’s from the place they took me.')]])},
@@ -654,7 +654,7 @@ function kennelShift(cb){cb=once(cb);const types=['food','water','ball','brush',
   hudBar('Kennel shift — fetch what they need from the shelves',`happy ${score} · missed ${missed} · ${Math.max(0,Math.ceil((DUR-f)/60))}s`);if(fbT>0)txt(fb,160,H-6,'#ece4da',11,'center')}})}
 
 /* ---------- lockpick ---------- */
-function lockpick(cb){cb=once(cb);const N=S.pick?3:4;let pin=0,pos=0,dir=1,speed=1.2,noise=0,zone=ri(20,80),fb='Press E when the pin is in the gap.',fbT=200,end=null,endT=0;const wz=typeof kdWoozy==='function'?kdWoozy():0;const w=(S.pick?24:15)-wz*3;speed+=wz*.25;
+function lockpick(cb){cb=once(cb);const N=S.pick?3:4;let pin=0,pos=0,dir=1,speed=1.2,noise=0,zone=ri(20,80),fb='Press E when the pin is in the gap.',fbT=200,end=null,endT=0;const wz=typeof kdPick==='function'?kdPick():0;const w=(S.pick?24:15)-wz*3;speed+=wz*.25;
  go({update(){if(end){if(++endT>60)cb(end==='win');return}if(hit('back'))return cb(false);pos+=dir*speed;if(pos>100||pos<0)dir*=-1;noise=Math.max(0,noise-.05);
   if(hit('act')){if(Math.abs(pos-zone)<=w/2){pin++;fb='click.';fbT=40;speed+=.5;zone=ri(15,85);if(pin>=N)end='win'}else{noise+=28;fb='*scrape*';fbT=40;if(noise>=100)end='lose'}}if(fbT>0)fbT--},
  draw(){drawCell();rect(60,40,200,100,'rgba(10,8,8,.92)');for(let i=0;i<N;i++){const x=90+i*40;rect(x,60,16,50,'#3a3a2a');rect(x+2,i<pin?60:80,12,20,i<pin?'#f2d24a':'#8a8a6a')}
@@ -711,7 +711,7 @@ function interrogate(n,cb){const o=ORG[S.captor];IR={R:clamp(48+Math.round(S.aff
      if(x.leak)S.leaks+=x.leak;IR.R=clamp(IR.R-(x.c||0)+(x.gain||0));if(x.e)apply(x.e);save();say(x.r,next)}}));
    if(opts.every(o=>o.dis||o.sub.startsWith('(they'))&&opts.filter(o=>!o.dis&&!o.sub.startsWith('(they')).length===0){say([['','You’re too tired. Your mouth opens on its own.']],()=>ask('hitmeuppp','(resolve: '+IR.R+')',opts))}
    else ask('hitmeuppp','(resolve: '+IR.R+')',opts)})};
- say([['',n===1?'Under a bare bulb, a man with very clean hands sits down across the metal table from you.':'They don’t let you sleep. The bulb buzzes. The man with clean hands comes back.']],next)}
+ say([['',n===1?'There is a metal table under the bulb. The man who sits down across it has very clean hands, and he lays them flat on the table for you to look at.':'Nobody lets you sleep. The bulb buzzes. He comes back with the same clean hands and a different tie, so it must be another day.']],next)}
 function drawInterro(){rect(0,0,W,H,'#0c0a08');c.fillStyle='rgba(255,240,180,.08)';c.beginPath();c.moveTo(150,0);c.lineTo(170,0);c.lineTo(260,180);c.lineTo(60,180);c.fill();rect(155,0,10,8,'#ffe9a8');
  rect(80,120,160,10,'#3a3a3a');person(190,60,{h:'#1a1a1a',s:'#d9b08a',c:'#22222a',t:'#7a2a2a',l:'#22222a',b:'#000'},3);spr(MIS,94,64,false,2.4);
  hudBar('Interrogation '+IR.n,'resolve');bar(240,3,74,6,IR.R,'#5fd4c4');txt(`server leaks: ${S.leaks}`,4,172,S.leaks?'#d0283f':'#8a8a8a',11)}
@@ -1117,6 +1117,7 @@ function newRun(p){S=NEW(p);save();drawHud();
 function hubBg(){const a=IMG.m,b=IMG.v;if(a.complete&&a.naturalWidth)c.drawImage(a,0,0,125,141,0,0,160,H);if(b.complete&&b.naturalWidth)c.drawImage(b,125,0,125,141,160,0,160,H);rect(0,0,W,H,S&&S.dark?'rgba(30,0,8,.6)':'rgba(10,8,14,.45)');rect(159,0,2,H,'#d0283f')}
 function hub(){if(!S)return title();ensureAct2();S.visitAs=null;save();
  if(S.phase==='taken'&&S.pov!=='v'){toRoom('cell',[120,150]);return}
+ if(typeof kdMedM==='function'&&kdMedM()){toRoom('medbay',[120,150]);return}
  const late=S.slot>=3,o=[];const hl=hubLine();
  if(S.phase==='taken'){o.push({h:'Find her'},
   {t:'Trace her phone',sub:S.f.traced?'done — warehouse district':'ops deck · decrypt',dis:late||S.f.traced,fn:()=>{spend();simon({title:'TRACE // last known signal',rounds:S.f.angelHelp?[5,6,7]:[6,7,8]},ok=>{if(ok){S.f.traced=1;save();cut([['','The signal pings once, from the warehouse row on the east bank of the river. There are nine warehouses in that row. Then nothing.'],['K9','There. One of nine.']],hub,'#031014')}else cut([['K9','Again.']],hub,'#031014')})}},
@@ -1187,68 +1188,60 @@ function informant(){const o=ORG[S.captor];go({draw(){rect(0,0,W,H,'#0a0808');re
 
 /* ---------- the kidnapping ---------- */
 function takenM(){S.phase='taken';S.dark=1;S.captor=captorOrg();S.takenDay=S.day;S.tries=0;S.f.tray=0;S.f.cotSearched=0;S.f.listened=0;save();const o=ORG[S.captor];
- cut([['','It’s nine-forty at night in the lot behind the pachinko parlour. The paid rent receipt is in her back pocket.'],
-  ['','A grey van with no plates idles with its lights off. Her body clocks it first: shoulders up, hand drifting to a hip with nothing on it tonight.'],
-  ['','She doesn’t run. Running tells them she knows. The side door slides open on her third step.'],
-  ['hitmeuppp','oh you have GOT to be kidding m—'],
-  ['','Hands. A hood. A needle in the neck. Her phone buzzing in the gravel: somebody sending a meme.'],
-  ['',`She wakes on cold concrete under one caged bulb. The guard by the door wears a logo she knows. ${o.name}. She left one of their men in a canal in the spring.`],
-  ['hitmeuppp','...should’ve left that body somewhere better.'],
-  ['hitmeuppp',MV('(rent’s paid. i’m getting out and living in that trailer out of SPITE.)','(rent’s paid. if i die here, i die with a paid rent.)','(Paid. Nobody takes the trailer while I’m gone. I’m going back to it.)','(Paid. He’ll notice I’m gone by tonight. He will.)')]],
-  ()=>interrogate(1,()=>cut([['','They throw you back in the cell. Down the hall, a radio loops a jingle for a bank. You start counting loops.'],
-   ['hitmeuppp','ok. ok. think. star clip. tray. door. vent. think.']],()=>toRoom('cell',[120,150]),'#0c0a08')),'#000')}
+ cut([['','Nine-forty at night, in the trailer lot, forty metres from her own door. The rent receipt is in her back pocket, and she has taken it out twice to look at it.'],
+  ['','There is a grey van by the fence with no front plate and its engine running. She has parked vans like that herself, and for the same reason.'],
+  ['hitmeuppp','(One: don’t run, running says i know. Two: there’s nothing on my hip tonight, because i was CELEBRATING. Three: oh, fuck.)'],
+  ['','The side door goes back on her third step. There are four of them, and they have done this before. She breaks one man’s nose on the fence post and gets a thumb into another one’s eye. Then somebody has her left hand, and bends it the wrong way until it stops being any use to her.'],
+  ['hitmeuppp','ow. OW. ok, rude—'],
+  ['','A hood, and a needle under the jaw. Her phone lies face up in the gravel, buzzing. Ronin has sent a raccoon in a tiny hat.'],
+  ['',`${o.name}. She put one of their men in a canal in the spring, and he has floated.`]],
+  ()=>interrogate(1,()=>cut([['','They put you back in the cell. Down the hall a radio plays a jingle for a bank, and when it ends it starts again.'],
+   ['hitmeuppp','(ok. inventory. clip in my hair, clip in my shoe. left hand’s asleep, that’s fine, i pick locks with the right. vent. door. tray. go.)']],()=>toRoom('cell',[120,150]),'#0c0a08')),'#000')}
 function takenV(){S.phase='taken';S.dark=1;S.captor=captorOrg();S.takenDay=S.day;save();
- cut([['','Misaki doesn’t answer the server. She ignores the memes and V’s “Did you eat today?”, sent at seven, twelve and six, as always.'],
-  ['','At 18:40 he sends just her name. It stays Delivered. It never becomes Read.'],
-  ['','He tells Biscuit he is going for a drive. Biscuit gets into the car first.'],
-  ['','The trailer door is swinging in the wind. Noodles gone cold on the counter. Her phone in the gravel; four of the unread messages are his. By the step, one white platform shoe on its side.'],
-  ['K9','...'],
-  ['','He memorises the tyre tracks by the fence, because his hands need something to do besides shake. Then he puts away the patient version of himself, the one who calls the police first.'],
-  ['K9','Someone took her.'],
-  ['K9',byT('I will find them.','I will find them. And I will be thorough.','I will find them. And I will not be kind.','I will find them. Every one. None of them will die quickly.')]],hub,'#000')}
+ cut([['','At seven in the morning he sends “Did you eat today?” At noon he sends it again, and at six. She answers the six o’clock one within four minutes, every day, usually with a photograph of something fried.'],
+  ['','At 18:40 he sends her name. It says Delivered, and it goes on saying Delivered.'],
+  ['','He tells Biscuit that he is going for a drive. Biscuit is in the car before he is.'],
+  ['','The trailer door is banging in the wind. The noodles on the counter have a skin on them. Her phone is in the gravel, and four of the unread messages are his. One white platform shoe lies by the step. The other is under the fence, where it came off while she was being dragged.'],
+  ['','There is blood on the fence post at the height of a man’s face, and that is not hers. The blood lower down, in the gravel, with two fingernails in it, is.'],
+  ['K9','Someone has taken her.'],
+  ['K9',byT('I will find them.','I will find them, and I will be thorough.','I will find them. I will not be kind about it.','I will find every one of them. My animals will eat well.')]],hub,'#000')}
 function escapeRun(route){const m=route==='vent'?{map:VENT,guards:VENT_G,title:'The vents — then the loading dock'}:{map:WARE,guards:WARE_G,title:'The warehouse floor'};
- stealth(Object.assign(m,kdEscapeCfg(m),{hint:'Get to the EXIT. Plants hide you. Sneak up from behind + E to take a guard down. ⇧ near a body hides it.',smoke:S.f.tray?1:0,smokeName:'tray',actor:'m',takedown:true,guardCol:'#2a1a1a',takeLine:'Star clip to the throat. Quiet.',autoExit:true}),r=>{if(r.ok){S.f.selfEscape=1;S.bodies+=r.bodies;save();escaped(r)}else failedEscape('A flashlight in your face. Hands on your shoulders.')})}
+ stealth(Object.assign(m,kdEscapeCfg(m),{hint:'Get to the EXIT. Plants hide you. Sneak up from behind + E to take a guard down. ⇧ near a body hides it.',smoke:S.f.tray?1:0,smokeName:'tray',actor:'m',takedown:true,guardCol:'#2a1a1a',takeLine:'Star clip to the throat. Quiet.',autoExit:true}),r=>{if(r.ok)kdDock(r);else failedEscape('A flashlight in your face. Hands on your shoulders.')})}
 function failedEscape(msg){S.tries++;save();
- if(S.tries===1)cut([['',msg],['','They drag you back. Someone pulls the star clip out of your hair and laughs. You let your face crumple. You let them watch.'],['hitmeuppp','(...i have a backup clip. idiots.)'],['hitmeuppp',MV('(in my shoe. since i was fifteen.)','(in my shoe. since i was fifteen. always two exits.)','(In my shoe. Since I was fifteen. Two clips, always.)','(In my shoe, since I was fifteen. Paranoid little freak. I could kiss her.)')]],()=>interrogate(2,()=>{S.f.tray=0;save();cut([['','Back in the cell. Your legs don’t work right. You make them work.']],()=>toRoom('cell',[120,150]),'#0c0a08')}),'#000');
- else if(S.pov==='both')cut([['',msg],['','This time they don’t drag you back to the cell. They just leave you on the floor.'],['','Across the city, a man in a brown coat finishes loading a car.']],vRescue,'#000');
+ if(S.tries===1)cut([['',msg],['','They don’t hit you anywhere that shows. One of them takes the star clip out of your hair and puts it in his own, and the others laugh.'],
+  ['','Then two of them hold your left hand flat on the concrete, and the one with the radio stands on it. You hear it more than you feel it.'],
+  ['hitmeuppp','(it’s fine. it was asleep anyway.)'],
+  ['hitmeuppp',MV('(backup clip’s in my shoe. since i was fifteen. idiots.)','(there’s a backup clip in my shoe. since i was fifteen. always two exits, idiots.)','(There’s a second clip in my shoe. Since I was fifteen. They never check the shoe.)','(Second clip, in the shoe, since I was fifteen. Paranoid little freak. I could kiss her.)')]],()=>interrogate(2,()=>{S.f.tray=0;save();cut([['','Back in the cell. Your legs are slow to answer, and you tell them twice.']],()=>toRoom('cell',[120,150]),'#0c0a08')}),'#000');
+ else if(S.pov==='both')cut([['',msg],['','This time nobody takes you back to the cell. They leave you where you fell and go to fetch the man with clean hands.'],['','Across the city, a man in a brown coat shuts the boot of a car.']],vRescue,'#000');
  else vRescueCut(msg)}
-function vRescueCut(msg){cut([['',msg],['','This time they leave you on the loading-bay floor. Then the lights go out.'],
- ['','In the dark, a sound like a sack being set down, carefully. Then another. Then nothing.'],
- ['','When the emergency lights come on, V is in the doorway. His coat is wet to the knee from the river, and there is something dark on his gloves.'],
+function vRescueCut(msg){cut([['',msg],['','This time they leave you on the loading-bay floor, and somebody goes to fetch the man with clean hands. Then every light in the building goes out.'],
+ ['','In the dark a man starts to shout and stops. You hear that four more times, and each time it is nearer.'],
+ ['','The emergency lights come up red. V is in the doorway, wet to the knee from the river and to the elbow from something else.'],
  ['K9','Misaki.'],
- ['hitmeuppp',MV('...took u long enough.','...took you long enough.','...You took long enough.','I told them you’d come. I told them what you’d do, too. In detail.')],
- ['K9',byT('I apologise.','There were several of them in the way.','I was always coming.','I would have kept looking. As long as there was a city left to take apart.')],
- ['','He waits for your nod before he lifts you. You keep your eyes shut through the hallway. So does he, mostly.']],()=>after(false),'#000')}
-function escaped(r){cut([['','The loading-dock door gives, and you smell cold air, the river and diesel. You’re out.'],
- ['','You walk until running stops looking like prey. Then you run. You don’t decide where. Your feet do.'],
- ['','V’s door opens before you knock. He has his coat on and his keys in his hand. He hasn’t slept.'],
+ ['hitmeuppp',MV('...took u long enough.','took u long enough. i’m fine btw.','You took long enough. I’m fine, by the way.','I told them you’d come. I told them what you’d do, in detail. I’m fine, by the way, don’t make a thing of it.')],
+ ['','He looks at her for longer than he needs in order to know her. Then he asks whether he may lift her, and waits for the nod.'],
+ ['K9',byT('I apologise. I am late.','There were several of them in the way. There are none now.','I was always coming. I am sorry for the hours.','I would have taken this city apart down to the pipes.')]],()=>after(false),'#000')}
+function escaped(r){cut([['','The roller door gives. Cold air, the river, diesel.'],
+ ['','You walk until walking stops looking like prey, and then you run. It is two kilometres to his door. Your left foot makes a noise on every step, and you decide that it is the shoe.'],
+ ['','V opens the door before you knock. He has his coat on and his keys in his hand, and behind him the car is running.'],
  ['K9','...Misaki.'],
- ['hitmeuppp',MV('hi. sorry. i didn’t know where else to','hi. sorry. i didn’t know where else to go','Hi. Sorry. I didn’t know where else to—','I didn’t think. I just walked. I didn’t know where else I—')],
- ['','He pulls you inside before you finish. His hands are shaking. You have never seen his hands shake.'],
- ['K9',byT('You are safe.','You are safe. You did this yourself.','You got out. Of course you got out.','I was halfway there. I had the car running, Misaki.')],
+ ['hitmeuppp',MV('hi. sorry. didn’t know where else to','hi. sorry. i didn’t know where else to go. i’m fine','Hi. Sorry. I didn’t know where else to— I’m fine.','I didn’t think, I just walked. I’m fine. Why are you looking at me like that? I’m fine.')],
+ ['','He does not answer. He is looking at her hand, then at her wrists, then at the foot, and his own hands have started to shake. She has never seen them do that.'],
  ['K9','Who.'],
  ['hitmeuppp',`${ORG[S.captor].name}. ${ORG[S.captor].boss}.`],
- ['K9','Thank you. Sleep now.'],
- ['','It sounds like a threat, but not one aimed at you.']],()=>after(true),'#05040a')}
+ ['K9','Thank you. You are going to sit down now.'],
+ ['','She says she would rather stand, and she is on the hall floor before she has finished saying it.']],()=>after(true),'#05040a')}
 function vRescue(){const g=WARE_G.slice(0,S.f.schedule?4:5).concat([[[2,1],[2,4]]]).concat(kdRescueGuards());
  stealth({map:RESC,guards:g,title:'River warehouse — find her',hint:'Reach her cell (EXIT marker). Take guards from behind with E. ⇧ near a body hides it.',smoke:S.f.roninOwes?1:0,smokeName:'Ronin’s distraction',actor:'v',takedown:true,sens:.9-(S.f.vSkill||0)*.12+Math.min(3,S.f.missing||0)*.07+(S.f.kdAlert?.08:0),guardCol:'#2a1a1a',takeLine:D('He goes down without a sound.','He goes down. He does not get up. V does not check.')},r=>{
   if(!r.ok){cut([['','A guard shouts. V does not run. He walks through them instead.'],['','It is ugly work and nothing K9 would do, and it works.']],()=>{S.bodies+=3;apply({heart:-10});rescued(3)},'#000');return}
-  go(cutBg('#0e0a10'));S.bodies+=r.kills;apply({heart:-3*r.kills});dispose('v',r.bodies,()=>rescued(r.kills))})}
-function rescued(k){cut([['','The cell door hangs off one hinge where he kicked it. She’s in the corner with a cafeteria tray held edge-out, like a blade.'],
+  const fight=()=>cut([['','A guard shouts. V puts her down behind a pallet, and then he walks through them.'],['','It is ugly work and nothing K9 would do, and it works.']],()=>{S.bodies+=3;apply({heart:-10});rescued(r.kills+3)},'#000');
+  kdCarry(()=>{go(cutBg('#0e0a10'));S.bodies+=r.kills;apply({heart:-3*r.kills});dispose('v',r.bodies,()=>rescued(r.kills))},fight)})}
+function rescued(k){cut([['','The cell door hangs off one hinge. She is in the corner with a meal tray held edge-out in her right hand, and she has it at the height of his throat before she knows him.'],
  ['hitmeuppp','...V?'],['K9','I am here.'],
- ['','He crouches just out of reach and waits for her to lower it.'],
- ['hitmeuppp','you’re. you’re covered in—'],['K9','Yes.'],
- ['hitmeuppp',byT('…ok.','ok. ok. thank you.','i knew you’d come. i told them you would. i didn’t tell them anything else.','took you long enough. come here.')],
- ['','He lifts her as if she weighs nothing. On the way out she counts '+k+' shapes in the hallway, then stops counting.']],()=>after(false),'#000')}
-function afterBase(self){S.phase='after';S.endDay=S.day+4;S.slot=Math.min(S.slot,2);apply({aff:self?6:10,edge:self?10:6});
- const L=[['','Things are different after. She sleeps with the light on and says it’s for reading. He checks the locks twice and says it’s once.'],
-  ['hitmeuppp',self?MV('i got myself out. on the record. also: no more rooms with one lightbulb. ever.','i got myself out. on the record. ALSO no more rooms with one lightbulb.','I got myself out. I want that on the record.','I got myself out. Write it down, the way you write everything down.'):MV('i owe you. don’t say i don’t. i hate owing people.','i owe you. don’t argue.','I owe you. Don’t tell me I don’t.','I owe you, and I’m fine with it, which is fucked.')],
-  ['K9',byT('Rest. I will handle the rest.','Rest. Then we talk about '+ORG[S.captor].boss+'.','I have a file on '+ORG[S.captor].boss+'. It is very thick.','I am done being K9 for them. They get me instead.')]];
- if(S.leaks>=2)L.push(['Angelic','someone came to my building asking for “the vlogger from the server.” i’m fine. i’m moving. misaki i’m not mad. i’m a little mad.'],['ronin.beaufort','somebody came asking for the butcher. they found him. well. pieces of the conversation.']);
- else if(S.leaks===1)L.push(['ronin.beaufort','heard you held out. mostly. respect.']);
- else L.push(['Angelic','you didn’t give them ANYTHING?? misaki you’re my hero. i’m making you a crown.']);
- save();cut(L,hub,'#05040a')}
-
+ ['','He crouches out of reach of the tray. He does not look at the rest of her yet. He looks at her eyes until the tray comes down.'],
+ ['hitmeuppp','you’re covered in—'],['K9','Yes.'],
+ ['hitmeuppp',byT('ok. i’m fine. can we go.','ok. i’m fine btw. can we go.','I knew you’d come. I told them. I’m fine, can we go?','Took you long enough. I’m fine. Come here. Mind the hand, it’s asleep.')],
+ ['','He lifts her. She weighs less than the tray made her look. On the way out she counts '+k+' shapes in the hallway, out loud, the way people count sheep.']],()=>after(false),'#000')}
 /* ---------- finale ---------- */
 function finale(){const o=ORG[S.captor];const opts=[];
  if(isM())opts.push({t:`Misaki goes after ${o.boss}`,sub:'infiltration',fn:()=>finalM()});
@@ -1387,22 +1380,20 @@ function giftMenu(w,b){const keys=Object.keys(S.inv).filter(k=>S.inv[k]>0);if(!k
   say([[THEM(w),rep>1?(w==='v'?'Another one. I will not complain.':MV('another one?? ok not complaining','another one? ok ok','Another one! You’re going to run out of stuff, and then what, a dog?','You could just say it, you know. ...No, keep the presents coming.')):line]],b)}})).concat([{t:'Never mind',fn:()=>{S.done['tok_'+w]++;b()}}]))}
 
 /* ---------- the change: after() ---------- */
+/* friends' reactions: texts on her phone when she is the one playing, narration when V is */
+function kdTell(L,k,arr){if(S.pov==='v')arr.forEach(t=>L.push([k==='a'?'Angelic':'ronin.beaufort',t]));else phQueue(k,arr,0)}
 function after(self){S.phase='after';S.endDay=S.day+4;S.slot=Math.min(S.slot,2);apply({aff:self?6:10,edge:self?10:6});
  S.comp=clamp(45+(self?12:0)-S.leaks*4-S.tries*6+Math.round(S.aff/10));S.veng=self?10:25;S.learn=S.learn||{};
  const o=ORG[S.captor];S.list=[{id:'driver',n:'The driver',d:'He drove the van. He sang along to the radio the whole way.'},{id:'radio',n:'The man with the radio',d:'He kept the same song playing down the hall, on a loop, for days. He thought it was funny.'},{id:'notes',n:'The note-taker',d:'He wrote down everything she said, and everything she didn’t, in very neat handwriting.'},{id:'water',n:'The one who brought water',d:'He never looked at her. He never spoke. He always brought the water anyway.'}].map(x=>Object.assign(x,{st:0}));
- const L=[['','Things are different after.'],
-  ['',self?'She walked out on her own. If anyone asks, that’s the first thing she says.':'He carried her out. She doesn’t talk about the hallway. He doesn’t either.'],
-  ['','She sleeps sitting up, back to the wall. She keeps the lamp on. She won’t eat anything she didn’t watch being made.'],
-  ['','She wears long sleeves now, even in the heat. Nobody asks. V notices anyway.'],
-  ['','A phone vibrates on a table and she’s on her feet before she knows why.'],
+ const L=[['','Three days after the river she is upstairs in daylight, in one of his shirts with the left sleeve cut off to fit over the cast.'],
   ['hitmeuppp',self?MV('i got out. that’s all.','i got myself out. i want that on the record.','I got myself out. I want that on the record. I also want to never be in a room with one lightbulb again.','I got myself out. Before anything else: me, a hair clip and a meal tray. Write that down.'):MV('…','i owe you. i hate owing people.','I owe you. Big. I don’t even have an invoice template for this.','You came. I told them you would. I told them exactly what you’d do, too, and they laughed. Who’s laughing now, seriously.')],
   ['K9',byT('Rest. I will handle the rest.',`Rest. Then we will talk about ${o.boss}.`,`I have a file on ${o.boss}. I have had it for two days. It is very thick, and it is getting thicker.`,'I am done being K9 for them, and done with paper. They get me.')],
-  ['','That night, V writes four lines on a fresh page and shows nobody. He calls it the list.']];
- if(frT('a')>=2&&S.leaks>0){S.leaks--;L.push(['Angelic','i scrubbed the server logs. every message. whatever they got out of you is worth a lot less now. you owe me a brunch.'])}
- if(S.leaks>=2)L.push(['Angelic','someone came to my building asking for “the vlogger from the server.” i’m fine. i answered the door with the shotgun. misaki i’m not mad.'],['ronin.beaufort','somebody came askin’ for the butcher. they found him. i’m keepin’ a couple pieces of the conversation in the freezer']);
- else if(S.leaks===1)L.push(['ronin.beaufort','heard ya held out, little killer. mostly. i’ve seen grown men give up their mothers faster. don’t cha make it weird']);
- else L.push(['Angelic','you didn’t give them ANYTHING?? misaki. you’re my hero. i’m— i’m not doing a bit. you’re actually my hero.']);
- save();cut(L,hub,'#05040a')}
+  ['','That night V writes four lines on a fresh page and shows them to nobody. He calls it the list.']];
+ if(frT('a')>=2&&S.leaks>0){S.leaks--;kdTell(L,'a',['i scrubbed the server logs. every message. whatever they got out of you is worth a lot less now','you owe me a brunch. a long one'])}
+ if(S.leaks>=2){kdTell(L,'a',['someone came to my building asking for “the vlogger from the server.” i’m fine. i answered the door with the shotgun. misaki i’m not mad.']);kdTell(L,'r',['somebody came askin’ for the butcher. they found him. i’m keepin’ a couple pieces of the conversation in the freezer'])}
+ else if(S.leaks===1)kdTell(L,'r',['heard ya held out, little killer. mostly. i’ve seen grown men give up their mothers faster. don’t cha make it weird']);
+ else kdTell(L,'a',['you didn’t give them ANYTHING?? misaki. you’re my hero. i’m— i’m not doing a bit. you’re actually my hero.']);
+ save();if(typeof kdMedStart==='function')return kdMedStart(self,L);cut(L,hub,'#05040a')}
 
 /* ---------- flashbacks & grounding ---------- */
 const FLASH={archive:'One bulb. It buzzes on the same note it always did. She used to know how many seconds there were between buzzes. She hates that she used to know.',ops:'The servers hum. Down a hallway, a radio plays the same cheerful song. Again. Again. Someone laughs at it every time.',green:'The misters hiss. It smells like cold concrete and the river. A bored voice says, “Again.”',trailer:'A sliding door. The sound it makes on its track. A hand on the back of her neck.',training:'Someone behind her. Always behind her. Clean hands folding a napkin. “We have time, Misaki. We have so much time.”'};
@@ -2296,12 +2287,11 @@ const _fe2=failedEscape;failedEscape=function(msg){if(S.pov==='v')return _fe2(ms
  if(t===1)return _fe2(msg);
  if(t===2&&(tier()>=2||S.pov==='both'))return _fe2(msg);
  if(t===2){S.tries=2;S.f.lastChance=1;S.tray=0;S.f.tray=0;save();return cut([['',msg],
-  ['','They don’t drag you back this time. They walk you back, slowly, like there’s no hurry. There isn’t, for them.'],
-  ['','Days start to blur. The bulb never goes off, so there’s no way to count them. You try counting meals. They stop bringing them on a schedule.'],
-  ['','The man with clean hands comes back. The questions come back. You stop answering them out loud, and then you stop answering them in your head.'],
-  ['','You stop thinking his name, at some point, so they can’t take it out of you.'],
-  ['hitmeuppp','he’s not coming.'],['hitmeuppp','...it’s fine. it’s fine. i never asked him to.'],
-  ['','There’s a loose screw in the bed frame you didn’t notice before. One more try. Maybe the last one.']],()=>{interrogateLite();},'#000')}
+  ['','Nobody hurries you back. Two of them walk you, one on each side, like aunts at a wedding.'],
+  ['','After that you can’t count days. The bulb never goes off, and the meals stop keeping hours. You count the jingle, and lose the count, and start again from one.'],
+  ['','At some point you stop thinking his name, so that it isn’t lying around in your head where they could find it.'],
+  ['hitmeuppp','(he isn’t coming. that’s fine. i never asked him to. i never ask anybody for shit.)'],
+  ['','One screw in the cot frame turns under your thumbnail. You hadn’t noticed it before.']],()=>{interrogateLite();},'#000')}
  return lateM(msg)};
 function interrogateLite(){IR={R:20,n:3};go({draw(){drawInterro()}});say([['','The third session is shorter. They’re running out of patience, which is worse than when they had a lot of it.'],[ORG[S.captor].boss,'We know who K9 is now. We don’t need you to tell us. We just want to see if you will.']],()=>ask('hitmeuppp','(...)',[{t:'[Say nothing. Keep his name somewhere they can’t reach.]',fn:()=>{S.leaks=Math.max(0,S.leaks);say([['','You keep it. It’s the only thing you’ve kept.']],()=>toRoom('cell',[120,150]))}},{t:'[Tell them anything. Just make it stop.]',fn:()=>{S.leaks+=2;apply({aff:-6});say([['','You tell them. It doesn’t make it stop.']],()=>toRoom('cell',[120,150]))}}]))}
 function lateM(msg){S.f.lateRoute='m';save();cut([['',msg],
@@ -9351,7 +9341,10 @@ function cityMap(){if(!S)return;if(WH.key!==S.day+'/'+S.slot+'/'+S.phase){const 
  const from=scene&&scene.isRoom?{room:S.room,pos:scene.pos()}:null;const pins=[],notes=[];let hdr='';
  WH.opts.forEach(o=>{if(o.h){hdr=o.h;return}if(whClaimed(o))return;const t=o.t.replace(/<[^>]+>/g,'');const P=WHPLACES.find(p=>p[0].test(t));if(P){let pin=pins.find(x=>x.n===P[1]);if(!pin){pin={n:P[1],x:P[2],y:P[3],o:[]};pins.push(pin)}pin.o.push(o)}else notes.push(Object.assign({hdr},o))});
  if(whMe()==='v'&&S.phase==='taken'&&!pins.find(p=>p.n==='Trailer lot'))pins.push({n:'Trailer lot',x:46,y:118,o:[{t:'Her trailer',sub:'free · where they took her',fn:()=>{S.visitAs='v';save();TD.resume=null;toRoom('trailer',[150,140])}}]});
- notes.forEach((o,i)=>{o.x=W-58;o.y=26+i*15});const all=pins.concat(notes.map(o=>({n:o.t.replace(/<[^>]+>/g,''),x:o.x,y:o.y,o:[o],note:1})));
+ /* the TODAY column holds about nine notes at full height: shrink the rows, and past twelve fold the rest into one note */
+ if(notes.length>12){const extra=notes.splice(11);notes.push({t:'More… ·'+extra.length,sub:extra.length+' more things to do today',group:extra,dis:extra.every(o=>o.dis)})}
+ const NH=Math.max(10,Math.min(15,Math.floor(122/Math.max(1,notes.length))));
+ notes.forEach((o,i)=>{o.x=W-58;o.y=26+i*NH});const all=pins.concat(notes.map(o=>({n:o.group?'More to do today':o.t.replace(/<[^>]+>/g,''),x:o.x,y:o.y,o:o.group||[o],note:1,src:o})));
  let sel=Math.max(0,all.findIndex(p=>!p.o.every(o=>o.dis)));let card=null,cardSel=0;const home=whHomeMap()==='trailer'?[46,118]:[212,40];
  const back=()=>{if(from)toRoom(from.room,from.pos);else whHome()};
  const pick=p=>{const live=p.o.filter(o=>!o.dis);if(p.o.length===1&&live.length===1){sfx('chime');live[0].fn();return}card=p;cardSel=Math.max(0,p.o.findIndex(o=>!o.dis));sfx('sel')};
@@ -9364,8 +9357,8 @@ function cityMap(){if(!S)return;if(WH.key!==S.day+'/'+S.slot+'/'+S.phase){const 
    const [hx,hy]=home;c.strokeStyle='rgba(95,212,196,.6)';c.beginPath();c.arc(hx,hy,7+Math.sin(t)*1.5,0,7);c.stroke();txt('home',hx,hy+16,'#5fd4c4',7,'center');
    pins.forEach((p,i)=>{const dis=p.o.every(o=>o.dis),on=all[sel]===p;const r=on?6:4;c.fillStyle='rgba(0,0,0,.5)';c.beginPath();c.ellipse(p.x,p.y+2,r,2,0,0,7);c.fill();c.fillStyle=dis?'#5a5262':on?'#f2d24a':'#d0283f';c.beginPath();c.arc(p.x,p.y-r,r,0,7);c.fill();c.beginPath();c.moveTo(p.x-r*.7,p.y-r*.4);c.lineTo(p.x+r*.7,p.y-r*.4);c.lineTo(p.x,p.y+1);c.fill();c.fillStyle='#0d0a12';c.beginPath();c.arc(p.x,p.y-r,r*.4,0,7);c.fill();
     if(on||p.o.length>1)txt(p.n+(p.o.length>1?' ·'+p.o.length:''),p.x,p.y-r*2-3,on?'#fff':dis?'#7a6f88':'#ece4da',on?9:7,'center')});
-   if(notes.length){rect(W-62,14,60,notes.length*15+12,'rgba(242,210,74,.08)');txt('TODAY',W-32,22,'#f2d24a',7,'center')}
-   notes.forEach(o=>{const on=all[sel]&&all[sel].o[0]===o;rect(o.x-2,o.y-6,58,13,o.dis?'#3a3428':on?'#f2d24a':'#e8d890');rect(o.x-2,o.y-6,58,1,'rgba(0,0,0,.2)');txt(fitTxt?fitTxt(o.t.replace(/<[^>]+>/g,''),7,54):o.t.slice(0,16),o.x,o.y+3,'#2a2016',7)});
+   if(notes.length){rect(W-62,14,60,notes.length*NH+12,'rgba(242,210,74,.08)');txt('TODAY',W-32,22,'#f2d24a',7,'center')}
+   notes.forEach(o=>{const on=all[sel]&&all[sel].src===o;rect(o.x-2,o.y-6,58,NH-2,o.dis?'#3a3428':on?'#f2d24a':'#e8d890');rect(o.x-2,o.y-6,58,1,'rgba(0,0,0,.2)');txt(fitTxt?fitTxt(o.t.replace(/<[^>]+>/g,''),7,54):o.t.slice(0,16),o.x,o.y+(NH>=13?3:1),'#2a2016',7)});
    const cur=all[sel];if(cur&&!card){const o=cur.o.length===1?cur.o[0]:null;const s=o?(o.sub||'').replace(/<[^>]+>/g,''):cur.o.length+' things to do here';rect(28,H-30,W-66,26,'rgba(10,8,14,.9)');rect(28,H-30,2,26,'#d0283f');txt(cur.n.slice(0,44),34,H-19,'#fff',10);txt(s.slice(0,64),34,H-9,o&&o.dis?'#8a7f98':'#c9c39a',8)}
    rect(W-34,H-16,32,14,'rgba(10,8,14,.9)');txt('back',W-18,H-6,'#ece4da',8,'center');
    if(card){const L=card.o;card.cw=150;card.cx=clamp(card.x-75,6,W-156);card.cy=clamp(card.y-20-L.length*12,16,H-30-L.length*12);rect(card.cx,card.cy,card.cw,16+L.length*12,'rgba(12,9,18,.96)');rect(card.cx,card.cy,card.cw,1,'#d0283f');txt(card.n,card.cx+6,card.cy+10,'#f2d24a',9);
@@ -11862,10 +11855,10 @@ function evRun(pool,done){const e=evPick(pool);S.seen[e.id]=1;S.evAge[e.id]=0;sa
    lost afternoons, shaky hands, and one choice: keep the room, or let it go blank the way chapter one went.
    The blank: nothing before she was nine. The kidnapping makes her ask, for the first time, whether that was done to her. */
 const KD=()=>{if(!S.kd)S.kd={hrs:0,ses:0,said:0,clock:0,dose:0,anc:0,lost:0,shake:0};return S.kd};
-const kdPost=()=>!!(S&&S.kd&&S.kd.t0&&S.phase!=='taken'&&S.phase!=='normal'&&!isLone());
+const kdPost=()=>!!(S&&S.kd&&S.kd.t0&&!S.kd.med&&S.phase!=='taken'&&S.phase!=='normal'&&!isLone());
 const kdD=()=>S.day-S.kd.t0;
 const kdMe=()=>S.pov!=='v';
-const kdHrs=()=>S.kd.hrs,kdDays=()=>S.kd.days;
+const kdHrs=()=>S.kd?S.kd.hrs:0,kdDays=()=>S.kd?S.kd.days:0;
 const kdWarned=()=>['read','v','vsolo'].includes(S.f.kdBook);
 function kdWoozy(){if(!S||S.phase!=='taken'||!S.kd)return 0;return Math.max(0,2-Math.floor((S.kd.clock-S.kd.dose)/2))}
 function kdEscapeCfg(m){const wz=kdWoozy(),again=(S.tries||0)>=1;
@@ -12154,6 +12147,222 @@ const _xeKD=extraEnding;extraEnding=function(){const L=_xeKD();if(!S||!S.f||!S.k
  else if(f.kdBook==='out')L.push('The note-taker’s notebook was never found. A page of it still turns up in the post now and then.');
  if(f.kdFile==='open')L.push('The enrolment form is on her fridge: “March,” in a nine-year-old’s pencil, with the M backwards. Nothing older than that has ever turned up. V is still looking.');
  else if(f.kdSuspect)L.push('Nobody has found chapter one. V is still looking, and he has promised she will hear it first.');
+ return L};
+
+/* ===================== THE LONG WAY OUT, AND THE ROOM THAT SAYS LAUNDRY (td28) =====================
+   1. Captivity takes longer: an endurance game inside every full session (kdHoldOn), four vent screws to work loose
+      (kdTurn), the guards' steps to learn for the door (simon), and a second stage to every way out (kdDock; V carries
+      her out in kdCarry).
+   2. Misaki is not a reliable narrator of her own body. Her lines say "stiff", "asleep", "fine". The chart, the mirror,
+      and everyone else's reactions say otherwise.
+   3. The adjustment period (S.kd.med): she wakes in V's infirmary on sublevel two, which she never knew existed, with
+      a needle in her hand and one light on, and takes it for another cell. Three days. The room's labels change as her
+      head clears (med.clar 0–3). She can try to escape it.
+   4. More phone: the backlog of messages sent while she was gone, and threads for the infirmary and the injuries. */
+const kdMed=()=>!!(S&&S.kd&&S.kd.med&&S.phase==='after'&&!isLone());
+const kdMedM=()=>kdMed()&&S.pov!=='v';
+const kdClar=()=>kdMed()?S.kd.med.clar:3;
+const kdClarUp=(n)=>{if(kdMed()){S.kd.med.clar=Math.min(3,Math.max(S.kd.med.clar,0)+(n||1));save()}};
+const kdAuto=()=>typeof globalThis!=='undefined'&&globalThis.KD_AUTO;
+function kdPick(){return kdWoozy()+(S&&S.kd&&S.phase==='taken'&&S.kd.ses>=2?1:0)}
+const kdFlip=rows=>rows.map(r=>r.split('').reverse().join(''));
+const kdFlipG=G=>G.map(p=>p.map(([x,y])=>[19-x,y]));
+
+/* ---------- 1. MORE TO GET THROUGH ---------- */
+/* the chair: stay level while the band narrows */
+function kdHoldOn(cb){cb=once(cb);if(kdAuto())return cb(kdAuto()>0);let y=50,v=0,t=0,inb=0,band=36;const N=560;const say3=['Count the dogs.','Biscuit. Sergeant. Mochi. Pancake.','Again. From Biscuit.','Don’t listen to the radio. Count.'];
+ go({onTap(){},update(){t++;v+=held.act?-.1:.075;v+=Math.sin(t/23)*.03+(Math.random()-.5)*.09;v=Math.max(-1.7,Math.min(1.7,v));y+=v;if(y<0){y=0;v=0}if(y>100){y=100;v=0}
+   band=36-16*t/N;if(Math.abs(y-50)<=band/2)inb++;if(t>=N)cb(inb/N>=.55)},
+  draw(){drawInterro();rect(0,0,W,H,'rgba(0,0,0,.6)');hudBar('The chair','hold E to stay level');
+   rect(150,28,20,120,'#1a1612');rect(150,28+(50-band/2)*1.2,20,band*1.2,'#3a5a3a');rect(146,28+y*1.2-1,28,3,'#ece4da');
+   bar(110,158,100,4,t/N*100,'#5fd4c4');txt(say3[Math.min(3,Math.floor(t/140))],160,172,'#c9c39a',11,'center')}})}
+/* a timing bar: used for the vent screws and, later, the foam ball */
+function kdTurn(cb,o){cb=once(cb);if(kdAuto())return cb(kdAuto()>0);o=o||{};let pos=0,dir=1,ok=0,miss=0,zone=ri(25,75),end=0,sp=1.6+kdWoozy()*.3+(o.fast||0);
+ go({update(){if(end){if(++end>50)cb(ok>=3);return}if(hit('back'))return cb(false);pos+=dir*sp;if(pos>100||pos<0)dir*=-1;
+   if(hit('act')){if(Math.abs(pos-zone)<=9){ok++;zone=ri(20,80);sp+=.3}else miss++;if(ok>=3||miss>=2)end=1}},
+  draw(){(o.bg||drawCell)();rect(60,60,200,60,'rgba(10,8,8,.92)');hudBar(o.title||'The vent screw',(o.unit||'turns')+' '+ok+'/3');rect(74,96,172,8,'#222');rect(74+zone*1.72-15,96,31,8,'#5a8a3a');rect(74+pos*1.72-1,92,3,16,'#ece4da');
+   txt(end?(ok>=3?(o.ok||'It turns.'):(o.bad||'The tray slips and rings on the concrete.')):(o.hint||'Press E when the edge bites.'),160,84,'#ece4da',12,'center')}})}
+const _tmKD2=takenM;takenM=function(){S.f.kdScrews=0;S.f.kdSteps=0;return _tmKD2()};
+(function(){const R=ROOMS.cell;const vent=R.spots.find(s=>s.label==='Vent'),va=vent.act;
+ vent.act=function(){const k=KD();if(k.clock<6&&S.f.tray&&S.f.listened&&(S.f.kdScrews||0)<4)return kdTurn(ok=>{k.clock+=ok?1:2;if(ok)S.f.kdScrews=(S.f.kdScrews||0)+1;save();toRoom('cell',[212,128]);
+    say(ok?[['',`Screw ${S.f.kdScrews} of four comes out. You put it in your mouth so it can’t roll.`],S.f.kdScrews>=4?['hitmeuppp','(four. it’s open. go.)']:['hitmeuppp','(next.)']]:[['','The tray skids off the screw head. Down the hall, a chair scrapes.'],['hitmeuppp','(shit. wait. wait for him to sit back down.)']])});
+   return va.apply(this,arguments)};
+ const door=R.spots.find(s=>s.label==='Door'),da=door.act;
+ door.act=function(){const k=KD();if(k.clock<6&&S.f.listened&&!S.f.kdSteps){k.clock++;save();return simon({title:'THE HALL // count their steps',rounds:[3,4,5]},ok=>{if(ok)S.f.kdSteps=1;save();toRoom('cell',[246,140]);
+    say(ok?[['','Eleven steps down, a turn, eleven back. The one with the phone stops on the seventh every time.'],['hitmeuppp','(seven. i go on seven.)']]:[['hitmeuppp','(lost count. the radio keeps eating the steps. again.)']])})}
+   return da.apply(this,arguments)}})();
+/* every full session: the chair first, then the question about before she was nine */
+const _bqKD=kdBlankQ;kdBlankQ=function(n,cb){go({draw(){drawInterro()}});say([['','He leaves. Somebody else comes in and stands behind the chair, and then for a while there are no questions at all.']],()=>kdHoldOn(ok=>{IR.R=clamp(IR.R+(ok?8:-10));if(!ok)KD().hrs+=1;save();go({draw(){drawInterro()}});
+  say([['',ok?'You stay in your own head the whole time. You get to Pancake forty times.':'You lose count somewhere after Mochi. When it comes back you are not sure it is the same day.'],['hitmeuppp',ok?'(still here. didn’t even hurt.)':'(didn’t hurt. i just got bored and left for a bit.)']],()=>_bqKD(n,cb))}))};
+/* what she reports about her body after each one */
+const KD_INJ=[[['','Your wrists itch under the cable ties. You don’t look at them. Itching means healing.']],
+ [['','Your left hand has gone to sleep. You tuck it inside your hoodie and let it.'],['hitmeuppp','(nothing’s broken. i’d know. i’ve had broken.)']],
+ [['','There is a tooth on the floor by the drain. You wonder whose it is, and nudge it under the cot with your shoe so nobody steps on it.'],['hitmeuppp','(honestly? feeling pretty good. bit tired.)']]];
+const _doseKD=kdDose;kdDose=function(cb){_doseKD(()=>say(KD_INJ[Math.min(3,Math.max(1,KD().ses))-1],cb))};
+/* a second stage to her way out */
+function kdDock(r1){const fin=r=>{if(r.ok){S.f.selfEscape=1;S.bodies+=(r1.bodies||0)+(r.bodies||0);save();escaped(r)}else failedEscape('The roller door was right there. You could smell the river.')};
+ cut([['','That was the inside. Between you and the river there is still the loading dock, lit like a football pitch.'],['hitmeuppp','(One: don’t run. Two: the foot’s just asleep. Three: run when it wakes up.)']],()=>
+  stealth({map:kdFlip(WARE),guards:kdFlipG(WARE_G.slice(0,S.tries>=1?4:3)),title:'The loading dock',hint:'Get to the EXIT. Plants hide you. E from behind takes a guard down.',smoke:0,actor:'m',takedown:true,guardCol:'#2a1a1a',takeLine:'The screw from your mouth, in his neck.',autoExit:true,sens:1.05+kdWoozy()*.1},fin),'#000')}
+/* V has to get her out again, with no hands free */
+function kdCarry(next,fight){cut([['','He has her. She weighs less than she did on Tuesday, and she tells him twice that she can walk.'],['','She cannot. He has no hands free now, and the way out is the way he came in.']],()=>
+  stealth({map:WARE,guards:WARE_G.slice(0,2+((S.f.missing||0)>=2?1:0)),title:'Carry her out',hint:'No hands free: you cannot take anyone down. Reach the EXIT. Plants hide you both.',smoke:S.f.roninOwes?1:0,smokeName:'Ronin’s distraction',actor:'v',takedown:false,guardCol:'#2a1a1a',sens:.95,autoExit:true},r=>r.ok?next():fight()),'#000')}
+
+/* ---------- 2. THE INFIRMARY ---------- */
+function kdMedStart(self,L){const k=KD();k.med={d:0,clar:0,run:0};k.aftL=L.filter(Boolean);k.self=self?1:0;S.endDay+=3;S.done.bedChosen=1;save();
+ if(S.pov==='v')return cut([['','The infirmary is on sublevel two, behind a door marked LAUNDRY. V had it built four years ago for the dogs and for himself. No other person has ever been in it.'],
+  ['','The doctor works on her for six hours and V holds the lamp. He learns that the left hand was broken on the first day and again on the third, and that she walked out of that building on a foot that should not have taken weight.'],
+  ['K9','She told me in the car that she was fine. She said it twice.'],
+  ['','She will wake in a room she has never seen, with a needle in her and one light on. He takes the bulb out of its cage and fits a lampshade from the east wing. It helps very little.']],hub,'#05040a');
+ cut([['','She comes up in pieces again: a ceiling, a bulb, a needle taped into the back of her hand.'],
+  ['','There is a door. Her shoes are gone, and the clip was in the shoe.'],
+  ['hitmeuppp','(no. no no no. i got OUT. i remember getting out.)'],
+  ['hitmeuppp','(...do i? One: a river. Two: a coat. Three: nothing. shit. they moved me.)'],
+  ['','She takes an inventory and finds everything where she left it. She feels fine, a bit stiff. She does the whole inventory without once looking at her left hand.']],()=>toRoom('medbay',[120,150]),'#000')}
+function kdDrawMed(){if(kdClar()<2){drawCell();rect(112,96,2,54,'#8a8a8a');rect(106,94,14,3,'#8a8a8a');rect(108,84,10,12,'rgba(200,220,230,.5)');return}
+ rect(0,0,W,H,'#1c2422');rect(0,0,W,120,'#2c3835');for(let k=0;k<12;k++)rect(k*28,0,1,120,'#34423e');
+ lightPool(160,30,110,'rgba(255,225,170,.16)');rect(150,10,20,10,'#c9a46a');rect(146,20,28,3,'#8a6a3a');
+ rect(30,104,70,18,'#d8d4c8');rect(34,98,62,8,'#ece4da');rect(34,98,18,8,'#c8d0d8');rect(260,40,40,80,'#3a4a46');rect(262,74,4,8,'#c9a46a');rect(264,46,32,10,'#ece4da');txt('LAUNDRY',280,54,'#3a4a46',8,'center');
+ rect(112,96,2,54,'#b0b0b0');rect(106,94,14,3,'#b0b0b0');rect(108,84,10,12,'rgba(200,230,240,.7)');rect(196,24,28,16,'#5a5248');rect(130,150,22,4,'#c8b89a');rect(214,150,34,8,'#5a4030')}
+const KD_CHART=[['','The clipboard is in fountain pen. “L hand: 3rd and 4th metacarpals fractured, healed crooked, re-broken and pinned. R shoulder: dislocated, reduced. Ribs 6–8 L: fractured.”'],
+ ['','“L foot: fracture, walked on. Wrists: ligature burns, both, to the tendon. Scalp: 14 sutures. Two molars. Weight: minus 7 kg. Back: see photographs. Do not show patient.”']];
+ROOMS.medbay={name:()=>kdClar()<2?'Somewhere else. Another one.':'The infirmary · sublevel two',walk:[20,250,124,172],back:()=>{},backLabel:'stay in bed',draw:kdDrawMed,who:()=>'m',spots:[]};
+(function(){const R=ROOMS.medbay,lo=()=>kdClar()<2,hi=()=>kdClar()>=2;const T=(x)=>toRoom('medbay',[x,150]);
+ const two=(a,b,at,mark,fa,fb)=>{R.spots.push({at,mark,label:a,show:lo,act:fa},{at,mark,label:b,show:hi,act:fb||fa})};
+ two('Cot','Bed',[64,128],[64,98],()=>ask('hitmeuppp',lo()?'(if i sleep, they come while i’m under.)':'(the sheets smell like his laundry.)',[{t:'Sleep',sub:'ends the day',fn:()=>{S.slot=3;S.done.bedChosen=1;sleep()}},{t:'Not yet',fn:()=>{}}]));
+ two('The line in your hand','The drip',[112,150],[112,100],()=>ask('hitmeuppp','(whatever’s in the bag is going into me.)',[
+   {t:'Pull it out.',fn:()=>{apply({energy:-12});calm(-3);S.f.kdPulled=(S.f.kdPulled||0)+1;save();say([['','She pulls it with her teeth, because her left hand won’t close on the tape. It bleeds more than a needle should.'],['hitmeuppp','(barely a scratch.)'],['','When she next wakes it is back in, in the other hand, with twice as much tape and a small drawing of a dog on the tape.']])}},
+   {t:'Leave it. Find out what it is first.',fn:()=>say([['','The bag has a label, in handwriting. She can’t make her eyes hold the letters still.']])}]),
+  ()=>say([['','“Saline. Cefazolin. NO sedatives — she reacts.” The last part is underlined twice, in fountain pen.'],['hitmeuppp',MV('(his handwriting.)','(that’s V’s handwriting. he labelled my DRIP.)','(That’s his handwriting. He underlined it twice.)','(He wrote “no sedatives” and underlined it twice. He’d have stood over the doctor until she agreed.)')]]));
+ two('The eye in the ceiling','Smoke detector',[160,128],[160,24],()=>say([['','A red light in the ceiling blinks every eight seconds.'],['hitmeuppp','(camera. hi, assholes. get my good side.)']]),()=>say([['','It’s a smoke detector. It has a sticker on it of a dog in a fire helmet.']]));
+ two('Their notes','Your chart',[214,150],[230,150],()=>{const first=!S.f.kdChart;S.f.kdChart=1;if(first)kdClarUp();save();say(KD_CHART.concat([
+   ['hitmeuppp','(somebody had a rough week.)'],['hitmeuppp','(...why’s my name at the top. that’s not right. i walked out. i’m FINE. the hand’s just stiff.)'],
+   ['','She hangs the clipboard back up with her right hand. The left one is in a cast to the elbow, and she has not looked at it yet.']]))},
+  ()=>{S.f.kdChart=1;save();say(KD_CHART.concat([['hitmeuppp',MV('(that’s a lot of words for “fine.”)','(ok that’s. that’s a lot. i still feel fine tho??)','(That’s a long list. I don’t feel any of it. Is that the drip, or is that me?)','(That’s two pages, and I’d have told you I had a stiff hand and a bad night. So either the doctor’s lying or I am, and I’m the one who lost '+kdHrs()+' hours.)')]]))});
+ two('Tray','Soup',[140,152],[140,148],()=>say([['','A covered bowl. Still warm.'],['hitmeuppp','(not eating anything i didn’t watch get made. nice try.)']]),
+  ()=>{if(S.done.kdSoup)return say([['hitmeuppp','(had it. there’s ten more in the fridge down the hall. he labelled them by day.)']]);S.done.kdSoup=1;apply({energy:15});calm(2);say([['','There is a note under the bowl: “I made this. I watched myself make it. —V.”'],['','She eats it with the spoon in her right fist. Two of the teeth on the left side aren’t there to help, and she chews on the other side without wondering why.']])});
+ two('Something covered up','The mirror',[196,128],[210,32],()=>say([['','A towel has been taped over something on the wall.'],['hitmeuppp','(they don’t want me to see something. psychological. cute.)']]),
+  ()=>{if(S.f.kdMirror)return say([['hitmeuppp','(seen it. it’s a face. it’s fine.)']]);ask('hitmeuppp','(He taped a towel over the mirror.)',[{t:'Take the towel down.',fn:()=>{S.f.kdMirror=1;calm(-4);save();say([
+    ['hitmeuppp',MV('see? fine.','see? fine. bit tired.','There. Fine. A bit tired.','There, see? Fine. I’ve looked worse after karaoke.')],
+    ['','The person in the mirror has a shaved patch above one ear with fourteen stitches in it, an eye that does not open all the way, and a jaw the colour of a plum.'],
+    ['','She fixes her fringe with one hand and hangs the towel back up, to be polite.']])}},{t:'Leave it.',fn:()=>{}}])});
+ two('Door','The door',[246,140],[280,80],()=>ask('hitmeuppp','(No lock I can see. So somebody’s on it.)',[
+   {t:'Listen.',fn:()=>say([['','Somebody is breathing on the other side, low down, as if he were sitting on the floor. There is a second set of lungs with him, much bigger.'],['hitmeuppp','(guard. and a dog. fuck. they’ve got a dog now.)']])},
+   {t:'Go. Now, while you can stand.',sub:'stealth',fn:kdMedRun},{t:'Not yet',fn:()=>{}}]),
+  ()=>say([['','The door has a handle. It has had one the whole time.'],['','Outside, V is asleep sitting up against the corridor wall, in the coat, with Sergeant across his shins. There is a thermos and a romance novel beside him.'],['hitmeuppp',MV('(...)','(he’s been out here the whole time.)','(He’s been out here the whole time. That was the breathing.)','(That’s the guard I’ve been listening to for two days. He brought a book.)')]]));
+ R.spots.push({at:[90,160],mark:[90,152],label:'Your phone',show:()=>kdMed()&&S.kd.med.d>=1,act:()=>openPhone('dm')},
+  {at:[178,160],mark:[178,152],label:'Foam ball',show:()=>hi(),act:()=>{if(S.done.kdGrip)return say([['hitmeuppp','(did my reps. the hand says no more today.)']]);S.done.kdGrip=1;kdTurn(ok=>{T(178);if(ok&&KD().shake>0)S.kd.shake--;calm(ok?2:-1);
+    say([['',ok?'Three squeezes with the left hand. The pins move when she does it, and she watches them move with interest.':'The ball rolls under the bed. She tells it that it’s a stupid ball.'],['hitmeuppp',ok?'(easy. doesn’t even hurt.)':'(whatever. hand’s just stiff.)']])},{bg:kdDrawMed,title:'Left hand · the foam ball',unit:'squeezes',hint:'Press E as the grip closes.',ok:'Three.',bad:'It gets away from her.',fast:.3})}})})();
+function kdMedRun(){const k=S.kd;k.med.run++;save();stealth({map:VENT,guards:VENT_G,title:'Get out. Again.',hint:'Same as last time. Plants hide you. E from behind.',smoke:0,actor:'m',takedown:true,guardCol:'#2a1a1a',takeLine:'The drip needle, into his forearm. He doesn’t make a sound.',autoExit:true,sens:1.1},r=>{
+  go(cutBg('#0a0c0e'));const back=()=>toRoom('medbay',[120,150]);
+  if(r.ok&&r.kills>0){S.f.kdStab=1;k.med.clar=3;calm(-4);save();return say([['','She comes out into a garage. Her own truck is parked in it. Beside it is a black sedan with a dog blanket on the back seat.'],
+    ['','Behind her, the guard she put the needle in is sitting on the corridor floor holding his forearm. He is wearing a brown coat.'],['K9','Misaki. It is Thursday. You are in my house.'],
+    ['hitmeuppp',MV('...V?','V? ...i stabbed u.','V. I stabbed you. I thought— there was a bulb.','Oh, fuck. I stabbed you. I looked right at you and I saw the radio guy. I saw his fucking shoes, V.')],
+    ['K9','It is a small needle. Pancake has done worse.']],back)}
+  if(r.ok){k.med.clar=3;calm(4);save();return say([['','She comes out into a garage. A dog the size of a horse is asleep against the big door. It wakes, sees her, and loses its mind with joy as quietly as it knows how.'],
+    ['hitmeuppp',MV('...biscuit?','biscuit?? why do they have BISCUIT.','Biscuit? Why would they have— oh.','Biscuit. Why would they have Biscuit, unless— oh. Oh, I’m an idiot. I’m in his fucking basement.')],
+    ['','She sits down on the concrete, and it takes a while. Her foot has been trying to tell her something since the corridor.'],['hitmeuppp','(it’s asleep. it’s been asleep all week.)']],back)}
+  kdClarUp();say([['','Hands on her shoulders, from the front. The guard kneels until his face is lower than hers. None of the others ever did that.'],
+   ['K9','It is Thursday. You are on sublevel two of my house. I am going to carry you back, and I am telling you before I do.'],
+   ['hitmeuppp',kdClar()>=2?MV('...V?','V? is that—','V? Is that you?','V? ...Say something only you’d say.'):'(the tall one knows my name. they all know my name.)']],back)})}
+const _ophKD=openPhone;openPhone=function(tab){if(kdMedM()&&S.kd.med.d<1){toast('No phone. They took it.');return}return _ophKD(tab)};
+/* mornings in the infirmary replace the usual morning scenes */
+function kdBacklog(){phPush('v','sys','— while you were gone —');phPush('a','sys','— while you were gone —');phPush('r','sys','— while you were gone —');
+ phQueue('v',['[tue 07:00] Did you eat today?','[tue 12:00] Did you eat today?','[tue 18:00] Did you eat today?','[tue 18:40] Misaki.','[wed 07:00] Did you eat today?','[wed 03:12] I am looking. I will not stop.','[thu 07:00] Did you eat today?'],0);
+ phQueue('a',['[tue] misaki?? you didn’t answer my vlog poll. you ALWAYS answer my vlog poll','[wed] ok this isn’t funny','[wed] answer or i post the bad photo to two million people. i mean it','[thu] please'],0);
+ phQueue('r',['[tue 21:41] (a raccoon in a tiny hat)','[wed] phone’s goin’ straight t’nothin’. you dead or rude','[thu] don’t be dead. I’d have t’be nice at a funeral and I ain’t got the suit'],0);phDeliver()}
+function kdMedMorning(done){const k=S.kd,m=k.med;m.d++;m.clar=Math.min(3,m.clar+1);S.done.bedChosen=1;save();const me=S.pov!=='v';
+ if(m.d>=3){const L=me?[['','V walks her up the stairs himself, one at a time, with a hand under her elbow. She lets him.'],['','The infirmary door is on the kennel corridor. It says LAUNDRY. She has walked past it forty times.'],
+    ['hitmeuppp',MV('u have a hospital.','u have a HOSPITAL. in the BASEMENT.','You have a hospital in your basement, and the sign says “laundry.”','You’ve got a whole hospital behind a door that says “laundry.” I thought I was back in it, V. For two days. You could’ve put up a fucking poster.')],['K9','There is a poster now.']]
+   :[['','On the third morning she knows the house. She asks why the door says LAUNDRY, and he tells her that nobody ever opens a laundry.'],['hitmeuppp',MV('i thought i was back there.','i thought i was back in it. for two days.','I thought I was back in it. For two days, in your house.','For two days I thought I was back in it, and you were the guard. You could’ve put up a fucking poster.')],['K9','There is a poster now.']];
+  const aft=k.aftL||[['','She is upstairs again, in daylight.']];k.med=null;k.aftL=null;k.t0=S.day;save();return say(L,()=>cut(aft,done,'#05040a'))}
+ if(me){if(m.d===1){kdBacklog();return say([['','Somebody is changing the bag on the stand. She keeps her eyes shut and her breathing slow, the way she did for the others.'],
+    ['','This guard is new. He says “I apologise” to her hand before he touches the tape. He smells of dog.'],['hitmeuppp','(good cop. ok. they’ve got a good cop now. don’t fall for it.)'],
+    ['','When she looks, her phone is on the floor just inside the door, face up and charged.']],done)}
+  m.clar=Math.max(m.clar,2);save();return say([['','There is a weight across her legs that was not there last night. It is warm, and it snores.'],
+   ['hitmeuppp',MV('(dog.)','(they brought a DOG in. to soften me up. good trick.)','(They’ve brought in a dog. It’s a good trick. It’s exactly Biscuit’s weight.)','(A dog, to soften me up. It weighs what Biscuit weighs and it’s got Biscuit’s stupid ear. ...Oh.)')],
+   ['','Her left hand goes to scratch the ear and doesn’t arrive. She looks at it properly for the first time. It is in a cast to the elbow, and two steel pins stand out of the back of it.'],['hitmeuppp','(huh. when did that happen.)']],done)}
+ if(m.d===1){const found=late=>()=>{if(late)calm(-3);say([['',late?'Ten minutes lost in the kennel corridor. By the time he reaches the garage she has the big door up by a hand’s width.':'She is where he thought she would be.'],
+    ['','She is holding the drip stand like a spear, on a foot she should not be standing on. She does not know him.']],()=>ask('K9','(She believes she is still in that building.)',[
+    {t:'Sit down on the floor.',fn:()=>{calm(5);kdClarUp();fin()}},{t:'Say the day and the place.',fn:()=>{calm(3);fin()}},{t:'Let Biscuit through.',fn:()=>{calm(6);m.clar=Math.max(m.clar,2);save();fin()}}]))};
+  const fin=()=>say([['hitmeuppp','i’m fine. i was just leaving.'],['','She says it pleasantly, as if he had met her on the way out of a shop. There is blood down the hand where the needle was, and she has not noticed that either.'],['K9','(She is not lying to me. She believes it.)']],done);
+  return say([['','At six the infirmary bed is empty. The drip stand is gone, and a line of blood drops leads to the door.']],()=>ask('K9','(Where would she go.)',[{t:'The garage. She will go for the biggest door.',fn:found(0)},{t:'The kennel corridor.',fn:found(1)}]))}
+ say([['','She asks for a mirror. The doctor has said not yet.']],()=>ask('K9','(She has not seen her face.)',[
+  {t:'Give her the mirror.',fn:()=>{S.f.kdMirror=1;apply({heart:-1});save();say([['hitmeuppp',MV('see? fine.','see? fine. told u.','See? Fine. I told you.','See? Fine. I’ve looked worse after karaoke. You’re all so dramatic.')],['','She is looking straight at fourteen stitches and an eye that will not open. He watches her do it, and she hands the mirror back and asks what’s for lunch.']],done)}},
+  {t:'“Not yet.”',fn:()=>{apply({tension:2});say([['hitmeuppp',MV('why.','u think i can’t handle a bruise?','You think I can’t handle a bruise?','What, you think I’ll faint at a bruise? I’ve seen what I do to other people, V.')],['K9','I think that you would look at it and tell me it was nothing. I am not ready to hear that.']],done)}}]))}
+const _meKD=morningEvent;morningEvent=function(done){if(kdMed()){S.bed=null;return kdMedMorning(done)}return _meKD(done)};
+/* V: sitting with her */
+function kdSit(){const m=S.kd.med;const pre=[['','She is asleep, or pretending to be. The chart on the end of the bed runs to two pages.']].concat(S.f.kdChartV?[]:KD_CHART);S.f.kdChartV=1;save();go({draw:hubBg});
+ say(pre,()=>ask('K9','(He has read it eleven times.)',[
+  {t:'Sit on the floor outside the door.',fn:()=>{calm(4);say([['','He sits where she will hear a person breathing and not have to see one. Sergeant lies down across his shins.']],hub)}},
+  {t:'Read to her through the door.',fn:()=>{calm(5);apply({aff:1});say([['K9','Chapter four. The land tax reform of 1873.'],['','After twenty minutes something hits the inside of the door, lightly. It is a foam ball. He takes it for a request to continue.']],hub)}},
+  {t:'Go in and sit by the bed.',fn:()=>{if(m.clar<2){calm(-5);return say([['','She has the soup tray up edge-out before he is through the door, in the hand that works.'],['K9','(I am the guard. Of course I am. I am the right height.)'],['','He backs out and shuts the door, and sits down against it.']],hub)}
+    calm(6);apply({aff:2});say([['','She moves her feet to make room on the bed for a dog, and then a little more room than a dog needs.'],['hitmeuppp',MV('hi.','hi. i’m fine btw.','Hi. I’m fine, by the way.','Hi. I’m fine, before you ask. Stop looking at my hand like that, it’s a hand.')]],hub)}}]))}
+const _shKD=sideHub;sideHub=function(late){const o=_shKD(late);if(!kdMed()||S.pov!=='v')return o;return o.concat([{h:'Sublevel two'},{t:'The infirmary',sub:S.done.kdSit?'done today':'costs time · sit with her',dis:late||!!S.done.kdSit,fn:()=>{spend();S.done.kdSit=1;kdSit()}}])};
+/* she is more tired than she says, for a while after */
+const _hubKD2=hub;hub=function(){try{if(S&&S.kd&&S.kd.t0&&!S.kd.med&&S.phase==='after'&&S.kd.tiredDay!==S.day&&S.day-S.kd.t0<4){S.kd.tiredDay=S.day;if(S.slot===0){apply({energy:-20});toast(S.pov==='v'?'She says she slept well. She did not.':'Slept great. (Energy is low.)')}}}catch(e){}return _hubKD2.apply(this,arguments)};
+/* before: the man she put in the canal comes back up */
+EVENTS.push({id:'kd_omen',when:()=>S.phase==='normal'&&(S.paid||0)>=1&&!S.f.kidnapSet&&!isLone(),run:done=>say(S.pov!=='v'?[
+ ['','The canal gives a man back, down by the pumping station. The news says “unidentified.” She identifies him from the shoes.'],
+ ['hitmeuppp',MV('oops.','should’ve weighted him. lazy.','I should have weighted him. That was lazy.','I should’ve weighted him. I was in a hurry, there was a sale on. That’s going to be a problem, isn’t it.')],
+ ['','On the way home there is a grey van at the end of her road with no front plate. It is gone when she looks again, and she decides that settles it.']]:[
+ ['','The evening news has a body out of the canal by the pumping station. V knows the tailoring. A certain firm dresses all its men at the same shop.'],
+ ['K9','(She told me about a canal, in the spring. She was proud of the knot.)'],
+ ['','He sends “Did you eat today?” an hour early. She sends back a photograph of a corn dog.']],done)});
+kdEv('kd_konbini',()=>kdD()>=1&&kdMe()&&!S.f.kdKonbini,done=>{S.f.kdKonbini=1;save();say([
+ ['','At the konbini the clerk rings up her noodles, looks at her, and voids the sale. He pushes the bag across the counter with two fingers and looks at the cigarette display until she leaves.'],
+ ['hitmeuppp',MV('free noodles??','free noodles. nice guy. weird, but nice.','Free noodles. Nice of him. Odd man.','Free noodles! He didn’t even want to chat. People are so nice in this neighbourhood when you’re not robbing them.')],
+ ['','On the way out a child points at her and is turned around by the shoulders.']],done)});
+kdEv('kd_angelsees',()=>kdD()>=1&&frT('a')>=1&&!S.f.kdAngelSees,done=>{S.f.kdAngelSees=1;fr('a',3);save();say([
+ ['','Angel comes through the door already talking and stops in the middle of a word.'],['hitmeuppp',MV('hi. what.','what. i’m fine. what’s that face.','What? I’m fine. Why are you making that face?','What? I’m fine. Babe. You’re doing a face. It’s a stiff hand and a bad haircut.')],
+ [AN,'no face. there’s no face. sit down, i’m doing your eyebrows.'],['','She does the eyebrows. It takes an hour, and she does it with the big makeup case open and her back to the shotgun, and twice she has to stop and look at the ceiling.']],done)});
+
+/* ---------- 3. PHONE ---------- */
+txDef('tx_kd_help',{with:'v',pov:'m',prio:3,when:()=>kdMed()&&S.kd.med.d>=1&&S.kd.med.clar<3,nodes:{
+ start:{in:()=>['Misaki. You have your telephone back.','Where do you believe you are?'],expire:2,
+  opts:()=>[{t:'“don’t come. room w a bulb. they moved me”',fx:()=>kdClarUp(),reply:()=>['You are on sublevel two of my house. I am four metres from you, on the other side of that door.','I am going to knock twice.','(two knocks, from the door)'],next:'two'},
+   {t:'“who is this”',fx:()=>kdClarUp(),reply:()=>['It is V. You have this number saved as “tall problem.” I have seen your telephone.'],next:'two'},
+   {t:'[Don’t answer. It’s a trick.]',reply:()=>['I will ask again in an hour. I will ask every hour.']}]},
+ two:{in:()=>['The door is not locked. Open it or leave it shut. I will be here in either case.'],
+  opts:()=>[{t:'“prove it. what’s my cactus called”',fx:()=>{kdClarUp();apply({aff:2})},reply:()=>['Prickles. He is on your windowsill, and I have not watered him.']},
+   {t:'“ok”',fx:()=>calm(3),reply:()=>['Good. Eat the soup. I made it, and I watched myself make it.']}]}}});
+txDef('tx_kd_fine',{with:'v',pov:'m',prio:2,when:()=>kdPost()&&tier()>=1,nodes:{
+ start:{in:()=>['The doctor says you told her that you are fine.'],expire:3,
+  opts:()=>[{t:'“i AM fine”',reply:()=>['This morning you asked me to pass the salt with a hand that has two steel pins in it.','You have not looked at that hand since Tuesday. I have been counting.'],next:'list'},
+   {t:'“it’s just stiff”',reply:()=>['It was broken on the first day and again on the third. “Stiff” is your word for it. I am not correcting you. I am telling you that there is another word.'],next:'list'}]},
+ list:{in:()=>['Do you want the list? I can send one line of it or all of it. You may also say no.'],
+  opts:()=>[{t:'“one line”',fx:()=>{S.f.kdTruth=1;calm(-2);apply({aff:2})},reply:()=>['Left foot: fractured, then walked on for roughly two kilometres.','That is the distance to my door. You told me that you ran part of it.']},
+   {t:'“all of it”',fx:()=>{S.f.kdTruth=2;calm(-5);apply({aff:3})},reply:()=>['Left hand, twice. Right shoulder. Three ribs. The foot. Both wrists, to the tendon. Fourteen sutures. Two teeth. Seven kilograms.','Your back, which I will describe if you ask and not otherwise.','You said “fine” in the car. I believe that you meant it. That is the part that frightens me.']},
+   {t:'“no”',fx:()=>{S.f.kdTruth=0;calm(2)},reply:()=>['Then I will keep it. Ask when you want it.']}]}}});
+txDef('tx_kd_selfie',{with:'a',pov:'m',prio:2,when:()=>(kdMed()&&S.kd.med.d>=1||kdPost())&&frT('a')>=1,nodes:{
+ start:{in:()=>['proof of life. selfie. NOW'],expire:3,
+  opts:()=>[{t:'[Send one. Thumbs up.]',fx:()=>{fr('a',3);S.f.kdSelfie=1},reply:()=>['(typing for four minutes)','cute!! 💕','i’m coming over. don’t look in any mirrors til i get there. i’m bringing the BIG palette and i need u to not ask why']},
+   {t:'“i look fine, i’ll send one later”',fx:()=>fr('a',1),reply:()=>['V sent me the chart, babe','u don’t have to send one. i’m coming anyway. i just wanted to hear u say “fine” so i could be mad at somebody']}]}}});
+txDef('tx_kd_rvis',{with:'r',pov:'m',prio:2,when:()=>(kdMed()&&S.kd.med.d>=1||kdPost())&&frT('r')>=1,nodes:{
+ start:{in:()=>['came by Vee’s basement hospital. you were out cold','left you a thing on the chair. don’t make it weird'],expire:3,
+  opts:()=>[{t:'“why didn’t u wake me”',fx:()=>fr('r',3),reply:()=>['cause you looked like shit and I ain’t any good at the face part','had t’go stand in the yard a minute. Vee’s dogs came and stood with me. fuckin’ embarrassing']},
+   {t:'“i look FINE”',fx:()=>fr('r',2),reply:()=>['sure. yeah. you look fine','(nothing for six minutes)','whoever did the hand is mine t’kill. tell Vee I called it']}]}}});
+txDef('tx_kd_mdoor',{with:'m',pov:'v',prio:3,when:()=>kdMed()&&S.kd.med.d>=1&&S.kd.med.clar<3,nodes:{
+ start:{in:()=>['V','im in another one. room, bulb, needle in my hand','dont come. its what they want. just telling u so u know i didnt leave on purpose'],expire:2,
+  opts:()=>[{t:'“You are in my house. Sublevel two.”',reply:()=>['thats what theyd say'],next:'knock'},
+   {t:'“Describe the door.”',reply:()=>['grey. no handle i can see. theres a guy outside it, i can hear him breathe'],next:'knock'}]},
+ knock:{in:()=>['if ur really V whats seven down'],
+  opts:()=>[{t:'“I do not know. I have left it blank on purpose.”',fx:()=>{kdClarUp();apply({aff:3})},reply:()=>['only V would say that like its a flex','ok its u','theres a handle isnt there. theres been a handle the whole time']},
+   {t:'“I am the one breathing. I will knock twice.”',fx:()=>{kdClarUp();calm(3)},reply:()=>['(two knocks)','...ok. dont come in yet. but dont go']}]}}});
+txDef('tx_kd_adoc',{with:'a',pov:'v',prio:2,when:()=>(kdMed()||kdPost())&&frT('a')>=1,nodes:{
+ start:{in:()=>['how bad. and don’t do the calm voice in text, i can hear it'],expire:3,
+  opts:()=>[{t:'“The left hand, twice. Three ribs. The foot. Seven kilograms.”',fx:()=>fr('a',3),reply:()=>['ok','ok. i’m outside ur gate. i have the big makeup case and the shotgun and i don’t know yet which one i need','she’s going to say she’s fine, isn’t she'],next:'fine'},
+   {t:'“She is alive.”',fx:()=>fr('a',-1),reply:()=>['that’s not what i asked and u know it','i’m outside ur gate. open it'],next:'fine'}]},
+ fine:{in:()=>['when she says she’s fine. do we tell her?'],
+  opts:()=>[{t:'“We answer what she asks. Nothing she has not asked.”',fx:()=>{S.f.kdPolicy='ask'},reply:()=>['ok. i can do that. i’ll do her eyebrows and say nothing. i’m so good at saying nothing']},
+   {t:'“She should be told.”',fx:()=>{S.f.kdPolicy='tell'},reply:()=>['then u do it. i’ll hold the hand that isn’t in a cast']}]}}});
+txDef('tx_kd_rhand',{with:'r',pov:'v',prio:2,when:()=>(kdMed()||kdPost())&&frT('r')>=1,nodes:{
+ start:{in:()=>['which one did the hand'],expire:3,
+  opts:()=>[{t:'“The man with the radio stood on it. It was already broken.”',fx:()=>{apply({veng:4});fr('r',2)},reply:()=>['mine','you get the rest. that one’s mine t’kill. I’m askin’ nice']},
+   {t:'“She does not know that it is broken.”',fx:()=>fr('r',2),reply:()=>['...the fuck d’you mean she don’t know','(typing for a long time)','okay. then nobody tells her it was him. she finds out when he’s already in my freezer']}]}}});
+const _xeKD2=extraEnding;extraEnding=function(){const L=_xeKD2();if(!S||!S.f||!S.kd||!S.kd.t0)return L;const f=S.f;
+ if(f.kdStab)L.push('V has a small round scar on his left forearm from a drip needle. He says a dog did it, and the dog he names changes each time.');
+ if(f.kdTruth===2)L.push('She asked for the whole list once, by text, and read all of it. She still says “fine.” She says it differently now.');
+ else L.push('She never did ask for the list. The left hand aches before rain, and she tells people it is just stiff.');
  return L};
 /* ===UI2-END=== */
 requestAnimationFrame(frame);splash();

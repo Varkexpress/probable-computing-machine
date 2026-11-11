@@ -8,7 +8,7 @@
 
 ## Start here (state as of the last round)
 - **Writing rules:** read `docs/VOICE.md` (voice per character + the author's ten-tic list) and `docs/voice_sample.md` (the author's own writing) before writing any line. Every line in the game has been through a voice pass and a tic pass.
-- **Latest work:** the harder kidnapping and its aftermath, and the expanded memory blank (`td27`, see “The room with one bulb” at the end). Before that: the alternate-universe mode (title screen → Alternate universes → The Long Leash, `td25`); night fixes (people asleep only some nights, fairer morning-event picker, `td26`); city-map pins for Angel and Ronin moved out from under the TODAY notes panel (`td6` WHPLACES).
+- **Latest work:** the kidnapping arc rewritten end to end (`td27`, `td28` and the original functions; see the last two sections). Before that: the alternate-universe mode (title screen → Alternate universes → The Long Leash, `td25`); night fixes (people asleep only some nights, fairer morning-event picker, `td26`); city-map pins for Angel and Ronin moved out from under the TODAY notes panel (`td6` WHPLACES).
 - **Open decisions for the author:**
   - V's history: the rewrite made him a practised killer who feeds his animals (see "V is now a practised killer"). Ask whether the old fall-from-grace arc (paper-only creed, conscience beats) should come back.
   - Ronin's backstory detail added by us: a shed back home he burned when he left town (td24 `tx_rvdown`). Unconfirmed.
@@ -24,7 +24,7 @@
   - Everything outside those markers is the original game, edited in place in `index.html`. Story beats like `takenM`, `afterBase` and `startAct2` live there.
 - `src/`: the source of the two generated regions.
   - `td1_engine.js`, `td2_scene.js`, `td3_trailer.js`, `td4_base.js`, `td5_story.js` → TD block.
-  - `ui2.js`, `td6.js` … `td27.js` → UI2 block. Load order is in `tools/build.py`; td12 loads before td11 on purpose. td24 = "what it costs" scenes, td25 = alternate universes, td26 = morning-event picker, td27 = the harder kidnapping, its aftermath and the blank. `td1_engine.js` snapshots `EV_ORIG` (the original morning events) at the top of the TD block.
+  - `ui2.js`, `td6.js` … `td28.js` → UI2 block. Load order is in `tools/build.py`; td12 loads before td11 on purpose. td24 = "what it costs" scenes, td25 = alternate universes, td26 = morning-event picker, td27 = the harder kidnapping, its aftermath and the blank, td28 = longer captivity, the infirmary, the injuries she does not register, more texts. `td1_engine.js` snapshots `EV_ORIG` (the original morning events) at the top of the TD block.
   - `maps.json`: tile rows for every top-down map.
   - `deep_rooms.json`, `city_rooms.json`: room rectangles, emitted as `TD_DEEPROOMS` / `TD_CITYROOMS`.
 - `tools/`:
@@ -413,4 +413,34 @@ All in `src/td27.js`, plus small in-place edits to the original region (V's take
 - She reacts badly to the sedative, which nobody could have known because she has no medical history.
 - She asks for the first time whether the missing nine years were done to her. Nothing answers it; V is still looking.
 - The captor's "mother in Saitama" is a lie inside the story. No new character exists.
+
+## The long way out, and the room that says LAUNDRY (td28)
+
+`src/td28.js` plus in-place edits to the original region. `node tools/kd_test.js` covers it (set `globalThis.KD_AUTO=1` to make the new minigames resolve instantly; `days_test.js` does this too).
+
+**Original kidnapping text was replaced** (in `index.html`, not in `src/`): `takenM` (now in the trailer lot; her left hand is broken in the van), `takenV` (the fence post, the fingernails), `failedEscape` (the radio man stands on the hand), the last-chance passage, `vRescueCut`, `escaped`, `rescued`, the cell spots and the session intros. The "Things are different after" paragraph is gone from `after()`; `afterBase` (dead code) was deleted. Friends' reactions to leaks now arrive as texts on Misaki's phone (`kdTell`), and stay as narration in V's POV.
+
+**Captivity takes longer:**
+- `kdHoldOn` ("the chair"): hold E to stay level while the band narrows; runs inside every full session before the before-nine question. Success +8 resolve, failure −10 and an hour lost.
+- The vent needs four screws worked loose with the tray (`kdTurn`, one per cell action, `S.f.kdScrews`; they persist across sessions). The door needs the guards' steps learned first (`simon`, `S.f.kdSteps`).
+- Every way out has a second stage: `kdDock` (the loading dock, a mirrored warehouse map) for her; `kdCarry` for V (no takedowns while carrying her; being seen falls back to the fight).
+- `kdPick()` replaces `kdWoozy()` in `lockpick`: one-handed from the second session.
+- Event `kd_omen` (before the kidnapping, once rent has been paid once): the man from the canal floats.
+
+**Misaki is an unreliable narrator of her own injuries.** Her lines say asleep / stiff / fine (`KD_INJ` after each dose, the escape text, every "i'm fine"). The facts are in `KD_CHART` (left hand broken twice and pinned, shoulder, three ribs, the foot she walked on, wrists to the tendon, 14 sutures, two molars, −7 kg, "Back: see photographs. Do not show patient"), in the mirror, and in other people (`kd_konbini`, `kd_angelsees`, Ronin's and Angel's texts). The older "third day" topic line ("They were careful not to leave marks") now reads as her being wrong; it was left as is.
+
+**The adjustment period** (`S.kd.med = {d, clar, run}`, three days, `kdMed()`):
+- `after()` now hands over to `kdMedStart`. She wakes in V's infirmary on sublevel two (door marked LAUNDRY, never seen before) and takes it for another cell. Misaki's hub is the side-view room `medbay`; V keeps his hub and gets "The infirmary" (`kdSit`).
+- Clarity `med.clar` 0–3 rises each morning and from the chart, texts and failed escapes. Below 2 the room is drawn as the cell and the spots carry her reading of them (Cot, The line in your hand, The eye in the ceiling, Their notes, Tray, Something covered up, Door); from 2 they become Bed, The drip, Smoke detector, Your chart, Soup, The mirror, The door, plus the foam-ball physio.
+- She can run (`kdMedRun`, stealth; the "guards" are V and the doctor). Caught: V kneels and tells her the day. Out clean: Biscuit in the garage. Out with a takedown: she has put the drip needle in V's arm (`S.f.kdStab`).
+- `kdMedMorning` replaces morning events for the three days (both POVs), ends with the walk upstairs, resets `S.kd.t0`, then shows the short after-text. All td27 scenes wait for discharge (`kdPost()` is false during it). The after-phase is nine days in total.
+- For three days after discharge she starts each morning 20 energy down.
+
+**Phone:** the backlog of messages sent while she was gone, with day stamps (`kdBacklog`, delivered when V slides her phone under the door); threads `tx_kd_help`, `tx_kd_fine` (one line of the list, all of it, or no), `tx_kd_selfie`, `tx_kd_rvis` for Misaki; `tx_kd_mdoor`, `tx_kd_adoc`, `tx_kd_rhand` for V. The phone is blocked on her first infirmary day.
+
+## Bug fix: things missing from the city map
+
+The TODAY notes column on the city map (`cityMap` in `td6.js`) drew one note every 15 px with no limit. Past about nine notes the rest were drawn under the bottom card or off the screen and could not be tapped, so late-game entries (the anniversary, "Design a new wing", the last page of the ledger, "Watch Misaki watch the street", Act II interviews in V's POV) disappeared for anyone using the world map. Rows now shrink to fit, and beyond twelve the rest fold into a "More…" note that opens a list.
+
+A comparison of the build from before the voice and tic passes (commit `89ca4cd`) with the current one found no other loss: same event ids, functions, threads, spot labels, hub options, topics and places on all eight benchmark saves, and every morning event runs to completion on every benchmark in both. If something else is missing, it needs a specific example to chase.
 
