@@ -353,3 +353,10 @@ The V/Misaki pass resolved the open canon question toward the author's sample. F
 - The training-hall weapon wall now has knives (was "batons, no blades"). The care-home man at the laundry sink is dead (was beaten). Sergeant the dog was retired for biting a superior officer (was "too gentle with suspects").
 - Two conscience beats were removed: V's doubt after killing the guard who brought water, and "the old V would have been horrified" at the errand boy's hand.
 - V is still vegan in the original scenes; the meat is for the dogs.
+
+## Night fixes and the tic pass
+
+- **Night bug:** td18 put Angel, Ronin and V to bed every night (slot 3), which hid their talk/affection options. Now `sleepNight(k)` puts each person to sleep about two nights in five; waking Ronin or Angel leads into `talkRonin`/`talkAngel`.
+- **Morning events:** the pool passed thirty, so one-at-random starved scenes (the hotel door, the wet roof). `evRun`/`evPick` (td26) weight by how many mornings an event was passed over, favour the original vignettes (`EV_ORIG`, snapshotted at the top of td1) and short-window `phase==='normal'` events, and a big pool can give a second scene. `x_wrong_door` now fires from day 3 and also after the rescue.
+- **Tic pass:** the author's ten-tic list is in `docs/VOICE.md`. About 1,300 strings were rewritten across `index.html` and `src/`; code was token-checked unchanged and menus/events compared identical before and after.
+- Biscuit is she/her.
