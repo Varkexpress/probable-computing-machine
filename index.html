@@ -9343,7 +9343,7 @@ const WHBIND=[[/^Take a contract/,'trailer'],[/^Sleep$/,'*'],[/^Save and quit/,'
 function whClaimed(o){const t=(o.t||'').replace(/<[^>]+>/g,'');const home=whHomeMap();return WHBIND.some(([re,m])=>re.test(t)&&(m==='*'||m===home))}
 /* --- the city map --- */
 const WHPLACES=[[/Check on Misaki|Misaki’s trailer|The trailer \(out back\)|Her trailer/,'Trailer lot',46,118],[/V’s base|His house|Walk the base|Sneak into|Spend time with Misaki|Home \(V’s place\)/,'V’s house',212,40],
- [/City square|crêpe|arcade/i,'City square',160,92],[/Konbini/,'Konbini',122,116],[/Long drive|coast road/i,'Coast road',298,158],[/Ronin/,'Ronin’s apartment',252,100],[/Angel/,'Angelic’s studio',272,72],[/harbour|pier|boat|fishing/i,'Harbour',214,160],
+ [/City square|crêpe|arcade/i,'City square',160,92],[/Konbini/,'Konbini',122,116],[/Long drive|coast road/i,'Coast road',298,158],[/Ronin/,'Ronin’s apartment',234,98],[/Angel/,'Angelic’s studio',250,74],[/harbour|pier|boat|fishing/i,'Harbour',214,160],
  [/park|Kururin|wheel/i,'Kururin Land',84,58],[/laundr|sento|bath/i,'Coin laundry',140,146],[/shrine|matsuri|cemetery|grave/i,'Hillside shrine',40,30],[/train|station|platform|Aldric|track|line/i,'Station',184,132],[/Kyoto|Uji|machiya/i,'Kyoto (train)',296,22],
  [/contract|job|hunt|target|list|Finish it|rescue|Go get her|Shake down|informant/i,'The river warehouses',22,92],[/scene|alley|clue|case|suspect|witness/i,'Shinjuku alley',128,64],[/karaoke/i,'Karaoke bar',196,110],[/gift|shop|errand|buy/i,'Shopping street',156,72],[/meeting|gala|foundation|board|donor/i,'Foundation tower',236,24],[/Call Ronin|Trace/i,'Phone box',100,90]];
 function cityMap(){if(!S)return;if(WH.key!==S.day+'/'+S.slot+'/'+S.phase){const cur=scene;hub();if(scene===cur)return}
