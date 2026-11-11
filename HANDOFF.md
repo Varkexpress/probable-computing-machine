@@ -639,3 +639,11 @@ On that route she breaks down, allows the examination and the questions, and mak
 - Threads: `tx_g_bet`, `tx_g_knife`, `tx_g_stars`, `tx_g_receipt`.
 - **Night market at the shrine:** an evening option every third day (`gMarket`): shooting gallery (Misaki clears the shelf; V loses to a seven-year-old), takoyaki, a fortune.
 
+## Story setting: the aftermath (kc36)
+
+Settings (title screen) and the pause menu have **Kidnapping aftermath: full story / injuries only** (`META.kdFull`, default full; `kdSA()`). The settings panel explains it in one sentence.
+- **Full story:** as before.
+- **Injuries only:** removes everything about what may have been done to her in the hours she cannot remember. Gated off: the events in `KD_SA_EV` (the sum, the clothes, the exam form, the photographs envelope, the fifth wash, the cologne, Angel asking, V knowing, the drafts, the recount, the slip, sleep-talk, the shopping, the doctor's question, the window, the body map, photo denial, the precaution cup, the results, the dentist, V and the doctor, the box in the fridge, the hidden route and its follow-ups), the threads in `KD_SA_TX`, the `kd_second` topics, the white box (the fridge shows soup and dressings instead) and the matching ending lines.
+- In its place, injury scenes (`kd_inj_*`, scheduled after `kd_card`): the hand re-broken to be pinned while she was awake, the boot she won't wear, the infected wrist and the red line, laughing on broken ribs, the dead nerve in two fingers ("it's asleep, since the van"), the shoulder coming out again, and the photographs of her back (cable marks; "that's from the van"). Thread `tx_kd_physio`. Same rules: the honest option greyed with `KD_NO`, each pretence a `kdDeny()`, so the collapse scenes can still come from pretending she is fine.
+- Flipping the setting mid-run takes effect from the next scene; scenes already played stay played.
+
