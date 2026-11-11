@@ -57,6 +57,24 @@ coming. They are funny because they are dangerous and at ease with it, never bec
 - "...That helps more than it ought to." style gentle understatement on every beat.
 - Banned words: delve, testament, tapestry, robust, landscape, journey, navigate, profound.
 
+## The author's tic list (fix every instance)
+| Tic | Example of what to remove |
+|---|---|
+| Negation-first reveal | It is not a wrong answer. It is a non-answer. |
+| Significance designation | It is the leg that answers the actual question. |
+| Abstraction agency | Median hides it. / The table shows it. (an abstraction doing a person's verb) |
+| Deferred noun | Five of those six rows are one cluster. The sixth is not. |
+| Coy or thesis-shaped header | What "exhausted" means / The one gap that does clear the bar |
+| Aphoristic closer | It is the kind of number that looks like evidence and is not. |
+| Straw-man knockdown | "It thinks twice as long" is the obvious reading, and it is wrong. |
+| Fragment cadence | Six legs. One GPU, one server build, one sampler, one question set. |
+| Dressed metaphor | That is information loss wearing the costume of a style fix. |
+| Label-first framing | The fucking left column of this table. |
+
+Rewrite the sentence plainly instead: say the thing directly, with a person as the subject, in a full sentence, and stop
+when the information stops. Fragments are fine in speech when a character is genuinely cut off or swearing; they are not
+fine as a rhythm device (three or more clipped fragments in a row for effect).
+
 ## Hard constraints
 - Scenes stay short. Never add lines to a scene; prefer cutting.
 - No original side characters. V's reading glasses exist in text only. The B5 library is a futuristic circular tower.
