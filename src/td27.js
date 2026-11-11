@@ -233,7 +233,7 @@ kdEv('kd_practice',()=>kdD()>=2&&S.f.kdCount&&!S.f.kdSuspect,done=>{const h=kdHr
  const set=v=>{S.f.kdSuspect=v;save()};
  if(kdMe())return say(pre,()=>ask('hitmeuppp',MV('(huh.)','(huh. don’t like that.)','(I don’t like that thought. I can’t put it back, either.)','(Oh, fuck. I can’t un-think that one.)'),[
   {t:'Say it to V, out loud.',dis:tier()<1,sub:tier()<1?'not close enough':'',fn:()=>{set(1);apply({aff:3,veng:4});say([['K9','I told you on the wheel that I would find out. I have been looking since then. I will look harder.'],['hitmeuppp',MV('and if it’s bad.','and if it’s bad?','And if it’s bad?','And if it’s bad? If somebody did it?')],['K9','Then somebody did it, and somebody can be found.']],done)}},
-  {t:'Text Angel at 3am.',fn:()=>{set(2);fr('a',4);phQueue('a',['babe. then somebody owes u nine years, and i collect debts for fun','come over. i’m making u a childhood, remember. we’re on year two. it’s the year u get a hamster'],0);say([['','She types it with her thumbs and sends it before she can read it back. Three dots come up at once.']],done)}},
+  {t:'Text Angel at 3am.',fn:()=>{set(2);fr('a',4);phQueue('a',['then somebody owes u nine years. good. i collect for sport','come over. i’m making u a childhood, remember. we’re on year two. it’s the year u get a hamster'],0);say([['','She types it with her thumbs and sends it before she can read it back. Three dots come up at once.']],done)}},
   {t:'Put it back where it was.',fn:()=>{set(3);calm(-3);apply({edge:3});say([['','She can’t. It stays out on the floor of her head like something the dog dragged in.']],done)}}]));
  say(pre.concat([['hitmeuppp',MV('what if somebody did it.','what if the nine years is the same thing. what if somebody did it.','What if the nine years went the same way? What if somebody did that?','What if chapter one went the same way, V? What if I didn’t skip it, and somebody took it out with a bulb and a chair?')]]),()=>ask('K9','(She has never asked that before.)',[
   {t:'“I will find out.”',fn:()=>{set(1);apply({veng:4,aff:2});say([['K9','I said so on the wheel. I have been looking. I will look harder.'],['','She nods and goes back to drying the same plate.']],done)}},
@@ -262,18 +262,18 @@ TDTOP_V.push({id:'kd_backup',label:()=>'“if i lose more. will u tell me.”',s
 
 /* ---------- 7. PHONE ---------- */
 txDef('tx_kd_ron',{with:'r',pov:'m',prio:2,when:()=>kdPost()&&frT('r')>=1&&kdD()>=1,nodes:{
- start:{in:()=>['u owe me 2000 yen from tuesday','and don’t cha try “I was kidnapped tuesday” either. it was the tuesday before'],expire:3,
+ start:{in:()=>['you owe me 2000 yen from tuesday','and don’t cha try “I was kidnapped tuesday” either. it was the tuesday before'],expire:3,
   opts:()=>[{t:'“…did i? ok. sending it”',fx:()=>{S.yen=Math.max(0,S.yen-2000);fr('r',1)},reply:()=>['fuck. you actually paid','you didn’t owe me shit. I was checkin’ somethin’. you can’t tell anymore, can you','keepin’ the 2000 though. finder’s fee'],next:'two'},
    {t:'“bullshit. i’d remember”',fx:()=>fr('r',3),reply:()=>['yeah you would. good','that asshole with the clean hands lied to you about your own life for days. figured I’d see if it stuck','it didn’t. buy me a beer anyway'],next:'two'},
    {t:'“ask V. he writes everything down”',fx:()=>fr('r',2),reply:()=>['already did. he sent a fuckin’ spreadsheet. you owe me nothin’, I owe you 600 for ramen','he’s a creep. useful creep'],next:'two'}]},
- two:{in:()=>['look. anybody tells you somethin’ about you that you can’t check, you ask me or Vee before you believe it','even if it’s nice. especially if it’s fuckin’ nice'],
-  opts:()=>[{t:'“…ok”',fx:()=>{fr('r',2);S.f.kdRon=1},reply:()=>['good. now forget I said it. ha']},
+ two:{in:()=>['anybody tells you shit about yourself that you can’t check, you run it past me or Vee first. I’ll lie to you too, but I’m funnier about it','even if it’s nice. especially if it’s fuckin’ nice'],
+  opts:()=>[{t:'“…ok”',fx:()=>{fr('r',2);S.f.kdRon=1},reply:()=>['good. now fuck off, I’m watchin’ Heathers']},
    {t:'“that’s almost sweet”',fx:()=>{fr('r',1);S.f.kdRon=1},reply:()=>['say that again and it’s 4000']}]}}});
 txDef('tx_kd_angel',{with:'a',pov:'m',prio:2,when:()=>kdPost()&&frT('a')>=1&&S.kd.lost>=1,nodes:{
  start:{in:()=>['ok be honest. do u remember the photo booth. last month. the one where u bit the strip'],expire:3,
   opts:()=>[{t:'“obviously”',reply:()=>['good. bc i have the strip and u look feral','new rule tho. i timestamp everything now. u, me, lunch, all of it'],next:'album'},
-   {t:'“...no”',reply:()=>['ok. that’s what i’m for','it was a tuesday, 4:12pm. u bit the strip, the machine ate ur 500 yen and u threatened it','i timestamp everything now. u, me, lunch, all of it'],next:'album'}]},
- album:{in:()=>['i made an album. it’s called “misaki was here.” it’s shared and it’s already got 40 things in it','alibis are literally my job, babe. if anybody ever tells u where u were, u check the album. then u tell me who lied so i can go see them'],
+   {t:'“...no”',reply:()=>['fine. i have it. i have everything, i’m a hoarder with a ring light','it was a tuesday, 4:12pm. u bit the strip, the machine ate ur 500 yen and u threatened it','i timestamp everything now. u, me, lunch, all of it'],next:'album'}]},
+ album:{in:()=>['i made an album. it’s called “misaki was here.” it’s shared and it’s already got 40 things in it','alibis are my whole job. anybody ever tells u where u were, u check the album first. then u give me the name of whoever lied, and i go and have a night out'],
   opts:()=>[{t:'“add the one where i’m asleep on ronin’s couch”',fx:()=>{fr('a',3);S.f.kdAlbum=1;KD().anc++},reply:()=>['already in. three angles']},
    {t:'“this is surveillance”',fx:()=>{fr('a',2);S.f.kdAlbum=1;KD().anc++},reply:()=>['yes. with a filter. ur welcome']}]}}});
 txDef('tx_kd_mv',{with:'m',pov:'v',prio:2,when:()=>kdPost()&&tier()>=1&&kdD()>=2,nodes:{

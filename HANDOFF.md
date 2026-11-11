@@ -24,7 +24,7 @@
   - Everything outside those markers is the original game, edited in place in `index.html`. Story beats like `takenM`, `afterBase` and `startAct2` live there.
 - `src/`: the source of the two generated regions.
   - `td1_engine.js`, `td2_scene.js`, `td3_trailer.js`, `td4_base.js`, `td5_story.js` → TD block.
-  - `ui2.js`, `td6.js` … `td32.js` → UI2 block. Load order is in `tools/build.py`; td12 loads before td11 on purpose. td24 = "what it costs" scenes, td25 = alternate universes, td26 = morning-event picker, td27 = the harder kidnapping, its aftermath and the blank, td28 = longer captivity, the infirmary, the injuries she does not register, more texts, td29 = the hours she will not account for, td30 = more of the arc (the water, V's wait, the trailer, the clip, the cast), td31 = what she says she doesn't remember, td32 = what was done with care (the medical side). `td1_engine.js` snapshots `EV_ORIG` (the original morning events) at the top of the TD block.
+  - `ui2.js`, `td6.js` … `td33.js` → UI2 block. Load order is in `tools/build.py`; td12 loads before td11 on purpose. td24 = "what it costs" scenes, td25 = alternate universes, td26 = morning-event picker, td27 = the harder kidnapping, its aftermath and the blank, td28 = longer captivity, the infirmary, the injuries she does not register, more texts, td29 = the hours she will not account for, td30 = more of the arc (the water, V's wait, the trailer, the clip, the cast), td31 = what she says she doesn't remember, td32 = what was done with care (the medical side). `td1_engine.js` snapshots `EV_ORIG` (the original morning events) at the top of the TD block.
   - `maps.json`: tile rows for every top-down map.
   - `deep_rooms.json`, `city_rooms.json`: room rectangles, emitted as `TD_DEEPROOMS` / `TD_CITYROOMS`.
 - `tools/`:
@@ -506,4 +506,15 @@ The author asked for the missing hours to lean medical. The evidence on her body
 - Thread `tx_kd_awell` (V): Angel asks what they did. "They kept her well."
 
 **New canon to confirm:** the nine sutures, three clips and unidentified drug; the extracted molars; the weight in marker; the note-taker as an anaesthetist; an unnamed dentist (speaker label "Dentist") alongside the unnamed doctor ("The doctor").
+
+## The ward round (td33): the infirmary as a system
+
+- **Treatment** (`S.kd.rx = {heal, pills, palmed}`): once she knows where she is (`med.clar >= 2`) the "Treatment trolley" offers up to two treatments a day (flags `S.done.kdRx_*`, count `S.done.kdRxN`): dressings, the pin sites (`kdTurn`, hold still), breathing on three broken ribs (`ground`), and the painkillers, which she can take or hide in the bed frame (a `kdDeny()`). While she still thinks it is a cell the same spot is "A tray of instruments" and she will not be treated, so refusing to recognise the room slows her recovery.
+- **What `heal` does:** `kdCond` is wrapped. `heal >= 6` takes a level off her condition after discharge (she walks faster sooner); `heal <= 1` adds one for five days. In V's POV she gains 2 per infirmary morning once her head is clear.
+- **Readouts:** "The monitor" (pulse and temperature improve with `heal`; she reports 2 out of 10), `kd_discharge` (the doctor's note the morning after discharge: compliant / partly / refused, and how many tablets were found in the bed frame), `kd_checkup` (monthly check from Act II).
+- **The small fridge:** soup by day, and a sealed white box with her name and COLLECT WITHIN 5 DAYS (`S.f.kdKit`). Asking what it is for is greyed out. `kd_kitgone`: the shelf is wiped the day after the date.
+- New props drawn in the room: `mb_cab`, `mb_mon`, `mb_trolley`, `mb_fridge` (added after `tdMap`, with defaults set by hand).
+- **Other scenes:** `kd_maria` (V, while she is gone: Maria asks two million viewers for leads, then picks up the shotgun; sets `angelHelp`), `kd_vod` (Misaki watches it afterwards), `kd_roncrow` (Ronin wants one name off the list: the driver, none, or a lucky dip; `S.f.kdRonGot`).
+
+**Voice pass on Angel and Ronin (this session's lines):** Ronin's reassuring lines were made ruder ("I'll lie to you too, but I'm funnier about it"; the soup is from a can and he spat in it), a narrated closer inside a text bubble was cut, and he no longer types "u". Angel lost filler ("cute!! 💕", stray "babe") and gained appetite ("who did the eye. asking for a friend. the friend is a shotgun"; "i go and have a night out"). On camera she is Maria, in full soft sentences; off it she is the Angel.
 

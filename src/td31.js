@@ -21,7 +21,7 @@ kdEv2('kd_slip',4,()=>S.f.kdHas,done=>{const m=kdMe();say([
    KD_NO('Finish the sentence.'),
    {t:'“...in movies. they do that in movies.”',fn:()=>{kdDeny();say([[RN,'Yeah. Movies. Sure.'],['','Ronin finishes his story with a different ending from the one it had. Under the table, a dog puts its whole head on her foot.']],done)}},
    {t:'Get up. The dogs need walking.',fn:()=>{kdDeny();calm(-3);say([['','She walks all four dogs at once, at eleven at night, in the rain. When she comes back the dishes are done and nobody is in the kitchen, by arrangement.']],done)}}]:[
-   {t:'Ask Ronin to pass the rice.',fn:()=>{kdDeny();apply({aff:3});say([['K9','Ronin. The rice.'],[RN,'...Yeah. Rice. Comin’ up.'],['','She breathes out. She finds his foot under the table and stands on it, lightly. It is the nearest she will come to thanking him.']],done)}},
+   {t:'Ask Ronin to pass the rice.',fn:()=>{kdDeny();apply({aff:3});say([['K9','Ronin. The rice.'],[RN,'...Yeah. Rice. Catch.'],['','She breathes out. She finds his foot under the table and stands on it, lightly. It is the nearest she will come to thanking him.']],done)}},
    {t:'Let the silence stand.',fn:()=>{kdDeny();apply({tension:3});say([['hitmeuppp',MV('what.','what. it’s a thing people do. in movies.','What? It’s a thing people do. In films.','What? Everybody knows that. It’s in every film. Stop looking at me, all of you, eat.')],['','They eat.']],done)}},
    KD_NO('Ask her how she knows that.','he is not going to do that to her')]))});
 /* what she says asleep */
@@ -50,7 +50,7 @@ kdEv2('kd_bank',3,()=>kdMe()&&S.f.kdLoops,done=>say([
 kdEv2('kd_jacket',4,()=>frT('a')>=1,done=>{const m=kdMe();say([
  ['',m?'Angel reaches round from behind to help her out of her jacket. It is what Angel has done at every door for four years.':'Angel reaches round from behind to help her out of her jacket, as she always has.'],
  ['','She has Angel’s wrist turned and Angel’s face against the wall before either of them has decided anything. It takes under a second. She is very good.'],
- [AN,'...ow. okay. babe. it’s me.'],
+ [AN,'...ow. okay. it’s me. nice hold, actually.'],
  ['hitmeuppp',MV('sorry. sorry.','sorry. shit. reflex. u startled me.','Sorry. Reflex. You startled me, that’s all.','Shit. Sorry. You startled me. It’s the cast, it’s made me jumpy, casts do that.')],
  [AN,'casts do that. sure. new rule, i help from the front. i’ll announce myself. like a butler.'],
  ['',m?'From then on Angel says “jacket” before she touches the jacket. She never once says why.':'From then on Angel says “jacket” before she touches the jacket. V adds it to the page that already says “never from behind.”']],()=>{kdDeny();fr('a',2);note('learn_jacket','Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.');done()})});
@@ -62,19 +62,19 @@ kdEv2('kd_shop',5,()=>S.f.kd_clothes&&frT('a')>=1,done=>{const m=kdMe();say([
  [AN,m?'it’s a great look. i’m paying. don’t argue, i’m armed.':'(to V, later, in the kitchen) i didn’t ask. i paid and i didn’t ask. i want a medal.']],()=>{kdDeny();fr('a',2);done()})});
 /* Ronin being nice is how she knows that he knows */
 txDef('tx_kd_ronsoft',{with:'r',pov:'m',prio:2,when:()=>kdPost()&&frT('r')>=1&&(S.kd.deny||0)>=3,nodes:{
- start:{in:()=>['left soup on your step','also fixed your step. it was loose'],expire:3,
+ start:{in:()=>['left soup on your step. it’s from a can, don’t get ideas','fixed the step too. it was loose and it was pissin’ me off'],expire:3,
   opts:()=>[{t:'“why are u being nice. stop it. who told u”',reply:()=>['nobody told me shit','ain’t nothin’ t’tell. right','right?'],next:'two'},
    {t:'“thanks”',fx:()=>fr('r',1),reply:()=>['don’t make it weird','ain’t nothin’ t’tell anyway. right'],next:'two'}]},
  two:{in:()=>['right?'],
   opts:()=>[{t:'“right”',fx:()=>{kdDeny();fr('r',2)},reply:()=>['right','good','you look like shit and you owe me 2000 yen']},
-   {t:'“right. now be an asshole again”',fx:()=>{kdDeny();fr('r',3)},reply:()=>['you look like shit, you owe me 2000 yen, and that soup’s from a can','better?','(she sends a thumbs up. he looks at it for a long time, in his truck, outside her lot.)']}]}}});
+   {t:'“right. now be an asshole again”',fx:()=>{kdDeny();fr('r',3)},reply:()=>['you look like shit, you owe me 2000 yen, and I spat in the soup','better?','there she is']}]}}});
 txDef('tx_kd_ronknows',{with:'r',pov:'v',prio:2,when:()=>kdPost()&&frT('r')>=1&&S.f.kd_math,nodes:{
  start:{in:()=>['Vee','is it what I think it is'],expire:3,
   opts:()=>[{t:'“Yes.”',fx:()=>apply({veng:5}),reply:()=>['(nothing for eleven minutes)','which ones'],next:'which'},
    {t:'“It is hers to say.”',reply:()=>['that’s a yes','okay','which ones'],next:'which'}]},
  which:{in:()=>['all four? or we don’t know'],
   opts:()=>[{t:'“We do not know. She will not look.”',fx:()=>{S.f.kdRonAll=1;fr('r',2)},reply:()=>['then all four','I ain’t askin’ her. I ain’t ever gonna ask her','I’m just gonna be real fuckin’ thorough']},
-   {t:'“Do not ask her.”',fx:()=>fr('r',1),reply:()=>['I look like I’d ask her?','I’m gonna fix her step. it’s loose. then I’m gonna go find somebody']}]}}});
+   {t:'“Do not ask her.”',fx:()=>fr('r',1),reply:()=>['I look like I’d ask her?','I’m gonna go fix her fuckin’ step. then I’m gonna go find somebody and take my time']}]}}});
 /* the bill */
 kdEv('kd_crash',()=>S.phase!=='after'&&(S.kd.deny||0)>=6&&!S.f.kdCrash,done=>{S.f.kdCrash=S.day;const m=kdMe();if(m){S.slot=Math.max(S.slot,2);S.energy=clamp(S.energy-30)}save();say([
  ['',m?'She goes down on the stairs at V’s. There is no warning. She is carrying a bowl, and then she is looking at the underside of the banister and the bowl is in four pieces.':'She goes down on the stairs with a bowl in her hand. He hears the bowl. He is there before it has stopped moving.'],
