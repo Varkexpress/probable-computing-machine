@@ -316,7 +316,7 @@ The trailer and all of V's base are no longer side-view backdrops: they are 3/4 
 See Build & check above. Playwright is installed globally (`require(execSync('npm root -g')+'/playwright')`). cdnjs is blocked in this container: route `**/three.min.js` to abort (or a local copy via `npm pack three@0.128.0`). Typical checks: generate each TYPE 600× and validate answer is in choices / no NaN; take each test answering from `window.__curItem`; random fuzz of the main game.
 
 ## Known gaps / honest status
-- Only the Ferris-wheel gondola and minigame screens remain side-view.
+- Only the Ferris-wheel gondola and minigame screens remain side-view. The cell and the infirmary are walkable maps (`tdMap('cell')`, `tdMap('medbay')` at the end of `td28.js`, rows `CELL`/`MEDBAY` in `maps.json`); they share one floor plan on purpose, and the infirmary is lit and drawn like the cell until `med.clar` reaches 2.
 - Two Wardrobe spots exist in the bedroom; `legacyN:1` picks the second.
 - The five areas and the detachment arc (pall block) were never fully play-tested.
 - Chapter 5 problems are original, modeled on Big Ideas style (the online textbook was unreachable).
