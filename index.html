@@ -12724,74 +12724,85 @@ const _xeKD5=extraEnding;extraEnding=function(){const L=_xeKD5();if(!S||!S.f||!S
  if(f.kdBday)L.push(f.kdBday===31?'She has thirty-one birthdays a year, all in March. Angel keeps a spreadsheet of cakes.':'Her birthday is the '+(f.kdBday===3?'third':'fourteenth')+' of March. She picked the month at nine and the day at twenty-two.');
  return L};
 
-/* ===================== WHAT WAS DONE WITH CARE (td32) =====================
-   The medical side of the missing hours. The evidence on her body is not that of a beating. Somebody in that building
-   could suture, dose on a schedule, and keep a chart. She was being kept well for the buyer, and nobody will ever know
-   for what. The rules of td29 hold: nothing is named, the honest option is greyed (KD_NO), each pretence is a
-   kdDeny(). Second half: her treatment in V's infirmary, which has to be done without sedation because she reacts. */
+/* ===================== WHAT IT WOULD PROVE (td32) =====================
+   The doctor, the examination, the photographs. V's doctor is careful and correct, and that is the horror of it: there
+   is a procedure for this, with a form, a kit, a ruler in every picture and a number of days before it stops being
+   any use. Misaki knows exactly what the examination would prove. That is why she will not have it, and why she
+   denies the photographs at the top of her voice.
+   Rules as td29: it is never named, the honest option is greyed (KD_NO), each pretence is a kdDeny(). Here she is
+   loud about it. The wounds are not the subject; she doesn't like those either, but these she fights. */
 const kdDoc='The doctor';
-kdEv2('kd_sutures',1,()=>S.f.kdCount,done=>{const m=kdMe();say([
- ['',m?'The doctor takes the stitches out of her scalp. Fourteen, and she counts each one going into the dish.':'The doctor takes the stitches out of her scalp, fourteen of them, and then asks him to step round to the other side of the bed.'],
- ['','There are nine more in her back, low down on the left. The doctor did not put those in. The thread is finer than hers, the spacing is exact, and they are a week further along than anything else on her.'],
- [kdDoc,'Somebody closed this properly. A surgeon’s knot, buried. Whoever did it does it for a living.'],
- ['hitmeuppp',MV('nice of them.','huh. they patched me up. nice of them.','So they patched me up. That’s decent of them.','So one of them could sew. Good for him. Free stitches. I’ve paid for worse.')]],()=>ask(m?'hitmeuppp':'K9',m?'(Nine. Neater than the fourteen.)':'(The doctor is looking at him, not at her.)',m?[
-  KD_NO('Ask what they closed.'),
-  {t:'“leave them in. they’re good work.”',fn:()=>{kdDeny();S.f.kdNine='in';save();say([[kdDoc,'They dissolve. They will go by themselves.'],['hitmeuppp','(even better. no evidence.)']],done)}},
-  {t:'“can u take a photo. for angel.”',fn:()=>{kdDeny();S.f.kdNine='photo';save();say([['','The doctor takes the photograph. Misaki looks at it for the length of time it takes to send, tells her it’s a tidy job, and never opens the picture again.']],done)}}]:[
-  {t:'“What did they close?”',fn:()=>{S.f.kdNine='asked';apply({veng:6});save();say([[kdDoc,'I cannot tell from outside. I would have to open it to see, and she will not let me.'],['hitmeuppp',MV('it’s fine.','it’s FINE. it’s closed. closed is good.','It’s closed. Closed is the good outcome.','It’s closed, it’s healing, it’s the best stitching on me. Nobody’s opening it to have a look, I’m not a present.')]],done)}},
-  {t:'Say nothing. Hold the dish.',fn:()=>{kdDeny();save();say([['','He holds the dish. Fourteen stitches go into it. Nobody mentions the nine again, and he can feel exactly where they are whenever she turns her back.']],done)}}]))});
-kdEv2('kd_xray',2,()=>S.f.kd_sutures,done=>{const m=kdMe();say([
- ['','The films go up on the lightbox in the infirmary. The hand, with its two pins. Three ribs, knitting. The foot.'],
- ['','And on the fourth film, under the nine stitches, there are three small bright staples in a row, each the size of a grain of rice. They are surgical clips. They are what is left behind when somebody ties something off inside a person.'],
- [kdDoc,'They went in for something, and they were tidy coming out.'],
- ['hitmeuppp',MV('free piercings.','lol. free piercings. on the inside.','Free piercings. On the inside. Very niche.','Three little staples. I’m like a pamphlet. Do they set off airports? Tell me they set off airports.')]],()=>ask(m?'hitmeuppp':'K9',m?'(Three. In a row.)':'(She is making jokes at a lightbox.)',m?[
-  KD_NO('Let the doctor open it and look.'),
-  {t:'“do they come out”',fn:()=>{kdDeny();save();say([[kdDoc,'Not without my going in to see what they are holding shut.'],['hitmeuppp',MV('then no.','then they stay. finders keepers.','Then they stay. Finders keepers.','Then they stay. Whatever they’re holding shut can stay shut. That’s what shut is for.')]],done)}},
-  {t:'Turn the lightbox off.',fn:()=>{kdDeny();calm(-3);say([['','She turns it off. The clips stay on the inside of her eyelids for a while, three in a row.']],done)}}]:[
-  {t:'Keep the film. File it.',fn:()=>{kdDeny();apply({veng:5});say([['','He files it under M. He has opened people himself, and knows what it takes to tie off inside one and close in nine stitches: a table, a light, an assistant, and an hour.'],['K9','(They had an hour with her that she has never asked about.)']],done)}},
-  {t:'Ask the doctor what clips like that are for.',fn:()=>{apply({veng:7,heart:-2});S.f.kdClipsKnown=1;save();say([[kdDoc,'A vessel. A duct. You clip what you have cut so that it does not bleed. I cannot tell you more from a film.'],['','He thanks her. He stands at the lightbox after she has gone until the film has stopped meaning anything.']],done)}}]))});
-kdEv2('kd_blood',3,()=>S.f.kdCard,done=>{const m=kdMe();say([
- ['','The laboratory sends back four lines. The sedative, which she reacts to. An antibiotic, started on the first day. A drug that keeps blood from clotting.'],
- ['','The fourth line says “unidentified, sample forwarded,” and has a telephone number in Osaka beside it.'],
- [kdDoc,'She was being dosed on a schedule. An antibiotic before they needed one. That is preparation. Nobody does that for someone they mean to throw away.'],
- ['hitmeuppp',MV('so they liked me.','aw. they were looking after me.','So they were looking after me. Sweet.','So I had better healthcare in that warehouse than I’ve had in my whole life. Typical. I finally get a doctor and he’s theirs.')]],()=>ask(m?'hitmeuppp':'K9',m?'(Preparation. For Friday.)':'(“The buyer comes Friday.”)',m?[
-  KD_NO('Ask what you prepare a person for.'),
-  {t:'“what’s the osaka one”',fn:()=>{kdDeny();S.f.kdOsaka=1;save();say([[kdDoc,'I will know in three weeks.'],['hitmeuppp',MV('don’t tell me.','cool. don’t tell me.','Good. Don’t tell me when you do.','Great. When they ring back, tell him and not me. I’ve got enough hobbies.')]],done)}},
-  {t:'Fold the page into a crane.',fn:()=>{kdDeny();calm(2);say([['','It takes her nine minutes with one hand. It is a bad crane. She puts it on the drip stand, where it stays for a month.']],done)}}]:[
-  {t:'Ring Osaka.',fn:()=>{S.f.kdOsaka=2;apply({veng:6});save();say([['','They will know in three weeks. He gives them his private number and tells them to ring him and nobody else.']],done)}},
-  {t:'Put the page with the others.',fn:()=>{kdDeny();save();say([['','There is a folder now. It is thicker than her whole life on paper before the age of twenty-one.']],done)}}]))});
-kdEv2('kd_light',3,()=>S.f.kdHas||S.f.kd_xray,done=>{const m=kdMe();if(!m)return say([
-  ['','She will not sit under the lamp over the kitchen island. It is round, with six bulbs. She has eaten under it for a year, and now she takes her bowl to the stairs.'],
-  ['K9','(I have a lamp like that over my own table downstairs. I know what one is for.)']],()=>ask('K9','(Six bulbs.)',[
-   {t:'Change the fitting. Say nothing.',fn:()=>{kdDeny();apply({aff:3});say([['','By the evening there is a paper shade over the island, and it is not round. She eats at the island and doesn’t remark on it.']],done)}},
-   {t:'Eat on the stairs with her.',fn:()=>{kdDeny();apply({aff:2});say([['','They eat on the stairs. The dogs think it is the best idea anyone in the house has had.']],done)}}]));
- say([['','She has more than a ceiling. There was a lamp in the second room: round, with six bulbs in it, on an arm. It was cold under her back. A pleasant voice counted backwards from ten, and she helped with seven and six, to be polite.'],
-  ['hitmeuppp',MV('(dentist.)','(that’s a dentist. i’m remembering a dentist.)','(That’s a dentist’s. I’m thinking of a dentist.)','(That’s from a dentist. Everyone’s got a dentist memory. I’ve never been to a dentist. So it’s from TV.)')]],()=>ask('hitmeuppp','(Six bulbs, on an arm.)',[
-   KD_NO('Tell V about the lamp.'),
-   {t:'Decide it was a dentist.',fn:()=>{kdDeny();save();say([['','She decides. It holds as long as she doesn’t count the bulbs, and she can’t stop counting them.']],done)}},
-   {t:'Stop eating at the kitchen island.',fn:()=>{kdDeny();calm(-2);save();say([['','His kitchen lamp is round and has six bulbs. She takes her bowl to the stairs and says the stools hurt her back.']],done)}}]))});
-kdEv2('kd_weight',4,()=>S.f.kd_sutures,done=>{const m=kdMe();say([
- ['','When the cast is changed there is writing on the inside of her forearm, in marker, half washed off: “52.4” and a date, the second day.'],
- ['',m?'Somebody weighed her and wrote it on her, where it would not get lost.':'Somebody weighed her and wrote it on her. V has done exactly that, in that marker, to things on his own table, so that the portions come out even.'],
- ['hitmeuppp',MV('rude.','rude. i was 54 going in.','Rude. I was fifty-four going in.','Fifty-two point four. I was fifty-four when I went in, so that’s their scales. Cheap scales.')]],()=>ask(m?'hitmeuppp':'K9',m?'(A weight, and a date.)':'(He knows that handwriting’s purpose.)',m?[
-  KD_NO('Ask who weighs a person, and for what.'),
-  {t:'Scrub it off.',fn:()=>{kdDeny();save();say([['','It takes the skin with it before it takes the ink. She keeps going until the doctor takes the cloth away from her.']],done)}},
-  {t:'“leave it. it’s like a concert stamp.”',fn:()=>{kdDeny();calm(-2);save();say([['','The new cast goes on over it. She knows it is under there. Some nights that arm feels as though it belonged to a shop.']],done)}}]:[
-  {t:'Clean it off for her, gently.',fn:()=>{apply({aff:3,heart:2});say([['','He uses surgical spirit and cotton, and goes slowly enough that the skin stays. She watches the numbers go.'],['hitmeuppp',MV('thx.','thanks. u do that like u’ve done it before.','Thanks. You’ve done that before.','Thanks. You’re weirdly good at that. Don’t tell me why you’re good at that.')],['K9','I will not tell you.']],done)}},
-  {t:'Go and look at his own marker pens.',fn:()=>{apply({heart:-3,veng:5});say([['','He goes downstairs to the metal table and throws away every marker in the drawer. He orders a different brand. It does not help in any way.']],done)}}]))});
-kdEv2('kd_teeth',5,()=>S.f.kd_sutures,done=>{const m=kdMe();say([
- ['','The dentist comes to the house for the two molars. She has been telling people a man punched them out, and that she bit him first.'],
- ['Dentist','Nobody punched these out. The sockets are clean and the bone is not broken. They were taken out with forceps, by somebody trained, one at a time.'],
- ['','The dentist does not say why anyone would. The two that were taken had the fillings she got at fifteen: the only dental record with her name on it.'],
- ['hitmeuppp',MV('tooth fairy owes me.','tooth fairy owes me double then.','Then the tooth fairy owes me for two.','So I got a free extraction. Two. I’ve been putting that off for years. Somebody did me a favour, honestly.')]],()=>{kdDeny();if(!m)apply({veng:5});done()})});
-kdEv('kd_obs',()=>kdD()>=2&&!S.f.kd_obs&&S.f.kdBook&&S.f.kd_xray,done=>{S.f.kd_obs=1;save();const read=['read','v','vsolo'].includes(S.f.kdBook);say(read?[
- ['','The notebook again. Beside each quarter-hour, to the left of what she said, there are four narrow columns of figures that nobody has looked at.'],
- ['','Pulse. Pressure. Breaths. The fourth column runs from 1 to 4 and is headed “depth.”'],
- [kdDoc,'This is an anaesthetic record. He was not taking notes on her. He was keeping her under, and keeping her alive while somebody else worked.'],
- ['hitmeuppp',MV('so he’s a nurse.','so the note guy’s like. a nurse. cool.','So the note-taker’s a nurse. Good for him.','So he wasn’t even listening to me. He was watching a dial. I said all that and I was the radio.')]]:[
- [kdDoc,'I will say this once. That sedative should have killed her at the doses in her blood. It did not, so somebody sat beside her and managed her breathing, for hours, more than once.'],
- [kdDoc,'There was a trained person in that room. Whatever was in the notebook, it was not only what she said.'],
- ['hitmeuppp',MV('good thing we burned it.','well. good thing it’s ash.','Then it’s a good thing it’s ash.','Then it’s a good thing it’s ash, isn’t it. I don’t want my blood pressure getting out.')]],()=>{kdDeny();apply({veng:4});const x=(S.list||[]).find(x=>x.id==='notes');if(x&&!x.st)x.d='He kept her under and kept her breathing while somebody else worked. He wrote it all down in four columns.';save();done()})});
+kdEv2('kd_ask',1,()=>S.f.kdCard||S.f.kdCount,done=>{const m=kdMe();say([
+ [kdDoc,'I am required to ask you one question. I will ask it once a day until Saturday, and after Saturday I will stop, because the answer will no longer change what I can do.'],
+ ['','She asks it. It is one sentence long and has been worded by a committee so that it cannot be misunderstood.'],
+ ['hitmeuppp',MV('no.','NO. nothing happened.','No. Nothing happened. Write that down.','NOTHING HAPPENED. Write it down. Write “patient says nothing happened” and sign it, and put the date.')],
+ ['','The doctor writes it down exactly, with the quotation marks. On a medical record, quotation marks mean “this is what she said.”']],()=>ask(m?'hitmeuppp':'K9',m?'(She’ll ask again tomorrow.)':'(He is not supposed to be in the room for this. Misaki told him to stay.)',m?[
+  KD_NO('Answer the question.'),
+  {t:'Throw the foam ball at the clipboard.',fn:()=>{kdDeny();calm(-2);say([['','It bounces off. The doctor picks it up and puts it back on the bed within reach of the left hand, because of the physio.'],[kdDoc,'Tomorrow, then.']],done)}},
+  {t:'Laugh. “do i LOOK like something happened?”',fn:()=>{kdDeny();say([['','The doctor does not answer that one. She has the photographs in her bag.']],done)}}]:[
+  {t:'Stay where he is. Look at the floor.',fn:()=>{kdDeny();apply({aff:2});say([['','He looks at the floor through the question and through the answer. When it is over she says “see?” to him, brightly, and he says that he does.']],done)}},
+  {t:'Leave the room before the question.',fn:()=>{kdDeny();apply({tension:2});say([['hitmeuppp',MV('where u going.','where are u going. stay. it’s nothing.','Where are you going? Stay. It’s nothing, she just has to ask.','Don’t leave. If you leave it looks like there’s something to leave for. Sit down.')],['','He sits down.']],done)}}]))});
+kdEv2('kd_window',2,()=>S.f.kd_ask,done=>{const m=kdMe();say([
+ [kdDoc,'The examination is only worth doing for a few more days. I want you to know there is a time limit, so that if you let it run out you are choosing that, and it is not just happening to you.'],
+ ['hitmeuppp',MV('good.','good. let it run out.','Good. Then let it run out.','Good. Saturday can’t come fast enough. Then you’ll have to find another hobby.')],
+ ['',m?'She has worked out the day and the hour. She did it the first time the doctor said “window,” without meaning to, the way she works out a range.':'She has the day and the hour worked out. He can tell from how she looks at the kitchen clock, which she has never done before.']],()=>ask(m?'hitmeuppp':'K9',m?'(Saturday, about four in the afternoon.)':'(Saturday.)',m?[
+  KD_NO('Have it done. While it would still show.'),
+  {t:'Mark Saturday on the calendar. Draw a star.',fn:()=>{kdDeny();S.f.kdSat=1;save();say([['','She draws a star on Saturday and writes “FREE” under it. Anybody reading the calendar would think it was a day off.']],done)}},
+  {t:'Be out of the house every day until then.',fn:()=>{kdDeny();apply({energy:-8});save();say([['','She walks the dogs for six hours a day on a broken foot. The doctor comes at ten and at four and finds an empty bed both times.']],done)}}]:[
+  {t:'Do not mention Saturday.',fn:()=>{kdDeny();say([['','He does not mention it. On Friday night he does not sleep, and neither does she, and at four on Saturday afternoon she comes downstairs and asks what’s for dinner in a voice like a door closing.']],done)}},
+  {t:'“There is still time. I would drive you.”',fn:()=>{kdDeny();apply({tension:5});say([['hitmeuppp',MV('for WHAT.','drive me WHERE. for WHAT.','Drive me where? For what? Nothing happened.','For WHAT, V? Say it. Go on. Say what you think happened, out loud, in your kitchen.')],['','He cannot say it. That is the answer she wanted. She nods and goes to walk the dogs.']],done)}}]))});
+kdEv2('kd_bodymap',2,()=>S.f.kdChart||S.f.kdChartV,done=>{const m=kdMe();say([
+ ['','There is a page in the chart she hadn’t turned to. It is a printed outline of a person, front and back, with nothing on the face. The doctor has marked it in red biro, and numbered each mark, and the numbers match the photographs.'],
+ ['',m?'She knows how to read a diagram. She reads floor plans for money. She sees where the red is and how the marks are grouped, and what kind of thing leaves marks grouped like that.':'She has the page in her right hand. She reads diagrams for a living, and he watches her read this one in about a second.']],()=>ask(m?'hitmeuppp':'K9',m?'(Twenty-three numbered marks on a paper person.)':'(She has gone very still.)',m?[
+  KD_NO('Count the marks. Look at where they are.'),
+  {t:'Draw a moustache and a hat on it.',fn:()=>{kdDeny();say([['','She gives the outline a moustache, a top hat and a speech bubble that says “hello, i’m fine.” The doctor leaves them on. The numbers are still legible underneath.']],done)}},
+  {t:'Tear the page out. Eat it if you have to.',fn:()=>{kdDeny();calm(-4);say([['hitmeuppp',MV('that’s not me.','that’s not ME. that’s a drawing.','That isn’t me. That’s a drawing of nobody.','That’s not me! That’s a gingerbread man with a rash. You can’t put a gingerbread man in my file.')],['','She tears it into strips. The doctor watches her do it and then says, kindly, that it can be redrawn. That is what the photographs are for.']],done)}}]:[
+  {t:'Take the page from her and put it back.',fn:()=>{kdDeny();say([['','He turns the chart to the page before. She lets him. She asks whether Mochi has had her ear drops, and listens carefully to the answer.']],done)}},
+  {t:'Let her tear it up.',fn:()=>{kdDeny();apply({aff:2});say([['hitmeuppp',MV('not me.','that’s not me. it’s a drawing.','That isn’t me. It’s a drawing.','That’s not me. It hasn’t even got a face. Anyone could be that.')],['','She tears it into strips and gives him the strips, to be rid of them. He puts them in his pocket. The doctor will redraw it from the photographs.']],done)}}]))});
+kdEv2('kd_photodeny',4,()=>S.f.kd_photos||S.f.kdPhotos,done=>{const m=kdMe();say([
+ ['','The photographs again. Each one has a paper ruler along the bottom edge and a card with the date, the time, and a number. The doctor took them the first night, with a second person in the room to witness it, as the procedure says.'],
+ ['hitmeuppp',MV('that’s not me.','that’s not my back. i’d know my own back.','That is not my back. I’d know.','That’s not my back. I haven’t got that mole. That could be anybody, she could have got those off the internet.')],
+ ['',m?'She has not seen her own back in years. She has seen it now, eleven times, and she has the mole.':'It is her back. She has a mole there. He has seen it, once, when she fell asleep at the pool.']],()=>ask(m?'hitmeuppp':'K9',m?'(A ruler in every one.)':'(She is holding them out to him to agree.)',m?[
+  KD_NO('Ask why there is a ruler in every one.'),
+  {t:'Rip them up. All eleven.',fn:()=>{kdDeny(2);calm(-5);S.f.kdPhotos='torn';save();say([['','She rips them across and across until the pieces are too small to tear with one hand, and then uses her teeth.'],[kdDoc,'Those are prints. The originals are in a sealed envelope with a number on it. I am sorry. That is how it is done, so that nobody can do what you have just done.'],
+    ['hitmeuppp',MV('then burn it.','then burn the envelope. it’s MINE. it’s my back, i say burn it.','Then burn it. It’s mine, isn’t it? If it’s my back, I say burn it.','Then burn the envelope! If it’s my back like you keep saying then it’s mine, and I say burn it — and it’s not my back, so there’s nothing to burn, so burn it.')],
+    ['','She has said in one breath that it is hers and that it is not. Nobody in the room points that out.']],done)}},
+  {t:'Hand them back. “nice photos. wrong girl.”',fn:()=>{kdDeny();save();say([['','The doctor takes them. She squares the edges and puts them in the envelope and writes the time on the flap. Everything about this has a time written on it.']],done)}}]:[
+  {t:'“They are in a sealed envelope. Nobody will open it unless you ask.”',fn:()=>{kdDeny();apply({aff:2});say([['hitmeuppp',MV('i won’t ask.','i’m not gonna ask. bc it’s not me.','I won’t ask. Because it isn’t me.','I’m never going to ask, because it isn’t me, so you can keep your envelope till it rots.')],['K9','Then it will keep until it rots.']],done)}},
+  {t:'“It is not your back.”',fn:()=>{kdDeny();apply({heart:-2,aff:3});say([['','She lets her breath go. He has lied to her face, for her, and she thanks him for it by asking what he wants for lunch.'],['K9','(I said it. I would say it again. I do not know any longer which of us I am protecting.)']],done)}},
+  KD_NO('Tell her what the ruler is for.','he is not going to do that to her')]))});
+kdEv2('kd_cup',3,()=>S.f.kd_ask,done=>{const m=kdMe();say([
+ ['','There is a second paper cup on the tray this morning. Three small tablets and one large one. The label, in the doctor’s hand, says “as a precaution.” It does not say against what.'],
+ ['',m?'She has never taken a pill in her life without reading the whole box and the leaflet. Poison is a thing she knows about.':'She reads every label. She once made him read her the leaflet for an antihistamine.']],()=>ask(m?'hitmeuppp':'K9',m?'(“As a precaution.”)':'(He watches from the doorway.)',m?[
+  KD_NO('Ask what they are a precaution against.'),
+  {t:'Take all four. Don’t ask.',fn:()=>{S.f.kdCupTook=1;save();say([['','She takes them one after another with the soup, without a word, and without looking at the label a second time.'],['','Anyone who believed that nothing had happened would have asked what they were for.'],['hitmeuppp','(vitamins. she’s got me on vitamins.)']],done)}},
+  {t:'Flush them. “don’t need precautions.”',fn:()=>{kdDeny();S.f.kdCupTook=0;save();say([['hitmeuppp',MV('nothing to be careful OF.','precaution for WHAT. nothing happened.','A precaution against what? Nothing happened.','A precaution against what? You take precautions when something’s happened. Nothing happened. So I don’t need them, do I.')],['','There is another cup on the tray the next morning, and the one after. On the third morning she takes it, fast, with her back to the door.']],done)}}]:[
+  {t:'Say nothing.',fn:()=>{S.f.kdCupTook=1;save();say([['','She takes all four without reading the label or asking what they are. He has never seen her do that with so much as an aspirin.'],['K9','(She knows what they are for. She would have asked, otherwise.)']],done)}},
+  {t:'“Do you want me to read you the leaflet?”',fn:()=>{kdDeny();apply({tension:3});say([['hitmeuppp',MV('no.','no. they’re vitamins.','No. They’re vitamins. I don’t need a leaflet for vitamins.','No! They’re vitamins. She said precaution. Vitamins are a precaution. Don’t read me anything.')],['','She swallows them dry and holds his eye while she does it.']],done)}}]))});
+kdEv2('kd_results',5,()=>S.f.kd_cup,done=>{const m=kdMe();say([
+ ['','An envelope comes from the laboratory, addressed to her, marked for the addressee only. It is the standard set of tests. The doctor ran them the first night, from blood she already had to take.'],
+ ['','There is a second sheet clipped to it: the same tests again in six weeks, and again in three months. Somebody has to put those dates somewhere.']],()=>ask(m?'hitmeuppp':'K9',m?'(It isn’t thick. One page, maybe two.)':'(She has pushed it across the table to him with one finger.)',m?[
+  KD_NO('Open it.'),
+  {t:'Bin it unopened.',fn:()=>{kdDeny();S.f.kdRes='bin';save();say([['','She puts it in the kitchen bin under the coffee grounds. V takes the bin out that night, which he never does, and the envelope is not in the bag that goes to the kerb.']],done)}},
+  {t:'“u open it. tell me if i’m dying. nothing else.”',dis:tier()<2,sub:tier()<2?'not close enough':'',fn:()=>{kdDeny();S.f.kdRes='v';apply({aff:3});save();say([['','He reads it standing up.'],['K9','You are not dying.'],['hitmeuppp',MV('k.','k. that’s all i wanted.','Good. That’s all I asked.','Good. That’s all I asked for, so that’s all you say. Not one more word off that page, ever.')],['','He folds it along its own creases. The dates for six weeks and three months go into the kitchen calendar in his handwriting. He writes “dentist.”']],done)}}]:[
+  {t:'Read it. Tell her only whether she is dying.',fn:()=>{kdDeny();S.f.kdRes='v';apply({aff:3});save();say([['K9','You are not dying.'],['hitmeuppp',MV('k.','k. good. shred it.','Good. Shred it.','Good. That’s the only thing on that page I’m interested in. Shred the rest.')],['','He does not shred it. He writes two dates in the kitchen calendar, six weeks and three months, and beside each he writes “dentist.”']],done)}},
+  {t:'Put it in the archive, sealed.',fn:()=>{kdDeny();S.f.kdRes='sealed';save();say([['','It goes under M, unopened, with the photographs. He writes the two follow-up dates in the calendar himself, and writes “dentist” beside them.']],done)}}]))});
+kdEv('kd_dentist',()=>S.phase!=='after'&&S.f.kdRes&&!S.f.kd_dentist&&kdD()>=10,done=>{S.f.kd_dentist=1;save();const m=kdMe();say([
+ ['','The kitchen calendar says “dentist” today, in his handwriting. It is the six-week date.'],
+ ['',m?'She drives herself. The clinic is on the second floor, above a pharmacy.':'She says she will drive herself. He lets her.']],()=>ask(m?'hitmeuppp':'K9',m?'(The car park. Engine off.)':'(She has been gone three hours for a twenty-minute appointment.)',m?[
+  KD_NO('Go up.'),
+  {t:'Sit in the car for the length of an appointment. Go home.',fn:()=>{kdDeny(2);say([['','She sits in the car park for fifty minutes with her hands on the wheel. Then she drives home and tells him: no cavities.'],['K9','I am glad.'],['','He rings the clinic at six to move the appointment to next week. He will move it every week.']],done)}},
+  {t:'Go up. Give the blood. Don’t collect the result.',fn:()=>{S.f.kdBloodGiven=1;save();say([['','She goes up. She gives a false name at the desk and the nurse, who has her real one, writes down the false one. It takes four minutes.'],['hitmeuppp',MV('(done. dentist. done.)','(that’s done. i went to the dentist.)','(That’s done. I’ve been to the dentist.)','(Done. I went to the dentist. I’m never ringing for the result, but I went, and nobody can say I didn’t.)')],['','It is the nearest she has come. The result is posted to the house, and she lets it go in the archive without touching it.']],done)}}]:[
+  {t:'Ask her how the dentist was.',fn:()=>{kdDeny();say([['hitmeuppp',MV('no cavities.','no cavities. flawless.','No cavities. She was impressed.','No cavities. She said I’ve got the teeth of a much younger woman. Well. Most of them.')],['','Her appointment was never checked in. He knows, because the clinic rang him. He says that he is glad about the cavities.']],done)}},
+  {t:'Do not ask.',fn:()=>{kdDeny();apply({aff:2});say([['','He does not ask. She tells him anyway, about the cavities, in more detail than a person would who had been.']],done)}}]))});
+/* V and the doctor */
+kdEv2('kd_vdoc',3,()=>S.pov==='v'&&S.f.kd_ask,done=>say([
+ [kdDoc,'Without her consent I can record only what is on the outside of her, and that she refused. I have done both. I cannot tell you what I think.'],
+ ['K9','Is there any doubt?'],
+ [kdDoc,'I am not permitted to answer that. I have done this work for twenty years, and I do not have any doubt. I did not say so.'],
+ ['','She closes her bag. She has left a leaflet on the table, face down, in case he wants to know how to be useful. He reads it four times in the night.']],()=>ask('K9','(The leaflet says, in bold: do not push.)',[
+  {t:'Do as the leaflet says.',fn:()=>{kdDeny();apply({heart:2,aff:2});save();say([['','He does not push. It is the hardest thing the leaflet could have asked of a man like him, and it is the only thing it asks.']],done)}},
+  {t:'Go downstairs and sharpen every knife on the table.',fn:()=>{apply({veng:8,heart:-3});save();say([['','There are forty-one. He does them by hand, to the same angle. When he comes up at dawn she asks why he smells of oil, and he says that he was restless.']],done)}}])));
 
 /* ---------- treatment, awake ---------- */
 kdEv('kd_pins',()=>S.phase==='after'&&kdD()>=4&&!S.f.kd_pins,done=>{S.f.kd_pins=1;save();const m=kdMe();
@@ -12815,23 +12826,24 @@ kdEv2('kd_vtable',3,()=>S.pov==='v'&&S.phase==='after',done=>say([
   {t:'“Yes. The dog-washing room.”',fn:()=>{kdDeny();apply({heart:-2});S.f.kdTable='lie';save();say([['hitmeuppp',MV('knew it.','knew it. smelled like dog.','I knew it. It smelled of dog.','Knew it. It smelled of dog and bleach. Tell Biscuit I borrowed her table.')],['','It smelled of bleach because of what he had spent the hour getting out of the grooves.']],done)}},
   {t:'“It was my table. The one I work at.”',fn:()=>{apply({aff:2});S.f.kdTable='told';save();say([['','She thinks about that.'],['hitmeuppp',MV('...ok.','huh. ok. it’s a good table.','Huh. Well. It’s a good table.','Huh. So I’m the only one who ever got up off it. That’s— I’m choosing to find that romantic. Don’t say anything.')]],done)}}])));
 /* the cabinet in the infirmary */
-ROOMS.medbay.spots.push({at:[40,160],mark:[40,150],label:'Steel cabinet',show:()=>kdClar()<2,act:()=>say([['','A steel cabinet with glass doors. There are instruments in it, laid out in rows on green cloth.'],['hitmeuppp','(of course there’s instruments. there’s always a room with instruments. i know this one. i know what the green cloth is for.)'],['','She notices that she knows, and decides not to have noticed.']])},
+ROOMS.medbay.spots.push({at:[40,160],mark:[40,150],label:'Steel cabinet',show:()=>kdClar()<2,act:()=>say([['','A steel cabinet with glass doors. There are instruments in it, laid out in rows on green cloth.'],['hitmeuppp','(of course there’s instruments. there’s always a room with instruments.)']])},
  {at:[40,160],mark:[40,150],label:'Supply cabinet',show:()=>kdClar()>=2,act:()=>say([['','Every shelf is labelled in fountain pen. Most of the labels say things like “BISCUIT — 40 kg” and “PANCAKE — ears.”'],['','On the top shelf the word DOGS has been crossed out and “MISAKI — see card. NO sedatives.” written under it. Half of what is in her drip was bought for a mastiff.'],['hitmeuppp',MV('lol.','i’m on dog medicine. LMAO.','I’m on dog medicine. Fantastic.','I’m being treated out of the dog cupboard. I’ve never felt so included.')]])});
 /* phone */
-txDef('tx_kd_lab',{with:'v',pov:'m',prio:2,when:()=>kdPost()&&S.f.kdOsaka===1&&kdD()>=6,nodes:{
- start:{in:()=>['Osaka has rung back about the fourth line.','You told the doctor not to tell you. I am asking whether that still holds.'],expire:3,
-  opts:()=>[{t:'“still holds”',fx:()=>kdDeny(),reply:()=>['Very well.','It is in the folder. The folder is in the archive, under M.']},
-   {t:'“is it gonna kill me”',fx:()=>{kdDeny();apply({aff:2})},reply:()=>['No.','That is the whole of what I will say unless you ask for the rest.','(she doesn’t ask for the rest)']},
-   {t:'“did it work. whatever it was for”',fx:()=>{apply({aff:3});calm(-4);S.f.kdAskedOnce=1},reply:()=>['I do not know what it was for. Neither does Osaka.','They know what it is. They do not know why anyone would give it to a person.','That is the first question you have asked. I have written the date down.']}]}}});
-txDef('tx_kd_awell',{with:'a',pov:'v',prio:2,when:()=>kdPost()&&S.f.kd_blood&&frT('a')>=1,nodes:{
- start:{in:()=>['ok i’ve been good. i haven’t asked her anything','so i’m asking u. what did they DO'],expire:3,
-  opts:()=>[{t:'“They kept her well.”',reply:()=>['...','that’s worse','V that’s so much worse'],next:'two'},
-   {t:'“I do not know. Nor does she.”',reply:()=>['she knows some of it','she said a thing at dinner. u heard it'],next:'two'}]},
- two:{in:()=>['who keeps somebody well'],
-  opts:()=>[{t:'“Someone who is selling them.”',fx:()=>{apply({veng:5});fr('a',2)},reply:()=>['(nothing for a while)','ok','i’m going hunting tonight. don’t wait up. tell her i’m at a brand dinner']},
-   {t:'“I would rather not write it down.”',fx:()=>fr('a',1),reply:()=>['yeah','yeah. ok','i’m bringing the big palette tomorrow. she’s getting the works']}]}}});
+txDef('tx_kd_docstop',{with:'v',pov:'m',prio:2,when:()=>kdPost()&&S.f.kd_ask&&tier()>=1,nodes:{
+ start:{in:()=>['The doctor will be here at ten.'],expire:3,
+  opts:()=>[{t:'“tell her to stop ASKING”',fx:()=>kdDeny(),reply:()=>['She is required to ask. She will stop on Saturday.','I can be in the room or out of it. Tell me which.'],next:'two'},
+   {t:'“i’ll be out”',fx:()=>kdDeny(),reply:()=>['On that foot.','Very well. I will tell her you are walking the dogs. She will leave the cup.'],next:'two'}]},
+ two:{in:()=>['Is there anything you want me to tell her?'],
+  opts:()=>[{t:'“tell her nothing happened”',fx:()=>kdDeny(),reply:()=>['I will tell her that you said so.','(he has put it in quotation marks, the way she did)']},
+   {t:'“tell her thanks for the vitamins”',fx:()=>{apply({aff:2})},reply:()=>['I will tell her.','They are working. You may take that as you like.']}]}}});
+txDef('tx_kd_leaflet',{with:'a',pov:'m',prio:2,when:()=>kdPost()&&S.f.kd_ask&&frT('a')>=1,nodes:{
+ start:{in:()=>['so ur doctor cornered me in the drive','she wanted me to “have a word.” i said i’d rather eat my ring light','she gave me a leaflet. i’m not giving u the leaflet'],expire:3,
+  opts:()=>[{t:'“good. burn it”',fx:()=>{kdDeny();fr('a',2)},reply:()=>['can’t. it’s in my bag now. it lives there','i’m not going to read it at u. i read it in the car and then i sat there a while','wear the pink tomorrow. i’m doing ur nails and we’re talking about NOTHING']},
+   {t:'“what’s it say”',fx:()=>{fr('a',3);S.f.kdAskedOnce=1},reply:()=>['...','it says don’t push','so i’m not','that’s the first thing u’ve asked anybody. i’m not making it weird. i’m making it normal. what do u want for lunch']}]}}});
 const _xeKD6=extraEnding;extraEnding=function(){const L=_xeKD6();if(!S||!S.f||!S.kd||!S.kd.t0)return L;const f=S.f;
- if(f.kd_xray)L.push('There are three surgical clips under her left shoulder blade and nine dissolved stitches over them. Nobody has ever opened it to see what they are holding shut. She calls them her piercings.');
+ if(f.kd_window)L.push('The window closed on a Saturday at about four in the afternoon. She had it marked. There is a sealed envelope in the archive with a number on it, and eleven photographs of a back she says is not hers.');
+ if(f.kdBloodGiven)L.push('She went to the six-week appointment under a false name and never rang for the result. It is the only time she came near it.');
+ else if(f.kd_dentist)L.push('The kitchen calendar still says “dentist” every few weeks. She has no cavities. She has never been.');
  if(f.kdTable==='told')L.push('She knows whose table her hand was mended on. She is the only one who ever got up off it.');
  return L};
 

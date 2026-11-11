@@ -485,27 +485,23 @@ Same rules as td29 (never named; honest option greyed with `KD_NO`; each pretenc
 - The bill: `kd_crash` (deny ≥ 6, Act II on: she collapses on the stairs and loses most of a day) and `kd_crash2` (deny ≥ 9: her trigger finger doesn't close on a windless roof; heat +8).
 - Relief: `kd_march` (needs the enrolment form opened): Angel makes her pick a day for the birthday she invented at nine. The 3rd, the 14th, or all thirty-one.
 
-## What was done with care (td32)
+## What it would prove (td32)
 
-The author asked for the missing hours to lean medical. The evidence on her body is not that of a beating: somebody in that building could operate, dose on a schedule and keep a chart, and she was being kept well for the buyer. Nobody finds out for what. td29's rules still apply (nothing named, honest option greyed, `kdDeny()`). `kd_test.js` now takes about three minutes.
+The author's correction: the medical horror is **not** the wounds (she dislikes acknowledging those too, but that is td28's unreliable narration). It is the doctor's examination and the photographs, which she denies loudly, because she knows exactly what they would prove. An earlier version of this module invented a surgical mystery (old stitches, clips on an X-ray, an unidentified drug, extracted molars, the note-taker as an anaesthetist); **all of that was removed** and is not canon.
 
-**What they find:**
-- `kd_sutures`: nine stitches in her back that V's doctor did not put in, a week older, a surgeon's work.
-- `kd_xray`: three surgical clips under them. Something was tied off inside. She will not let it be opened.
-- `kd_blood`: a prophylactic antibiotic, an anticoagulant, and a fourth substance sent to Osaka (`S.f.kdOsaka`; thread `tx_kd_lab`).
-- `kd_light`: she remembers a round lamp with six bulbs and a voice counting backwards, and decides it was a dentist. She stops eating under V's kitchen lamp.
-- `kd_weight`: "52.4" and a date in marker on her forearm. V has written weights on things on his own table.
-- `kd_teeth`: the two molars were extracted with forceps; they held her only dental record.
-- `kd_obs` (needs the notebook decided and the X-ray seen): the notebook's four side columns are pulse, pressure, breaths and depth. The note-taker was an anaesthetist; his list entry text changes.
+The doctor is correct and kind throughout. The horror is the procedure: a required question, a form, a kit with a time limit, a ruler and a date card in every photograph, a sealed numbered envelope, follow-up dates. td29's rules hold (never named; honest option greyed with `KD_NO`; `kdDeny()` per pretence), and here she is vehement.
 
-**Treatment in V's house, without sedation:**
-- `kd_pins`: the pins come out with pliers. Misaki plays `kdHoldOn` (now takes options: title, hint, lines, length, background); V chooses whether to hold her hand.
-- `kd_wrists`: the dressing changes, and the tendon she finds interesting.
-- `kd_vtable` (V): her hand was repaired on the table he butchers on. He can tell her or say it was the dog-washing room.
-- Infirmary: a cabinet spot ("Steel cabinet" while she thinks it is a cell, "Supply cabinet" after: she is being treated out of the dogs' medicine cupboard).
-- Thread `tx_kd_awell` (V): Angel asks what they did. "They kept her well."
-
-**New canon to confirm:** the nine sutures, three clips and unidentified drug; the extracted molars; the weight in marker; the note-taker as an anaesthetist; an unnamed dentist (speaker label "Dentist") alongside the unnamed doctor ("The doctor").
+- `kd_ask`: the doctor is required to ask one question a day until Saturday. "NOTHING HAPPENED. Write it down." The doctor writes it with quotation marks.
+- `kd_window`: the examination is only useful for a few more days. She has the day and hour worked out, and marks Saturday "FREE".
+- `kd_bodymap`: the printed outline in the chart, marked and numbered in red to match the photographs. She draws a moustache on it or tears it up; it can be redrawn.
+- `kd_photodeny`: "that's not my back." Ripping them up changes nothing: the originals are sealed and numbered. She says in one breath that it is hers to burn and that it is not her.
+- `kd_cup`: a second cup of tablets, "as a precaution". She, who reads every leaflet, takes them without asking what for (`S.f.kdCupTook`), or flushes them and takes them on the third morning.
+- `kd_results`: the lab envelope for the addressee only; the repeat dates go in the kitchen calendar as "dentist" (`S.f.kdRes`).
+- `kd_dentist` (Act II on): the six-week date. Sit in the car park and report no cavities, or go up under a false name and never ring for the result (`S.f.kdBloodGiven`, the nearest she comes).
+- `kd_vdoc` (V): the doctor may not say what she thinks, has no doubt, and leaves a leaflet that says "do not push".
+- Threads: `tx_kd_docstop` (Misaki to V about the doctor), `tx_kd_leaflet` (Angel was given the leaflet and won't hand it over).
+- Kept from the earlier version: `kd_pins`, `kd_wrists`, `kd_vtable` and the infirmary cabinet (treatment without sedation).
+- Related scenes elsewhere: `kd_exam` and `kd_photos` (td29), the sealed box in the fridge and `kd_kitgone` (td33).
 
 ## The ward round (td33): the infirmary as a system
 
