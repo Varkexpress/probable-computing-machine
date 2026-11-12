@@ -660,3 +660,6 @@ Misaki is shirtless most of the time in V's house (no regard for gender standard
 - `lore_shirt` (morning, both POVs): cereal at the island; Ronin: "flat as a fuckin' ironing board."
 - Topic `lore_ribs` (V asks): the growth-arrest lines on her films, "like tree rings", eleven of them; "worst childhood, one good side effect."
 - Two server chat lines.
+
+## The birdcage dream (kc39)
+Morning event `dream_cage` (Misaki's POV, day 4+, tier ≥ 1, not while taken or in the infirmary): a white birdcage the size of a cathedral hung in stars, with her keepsakes in glass and crystal on the floor (receipt, star clip, cactus, four hounds, a coat; each can be picked up). She touches a bar; it shatters to nothing; she falls; she lands on a giant snake with green eyes. Three endings: sit on the coil, hand on its head, ask what it is (`S.f.dreamCage`). Drawn on the canvas in four stages (`dcDraw`). V's POV: `dream_cage_v`, she tells it at breakfast and he writes it on the page of things she has said. The snake is left unexplained on purpose.
