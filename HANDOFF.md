@@ -650,3 +650,6 @@ Settings (title screen) and the pause menu have **Kidnapping aftermath: full sto
 - Recovery activities (side menu, after-phase, once a day each, six sessions): "Physio: the hand" (`kdTurn`, `S.f.kdGripN`) and "Walk the hounds, a bit further" (`S.f.kdWalk`; the limp goes after four). Both add healing, which `kdCond` turns into a faster walk.
 - Flipping the setting mid-run takes effect from the next scene; scenes already played stay played.
 
+
+## Drinks (kc37)
+Evening option "Drinks at V's (everyone)" in the side menu (needs both friends at tier ≥ 1; not alone, not dark, not in the infirmary; every four days). Pick a drink, then by half eleven Misaki and V have slipped off. **The first time** (`S.f.drDoor`): at midnight Angel finds the bedroom door locked, hacks V's keypad with her phone in forty seconds, and in the pitch dark finds Misaki shirtless on their back in every duvet in the house playing Pokémon on a Switch, and V on the floor under all four hounds holding a glass of water. Three endings: Angel gets in, Angel fetches Ronin and the bottle, or Angel leaves them and re-locks the door from outside to prove she can. Later evenings get a short midnight variant.
