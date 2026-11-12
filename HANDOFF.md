@@ -653,3 +653,10 @@ Settings (title screen) and the pause menu have **Kidnapping aftermath: full sto
 
 ## Drinks (kc37)
 Evening option "Drinks at V's (everyone)" in the side menu (needs both friends at tier ≥ 1; not alone, not dark, not in the infirmary; every four days). Pick a drink, then by half eleven Misaki and V have slipped off. **The first time** (`S.f.drDoor`): at midnight Angel finds the bedroom door locked, hacks V's keypad with her phone in forty seconds, and in the pitch dark finds Misaki shirtless on their back in every duvet in the house playing Pokémon on a Switch, and V on the floor under all four hounds holding a glass of water. Three endings: Angel gets in, Angel fetches Ronin and the bottle, or Angel leaves them and re-locks the door from outside to prove she can. Later evenings get a short midnight variant.
+
+## Lore: shirtless at home (kc38)
+Misaki is shirtless most of the time in V's house (no regard for gender standards; nobody on the server cares). Flat and unusually lanky from childhood malnutrition; they count it as lucky, since a developed chest would have meant dysphoria. Also in `docs/VOICE.md`.
+- Sprite: in any `HOUSE` room, outside the taken and after phases and without injuries showing, Misaki's torso rows are drawn bare (`shBare`, flag `SHF`, wraps `tdActor`/`tdPx`); works on the original and the rework's `MIS_A`/`MIS_B` sprites. `S.f.shirt=1` would turn it off (nothing sets it yet).
+- `lore_shirt` (morning, both POVs): cereal at the island; Ronin: "flat as a fuckin' ironing board."
+- Topic `lore_ribs` (V asks): the growth-arrest lines on her films, "like tree rings", eleven of them; "worst childhood, one good side effect."
+- Two server chat lines.

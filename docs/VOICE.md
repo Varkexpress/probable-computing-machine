@@ -35,6 +35,10 @@ coming. They are funny because they are dangerous and at ease with it, never bec
 - Keep the game's tier system (`MV`/`byT`): lowercase text-speak at low tiers, fuller sentences as the relationship
   deepens. All four tiers must stay; later tiers are longer and more articulate, still hers.
 
+- Lore: shirtless most of the time in V's house. They don't care about gender standards and nobody on the server cares either.
+  Flat and unusually lanky from childhood malnutrition (fine growth-arrest lines on the films, “like tree rings”). They count it as
+  luck: a chest that developed would have meant dysphoria. Ronin's only comment is a jab (“flat as a fuckin' ironing board”).
+
 ## V (K9)
 - Formal, exact, no contractions. "merely", "serviceable", "I find that your kind say that about me, often."
 - Dry menace. "Now, shall we get to work?" One-word answers with a twitch of a smile: "Justice."
