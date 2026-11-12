@@ -4527,6 +4527,85 @@ if(TRAINER){
  const _arC=arenaView;arenaView=function(){_arC.apply(this,arguments);const m=document.getElementById('gmSurv');if(m&&!document.getElementById('gmCases')){m.insertAdjacentHTML('beforebegin',`<button class="card" type="button" id="gmCases"><span class="num">🗂</span><span class="nm"><b>Case files</b><span>Story campaign: 9 cases, 4 problems each.</span></span><span class="chip go">Play</span></button>`);document.getElementById('gmCases').onclick=casesView}};
 }
 
+/* ===================== Narrated walkthroughs: every solution gets an "Explain it" chalkboard player with voiceover ===================== */
+(function(){const st=document.createElement('style');st.textContent=`
+.xpBtn{display:inline-flex;align-items:center;gap:6px}
+.xpl{position:fixed;inset:0;z-index:40;background:rgba(5,8,10,.82);display:flex;align-items:center;justify-content:center;padding:max(12px,env(safe-area-inset-top,0px)) 12px}
+.xpl .box{width:min(980px,100%);height:min(720px,100%);background:#0f1a17;border:1px solid #2f4a40;border-radius:12px;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.xpl .top{display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:1px solid #22362f;background:#0c1512}
+.xpl .top b{font:700 15px var(--f-body);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.xpl .board{flex:1;overflow-y:auto;padding:20px 26px;background:radial-gradient(ellipse at 30% 0,rgba(255,255,255,.05),transparent 60%),#13251f;font:18px/1.6 'Patrick Hand','Barlow',system-ui,sans-serif;color:#eef3ea;display:flex;flex-direction:column;gap:12px}
+.xpl .prob{font-size:17px;color:#cfe0d6;border-left:3px solid var(--tape);padding:6px 12px;background:rgba(0,0,0,.18);border-radius:4px}
+.xpl .stp{opacity:.0;transform:translateY(6px);transition:opacity .45s,transform .45s;display:grid;grid-template-columns:2.2em 1fr;gap:6px;padding:6px 10px;border-radius:6px}
+.xpl .stp.seen{opacity:.55;transform:none}.xpl .stp.now{opacity:1;transform:none;background:rgba(232,185,49,.1);box-shadow:inset 3px 0 0 var(--tape)}
+.xpl .stp .n{font:700 15px var(--f-mono);color:var(--tape);padding-top:3px}
+.xpl .stp .w{display:inline}.xpl .stp .w.lit{color:#fff;text-shadow:0 0 8px rgba(232,185,49,.6)}
+.xpl .stp.ans .t{color:#a8f0b4;font-weight:700}
+.xpl .fig{align-self:center;margin:4px 0}
+.xpl .cap{padding:10px 16px;background:#08100d;border-top:1px solid #22362f;font:15px/1.45 var(--f-body);color:#dfe8e2;min-height:3.2em}
+.xpl .ctl{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:10px 14px;background:#0c1512;border-top:1px solid #22362f}
+.xpl .ctl .prog{flex:1 1 140px;height:6px;background:#22362f;border-radius:3px;overflow:hidden;min-width:100px}.xpl .ctl .prog i{display:block;height:100%;background:var(--tape);transition:width .3s}
+.xpl select{font:13px var(--f-body);background:var(--ink);color:var(--chalk);border:1px solid var(--line);border-radius:4px;padding:5px}
+@media (max-width:600px){.xpl .board{padding:14px;font-size:16px}.xpl .box{height:100%}}`;document.head.appendChild(st)})();
+/* turn math text into something a speech engine reads naturally */
+function speakable(s){s=String(s).replace(/<[^>]+>/g,'').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'and');
+ const sup={'⁰':'0','¹':'1','²':'2','³':'3','⁴':'4','⁵':'5','⁶':'6','⁷':'7','⁸':'8','⁹':'9','ⁿ':'n','⁻':'minus '},sub={'₀':'0','₁':'1','₂':'2','₃':'3','₄':'4','₅':'5','₆':'6','₇':'7','₈':'8','₉':'9','ₙ':'n','ₖ':'k'};
+ s=s.replace(/²/g,' squared').replace(/³/g,' cubed').replace(/[⁰¹⁴⁵⁶⁷⁸⁹ⁿ⁻]+/g,m=>' to the power '+[...m].map(c=>sup[c]).join('')+' ');
+ s=s.replace(/([A-Za-z])([₀-₉ₙₖ]+)/g,(m,a,b)=>a+' sub '+[...b].map(c=>sub[c]).join('')+' ');
+ const R=[[/√\(/g,'the square root of ('],[/√/g,'root '],[/∛/g,'cube root of '],[/π/g,' pi '],[/−/g,' minus '],[/×|·/g,' times '],[/÷/g,' divided by '],[/≤/g,' is at most '],[/≥/g,' is at least '],[/≠/g,' is not equal to '],[/≈/g,' is about '],[/≡/g,' is congruent to '],[/∠/g,'angle '],[/△/g,'triangle '],[/°/g,' degrees'],[/∞/g,' infinity'],[/∫/g,'the integral of '],[/∑/g,'the sum of '],[/→/g,' goes to '],[/⇒/g,' so '],[/⌊/g,'the floor of '],[/⌋/g,' '],[/⌈/g,'the ceiling of '],[/⌉/g,' '],[/φ/g,'phi'],[/σ/g,'sigma'],[/τ/g,'tau'],[/θ/g,'theta'],[/α/g,'alpha'],[/β/g,'beta'],[/ω/g,'omega'],[/∪/g,' union '],[/∩/g,' intersect '],[/∈/g,' in '],[/′/g,' prime'],
+  [/(\d)\s*\/\s*(\d)/g,'$1 over $2'],[/\s<\s/g,' is less than '],[/\s>\s/g,' is greater than '],[/\s=\s/g,' equals '],[/=/g,' equals '],[/\+/g,' plus '],[/\^/g,' to the power '],[/\|([^|]+)\|/g,'the absolute value of $1'],[/\(([A-E])\)/g,'choice $1,'],[/\s+/g,' ']];
+ R.forEach(([a,b])=>s=s.replace(a,b));return s.trim()}
+const VO={rate:1,voice:null,on:true};try{const v=JSON.parse(localStorage.getItem('vo_prefs')||'{}');Object.assign(VO,v)}catch(e){}
+const voSave=()=>{try{localStorage.setItem('vo_prefs',JSON.stringify({rate:VO.rate,voice:VO.voice,on:VO.on}))}catch(e){}};
+const canSpeak=()=>'speechSynthesis' in window&&typeof SpeechSynthesisUtterance!=='undefined';
+function voVoices(){if(!canSpeak())return[];return speechSynthesis.getVoices().filter(v=>/^en/i.test(v.lang))}
+/* the player */
+let XP=null;
+function explainItem(it){if(!it||!it.steps)return;closeExplain();const steps=it.steps.map(s=>String(s));const prob=String(it.prompt||'');
+ const choices=it.parts&&it.parts[0]&&it.parts[0].choices?it.parts[0].choices:null;
+ const script=[{k:'intro',say:'Here is the problem. '+speakable(prob)+(choices?' The choices are: '+choices.map(c=>speakable(c)).join('; ')+'.':'')+' Let us work through it step by step.'}].concat(steps.map((s,i)=>{const lead=/^Key idea:/.test(s)?'First, the key idea. ':/^Check:/.test(s)?'Now let us check the answer. ':/^Why not the others:/.test(s)?'Why not the other choices? ':/^Common mistake:/.test(s)?'A common mistake to avoid. ':/^Answer:/.test(s)?'So, ':i===1?'Here is how we start. ':i===steps.length-2?'Next. ':pick(['Next. ','Then. ','Now, ','']);return{k:i,say:lead+speakable(s.replace(/^(Key idea|Check|Why not the others|Common mistake):\s*/,''))}}));
+ const o=document.createElement('div');o.className='xpl';o.setAttribute('role','dialog');o.setAttribute('aria-label','Narrated walkthrough');
+ const vs=voVoices();
+ o.innerHTML=`<div class="box"><div class="top"><span class="chip go">Walkthrough</span><b>${esc((it.skill||'Step-by-step explanation').replace(/<[^>]+>/g,''))}</b><button class="btn ghost sm" type="button" data-x="close" aria-label="Close walkthrough">✕</button></div>
+ <div class="board" id="xpBoard"><div class="prob">${prob}${choices?`<div style="margin-top:6px;font-size:15px;color:#a9c1b4">${choices.join(' &nbsp; ')}</div>`:''}</div>${it.fig?`<div class="fig">${it.fig}</div>`:''}
+ ${steps.map((s,i)=>`<div class="stp ${/^Answer:/.test(s)?'ans':''}" data-i="${i}"><span class="n">${/^Key idea:/.test(s)?'★':/^Check:/.test(s)?'✓':/^Answer:/.test(s)?'→':i}</span><span class="t">${s.split(/(\s+)/).map(w=>/\s+/.test(w)?w:`<span class="w">${w}</span>`).join('')}</span></div>`).join('')}</div>
+ <div class="cap" id="xpCap" aria-live="polite">${canSpeak()?'Press play to hear the walkthrough.':'Your browser has no speech voice, so the walkthrough plays as captions.'}</div>
+ <div class="ctl"><button class="btn sm" type="button" data-x="play" id="xpPlay">▶ Play</button><button class="btn ghost sm" type="button" data-x="prev" aria-label="Previous step">⏮</button><button class="btn ghost sm" type="button" data-x="next" aria-label="Next step">⏭</button><div class="prog"><i id="xpProg" style="width:0"></i></div>
+ <label class="muted" style="font-size:13px">Speed <select data-x="rate">${[.75,.9,1,1.15,1.3,1.5].map(r=>`<option value="${r}" ${r==VO.rate?'selected':''}>${r}×</option>`).join('')}</select></label>
+ ${vs.length>1?`<label class="muted" style="font-size:13px">Voice <select data-x="voice">${vs.map(v=>`<option value="${esc(v.name)}" ${v.name===VO.voice?'selected':''}>${esc(v.name.replace(/Microsoft |Google /,''))}</option>`).join('')}</select></label>`:''}
+ <button class="btn ghost sm" type="button" data-x="mute">${VO.on?'🔊 Voice on':'🔇 Captions only'}</button></div></div>`;
+ document.body.appendChild(o);XP={o,script,pos:0,playing:false,timer:null,tok:0};
+ o.addEventListener('click',e=>{if(e.target===o)return closeExplain();const b=e.target.closest('[data-x]');if(!b)return;const x=b.dataset.x;
+  if(x==='close')closeExplain();else if(x==='play')XP.playing?xpPause():xpPlay();else if(x==='prev'){xpGo(Math.max(0,XP.pos-1),XP.playing)}else if(x==='next'){xpGo(Math.min(XP.script.length-1,XP.pos+1),XP.playing)}else if(x==='mute'){VO.on=!VO.on;voSave();b.textContent=VO.on?'🔊 Voice on':'🔇 Captions only';if(XP.playing)xpGo(XP.pos,true)}});
+ o.addEventListener('change',e=>{const x=e.target.dataset.x;if(x==='rate'){VO.rate=+e.target.value;voSave();if(XP.playing)xpGo(XP.pos,true)}if(x==='voice'){VO.voice=e.target.value;voSave();if(XP.playing)xpGo(XP.pos,true)}});
+ o.querySelector('#xpPlay').focus();xpShow(0);if(VO.auto!==false)xpPlay()}
+function xpShow(k){if(!XP)return;XP.pos=k;const sc=XP.script[k];const sts=[...XP.o.querySelectorAll('.stp')];sts.forEach((el,i)=>{const idx=sc.k==='intro'?-1:sc.k;el.classList.toggle('now',i===idx);el.classList.toggle('seen',i<idx||(i===idx))});
+ const cur=XP.o.querySelector('.stp.now');if(cur)cur.scrollIntoView({block:'nearest',behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'});
+ XP.o.querySelector('#xpCap').textContent=sc.k==='intro'?'Reading the problem…':XP.o.querySelectorAll('.stp')[sc.k].querySelector('.t').textContent;XP.o.querySelector('#xpProg').style.width=Math.round(k/(XP.script.length-1)*100)+'%'}
+function xpSpeak(k){const tok=++XP.tok;const sc=XP.script[k];const done=()=>{if(!XP||tok!==XP.tok||!XP.playing)return;if(k+1<XP.script.length){XP.timer=setTimeout(()=>{if(XP&&tok===XP.tok&&XP.playing)xpGo(k+1,true)},550)}else{XP.playing=false;XP.o.querySelector('#xpPlay').textContent='↺ Replay';XP.o.querySelector('#xpCap').textContent='That is the whole solution. Try a similar problem next.'}};
+ if(VO.on&&canSpeak()){const u=new SpeechSynthesisUtterance(sc.say);u.rate=VO.rate;u.lang='en-US';const v=voVoices().find(v=>v.name===VO.voice);if(v)u.voice=v;
+  const words=sc.k==='intro'?[]:[...XP.o.querySelectorAll('.stp')[sc.k].querySelectorAll('.w')];let wi=0;u.onboundary=e=>{if(e.name&&e.name!=='word')return;if(words[wi]){words.forEach(w=>w.classList.remove('lit'));words[wi].classList.add('lit');wi++}};
+  let started=false,fell=false;const fallback=()=>{if(fell||!XP||tok!==XP.tok)return;fell=true;XP.timer=setTimeout(done,Math.min(12000,1200+sc.say.length*55/VO.rate))};u.onstart=()=>{started=true};u.onend=()=>{words.forEach(w=>w.classList.remove('lit'));if(!fell){fell=true;done()}};u.onerror=fallback;speechSynthesis.speak(u);setTimeout(()=>{if(!started){try{speechSynthesis.cancel()}catch(e){}fallback()}},2500)}
+ else XP.timer=setTimeout(done,Math.min(12000,1500+sc.say.length*60/VO.rate))}
+function xpGo(k,play){if(!XP)return;clearTimeout(XP.timer);XP.tok++;if(canSpeak())speechSynthesis.cancel();xpShow(k);if(play){XP.playing=true;XP.o.querySelector('#xpPlay').textContent='⏸ Pause';xpSpeak(k)}}
+function xpPlay(){if(!XP)return;if(XP.pos>=XP.script.length-1&&!XP.playing&&XP.o.querySelector('#xpPlay').textContent.includes('Replay'))XP.pos=0;xpGo(XP.pos,true)}
+function xpPause(){if(!XP)return;XP.playing=false;clearTimeout(XP.timer);XP.tok++;if(canSpeak())speechSynthesis.cancel();XP.o.querySelector('#xpPlay').textContent='▶ Play'}
+function closeExplain(){if(!XP)return;clearTimeout(XP.timer);XP.tok++;if(canSpeak())speechSynthesis.cancel();XP.o.remove();XP=null}
+/* every solution gets the button */
+const EXPL={};let EXN=0;
+const _stepsVO=stepsHTML;stepsHTML=function(it){const id='ex'+(++EXN);EXPL[id]=it;const keys=Object.keys(EXPL);if(keys.length>400)delete EXPL[keys[0]];
+ return`<div class="row" style="margin:2px 0"><button class="btn sm xpBtn" type="button" data-explain="${id}">▶ Explain it (voiceover)</button></div>`+String(_stepsVO.apply(this,arguments)).replace(/<ol class="steps2/g,'<ol data-xp="1" class="steps2')};
+document.addEventListener('click',e=>{const b=e.target.closest('[data-explain]');if(!b)return;e.preventDefault();explainItem(EXPL[b.dataset.explain])});
+if(canSpeak()&&speechSynthesis.onvoiceschanged!==undefined)speechSynthesis.onvoiceschanged=()=>{};
+/* catch every other solution list (lesson worked examples, mock reviews) and attach the same player */
+let STEPMAP=null;const normT=s=>String(s).replace(/<[^>]+>/g,'').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&').replace(/\s+/g,' ').trim();
+function stepMap(){if(STEPMAP)return STEPMAP;STEPMAP=new Map();(typeof AB!=='undefined'?AB:[]).forEach(p=>{if(p.s&&p.s[0])STEPMAP.set(normT(p.s[0]),()=>({prompt:p.q,steps:p.s,skill:(UBY[p.u]?UBY[p.u].n.split(':')[0]:'AMC'),parts:[{choices:p.c.map((x,i)=>`(${'ABCDE'[i]}) ${x}`)}]}))});
+ (typeof BP!=='undefined'?BP:[]).forEach(p=>{if(p.s&&p.s[0])STEPMAP.set(normT(p.s[0]),()=>({prompt:p.q,steps:p.s,skill:'BMT · '+(BMT_TOP[p.t]||''),parts:[]}))});return STEPMAP}
+function attachExplain(root){(root||document).querySelectorAll('ol.steps2:not([data-xp])').forEach(ol=>{ol.dataset.xp='1';const prev=ol.previousElementSibling;if(prev&&prev.querySelector&&prev.querySelector('[data-explain]'))return;
+ const li=ol.querySelector('li');if(!li)return;const mk=stepMap().get(normT(li.innerHTML));if(!mk)return;const id='ex'+(++EXN);EXPL[id]=mk();ol.insertAdjacentHTML('beforebegin',`<div class="row" style="margin:4px 0"><button class="btn sm xpBtn" type="button" data-explain="${id}">▶ Explain it (voiceover)</button></div>`)})}
+new MutationObserver(()=>attachExplain(UI)).observe(UI,{childList:true,subtree:true});
+document.addEventListener('keydown',e=>{if(!XP)return;if(e.key==='Tab')return;e.stopImmediatePropagation();if(e.key==='Escape')closeExplain();else if(e.key===' '&&!(e.target.tagName==='SELECT'||e.target.tagName==='BUTTON')){e.preventDefault();XP.playing?xpPause():xpPlay()}else if(e.key==='ArrowRight')xpGo(Math.min(XP.script.length-1,XP.pos+1),XP.playing);else if(e.key==='ArrowLeft')xpGo(Math.max(0,XP.pos-1),XP.playing)},true);
+
 if(EMBED){$('#bBack').hidden=false;$('#bBack').onclick=()=>mpPost('mp-close')}
 init3D();$('#hudHeat').textContent=G.heat;if(/[?&]view=prep/.test(location.search)){G.seenIntro=true;save();prepHome()}else title();
 </script>
