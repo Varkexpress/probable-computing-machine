@@ -1,4 +1,4 @@
-<title>Mirror Protocol</title>
+<title>AMC &amp; BMT Trainer</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -137,7 +137,7 @@ table.sc td,table.sc th{border-bottom:1px solid var(--line);padding:5px 10px;tex
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 'use strict';
-const EMBED=window.parent!==window;
+const EMBED=/[?&]embed=1/.test(location.search);
 /* =========================================================
    Mirror Protocol — Big Ideas Geometry, Chapter 4: Transformations
    ========================================================= */
@@ -4481,6 +4481,51 @@ function progressView(){reportView();if(TRAINER)document.querySelectorAll('[data
  const rows=Object.keys(BMT_TOP).map(t=>{const [r,tt]=BM.ua[t]||[0,0];const cnt=BP.filter(p=>p.t===t).length;const sv=BP.filter((p,i)=>p.t===t&&BM.solved[i]).length;return`<div class="step" style="flex-direction:column;align-items:stretch"><span style="display:flex;justify-content:space-between;gap:8px"><b>${BMT_TOP[t]}</b><span class="muted">${BM.best[t]!==undefined?'best focus test '+BM.best[t]+'/10':''}</span></span><span class="muted" style="font-size:13px">solved ${sv}/${cnt}${tt?` · accuracy ${Math.round(r/tt*100)}% (${tt})`:''}</span><div class="meter" style="margin:2px 0"><i style="width:${Math.round(sv/cnt*100)}%"></i></div></div>`}).join('');
  bk.parentElement.insertAdjacentHTML('beforebegin',`<h3>BMT 2026</h3><p class="muted">Best General ${BM.best.gen!==undefined?BM.best.gen+'/25':'—'} · best Guts ${BM.gutsBest||0}/420 · Power best ${Object.values(BM.power||{}).reduce((a,b)=>a+b,0)} points · ${BM.miss.length} in your mistake review</p><div class="col">${rows}</div>`);
  const h=UI.querySelector('h2');if(h)h.insertAdjacentHTML('beforebegin','<div class="eyebrow">AMC and BMT progress</div>');bk.textContent='Home';bk.onclick=trainerHome}
+
+/* ===================== TRAINER: clear chunks with sub-tabs on the AMC and BMT pages ===================== */
+if(TRAINER){
+ (function(){const st=document.createElement('style');st.textContent=`
+.seg{display:flex;gap:4px;background:var(--ink);border:1px solid var(--line);border-radius:8px;padding:4px;flex-wrap:wrap;position:sticky;top:-22px;z-index:2}
+.seg button{all:unset;cursor:pointer;flex:1 1 auto;text-align:center;font:600 14px var(--f-body);color:var(--dim);padding:9px 12px;border-radius:6px;white-space:nowrap}
+.seg button:hover{color:var(--chalk)}.seg button.on{background:var(--slate2);color:var(--chalk);box-shadow:inset 0 -2px 0 var(--tape)}.seg button:focus-visible{outline:2px solid var(--prime)}
+.chunkIntro{color:var(--dim);font-size:14px;margin:0}
+.subj{display:flex;flex-direction:column;gap:8px}.subj h3{margin:6px 0 0}[data-pane][hidden]{display:none!important}`;document.head.appendChild(st)})();
+ /* builds: header (kept), a segmented control, and one visible chunk */
+ function chunkPage(key,chunks,keep){const box=UI;const head=[...box.children].filter(el=>keep(el));const seg=document.createElement('div');seg.className='seg';seg.setAttribute('role','tablist');
+  const panes=chunks.map(([id,name,intro,els])=>{const d=document.createElement('div');d.className='col';d.style.gap='14px';d.dataset.pane=id;if(intro){const p=document.createElement('p');p.className='chunkIntro';p.textContent=intro;d.appendChild(p)}els.filter(Boolean).forEach(e=>d.appendChild(e));return d}).filter(d=>d.children.length>(d.querySelector('.chunkIntro')?1:0));
+  panes.forEach(d=>{const c=chunks.find(x=>x[0]===d.dataset.pane);const b=document.createElement('button');b.type='button';b.textContent=c[1];b.setAttribute('role','tab');b.dataset.seg=c[0];seg.appendChild(b)});
+  const back=[...box.children].filter(el=>el.classList&&el.classList.contains('row')&&el.querySelector('#bk'));
+  box.innerHTML='';head.forEach(e=>box.appendChild(e));box.appendChild(seg);panes.forEach(d=>box.appendChild(d));back.forEach(e=>box.appendChild(e));
+  const show=id=>{if(!panes.some(p=>p.dataset.pane===id))id=panes[0].dataset.pane;GM['seg_'+key]=id;panes.forEach(p=>p.hidden=p.dataset.pane!==id);seg.querySelectorAll('button').forEach(b=>{const on=b.dataset.seg===id;b.classList.toggle('on',on);b.setAttribute('aria-selected',on)})};
+  seg.querySelectorAll('button').forEach(b=>b.onclick=()=>{show(b.dataset.seg);save();UI.scrollTop=0});show(GM['seg_'+key]||panes[0].dataset.pane)}
+ const card=(html)=>{const t=document.createElement('template');t.innerHTML=html.trim();return t.content.firstChild};
+ const grid=els=>{const d=document.createElement('div');d.className='cards';els.filter(Boolean).forEach(e=>d.appendChild(e));return d.children.length?d:null};
+ const h3=t=>{const e=document.createElement('h3');e.textContent=t;return e};
+ /* AMC page */
+ const _amcC=amcHome;amcHome=function(){_amcC.apply(this,arguments);const $id=id=>document.getElementById(id);const unit=u=>UI.querySelector(`[data-m="r_${u}"]`);
+  const subj=[['Start here',['S0']],['Algebra',['A1','A2','A3','A4','A5']],['Number theory',['N1','N2']],['Counting & probability',['C1','P1','C2']],['Geometry',['G1','G2','G3','G4']],['Trig, complex & strategy',['T1','S1']]];
+  const learn=[];subj.forEach(([n,us])=>{const g=grid(us.map(unit));if(g){learn.push(h3(n));learn.push(g)}});
+  ['mArena','mCases','mBMT'].forEach(id=>{const e=$id(id);if(e)e.remove()});
+  const rec=$id('mRec');
+  chunkPage('amc',[
+   ['learn','Learn','Lessons by subject. Each has the key facts, worked problems from warm-up to hard, and its own drill. Stars show how much of the unit you have solved.',learn],
+   ['practice','Practice','Short sessions with instant feedback and full solutions.',[rec?grid([rec]):null,grid([$id('mDaily'),$id('mSpeed'),$id('mHard'),$id('mMiss')])]],
+   ['tests','Mock tests','Full 25-problem tests on a 75-minute clock, scored 6 / 1.5 / 0 like the real AMC.',[grid([$id('m10'),$id('m12'),$id('mTwin'),$id('mPast')])]],
+   ['ref','Reference','Look things up: theorems, formulas, 3D models and your progress.',[grid([$id('mHB'),$id('mSheet'),$id('mVL'),$id('mReport')])]]
+  ],el=>el.matches&&(el.matches('.eyebrow')||el.matches('h2')||(el.tagName==='P'&&!el.closest('.cards'))));const bk=document.getElementById('bk');if(bk){bk.textContent='Home';bk.onclick=trainerHome}};
+ /* BMT page */
+ const _bmtC=bmtHome;bmtHome=function(){_bmtC.apply(this,arguments);const $id=id=>document.getElementById(id);const all=s=>[...UI.querySelectorAll(s)];
+  const tbRow=$id('tbRow');const prog=[...UI.children].find(el=>el.classList&&el.classList.contains('col')&&!el.querySelector('.card'));
+  chunkPage('bmt',[
+   ['prep','Prepare','Know the format and what 2026 will probably ask before you drill.',[grid([$id('bGuide'),$id('bFc'),$id('bTk'),$id('bCalc'),$id('bLog')])]],
+   ['practice','Practice','Untimed, short answer, instant feedback and hints. Unsolved problems come first.',[grid([...all('[data-bp]'),$id('bMix'),$id('bYr'),$id('bMiss')]),prog?h3('Your accuracy'):null,prog]],
+   ['indiv','Individual tests','Take the General test or two Focus tests on contest day. Focus tests follow the 2026 slot forecast.',[grid([...all('[data-bf]'),$id('bGen'),$id('bTb')]),tbRow]],
+   ['team','Team rounds','Guts (9 sets of 3, estimation in set 9) and Power round proofs.',[grid([$id('bGuts'),$id('bEst'),$id('bPow')])]]
+  ],el=>el.matches&&(el.matches('.eyebrow')||el.matches('h2')||(el.tagName==='P'&&!el.closest('.cards')&&!el.matches('.muted'))));
+  const bAMC=$id('bAMC');if(bAMC)bAMC.remove()};
+ /* Arena gets the story campaign */
+ const _arC=arenaView;arenaView=function(){_arC.apply(this,arguments);const m=document.getElementById('gmSurv');if(m&&!document.getElementById('gmCases')){m.insertAdjacentHTML('beforebegin',`<button class="card" type="button" id="gmCases"><span class="num">🗂</span><span class="nm"><b>Case files</b><span>Story campaign: 9 cases, 4 problems each.</span></span><span class="chip go">Play</span></button>`);document.getElementById('gmCases').onclick=casesView}};
+}
 
 if(EMBED){$('#bBack').hidden=false;$('#bBack').onclick=()=>mpPost('mp-close')}
 init3D();$('#hudHeat').textContent=G.heat;if(/[?&]view=prep/.test(location.search)){G.seenIntro=true;save();prepHome()}else title();
