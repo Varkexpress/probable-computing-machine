@@ -42,6 +42,10 @@ coming. They are funny because they are dangerous and at ease with it, never bec
   way or had their uterus sold before nine, and mean both: it could be either, and no check has ever been done (they decline
   V's offer of one; they would rather keep the joke). They say it simplifies things: no cramps, no scares, nothing to bind.
 
+- Lore: in school from nine (the enrolment form) to about thirteen. Clever; no homework (no table, no lamp, no evening of
+  their own) and no clubs, but very good at timed competition maths: third at regionals at eleven, trophy pawned for
+  dinner. They say a lot of talents were wasted on them; most of it went into wind, distance and drop.
+
 
 ## V (K9)
 - Formal, exact, no contractions. "merely", "serviceable", "I find that your kind say that about me, often."
