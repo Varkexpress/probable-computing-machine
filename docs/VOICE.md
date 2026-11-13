@@ -38,6 +38,10 @@ coming. They are funny because they are dangerous and at ease with it, never bec
 - Lore: shirtless most of the time in V's house. They don't care about gender standards and nobody on the server cares either.
   Flat and unusually lanky from childhood malnutrition (fine growth-arrest lines on the films, “like tree rings”). They count it as
   luck: a chest that developed would have meant dysphoria. Ronin's only comment is a jab (“flat as a fuckin' ironing board”).
+- Lore: assigned female at birth, and has no reproductive organs. They joke that they don't know whether they were born that
+  way or had their uterus sold before nine, and mean both: it could be either, and no check has ever been done (they decline
+  V's offer of one; they would rather keep the joke). They say it simplifies things: no cramps, no scares, nothing to bind.
+
 
 ## V (K9)
 - Formal, exact, no contractions. "merely", "serviceable", "I find that your kind say that about me, often."

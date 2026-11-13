@@ -662,4 +662,16 @@ Misaki is shirtless most of the time in V's house (no regard for gender standard
 - Two server chat lines.
 
 ## The birdcage dream (kc39)
-Morning event `dream_cage` (Misaki's POV, day 4+, tier ≥ 1, not while taken or in the infirmary): a white birdcage the size of a cathedral hung in stars, with her keepsakes in glass and crystal on the floor (receipt, star clip, cactus, four hounds, a coat; each can be picked up). She touches a bar; it shatters to nothing; she falls; she lands on a giant snake with green eyes. Three endings: sit on the coil, hand on its head, ask what it is (`S.f.dreamCage`). Drawn on the canvas in four stages (`dcDraw`). V's POV: `dream_cage_v`, she tells it at breakfast and he writes it on the page of things she has said. The snake is left unexplained on purpose.
+Compacted at the author's request to one morning event, `dream_cage` (Misaki's POV): three lines of narration and one thought. No V version, no drawing.
+
+## What she is made of, and darker days (kc40)
+- **Lore** (also in `docs/VOICE.md`): Misaki was assigned female at birth and has no reproductive organs. They joke that they don't know whether they were born that way or had their uterus sold, and both are genuinely possible to them; no check has ever been done. They say it simplifies things.
+  - `lore_sold` (Sunday brunch at Angel's, both POVs): the joke. V is the only one who doesn't laugh.
+  - `lore_scan`: V offers the hounds' ultrasound machine, four minutes. She declines ("either boring or a crime; right now it's a joke"). `S.f.loreScan`.
+  - Topic `lore_simple` (Misaki raises it with V): "the hands are the only bit of me that's ever been worth anything, and they're mine."
+- **Darker scenes** (no new characters; victims are unnamed):
+  - `dk_prices` (Misaki): she quotes a begging man his organ prices without knowing where she learned them.
+  - `dk_table`: Sunday at V's table; she takes a shoulder off at the joint first try, and the hounds wait by the drain.
+  - `dk_tally`: the four keep score on a whiteboard in the kennel room.
+  - `dk_stream`: a man tied to a chair, out of focus, behind Maria's makeup tutorial; the comments think it's a mannequin.
+  - `dk_ledger` (V, after `lore_scan` or the chapter-one question): an intake book from twenty years ago with a line "F, approx. 7, 19.2 kg, no name. Partial." Keep it from her, show her, or burn it (`S.f.dkLedger`). It is never confirmed to be her.
