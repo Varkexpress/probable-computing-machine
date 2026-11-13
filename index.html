@@ -14628,6 +14628,26 @@ wkEv('dk_a_wrong',()=>frT('a')>=2&&S.day>=8,done=>{const m=S.pov!=='v';say([
 const _xeWK=extraEnding;extraEnding=function(){const L=_xeWK();if(!S||!S.seen)return L;
  if(S.seen.lore_maths)L.push('She still does the hard puzzle in the back of V’s paper, upside down, before he has finished his coffee. Third at regionals, at eleven. The trophy got her three dinners.');
  return L};
+
+/* ===================== THE ARCHITECT (kc43) =====================
+   Late game: V points out that Misaki designed a large part of his house, its security included (the wings they add),
+   and could be an architect or an engineer. Misaki laughs: no degree, no schooling. Counts the wings built (S.wing). */
+const wingN=()=>Object.keys((S&&S.wing)||{}).filter(k=>S.wing[k]).length;
+EVENTS.push({id:'lore_architect',when:()=>{try{return !isLone()&&!S.dark&&['act2','act3','epilogue'].includes(S.phase)&&tier()>=2&&(wingN()>=1||S.f.movedIn)}catch(e){return false}},run:done=>{const m=S.pov!=='v',n=wingN();
+ say([['','V has the house plans spread out on the kitchen island: the originals, in blue, and on top of them sheet after sheet in pencil, in Misaki’s handwriting.'],
+  ['',n?`${n===1?'One wing':n+' wings'} of this house ${n===1?'is':'are'} hers, drawn on the back of takeaway menus, measured in her own paces. So is most of the security: the false walls, the sightlines from the stairs, which doors lock from which side, where a man coming in the front would end up if he kept going. She drew it at the island at two in the morning, eating cereal, and V had it built.`:'Half the security in this house is hers: the false walls, the sightlines from the stairs, which doors lock from which side, where a man coming in the front would end up if he kept going. She drew it at the island at two in the morning, eating cereal, and he had it built.'],
+  ['K9','The engineer I hired to check your drawings asked where you trained. I did not know what to tell him.'],
+  ['K9','You could be an architect. Or an engineer. A real one, with an office. I do not say that to flatter you. I have paid both, and they were worse.']],()=>ask(m?'hitmeuppp':'K9',m?'(He means it.)':'(She is looking at her own drawings as if somebody else made them.)',[
+   {t:m?'Laugh.':'Wait.',fn:()=>{apply({aff:3});say([['hitmeuppp',MV('lol. no degree.','LMAO. with what degree. i don’t even have a diploma.','With what degree? I left school at thirteen. I don’t have a single certificate.','With what degree? I don’t have one. I don’t have a school-leaving anything. I have a regional maths trophy I pawned at eleven and your floor plans on the back of a pizza menu. Nobody’s hiring that.')],
+     ['K9','I did.'],
+     ['hitmeuppp',MV('...ok that’s different.','ok but ur not a normal client.','You’re not a normal client.','You’re not a normal client, V. You’re a man who needed a room nobody could get out of and another room nobody could get into, and you asked a contract killer, and she was good at it. That’s not a career. That’s a very specific friendship.')]],done)}},
+   {t:m?'“what would i even build.”':'“What would you build, if you could build anything?”',fn:()=>{apply({aff:4});say([['hitmeuppp',MV('idk. a house w no doors.','idk. a house where every room has two ways out.','I don’t know. A house where every room has two ways out.','I don’t know. Houses where every room has two ways out, and none of the windows face a street, and nobody can stand behind you in any of them. I’d be very popular with a very small group of people.')],
+     ['K9','You have built one.'],['','She looks round the kitchen. Two doors. No window on the street side. The island where nobody can get behind her. She laughs, and stops, and looks again.']],done)}}]))}});
+TDTOP_M.push({id:'lore_draw',label:()=>'“Draw me another room.”',show:()=>!S.dark&&tier()>=2&&S.seen&&S.seen.lore_architect&&!(S.talks&&S.talks.lore_draw),run:b=>{S.talks=S.talks||{};S.talks.lore_draw=1;warm('m','lore_draw',3);say([
+ ['K9','Draw me another room. Anything you like. I will build it.'],
+ ['hitmeuppp',MV('k. gimme a menu.','ok. give me a menu, i only draw on menus.','All right. Give me a takeaway menu, I only work on menus.','Okay, give me a menu, it has to be a menu, I can’t draw on proper paper, it gets nervous. What’s it for?')],
+ ['K9','Nothing. A room for nothing.'],
+ ['','She draws for an hour. It is a small round room with one door that locks from the inside and no other way in at all, and a skylight, and a place for four hounds to lie. She labels it, in capitals: “NOT A CELL.” He has it built by the spring.']],b)}});
 /* ===UI2-END=== */
 requestAnimationFrame(frame);splash();
 

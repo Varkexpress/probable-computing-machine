@@ -23,7 +23,7 @@ if B2 in h:
 ui2='\n'.join([rd('ui2.js'),rd('td6.js'),rd('td7.js'),rd('td8.js')])
 ui2+='\nconst TD_DEEPROOMS='+rd('deep_rooms.json').strip()+';\n'+rd('td9.js')
 ui2+='\nconst TD_CITYROOMS='+rd('city_rooms.json').strip()+';\n'+'\n'.join(rd(f) for f in ['td10.js','td12.js','td11.js','td13.js','td14.js','td15.js','td16.js','td17.js','td18.js','td19.js','td20.js','td21.js','td22.js','td23.js','td24.js','td25.js','td26.js','td27.js','td28.js','td29.js']
- +['kc%d.js'%n for n in range(19,43)])
+ +['kc%d.js'%n for n in range(19,44)])
 h=h.replace(anchor,B+'\n'+body+E+'\n'+B2+'\n'+ui2+E2+'\n'+anchor)
 open(idx,'w',encoding='utf-8').write(h)
 s=h[h.index('<script>\n"use strict";')+8:h.rindex('</script>')]
