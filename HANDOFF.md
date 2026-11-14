@@ -689,3 +689,12 @@ Evening option "Do nothing (everyone)" (once a night, needs both friends at tier
 
 ## The architect (kc43)
 `lore_architect` (Act II, Act III or epilogue; tier ≥ 2; she has moved in or designed a wing): V has the house plans out, with her pencil sheets on top. She drew part of the house and most of its security (false walls, sightlines, which doors lock from which side); the wing count comes from `S.wing`. He says she could be an architect or an engineer. She laughs: no degree, no school-leaving anything. Branches: "I did" (hire her), or "what would you build" (a house where every room has two ways out, which she realises she already built). Topic `lore_draw` (V asks afterwards): she draws a room for nothing, labelled "NOT A CELL", and he builds it.
+
+## Love, and not caring (kc44)
+Romance lore per route; love among the four looks like the rest of their lives, devoted to each other and indifferent to everything else.
+- Misaki + Ronin (`S.rom==='r'`): `rom_r_ring` (he gives her the first of his nine skull rings, the first name inside it, for her thumb), `rom_r_cemetery` (dates in graveyards).
+- Misaki + Angel (`S.rom==='a'`): `rom_a_channel` (a private channel with one subscriber: her), `rom_a_rule` (the rule doesn't apply to anyone who touches Misaki).
+- V + Angel (`S.vrom==='a'`): `rom_va_file` (his file on her is now only her quotes).
+- V + Ronin (`S.vrom==='r'`): `rom_vr_pew` (V goes to the back pew with him every Sunday), `rom_vr_crowbar` (V cleans his crowbar on Sunday nights).
+- V + Misaki married (`S.f.married`): `rom_vm_married`. Not a couple and no other romance: `rom_vm_package` ("a set, like a knife and a fork").
+- Apathy notes: `ap_note`, a repeating morning line (six, in order; curfew, charity, "monster", the pharmacy queue, the end of the world, the river being dragged). Ending lines for the ring, the channel and the pew.
