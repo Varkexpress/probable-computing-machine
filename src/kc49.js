@@ -51,7 +51,7 @@ if(typeof KD_ORDER!=='undefined'){const i=KD_ORDER.indexOf('kd_count');KD_ORDER.
 const _xeKD49=extraEnding;extraEnding=function(){const L=_xeKD49();if(!S||!S.f||!S.f.kdDelivered)return L;
  L.push('There is a rifle on Angel’s wall engraved “lighting was always good.” It has never been fired. Every morning V tells each of the hounds that she is good, by colour, out loud, and has never missed a day.');return L};
 /* ---------- the worst stay: severity 8+ never clears until the day she walks out ---------- */
-const kdWorstOf=()=>{const m=S&&S.kd&&S.kd.med;return !!(m&&(m.sev||0)>=8)};
+let kdWorstOf=()=>{const m=S&&S.kd&&S.kd.med;return !!(m&&(m.sev||0)>=8)};
 const _mmKD49b=kdMedMorning;kdMedMorning=function(done){const before=S.kd&&S.kd.med;_mmKD49b(done);const m=S.kd&&S.kd.med;if(m&&kdWorstOf()&&m.clar>1){m.clar=1;save()}};
 const _hubKD49=hub;hub=function(){try{const m=S&&S.kd&&S.kd.med;if(m&&kdWorstOf()&&m.clar>1){m.clar=1;save()}}catch(e){}return _hubKD49.apply(this,arguments)};
 const _condKD49=kdCond;kdCond=function(){const m=S&&S.kd&&S.kd.med;if(m&&kdWorstOf())return 4;return _condKD49()};

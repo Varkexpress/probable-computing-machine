@@ -30,7 +30,7 @@ for(const pov of ['m','v'])for(const pick of [0,1,2]){await load(pov==='v'?1:0);
  let st=await ev(()=>({med:S.kd.med,room:S.room,post:kdPost(),end:S.endDay-S.day}));ok(st.med&&!st.post&&(pov==='v'||st.room==='medbay'),'med start '+pov+JSON.stringify(st));
  if(pov==='m'){for(const cl of [0,3]){const labs=await ev(cl=>{S.kd.med.clar=cl;S.kd.med.d=1;return ROOMS.medbay.spots.filter(s=>s.show()).map(s=>s.label)},cl);
    for(const lab of labs){if(lab==='Cot'||lab==='Bed'||lab==='Your phone')continue;if(lab==='Treatment trolley'){for(let n=0;n<5;n++){await ev(()=>{S.kd.med.clar=3;S.done.kdRxN=0;ROOMS.medbay.spots.find(s=>s.label==='Treatment trolley').act()});await p.waitForTimeout(30);await ev(n=>{const o=ctrl&&ctrl.box?[...ctrl.box.querySelectorAll('.opt:not(.dis)')]:[];if(o.length)o[0].click()},n);for(let i=0;i<6;i++){await drain(pick);await p.waitForTimeout(40)}}ok(await ev(()=>!dlg&&S.room==='medbay'&&S.kd.rx&&S.kd.rx.heal>=1),'trolley pick'+pick);continue}await ev(([lab,cl])=>{S.kd.med.clar=cl;S.done={};ROOMS.medbay.spots.find(s=>s.label===lab&&s.show()).act()},[lab,cl]);await p.waitForTimeout(30);
-    if(lab==='Door'&&pick===1){await ev(()=>{const o=[...ctrl.box.querySelectorAll('.opt')];o[0].click()})}
+    if(lab==='Door'&&pick===1){await ev(()=>{for(let i=0;i<50&&dlg;i++)adv();if(ctrl&&ctrl.box){const o=[...ctrl.box.querySelectorAll('.opt')];o[0].click()}})}
     for(let i=0;i<5;i++){await drain(lab==='Door'?(pick===1?0:2):pick);await p.waitForTimeout(30)}
     ok(await ev(()=>!dlg&&S.room==='medbay'),'spot '+lab+' cl'+cl+' pick'+pick)}
    if(!pick)console.log('med labels clar',cl,labs.join(' | '))}
