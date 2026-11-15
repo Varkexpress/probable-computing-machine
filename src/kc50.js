@@ -59,10 +59,11 @@ function kdSpiral(){S.f.kdSpiral=1;save();const full=typeof kdSA!=='function'||k
   ['','It is too late for your voice to work. It is not too late for you to know. That is the last thing they took, and they didn’t even have to be there for it.']],()=>{go(cutBg('#000'));cut([
   ['','The tall one stops reading at four, because the breathing on the other side of the door has changed, and he knows that breathing better than his own.'],
   ['','He is through the door before the book hits the floor. He has the bag. He has the light. He is fast, and he is very good, and he is too late by minutes, not hours.'],
+  ...(typeof kdShapeLines==='function'?kdShapeLines():[]),
   ['','She is looking at the door. Her face is not afraid. It is the face she makes when she has worked something out a second too late, on a roof, when the wind has changed. He has seen it a hundred times. He knows exactly what it means.'],
   ['','The grey hound lies down across the threshold and will not move for anyone for two days.'],
   ['','The funeral is small. Angel does the eyeliner one last time, and her hands shake the whole way through, and she does not stop until it is perfect. Ronin stands at the back with his crowbar and does not sing.'],
-  ['','Under the mattress, V finds a paper cup, washed, and a soup label with one word on it in biro, written very small, the last thing she wrote: “V?”'],
+  ...(S.kd&&S.kd.med&&S.kd.med.br3?[['','Later, under the mattress, he finds one more soup label, one word on it in biro, very small, written after everything else: “V?”']]:[['','Under the mattress, V finds a paper cup, washed, and a soup label with one word on it in biro, written very small, the last thing she wrote: “V?”']]),
   ['K9','(She knew. At the end, she knew where she was. She was in my house the whole time.)']],()=>{S.kd.med=null;S.f.lateRoute='self';save();startLone('v')},'#000')},'#000')},'#000')}
 /* the secret: she had started to work it out, and she had said goodbye to him by name. He is listening when it matters. */
 function kdInterrupted(){const m=S.kd.med;S.f.kdInterrupted=1;save();go(cutBg('#000'));cut([
