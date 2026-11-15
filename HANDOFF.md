@@ -698,3 +698,11 @@ Romance lore per route; love among the four looks like the rest of their lives, 
 - V + Ronin (`S.vrom==='r'`): `rom_vr_pew` (V goes to the back pew with him every Sunday), `rom_vr_crowbar` (V cleans his crowbar on Sunday nights).
 - V + Misaki married (`S.f.married`): `rom_vm_married`. Not a couple and no other romance: `rom_vm_package` ("a set, like a knife and a fork").
 - Apathy notes: `ap_note`, a repeating morning line (six, in order; curfew, charity, "monster", the pharmacy queue, the end of the world, the river being dragged). Ending lines for the ring, the channel and the pew.
+
+## More of their week (kc45)
+- V: `dk_v_dawn` (he weighs and feeds the hounds at five and talks to them more gently than he has ever spoken to a person; hounds +4), `dk_v_self` (his own January file: "Subject has no reason to stop." / "Subject no longer looks for one."), `dk_v_thread` (the same needle and thread for a hound's paw and then the man on the trolley).
+- Misaki: `dk_m_bench` (after the five-year date: if she'd died on schedule nobody would have noticed; now three people would, and the city would throw a party), `dk_m_hands` (she and Angel hold their hands out over the table; neither shakes).
+- The four: `rel_alibi` (Sunday dinner builds the week's alibis like the school run; heat −6), `rel_vote` (an election promising to catch them; Misaki doesn't exist enough to vote).
+- Activity "Sunday at the table" (side menu, every five days, tier ≥ 1): `kdTurn` minigame at the joints with V or Misaki; feeds the hounds (+5/+10), edge or aff.
+- Threads: `tx_mw_door` (V to Misaki at 3am: the hounds are facing the front door), `tx_mw_grave` (Ronin found a headstone with her name on it), `tx_mw_format` (Angel reformatted V's ledger; green means fed to the hounds).
+- Four more apathy notes (pushed onto `AP_NOTES`) and two ending lines.
