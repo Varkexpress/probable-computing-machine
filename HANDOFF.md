@@ -764,3 +764,14 @@ Whenever her clarity returns, the cell drawing cracks out from the centre and fa
 - **caught** (the secret interrupted route): it breaks in the middle of his words, and underneath is his face, wet, which she has never seen.
 - **late** (the spiral): the same break, drawn dark, after everything is decided: "You can see exactly where you are. There is nothing left you can do with it."
 - `kd_shards` after any stay of severity 4+: the pieces that don't go; the bulb, the boiler, V on the stairs in the dark; he starts saying her name before he comes round the corner, every time. `S.kd.sev0` records the stay's severity at discharge.
+
+## Getting better (kc54): the recovery as tragedy
+The point of the arc is that even the rehabilitation is a tragedy. Every milestone is reached and is not what it was meant to be; the better she seems, the more alone she is with what didn't come back. Scenes run in the aftermath order before `kd_cast` (both settings, both POVs unless noted):
+- `kd_reh_fist`: the full fist after six weeks of physio, and nothing in the world she wants to pick up with it. V: "I had thought that she would come back with it."
+- `kd_reh_dark`: practising the light off like a training log, four minutes, then back to thirty seconds.
+- `kd_reh_rifle` (Misaki): thirty-eight out of forty, better than almost anyone alive; she used to be forty. Edge −3.
+- `kd_reh_adapt`: everyone has learned ("jacket", Ronin knocking, her name on the stairs); every kindness tells her what happened.
+- `kd_reh_perform`: she gets so good at seeming better that they stop worrying, and she is on her own with it.
+- `kd_reh_laugh`: the first laugh at the priest joke, done perfectly from memory; she can't remember the end of the joke.
+- `kd_reh_who`: "recovered" on the last page; she looks well, she looks like the girl who got into the van, she isn't her. V writes "Not the same." and crosses it out.
+- Each physio or walking session that makes progress now adds a line about progress not feeling like anything. The ending line for the hand reads: "The hand came back… and she didn't, not all the way, and nobody can tell but V."
