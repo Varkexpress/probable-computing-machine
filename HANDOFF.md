@@ -756,3 +756,11 @@ Applies when the infirmary severity is 8+ and the POV is Misaki (the `fridaycome
 - **Uncanny moments** (evenings, composure under 14): the door handle that comes and goes, the reflection a second late, the forty-second tile.
 - **Fix:** "Call V" at bedtime in the infirmary is disabled while she still thinks she is held ("they took your phone"); it was quietly restoring composure in the worst route.
 - **V alone, more** (continues `KD_AFTER`, eleven scenes now): her grey server name and Angel typing nothing from her account; finishing the list and feeling nothing; "Eat. —V." on her fridge and "I did. —V." under it; the January file he cannot close; the station bench; telling the hounds they are good, every morning. Side-menu option **Sit in the infirmary doorway** (once a day): the made bed, tax history to an empty room, filling in seven down for the first time, telling the room about the hounds.
+
+## The shatter (kc53)
+Whenever her clarity returns, the cell drawing cracks out from the centre and falls away in pieces to show the infirmary underneath (`kdShatterFx(cb, {dark})`, about three seconds, E skips). Then lines for how it came back (`KD_SHATTER_LINES`):
+- **morning** (a normal stay, the first time clarity reaches 2): "the idea of it" breaks like a windscreen; underneath "there was always a room"; she sits on the floor and doesn't cry, and then does.
+- **logic** (reasoning it out, before kc50's deduction scene): bulb → lamp, radio → boiler, cot → ironed bed, the guard's chair → a man with a book; "it was never there".
+- **caught** (the secret interrupted route): it breaks in the middle of his words, and underneath is his face, wet, which she has never seen.
+- **late** (the spiral): the same break, drawn dark, after everything is decided: "You can see exactly where you are. There is nothing left you can do with it."
+- `kd_shards` after any stay of severity 4+: the pieces that don't go; the bulb, the boiler, V on the stairs in the dark; he starts saying her name before he comes round the corner, every time. `S.kd.sev0` records the stay's severity at discharge.
