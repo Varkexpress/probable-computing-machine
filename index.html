@@ -3014,7 +3014,7 @@ function cheatUnlock(){if(META.konami){toast('The grey hound already has her sun
 const KSEQ2=KSEQ.slice();KSEQ.length=0;let kz=[];if(typeof window!=='undefined')addEventListener('keydown',e=>{if(e.target&&/INPUT|TEXTAREA/.test(e.target.tagName))return;kz.push(e.key.toLowerCase());kz=kz.slice(-10);if(kz.join()===KSEQ2.join())cheatUnlock()},true);
 function codeEntry(back){const el=document.createElement('div');el.className='logbox';el.innerHTML='<div class="lh">Enter a code</div><input style="width:100%;font-family:inherit;font-size:22px;background:#16121c;color:#ece4da;border:1px solid #2e2638;padding:6px" placeholder="…" autocapitalize="off" autocomplete="off"><div style="margin-top:8px;display:flex;gap:8px"><button class="ok">Enter</button><button class="cx">Close</button></div><p class="hint">Hint: it’s a very old code. Up, up, down, down…</p>';ui.appendChild(el);
  el.querySelectorAll('button').forEach(b=>b.style.cssText='font-family:inherit;font-size:18px;background:#0d0a12;color:#ece4da;border:1px solid #ece4da;padding:2px 12px;cursor:pointer');const inp=el.querySelector('input');
- const tryIt=()=>{const v=inp.value.toLowerCase().replace(/[^a-z↑↓←→]/g,'');if(['uuddlrlrba','upupdowndownleftrightleftrightba','↑↑↓↓←→←→ba','biscuit'].includes(v)){el.remove();cheatUnlock()}else toast('Nothing happens. The grey hound looks disappointed.')};
+ const tryIt=()=>{const v=inp.value.toLowerCase().replace(/[^a-z↑↓←→]/g,'');if(typeof codeHook==='function'&&codeHook(v)){el.remove();return}if(['uuddlrlrba','upupdowndownleftrightleftrightba','↑↑↓↓←→←→ba','biscuit'].includes(v)){el.remove();cheatUnlock()}else toast('Nothing happens. The grey hound looks disappointed.')};
  el.querySelector('.ok').onclick=tryIt;el.querySelector('.cx').onclick=()=>el.remove();inp.addEventListener('keydown',e=>{if(e.key==='Enter')tryIt()})}
 const _settings2=settings;settings=function(){_settings2();const box=ui.querySelector('.panel .opts');if(box){const b=document.createElement('div');b.className='opt';b.textContent='Enter a code…';b.onclick=()=>codeEntry();box.insertBefore(b,box.lastChild)}};
 const _dog=dog;dog=function(x,y,col,flip,walk){_dog(x,y,col,flip,walk);if(META.konami&&col==='#c98a3a'){const gx=flip?x+16:x;rect(gx,y+4,8,2,'#0a0a0a');rect(gx+1,y+6,2,1,'#0a0a0a');rect(gx+5,y+6,2,1,'#0a0a0a')}};
@@ -13315,7 +13315,7 @@ const kdFlipG=G=>G.map(p=>p.map(([x,y])=>[19-x,y]));
 function kdHoldOn(cb,o){cb=once(cb);if(kdAuto())return cb(kdAuto()>0);o=o||{};let y=50,v=0,t=0,inb=0,band=36;const N=o.len||560;const say3=o.lines||['Count the hounds.','Grey. Old. Black. Pale.','Again. From the grey one.','Don’t listen to the radio. Count.'];
  go({onTap(){},update(){t++;v+=held.act?-.1:.075;v+=Math.sin(t/23)*.03+(Math.random()-.5)*.09;v=Math.max(-1.7,Math.min(1.7,v));y+=v;if(y<0){y=0;v=0}if(y>100){y=100;v=0}
    band=36-16*t/N;if(Math.abs(y-50)<=band/2)inb++;if(t>=N)cb(inb/N>=.55)},
-  draw(){(o.bg||drawInterro)();rect(0,0,W,H,'rgba(0,0,0,.6)');hudBar(o.title||'The chair',o.hint||'hold E to stay level');
+  draw(){(o.bg||drawInterro)();rect(0,0,W,H,'rgba(0,0,0,.6)');rect(0,0,W,14,'#0c0a08');rect(0,156,W,24,'#0c0a08');hudBar(o.title||'The chair',o.hint||'hold E to stay level');
    rect(150,28,20,120,'#1a1612');rect(150,28+(50-band/2)*1.2,20,band*1.2,'#3a5a3a');rect(146,28+y*1.2-1,28,3,'#ece4da');
    bar(110,158,100,4,t/N*100,'#5fd4c4');txt(say3[Math.min(3,Math.floor(t/140))],160,172,'#c9c39a',11,'center')}})}
 /* a timing bar: used for the vent screws and, later, the foam ball */
@@ -14873,6 +14873,32 @@ EVENTS.push({id:'kd_still_relapse',kd:1,when:()=>{try{return (typeof KD_RUN!=='u
    ['','He does not turn the light on, because of what the light would look like. He says, from where he lies, in an ordinary voice: “It is Tuesday. It is my house. The grey one is on your feet.”'],
    ['','The counting stops. After a long time a hand finds his sleeve in the dark and holds it, and stays holding it until morning, and neither of them mentions it at breakfast.']],()=>{calm(-4);apply({aff:2});done()})}});
 if(typeof KD_ORDER!=='undefined'){const i=KD_ORDER.indexOf('kd_blank');KD_ORDER.splice(i<0?KD_ORDER.length:i,0,'kd_still_relapse')}
+
+/* ===================== THE WORST START, AND SMALL SAD THINGS (kc47) =====================
+   Code "thetallone" (Settings → Enter a code, title screen or in a run): a new Misaki run that starts at the
+   abduction under the worst conditions: barely close to V (so no early recognition, and the last-chance route on a
+   second failed escape), composure 20, exhausted, and S.f.kdWorst, which adds 2 to the infirmary severity.
+   Small sad things: one quiet line some mornings after the kidnapping, chosen from what actually happened. */
+function codeHook(v){if(v!=='thetallone')return false;
+ newRun('m');S.day=5;S.slot=3;S.paid=2;S.f.kidnapSet=1;S.aff=12;S.comp=20;S.energy=20;S.edge=10;S.orgs={sato:3};S.fr={a:30,r:30};S.f.kdWorst=1;S.dark=0;S.phase='normal';save();
+ toast('The worst of it. Good luck.');setTimeout(()=>{try{takenM()}catch(e){console.error(e)}},60);return true}
+const _sevKD=kdSev;kdSev=function(){return _sevKD()+(S&&S.f&&S.f.kdWorst?2:0)};
+const SD_NOTES=[
+ [()=>S.f.kdLoops,'A shop plays the bank jingle. Misaki finishes paying, says thank you, and walks out with no change and no shopping, and sits in the truck for a while.'],
+ [()=>S.kd&&S.kd.xd,'There are three scratches on the infirmary wall above the bed. V has had every other wall in the house repainted this year. He has not touched those.'],
+ [()=>S.kd&&S.kd.xd,'V has not used the word “tall” about anything since. Not doors, not trees, not men. He says “high,” and nobody remarks on it.'],
+ [()=>1,'Misaki still eats every meal with her back to a wall. At the kitchen island she has moved her stool round to the end, and the dent it has left in the floor is already permanent.'],
+ [()=>1,'The grey hound slept outside the infirmary door for a week after Misaki left it. Then she started sleeping outside Misaki’s door instead, and has never stopped.'],
+ [()=>S.f.kdLaps||S.f.kdWalk,'Misaki walks every hallway in the house once before bed, the whole length, like laps. V has noticed, and noticed that she counts them, and leaves the lights on along the route.'],
+ [()=>1,'There is a paper cup in Misaki’s trailer, on the shelf, washed. It is the one the water came in, the first morning in the cell. She doesn’t know why she kept it.'],
+ [()=>S.f.kdRelapse,'Some nights V hears counting through the wall, very quiet. He says the day and the place out loud from his own bed. The counting stops. Neither of them ever mentions it.'],
+ [()=>1,'Misaki has started leaving her phone on, face up, all night, every night, on the pillow next to her. In case. She has never said in case of what.'],
+ [()=>S.f.kdBook,'The note-taker’s handwriting turns up on a delivery slip, or something close to it. Misaki signs for the parcel with her left hand, badly, and then washes both hands three times.'],
+ [()=>1,'V keeps a page at the back of his notebook headed with the dates she was gone. There is nothing written under them. He has never been able to decide what to write.'],
+ [()=>1,'Every so often Misaki says “i’m fine” in answer to a question nobody asked.']];
+EVENTS.push({id:'sd_note',when:()=>{try{return typeof kdPost==='function'&&kdPost()&&!isLone()&&S.f.sdDay!==S.day&&kdD()>=2}catch(e){return false}},run:done=>{S.seen.sd_note=0;S.f.sdDay=S.day;const all=SD_NOTES.map((x,i)=>[x,i]).filter(([x])=>{try{return x[0]()}catch(e){return false}});const used=S.f.sdUsed||[];
+ const left=all.filter(([,i])=>!used.includes(i));if(!left.length){done();return}const [x,i]=pk(left);S.f.sdUsed=used.concat([i]);save();say([['',x[1]]],done)}});
+if(typeof EV_REPEAT!=='undefined')EV_REPEAT.add('sd_note');
 /* ===UI2-END=== */
 requestAnimationFrame(frame);splash();
 
