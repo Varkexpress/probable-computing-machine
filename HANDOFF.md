@@ -706,3 +706,9 @@ Romance lore per route; love among the four looks like the rest of their lives, 
 - Activity "Sunday at the table" (side menu, every five days, tier ≥ 1): `kdTurn` minigame at the joints with V or Misaki; feeds the hounds (+5/+10), edge or aff.
 - Threads: `tx_mw_door` (V to Misaki at 3am: the hounds are facing the front door), `tx_mw_grave` (Ronin found a headstone with her name on it), `tx_mw_format` (Angel reformatted V's ledger; green means fed to the hounds).
 - Four more apathy notes (pushed onto `AP_NOTES`) and two ending lines.
+
+## Still there (kc46): a longer delusion after a bad captivity
+When she is carried into the infirmary, `kdSev()` scores how badly the captivity went: sessions beyond the first, missing hours (16+, 24+), two failed escapes, the last-chance route, composure under 35, two or more things said under the needle, three or more nights missing (V's side). At 4+ the delusion gets one extra day, at 6+ two (`m.ext`); each extra day also pushes the after-phase back a day. On those mornings the room is a cell again whatever she worked out the day before (clarity reset to 0, and to 1 on later visits that day).
+- Misaki's POV: count the loops, test the door (it opens, so it must be a trick), or look at the guard's face properly (tier 3 only; breaks the delusion early: "I've been calling you the tall one for— how long?" "Two days.").
+- V's POV: she doesn't know him; read to her, let the grey hound in (may take a day off), or leave the door open and find it barricaded at noon.
+Simulated: mild captivity → 3 infirmary mornings; bad → 4; worst → 5 (4 if she recognises him).
