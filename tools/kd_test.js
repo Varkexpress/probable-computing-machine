@@ -22,7 +22,7 @@ for(const pick of [0,1,2,3]){await load(0);await ev(()=>{S.orgs={sato:1};takenM(
  // vent needs tray + listening; escape cfg
  const v=await ev(()=>{S.f.tray=1;S.f.listened=0;S.kd.clock=0;ROOMS.cell.spots.find(s=>s.label==='Vent').act();const a=!!dlg;for(let i=0;i<50&&dlg;i++)adv();S.tries=1;const c=kdEscapeCfg({map:VENT,guards:VENT_G,title:'t'});return [a,c.guards.length,c.sens]});console.log('   vent gated',v);ok(v[0]&&v[1]===3,'vent gate');
  await ev(pick=>{after(pick%2===0)},pick);await p.waitForTimeout(50);for(let i=0;i<6;i++){await drain(0);await p.waitForTimeout(40)}await ev(()=>hub());
- st=await ev(()=>({ph:S.phase,kd:Object.assign({},S.kd,{aftL:(S.kd.aftL||[]).length}),end:S.endDay-S.day,comp:S.comp,list:S.list.length,room:S.room}));ok(st.ph==='after'&&st.kd.t0&&st.end===9&&st.kd.med,'after '+JSON.stringify(st));console.log('   after():',JSON.stringify(st))}
+ st=await ev(()=>({ph:S.phase,kd:Object.assign({},S.kd,{aftL:(S.kd.aftL||[]).length}),end:S.endDay-S.day,comp:S.comp,list:S.list.length,room:S.room}));ok(st.ph==='after'&&st.kd.t0&&st.end===9+(st.kd.med?st.kd.med.ext||0:0)&&st.kd.med,'after '+JSON.stringify(st));console.log('   after():',JSON.stringify(st))}
 
 /* --- the infirmary --- */
 for(const pov of ['m','v'])for(const pick of [0,1,2]){await load(pov==='v'?1:0);await ev(pov=>{S.pov=pov;S.orgs={sato:1};S.captor='sato';S.takenDay=S.day;S.phase='taken';S.kd=null;KD();S.kd.ses=2;S.kd.hrs=14;S.f.missing=1;after(false)},pov);
