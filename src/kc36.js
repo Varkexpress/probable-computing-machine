@@ -109,7 +109,7 @@ const _xeINJ=extraEnding;extraEnding=function(){const L=_xeINJ();if(kdSA()||!S||
 (function(){const i=KD_ORDER.indexOf('kd_count');KD_ORDER.splice(i+1,0,'kd_rec_list','kd_rec_stitches','kd_rec_ronin','kd_rec_angel','kd_rec_vpins','kd_rec_eat','kd_rec_job')})();
 
 /* ---------- the setting itself ---------- */
-const KD_SA_HELP='Kidnapping aftermath — <b>full story</b> includes a strand about what may have been done to Misaki during the hours she cannot remember: a doctor’s examination she refuses, photographs she denies, and what that implies. It is never shown or named. <b>Injuries only</b> removes that strand entirely; the aftermath is about her injuries and her treatment.';
+const KD_SA_HELP='Kidnapping aftermath — <b>full story</b> includes a strand about what may have been done to Misaki during the hours she cannot remember: a doctor’s examination she refuses, photographs she denies, and what that implies. It is never shown or named. <b>Injuries only</b> removes that strand entirely; the aftermath is about her injuries and her treatment. <br>In either setting, the worst version of the kidnapping can end in Misaki’s suicide in the infirmary (not shown).';
 const kdSALab=()=>'Kidnapping aftermath: '+(kdSA()?'full story':'injuries only');
 const kdSAToggle=()=>{META.kdFull=kdSA()?0:1;saveMeta();toast(kdSALab())};
 const _setSA=settings;settings=function(){_setSA.apply(this,arguments);const box=document.querySelector('.panel');if(!box)return;const p=document.createElement('p');p.innerHTML=kdSALab().replace(': ',': <b>')+'</b>';p.style.marginTop='6px';
