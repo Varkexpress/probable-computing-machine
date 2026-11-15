@@ -719,5 +719,20 @@ Simulated: mild captivity → 3 infirmary mornings; bad → 4; worst → 5 (4 if
 - `sd_note`: one quiet line on some mornings after the kidnapping, each used once, chosen from what happened (the jingle in a shop, the scratches V never painted over, V not saying "tall", the stool against the wall, the grey hound outside her door, the hallway laps, the paper cup, the counting through the wall, the phone on the pillow, the handwriting on a delivery slip, the empty page of dates, "i'm fine" to nobody).
 - The chair minigame now covers the interrogation text behind it.
 
-## What she hid (kc48): secrets in the worst stays
-Only when the infirmary severity is 6+ (two extra days) and she still thinks it is a cell, two extra spots appear: **Behind the towel** (on the mirror in toothpaste, the guard's times, an X where he sits to read at nine, "four steps"; she adds each day's times) and **Under the mattress** (a spoon worked to an edge, four palmed tablets, the rounded scissors, and a soup label with a letter in her writing she doesn't remember: "V — if this is how you find out: i didn't tell them anything about you… i was so good. — M"). After discharge, `kd_stash` (first in the aftermath order; `S.kd.sev0` records the severity): V strips the bed, reads the letter, finds the plan to kill him, wipes the mirror corner to corner, and answers the letter on her pillow: "I know. You were. — V". He keeps the spoon. Neither mentions the toothpaste. The code `thetallone` makes this route likely.
+## What she hid (removed)
+The worst-stay secrets (the toothpaste plan, the stash, the letter) were removed at the author's request. They are in git history at commit `b007b95` if wanted back.
+
+## The infirmary, longer (kc48)
+About 3,000 words of infirmary content, for both settings (none of it touches the examination strand).
+- **Nights** (Misaki): a scene each night by day (`KD_NIGHT`): eyes open watching the gap under the door while V reads tax law and falls asleep sitting up; the van door dream and sleeping back to back through the door; the light switched fifty-one times until the grey hound comes in (the seam V sewed); crying in her sleep about something she can't reach; the house breathing.
+- **Talk to V through the door** (once she knows where she is): five topics, one each (`S.f.kdDoorT`): the day, who knows (Angel told the server it's food poisoning), her phone ("did you eat today", then just her name), the hounds (the pale one ate the frog sock), and last, "are you okay" (hands flat on either side of the door).
+- **The sink**: wash her own hair one-handed, or ask V, the only one allowed behind her (tier 2).
+- **The light-well**: a leaf stuck on the glass four floors up.
+- **Open the door. All the way.** (full clarity): the four hounds lying in a row in the corridor; V at the far end not getting up.
+- **Visitors**, the afternoon or evening once she knows where she is (`kdVisitor`): Ronin with stolen hospital jelly ("I was two streets over. I keep doin' the math on it"), Angel with the makeup case she doesn't open, and the bit she has to stop halfway through.
+- **V's side**: three new ways to sit with her (`kdSit`): Persuasion instead of tax law; changing the dressings awake and counting the four seconds out loud; the list of things he didn't do in time, crossed out.
+- Milder stays (severity under 4) now clear by the first morning, so these are reachable; worst stays stay in the cell longer and mostly don't get them.
+
+## Friday (kc49): the secret scene, and the infirmary code
+- Worst stays only (severity 6+): on an extra night, sure she is still held and that the buyer comes Friday, she leaves goodbyes with the tall one for V, Angel, Ronin and the hounds (`KD_BYE`; choose whom). He says "I will tell them" each time and reads to her until light so she won't hear his voice. V's POV hears it as the second extra morning. Afterwards (`kd_delivered`) he delivers them word for word; Angel engraves the rifle; Ronin puts a cigarette out on his hand; V tells each hound she is good, every morning, for good; and Misaki works out at dinner who the tall one was. He says hers back to her by heart.
+- **Code `fridaycomes`**: a new Misaki run that starts on the infirmary floor after the worst captivity (severity 11, two extra days, the Friday line overheard).
