@@ -4,7 +4,7 @@
    one, for him to pass on to V, Angel, Ronin and the hounds. The tall one is V. Afterwards he delivers them, word for
    word, and never tells her that he heard them first.
    Code "fridaycomes": a new run that starts on the infirmary floor after the worst captivity. */
-const kdFri=()=>{const m=S&&S.kd&&S.kd.med;return !!(m&&m.sev>=6&&(m.xd||0)>=1&&!S.f.kdGoodbye)};
+const kdFri=()=>{const m=S&&S.kd&&S.kd.med;return !!(m&&m.sev>=6&&((m.xd||0)>=1||((m.sev||0)>=8&&(m.d||0)>=1))&&!S.f.kdGoodbye)};
 const KD_BYE={v:'“Tell V— tell him it wasn’t his fault. Tell him I didn’t say anything. Tell him to eat. Tell him he can stop counting now.”',
  a:'“Tell Angel the lighting was always good. Tell her she never missed. Tell her she can have my rifle, the good one, it’s under the trailer floor, and she has to name it something stupid.”',
  r:'“Tell Ronin he can have the ring back. Tell him the joke about the priest was never funny and I laughed every time. Tell him he was two streets over and it doesn’t matter.”',
@@ -50,8 +50,23 @@ kdEv('kd_delivered',()=>kdD()>=2&&S.f.kdBye&&S.f.kdBye.length&&!S.f.kdDelivered,
 if(typeof KD_ORDER!=='undefined'){const i=KD_ORDER.indexOf('kd_count');KD_ORDER.splice(i<0?0:i,0,'kd_delivered')}
 const _xeKD49=extraEnding;extraEnding=function(){const L=_xeKD49();if(!S||!S.f||!S.f.kdDelivered)return L;
  L.push('There is a rifle on Angel’s wall engraved “lighting was always good.” It has never been fired. Every morning V tells each of the hounds that she is good, by colour, out loud, and has never missed a day.');return L};
+/* ---------- the worst stay: severity 8+ never clears until the day she walks out ---------- */
+const kdWorstOf=()=>{const m=S&&S.kd&&S.kd.med;return !!(m&&(m.sev||0)>=8)};
+const _mmKD49b=kdMedMorning;kdMedMorning=function(done){const before=S.kd&&S.kd.med;_mmKD49b(done);const m=S.kd&&S.kd.med;if(m&&kdWorstOf()&&m.clar>1){m.clar=1;save()}};
+const _hubKD49=hub;hub=function(){try{const m=S&&S.kd&&S.kd.med;if(m&&kdWorstOf()&&m.clar>1){m.clar=1;save()}}catch(e){}return _hubKD49.apply(this,arguments)};
+const _condKD49=kdCond;kdCond=function(){const m=S&&S.kd&&S.kd.med;if(m&&kdWorstOf())return 4;return _condKD49()};
+/* in the worst stay, Friday can come on any night, not only the extra ones */
+const _friOld=kdFri;
+/* the opening of the worst stay */
+const _msKD49=kdMedStart;kdMedStart=function(self,L){const r=_msKD49.apply(this,arguments);const m=S.kd&&S.kd.med;if(m&&kdWorstOf()&&S.pov!=='v'){S.f.kdWorstOpen=1;save()}return r};
+const _hubKD49b=hub;hub=function(){const a=arguments,self=this;try{if(S&&S.f&&S.f.kdWorstOpen===1&&kdMedM()&&!dlg){S.f.kdWorstOpen=2;save();go(cutBg('#000'));return say([
+ ['','Eleven days. That is what it was, in the end. Nobody tells you. You won’t know for a week.'],
+ ['','What you know is the floor, and the bulb, and that you can’t feel two of your fingers, and that the sky you saw for a second when they carried you out must have been a dream, because you are back on a floor under a bulb.'],
+ ['hitmeuppp','(it was a nice dream. there was a coat in it.)'],
+ ['','You have stopped counting the radio. You lost count somewhere in the second week and you were too tired to start again. That frightens you more than anything else in the room.']],()=>_hubKD49b.apply(self,a))}}catch(e){}return _hubKD49b.apply(self,a)};
 /* ---------- the code: straight to the infirmary, after the worst ---------- */
 const _codeKD49=codeHook;codeHook=function(v){if(v!=='fridaycomes')return _codeKD49(v);
- newRun('m');S.day=9;S.slot=0;S.paid=2;S.f.kidnapSet=1;S.aff=12;S.comp=20;S.energy=20;S.orgs={sato:3};S.fr={a:40,r:40};S.captor='sato';S.takenDay=5;
- S.phase='taken';S.dark=1;S.tries=2;S.f.lastChance=1;S.f.kdWorst=1;S.f.kdFriday=1;S.f.kdLoops=1;S.f.kdLoopN=420;S.kd=null;KD();S.kd.ses=4;S.kd.hrs=31;S.kd.said=3;S.f.missing=4;save();
- toast('Friday comes.');setTimeout(()=>{try{after(false)}catch(e){console.error(e)}},60);return true};
+ newRun('m');S.day=16;S.slot=0;S.paid=2;S.f.kidnapSet=1;S.aff=12;S.comp=5;S.energy=10;S.edge=5;S.orgs={sato:3};S.fr={a:40,r:40};S.captor='sato';S.takenDay=5;
+ S.phase='taken';S.dark=1;S.tries=2;S.f.lastChance=1;S.f.lateRoute='m';S.f.kdWorst=1;S.f.kdFriday=1;S.f.kdLoops=1;S.f.kdLoopN=900;S.f.listened=1;
+ S.kd=null;KD();S.kd.ses=6;S.kd.hrs=60;S.kd.said=3;S.leaks=3;S.f.missing=6;save();
+ toast('Friday comes. The worst of it.');setTimeout(()=>{try{after(false);S.kd.days=11;save()}catch(e){console.error(e)}},60);return true};
