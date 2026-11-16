@@ -47,7 +47,9 @@ const PH = [
   [/^(k|kills|r\.kills)$/, '[number]'],
   [/^(nick\(\))$/, '[nickname]'],
   [/^(S\.name|nm)$/, '[name]'],
-  [/^x\.n(ame)?$|^x\.who$|^t\.n$/, '[list name]'],
+  [/^x\.n(ame)?$|^x\.who$|^t\.n$|^x\.n\.replace/, '[list name]'],
+  [/^w59O\(.*\)\.name$|^org\.front$/, '[org]'], [/^k56Hits\(\)$/, '[number of hits]'], [/^k61Cap\(|^a60Cap\(/, '[number, in words]'],
+  [/^S\.f\.kdScrews$/, '[screw count]'], [/^IR\.R$/, '[resolve]'], [/Math\.|\*\d|[+-]\d+\)?$/, '[number]'], [/^\(?S\.day\)?$/, '[day]'],
 ];
 function phName(src) {
   src = src.replace(/\s+/g, ' ').trim();
@@ -98,6 +100,10 @@ const COND = [
   [/^S\.comp<(\d+)$/, (m) => `composure under ${m[1]}`], [/^S\.comp>=(\d+)$/, (m) => `composure ${m[1]}+`], [/^S\.comp<=(\d+)$/, (m) => `composure ${m[1]} or less`],
   [/^(S\.seen\.|k56Seen\('|w59Seen\(')(\w+)'?\)?$/, (m) => `after ${m[2]}`],
   [/^S\.rom==='(\w)'$/, (m) => `romance: Misaki + ${{ r: 'Ronin', a: 'Angel', v: 'V' }[m[1]] || m[1]}`],
+  [/^kdSpiralSecret\(\)$/, 'the secret is caught in time (2+ clues and a goodbye left for V)'],
+  [/^typeof\w+(!==|===)'(function|undefined)'$|^S\.kd(\.med)?$|^S$|^S\.f$|^m$|^S\.kd\.med\.br3$|^S\.kd\.t0$|^S\.list$|^dlg$|^!dlg$/, ''],
+  [/^!S\.kd\.med$/, 'out of the infirmary'],
+  [/^S\.kd\.med\.br3==='(\w+)'$|^m\.br3==='(\w+)'$/, (m) => `in the bright turn she chose to sit: ${m[1] || m[2]}`],
   [/^ok$|^r\.ok$|^won$/, 'success'], [/^!ok$|^!r\.ok$/, 'failure'],
 ];
 function condPart(src, scope) {
@@ -130,7 +136,7 @@ function condText(src, scope) {
   let s = src.replace(/\s+/g, '');
   while (/^\(.*\)$/.test(s) && splitTop(s.slice(1, -1), '&&').join('&&') === s.slice(1, -1) && balanced(s.slice(1, -1))) s = s.slice(1, -1);
   const ors = splitTop(s, '||');
-  if (ors.length > 1) return ors.map(o => condText(o, scope) || 'always').join(' or ');
+  if (ors.length > 1) return ors.map(o => condText(o, scope)).filter(Boolean).join(' or ');
   return splitTop(s, '&&').map(p => condPart(p, scope)).filter(Boolean).join(', ');
 }
 function balanced(s) { let d = 0; for (const c of s) { if (c === '(') d++; else if (c === ')') { d--; if (d < 0) return false; } } return d === 0; }
@@ -255,6 +261,7 @@ function hasText(ctx, n) {
   (function rec(x) {
     if (found || !x || typeof x !== 'object') return;
     if (x.type === 'Literal' && isProse(x.value)) { found = true; return; }
+    if (x.type === 'Identifier' && GOTO[x.name]) { found = true; return; }
     if (x.type === 'TemplateLiteral' && x.quasis.some(q => isProse(q.value.cooked))) { found = true; return; }
     for (const k in x) { if (k === 'parent') continue; const v = x[k]; if (Array.isArray(v)) v.forEach(rec); else if (v && typeof v.type === 'string') rec(v); }
   })(n);
@@ -288,7 +295,7 @@ function walkStatements(ctx, list, d) {
       const rest = list.slice(i + 1);
       if (rest.some(r => hasText(ctx, r))) {
         const c = condText(src(ctx, st.test), ctx.scope);
-        branch(ctx, 'If ' + c, d, () => walk(ctx, st.consequent, d + 1));
+        branch(ctx, ifText(c), d, () => walk(ctx, st.consequent, d + 1));
         branch(ctx, otherwise(c), d, () => walkStatements(ctx, rest, d + 1));
         return;
       }
@@ -336,7 +343,7 @@ function walk(ctx, n, d) {
     case 'IfStatement': {
       if (!hasText(ctx, n.consequent) && !hasText(ctx, n.alternate)) { return; }
       const c = condText(src(ctx, n.test), ctx.scope);
-      branch(ctx, 'If ' + c, d, () => walk(ctx, n.consequent, d + 1));
+      branch(ctx, ifText(c), d, () => walk(ctx, n.consequent, d + 1));
       if (n.alternate) {
         if (n.alternate.type === 'IfStatement') { walk(ctx, n.alternate, d); }
         else if (hasText(ctx, n.alternate)) branch(ctx, otherwise(c), d, () => walk(ctx, n.alternate, d + 1));
@@ -349,13 +356,13 @@ function walk(ctx, n, d) {
       const a = (n.consequent.type !== 'ArrayExpression' && n.consequent.type !== 'ObjectExpression') ? alts(ctx, n) : null;
       if (a && a.length && n.consequent.type !== 'CallExpression') { emit(ctx, { type: 'loose', alts: a.map(x => ({ label: x.label, text: clean(x.text) })), d }); return; }
       const c = condText(src(ctx, n.test), ctx.scope);
-      if (tc) branch(ctx, 'If ' + c, d, () => walk(ctx, n.consequent, d + 1));
+      if (tc) branch(ctx, ifText(c), d, () => walk(ctx, n.consequent, d + 1));
       if (ta) branch(ctx, tc ? otherwise(c) : 'Unless ' + c, d, () => walk(ctx, n.alternate, d + 1));
       return;
     }
     case 'LogicalExpression': {
       if (n.operator === '&&' && hasText(ctx, n.right) && !hasText(ctx, n.left)) {
-        branch(ctx, 'If ' + condText(src(ctx, n.left), ctx.scope), d, () => walk(ctx, n.right, d + 1)); return;
+        branch(ctx, ifText(condText(src(ctx, n.left), ctx.scope)), d, () => walk(ctx, n.right, d + 1)); return;
       }
       walk(ctx, n.left, d); walk(ctx, n.right, d); return;
     }
@@ -374,6 +381,7 @@ function walk(ctx, n, d) {
   }
 }
 
+function ifText(c) { return c ? 'If ' + c : 'If (an internal state check passes)'; }
 function otherwise(c) { return c === 'Misaki POV' ? 'Otherwise (V POV)' : c === 'V POV' ? 'Otherwise (Misaki POV)' : c === 'full-story setting' ? 'Otherwise (injuries-only setting)' : c === 'injuries-only setting' ? 'Otherwise (full-story setting)' : 'Otherwise'; }
 function walkObject(ctx, n, d) {
   const id = getProp(n, 'id'), t = getProp(n, 't'), label = getProp(n, 'label');
@@ -438,8 +446,21 @@ function walkObject(ctx, n, d) {
 }
 
 const CHAT_U = { an: 'Angel', ro: 'Ronin', mi: 'Misaki', k9: 'V' };
+/* calls that hand over to another scene or a minigame: shown as "→ …" so the flow is visible */
+const GOTO = {
+  interrogate: 'the interrogation', kdTheyCome: 'they come for another session', kdDose: 'the dose', kdBlankQ: 'the question about before nine',
+  escapeRun: 'escape run (stealth minigame)', failedEscape: 'the failed escape', escaped: 'she gets out on her own', vRescue: 'V’s rescue (stealth minigame)',
+  vRescueCut: 'V arrives at the loading bay', rescued: 'V reaches her cell', kdDock: 'the loading dock (stealth minigame)', kdCarry: 'carrying her out (stealth minigame)',
+  after: 'after: into the infirmary', kdMedStart: 'waking in the infirmary', kdMedRun: 'running from the infirmary (stealth minigame)',
+  kdLogicOut: 'she reasons it out', kdSpiral: 'the spiral', kdInterrupted: 'the secret, interrupted', kdBright: 'the bright turn', kdGoodbye: 'the Friday goodbyes',
+  startLone: 'V’s lone route', kdKeepIt: 'keep the room', kdLetGo: 'let it go blank', finale: 'the finale', finalM: 'Misaki’s infiltration (stealth minigame)', finalV: 'V’s infiltration (stealth minigame)',
+  lockpick: 'lockpick minigame', simon: 'step-memory minigame', kdTurn: 'hold-still minigame', ground: 'breathing minigame', kdHoldOn: 'the chair (hold-steady minigame)',
+  kdVisitor: 'a visitor', theList: 'the list', listTarget: 'a name on the list', kdShatterFx: 'the shatter (the cell drawing breaks away)', kdScout: 'hunt along the river',
+};
 function walkCall(ctx, n, d) {
   const nm = calleeName(n), A = n.arguments;
+  if (n.callee.type === 'Identifier' && GOTO[nm]) emit(ctx, { type: 'note', text: '→ ' + GOTO[nm], d, go: 1 });
+  for (const a of A) if (a.type === 'Identifier' && GOTO[a.name]) emit(ctx, { type: 'note', text: '→ ' + GOTO[a.name], d, go: 1 });
   if (A.length === 2 && A[0].type === 'Literal' && A[0].value in CHAT_U) {
     const a = alts(ctx, A[1]); if (a) { emit(ctx, { type: 'line', who: CHAT_U[A[0].value] + ' (server chat)', alts: a.map(x => ({ label: x.label, text: clean(x.text) })), d }); return; }
   }
@@ -563,3 +584,185 @@ if (require.main === module && process.argv[2] === '--inventory') {
   const f = process.argv[3];
   for (const s of extractFile(f)) console.log(s.kind.padEnd(6), String(s.line).padStart(5), s.id, '|', s.items.length, '|', (s.when || '').slice(0, 90));
 }
+
+/* ================================================================== THE SCRIPT: what goes where
+   Selectors are 'file:id' (every scene with that id in that file, in source order) or 'file:id#n' (the n-th one).
+   Scenes from the included files that no section claims are listed in the last appendix, so nothing is silently lost;
+   SKIP holds the ones that have nothing to do with the arc. */
+const INCLUDE_FILES = ['index.html', 'kc27.js', 'kc28.js', 'kc29.js', 'kc30.js', 'kc31.js', 'kc32.js', 'kc33.js', 'kc34.js', 'kc35.js', 'kc36.js',
+  'kc46.js', 'kc47.js', 'kc48.js', 'kc49.js', 'kc50.js', 'kc51.js', 'kc52.js', 'kc53.js', 'kc54.js', 'kc55.js', 'kc56.js', 'kc58.js', 'kc59.js', 'kc60.js', 'kc61.js'];
+const INDEX_UNITS = /^(takenM|takenV|interrogate|informant|hub|sleepBase|chatLog|failedEscape|escapeRun|vRescueCut|escaped|vRescue|rescued|finale|finalM|finalV|kdTell|after|flashCheck|ground|sleepAfter|theList|listTarget|extraEnding|ROOMS|gl_taken|gl_spot|lateV|interrogateLite|lateM|loneIntro|LBEATS|LONE_EV|morningEvent|sleep|collapseEnding|loneEnding|act2Hub|npcBarks|dmTab|EVENTS\.push\(…\)|TOPICS_M|TOPICS_V|gl_ev\(…\))$/;
+const INDEX_EVENTS = /^(clip|brac_off|mirror|angel_sleeves|ronin_bulb|two_cups|v_door|shower_door|v_notice_bed|nightmareV|gl_ph_after|them|mtaken|mafter|quiet|boring|touch|third|stay)$/;
+const SKIP = new Set(['kc28.js:kdRag', 'kc28.js:kdGrime', 'kc28.js:tdMap(…)', 'kc35.js:morningEvent', 'kc36.js:settings', 'kc36.js:kdSALab', 'kc36.js:pauseMenu',
+  'kc27.js:kdAskIR', 'kc29.js:KD_NO', 'kc56.js:k56Hits', 'kc56.js:k56WhyScene', 'kc56.js:code@244', 'kc56.js:k56_file', 'kc56.js:k56_a2sus', 'kc56.js:k56_lone2',
+  'kc56.js:k56_a2pages', 'kc56.js:k56_a2grey', 'kc56.js:k56_a2burn', 'kc56.js:k56_a3river', 'kc56.js:k56_a3heir', 'kc56.js:k56_a3hale', 'kc56.js:k56_a3kt', 'kc56.js:k56_epi',
+  'kc56.js:k56BoxLines', 'kc56.js:k56_hale', 'kc56.js:k56_avery', 'kc58.js:k58_stair', 'kc58.js:k58_book', 'kc58.js:k58_first', 'kc58.js:tx_k58_late', 'kc58.js:tx_k58_kettle',
+  'kc58.js:tx_k58_rule', 'kc58.js:tx_k58_before', 'kc58.js:K58_SIT', 'kc58.js:sideHub', 'kc58.js:k58_t_first', 'kc58.js:k58_t_last', 'kc59.js:W59ORG', 'kc59.js:w59_m_notice', 'kc59.js:w59_m_warn',
+  'kc59.js:w59_m_hale', 'kc59.js:w59_v_ledger', 'kc59.js:w59_v_ask', 'kc59.js:w59_v_hale', 'kc59.js:w59_v_hunted', 'kc59.js:w59_a2_hale', 'kc59.js:sideHub', 'kc59.js:w59Ask',
+  'kc59.js:w59File', 'kc59.js:tx_w59_ron', 'kc59.js:tx_w59_ang', 'kc59.js:tx_w59_vq', 'kc59.js:tx_w59_vm', 'kc60.js:sideHub#1', 'kc60.js:a60_server', 'kc60.js:a60_list',
+  'kc60.js:a60_quiet', 'kc60.js:a60_hurt', 'kc60.js:a60_body', 'kc60.js:a60_hounds', 'kc60.js:a60_epi', 'kc60.js:lp60_listing', 'kc60.js:lp60_dress', 'kc60.js:lp60_fly',
+  'kc60.js:lp60_t_why', 'kc60.js:lp60_t_now', 'kc60.js:tx_a60_body', 'kc60.js:tx_a60_bodyv', 'kc60.js:tx_a60_will', 'kc60.js:tx_a60_willv', 'kc60.js:tx_lp60_v',
+  'kc60.js:PINGS.push(…)', 'kc60.js:code@336', 'kc34.js:g_review', 'kc34.js:g_board', 'kc34.js:g_couch', 'kc34.js:g_brand', 'kc34.js:g_leak', 'kc34.js:g_book',
+  'kc34.js:tx_g_bet', 'kc34.js:tx_g_knife', 'kc34.js:tx_g_stars', 'kc34.js:sideHub', 'kc34.js:gMarket', 'kc47.js:codeHook', 'kc49.js:codeHook', 'kc28.js:kdNoLeave']);
+
+/* plain-English notes for scenes that are functions rather than events (they have no `when` of their own) */
+const NOTE = {
+  'kc59.js:W59G': 'Before the kidnapping (normal phase), one glimpse on some mornings after a job: the four men later on the list, seen beforehand without knowing who they are. Misaki and V see different ones.',
+  'kc56.js:k56_grey': 'Before the kidnapping, day 4+: the man in the grey suit buys her address.',
+  'index.html:takenM': 'Misaki POV. Plays the night the rent has been paid twice (the kidnapping is set when she pays the second time and fires at the next night card).',
+  'index.html:interrogate': 'Misaki POV. Every interrogation session. Session 1 questions, then later sessions; each answer costs resolve or leaks something. kc27 wraps it (below).',
+  'kc27.js:interrogate': 'Misaki POV. The wrapper on every session: session 1 opens with her waking; from session 2 the shorter session (kdShort) is used.',
+  'kc27.js:kdBlankQ': 'Misaki POV. After the original questions in every full session: the question about her life before nine. Session 1: where did she grow up. Session 2: the invented mother.',
+  'kc28.js:kdBlankQ': 'Misaki POV. Wrapped around the before-nine question: the chair minigame (hold steady while counting the hounds).',
+  'kc28.js:kdHoldOn': 'The words shown on screen during the chair minigame.',
+  'kc27.js:kdShort': 'Misaki POV. Sessions after the second: no table, standing; resolve starts lower each time.',
+  'kc27.js:kdDose': 'Misaki POV. The end of every session: the needle, the lost hours, and whether she talks without knowing it.',
+  'kc28.js:KD_INJ': 'Misaki POV, full story: one of these after each dose, in turn (she reports her injuries wrongly).',
+  'kc28.js:KD_INJ_OFF': 'Misaki POV, injuries-only setting: used in place of the lines above (she names her injuries flatly).',
+  'kc27.js:KD_SAID': 'What the note-taker wrote down while she was under, one line per thing she said (S.kd.said 1–3). Read later if she reads the notebook.',
+  'kc27.js:kdTheyCome': 'Misaki POV. When the cell clock runs out (six actions), they come for another session.',
+  'kc27.js:code@65': 'Misaki POV, in the cell: two spots added by kc27.',
+  'kc28.js:code@36': 'Misaki POV, in the cell: the vent now needs four screws worked loose with the tray, and the door needs the guards’ steps learned (the Vent and Door spots).',
+  'kc30.js:code@15': 'Misaki POV, in the cell: the radio spot also gives three overheard exchanges, one per visit.',
+  'index.html:ROOMS': 'Misaki POV, in the cell (“Somewhere owned by [captor org]”, back label “there is no leaving”). The original cell spots.',
+  'index.html:escapeRun': 'Misaki POV. The escape attempt itself (stealth through the warehouse or the vents).',
+  'kc28.js:kdDock': 'Misaki POV. Second stage of every escape: the loading dock.',
+  'kc30.js:kdDock': 'Misaki POV. On the dock stairs, if she thanked the man with the water twice.',
+  'index.html:failedEscape#1': 'Misaki POV. A failed escape. First failure: back to the cell, the hand. Second failure in the joint POV (“both”): V comes.',
+  'index.html:failedEscape#2': 'Misaki POV. The wrapper for the second failure: with closeness tier 2+ (or the joint POV) V comes (above); with lower closeness, the last chance (the cell again, then a short third session); a further failure is the late route (lateM, below).',
+  'index.html:interrogateLite': 'Misaki POV, the last-chance route: the third, shorter session.',
+  'index.html:lateM': 'Misaki POV, the late route: after the last chance fails. V gets her out and dies by the car. Leads to Misaki’s lone route.',
+  'index.html:vRescueCut': 'Misaki POV. After a failed escape where V comes for her (second failure with closeness tier 2+).',
+  'index.html:escaped': 'Misaki POV. She gets out on her own (escape and dock stages both succeed) and walks to V’s door.',
+  'index.html:takenV': 'V POV. The first morning she is gone.',
+  'index.html:hub': 'V POV, during captivity: the “Find her” menu. Trace the phone (ops minigame), shake down one of their people, call Ronin and Angel, hunt along the river (needs the trace), go get her (needs the district, the building and a way in).',
+  'index.html:informant': 'V POV. “Shake down one of their people”.',
+  'kc27.js:kdScout': 'V POV. “Hunt along the river”: which of the warehouses. The right one is the fourth. Angel’s fans find it if he has called her.',
+  'index.html:sleepBase': 'V POV. Each night she is missing. At four nights the late route starts (lateV).',
+  'index.html:lateV': 'V POV, the late route: four nights missing. He is too late. Leads to V’s lone route.',
+  'index.html:chatLog': 'The server chat (group channel), during captivity and in the after-phase.',
+  'index.html:gl_taken': 'V POV during captivity, at certain places in the city (one of these at random).',
+  'index.html:vRescue': 'V POV. The rescue (stealth through the river warehouse). Being seen means the fight.',
+  'kc28.js:kdCarry': 'V POV. Second stage of the rescue: carrying her out.',
+  'index.html:rescued': 'V POV. He reaches her cell.',
+  'index.html:after': 'Both POVs, once she is out (escape, rescue, or V arriving). Hands over to the infirmary.',
+  'index.html:kdTell': 'How the friends’ reactions to what she leaked arrive (texts in her POV, narration in his).',
+  'kc27.js:stealth': 'After the rescue: her hands on stealth jobs (one line while they shake).',
+  'index.html:theList': 'After the infirmary: the list of the men who held her, as a menu.',
+  'index.html:listTarget': 'Going after one name on the list.',
+  'kc59.js:W59REC': 'Recognition lines when a list name is one of the men glimpsed before the kidnapping (Misaki’s line / V’s line).',
+  'kc59.js:spot: Their faces': 'Misaki POV, in the cell, if she glimpsed any of the men before the van.',
+  'index.html:finale': 'End of the after-phase (“has waited long enough”): going after the boss.',
+  'index.html:finalM': 'Misaki’s infiltration of the boss.', 'index.html:finalV': 'V’s infiltration of the boss.',
+  'kc56.js:k56BossScene': 'After the finale: the boss says the address was bought (lawyer version if V ruined them; otherwise the boss himself).',
+  'kc28.js:kdMedStart': 'Both POVs: the first night in V’s infirmary on sublevel two (the door says LAUNDRY). Misaki takes it for another cell.',
+  'kc28.js:KD_CHART': 'Full story: the chart on the end of the bed (shown when she reads it).',
+  'kc28.js:code@83': 'Misaki POV, the infirmary room. Every spot has two labels: what she thinks it is while it is a cell (clarity under 2), and what it is.',
+  'kc28.js:kdMedRun': 'Misaki POV. Running from the infirmary (Door, “Go. Now”). Caught: V kneels. Out clean: Biscuit in the garage. Out with a takedown: the drip needle in V’s arm.',
+  'kc28.js:openPhone': 'Misaki POV, first infirmary day: the phone is blocked.',
+  'kc28.js:kdBacklog': 'Misaki POV: the backlog of messages sent while she was gone, delivered when V slides her phone under the door.',
+  'kc28.js:kdMedMorning': 'Both POVs: each infirmary morning (day 1, day 2, and the walk upstairs on day 3).',
+  'kc28.js:kdSit': 'V POV: “The infirmary” (sit with her), once a day.',
+  'kc28.js:sideHub': 'V POV: the side-menu entry while she is in the infirmary.',
+  'kc28.js:hub': 'The first few mornings after discharge.',
+  'kc32.js:spot: Steel cabinet': 'Misaki POV, infirmary, while it is a cell.', 'kc32.js:spot: Supply cabinet': 'Misaki POV, infirmary, once she knows.',
+  'kc33.js:code@85': 'Injuries-only setting: the cabinet’s plain version.',
+  'kc36.js:code@14': 'Injuries-only setting: the small fridge (no white box).',
+  'kc36.js:code@31': 'Injuries-only setting: the plain versions of the chart, mirror, monitor and treatment trolley.',
+  'kc48.js:KD_NIGHT': 'Misaki POV: one scene each infirmary night, by night.',
+  'kc48.js:KD_NIGHT.push(…)': 'Misaki POV: the fifth night (only on long stays).',
+  'kc48.js:KD_DOOR': 'Misaki POV, once she knows where she is: “Talk to V through the door”, five topics, one each.',
+  'kc48.js:kdVisitor': 'Misaki POV, an afternoon or evening once she knows where she is: Ronin, then Angel.',
+  'kc48.js:kdSit': 'V POV: three more ways to sit with her (Persuasion; changing the dressings; the list of things he didn’t do in time).',
+  'kc60.js:sideHub#2': 'V POV, infirmary: the side-menu entry for the kennel corridor at night.',
+  'kc60.js:A60COR': 'V POV, infirmary: the kennel corridor at night (Ronin and Angel with a bottle), one per night.',
+  'kc60.js:hub': 'Misaki POV, worst route: the four’s rule (if one dies, nobody goes back), as she lies on the cot.',
+  'kc61.js:KD61_MC': 'Misaki POV, infirmary, once she knows the room and the shatter has happened: one scene each afternoon.',
+  'kc61.js:k61Tubs': 'Misaki POV: the bin, right after the morning shatter (normal stays only).',
+  'kc61.js:KD61_VC': 'V POV, infirmary, once she knows him: one scene a day.',
+  'kc61.js:KD61_THINGS': 'V POV, infirmary: “Her things, from the river”, three days.',
+  'kc61.js:KD61_FILE': 'V POV, infirmary: “Her file” (once). Full story: the sealed envelope. Injuries only: the kennel scale.',
+  'kc61.js:KD61_ASK': 'V POV, infirmary, once she knows him: “Ask what she needs”.',
+  'kc61.js:sideHub': 'V POV, infirmary: the side-menu entries for the scenes above.',
+  'kc61.js:KD61_MX': 'Misaki POV, extended delusion (not the worst route): one scene each afternoon.',
+  'kc61.js:KD61_VX': 'V POV, extended delusion: one scene a day.',
+  'kc61.js:KD61_MW': 'Misaki POV, worst route, still deluded: after that day’s state-of-mind scene.',
+  'kc61.js:KD61_VW': 'V POV, worst stay: one scene a day.',
+  'kc46.js:KD_STILL_M': 'Misaki POV, extended delusion (severity 4+ gives one extra day, 6+ two): the morning it is a cell again, three escalating versions.',
+  'kc46.js:KD_STILL_V': 'V POV, extended delusion: she does not know him this morning, three escalating versions.',
+  'kc46.js:kdMedMorning#1': 'Misaki POV, extended-delusion mornings: count the loops, test the door, or (tier 3 only) look at the guard’s face properly, which breaks it early.',
+  'kc46.js:code@47': 'Misaki POV, extended delusion: the Tray, Door and Cot spots read differently on those days.',
+  'kc46.js:kdMedMorning#2': 'Misaki POV: on the stairs out after an extended stay.',
+  'kc49.js:hub': 'Misaki POV, severity 8+ (the code fridaycomes starts here): the extra opening scene, “Eleven days”.',
+  'kc49.js:KD_BYE': 'The goodbyes she can leave with the tall one (V, Angel, Ronin, the hounds).',
+  'kc49.js:kdGoodbye': 'Misaki POV, worst stays (severity 6+), on an extra night, while the room is still a cell: Friday. She leaves goodbyes with the tall one.',
+  'kc49.js:kdMedMorning': 'V POV: the second extra morning, the night he heard the goodbyes.',
+  'kc50.js:KD_DESC': 'Worst route: the main things in the room, described by day and by state of mind (clear / cell / dark, dark = composure under 15).',
+  'kc50.js:KD_CLUES': 'Worst route (severity 8+, Misaki): the five things she can “think through”. Each is the spot it belongs to; each gives +3 composure. Four of them is the logic-out.',
+  'kc50.js:code@17': 'Worst route: what each of those spots asks.',
+  'kc50.js:kdLogicOut': 'Worst route: four clues thought through. She opens the door and finds V.',
+  'kc51.js:KD_MIND': 'Worst route, still deluded: the first time each day the planner opens, one scene from inside her head by composure band (hold 22+, fray 14+, thin 7+, gone).',
+  'kc52.js:code@47': 'Worst route: a third state-of-mind scene per band.',
+  'kc52.js:KD_UNCANNY': 'Worst route, evenings, composure under 14: uncanny moments.',
+  'kc52.js:code@59': 'Continues the list above (KD_AFTER): V alone after the spiral.',
+  'kc50.js:KD_SPIRAL_WARN': 'Worst route, composure under 15: one dark thought a day.',
+  'kc52.js:kdBright': 'Worst route, at the bedtime the spiral would come (composure 3 or less), the first time: the bright turn. The three choices shape the ending.',
+  'kc52.js:KD_SHAPE': 'Spiral ending: where V finds her (by where she chose to sit).',
+  'kc52.js:KD_LEFT': 'Spiral ending: what he finds on the tray (by what she left out).',
+  'kc52.js:KD_HUM': 'Spiral ending: what he heard her humming (by what she hummed).',
+  'kc50.js:kdSpiral': 'Worst route: composure 3 or less at bedtime (after the bright turn, the same night). If she has thought through 2+ clues and left a goodbye for V, it is interrupted (below). Otherwise: lucid too late, and V’s lone route.',
+  'kc50.js:kdInterrupted': 'Worst route: the secret, interrupted (2+ clues and a goodbye for V). She lives.',
+  'kc53.js:KD_SHATTER_LINES': 'Whenever her clarity returns, the cell drawing breaks away; then the lines for how it came back: morning (a normal stay), logic (reasoning it out), caught (the interrupted route), late (the spiral).',
+  'kc51.js:KD_AFTER': 'V’s lone route after the spiral (lateRoute = self): one per morning.',
+  'kc52.js:sideHub': 'V’s lone route after the spiral: “Sit in the infirmary doorway”, once a day.',
+  'kc36.js:sideHub': 'Injuries-only setting, after discharge: the recovery activities (once a day each, six sessions).',
+  'kc54.js:sideHub': 'A physio or walking session that makes progress: one of these lines.',
+  'kc47.js:SD_NOTES': 'After the kidnapping: one quiet line on some mornings, each used once, chosen from what happened.',
+  'index.html:flashCheck': 'After-phase, Misaki: a flashback in some rooms.', 'index.html:ground': 'The breathing minigame (on-screen text).',
+  'index.html:sleepAfter': 'Each night in the after-phase.', 'index.html:extraEnding': 'Ending lines that depend on the kidnapping arc (shown on any ending screen that applies).',
+  'index.html:loneIntro': 'Six weeks later, the lone route (Act II alone).', 'index.html:LBEATS': 'Lone route: beats by Act II day.',
+  'index.html:LONE_EV': 'Lone route mornings: one at random.', 'index.html:morningEvent': 'Lone route mornings.', 'index.html:sleep': 'Lone route bedtime (Misaki’s lone route chooses where to sleep).',
+  'index.html:collapseEnding': 'Lone route ending if stability reaches zero: The Chair By The Door.', 'index.html:loneEnding': 'Lone route endings at the end of Act II.',
+  'index.html:act2Hub': 'Lone route day menu: the grief options.', 'index.html:npcBarks': 'Lone route: the words that float by the player.', 'index.html:dmTab': 'Lone route: the DM thread to the one who died.',
+};
+for (const k of Object.keys(NOTE)) if (/^kc(27|28|29|30|31|32|33|34|36|47|49|50|51|52|53|54|55|56|58|59|60|61)\.js:extraEnding$/.test(k)) {}
+
+const S_ = (title, intro, sel) => ({ title, intro, sel });
+const SECTIONS = [
+  { title: '1. Before: the war and the warnings', intro: 'Only the scenes that lead straight into the van. The wider war (eight hunts, one per organisation) is left out.', subs: [
+    S_('The man from the canal, the man in grey, the circling', 'Normal phase.', ['kc28.js:kd_omen', 'kc56.js:k56_grey', 'kc59.js:w59_m_circle', 'kc59.js:w59_v_circle', 'kc59.js:W59G']),
+  ] },
+  { title: '2. The abduction and captivity', intro: 'The kidnapping happens the night after she pays the rent for the second time. Which POV you play decides which half you see; in the joint POV both run.', subs: [
+    S_('2.1 Misaki: the van', '', ['index.html:takenM']),
+    S_('2.2 Misaki: the interrogation', 'Every session runs the original questions, the chair, the question about before nine, and the dose. Later sessions are shorter.', ['index.html:interrogate', 'kc27.js:interrogate', 'kc27.js:kdBlankQ', 'kc28.js:kdBlankQ', 'kc28.js:kdHoldOn', 'kc27.js:kdShort', 'kc27.js:kdDose', 'kc28.js:KD_INJ', 'kc28.js:KD_INJ_OFF', 'kc27.js:KD_SAID', 'kc27.js:kdTheyCome']),
+    S_('2.3 Misaki: the cell', 'Every action that is not a ready escape uses up the clock; at six they come for another session.', ['index.html:ROOMS', 'kc27.js:code@65', 'kc27.js:spot: Your arm', 'kc27.js:spot: The radio down the hall', 'kc28.js:code@36', 'kc30.js:spot: A cup of water', 'kc30.js:code@15', 'kc59.js:spot: Their faces']),
+    S_('2.4 Misaki: escape, failure, the last chance, the late route', '', ['index.html:escapeRun', 'kc28.js:kdDock', 'kc30.js:kdDock', 'index.html:escaped', 'index.html:failedEscape#1', 'index.html:vRescueCut', 'index.html:failedEscape#2', 'index.html:interrogateLite', 'index.html:lateM']),
+    S_('2.5 V: the search', 'V POV. Each night she is missing raises the rescue’s difficulty; from two nights, one more guard; at four nights, the late route.', ['index.html:takenV', 'index.html:hub', 'index.html:informant', 'kc27.js:kdScout', 'kc27.js:kd_tape', 'kc30.js:kd_vphoto', 'kc30.js:kd_vfloor', 'kc33.js:kd_maria', 'kc56.js:k56_plate', 'kc59.js:w59_v_halecall', 'index.html:two_cups', 'index.html:gl_taken', 'index.html:chatLog', 'index.html:sleepBase', 'index.html:lateV']),
+    S_('2.6 V: the rescue', '', ['index.html:vRescue', 'kc28.js:kdCarry', 'index.html:rescued']),
+    S_('2.7 Out', 'Every way out ends here.', ['index.html:after', 'index.html:kdTell', 'kc27.js:stealth']),
+    S_('2.8 The list and the finale', 'After the infirmary, through the after-phase: the men who held her, one at a time; then the boss.', ['index.html:theList', 'index.html:listTarget', 'kc59.js:W59REC', 'index.html:finale', 'index.html:finalM', 'index.html:finalV', 'kc56.js:k56_why', 'kc56.js:k56BossScene']),
+  ] },
+  { title: '3. The infirmary', intro: 'V’s infirmary on sublevel two, behind a door marked LAUNDRY. In Misaki’s POV the room is drawn as the cell until her clarity reaches 2, and the spots carry her reading of them. How long the delusion lasts depends on how bad the captivity was (severity: see the route map).', subs: [
+    S_('3.1 Waking, and the ordinary stay (Misaki)', 'All stays. A mild stay (severity under 4) clears by the first morning.', ['kc28.js:kdMedStart', 'kc28.js:KD_CHART', 'kc28.js:code@83', 'kc28.js:spot: *', 'kc32.js:spot: *', 'kc33.js:spot: *', 'kc28.js:kdMedRun', 'kc28.js:openPhone', 'kc28.js:kdBacklog', 'kc28.js:kdMedMorning', 'kc48.js:KD_NIGHT', 'kc48.js:KD_NIGHT.push(…)', 'kc48.js:spot: *', 'kc48.js:KD_DOOR', 'kc48.js:kdVisitor', 'kc60.js:spot: *', 'kc61.js:spot: *', 'kc61.js:KD61_MC', 'kc61.js:k61Tubs']),
+    S_('3.2 The infirmary phone threads', '', ['kc28.js:tx_kd_help', 'kc28.js:tx_kd_mdoor', 'kc28.js:tx_kd_selfie', 'kc28.js:tx_kd_rvis', 'kc28.js:tx_kd_adoc', 'kc28.js:tx_kd_rhand']),
+    S_('3.3 V’s side of the stay', 'V POV.', ['kc28.js:sideHub', 'kc28.js:kdSit', 'kc48.js:kdSit', 'kc60.js:sideHub#2', 'kc60.js:A60COR', 'kc61.js:sideHub', 'kc61.js:KD61_THINGS', 'kc61.js:KD61_FILE', 'kc61.js:KD61_ASK', 'kc61.js:KD61_VC']),
+    S_('3.4 The extended delusion', 'Severity 4+ gives one extra day in the cell, 6+ two. On those mornings the room is a cell again, whatever she worked out the day before.', ['kc46.js:KD_STILL_M', 'kc46.js:KD_STILL_V', 'kc46.js:kdMedMorning#1', 'kc46.js:code@47', 'kc46.js:kdMedMorning#2', 'kc61.js:KD61_MX', 'kc61.js:KD61_VX']),
+    S_('3.5 The worst route: Friday', 'Severity 6+ (worst stays). At 8+ the stay never clears by itself (the code fridaycomes starts here).', ['kc49.js:hub', 'kc49.js:KD_BYE', 'kc49.js:kdGoodbye', 'kc49.js:kdMedMorning', 'kc49.js:kd_delivered']),
+    S_('3.6 The worst route: the room, her mind, the clues', 'Severity 8+, Misaki POV, still deluded.', ['kc50.js:KD_DESC', 'kc51.js:KD_MIND', 'kc52.js:code@47', 'kc52.js:KD_UNCANNY', 'kc50.js:KD_SPIRAL_WARN', 'kc60.js:hub', 'kc61.js:KD61_MW', 'kc61.js:KD61_VW', 'kc50.js:KD_CLUES', 'kc50.js:code@17', 'kc50.js:kdLogicOut']),
+    S_('3.7 The worst route: the bright turn, the spiral, lucid too late, the interrupted secret', 'Composure 3 or less at bedtime. The bright turn plays first, then the spiral the same night.', ['kc52.js:kdBright', 'kc52.js:KD_HUM', 'kc52.js:KD_LEFT', 'kc52.js:KD_SHAPE', 'kc50.js:kdSpiral', 'kc50.js:kdInterrupted', 'kc50.js:kd_interrupted_after']),
+    S_('3.8 The shatter', 'How the cell drawing breaks away when clarity returns, by route; and the pieces that don’t go.', ['kc53.js:KD_SHATTER_LINES', 'kc53.js:kd_shards']),
+    S_('3.9 Full story only: the examination, the photographs, the denial, the hidden route', 'These scenes exist only in the full-story setting. They play after discharge, in the aftermath order. What happened is never named. The honest option is always on the menu and always greyed out, except once (kd_last).', ['@SA']),
+    S_('3.10 Injuries only: the recovery', 'These exist only in the injuries-only setting. No doctor, no denial.', ['kc36.js:code@14', 'kc33.js:code@85', 'kc36.js:code@31', 'kc36.js:spot: The lightbox', 'kc36.js:spot: Walk the corridor', '@REC', 'kc36.js:sideHub']),
+  ] },
+  { title: '4. Recovery and aftermath', intro: 'Once she is out of the infirmary the scheduler (kc35) plays the next due scene every morning and the first time the planner opens in the afternoon, evening and night, in KD_ORDER. Each scene still needs its own conditions. Scenes already printed in section 3 are listed here by name only, so the order stays readable.', subs: [
+    S_('4.1 The aftermath scenes, in scheduler order', '', ['@ORDER']),
+    S_('4.2 Other after-phase scenes (not scheduled)', 'Ordinary morning events, one-off notes and activities in the after-phase.', ['kc27.js:kd_lost', 'kc28.js:hub', 'kc47.js:SD_NOTES', 'kc54.js:sideHub', 'index.html:clip', 'index.html:brac_off', 'index.html:mirror', 'index.html:angel_sleeves', 'index.html:ronin_bulb', 'index.html:v_door', 'index.html:shower_door', 'index.html:v_notice_bed', 'index.html:nightmareV', 'index.html:gl_ph_after', 'index.html:flashCheck', 'index.html:ground', 'index.html:sleepAfter']),
+    S_('4.3 Phone threads', '', ['@TX']),
+    S_('4.4 Talk topics', '', ['@TOPIC']),
+  ] },
+  { title: '5. Endings and the lone routes', intro: '', subs: [
+    S_('5.1 V alone after the spiral', 'lateRoute = self (Misaki died in the infirmary). V’s lone route.', ['kc51.js:KD_AFTER', 'kc52.js:code@59', 'kc52.js:sideHub']),
+    S_('5.2 The lone routes after the late routes (Act II alone)', 'After lateV (V too late, Misaki POV gone) or lateM (V dies), and after the spiral: Act II is played alone.', ['index.html:loneIntro', 'index.html:LBEATS', 'index.html:LONE_EV', 'index.html:morningEvent', 'index.html:sleep', 'index.html:act2Hub', 'index.html:npcBarks', 'index.html:dmTab', 'index.html:collapseEnding', 'index.html:loneEnding']),
+    S_('5.3 Ending lines', 'Added to the ending screen when they apply. In the injuries-only setting, lines about the sum, the doctor’s second page, saying yes, the window, the false name, the “dentist” and the ceiling/radio are filtered out (kc36).', ['@END']),
+  ] },
+];
