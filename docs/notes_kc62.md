@@ -1,59 +1,61 @@
-# kc62: the good one (V as one of them)
+# kc62: the good one (inside her head)
 
 All in `src/kc62.js`. Test: `node tools/k62_test.js`.
 
-The author asked for more angst about Misaki being unable to see V as anything but another captor during the
-infirmary period and after it. While she believes the room is a cell, every true thing about him (his steps, his hands,
-the smell of his coat, his kindness) is read as technique, and she keeps a file on him as "the good one", the guard you
-are meant to like. She is polite to him the way you are polite to a guard and plans around him. On V's side, the one
-person who never looked at him the way his victims do now does, and he keeps going in without explaining himself.
-Nothing names what happened in the hours she cannot remember, and nothing shows a method.
+Second version. The author asked for less interaction between V and Misaki, more psychological angst, more of the
+side where her mind does this to her, and more of her well-hidden fear. Almost all of it now happens inside Misaki,
+alone. While the room is a cell her mind keeps a file on V as "the good one", the guard you are meant to like. The file
+is a symptom: it runs at four in the morning instead of sleep, it turns every kind thing he does into technique, and she
+can partly see her head doing it and cannot stop it. Under it is fear she hides completely. On the surface she is flat,
+joking and competent. The narration shows what is underneath, and so do greyed options she cannot take ("Let go of
+the tray": your hand won't open; "Tell him you're frightened": it doesn't come out; "Go in and tell him": not him).
+No clinical labels appear in visible text. Nothing names what happened in the hours she cannot remember, and nothing
+shows a method.
 
-How it fits the existing pieces: "the tall one" (kc46/kc49) is still what she calls him; "the good one" is the role
-she gives him in her file, after the one who brought water (kc30, the list entry `water`). The steps tie to kc58's
-seventh step (`S.f.k58Stair`) and the timetable scene waits for kc58's `k58_creak`. The worst-route flash follows
-kc50's `logicOut` and kc53's shatter (`kdShatterFx`, `KD_SHATTER_LINES`). The report waits for kc55's hardening.
+What is left of V and Misaki together is short and hurts: "sorry, sir" in the kitchen, and the napkin with the hound.
+V's side is three infirmary scenes and the V half of each aftermath scene, all from a distance. He sees her rituals
+and how flat she is, and he sees that she hides it from him most of all.
 
 ## Misaki, in the infirmary
 
 | where | when | what | flags |
 |---|---|---|---|
-| spot "Listen for the tall one" | cell reading (`kdClar()<2`), once per time of day, four in order | the file: nine steps heel first (variant if `k58Stair==='his'`), hands shown at the door (full story: filed with the hours that are gone; injuries only: broken three times), the smell of his coat, the good one (variant by `kdThanks`). Each has "file it" or a choice where the true thing nearly gets through and is filed anyway | `k62Th` 0–4, `k62Mouth`, `k62Rule` = `polite`/`name` |
-| hub, evening (`S.slot>=2`) | cell reading, one a day (`k62Day`) | asking permission to use "your sink"; the napkin with the grey hound drawn badly (fold it away, or keep it "as evidence") | `k62MP`, `k62Nap` = `fold`/`keep` |
-| hub | worst route (`sev>=8`) after `logicOut` (reasoned out, or kc50's interrupted night), once | she knows, and still says "thank you, sir" when he walks in; say his name, or eat and don't correct it | `k62Fl`, `k62FlC` = `name`/`eat` |
+| spot "Listen for the tall one" | cell reading (`kdClar()<2`), once per time of day, four in order | 1. nine steps, then nine more that are not him (the boiler, her pulse); she can't tell which were real (variant: the seventh tread, `k58Stair`). 2. Her hand closes on the tray and won't open; her face stays bored (full story: her reason for watching hands is filed with the hours that are gone; injuries only: broken three times). 3. The coat smell, and an intrusive picture of V on a table in the other building. 4. The file at 4am, seen from up by the light (variant by `kdThanks`). | `k62Th` 0–4, `k62Pic`, `k62Rule` = `add`/`watch` |
+| hub, evening (`S.slot>=2`) | cell reading, one a day (`k62Day`), four in order | sleep she won't allow (sums, pinching, watching herself from the corner); the napkin (fold it / keep it); the joke over the tray while her fingers tap the eleven doors of the other building; the handle she touches three times and the slot she checks, knowing it is her head | `k62MP`, `k62Nap` |
+| hub | worst route (`sev>=8`) after `logicOut` (kc50's reasoning or the interrupted night), once | she knows it is V, and the counting carries on behind the knowing | `k62Fl`, `k62FlC` = `name`/`eat` |
 
-## V, in the infirmary
+## V, in the infirmary (one a day through the hub, `S.slot>=1`, day 1+)
 
-- Side menu **Go in anyway** (once a day, while `clar<2`, three in order): her eyes on his hands, the look men on his
-  table give him; the sink ("It is your sink." or "It is V", which she answers with "sir"); her plan for him heard
-  through the door (walk the nine steps the same, or stop on six and say her name). `k62Go`, `k62VSink`, `k62VPlan`.
-- One scene a day through the hub (`S.slot>=1`, shares `k62Day`): worst stay (`kdWorstOf()`, day 1+): she tells the
-  good one, politely, not to waste his time (`k62VW`). Extended delusion (`xd>=1`): she breathes through her mouth; he
-  tries a clean shirt, then puts the coat back on (`k62VX`). Clear after a bad stay (`sev>=4`): she knows him and still
-  says sir; he goes out and knocks again, or sits on the floor (`k62VC`, `k62VKnock`).
+- Worst stay (`kdWorstOf()`): the light under her door on for three nights, the counting and the pinching; he does
+  not go in, and writes the hours on the chart. `k62VW`.
+- While she does not know him: through the gap in the door, her ritual at the handle; when he knocks she is cheerful.
+  "She hides it from me first." `k62VR`.
+- Clear after a bad stay (`sev>=4`): ten out of ten for the soup, eyes on the door, working her fingers open under the
+  tray while she tells him the priest joke. `k62VC`.
 
 ## After discharge (aftermath order, `kdEv`)
 
-- `kd62_sir` (after `kd61_home`, kdD ≥ 1): the second morning, his hand past her shoulder for the tea; "sorry, sir".
-  Misaki: say his name, or say nothing. V: "Good morning", or "You are welcome" (he would rather be sir). Worst stays
-  (`sev0>=8`): it was the second time that morning. `k62Sir` = `name`/`left`.
-- `kd62_good` (after `kd61_rent`, kdD ≥ 4, needs `kd62_sir`): on the sofa she tells him the file, built from how much
-  of it she made (`k62Th`). Misaki: ask him to walk differently (he says no) or pull the blanket over. V: keep it, or
-  ask which page she is on (the coat; he takes it off). `k62Walk`.
-- `kd62_clock` (after `k58_creak`, kdD ≥ 6, needs `k58_creak`): she has his whole day, like guard shifts. Tell him and
-  he writes it on the fridge (the last line follows `k58Stair`), or keep it. Worst stays get the afternoons when the
-  file opens by itself. `k62Clock` = `told`/`kept`.
-- `kd62_report` (after `kd_v_sees`, kdD ≥ 11, needs `kd_hard_work` for Misaki or `kd_v_sees` for V): she reports a job
-  at the island like a guard's shift report and waits to be dismissed. Misaki: wait to be told, or sit unasked (tier 2).
-  V: "Sit down." or sit on the floor first. `k62Rep`.
-- Ending lines: sir still answered to, or once; the timetable on the fridge; the file recited at the Sunday table.
+- `kd62_sir` (after `kd61_home`, kdD ≥ 1): his hand past her shoulder; "sorry, sir"; then the joke and the shut hand
+  under the island. Misaki: make a joke / say nothing (count the doors) / greyed "Tell him what just happened".
+  Worst stays: it was the second time that morning. `k62Sir`.
+- `kd62_file` (after `kd61_rent`, kdD ≥ 4, needs `kd62_sir`): 4am at his island, the file still writing itself, and new
+  pages of kindness turned into technique (fuller if she built the file in the infirmary). Write it in the newspaper
+  margin, or lie awake. V sees it from the stair and goes back up unseen. `k62File`.
+- `kd62_clock` (after `k58_creak`, kdD ≥ 6, needs `k58_creak`): she counts doors, and she has his whole day; the stair
+  line follows `k58Stair`. Count them, or try not to. V writes his day on the fridge without a word, or keeps to it to
+  the minute. Worst stays: afternoons when the file opens by itself. `k62Clock`.
+- `kd62_truck` (after `kd_v_sees`, kdD ≥ 11, needs `kd_hard_work` for Misaki or `kd_v_sees` for V): a clean job, and in his
+  garage her hands won't come off the wheel. Greyed "Go in and tell him" (not him); wait it out, or head on the wheel;
+  she goes in cheerful. V hears the engine stop and the door not open for forty minutes, and never lets her know.
+  `k62Truck`.
+- Ending lines: the doors she still counts (or the timetable on the fridge), the truck in the garage, the torn margin.
 
 ## Rules kept
 - V uses no contractions. Every Misaki line goes through `MV` with four tiers. Hounds by colour only. No new characters.
-- Injuries only: the one full-story reference (the hands entry, "filed with the hours that are gone") has a plain
-  variant; there is no doctor and no denial anywhere in kc62.
-- `python3 tools/aiscan.py | grep kc62` reports nothing.
+- Injuries only: the one full-story reference (the hand entry) has a plain variant; no doctor and no denial in kc62.
+- `python3 tools/aiscan.py` and `python3 tools/aiscan2.py -v 'src/kc62.js'` report nothing.
+- About 3,500 words counting both POVs with one `MV` tier (the first version was about 4,300).
 
 ## For the author
-- New small facts: nine steps from the infirmary stairs to the door; a cactus fridge magnet; V's timetable on the fridge.
-- "The good one" is Misaki's word; she ties it to the one who brought water. Confirm that link.
+- New small facts: nine steps from the infirmary stairs to the door; eleven doors from the van to the cell; a cactus
+  fridge magnet; V's timetable on the fridge.
