@@ -22,6 +22,9 @@ coming. They are funny because they are dangerous and at ease with it, never bec
   any leads."
 - The Angel: ravenous, righteous, possessive. Hunts for sport and calls it catharsis. Shotgun. "None of them can say
   they didn't have it coming." "No one who values their life should fuck with her."
+- Lore: she plays Ninefold Chapel, an original phone gacha game about saints (a ten-pull is a tithe, the money is
+  candles), and spent $2,860 in one night on Saint Ottilie of the Shears. She hides it from Maria's followers ("my
+  assistant's phone") and threatens anyone who calls her saint mid. (kc64)
 - In texts she can stay lowercase, but give her teeth: fewer "LMAO babe 💕" fillers, more appetite and threat under
   the sweetness. She enjoys being a little exposed.
 
@@ -56,6 +59,9 @@ coming. They are funny because they are dangerous and at ease with it, never bec
   the same sums as a sniper, and a cockpit is a room with one door that locks from your side. Ronin calls them a scalper. (kc60)
 - Lore: their will, as Angel keeps it in “list (final) (2)”: rifle to Angel, truck and chainsaw to Ronin, Prickles to V, the
   star clips in the bin. V has left them the hounds. (kc60)
+- Lore: they like calculus and cannot say why. The competitions were tricks and counting; calculus they found at fifteen
+  in a textbook thrown in a skip, and did all of it in a truck cab by torchlight. Integrals are how they unwind after a
+  job; the notebooks say FOR FUN at the top; the coverless book is in the go-bag. Another wasted talent. (kc64)
 
 
 ## V (K9)
