@@ -775,3 +775,9 @@ The point of the arc is that even the rehabilitation is a tragedy. Every milesto
 - `kd_reh_laugh`: the first laugh at the priest joke, done perfectly from memory; she can't remember the end of the joke.
 - `kd_reh_who`: "recovered" on the last page; she looks well, she looks like the girl who got into the van, she isn't her. V writes "Not the same." and crosses it out.
 - Each physio or walking session that makes progress now adds a line about progress not feeling like anything. The ending line for the hand reads: "The hand came back… and she didn't, not all the way, and nobody can tell but V."
+
+## Harder, and him watching (kc55)
+- **V's side of the recovery** (V POV): `kd_v_ledger` (every column improves; there is no column for whether she is still in there), `kd_v_kitchen` (4am, the grey hound's seam, back in bed by six so he will have been asleep), `kd_v_nobody` (Ronin on the roof: "You can't tell her… 'cause then it's about you." "No." "Yeah. Same."), `kd_v_tally` (a tally under the infirmary bed, more marks than nights; the one thing he keeps from her on purpose).
+- **Misaki refuses to be less** (Misaki POV): `kd_hard_first` (three contracts in a week; edge +6, heat +4), `kd_hard_work` (better than ever, doesn't talk to them or hum any more, counts the money twice), `kd_hard_rule` (the car-seat rule gone, and the reason with it). `kd_hard_angel` (both POVs): Angel starts to say it and doesn't; she and V look at each other over Misaki's shoulder.
+- **V sees it and can't stop her** (V POV): `kd_v_sees` (it is what he did after his mother: say something and hit "look at me" and the sentence he can't say, or say nothing and make dinner), `kd_v_cant` (she washes her hands once now; he leaves the second cup on the island).
+- Ending lines for both.
