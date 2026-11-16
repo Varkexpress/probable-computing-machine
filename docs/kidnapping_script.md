@@ -25,12 +25,13 @@ _Scheduler order and setting lists were read from the running game._
   - [3.2 The infirmary phone threads](#32-the-infirmary-phone-threads)
   - [3.3 V’s side of the stay](#33-vs-side-of-the-stay)
   - [3.4 The extended delusion](#34-the-extended-delusion)
-  - [3.5 The worst route: Friday](#35-the-worst-route-friday)
-  - [3.6 The worst route: the room, her mind, the clues](#36-the-worst-route-the-room-her-mind-the-clues)
-  - [3.7 The worst route: the bright turn, the spiral, lucid too late, the interrupted secret](#37-the-worst-route-the-bright-turn-the-spiral-lucid-too-late-the-interrupted-secret)
-  - [3.8 The shatter](#38-the-shatter)
-  - [3.9 Full story only: the examination, the photographs, the denial, the hidden route](#39-full-story-only-the-examination-the-photographs-the-denial-the-hidden-route)
-  - [3.10 Injuries only: the recovery](#310-injuries-only-the-recovery)
+  - [3.5 The good one: V read as one of them](#35-the-good-one-v-read-as-one-of-them)
+  - [3.6 The worst route: Friday](#36-the-worst-route-friday)
+  - [3.7 The worst route: the room, her mind, the clues](#37-the-worst-route-the-room-her-mind-the-clues)
+  - [3.8 The worst route: the bright turn, the spiral, lucid too late, the interrupted secret](#38-the-worst-route-the-bright-turn-the-spiral-lucid-too-late-the-interrupted-secret)
+  - [3.9 The shatter](#39-the-shatter)
+  - [3.10 Full story only: the examination, the photographs, the denial, the hidden route](#310-full-story-only-the-examination-the-photographs-the-denial-the-hidden-route)
+  - [3.11 Injuries only: the recovery](#311-injuries-only-the-recovery)
 - [4. Recovery and aftermath](#4-recovery-and-aftermath)
   - [4.1 The aftermath scenes, in scheduler order](#41-the-aftermath-scenes-in-scheduler-order)
   - [4.2 Other after-phase scenes (not scheduled)](#42-other-after-phase-scenes-not-scheduled)
@@ -40,6 +41,8 @@ _Scheduler order and setting lists were read from the running game._
   - [5.1 V alone after the spiral](#51-v-alone-after-the-spiral)
   - [5.2 The lone routes after the late routes (Act II alone)](#52-the-lone-routes-after-the-late-routes-act-ii-alone)
   - [5.3 Ending lines](#53-ending-lines)
+- [Appendix: other text from the same modules](#appendix-other-text-from-the-same-modules)
+  - [Not placed above](#not-placed-above)
 
 ## Route map
 
@@ -56,16 +59,16 @@ _Scheduler order and setting lists were read from the running game._
 
 **The infirmary: severity (section 3).** When she is carried in, the stay is scored: +1 for each session beyond the first, +1 at 16+ lost hours, +1 at 24+, +1 for two failed escapes, +1 for the last-chance route, +1 for composure under 35, +1 if she said two or more things under the needle, +1 for three or more nights missing; +2 with the code *thetallone*. The code *fridaycomes* starts at 14.
 - **Under 4 — the ordinary stay** (3.1): clears by the first morning; the shatter is the *morning* version; the bin of soup tubs.
-- **4+ — the extended delusion** (3.4): one extra day in the cell; **6+**: two extra days, and on an extra night **Friday** (3.5): she leaves goodbyes with “the tall one”, who is V. Tier 3 can look at the guard’s face and end it early.
-- **8+ — the worst route** (Misaki POV, 3.5–3.7): it never clears by itself. Each deluded morning costs 7 composure; each day brings a state-of-mind scene by composure band.
+- **4+ — the extended delusion** (3.4): one extra day in the cell; **6+**: two extra days, and on an extra night **Friday** (3.6): she leaves goodbyes with “the tall one”, who is V. Tier 3 can look at the guard’s face and end it early.
+- **8+ — the worst route** (Misaki POV, 3.6–3.8): it never clears by itself. Each deluded morning costs 7 composure; each day brings a state-of-mind scene by composure band.
   - *Think it through*: five clues in the room. **Four clues → she reasons it out**, opens the door and finds V (shatter: *logic*).
   - *Composure 3 or less at bedtime* → **the bright turn** (three choices: what she hums, what she leaves out, where she sits) → **the spiral** the same night:
     - with **2+ clues and a goodbye left for V** at Friday → **the secret, interrupted**: V is listening at the door and gets there in time; she lives (shatter: *caught*; `kd_interrupted_after`).
     - otherwise → **lucid too late**: she knows it is V’s house and Tuesday, and cannot call out (shatter: *late*); the bright-turn choices decide what V finds → **V alone** (5.1, `KD_AFTER`).
 
 **The setting** (title screen or pause menu: *Kidnapping aftermath: full story / injuries only*).
-- **Full story**: adds the strand about the hours she cannot remember: the doctor’s question, the examination window, the photographs, the precaution cup, the white box, the denial (3.9). Never named.
-- **Injuries only**: removes that strand and these scenes: `kd_konbini`, `kd_angelsees`, `kd_card`, `kd_discharge`, `kd_checkup`, `kd_pins`, `kd_wrists`, threads `tx_kd_fine`, `tx_kd_selfie`, `tx_kd_adoc`. Adds the plain room spots and the `kd_rec_*` recovery (3.10). Scenes that branch on the setting show both versions below.
+- **Full story**: adds the strand about the hours she cannot remember: the doctor’s question, the examination window, the photographs, the precaution cup, the white box, the denial (3.10). Never named.
+- **Injuries only**: removes that strand and these scenes: `kd_konbini`, `kd_angelsees`, `kd_card`, `kd_discharge`, `kd_checkup`, `kd_pins`, `kd_wrists`, threads `tx_kd_fine`, `tx_kd_selfie`, `tx_kd_adoc`. Adds the plain room spots and the `kd_rec_*` recovery (3.11). Scenes that branch on the setting show both versions below.
 
 **The hidden route** (`kd_last`, full story, Misaki POV). On the last Saturday the examination would still show, “Answer the question.” is enabled only if all five hold: she **kept the room** (`kd_blank`), **read the note-taker’s notebook herself** (`kd_book`), **looked at the photographs and handed them back** (`kd_photos` then `kd_photodeny`), **took the precaution tablets** (`kd_cup`), and **found the white box** in the infirmary fridge. Then `kd_told_box`, `kd_told_dentist` and `kd_told_sleep` replace the usual scenes, and the collapses (`kd_crash`, `kd_crash2`) do not happen.
 
@@ -608,7 +611,7 @@ Don’t listen to the radio. Count.
 
 > *You come up on the cot and cannot tell whether it has been an hour or a day. Nothing in the room will say.*
 >
-**⟨If `IR.R<30` or `k.ses>=3`⟩**
+**⟨If `IR.R<30` or `S.kd.ses>=3`⟩**
 
 > *Your throat is raw, the way it gets when you have been talking for a long time. You don’t remember talking.*
 >
@@ -655,7 +658,7 @@ Don’t listen to the radio. Count.
 
 > Misaki POV. When the cell clock runs out (six actions), they come for another session.
 
-- *if `k.ses>=2`:* *Boots in the hall. They stop at your door, and nobody bothers with the hood any more.*
+- *if `S.kd.ses>=2`:* *Boots in the hall. They stop at your door, and nobody bothers with the hood any more.*
 - *otherwise:* *Boots in the hall, stopping at your door. You had hours, and you spent them on the floor.*
 
 **Misaki:** (One: it’s only questions. Two: i’ve had worse dates. Three: ...shit, there’s no three.)
@@ -760,7 +763,7 @@ Don’t listen to the radio. Count.
 
 #### Spot: Your arm
 
-*Under your jaw, where the van needle went, there is one scab. Inside your left elbow there {if `k.ses===1`: is one more | otherwise: are [k.ses] more}, in a neat row.*
+*Under your jaw, where the van needle went, there is one scab. Inside your left elbow there {if `S.kd.ses===1`: is one more | otherwise: are [k.ses] more}, in a neat row.*
 
 *You remember the van. You don’t remember any of the arm ones going in.*
 
@@ -1150,106 +1153,42 @@ The radio down the hall
 
 > V POV, during captivity: the “Find her” menu. Trace the phone (ops minigame), shake down one of their people, call Ronin and Angel, hunt along the river (needs the trace), go get her (needs the district, the building and a way in).
 
-**⟨If during captivity⟩**
+`h` Find her
 
-> ▸ **Trace her phone** — *(done — warehouse district / ops deck · decrypt)* `greyed out when `late` or flag traced set`
->
-> > <small>→ step-memory minigame</small>
-> >
-> > **⟨If success⟩**
-> >
-> > > *The signal pings once, from the warehouse row on the east bank of the river. There are nine warehouses in that row. Then nothing.*
-> > >
-> > > **V:** There. One of nine.
-> > >
-> > **⟨Otherwise⟩**
-> >
-> > > **V:** Again.
-> > >
-> ▸ **Shake down one of their people** — *(done / costs time)* `greyed out when `late` or flag informant set`
->
-> ▸ **Call Ronin and Angelic** — *(done / )* `greyed out when `late` or flag called set`
->
-> > **Ronin:** Took ya long enough, Vee. Point me at the fuckers. All of ’em.
-> >
-> > **Angel:** i’m pulling every CCTV account i have. fans are everywhere, V. FANS ARE EVERYWHERE.
-> >
-> > **V:** Thank you. Both of you.
-> >
-> > **Ronin:** Don’t thank me yet, pal. Thank me after, when I’m wipin’ him off my boots.
-> >
-> ▸ **Hunt along the river** — *(done — the fourth building / trace her phone first / which of the nine · a wrong door warns them)* `greyed out when `late` or flag kdBldg set`
->
-> > <small>→ hunt along the river</small>
-> >
-> ▸ **Go get her** — *(rescue mission / need the district, the building and a way in)* `greyed out when `late` or `!(S.f.traced&&S.f.informant&&S.f.kdBldg)``
->
-> > <small>→ V’s rescue (stealth minigame)</small>
-> >
-**⟨Otherwise⟩**
+▸ **Trace her phone** — *(done — warehouse district / ops deck · decrypt)* `greyed out when it is too late in the day or flag traced set`
 
-> **⟨If (an internal state check passes)⟩**
+> <small>→ step-memory minigame</small>
 >
-> > ▸ 
-> > - *if she has moved in:* **Home (V’s place)**
-> > - *otherwise:* **Misaki’s trailer** — *(free · your rooms, the dogs, V / laptop, bills, gear, bed)*
-> >
-> > ▸ **Take a contract** — *(done today / too hot — lay low / too tired / costs time + energy)* `greyed out when `late` or `S.done.job` or `S.heat>=80` or `S.energy<25``
-> >
-> > ▸ 
-> > - *if Misaki’s lone route:* **His house (the dogs need feeding)**
-> > - *otherwise; if she has moved in:* **The trailer (out back)**
-> > - *otherwise; otherwise:* **Sneak into V’s base** — *(free · laptop, bills, stash / costs time · explore, minigames, secrets)* `greyed out when `late`, she has not moved in`
-> >
-> > ▸ **City square** — *(costs time · crêpes, books, arcade… and sometimes someone tall)* `greyed out when `late` or during captivity`
-> >
-> > ▸ **Corner store run** — *(done today / costs time · snacks, energy)* `greyed out when `late` or `S.done.konbini``
-> >
-> > ▸ **Long drive** — *(done today / costs time · clears your head)* `greyed out when `late` or `S.done.drive` or during captivity`
-> >
-> **⟨If not during captivity⟩**
+> **⟨If success⟩**
 >
-> > ▸ **Ronin’s apartment** — *(costs time · Heathers, vinyl, favours)* `greyed out when `late``
+> > *The signal pings once, from the warehouse row on the east bank of the river. There are nine warehouses in that row. Then nothing.*
 > >
-> > ▸ **Angelic’s studio** — *(costs time · glam, alibis / costs time · glam, alibis · gossip)* `greyed out when `late``
+> > **V:** There. One of nine.
 > >
-> **⟨If V POV, V POV, not during captivity⟩**
+> **⟨Otherwise⟩**
 >
-> > ▸ **City square** — *(costs time · books, crêpes… and sometimes someone short)* `greyed out when `late``
+> > **V:** Again.
 > >
-> **⟨If V POV⟩**
+▸ **Shake down one of their people** — *(done / costs time)* `greyed out when it is too late in the day or flag informant set`
+
+▸ **Call Ronin and Angelic** — *(done / )* `greyed out when it is too late in the day or flag called set`
+
+> **Ronin:** Took ya long enough, Vee. Point me at the fuckers. All of ’em.
 >
-> > ▸ **Walk the base** — *(free · explore as V — dogs, terminal, greenhouse, archive)*
-> >
-> > ▸ **Take a meeting** — *(done today / calendar clear / costs time)* `greyed out when `late` or `S.done.meet` or `S.meet>=MEETS.length``
-> >
-> > ▸ **Kennel shift** — *(done today / costs time)* `greyed out when `late` or `S.done.kennel``
-> >
-> > > **V:** 
-> > > - *if `sc>=10`:* Every one of them fed, walked, brushed. Good.
-> > > - *otherwise; if `sc>=5`:* A good shift, though not a perfect one.
-> > > - *otherwise; otherwise:* A poor shift. They were patient with me.
-> > >
-> > ▸ **Audit the ledger** — *(done today / ops deck · decrypt for funds)* `greyed out when `late` or `S.done.audit``
-> >
-> > > <small>→ step-memory minigame</small>
-> > >
-> > > **V:** 
-> > > - *if success:* Two donors were laundering through the hospital fund. I have stopped them.
-> > > - *otherwise:* The numbers blur. Tomorrow.
-> > >
-> > ▸ 
-> > - *if she has moved in:* **Spend time with Misaki**
-> > - *otherwise:* **Check on Misaki** — *(done today / she’s somewhere in the house / visit the trailer)* `greyed out when `late` or `S.done.visit` or both POVs or `S.lone``
-> >
-> > ▸ **Pick up a gift for Misaki** — *(… / errand · free)* `greyed out when `S.lone``
-> >
-> **⟨If in the after-phase⟩**
+> **Angel:** i’m pulling every CCTV account i have. fans are everywhere, V. FANS ARE EVERYWHERE.
 >
-> > ▸ **The list** — *([(S.list||[]).filter(x=>!x.st).length] names left · thins the guards)*
-> >
-> > ▸ **Finish it — [boss]** — *(ends the run · [number] day(s) to prepare)*
-> >
+> **V:** Thank you. Both of you.
+>
+> **Ronin:** Don’t thank me yet, pal. Thank me after, when I’m wipin’ him off my boots.
+>
+▸ **Hunt along the river** — *(done — the fourth building / trace her phone first / which of the nine · a wrong door warns them)* `greyed out when it is too late in the day or flag kdBldg set or traced not set`
+
+> <small>→ hunt along the river</small>
+>
+▸ **Go get her** — *(rescue mission / need the district, the building and a way in)* `greyed out when it is too late in the day or `!(S.f.traced&&S.f.informant&&S.f.kdBldg)``
+
+> <small>→ V’s rescue (stealth minigame)</small>
+>
 
 #### Shake down one of their people
 
@@ -1486,48 +1425,42 @@ The radio down the hall
 
 > The server chat (group channel), during captivity and in the after-phase.
 
-**⟨If during captivity⟩**
+**Angel (server chat):** misaki?? you didn’t answer my vlog poll. you ALWAYS answer my vlog poll
 
-> **Angel (server chat):** misaki?? you didn’t answer my vlog poll. you ALWAYS answer my vlog poll
->
-> **Ronin (server chat):** she ain’t readin’ shit. phone’s been dead since yesterday. somebody’s gonna fuckin’ answer for that
->
-> **Angel (server chat):** V. V are you there
->
-> **⟨If V POV⟩**
->
-> > **V (server chat):** I am handling it.
-> >
-**⟨If in the after-phase⟩**
+**Ronin (server chat):** she ain’t readin’ shit. phone’s been dead since yesterday. somebody’s gonna fuckin’ answer for that
 
-> **Angel (server chat):** misaki!!!!! you’re back. are you ok. i can bring snacks. i’m furious nobody has let me shoot anyone yet
+**Angel (server chat):** V. V are you there
+
+**⟨If V POV⟩**
+
+> **V (server chat):** I am handling it.
 >
-> **Ronin (server chat):** heard some asshole took our little killer on a trip. heard the asshole’s boss is still breathin’. vee, that one’s mine, i’m callin’ it
+**⟨Otherwise (Misaki POV)⟩**
+
+> **V (server chat):** ...
 >
-> **V (server chat):** 
-> - *tier 0:* Rest, Misaki.
-> - *tier 1:* Rest. I mean it.
-> - *tier 2:* Rest. I will be awake regardless; the work is not finished.
-> - *tier 3:* I am outside your door. Nothing reaches it.
->
+**Angel (server chat):** misaki!!!!! you’re back. are you ok. i can bring snacks. i’m furious nobody has let me shoot anyone yet
+
+**Ronin (server chat):** heard some asshole took our little killer on a trip. heard the asshole’s boss is still breathin’. vee, that one’s mine, i’m callin’ it
+
+**V (server chat):** 
+- *tier 0:* Rest, Misaki.
+- *tier 1:* Rest. I mean it.
+- *tier 2:* Rest. I will be awake regardless; the work is not finished.
+- *tier 3:* I am outside your door. Nothing reaches it.
 
 #### Nights missing
 
 > V POV. Each night she is missing. At four nights the late route starts (lateV).
 
-**⟨If during captivity, V POV⟩**
+**⟨If 2+ nights missing⟩**
 
-> **⟨If 2+ nights missing⟩**
+> *Somewhere, Misaki is very tired. Somewhere, a man with clean hands writes something down.*
 >
-> > *Somewhere, Misaki is very tired. Somewhere, a man with clean hands writes something down.*
-> >
-**⟨If in the after-phase, `S.day>S.endDay`⟩**
-
-> <small>→ the finale</small>
+<small>→ the finale</small>
 
 - *if V POV:* *V has waited long enough.*
-> - *otherwise:* *Misaki has waited long enough.*
->
+- *otherwise:* *Misaki has waited long enough.*
 
 #### The late route (V)
 
@@ -1626,6 +1559,22 @@ The radio down the hall
 
 > Both POVs, once she is out (escape, rescue, or V arriving). Hands over to the infirmary.
 
+`name` The driver
+
+`description` He drove the van. He sang along to the radio the whole way.
+
+`name` The man with the radio
+
+`description` He kept the same song playing down the hall, on a loop, for days. He thought it was funny.
+
+`name` The note-taker
+
+`description` He wrote down everything she said, and everything she didn’t, in very neat handwriting.
+
+`name` The one who brought water
+
+`description` He never looked at her. He never spoke. He always brought the water anyway.
+
 *Three days after the river she is upstairs in daylight, in one of his shirts with the left sleeve cut off to fit over the cast.*
 
 **Misaki:** 
@@ -1704,6 +1653,10 @@ The radio down the hall
 
 > After the infirmary: the list of the men who held her, as a menu.
 
+The list {if V POV: Four lines, in V’s neat hand. One is crossed out in a different pen — hers. | otherwise: V’s list. He left it on the table where she’d find it. She thinks that was on purpose.} [one entry per name]Each name you deal with means fewer guards around [boss]. Each costs time.
+
+> {if `x.st`: | otherwise: }[list name] — {if `x.gone`, `!x.st`: She cannot describe him any more. The line stays on the page with nothing under it. | otherwise: (nothing)}{if `x.st`; if `x.st===2`: spared | if `x.st`; otherwise: handled | otherwise; if `x.gone`: gone blank | otherwise; otherwise: }
+>
 `option note` 
 - *if `S.slot>=3`:* too late tonight
 - *otherwise:* costs time
@@ -2074,6 +2027,16 @@ V’s infirmary on sublevel two, behind a door marked LAUNDRY. In Misaki’s POV
 
 *“L foot: fracture, walked on. Wrists: ligature burns, both, to the tendon. Scalp: 14 sutures. Two molars. Weight: minus 7 kg. Back: see photographs. Do not show patient.”*
 
+#### No leaving
+
+`leaveText`
+
+> 
+> - *if during captivity:* There is no leaving. Not through the front.
+> - *otherwise; if she still thinks it is a cell (clarity under 2):* (They’d hear the door.)
+> - *otherwise; otherwise:* You’re supposed to stay in bed.
+>
+
 #### Spot: Cot / Bed
 
 > Shown when: infirmary room spot.
@@ -2169,7 +2132,7 @@ V’s infirmary on sublevel two, behind a door marked LAUNDRY. In Misaki’s POV
 >
 **⟨Once she knows where she is (clarity 2+): “Soup”⟩**
 
-> **⟨If `S.done.kdSoup`⟩**
+> **⟨If already done today⟩**
 >
 > > **Misaki:** (had it. there’s ten more in the fridge down the hall. he labelled them by day.)
 > >
@@ -2250,15 +2213,16 @@ V’s infirmary on sublevel two, behind a door marked LAUNDRY. In Misaki’s POV
 
 > Shown when: she knows where she is (clarity 2+).
 
-**⟨If `S.done.kdGrip`⟩**
+**⟨If already done today⟩**
 
 > **Misaki:** (did my reps. the hand says no more today.)
 >
 **⟨Otherwise⟩**
 
 > <small>→ hold-still minigame</small>
-
-- *if success:* *Three squeezes with the left hand. The pins move when she does it, and she watches them move with interest.*
+>
+> 
+> - *if success:* *Three squeezes with the left hand. The pins move when she does it, and she watches them move with interest.*
 > - *otherwise:* *The ball rolls under the bed. She tells it that it’s a stupid ball.*
 >
 > **Misaki:** 
@@ -2418,7 +2382,8 @@ V’s infirmary on sublevel two, behind a door marked LAUNDRY. In Misaki’s POV
 
 **⟨If flag kdKit set⟩**
 
-- *if kdKit = 'turned':* *Soup, labelled by day. The white box is still on the bottom shelf, with its label to the back.*
+> 
+> - *if kdKit = 'turned':* *Soup, labelled by day. The white box is still on the bottom shelf, with its label to the back.*
 > - *otherwise:* *Soup, labelled by day. The white box is still on the bottom shelf.*
 >
 **⟨Otherwise⟩**
@@ -2502,6 +2467,12 @@ V’s infirmary on sublevel two, behind a door marked LAUNDRY. In Misaki’s POV
 #### The backlog
 
 > Misaki POV: the backlog of messages sent while she was gone, delivered when V slides her phone under the door.
+
+**Misaki (text):** — while you were gone —
+
+**Misaki / V (text):** — while you were gone —
+
+**Misaki / V (text):** — while you were gone —
 
 **V (text):** [tue 07:00] Did you eat today?
 
@@ -2604,7 +2575,7 @@ V’s infirmary on sublevel two, behind a door marked LAUNDRY. In Misaki’s POV
 > > > ▸ **The garage. She will go for the biggest door.**
 > > >
 > > > > 
-> > > > - *if `late`:* *Ten minutes lost in the kennel corridor. By the time he reaches the garage she has the big door up by a hand’s width.*
+> > > > - *if it is too late in the day:* *Ten minutes lost in the kennel corridor. By the time he reaches the garage she has the big door up by a hand’s width.*
 > > > > - *otherwise:* *She is where he thought she would be.*
 > > > >
 > > > > *She is holding the drip stand like a spear, on a foot she should not be standing on. She does not know him.*
@@ -3373,6 +3344,8 @@ V’s infirmary on sublevel two, behind a door marked LAUNDRY. In Misaki’s POV
 
 > **Misaki:** (two knocks)
 >
+> **Misaki:** ...ok. dont come in yet. but dont go
+>
 
 #### Thread: Misaki and Angel (tx\_kd\_selfie)
 
@@ -3432,6 +3405,8 @@ V’s infirmary on sublevel two, behind a door marked LAUNDRY. In Misaki’s POV
 
 ▸ **V:** **“The left hand, twice. Three ribs. The foot. Seven kilograms.”**
 
+> **Angel:** ok
+>
 > **Angel:** ok. i’m outside ur gate. i have the big makeup case and the shotgun and i don’t know yet which one i need
 >
 > **Angel:** she’s going to say she’s fine, isn’t she
@@ -3469,10 +3444,14 @@ V’s infirmary on sublevel two, behind a door marked LAUNDRY. In Misaki’s POV
 
 ▸ **V:** **“The man with the radio stood on it. It was already broken.”**
 
+> **Ronin:** mine
+>
 > **Ronin:** you get the rest. that one’s mine t’kill. I’m askin’ nice
 >
 ▸ **V:** **“She does not know that it is broken.”**
 
+> **Ronin:** ...the fuck d’you mean she don’t know
+>
 > **Ronin:** (typing for a long time)
 >
 > **Ronin:** okay. then nobody tells her it was him. she finds out when he’s already in my freezer
@@ -3486,7 +3465,9 @@ V’s infirmary on sublevel two, behind a door marked LAUNDRY. In Misaki’s POV
 
 > V POV: the side-menu entry while she is in the infirmary.
 
-▸ **The infirmary** — *(done today / costs time · sit with her)* `greyed out when `late` or `S.done.kdSit``
+`h` Sublevel two
+
+▸ **The infirmary** — *(done today / costs time · sit with her)* `greyed out when it is too late in the day or already done today`
 
 #### Sit with her
 
@@ -3565,7 +3546,7 @@ V’s infirmary on sublevel two, behind a door marked LAUNDRY. In Misaki’s POV
 
 > V POV, infirmary: the side-menu entry for the kennel corridor at night.
 
-▸ **The kennel corridor, at night** — *(done today / costs time · outside the door marked LAUNDRY)* `greyed out when `late` or `S.done.a60Cor``
+▸ **The kennel corridor, at night** — *(done today / costs time · outside the door marked LAUNDRY)* `greyed out when it is too late in the day or already done today`
 
 #### The kennel corridor, at night
 
@@ -3607,7 +3588,7 @@ V’s infirmary on sublevel two, behind a door marked LAUNDRY. In Misaki’s POV
 >
 > *In the morning the old dressings are in the bin, folded very small, the way a person folds them who has always had to hide them.*
 >
-**⟨If worst stay (severity 6+)⟩**
+**⟨If worst stay (severity 8+, not reasoned out)⟩**
 
 > *Two in the morning. Through the door, she starts talking to the tall one, which she has never done before.*
 >
@@ -3636,15 +3617,15 @@ V’s infirmary on sublevel two, behind a door marked LAUNDRY. In Misaki’s POV
 
 **⟨If `n<KD61_THINGS.length`⟩**
 
-> ▸ **Her things, from the river** — *(done today / costs time · what came back with her)* `greyed out when `late` or `S.done.k61Th``
+> ▸ **Her things, from the river** — *(done today / costs time · what came back with her)* `greyed out when it is too late in the day or already done today`
 >
 **⟨If (an internal state check passes)⟩**
 
-> ▸ **Her file** — *(done today / costs time · in his study)* `greyed out when `late` or `S.done.k61Fl``
+> ▸ **Her file** — *(done today / costs time · in his study)* `greyed out when it is too late in the day or already done today`
 >
 **⟨If `(S.kd.med.clar||0)>=2`⟩**
 
-> ▸ **Ask what she needs** — *(done today / costs time · through the door)* `greyed out when `late` or `S.done.k61Ak``
+> ▸ **Ask what she needs** — *(done today / costs time · through the door)* `greyed out when it is too late in the day or already done today`
 >
 > > **V — choice:** *(The rest of it is still on the floor.)*
 > >
@@ -4052,7 +4033,243 @@ V’s infirmary on sublevel two, behind a door marked LAUNDRY. In Misaki’s POV
 
 *He sits down on the floor outside the door with the other green mug, the one with no chip, and drinks from the left as well, so that it will be the same.*
 
-### 3.5 The worst route: Friday
+### 3.5 The good one: V read as one of them
+
+> While she believes the room is a cell, every true thing about V (his steps, his hands, his coat, his kindness) is read as a captor’s technique, and she keeps a file on “the good one”. Both POVs.
+
+#### The file on the good one
+
+> Misaki POV, while the infirmary is a cell: the spot “Listen for the tall one”, once per time of day, gives one of these four entries of her file on “the good one”.
+
+*You lie with your ear to the lino by the door. He comes nine steps from the stairs, heel first, heavy, so that you hear every one.*
+
+*Then you hear nine more, and he isn’t there. The boiler does nine. Your own pulse in the ear on the floor does nine. By the afternoon you can’t say which of the steps were him and which your head made, and you count all of them anyway.*
+
+**Misaki:** 
+- *tier 0:* (9. 9. 9.)
+- *tier 1:* (nine. that was real. that one was real.)
+- *tier 2:* (Nine. That was real. I think that one was real.)
+- *tier 3:* (Nine. That was him. That was the boiler. That was him. I can hear it doing this. I can hear my head make up a man on the stairs and I still have to count him.)
+
+`prompt` (Nine.)
+
+▸ **Count again from one.**
+
+> *You count again from one. You get to nine, and start again, because you weren’t sure about the fourth.*
+>
+▸ **Decide which ones were real.**
+
+> 
+> - *if k58Stair = 'his':* *You try. What comes back instead is a back stair in a house, and a man putting his weight on the seventh tread at night because you asked him to. You put that in the file as well: they must have studied him.*
+> - *otherwise:* *You try. What comes back instead is a back stair in a house, and a man coming up it heel first at night so as not to frighten anybody. You put that in the file as well: they must have studied him.*
+>
+*When the tray comes your right hand goes to the edge of it and closes, and stays closed after he has gone.*
+
+- *if full-story setting:* *You watch hands now. You have a reason, and you have filed the reason with the hours that are gone, where you don’t have to look at it.*
+- *otherwise:* *You watch hands now. Hands are what break things. Yours has been broken three times, and the hand knows that better than you do.*
+
+*Your face is fine the whole time. You check it in the dark of the window: bored, a bit tired. Your knuckles have gone white on the tray.*
+
+`prompt` (Your hand.)
+
+Let go of the tray.
+
+your hand won’t open
+
+▸ **Wait for it to open on its own.**
+
+> *It takes twenty minutes. You talk to it the whole time, very reasonably, like a hound on a ledge, and when it opens you put it under your thigh so it can’t do it again.*
+>
+▸ **Open it with the other hand, one finger at a time.**
+
+> *The left is in a cast, so you do it with your teeth and the cast. Four fingers. The thumb last. It hurts in a way you decide not to have noticed.*
+>
+*He kneels to put the water down and you get the smell of him: hound and coffee, laundry soap, ink. A coat on a hook by a back door.*
+
+*Your head goes straight past “that’s V” to the next thing, the way it always goes now. If they have his coat, they took it off him. You see where. A metal table in the other building, and his hands under the straps.*
+
+*You don’t want the picture. It plays anyway, all the way through, in colour, while you sit on the cot and say “thanks” to the guard about the water in a perfectly ordinary voice.*
+
+`prompt` (The picture.)
+
+▸ **Count the hounds until it goes.**
+
+> **Misaki:** 
+> - *tier 0:* (grey old black pale.)
+> - *tier 1:* (grey. old. black. pale. again.)
+> - *tier 2:* (Grey, old, black, pale. Again. From the grey one.)
+> - *tier 3:* (Grey, old, black, pale. Again. Grey, old, black, pale. Don’t look at the table. Grey.)
+>
+> *It goes on the fortieth time round. It comes back at two in the morning, at the same place, with the radio.*
+>
+▸ **Let it play to the end.**
+
+> *You let it. It has an end, and you see the end, and afterwards you lie very flat and breathe through your mouth until the guard has gone.*
+>
+> **Misaki:** 
+> - *tier 0:* (not real.)
+> - *tier 1:* (not real. it’s not real. i made it.)
+> - *tier 2:* (It isn’t real. I made it up. I know I made it up.)
+> - *tier 3:* (I made that up. My head made that, by itself, and showed it to me. Knowing that doesn’t do anything at all.)
+>
+*At four in the morning you notice that you have been writing a file on the tall one in your head for hours, instead of sleeping. His steps are in it, and his hands, and the coat, and that he never raises his voice and says “I apologise” to the tape on your hand.*
+
+- *if flag kdThanks set:* *Every set has one of these. In the other place it was the one who brought the water. You said thanks through the slot and you started keeping him, and the file says that was how they got in.*
+- *otherwise:* *Every set has one of these. In the other place it was the one who brought the water, who never once looked at you. The file says that is how they get in: you like one of them.*
+
+*You can see your head doing this. You can see it the way you would watch somebody else do it, from up near the light: a girl on a cot, eyes open, adding to a list about a man who brings soup. It doesn’t stop when you see it.*
+
+**Misaki:** 
+- *tier 0:* (the good one.)
+- *tier 1:* (he’s the good one. write it down.)
+- *tier 2:* (He’s the good one. Write that down.)
+- *tier 3:* (He’s the good one. Every set has one. Write it down. I don’t know who I’m writing it down for.)
+
+`prompt` (The file.)
+
+▸ **Add to it.**
+
+> *You add the soup. Then the way he knelt. Then the fact that you added the soup. It is light at the top of the light-well before you stop, and you didn’t stop, you just ran out of him.*
+>
+▸ **Watch yourself from the corner.**
+
+> *You stay up by the light and watch the girl on the cot for the rest of the night. She doesn’t sleep either. Once she laughs at something, and you can’t think what.*
+>
+Close the file.
+
+it opens again on its own
+
+#### Evenings in the cell
+
+> Misaki POV, evenings while it is a cell: the sink, the napkin.
+
+*The rule is that if you sleep, they come while you are under. So you don’t.*
+
+*You do sums. Wind at eight knots across six hundred metres. The rent divided by thirty-one. You pinch the inside of your wrist above the dressing until there is a mark like a fingernail moon, and then another next to it.*
+
+*Around three the room goes thin. You are up in the corner by the light, looking down at somebody on a cot with her eyes open, pinching her own wrist, and you think, quite calmly, that she looks tired and should probably sleep, and that you won’t let her.*
+
+**Misaki:** 
+- *tier 0:* (awake. still awake.)
+- *tier 1:* (still awake. good. good girl.)
+- *tier 2:* (Still awake. Good.)
+- *tier 3:* (Still awake. Good. They can’t do anything to somebody who’s watching. I’m watching. Somebody’s watching.)
+
+*On the tray tonight, under the spoon, there is a paper napkin folded in four. Inside it somebody has drawn a hound in fountain pen, badly. It is the grey one. You can tell from the seam.*
+
+*Somebody has drawn you hounds before, on napkins and once on a parking ticket. Whoever it was could never draw either.*
+
+**Misaki — choice:** *(The hound.)*
+
+▸ **Fold it over so you can’t see it.**
+
+> **Misaki:** 
+> - *tier 0:* (they know about her.)
+> - *tier 1:* (they know about the grey one. i must’ve told them.)
+> - *tier 2:* (They know about the grey one. I must have told them, under the needle.)
+> - *tier 3:* (They know about her seam. I told them. I must have, under the needle, with everything else, and now they draw it on napkins.)
+>
+> *You put it under the tray, hound side down. Your hand goes back to it every few minutes to check it is still face down.*
+>
+▸ **Keep it under the pillow.**
+
+> *You put it under the pillow and lie on it, and tell yourself it is evidence of how much they know.*
+>
+> **Misaki:** 
+> - *tier 0:* (evidence.)
+> - *tier 1:* (evidence. that’s all.)
+> - *tier 2:* (Evidence. That’s all.)
+> - *tier 3:* (It’s evidence. I’m keeping it as evidence. Shut up.)
+>
+*When the tray comes you are sitting up with your legs crossed and your hair pushed back, and you tell the guard the soup smells amazing, compliments to the chef, you’d leave five stars if you had a phone.*
+
+*Your voice is fine. It is your usual voice, the one for clients. Under the blanket the fingers of your right hand are tapping the doors of the other building in order, from the van to the cell, eleven of them, and starting again.*
+
+*Your heart is going so hard that you can see the blanket move with it. You keep your face pointed at the soup.*
+
+**Misaki — choice:** *(He is in the doorway.)*
+
+▸ **Make another joke.**
+
+> **Misaki:** 
+> - *tier 0:* ur soup’s great btw.
+> - *tier 1:* ur soup is honestly so good. tell ur boss.
+> - *tier 2:* Honestly, the soup is great. Tell your boss.
+> - *tier 3:* Honestly, best soup I’ve had in any cell, and I’ve been in a few. Tell your boss I said so.
+>
+> *He goes. You keep tapping until the boiler comes on.*
+>
+▸ **Say nothing. Smile.**
+
+> *You smile at him until the door shuts. Then you stop, and your face doesn’t know what to do instead.*
+>
+Tell him you’re frightened.
+
+it doesn’t come out
+
+*The door has a handle this evening. You saw it this morning too, and you decided then that your eyes were lying, because cells don’t have handles.*
+
+*So you check. You touch the handle three times, and then the bottom of the door, where the slot was in the other place, and there isn’t a slot, so you check again. Three and the slot, and again.*
+
+**Misaki:** 
+- *tier 0:* (it’s my head.)
+- *tier 1:* (it’s my head doing this. i KNOW that.)
+- *tier 2:* (It’s my head doing this. I know it is.)
+- *tier 3:* (It’s my head. I can tell it’s my head. There’s a handle, and my head says there isn’t, and I believe my head, and I’ve never been so scared of anything in my life as I am of the inside of it.)
+
+*You do it eleven times. Then you sit down on the floor with your back to the door, and when you hear his steps you get up and are on the cot with your hands in your lap before the ninth.*
+
+#### It comes back
+
+> Worst route, after she has reasoned it out or been talked out: it comes back the next time he walks in.
+
+- *if flag kdInterrupted set:* *You know where you are. He held your wrists and told you, the menu and the bed and Tuesday and his house, until it came back.*
+- *otherwise:* *You know where you are. You worked it out yourself, a piece at a time.*
+
+*At noon you hear him on the stairs, and you are counting. Nine steps. Your back finds the wall. You know it is V, and the knowing sits in the front of your head, and the counting goes on behind it as if nobody had told it anything.*
+
+*When he comes in you say “thanks” to the soup in the voice from the slot. Then you hear yourself.*
+
+**Misaki — choice:** *(It’s still counting.)*
+
+▸ **Say his name to yourself until it stops.**
+
+> **Misaki:** 
+> - *tier 0:* (V. V. V.)
+> - *tier 1:* (V. it’s V. V.)
+> - *tier 2:* (V. It’s V. It’s his house.)
+> - *tier 3:* (V. It’s V. It’s his house. V.)
+>
+> *It takes an hour. It doesn’t stop. It gets quieter, so that you can eat with it going on.*
+>
+▸ **Let it count. Eat.**
+
+> *You eat with your eyes on his hands and the count going. You know who he is the whole time. It doesn’t make any difference to your hands.*
+>
+
+#### The good one (V)
+
+> V POV, worst stay, once a day: the good one, told to his face.
+
+*The light under her door stays on all night. It has for three nights.*
+
+*At four he hears her through the wood, counting, very steadily, and then a small sound he takes a long time to place: a fingernail, pinching. Then the counting again from one.*
+
+*He does not go in. Going in is the thing she is staying awake for. He writes the hours on the chart, three nights of them, in a column nobody asked for.*
+
+#### Sir (V)
+
+> V POV, clear after a bad stay, once a day: “sir”.
+
+*She knows him today. She says his name at breakfast and rates the soup ten out of ten.*
+
+*She sits where she can see the door. Every time it moves her eyes go to it and come back, and her face does not change. Her right hand has closed on the spoon and stayed closed, and under the tray she is working the fingers open with her thumb, one at a time, while she tells him a joke about a priest.*
+
+**V:** (She is most cheerful when I am in the room.)
+
+*He laughs at the end of the joke, in the right place, and goes out so that she can stop.*
+
+### 3.6 The worst route: Friday
 
 > Severity 6+ (worst stays). At 8+ the stay never clears by itself (the code fridaycomes starts here).
 
@@ -4080,6 +4297,8 @@ V’s infirmary on sublevel two, behind a door marked LAUNDRY. In Misaki’s POV
 `a` “Tell Angel the lighting was always good. Tell her she never missed. Tell her she can have my rifle, the good one, it’s under the trailer floor, and she has to name it something stupid.”
 
 `r` “Tell Ronin he can have the ring back. Tell him the joke about the priest was never funny and I laughed every time. Tell him he was two streets over and it doesn’t matter.”
+
+`h` “Tell the grey one she’s good. Tell all of them they’re good. Somebody has to tell them every day or they forget, they’re hounds, they forget, so somebody has to tell them every day.”
 
 #### Friday
 
@@ -4190,7 +4409,8 @@ For the hounds.
 > >
 **⟨If `b.includes('h')`⟩**
 
-- *if Misaki POV:* *Every morning now, V goes down the row of hounds and tells each one she’s good. Out loud. By name, the grey, the old, the black, the pale. You hear him through the floor.*
+> 
+> - *if Misaki POV:* *Every morning now, V goes down the row of hounds and tells each one she’s good. Out loud. By name, the grey, the old, the black, the pale. You hear him through the floor.*
 > - *otherwise:* *He does the hounds that evening. He goes down the row and tells each one she is good, out loud. He does it every morning after that and never misses one.*
 >
 **⟨If Misaki POV⟩**
@@ -4214,7 +4434,7 @@ For the hounds.
 > *He has learned it by heart. He says it back to her exactly. Then he goes and stands at the sink with his back to the room, and she lets him, because she would want the same.*
 >
 
-### 3.6 The worst route: the room, her mind, the clues
+### 3.7 The worst route: the room, her mind, the clues
 
 > Severity 8+, Misaki POV, still deluded.
 
@@ -4403,6 +4623,18 @@ For the hounds.
 >
 > *You think about the trailer. The rent receipt in your back pocket, PAID. You were so proud of that receipt. You were going to frame it. You can’t remember now why it mattered that much, and that frightens you more than the bulb.*
 >
+`gone`
+
+> *You don’t do the inventory. There isn’t any point counting things they’re going to take on Friday.*
+>
+> *You lie on your side facing the wall instead of the door, which you have never done in your life, in any room, ever. You have always faced the door. You don’t care which way you face.*
+>
+> *On the other side of the door the tall one stops reading for a long time. He has noticed which way you are facing.*
+>
+> *You think about the girl who did the sums on a station bench at sixteen and gave herself five years. You think she’d be disappointed, and then you think she wouldn’t, she’d nod, because she always knew. She was so sure. You spent years proving her wrong. You’re so tired of proving her wrong.*
+>
+> **Misaki:** (She was right. Five years and some extra. She was right all along and I made everybody love me anyway. That wasn’t fair of me. That wasn’t fair on them.)
+>
 
 #### State of mind: a third scene per band
 
@@ -4498,7 +4730,7 @@ For the hounds.
 
 #### Worst (V)
 
-> V POV, worst stay: one scene a day.
+> V POV, worst stay (severity 8+): one scene a day.
 
 *Every evening he puts a bread roll on her tray beside the soup. Every morning the roll is gone and the soup has not been touched.*
 
@@ -4597,7 +4829,7 @@ For the hounds.
 
 **V:** I did not know what else to do with my hands.
 
-### 3.7 The worst route: the bright turn, the spiral, lucid too late, the interrupted secret
+### 3.8 The worst route: the bright turn, the spiral, lucid too late, the interrupted secret
 
 > Composure 3 or less at bedtime. The bright turn plays first, then the spiral the same night.
 
@@ -4843,7 +5075,7 @@ The night in the infirmary when the tall one was V, and he was listening. Neithe
 > **V:** (I was listening because she said goodbye to me. If she had not, I would have been reading, and I would not have heard. I have thought about that every night since. I will not stop.)
 >
 
-### 3.8 The shatter
+### 3.9 The shatter
 
 > How the cell drawing breaks away when clarity returns, by route; and the pieces that don’t go.
 
@@ -4917,11 +5149,11 @@ The night in the infirmary when the tall one was V, and he was listening. Neithe
 > **V:** (I will say her name on the stairs before I come round the corner. Every time. For as long as it takes. If it is for ever, it is for ever.)
 >
 
-### 3.9 Full story only: the examination, the photographs, the denial, the hidden route
+### 3.10 Full story only: the examination, the photographs, the denial, the hidden route
 
 > These scenes exist only in the full-story setting. They play after discharge, in the aftermath order. What happened is never named. The honest option is always on the menu and always greyed out, except once (kd_last).
 
-#### KD\_SA\_HELP
+#### The setting, as the Settings panel explains it
 
 > The setting’s explanation on the Settings panel.
 
@@ -5895,29 +6127,30 @@ After today it would not show, and I stop asking. So: once more.
 
 **⟨If `n<3`⟩**
 
-> **⟨If Misaki POV⟩**
+> **Misaki / V (text):** 
+> - *if Misaki POV:* 03:[number] · draft, not sent: “[KD\_DRAFT[n]]”
+> - *otherwise:* 03:[number] · hitmeuppp is typing… · stopped
 >
-> > At twenty to four she types half a sentence to him and looks at it until the screen dims. Then she holds the delete key down.
-> >
-> > The next night she gets three words in.
-> >
-> > Tonight it is his initial and a full stop.
-> >
-> **⟨Otherwise (V POV)⟩**
+> 
+> - *if Misaki POV; 1 of 3 (by n):* *At twenty to four she types half a sentence to him and looks at it until the screen dims. Then she holds the delete key down.*
+> - *if Misaki POV; 2 of 3 (by n):* *The next night she gets three words in.*
+> - *if Misaki POV; 3 of 3 (by n):* *Tonight it is his initial and a full stop.*
+> - *otherwise; 1 of 3 (by n):* *At twenty to four the three dots come up under her name. They stay for six minutes. Then they go, and nothing arrives.*
+> - *otherwise; 2 of 3 (by n):* *The dots again, at the same hour, for less time.*
+> - *otherwise; 3 of 3 (by n):* *The dots come up and go at once. He has started keeping the telephone face up on his chest.*
 >
-> > At twenty to four the three dots come up under her name. They stay for six minutes. Then they go, and nothing arrives.
-> >
-> > The dots again, at the same hour, for less time.
-> >
-> > The dots come up and go at once. He has started keeping the telephone face up on his chest.
-> >
 **⟨Otherwise⟩**
 
-- *if Misaki POV:* *On the fourth night she sends him something. It is about the cactus.*
+> **Misaki (text):** did u feed prickles
+>
+> **V (text):** I do not water Prickles. That is why he is alive. Go to sleep.
+>
+> 
+> - *if Misaki POV:* *On the fourth night she sends him something. It is about the cactus.*
 > - *otherwise:* *On the fourth night a message arrives. It is about the cactus. He answers it as if it were the message she meant.*
 >
 
-#### KD\_DRAFT
+#### (kd\_draft, continued) The drafts
 
 > Part of kd_draft: the unsent drafts, shorter each night.
 
@@ -5925,11 +6158,9 @@ V. i think when i was under they
 
 V. i think
 
-V.
-
 #### Topic: “what’d the doctor tell u” (kd\_second)
 
-> Offered when: after discharge from the infirmary, closeness tier 2+, flag kd_math set. Talk topic in V’s POV. Full-story setting only.
+> Offered when: after discharge from the infirmary, closeness tier 2+, flag kd_math set. Talk topic: Misaki talks to V (Misaki’s POV). Full-story setting only.
 
 **V:** She told me what is on the first page. There is a second page. I have read it. I will tell you what is on it if you ask me to.
 
@@ -5958,7 +6189,7 @@ V.
 
 #### Topic: “Do you want to know what I know?” (kd\_second)
 
-> Offered when: after discharge from the infirmary, closeness tier 2+, flag kd_math set. Talk topic in Misaki’s POV. Full-story setting only.
+> Offered when: after discharge from the infirmary, closeness tier 2+, flag kd_math set. Talk topic: V talks to Misaki (V’s POV). Full-story setting only.
 
 **Misaki:** 
 - *tier 0:* no.
@@ -6017,6 +6248,8 @@ V.
 
 ▸ **Misaki:** **“nothing to say”**
 
+> **Angel:** ok
+>
 > **Angel:** offer’s got no expiry. like the heartsick angel’s grudges
 >
 ▸ **Misaki:** **“...ok. noted”**
@@ -6036,10 +6269,14 @@ V.
 
 `message start`
 
+**Misaki:** hey
+
 **Misaki:** do u ever start typing smth and then its like. why
 
 ▸ **V:** **“Often. I have a draft that says only ‘Stay.’”**
 
+> **Misaki:** lol
+>
 > **Misaki:** who was that for
 >
 > **Misaki:** dont answer. i know who that was for
@@ -6058,6 +6295,8 @@ V.
 
 ▸ **V:** **“I would read the half that arrived.”**
 
+> **Misaki:** ok
+>
 > **Misaki:** ok. good
 >
 > **Misaki:** im not sending one. just checking
@@ -6065,6 +6304,8 @@ V.
 ▸ **V:** **“I would not be normal. I would be on the stairs.”**
 
 > **Misaki:** ur always on the stairs
+>
+> **Misaki:** ...its fine. i like knowing where the stairs are
 >
 
 #### Thread: Misaki and Ronin (tx\_kd\_ronsoft)
@@ -6101,6 +6342,10 @@ V.
 
 ▸ **Misaki:** **“right”**
 
+> **Ronin:** right
+>
+> **Ronin:** good
+>
 > **Ronin:** you look like shit and you owe me twenty dollars
 >
 ▸ **Misaki:** **“right. now be an asshole again”**
@@ -6153,7 +6398,7 @@ V.
 > **V:** They are working. You may take that as you like.
 >
 
-### 3.10 Injuries only: the recovery
+### 3.11 Injuries only: the recovery
 
 > These exist only in the injuries-only setting. No doctor, no denial.
 
@@ -6294,7 +6539,7 @@ The small fridge
 
 > Shown when: injuries-only setting, she knows where she is (clarity 2+).
 
-**⟨If `S.done.kdLap`⟩**
+**⟨If already done today⟩**
 
 > **Misaki:** (did my laps. foot says that’s it.)
 >
@@ -6482,7 +6727,7 @@ The small fridge
 
 **⟨If `g<6`⟩**
 
-> ▸ **Physio: the hand** — *(done today / session [number] of 6 · costs time)* `greyed out when `late` or `S.done.kdPhys``
+> ▸ **Physio: the hand** — *(done today / session [number] of 6 · costs time)* `greyed out when it is too late in the day or already done today`
 >
 > > <small>→ hold-still minigame</small>
 > >
@@ -6507,9 +6752,9 @@ The small fridge
 > >
 **⟨If `w<6`⟩**
 
-> ▸ **Walk the hounds, a bit further** — *(done today / walk [number] of 6 · costs time)* `greyed out when `late` or `S.done.kdWalk``
+> ▸ **Walk the hounds, a bit further** — *(done today / walk [number] of 6 · costs time)* `greyed out when it is too late in the day or already done today`
 >
-> > *[['To the gate and back.','To the end of the d…] The four hounds keep to her pace without being told.*
+> > *{1 of 6 (by w): To the gate and back. | 2 of 6 (by w): To the end of the drive. | 3 of 6 (by w): Round the yard twice. | 4 of 6 (by w): Down to the road. | 5 of 6 (by w): The long loop, with one stop. | 6 of 6 (by w): The long loop. No stops. The boot comes off for good tomorrow.} The four hounds keep to her pace without being told.*
 > >
 > > **⟨If `w>=4`⟩**
 > >
@@ -6526,9 +6771,9 @@ Once she is out of the infirmary the scheduler (kc35) plays the next due scene e
 
 ### 4.1 The aftermath scenes, in scheduler order
 
-- *1. `kd_shards` — printed in 3.8.*
+- *1. `kd_shards` — printed in 3.9.*
 
-- *2. `kd_interrupted_after` — printed in 3.7.*
+- *2. `kd_interrupted_after` — printed in 3.8.*
 
 #### kd\_discharge
 
@@ -6600,7 +6845,62 @@ Once she is out of the infirmary the scheduler (kc35) plays the next due scene e
 > > *In the hall he takes the one clean trainer from beside the front door and puts it in the cupboard under the stairs, so that she will not have to see that there is only one.*
 > >
 
-- *kd62_sir: (no text found)*
+#### kd62\_sir
+
+> Plays when: day 1+ after discharge. Aftermath order: 5 of 105.
+
+**Misaki:** 
+- *tier 0:* sorry. sorry sir.
+- *tier 1:* sorry. sorry, sir.
+- *tier 2:* Sorry. Sorry, sir.
+- *tier 3:* Sorry. I’m sorry, sir. I didn’t mean to be in the way.
+
+**⟨If Misaki POV⟩**
+
+> *The second morning upstairs. He reaches past your shoulder for the tea.*
+>
+> *You are off the stool and against the fridge before the spoon hits the floor, and your mouth says it on its own, in the voice from the slot.*
+>
+> **⟨If `k62Sev0()>=8`⟩**
+>
+> > *It was the second time this morning. You only heard this one.*
+> >
+> *Then you hear it. Your face does the rest before you can stop it: a laugh and an eye-roll. Under the island your right hand has closed on nothing and won’t open.*
+>
+> **Misaki — choice:** *(Your hand.)*
+>
+> ▸ **Make a joke of it.**
+>
+> > **Misaki:** 
+> > - *tier 0:* lol. cell brain.
+> > - *tier 1:* lol sorry. cell brain. it’s fine.
+> > - *tier 2:* Sorry. Cell brain. It’s fine, it’s funny.
+> > - *tier 3:* Sorry. Cell brain. Give it a week and I’ll be calling you “your majesty.” It’s fine. It’s funny.
+> >
+> > *He picks up the spoon and gives it to you handle first. You eat the cereal with the left hand in the cast, because the right one is still shut under the island, and you keep it there until he has gone to feed the hounds.*
+> >
+> ▸ **Pick up the spoon. Say nothing.**
+>
+> > *You pick up the spoon with the left and sit back down. You count the doors out of the kitchen while you eat. There are two. You count them again.*
+> >
+> Tell him what just happened.
+>
+> you’d have to know
+>
+**⟨Otherwise (V POV)⟩**
+
+> *The second morning upstairs. He reaches past her shoulder for the tea, as he has a thousand times, and forgets.*
+>
+> *She is off the stool and against the fridge before the spoon hits the floor.*
+>
+> **⟨If `k62Sev0()>=8`⟩**
+>
+> > *It is the second time this morning. She did not hear the first.*
+> >
+> *Then she laughs and says something about cell brain, very fast. He picks the spoon up and gives it to her handle first.*
+>
+> *She eats with the hand in the cast. The other one stays under the island the whole time, and from where he stands at the kettle he can see that it is shut.*
+>
 
 #### kd\_book
 
@@ -6700,17 +7000,18 @@ Once she is out of the infirmary the scheduler (kc35) plays the next due scene e
 > > **V:** (Whatever she said in there, I have decided not to know. I hope that I can afford it.)
 > >
 
-#### kdBookWarn
+#### (kd\_book, continued) The warnings
 
 > Part of kd_book: what V says when he holds or reads the notebook and warns the people on it.
 
 **⟨If `n>=1`⟩**
 
-- *if Misaki POV:* The stash is in my garage. The spare key has been replaced with a fish hook. I thought you would enjoy that.
+> 
+> - *if Misaki POV:* The stash is in my garage. The spare key has been replaced with a fish hook. I thought you would enjoy that.
 > - *otherwise:* moved my stuff to ur garage. left them a fish hook where the key was :)
 >
 
-- *7. `kd_delivered` — printed in 3.5.*
+- *7. `kd_delivered` — printed in 3.6.*
 
 #### kd\_count
 
@@ -6816,21 +7117,58 @@ Misaki cannot account for about [hours] hours of the [days] days she was held. T
 > > - *otherwise:* *You pay the fee. You hold the new receipt flat on your knee all the way home, at every red light, so that it won’t crease.*
 > >
 
-- *kd62_good: (no text found)*
+#### kd62\_file
 
-- *11. `kd_rec_list` — printed in 3.10.*
+> Plays when: day 4+ after discharge, flag kd62_sir set. Aftermath order: 10 of 105.
 
-- *12. `kd_rec_stitches` — printed in 3.10.*
+**⟨If Misaki POV⟩**
 
-- *13. `kd_rec_ronin` — printed in 3.10.*
+> *Four in the morning in his kitchen. You are home, and you know it, and you are adding to the file.*
+>
+> 
+> - *if flag k62Th set or `0`:* *It still has his steps in it, and his hands, and now new pages: he leaves the bathroom door open so you can hear the tap; he says your name on the stairs; he buys your cereal. Every kind thing he does goes in, and comes out the other end as technique.*
+> - *otherwise:* *It has his steps in it, and his hands, and new pages: he says your name on the stairs; he buys your cereal. Every kind thing he does goes in, and comes out the other end as technique.*
+>
+> *You watch yourself do it from the doorway. A girl at an island in a hoodie, very still, thinking hard. It looks like a person deciding what to have for breakfast.*
+>
+> **Misaki:** 
+> - *tier 0:* (stop it.)
+> - *tier 1:* (it’s V. stop it. it’s V.)
+> - *tier 2:* (It’s V. Stop it. Stop doing this.)
+> - *tier 3:* (It’s V. It’s V, it’s his kitchen, I know that. Stop putting him in it. Please stop putting him in it.)
+>
+> **Misaki — choice:** *(The file.)*
+>
+> ▸ **Write it down so it stops.**
+>
+> > *You write it in the margin of his newspaper, small, in biro, with times. It doesn’t stop. In the morning you tear the margin off in strips and run them down the sink.*
+> >
+> ▸ **Go back to bed and lie there.**
+>
+> > *You lie beside him with your eyes open and your back to the wall, and the file goes on writing itself until the hounds want feeding.*
+> >
+**⟨Otherwise (V POV)⟩**
 
-- *14. `kd_rec_angel` — printed in 3.10.*
+> *Four in the morning. He comes down for water and stops on the stair, because the kitchen light is on.*
+>
+> *She is at the island, very still, writing in the margin of his newspaper in small biro capitals. Times. A column of times. He reads one upside down from the stair: “4:10 tap. bathroom door open. why.”*
+>
+> *He goes back up without being seen. In the morning the margin has been torn off the paper, neatly, and she is cheerful at breakfast, and asks if he slept.*
+>
 
-- *15. `kd_rec_vpins` — printed in 3.10.*
+- *11. `kd_rec_list` — printed in 3.11.*
 
-- *16. `kd_rec_eat` — printed in 3.10.*
+- *12. `kd_rec_stitches` — printed in 3.11.*
 
-- *17. `kd_rec_job` — printed in 3.10.*
+- *13. `kd_rec_ronin` — printed in 3.11.*
+
+- *14. `kd_rec_angel` — printed in 3.11.*
+
+- *15. `kd_rec_vpins` — printed in 3.11.*
+
+- *16. `kd_rec_eat` — printed in 3.11.*
+
+- *17. `kd_rec_job` — printed in 3.11.*
 
 #### kd\_card
 
@@ -6876,7 +7214,8 @@ Misaki cannot account for about [hours] hours of the [days] days she was held. T
 >
 **⟨Otherwise (V POV)⟩**
 
-- *if `F.lease`:* *V lays it out on the ops deck in order: the ledger lines, his notes from the car, her messages from the laundromat, the visitors’ book with the name that does not exist.*
+> 
+> - *if `F.lease`:* *V lays it out on the ops deck in order: the ledger lines, his notes from the car, her messages from the laundromat, the visitors’ book with the name that does not exist.*
 > - *otherwise:* *V lays it out on the ops deck in order: his notes from the car, her messages from the laundromat, the visitors’ book with the name that does not exist.*
 >
 > *It makes a straight line to the van, with a date on every point. Every point on it is something he saw.*
@@ -6890,9 +7229,9 @@ Misaki cannot account for about [hours] hours of the [days] days she was held. T
 > - *tier 3:* Stop it. I waved at the driver. I took change from the water guy. If we’re doing blame I’m winning, so put the folder down and come and eat.
 >
 
-- *20. `kd_ask` — printed in 3.9.*
+- *20. `kd_ask` — printed in 3.10.*
 
-- *21. `kd_math` — printed in 3.9.*
+- *21. `kd_math` — printed in 3.10.*
 
 #### w59\_hale\_after
 
@@ -6959,11 +7298,11 @@ Misaki cannot account for about [hours] hours of the [days] days she was held. T
 
 *On the way out a child points at her and is turned around by the shoulders.*
 
-- *24. `kd_window` — printed in 3.9.*
+- *24. `kd_window` — printed in 3.10.*
 
-- *25. `kd_cup` — printed in 3.9.*
+- *25. `kd_cup` — printed in 3.10.*
 
-- *26. `kd_bodymap` — printed in 3.9.*
+- *26. `kd_bodymap` — printed in 3.10.*
 
 #### kd\_still\_relapse
 
@@ -7053,10 +7392,16 @@ Misaki cannot account for about [hours] hours of the [days] days she was held. T
 > > > <small>→ keep the room</small>
 > > >
 
-#### kdKeepIt
+#### (kd\_blank, continued) Keep it
 
 > Part of kd_blank: the journal note if she keeps the room.
 
+**⟨If `!S.list.some(x=>x.id==='voice')`⟩**
+
+> `name` The one behind the chair
+>
+> `description` He never asked a question. He stood behind her through every session and breathed.
+>
 Misaki wrote the room down, all of it, so it cannot go the way chapter one went. There is a fifth name on the list now.
 
 *She fills eleven pages: the driver’s singing voice, the radio man’s shoes. One of them she had already half lost, the man who stood behind her chair and never came round to the front.*
@@ -7067,7 +7412,7 @@ Misaki wrote the room down, all of it, so it cannot go the way chapter one went.
 - *tier 2:* There are five of them. I’d nearly dropped one already.
 - *tier 3:* Five. I was four days out and my head had already binned one of them for me. It doesn’t get to do that again.
 
-#### kdLetGo
+#### (kd\_blank, continued) Let it go
 
 > Part of kd_blank: the journal note if she lets it go blank.
 
@@ -7084,7 +7429,7 @@ Misaki let the room go blank. V has it now. One name on the list has nothing und
 - *tier 2:* (It’s quiet in here. I’m not going to ask what that cost.)
 - *tier 3:* (It’s quiet, and I slept. Somebody’s still carrying it, and it isn’t me. Sucks to be him.)
 
-- *29. `kd_photos` — printed in 3.9.*
+- *29. `kd_photos` — printed in 3.10.*
 
 #### kd\_angelsees
 
@@ -7121,9 +7466,9 @@ Misaki let the room go blank. V has it now. One name on the list has nothing und
 - *if Misaki POV:* *She moves the thumb for the doctor on request, four times, and watches it work with real interest. It doesn’t occur to her that this ought to hurt.*
 - *otherwise:* *She moves the thumb on request and watches the cord slide, pleased with it. V finds he is holding the bed rail and lets go of it.*
 
-- *32. `kd_clothes` — printed in 3.9.*
+- *32. `kd_clothes` — printed in 3.10.*
 
-- *33. `kd_exam` — printed in 3.9.*
+- *33. `kd_exam` — printed in 3.10.*
 
 #### kd\_practice
 
@@ -7192,9 +7537,9 @@ Misaki let the room go blank. V has it now. One name on the list has nothing und
 > > **V:** You first.
 > >
 
-- *35. `kd_recount` — printed in 3.9.*
+- *35. `kd_recount` — printed in 3.10.*
 
-- *36. `kd_photodeny` — printed in 3.9.*
+- *36. `kd_photodeny` — printed in 3.10.*
 
 #### kd\_home
 
@@ -7246,7 +7591,7 @@ Misaki let the room go blank. V has it now. One name on the list has nothing und
 > > - *tier 3:* Yeah. Three metres. And don’t say why to the tow guy, just say feng shui.
 > >
 
-- *38. `kd_results` — printed in 3.9.*
+- *38. `kd_results` — printed in 3.10.*
 
 #### kd\_vtable
 
@@ -7285,13 +7630,13 @@ Misaki let the room go blank. V has it now. One name on the list has nothing und
 > - *tier 3:* Huh. So I’m the only one who ever got up off it. That’s— I’m choosing to find that romantic. Don’t say anything.
 >
 
-- *40. `kd_vdoc` — printed in 3.9.*
+- *40. `kd_vdoc` — printed in 3.10.*
 
-- *41. `kd_last` — printed in 3.9.*
+- *41. `kd_last` — printed in 3.10.*
 
-- *42. `kd_told_box` — printed in 3.9.*
+- *42. `kd_told_box` — printed in 3.10.*
 
-- *43. `kd_kitgone` — printed in 3.9.*
+- *43. `kd_kitgone` — printed in 3.10.*
 
 #### kd\_pins
 
@@ -7312,8 +7657,9 @@ I need the hand flat and still for about two minutes. You may shout. You may not
 > <small>→ the chair (hold-steady minigame)</small>
 >
 > <small>→ after: into the infirmary</small>
-
-- *if success:* *Both pins come out. She has talked the whole way through, about a pigeon she knows, and has not moved the hand a millimetre.*
+>
+> 
+> - *if success:* *Both pins come out. She has talked the whole way through, about a pigeon she knows, and has not moved the hand a millimetre.*
 > - *otherwise:* *The first pin comes out. She stops in the middle of a sentence about a pigeon and puts her head down on the pillow, very neatly.*
 >
 > **Misaki:** 
@@ -7325,8 +7671,9 @@ I need the hand flat and still for about two minutes. You may shout. You may not
 > - *otherwise; tier 1:* sorry. took a nap. long week.
 > - *otherwise; tier 2:* Sorry. I took a little nap.
 > - *otherwise; tier 3:* I didn’t faint. I took a nap. It was boring and I took a nap, write that down.
-
-- *if Misaki POV:* *V’s hand, the one she was holding, has four white marks across the back of it that take an hour to go.*
+>
+> 
+> - *if Misaki POV:* *V’s hand, the one she was holding, has four white marks across the back of it that take an hour to go.*
 > - *otherwise:* *She was holding his hand. There are four white marks across the back of it, and he would not have asked her to let go for anything.*
 >
 > Tell her about the pigeon.
@@ -7354,17 +7701,17 @@ I need the hand flat and still for about two minutes. You may shout. You may not
 > > <small>(then the same passage as above)</small>
 > >
 
-- *45. `kd_wash` — printed in 3.9.*
+- *45. `kd_wash` — printed in 3.10.*
 
-- *46. `kd_smell` — printed in 3.9.*
+- *46. `kd_smell` — printed in 3.10.*
 
-- *47. `kd_notask` — printed in 3.9.*
+- *47. `kd_notask` — printed in 3.10.*
 
-- *48. `kd_vknows` — printed in 3.9.*
+- *48. `kd_vknows` — printed in 3.10.*
 
-- *49. `kd_slip` — printed in 3.9.*
+- *49. `kd_slip` — printed in 3.10.*
 
-- *50. `kd_sleeptalk` — printed in 3.9.*
+- *50. `kd_sleeptalk` — printed in 3.10.*
 
 #### kd\_parcel
 
@@ -7470,7 +7817,11 @@ I need the hand flat and still for about two minutes. You may shout. You may not
 
 ▸ **Text her: “nice cardigan”**
 
+> **Angel (text):** don’t
+>
 > **Angel (text):** i looked SO sad. sad doesn’t get engagement. rage does
+>
+> **Angel (text):** ...it did numbers though. u were good for the channel. never do it again or i’ll kill u myself
 >
 ▸ **Watch all forty-one minutes again.**
 
@@ -7532,7 +7883,7 @@ I need the hand flat and still for about two minutes. You may shout. You may not
 
 Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
-- *56. `kd_shop` — printed in 3.9.*
+- *56. `kd_shop` — printed in 3.10.*
 
 #### kd\_round
 
@@ -7826,7 +8177,8 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
 **⟨Unless `g>=2`⟩**
 
-- *if Misaki POV:* *(Lockpicking is harder from now on.)*
+> 
+> - *if Misaki POV:* *(Lockpicking is harder from now on.)*
 > - *otherwise:* *(He watches her try a pen, and looks at the wall when it drops.)*
 >
 
@@ -7896,6 +8248,8 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
 ▸ **“in a room with one lightbulb. ask the river.”**
 
+> **Hale:** ...I see. I will write “unavailable.” If you ever want it on paper as what it was, you know where my office is.
+>
 ▸ **“don’t remember.”** — *(it is true)*
 
 > **Hale:** People say that when they remember very well.
@@ -7907,13 +8261,13 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 > *Angel uploads the “archive footage” within the hour. Hale watches forty minutes of a nail tutorial and closes the file.*
 >
 
-- *74. `kd_dentist` — printed in 3.9.*
+- *74. `kd_dentist` — printed in 3.10.*
 
-- *75. `kd_told_dentist` — printed in 3.9.*
+- *75. `kd_told_dentist` — printed in 3.10.*
 
-- *76. `kd_told_sleep` — printed in 3.9.*
+- *76. `kd_told_sleep` — printed in 3.10.*
 
-- *77. `kd_later` — printed in 3.9.*
+- *77. `kd_later` — printed in 3.10.*
 
 #### kd\_crash
 
@@ -8275,7 +8629,42 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 > **V:** (If I stop her I am telling her she is less. If I do not stop her I am watching her become nothing anyone can touch. I cannot do either. So I am doing nothing, carefully, which is the one thing I promised I would never do to her again.)
 >
 
-- *kd62_report: (no text found)*
+#### kd62\_truck
+
+> Plays when: day 11+ after discharge, `S.pov!=='v'?!!S.f.kd_hard_work:!!S.f.kd_v_sees`. Aftermath order: 94 of 105.
+
+**⟨If Misaki POV⟩**
+
+> *The job is clean. One shot at eleven fifty-two, no witnesses, casings in your pocket, home by two. You drive back under the limit with the radio off.*
+>
+> *In his garage you turn the engine off, and your hands stay on the wheel.*
+>
+> *Nothing is wrong. You are fine. You were fine on the roof; you were better than fine. Your heart is going like it did in the van and your hands will not come off the wheel, and the house is right there, with the kitchen light on.*
+>
+> **Misaki — choice:** *(The wheel.)*
+>
+> Go in and tell him.
+>
+> ▸ **Wait it out.**
+>
+> > *You count the hounds. Then the doors of the van. It takes forty minutes. When your hands come off you check your face in the mirror, wipe it, and go in, and you tell him it went great and you want toast.*
+> >
+> ▸ **Put your head on the wheel until it passes.**
+>
+> > *You put your forehead on the wheel, very carefully, so the horn doesn’t go. When it passes you go in. You tell him about the job with voices, like before, and he laughs in the right places.*
+> >
+**⟨Otherwise (V POV)⟩**
+
+> *He hears her truck come into the garage at two. He hears the engine stop.*
+>
+> *The garage door into the house does not open until twenty to three. In between there is no sound at all, and he stands at the kitchen island with his hand on the kettle and does not go down.*
+>
+> *When she comes in she is cheerful. It went great, and she wants toast. Her face has been wiped.*
+>
+> **V:** (She sat in the dark for forty minutes so that I would not see it. I will not let her know that I heard.)
+>
+> *He makes the toast, and laughs in the right places.*
+>
 
 #### kd\_hard\_rule
 
@@ -8323,7 +8712,8 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
 **⟨If `k58MP()`⟩**
 
-- *if `p==='r'`; if Misaki POV:* *Ronin is awake beside you and has not moved, because he knows better than to move.*
+> 
+> - *if `p==='r'`; if Misaki POV:* *Ronin is awake beside you and has not moved, because he knows better than to move.*
 > - *if `p==='r'`; otherwise:* *Ronin is awake beside her and has not moved a muscle. He knows better.*
 > - *otherwise; if Misaki POV:* *Angel is awake beside you with her hand flat on your back, not holding, just there.*
 > - *otherwise; otherwise:* *Angel is awake beside her, one hand flat on her back, watching the door down the same line.*
@@ -8347,8 +8737,9 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 > *Three in the morning. He takes her a glass of water, because she wakes at three, and has since the infirmary.*
 >
 > *When he opens the door she is sitting against the headboard with the pistol on the middle of his chest, and she is whispering numbers.*
-
-- *if `st==='his'`:* *She does not get to three. Three would be his name. The step she gave him means nothing to her tonight. On the stair, in his own house, he was the tall one.*
+>
+> 
+> - *if `st==='his'`:* *She does not get to three. Three would be his name. The step she gave him means nothing to her tonight. On the stair, in his own house, he was the tall one.*
 > - *otherwise:* *She does not get to three. Three would be his name. In his own house, in a room she designed, she does not know him, and he understands that on the stair tonight he was the tall one.*
 >
 **Misaki / V — choice:** 
@@ -8390,7 +8781,56 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 > > **V:** (I will not tell her who I am. She will have to know it. I could not bear it if she only believed me.)
 > >
 
-- *kd62_clock: (no text found)*
+#### kd62\_clock
+
+> Plays when: day 6+ after discharge, flag k58_creak set. Aftermath order: 98 of 105.
+
+**⟨If Misaki POV⟩**
+
+> *Since the night on the back stair with the pistol, you count. Doors, every time you go into a room. His steps, wherever he is in the house.*
+>
+> 
+> - *if k58Stair = 'his':* *You have his whole day without trying to: the hounds at five, coffee at seven with his back to the room, the study until noon, and the back stair at three with water. The seventh step goes, and you have the pistol in your hand before you remember what the seventh step means.*
+> - *otherwise:* *You have his whole day without trying to: the hounds at five, coffee at seven with his back to the room, the study until noon, and the back stair at three with water. You know his weight on the eighth step, and you have the pistol in your hand before you remember whose weight it is.*
+>
+> **⟨If `k62Sev0()>=8`⟩**
+>
+> > *Some afternoons the file opens by itself for an hour and he is the good one again, and you are polite to him at the island, and nothing shows on your face at all.*
+> >
+> *Ronin asks how you are and you say “fine, bored, want a job,” and it is the truest-sounding thing you have ever said.*
+>
+> **Misaki — choice:** *(The doors.)*
+>
+> ▸ **Count them.**
+>
+> > *Four in the hall. Two in the kitchen. You count them again from the hall. You get the same number, and it doesn’t help, and you count them again.*
+> >
+> ▸ **Walk in without counting.**
+>
+> > *You walk into the kitchen without counting. You get as far as the island. Then you go back out and count them from the hall, and your hands are wet, and you dry them on your jeans before anyone can see.*
+> >
+**⟨Otherwise (V POV)⟩**
+
+> *Since the night on the back stair, she counts. He can see her do it: a small turn of the head at every doorway, the eyes going round the room once before she comes in.*
+>
+> *She knows where he is at every minute. She is at the island before he comes down at seven, in the chair that faces the study door at noon, and awake at three before he reaches the stair.*
+>
+> **⟨If `k62Sev0()>=8`⟩**
+>
+> > *Some afternoons she is polite to him again for an hour, in the voice from the infirmary, and he answers in the tall one’s voice, because it is the one she can hear.*
+> >
+> **V — choice:** *(She has his day.)*
+>
+> ▸ **Write his day on the fridge. Say nothing about it.**
+>
+> > *He writes it out in fountain pen and puts it on the fridge under the cactus magnet: the hounds at five, coffee at seven, the study until noon, and at the bottom, “3:00, back stair, water.”*
+> >
+> > *She never mentions it. He sees her check it, though, every hour or so, on her way past, as she checks her watch before a shot.*
+> >
+> ▸ **Keep to it to the minute.**
+>
+> > *He comes down at seven exactly, and out of the study at noon, and up the stair at three, so that whatever she has worked out will always be right.*
+> >
 
 #### k58\_pages
 
@@ -8501,8 +8941,9 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 **⟨If Misaki POV⟩**
 
 > *The notebook is on the island. V doesn’t leave anything anywhere by accident.*
-
-- *if flag k58\_book set:* *You open it at the front. The toenail moon. NOT SNACKS. Loud with breaks. The person who said those things is funny and loud, and you read her like a file on a target. You could pick her out of a crowd. You couldn’t do what she did.*
+>
+> 
+> - *if flag k58\_book set:* *You open it at the front. The toenail moon. NOT SNACKS. Loud with breaks. The person who said those things is funny and loud, and you read her like a file on a target. You could pick her out of a crowd. You couldn’t do what she did.*
 > - *otherwise:* *You’ve never seen it before. It’s you, page after page, in his fountain pen, things you said before. You read her like a file on a target. You could pick her out of a crowd. You couldn’t do what she did.*
 >
 > **Misaki — choice:** *(The pen is clipped to the cover.)*
@@ -8742,44 +9183,54 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
 **⟨If `k==='mended'`⟩**
 
-- *if Misaki POV:* *You don’t move. You don’t reach under the pillow. You know who stops on the landing for one second to listen, and you say “V” into the pillow, and he says “Yes,” and the water goes down on the table. It took most of a year.*
+> 
+> - *if Misaki POV:* *You don’t move. You don’t reach under the pillow. You know who stops on the landing for one second to listen, and you say “V” into the pillow, and he says “Yes,” and the water goes down on the table. It took most of a year.*
 > - *otherwise:* *She does not move. Her hand stays where it is. He stops on the landing for one second, and through the door she says “V” into the pillow, and he says “Yes,” and puts the water down. It took most of a year.*
-
-- *if Misaki POV:* *He still says your name at corners sometimes, by accident. Some mornings you catch yourself humming over the cereal, one bar of something, and stop. He never once looks up when you do, which is how you know he heard.*
+>
+> 
+> - *if Misaki POV:* *He still says your name at corners sometimes, by accident. Some mornings you catch yourself humming over the cereal, one bar of something, and stop. He never once looks up when you do, which is how you know he heard.*
 > - *otherwise:* *He still says her name at corners sometimes, by accident. Some mornings she hums one bar of something over the cereal and stops. He never looks up when she does, and writes it down later, and the notebook has a new page most weeks.*
 >
 **⟨If `k==='kept'`⟩**
 
-- *if Misaki POV:* *V comes up the back stair and says your name at the turn, the way he has every night since the infirmary, and you take your hand off the gun under the pillow.*
+> 
+> - *if Misaki POV:* *V comes up the back stair and says your name at the turn, the way he has every night since the infirmary, and you take your hand off the gun under the pillow.*
 > - *otherwise:* *He comes up the back stair and says her name at the turn, the way he has every night since the infirmary, and hears her hand come off the gun under the pillow.*
-
-- *if Misaki POV:* *You know it’s him because he tells you. It works. Everything in the house works: the two cups, the name at every corner, the water at three. You run it like a safe house, and you’re both very good at it.*
+>
+> 
+> - *if Misaki POV:* *You know it’s him because he tells you. It works. Everything in the house works: the two cups, the name at every corner, the water at three. You run it like a safe house, and you’re both very good at it.*
 > - *otherwise:* *She knows it is him because he tells her. It works. The two cups, the name at every corner, the water at three. They run the house like a safe house, and they are both very good at it.*
-
-- *if Misaki POV:* *Some nights you lie there after and try to hear the step under the name, and you can’t, and you go back to sleep anyway, because he said so.*
+>
+> 
+> - *if Misaki POV:* *Some nights you lie there after and try to hear the step under the name, and you can’t, and you go back to sleep anyway, because he said so.*
 > - *otherwise:* *Some nights he stays on the landing after and listens to her not sleep, trying to hear the step under his own name.*
 >
 **⟨Otherwise⟩**
 
-- *if Misaki POV:* *You don’t text before and you don’t text after. You come home at three and wash your hands once. Clients wait three weeks for you. You’re the best there’s ever been.*
+> 
+> - *if Misaki POV:* *You don’t text before and you don’t text after. You come home at three and wash your hands once. Clients wait three weeks for you. You’re the best there’s ever been.*
 > - *otherwise:* *She does not text before and she does not text after. She comes home at three and washes her hands once. Clients wait three weeks for her. She is the best there has ever been.*
-
-- *if Misaki POV:* *V still says your name at every corner. He still writes the date in the notebook every evening, a column of them going back a year, nothing underneath. You saw it once. You didn’t say anything. Neither did he.*
+>
+> 
+> - *if Misaki POV:* *V still says your name at every corner. He still writes the date in the notebook every evening, a column of them going back a year, nothing underneath. You saw it once. You didn’t say anything. Neither did he.*
 > - *otherwise:* *He still says her name at every corner. He still writes the date in the notebook every evening, a column of them going back a year with nothing underneath. She saw it once and put it back.*
-
-- *if Misaki POV:* *The seventh step goes at three, and your hand comes up with the gun, and he says your name, and you put it down, and you lie there doing sums until it’s light.*
+>
+> 
+> - *if Misaki POV:* *The seventh step goes at three, and your hand comes up with the gun, and he says your name, and you put it down, and you lie there doing sums until it’s light.*
 > - *otherwise:* *At three he says her name on the stair, and hears the gun come up and go down again, and puts the water on the table, and she does sums in the dark until it is light.*
 >
 **⟨If flag married set⟩**
 
-- *if `k==='apart'`; if Misaki POV:* *Your ring is on the bedside table, by the water. You take it off for work now. He hasn’t asked.*
+> 
+> - *if `k==='apart'`; if Misaki POV:* *Your ring is on the bedside table, by the water. You take it off for work now. He hasn’t asked.*
 > - *if `k==='apart'`; otherwise:* *Her ring is on the bedside table, by the water. She takes it off for work now. He has not asked.*
 > - *otherwise; if Misaki POV:* *The rings are on the bedside table, next to the water, where they go at night. He writes down that you hummed. As far as you can tell that’s what being married is: a man writing down that you hummed.*
 > - *otherwise; otherwise:* *The rings are on the bedside table next to the water, where they go at night. He writes down that she hummed. As far as he can tell, that is what being married is for.*
 >
 **⟨If `k58MP()`⟩**
 
-- *if `p==='r'`; if `k==='mended'`:* *Ronin sleeps through it now. He claims he learned the step too. He hasn’t. He only ever wakes up for strangers.*
+> 
+> - *if `p==='r'`; if `k==='mended'`:* *Ronin sleeps through it now. He claims he learned the step too. He hasn’t. He only ever wakes up for strangers.*
 > - *if `p==='r'`; otherwise; if Misaki POV:* *Ronin wakes every time and pretends he didn’t, and puts his arm over you, and says something filthy about V’s timing into your hair.*
 > - *if `p==='r'`; otherwise; otherwise:* *Ronin wakes every time and pretends he did not, and puts his arm over her, and says something filthy about V’s timing into her hair.*
 > - *otherwise; if `k==='mended'`; if Misaki POV:* *Angel stays asleep against your back. She learned V’s step before you relearned it, and never said, so you’d get to do it yourself.*
@@ -8788,14 +9239,16 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 >
 **⟨If `k58VP()`⟩**
 
-- *if `vp==='r'`; if `k==='mended'`:* *Ronin is asleep in V’s bed when he comes back down the hall, and asks without waking up whether she knew him tonight. He says yes.*
+> 
+> - *if `vp==='r'`; if `k==='mended'`:* *Ronin is asleep in V’s bed when he comes back down the hall, and asks without waking up whether she knew him tonight. He says yes.*
 > - *if `vp==='r'`; otherwise:* *Ronin is asleep in V’s bed when he comes back down the hall, and asks without waking up whether she knew him tonight. He says not yet.*
 > - *otherwise; if `k==='mended'`:* *Angel is asleep in V’s bed when he comes back down the hall, and asks without waking up whether she knew him tonight. He says yes.*
 > - *otherwise; otherwise:* *Angel is asleep in V’s bed when he comes back down the hall, and asks without waking up whether she knew him tonight. He says not yet.*
 >
 **⟨Otherwise⟩**
 
-- *if `k==='apart'`:* *People still ask whether the two of them are together. Misaki says they’re a set. V says that is accurate, and does not write it down.*
+> 
+> - *if `k==='apart'`:* *People still ask whether the two of them are together. Misaki says they’re a set. V says that is accurate, and does not write it down.*
 > - *otherwise:* *People still ask whether the two of them are together. Misaki says they’re a set, like a knife and a fork. V says that is accurate, and writes something down under the table.*
 >
 **⟨If flag heartbreak set⟩**
@@ -8829,7 +9282,7 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 >
 > ▸ **Write it down: the time, the place, what’s in your pockets.** — *(an anchor)*
 >
-> > **⟨If `k.anc>=3`⟩**
+> > **⟨If `S.kd.anc>=3`⟩**
 > >
 > > > *That makes three times she has caught it and pinned it down. She reads the three entries in a row. They are all in her handwriting, and none of them is missing a line.*
 > > >
@@ -9309,6 +9762,8 @@ Every so often Misaki says “i’m fine” in answer to a question nobody asked
 
 > **Misaki:** ok good. same as mine
 >
+> **Misaki:** ...which mug
+>
 > <small>→ goes to “mug”</small>
 >
 ▸ **V:** **“I was not watching.”**
@@ -9425,7 +9880,7 @@ Every so often Misaki says “i’m fine” in answer to a question nobody asked
 
 #### Topic: “what are you going to do to them?” (them)
 
-> Offered when: after the kidnapping (dark). Talk topic in V’s POV.
+> Offered when: after the kidnapping (dark). Talk topic: Misaki talks to V (Misaki’s POV).
 
 **V:** 
 - *tier 0:* What is necessary. I am not holding back anymore.
@@ -9441,7 +9896,7 @@ Every so often Misaki says “i’m fine” in answer to a question nobody asked
 
 #### Topic: “Will you tell me what they asked you?” (mtaken)
 
-> Offered when: after the kidnapping (dark). Talk topic in Misaki’s POV.
+> Offered when: after the kidnapping (dark). Talk topic: V talks to Misaki (V’s POV).
 
 **Misaki:** 
 - *tier 0:* nothing. drop it.
@@ -9457,7 +9912,7 @@ Every so often Misaki says “i’m fine” in answer to a question nobody asked
 
 #### Topic: “Do you think you will go back to it? The work?” (mafter)
 
-> Offered when: after the kidnapping (dark). Talk topic in Misaki’s POV.
+> Offered when: after the kidnapping (dark). Talk topic: V talks to Misaki (V’s POV).
 
 **Misaki:** 
 - *tier 0:* dunno.
@@ -9473,7 +9928,7 @@ Every so often Misaki says “i’m fine” in answer to a question nobody asked
 
 #### Topic: [Sit with her. Say nothing at all.] (quiet)
 
-> Offered when: after the kidnapping (dark). Talk topic in Misaki’s POV.
+> Offered when: after the kidnapping (dark). Talk topic: V talks to Misaki (V’s POV).
 
 *You sit on the floor, an arm’s length away, facing the same direction. Neither of you speaks. After a while her breathing slows to match yours.*
 
@@ -9485,7 +9940,7 @@ Every so often Misaki says “i’m fine” in answer to a question nobody asked
 
 #### Topic: Tell her about your day in exhaustive, deliberately boring detail (boring)
 
-> Offered when: after the kidnapping (dark). Talk topic in Misaki’s POV.
+> Offered when: after the kidnapping (dark). Talk topic: V talks to Misaki (V’s POV).
 
 **V:** The board convened at nine. There were pastries. The chairman selected a cruller, which I believe to be a statement. We then spent forty minutes on the precise shade of beige for the new clinic signage.
 
@@ -9499,7 +9954,7 @@ Every so often Misaki says “i’m fine” in answer to a question nobody asked
 
 #### Topic: Comfort her (touch)
 
-> Offered when: after the kidnapping (dark). Talk topic in Misaki’s POV.
+> Offered when: after the kidnapping (dark). Talk topic: V talks to Misaki (V’s POV).
 
 - *if `S.learn`, `S.learn.behind`:* you’ve learned
 - *otherwise:* careful
@@ -9544,7 +9999,7 @@ Every so often Misaki says “i’m fine” in answer to a question nobody asked
 
 #### Topic: “Will you tell me about the third day?” (third)
 
-> Offered when: after the kidnapping (dark), closeness tier 3+. Talk topic in Misaki’s POV.
+> Offered when: after the kidnapping (dark), closeness tier 3+. Talk topic: V talks to Misaki (V’s POV).
 
 she may not be ready
 
@@ -9564,7 +10019,7 @@ On the third day, Misaki forgot her own name for a minute. She found it again by
 
 #### Topic: “Will you tell me what they asked you?” (mtaken)
 
-> Offered when: after the kidnapping (dark). Talk topic in Misaki’s POV.
+> Offered when: after the kidnapping (dark). Talk topic: V talks to Misaki (V’s POV).
 
 **Misaki:** 
 - *tier 0:* nothing. drop it.
@@ -9580,7 +10035,7 @@ On the third day, Misaki forgot her own name for a minute. She found it again by
 
 #### Topic: “stand where i can see u.” / “can u stand where i can see you?” / “Can you stand in front of me? Where I can see you?” / “Stay in front of me. Where I can see your hands. ...Sorry. I know that’s weird.” (stay)
 
-> Offered when: after the kidnapping (dark). Talk topic.
+> Offered when: after the kidnapping (dark). Talk topic: Misaki talks to V (Misaki’s POV).
 
 *V moves without a word, to the middle of the room, in her line of sight. He keeps his hands visible, open, resting on the table.*
 
@@ -9588,7 +10043,7 @@ On the third day, Misaki forgot her own name for a minute. She found it again by
 
 #### Topic: “What colour were his shoes?” (kd\_shoes)
 
-> Offered when: after discharge from the infirmary, she let it go blank. Talk topic in Misaki’s POV.
+> Offered when: after discharge from the infirmary, she let it go blank. Talk topic: V talks to Misaki (V’s POV).
 
 **Misaki:** 
 - *tier 0:* whose.
@@ -9608,7 +10063,7 @@ On the third day, Misaki forgot her own name for a minute. She found it again by
 
 #### Topic: “did you look? chapter one.” (kd\_file)
 
-> Offered when: the chapter-one file is open to talk about. Talk topic in V’s POV.
+> Offered when: the chapter-one file is open to talk about. Talk topic: Misaki talks to V (Misaki’s POV).
 
 **V:** I did. I told you that I would, and I prefer to say so in advance.
 
@@ -9631,7 +10086,7 @@ On the third day, Misaki forgot her own name for a minute. She found it again by
 > *She burns it in the sink. He opens the window and says nothing about the smoke alarm.*
 >
 
-#### kdMotherL
+#### (kd\_file, continued) The invented mother
 
 > Part of the kd_file topic: if the invented mother came up in the cell.
 
@@ -9646,7 +10101,7 @@ On the third day, Misaki forgot her own name for a minute. She found it again by
 > - *tier 3:* I knew that. I wanted her for four seconds, and I’d like those four seconds back with interest.
 >
 
-#### kdFileOpen
+#### (kd\_file, continued) The enrolment form
 
 > Part of the kd_file topic: the enrolment form, if opened.
 
@@ -9662,7 +10117,7 @@ On the third day, Misaki forgot her own name for a minute. She found it again by
 
 #### Topic: “I looked for chapter one.” (kd\_file)
 
-> Offered when: the chapter-one file is open to talk about. Talk topic in Misaki’s POV.
+> Offered when: the chapter-one file is open to talk about. Talk topic: V talks to Misaki (V’s POV).
 
 **V:** I said that I would find out. There is nothing before you were nine: no school, no clinic, no birth under any spelling. Somebody removed it, and they were good.
 
@@ -9683,7 +10138,7 @@ On the third day, Misaki forgot her own name for a minute. She found it again by
 
 #### Topic: “if i lose more. will u tell me.” (kd\_backup)
 
-> Offered when: after discharge from the infirmary, closeness tier 1+, she has lost an afternoon. Talk topic in V’s POV.
+> Offered when: after discharge from the infirmary, closeness tier 1+, she has lost an afternoon. Talk topic: Misaki talks to V (Misaki’s POV).
 
 **Misaki:** 
 - *tier 0:* if i lose stuff. u tell me. ok?
@@ -9701,7 +10156,7 @@ On the third day, Misaki forgot her own name for a minute. She found it again by
 
 #### Topic: “do you still step on it? the seventh one.” (k58\_t\_step)
 
-> Offered when: not in the dark stretch, flag k58_creak set, after discharge from the infirmary. Talk topic.
+> Offered when: not in the dark stretch, flag k58_creak set, after discharge from the infirmary. Talk topic: Misaki talks to V (Misaki’s POV).
 
 **V:** 
 - *if `k58St()==='his'`:* Every time. It is the only promise I have kept without having to think about it.
@@ -9719,7 +10174,7 @@ On the third day, Misaki forgot her own name for a minute. She found it again by
 
 #### Topic: “Shall I keep saying your name at corners?” (k58\_t\_corner)
 
-> Offered when: not in the dark stretch, flag k58_creak set, after discharge from the infirmary. Talk topic.
+> Offered when: not in the dark stretch, flag k58_creak set, after discharge from the infirmary. Talk topic: V talks to Misaki (V’s POV).
 
 **Misaki:** 
 - *if flag k58Knew set; tier 0:* ...sometimes.
@@ -9816,7 +10271,7 @@ On the third day, Misaki forgot her own name for a minute. She found it again by
 
 > V’s lone route after the spiral: “Sit in the infirmary doorway”, once a day.
 
-▸ **Sit in the infirmary doorway** — *(done today / costs time)* `greyed out when `late` or `S.done.kdDoorway``
+▸ **Sit in the infirmary doorway** — *(done today / costs time)* `greyed out when it is too late in the day or already done today`
 
 > *He sits in the doorway where the door used to be. The bed is made, hospital corners. He made it the morning after and has not touched it since.*
 >
@@ -9919,7 +10374,11 @@ On the third day, Misaki forgot her own name for a minute. She found it again by
 > - *otherwise; if `S.rom`:* see you at the gala, hitmeuppp. shame about your friend.
 > - *otherwise; otherwise:* see you at the gala, hitmeuppp. shame about your boyfriend.
 >
-> **⟨Unless V’s lone route⟩**
+> **⟨If V’s lone route⟩**
+>
+> > **V:** ...
+> >
+> **⟨Otherwise⟩**
 >
 > > **Misaki:** i’m going to find you.
 > >
@@ -9991,6 +10450,10 @@ On the third day, Misaki forgot her own name for a minute. She found it again by
 
 > ▸ **Home — with V** — *(♥ · you live here)*
 >
+**⟨If `vbedLocked()`⟩**
+
+> `h` (Not his room. Not yet.)
+>
 ▸ **V’s couch** — *(\+energy · morning at V’s / needs close)* `greyed out when closeness tier below 2`
 
 > **V:** 
@@ -10048,19 +10511,21 @@ On the third day, Misaki forgot her own name for a minute. She found it again by
 
 > Lone route day menu: the grief options.
 
-▸ **Visit the latest scene** — *(costs time · search for clues / nothing yet)* `greyed out when `late` or `!S.victims` or `S.done.scene``
+`h` The Mimic · victims [S.victims] · clues [S.case.found.length] · gala $[S.gala]k/$[S.galaGoal]k
 
-▸ **Ask Angelic to pull CCTV** — *(costs time · clue / needs bestie or morale 40)* `greyed out when `late` or `S.done.cctv` or `!(frT('a')>=1||S.morale>=40)``
+▸ **Visit the latest scene** — *(costs time · search for clues / nothing yet)* `greyed out when it is too late in the day or `!S.victims` or already done today`
+
+▸ **Ask Angelic to pull CCTV** — *(costs time · clue / needs bestie or morale 40)* `greyed out when it is too late in the day or already done today or `!(frT('a')>=1||S.morale>=40)``
 
 > **Angel:** Okay, I asked my fans to send me any footage from that block. Two hundred videos. One of them has something. Look.
 >
 > *Angel freezes a frame. It doesn’t show much, but it shows enough.*
 >
-▸ **Have Ronin work the street** — *(costs time · clue / needs pal or morale 40)* `greyed out when `late` or `S.done.street` or `!(frT('r')>=1||S.morale>=40)``
+▸ **Have Ronin work the street** — *(costs time · clue / needs pal or morale 40)* `greyed out when it is too late in the day or already done today or `!(frT('r')>=1||S.morale>=40)``
 
 > **Ronin:** Asked ’round. Nicely. Kinda. Folks talk real fast with a crowbar under their chin. Here’s what they said.
 >
-▸ **Run forensics on the evidence** — *(costs time · decrypt)* `greyed out when `late` or `S.done.foren``
+▸ **Run forensics on the evidence** — *(costs time · decrypt)* `greyed out when it is too late in the day or already done today`
 
 > <small>→ step-memory minigame</small>
 >
@@ -10070,13 +10535,13 @@ On the third day, Misaki forgot her own name for a minute. She found it again by
 >
 **⟨If Misaki POV⟩**
 
-> ▸ **Pitch in for the gala** — *(done today / costs time · livestream, crochet, or… other means)* `greyed out when `late` or `S.done.mgala``
+> ▸ **Pitch in for the gala** — *(done today / costs time · livestream, crochet, or… other means)* `greyed out when it is too late in the day or already done today`
 >
 **⟨If V POV⟩**
 
-> ▸ **Donor calls for the gala** — *(costs time · pitch game)* `greyed out when `late` or `S.done.donor``
+> ▸ **Donor calls for the gala** — *(costs time · pitch game)* `greyed out when it is too late in the day or already done today`
 >
-**⟨If `S.done.metPartner`⟩**
+**⟨If already done today⟩**
 
 > ▸ **Case board** — *(review clues & suspects)*
 >
@@ -10087,17 +10552,21 @@ On the third day, Misaki forgot her own name for a minute. She found it again by
 
 **⟨If `/CCTV/.test(x.t||'')`⟩**
 
-- *if Angel friendship 2+ or `S.morale>=50`:* costs time · clue
+> 
+> - *if Angel friendship 2+ or `S.morale>=50`:* costs time · clue
 > - *otherwise:* Angel can’t face it yet · needs sister or morale 50
 >
 **⟨If `/Roninwork/.test(x.t||'')`⟩**
 
-- *if Ronin friendship 2+ or `S.morale>=50`:* costs time · clue
+> 
+> - *if Ronin friendship 2+ or `S.morale>=50`:* costs time · clue
 > - *otherwise:* Ronin’s gone quiet · needs partner or morale 50
 >
+`h` Grief · stability [S.hold|0]
+
 ▸ 
 - *if V’s lone route:* **Sit in her trailer**
-- *otherwise:* **Sit in his chair by the door** — *(done today / costs time · it hurts, then it helps)* `greyed out when `late` or `S.done.grief``
+- *otherwise:* **Sit in his chair by the door** — *(done today / costs time · it hurts, then it helps)* `greyed out when it is too late in the day or already done today`
 
 > **⟨If V’s lone route⟩**
 >
@@ -10125,7 +10594,7 @@ On the third day, Misaki forgot her own name for a minute. She found it again by
 > >
 > > > *She sits in his chair until the light changes. The grey hound puts her head on her knee.*
 > > >
-▸ **Answer Angel and Ronin** — *(done today / +morale · +stability)* `greyed out when `late` or `S.done.friends``
+▸ **Answer Angel and Ronin** — *(done today / +morale · +stability)* `greyed out when it is too late in the day or already done today`
 
 > **Angel:** you answered. oh thank god. okay. okay. i’m coming over. don’t argue.
 >
@@ -10162,13 +10631,11 @@ italic 9px VT323, monospace
 
 > Lone route: the DM thread to the one who died.
 
-[t]
-
 No messages yet.
 
-`on screen` [thread]{if `S.done.dm`: You’ve messaged today. They’ll reply when they reply. | otherwise: Send one message today.}
+`on screen` [thread] {if already done today: You’ve messaged today. They’ll reply when they reply. | otherwise: Send one message today.}
 
-**⟨Unless `S.done.dm`⟩**
+**⟨Unless already done today⟩**
 
 > ▸ **“[t]”**
 >
@@ -10177,24 +10644,25 @@ No messages yet.
 
 > Lone route: the DM thread to the one who died.
 
-[t]
+**⟨Unless already done today⟩**
 
-**⟨Unless `S.done.dm`⟩**
-
-- *if V’s lone route:* I fed the dogs.
+> 
+> - *if V’s lone route:* I fed the dogs.
 > - *otherwise:* fed the dogs. the grey one says hi
-
-- *if V’s lone route:* The gala is on the 31st. You would have hated the swan.
+>
+> 
+> - *if V’s lone route:* The gala is on the 31st. You would have hated the swan.
 > - *otherwise:* they’re doing a gala for u. there’s a swan. u would’ve hated it
-
-- *if V’s lone route:* I miss you.
+>
+> 
+> - *if V’s lone route:* I miss you.
 > - *otherwise:* i miss you. please be concise. i can’t.
 >
 > ▸ **“[t]”**
 >
 > > **(phone):** Delivered.
 > >
-`on screen` [thread.replace(/Deliver…]{if `S.done.dm`: Delivered. It will always just say delivered. | otherwise: }
+`on screen` [thread.replace(/Deliver…] {if already done today: Delivered. It will always just say delivered. | otherwise: }
 
 #### The Chair By The Door
 
@@ -10220,6 +10688,8 @@ No messages yet.
 >
 > The last postcard just says: “i’m okay. mostly. tell the dogs.”
 >
+Ending — The Chair By The Door [one entry per name]Stability reached zero. Day [run.day].
+
 ▸ **Back to title**
 
 #### Lone endings
@@ -10248,6 +10718,8 @@ No messages yet.
 
 - *if `k==='v'`:* The server keeps a channel nobody posts in. It’s called #hitmeuppp. Ronin checks it every day.
 - *otherwise:* Angel and Ronin come by every Sunday with food Misaki doesn’t eat until they leave. They never stop coming.
+
+Ending — [name] [one entry per name]Alone route · stability [run.hold] · gala $[run.gala]k/$[run.galaGoal]k
 
 ▸ **Back to title**
 
@@ -10284,29 +10756,31 @@ No messages yet.
 
 > Ending lines (kc27.js).
 
-- *if `f.kdKeep===1`:* About [hours] hours of that year never came back to her. She kept the rest on eleven pages, in a shoebox, and can still tell you the colour of every pair of shoes in that building.
-- *otherwise; if `f.kdKeep===0`:* About [hours] hours of that year never came back to her. She let the room go blank as well. V has it, all of it, and has never once made her take it back.
+- *if she kept the room:* About [hours] hours of that year never came back to her. She kept the rest on eleven pages, in a shoebox, and can still tell you the colour of every pair of shoes in that building.
+- *otherwise; if she let it go blank:* About [hours] hours of that year never came back to her. She let the room go blank as well. V has it, all of it, and has never once made her take it back.
 - *otherwise; otherwise:* About [hours] hours of that year never came back to her.
 
-**⟨If `f.kdBook==='burn'`⟩**
+**⟨If kdBook = 'burn'⟩**
 
-- *if `f.kdHit`:* She never read the notebook. What was in it found her friends anyway, one door at a time.
+> 
+> - *if flag kdHit set:* She never read the notebook. What was in it found her friends anyway, one door at a time.
 > - *otherwise:* She never read the notebook. Nothing in it ever came looking.
 >
-**⟨If `f.kdBook==='read'` or `f.kdBook==='v'` or `f.kdBook==='vsolo'`⟩**
+**⟨If she read the notebook or kdBook = 'v' or kdBook = 'vsolo'⟩**
 
-- *if `k.said`:* Somebody read the notebook in time. Everyone she named under the needle was waiting when the knock came.
+> 
+> - *if she said something under the needle:* Somebody read the notebook in time. Everyone she named under the needle was waiting when the knock came.
 > - *otherwise:* The notebook had four hound names in it, on a loop, for five hours. V had the page framed.
 >
-**⟨If `f.kdBook==='out'`⟩**
+**⟨If kdBook = 'out'⟩**
 
 > The note-taker’s notebook was never found. A page of it still turns up in the post now and then.
 >
-**⟨If `f.kdFile==='open'`⟩**
+**⟨If kdFile = 'open'⟩**
 
 > The enrolment form is on her fridge: “March,” in a nine-year-old’s pencil, with the M backwards. Nothing older than that has ever turned up. V is still looking.
 >
-**⟨If `f.kdSuspect`⟩**
+**⟨If flag kdSuspect set⟩**
 
 > Nobody has found chapter one. V is still looking, and he has promised she will hear it first.
 >
@@ -10315,11 +10789,11 @@ No messages yet.
 
 > Ending lines (kc28.js).
 
-**⟨If `f.kdStab`⟩**
+**⟨If she put the drip needle in V’s arm⟩**
 
 > V has a small round scar on his left forearm from a drip needle. He says a hound did it, and the hound he names changes each time.
 >
-**⟨If `f.kdTruth===2`⟩**
+**⟨If kdTruth = 2⟩**
 
 > She asked for the whole list once, by text, and read all of it. She still says “fine.” She says it differently now.
 >
@@ -10345,15 +10819,15 @@ No messages yet.
 
 > Ending lines (kc30.js).
 
-**⟨If `f.kdClip==='worn'`⟩**
+**⟨If kdClip = 'worn'⟩**
 
 > She wears the star clip they posted back to her. She has opened eleven doors with it since.
 >
-**⟨If `f.kdHandBad`⟩**
+**⟨If flag kdHandBad set⟩**
 
 > The left hand closes three quarters of the way. She says it is stiff.
 >
-**⟨If `f.kdRonRadio`⟩**
+**⟨If flag kdRonRadio set⟩**
 
 > Ronin still has a pair of brown shoes, resoled twice, on a shelf in his workshop. Nobody asks.
 >
@@ -10362,18 +10836,19 @@ No messages yet.
 
 > Ending lines (kc31.js).
 
-**⟨If `f.kdHas`⟩**
+**⟨If flag kdHas set⟩**
 
 > She still says she remembers none of it. She remembers a ceiling, and that the radio was turned up first. She has never told anyone.
 >
-**⟨If `f.kdCrash2`⟩**
+**⟨If flag kdCrash2 set⟩**
 
 > There are jobs she turns down now, on windless days, and she blames the wind.
 >
-**⟨If `f.kdBday`⟩**
+**⟨If flag kdBday set⟩**
 
-- *if `f.kdBday===31`:* She has thirty-one birthdays a year, all in March. Angel keeps a spreadsheet of cakes.
-> - *otherwise; if `f.kdBday===3`:* Her birthday is the third of March. She picked the month at nine and the day at twenty-two.
+> 
+> - *if kdBday = 31:* She has thirty-one birthdays a year, all in March. Angel keeps a spreadsheet of cakes.
+> - *otherwise; if kdBday = 3:* Her birthday is the third of March. She picked the month at nine and the day at twenty-two.
 > - *otherwise; otherwise:* Her birthday is the fourteenth of March. She picked the month at nine and the day at twenty-two.
 >
 
@@ -10381,19 +10856,19 @@ No messages yet.
 
 > Ending lines (kc32.js).
 
-**⟨If `f.kd_window`⟩**
+**⟨If flag kd\_window set⟩**
 
 > The window closed on a Saturday at about four in the afternoon. She had it marked. There is a sealed envelope in the archive with a number on it, and eleven photographs of a back she says is not hers.
 >
-**⟨If `f.kdBloodGiven`⟩**
+**⟨If flag kdBloodGiven set⟩**
 
 > She went to the six-week appointment under a false name and never rang for the result. It is the only time she came near it.
 >
-**⟨If `f.kd_dentist`⟩**
+**⟨If flag kd\_dentist set⟩**
 
 > The kitchen calendar still says “dentist” every few weeks. She has no cavities. She has never been.
 >
-**⟨If `f.kdTable==='told'`⟩**
+**⟨If kdTable = 'told'⟩**
 
 > She knows whose table her hand was mended on. She is the only one who ever got up off it.
 >
@@ -10424,6 +10899,7 @@ On the last Saturday, with the house empty, she said yes. One person knows. V ne
 **⟨If flag kdOld set⟩**
 
 > Nine breaks on her films: five from that week, and four from before she was old enough to remember. V has a file on the first four. It is empty, and he keeps it anyway.
+>
 
 - *if kdGripN ≥ 6:* The hand came back. She did the physio every day and never once complained, and she never asked who had taught her how.
 - *otherwise:* The hand closes most of the way. She works around it. She has worked around worse.
@@ -10480,28 +10956,29 @@ There is a rifle on Angel’s wall engraved “lighting was always good.” It h
 
 > Ending lines (kc58.js).
 
-**⟨If `f.k58End==='mended'`⟩**
+**⟨If k58End = 'mended'⟩**
 
 > The seventh step on V’s back stair goes at three in the morning, and Misaki says “V” into the pillow without opening her eyes. It took most of a year.
 >
-**⟨If `f.k58End==='kept'`⟩**
+**⟨If k58End = 'kept'⟩**
 
 > V says Misaki’s name at every corner of the house, and she knows it is him because he tells her. They are both very good at it.
 >
-**⟨If `f.k58End==='apart'`⟩**
+**⟨If k58End = 'apart'⟩**
 
 > There is a column of dates at the back of V’s notebook, one for every evening since the infirmary, with nothing written under any of them.
 >
-**⟨If `f.k58Stair`⟩**
+**⟨If flag k58Stair set⟩**
 
-- *if `f.k58Stair==='his'`:* The seventh step on V’s back stair is loose on purpose. V is the only one who steps on it.
+> 
+> - *if k58Stair = 'his':* The seventh step on V’s back stair is loose on purpose. V is the only one who steps on it.
 > - *otherwise:* The seventh step on V’s back stair is loose on purpose. Everybody steps over it, and Misaki knows V by the eighth.
 >
-**⟨If `f.k58Broke`⟩**
+**⟨If flag k58Broke set⟩**
 
 > Once, V was asked not to say her name on the stairs, and could not do it.
 >
-**⟨If `f.k58Cup`⟩**
+**⟨If flag k58Cup set⟩**
 
 > Some mornings there are two cups on the island, and he did not make the second one.
 >
@@ -10535,24 +11012,25 @@ There is a rifle on Angel’s wall engraved “lighting was always good.” It h
 
 > Ending lines (kc60.js).
 
-**⟨If `f.a60_list`⟩**
+**⟨If flag a60\_list set⟩**
 
-- *if `f.kd60_rule`:* Angel’s list is saved as “list (final) (2)”. The rule is at the top: nobody goes back, forty-eight hours, move on. All four of them have broken it once, and Misaki made Angel put it back.
+> 
+> - *if flag kd60\_rule set:* Angel’s list is saved as “list (final) (2)”. The rule is at the top: nobody goes back, forty-eight hours, move on. All four of them have broken it once, and Misaki made Angel put it back.
 > - *otherwise:* Angel’s list is saved as “list (final) (2)”. The rule is at the top: nobody goes back, forty-eight hours, move on.
 >
-**⟨If `f.a60Env==='bed'`⟩**
+**⟨If a60Env = 'bed'⟩**
 
 > There is an envelope in the drawer with the takeaway menus that says “If I am dead. Hounds.” On the back, in a second hand: “week one, move her bed.”
 >
-**⟨If `f.kd60Page==='keep'`⟩**
+**⟨If kd60Page = 'keep'⟩**
 
 > In the back of V’s house ledger there is a page he wrote the night before the river, saying where her things should go. He has never torn it out.
 >
-**⟨If `f.lp60Fly==='more'`⟩**
+**⟨If lp60Fly = 'more'⟩**
 
 > Misaki flies on Thursdays, for cash, an hour out of the city. She banks twice over V’s house every time, and the old hound barks once.
 >
-**⟨If `f.lp60_listing`⟩**
+**⟨If flag lp60\_listing set⟩**
 
 > There is a dead seller page with four hundred reviews and a frog sock in every photo. Angel left the last review.
 >
@@ -10561,20 +11039,58 @@ There is a rifle on Angel’s wall engraved “lighting was always good.” It h
 
 > Ending lines (kc61.js).
 
-**⟨If `f.kd61_rent`, `f.k61Rcpt==='cast'`⟩**
+**⟨If flag kd61\_rent set, k61Rcpt = 'cast'⟩**
 
 > When the cast came off she kept it, because there were two rent receipts inside. It is in a drawer at V’s. Nobody is allowed to throw it out.
 >
-**⟨If `f.kd61_rent`, `f.k61VPaid`, V POV⟩**
+**⟨If flag kd61\_rent set, flag k61VPaid set, V POV⟩**
 
 > In the back of V’s house ledger there is a torn edge where a page came out. It was a receipt for one month’s rent, and she still has it.
 >
-**⟨If `f.kd61_rent`⟩**
+**⟨If flag kd61\_rent set⟩**
 
 > The lot office has one late payment on her account, from the month after the river. She has asked twice to have it removed.
 >
-**⟨If `f.k61Lids`⟩**
+**⟨If flag k61Lids set⟩**
 
 > Under the pillow on her side of V’s bed there is a stack of plastic lids, each with a day on it in fountain pen.
 >
+
+#### Ending lines (kc62.js)
+
+> Ending lines (kc62.js).
+
+**⟨If flag kd62\_clock set, (k62Clock = 'count' or k62Clock = 'tried')⟩**
+
+> She still counts the doors when she walks into a room. She has got quick at it. Nobody but V has ever seen her do it.
+>
+**⟨If k62Clock = 'told'⟩**
+
+> V’s day is still on the fridge under the cactus magnet, in fountain pen. He keeps to it to the minute.
+>
+**⟨If flag kd62\_truck set⟩**
+
+> Some nights her truck sits in the garage for a while after the engine stops. V never goes down. She has never told him, and he has never let her know that he hears.
+>
+**⟨If flag kd62\_file set⟩**
+
+> At four in the morning, some nights, there is a strip torn off the margin of his newspaper.
+>
+
+## Appendix: other text from the same modules
+
+### Not placed above
+
+> Text from the arc’s modules that the sections above do not place.
+
+#### KD62\_VR
+
+*He sees it through the gap in the door, before he knocks. She is at the door on her side, touching the handle three times, then crouching to run her fingers along the bottom edge, then the handle again. Her lips are moving.*
+
+*He knocks twice. By the time the door is open she is on the bed with her legs crossed, and she tells him the soup smells amazing.*
+
+**V:** (She stops when I am there. Whatever she is doing, she hides it from me first.)
+
+*He goes back to the corridor and sits down where the gap shows him nothing, so that she can start again.*
+
 
