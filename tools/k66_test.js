@@ -1,6 +1,6 @@
 /* kc66: V and Misaki, the main route. Every beat in both POVs and every register (rom / set / wed, plus low tier and
    kc58's apart ending), every option and upstream flag, the side menu per phase and its gates, the morning-after event,
-   every phone-thread path in both POVs and registers, and every ending line. Also checks V's lines for contractions,
+   every phone-thread path in both POVs and registers, and every ending line. Also checks V's lines for contractions, the romantic markers in the platonic registers,
    the visible text for hound names and "undefined". Usage: node tools/k66_test.js */
 const {chromium}=require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
 const path=require('path');
@@ -65,7 +65,7 @@ await load('e','m','wed',{k58End:'apart'});{const r=await ev(()=>k66Mode());if(r
 /* the platonic registers never show the romantic lines */
 for(const pov of ['m','v'])for(const mode of ['set','low','apart'])for(const [ph,fn] of [['3','k66House'],['e','k66Epi'],['2','k66Troph']]){
  await load(ph,pov,mode,{k66Audit:'date',k66Troph:'pawn'});await ev(()=>{window.__lines=[]});await ev(fn=>{window.__hubbed=0;eval(fn+'()')},fn);await drive(1);
- const L=await ev(()=>window.__lines.map(x=>x[1]).join(' '));if(/hand flat on (his|your) chest|dessert is at home|PREPARED|prepared to pay|eleven alerts|fourteen alerts/.test(L))errs.push('romance in '+mode+' '+pov+' '+fn)}
+ const L=await ev(()=>window.__lines.map(x=>x[1]).join(' '));if(/hand flat on (his|your) chest|prize is waiting at home|collects? (your|her) prize|PREPARED|prepared to pay|goes off (eleven|fourteen) times|full tour|tour me|familiar with it/.test(L))errs.push('romance in '+mode+' '+pov+' '+fn)}
 /* 3. the morning after */
 for(const pov of ['m','v'])for(const [ph,mode,flags,exp] of [['n','rom',{k66Audit:'date'},true],['n','wed',{k66Audit:'date'},true],['e','rom',{k66Audit:'date',k66d:{vm_epi:1}},true],
  ['n','rom',{k66Audit:'report'},false],['n','set',{k66Audit:'date'},false],['e','apart',{k66Audit:'date',k66d:{vm_epi:1}},false],['e','rom',{k66Audit:'date'},false],['2','rom',{k66Audit:'date'},false]]){
@@ -83,12 +83,13 @@ for(const id in TH)for(const mode of ['rom','set','wed']){const pov=TH[id];await
    const th=phS().th[T.with]||[];return th.length+' msgs, done '+!!phS().run[id].done},[id,path]);
   log.push(`${id} ${mode} path ${path.join('>')} ${JSON.stringify(kv)}: ${r}`);if(!/done true/.test(r))errs.push('thread '+id+' '+mode+' '+path.join('>')+' '+r)}}
  const opts=await ev(id=>TXS[id].nodes.start.opts().map(o=>o.t),id);log.push(`${id} ${mode} start: ${opts.join(' / ')}`);
- if(mode==='set'&&opts.some(t=>/7 is generous|My bed/.test(t)))errs.push('romantic thread option in set '+id)}
+ if(mode==='set'&&opts.some(t=>/7 is generous|My bed|wash it off/.test(t)))errs.push('romantic thread option in set '+id);
+ const ins=await ev(id=>TXS[id].nodes.start.in().join(' '),id);if(mode==='set'&&/pillow|shoulder/.test(ins))errs.push('romantic thread text in set '+id)}
 for(const [id,pov,patch] of [['tx_k66_m','m',{}],['tx_k66_v','v',{}],['tx_k66_m','m',{rom:'r'}],['tx_k66_v','v',{vrom:'a'}]]){await load('n',pov,'rom',patch.rom||patch.vrom?{k66d:{vm_audit:1}}:{});
  const w=await ev(([id,patch])=>{if(patch.rom)S.rom=patch.rom;if(patch.vrom)S.vrom=patch.vrom;return TXS[id].when()},[id,patch]);if(w)errs.push('thread eligible too early or off-route '+id+' '+JSON.stringify(patch))}
 /* 5. ending lines */
-const END=[['rom',{k66Audit:'date'},/never been written/],['set',{k66Audit:'report'},/labelled AUDITS/],['apart',{k66Audit:'date'},/Noted/],
- ['rom',{k66Codes:'hers'},/knocks on his own/],['rom',{k66Codes:'both'},/forty-first/],['rom',{k66Troph:'shelf'},/glued protractor/],['rom',{k66Troph:'pawn'},/three-dollar trophy/]];
+const END=[['rom',{k66Audit:'date'},/never been written/],['set',{k66Audit:'report'},/framed cereal boxes/],['apart',{k66Audit:'date'},/Noted/],
+ ['rom',{k66Codes:'hers'},/knocks on his own/],['rom',{k66Codes:'both'},/answers only to Misaki except one/],['rom',{k66Troph:'shelf'},/glued protractor/],['rom',{k66Troph:'pawn'},/three-dollar trophy/]];
 for(const [mode,f,rx] of END){await load('e','m',mode,f);const L=await ev(()=>extraEnding());const hit=L.filter(x=>rx.test(x));log.push(`ending ${mode} ${JSON.stringify(f)}: ${hit[0]||'MISSING'}`);if(!hit.length)errs.push('ending '+mode+' '+JSON.stringify(f))}
 await load('e','m','rom',{});{const L=await ev(()=>{S.seen.k66_morn=1;return extraEnding()});if(!L.some(x=>/crossed-out line/.test(x)))errs.push('ending morning line')}
 await load('e','m','apart',{});{const L=await ev(()=>{S.seen.k66_morn=1;return extraEnding()});if(L.some(x=>/crossed-out line/.test(x)))errs.push('ending morning line after apart')}
