@@ -37,7 +37,7 @@ for (let n = 27; n <= 61; n++) { const f = `kc${n}.js`, p = path.join(ROOT, 'src
 
 /* ------------------------------------------------------------------ text helpers */
 const SPEAKER = { '': '', hitmeuppp: 'Misaki', K9: 'V', Angelic: 'Angel', 'ronin.beaufort': 'Ronin', AN: 'Angel', RN: 'Ronin', B: '[boss]', boss: '[boss]',
-  P: '[the doctor]', N: '[name]', me: 'Misaki / V', who: 'Misaki / V', w: '[speaker]', ME: 'Misaki / V', MS: 'Misaki', VV: 'V', DOC: 'The doctor' };
+  P: '[the doctor]', N: '[name]', M: 'Misaki', V: 'V', sys: '(phone)', 'hitmeuppp (in chat)': 'Misaki (in chat)', me: 'Misaki / V', who: 'Misaki / V', w: '[speaker]', ME: 'Misaki / V', MS: 'Misaki', VV: 'V', DOC: 'The doctor' };
 const TX_WITH = { m: 'Misaki', v: 'V', a: 'Angel', r: 'Ronin', g: 'The group', an: 'Angel', ro: 'Ronin', mar: 'Maria' };
 const PH = [
   [/^(ORG\[S\.captor\]\.boss|o\.boss|B|boss|ORG\[[^\]]+\]\.boss)$/, '[boss]'],
@@ -100,6 +100,24 @@ const COND = [
   [/^S\.comp<(\d+)$/, (m) => `composure under ${m[1]}`], [/^S\.comp>=(\d+)$/, (m) => `composure ${m[1]}+`], [/^S\.comp<=(\d+)$/, (m) => `composure ${m[1]} or less`],
   [/^(S\.seen\.|k56Seen\('|w59Seen\(')(\w+)'?\)?$/, (m) => `after ${m[2]}`],
   [/^S\.rom==='(\w)'$/, (m) => `romance: Misaki + ${{ r: 'Ronin', a: 'Angel', v: 'V' }[m[1]] || m[1]}`],
+  [/^opts\.every\(/, 'every option left is a leak (resolve too low)'], [/^opts\.filter\(.*===0$/, ''], [/^n===(\d)$/, (m) => `n = ${m[1]} (session or count)`],
+  [/^S\.lone==='v'$/, 'V’s lone route'], [/^S\.lone==='m'$/, 'Misaki’s lone route'], [/^S\.kd\.said$/, 'she said something under the needle'],
+  [/^self$/, 'she got out on her own'], [/^S\.phase!=='taken'$/, 'not during captivity'], [/^kdWarned\(\)$/, 'the people in the notebook were warned'],
+  [/^rx\.palmed$/, 'she hid tablets'], [/^S\.leaks>0$/, 'she leaked something under questioning'], [/^true$/, ''],
+  [/^isM\(\)$|^KD_RUN$|^globalThis\.KD_AUTO$|^S\.f\.kdBye\.length$|^S\.kd\.rx$|^S\.kd\.lostDay!==S\.day$/, ''],
+  [/^\(S\.paid\|\|0\)>=(\d)$/, (m) => `rent paid ${m[1]}+ times`], [/^!S\.rom$/, 'no romance with Angel or Ronin'],
+  [/^kdSev\(\)>=(\d+)$/, (m) => `stay severity ${m[1]}+`],
+  [/^S\.list\.some\(x=>x\.id==='(\w+)'&&x\.st\)$/, (m) => `the ${m[1]} man has been dealt with (list)`],
+  [/^S\.list\.some\(x=>x\.id==='(\w+)'&&!x\.st&&!x\.gone\)$/, (m) => `the ${m[1]} man is still on the list`],
+  [/^S\.list\.some\(x=>!x\.st&&!x\.gone\)$/, 'a name is left on the list'],
+  [/^W59G_ORDER\.some\(id=>w59G\(id\)\)$/, 'one of the list men was glimpsed before the van'],
+  [/^S\.kd\.lost>=1$/, 'she has lost an afternoon'], [/^S\.kd\.anc<3$/, 'fewer than three anchors'], [/^S\.kd\.lost<5$/, ''],
+  [/^Math\.random\(\)/, 'at random'], [/^S\.day>S\.takenDay$/, 'from the second day'], [/^a3d\(\)>=(\d+)$/, (m) => `Act III day ${m[1]}+`],
+  [/^KD_DOOR\.some/, 'a door topic is left'], [/^kdFileShow\(\)$/, 'the chapter-one file is open to talk about'],
+  [/^\(S\.f\.kdDraft\|\|0\)<4$/, 'fewer than four drafts so far'], [/^S\.f\.kdDraftDay!==S\.day$/, 'once a day'],
+  [/^S\.day>S\.f\.kdCrash\+1$/, 'two days after the first collapse'],
+  [/^S\.day<\(S\.f\.returnDay\|\|0\)\+(\d+)$/, (m) => `within ${m[1]} days of her return`], [/^S\.day>\(S\.f\.returnDay\|\|0\)\+(\d+)$/, (m) => `from day ${+m[1] + 1} after her return`],
+  [/^!!(.*)$/, (m) => condPart(m[1])],
   [/^kdSpiralSecret\(\)$/, 'the secret is caught in time (2+ clues and a goodbye left for V)'],
   [/^typeof\w+(!==|===)'(function|undefined)'$|^S\.kd(\.med)?$|^S$|^S\.f$|^m$|^S\.kd\.med\.br3$|^S\.kd\.t0$|^S\.list$|^dlg$|^!dlg$/, ''],
   [/^!S\.kd\.med$/, 'out of the infirmary'],
@@ -107,7 +125,12 @@ const COND = [
   [/^ok$|^r\.ok$|^won$/, 'success'], [/^!ok$|^!r\.ok$/, 'failure'],
 ];
 function condPart(src, scope) {
-  src = src.replace(/\s+/g, '').replace(/^\((.*)\)$/, '$1');
+  src = src.replace(/\s+/g, '');
+  if (/^\(.*\)$/.test(src) && balanced(src.slice(1, -1))) {
+    const inner = src.slice(1, -1);
+    if (splitTop(inner, '||').length > 1 || splitTop(inner, '&&').length > 1) { const t = condText(inner, scope); return t ? '(' + t + ')' : ''; }
+    src = inner;
+  }
   if (scope && /^!?[A-Za-z_$][\w$]*$/.test(src)) {
     const neg = src[0] === '!', id = neg ? src.slice(1) : src;
     if (scope[id] && scope[id] !== src && scope[id].length < 160) {
@@ -164,13 +187,13 @@ function src(ctx, n) { return ctx.code.slice(n.start, n.end); }
 function lineOf(ctx, n) { let l = 1; for (let i = 0; i < n.start; i++) if (ctx.code.charCodeAt(i) === 10) l++; return l; }
 function cur(ctx) { return ctx.stack[ctx.stack.length - 1]; }
 function emit(ctx, item) { const s = cur(ctx); if (s) s.items.push(item); }
-function pushScene(ctx, sc) { sc.items = []; if (sc.cond === undefined) sc.cond = sc.when ? condText(sc.when, ctx.scope) : ''; sc.file = ctx.file; ctx.scenes.push(sc); ctx.stack.push(sc); }
+function pushScene(ctx, sc) { sc.items = []; sc.unit = ctx.stack.length ? ctx.stack[0].id : sc.id; if (sc.cond === undefined) sc.cond = sc.when ? condText(sc.when, ctx.scope) : ''; sc.file = ctx.file; ctx.scenes.push(sc); ctx.stack.push(sc); }
 function popScene(ctx) {
   const sc = cur(ctx);
   if (sc && sc.def) for (const k of Object.keys(sc.def)) { const f = sc.def[k]; if (!f.used) { f.used = 1; walk(ctx, f.node, 0); } }
   ctx.stack.pop();
 }
-function findDef(ctx, name) { for (let i = ctx.stack.length - 1; i >= 0; i--) { const sc = ctx.stack[i]; if (sc.def && sc.def[name]) return sc.def[name]; } return null; }
+function findDef(ctx, name) { for (let i = ctx.stack.length - 1; i >= 0; i--) { const sc = ctx.stack[i]; if (sc.def && Object.prototype.hasOwnProperty.call(sc.def, name)) return sc.def[name]; } return null; }
 
 /* alternatives of a text expression: [{label, text}] or null if not text */
 function alts(ctx, n, depth = 0) {
@@ -250,7 +273,7 @@ function speakerOf(ctx, n) {
   return '[' + src(ctx, n).slice(0, 30) + ']';
 }
 function looksSpeaker(ctx, n) {
-  if (n.type === 'Literal') return typeof n.value === 'string' && n.value.length <= 26 && (n.value in SPEAKER || !/[.!?,…“”]/.test(n.value)) && !/^\[|^\d/.test(n.value);
+  if (n.type === 'Literal') return typeof n.value === 'string' && n.value.length <= 26 && (n.value in SPEAKER || (!TX_CONTACT && /^[A-Z@?]/.test(n.value) && !/[.!,…“”]/.test(n.value))) && !/^\[|^\d/.test(n.value);
   if (n.type === 'Identifier') return n.name in SPEAKER || /^[A-Z][A-Z0-9_]{0,10}$/.test(n.name) || /^(me|who|w|sp|sk|spk|nm|n)$/.test(n.name);
   if (n.type === 'ConditionalExpression') return looksSpeaker(ctx, n.consequent) && looksSpeaker(ctx, n.alternate);
   if (n.type === 'MemberExpression') return /boss|\.n$|who/.test(src(ctx, n));
@@ -499,6 +522,12 @@ function walkCall(ctx, n, d) {
     } else walk(ctx, A[1], 0);
     TX_CONTACT = sc; TX_PLAYER = sp; popScene(ctx); return;
   }
+  // kc36 / kc46: wrap('Spot label', act) replaces what a medbay spot does in one setting or state
+  if (nm === 'wrap' && A[0] && A[0].type === 'Literal' && A[1] && /Function/.test(A[1].type)) {
+    const tag = ctx.file === 'kc36.js' ? ' (injuries only)' : ctx.file === 'kc46.js' ? ' (extended delusion)' : '';
+    pushScene(ctx, { id: 'spot: ' + A[0].value + tag, kind: 'spot', when: '', cond: ctx.file === 'kc36.js' ? 'The injuries-only setting’s version of this infirmary spot.' : ctx.file === 'kc46.js' ? 'This infirmary spot on an extended-delusion morning (it is a cell again).' : '', title: '', line: lineOf(ctx, n) });
+    walk(ctx, A[1], 0); popScene(ctx); return;
+  }
   // kc28's medbay pairs: two('Cot','Bed', at, mark, actWhileCell, actOnceClear)
   if (nm === 'two' && A.length >= 5 && A[0].type === 'Literal' && A[1].type === 'Literal') {
     pushScene(ctx, { id: 'spot: ' + A[0].value + ' / ' + A[1].value, kind: 'spot', when: '', cond: 'infirmary room spot', title: '', line: lineOf(ctx, n) });
@@ -549,7 +578,8 @@ function extractFile(file, opts = {}) {
 }
 
 /* ------------------------------------------------------------------ rendering */
-const mdEsc = t => String(t).replace(/\*/g, '\\*').replace(/^([#>+-])/, '\\$1').replace(/_/g, '\\_');
+const KEYNAME = { sub: 'option note', takeLine: 'on a takedown', killLine: 'on a kill', html: 'on screen', update: 'on screen', legacy: 'room label' };
+const mdEsc = t => String(t).split(/(`[^`]*`)/).map((seg, i) => i % 2 ? seg : seg.replace(/\*/g, '\\*').replace(/_/g, '\\_')).join('').replace(/^([#>+-])/, '\\$1');
 function mdItems(items) {
   const out = [];
   for (const it of items) {
@@ -569,9 +599,9 @@ function mdItems(items) {
       case 'prompt': P('**' + (it.who ? mdEsc(it.who) + ' — ' : '') + 'choice:** ' + body('', t => '*' + mdEsc(t) + '*')); break;
       case 'opt': P('▸ ' + (it.who ? '**' + mdEsc(it.who) + ':** ' : '') + body('', t => '**' + mdEsc(t) + '**') + (it.sub ? ' — *(' + mdEsc(it.sub) + ')*' : '') + (it.dis ? ' `' + it.dis + '`' : '')); break;
       case 'branch': P('**⟨' + mdEsc(it.text) + '⟩**'); break;
-      case 'key': P('`' + it.text + '`'); break;
+      case 'key': P('`' + (KEYNAME[it.text] || it.text) + '`'); break;
       case 'note': P('<small>' + mdEsc(it.text) + '</small>'); break;
-      case 'loose': P((it.key ? '`' + it.key + '` ' : '') + body('', t => mdEsc(t))); break;
+      case 'loose': P((it.key ? '`' + (KEYNAME[it.key] || it.key) + '` ' : '') + body('', t => mdEsc(t))); break;
     }
   }
   return out.join('\n').replace(/(\n>?\s*){3,}/g, '\n\n');
@@ -603,7 +633,7 @@ const SKIP = new Set(['kc28.js:kdRag', 'kc28.js:kdGrime', 'kc28.js:tdMap(…)', 
   'kc60.js:a60_quiet', 'kc60.js:a60_hurt', 'kc60.js:a60_body', 'kc60.js:a60_hounds', 'kc60.js:a60_epi', 'kc60.js:lp60_listing', 'kc60.js:lp60_dress', 'kc60.js:lp60_fly',
   'kc60.js:lp60_t_why', 'kc60.js:lp60_t_now', 'kc60.js:tx_a60_body', 'kc60.js:tx_a60_bodyv', 'kc60.js:tx_a60_will', 'kc60.js:tx_a60_willv', 'kc60.js:tx_lp60_v',
   'kc60.js:PINGS.push(…)', 'kc60.js:code@336', 'kc34.js:g_review', 'kc34.js:g_board', 'kc34.js:g_couch', 'kc34.js:g_brand', 'kc34.js:g_leak', 'kc34.js:g_book',
-  'kc34.js:tx_g_bet', 'kc34.js:tx_g_knife', 'kc34.js:tx_g_stars', 'kc34.js:sideHub', 'kc34.js:gMarket', 'kc47.js:codeHook', 'kc49.js:codeHook', 'kc28.js:kdNoLeave']);
+  'kc34.js:tx_g_bet', 'kc34.js:tx_g_knife', 'kc34.js:tx_g_stars', 'kc34.js:sideHub', 'kc34.js:gMarket', 'kc47.js:codeHook', 'kc49.js:codeHook', 'kc28.js:kdNoLeave', 'kc33.js:code@85']);
 
 /* plain-English notes for scenes that are functions rather than events (they have no `when` of their own) */
 const NOTE = {
@@ -728,31 +758,40 @@ const NOTE = {
 for (const k of Object.keys(NOTE)) if (/^kc(27|28|29|30|31|32|33|34|36|47|49|50|51|52|53|54|55|56|58|59|60|61)\.js:extraEnding$/.test(k)) {}
 
 const S_ = (title, intro, sel) => ({ title, intro, sel });
+/* helper functions that hold part of a scene's text: printed right after that scene */
+const DYN = { kd_knock1: 'kc27.js:kdKn', kd_knock2: 'kc27.js:kdKn', kd_knock3: 'kc27.js:kdKn' };
+const ATTACH = { 'kc27.js:kdBookWarn': 'kd_book', 'kc27.js:kdKeepIt': 'kd_blank', 'kc27.js:kdLetGo': 'kd_blank',
+  'kc27.js:kdMotherL': 'kd_file', 'kc27.js:kdFileOpen': 'kd_file', 'kc29.js:KD_DRAFT': 'kd_draft' };
+Object.assign(NOTE, { 'kc27.js:kdBookWarn': 'Part of kd_book: what V says when he holds or reads the notebook and warns the people on it.',
+  'kc27.js:kdKn': 'Part of kd_knock1–3: what happens at each place she gave away, one per thing she said (warned or not).',
+  'kc27.js:kdKeepIt': 'Part of kd_blank: the journal note if she keeps the room.', 'kc27.js:kdLetGo': 'Part of kd_blank: the journal note if she lets it go blank.',
+  'kc27.js:kdMotherL': 'Part of the kd_file topic: if the invented mother came up in the cell.', 'kc27.js:kdFileOpen': 'Part of the kd_file topic: the enrolment form, if opened.',
+  'kc29.js:KD_DRAFT': 'Part of kd_draft: the unsent drafts, shorter each night.', 'kc36.js:KD_SA_HELP': 'The setting’s explanation on the Settings panel.' });
 const SECTIONS = [
   { title: '1. Before: the war and the warnings', intro: 'Only the scenes that lead straight into the van. The wider war (eight hunts, one per organisation) is left out.', subs: [
-    S_('The man from the canal, the man in grey, the circling', 'Normal phase.', ['kc28.js:kd_omen', 'kc56.js:k56_grey', 'kc59.js:w59_m_circle', 'kc59.js:w59_v_circle', 'kc59.js:W59G']),
+    S_('1.1 The man from the canal, the man in grey, the circling', 'Normal phase.', ['kc28.js:kd_omen', 'kc56.js:k56_grey', 'kc59.js:w59_m_circle', 'kc59.js:w59_v_circle', 'kc59.js:W59G']),
   ] },
   { title: '2. The abduction and captivity', intro: 'The kidnapping happens the night after she pays the rent for the second time. Which POV you play decides which half you see; in the joint POV both run.', subs: [
     S_('2.1 Misaki: the van', '', ['index.html:takenM']),
     S_('2.2 Misaki: the interrogation', 'Every session runs the original questions, the chair, the question about before nine, and the dose. Later sessions are shorter.', ['index.html:interrogate', 'kc27.js:interrogate', 'kc27.js:kdBlankQ', 'kc28.js:kdBlankQ', 'kc28.js:kdHoldOn', 'kc27.js:kdShort', 'kc27.js:kdDose', 'kc28.js:KD_INJ', 'kc28.js:KD_INJ_OFF', 'kc27.js:KD_SAID', 'kc27.js:kdTheyCome']),
-    S_('2.3 Misaki: the cell', 'Every action that is not a ready escape uses up the clock; at six they come for another session.', ['index.html:ROOMS', 'kc27.js:code@65', 'kc27.js:spot: Your arm', 'kc27.js:spot: The radio down the hall', 'kc28.js:code@36', 'kc30.js:spot: A cup of water', 'kc30.js:code@15', 'kc59.js:spot: Their faces']),
+    S_('2.3 Misaki: the cell', 'The room is “Somewhere owned by [captor org]”; the way back is labelled “there is no leaving”. Every action that is not a ready escape uses up the clock; at six they come for another session.', ['index.html:spot: *', 'kc27.js:code@65', 'kc27.js:spot: Your arm', 'kc27.js:spot: The radio down the hall', 'kc28.js:code@36', 'kc30.js:spot: A cup of water', 'kc30.js:code@15', 'kc59.js:spot: Their faces']),
     S_('2.4 Misaki: escape, failure, the last chance, the late route', '', ['index.html:escapeRun', 'kc28.js:kdDock', 'kc30.js:kdDock', 'index.html:escaped', 'index.html:failedEscape#1', 'index.html:vRescueCut', 'index.html:failedEscape#2', 'index.html:interrogateLite', 'index.html:lateM']),
     S_('2.5 V: the search', 'V POV. Each night she is missing raises the rescue’s difficulty; from two nights, one more guard; at four nights, the late route.', ['index.html:takenV', 'index.html:hub', 'index.html:informant', 'kc27.js:kdScout', 'kc27.js:kd_tape', 'kc30.js:kd_vphoto', 'kc30.js:kd_vfloor', 'kc33.js:kd_maria', 'kc56.js:k56_plate', 'kc59.js:w59_v_halecall', 'index.html:two_cups', 'index.html:gl_taken', 'index.html:chatLog', 'index.html:sleepBase', 'index.html:lateV']),
     S_('2.6 V: the rescue', '', ['index.html:vRescue', 'kc28.js:kdCarry', 'index.html:rescued']),
-    S_('2.7 Out', 'Every way out ends here.', ['index.html:after', 'index.html:kdTell', 'kc27.js:stealth']),
+    S_('2.7 Out', 'Every way out ends here. What she leaked under questioning reaches her friends: as texts on her phone in her POV, as narration in his.', ['index.html:after', 'kc27.js:stealth']),
     S_('2.8 The list and the finale', 'After the infirmary, through the after-phase: the men who held her, one at a time; then the boss.', ['index.html:theList', 'index.html:listTarget', 'kc59.js:W59REC', 'index.html:finale', 'index.html:finalM', 'index.html:finalV', 'kc56.js:k56_why', 'kc56.js:k56BossScene']),
   ] },
   { title: '3. The infirmary', intro: 'V’s infirmary on sublevel two, behind a door marked LAUNDRY. In Misaki’s POV the room is drawn as the cell until her clarity reaches 2, and the spots carry her reading of them. How long the delusion lasts depends on how bad the captivity was (severity: see the route map).', subs: [
-    S_('3.1 Waking, and the ordinary stay (Misaki)', 'All stays. A mild stay (severity under 4) clears by the first morning.', ['kc28.js:kdMedStart', 'kc28.js:KD_CHART', 'kc28.js:code@83', 'kc28.js:spot: *', 'kc32.js:spot: *', 'kc33.js:spot: *', 'kc28.js:kdMedRun', 'kc28.js:openPhone', 'kc28.js:kdBacklog', 'kc28.js:kdMedMorning', 'kc48.js:KD_NIGHT', 'kc48.js:KD_NIGHT.push(…)', 'kc48.js:spot: *', 'kc48.js:KD_DOOR', 'kc48.js:kdVisitor', 'kc60.js:spot: *', 'kc61.js:spot: *', 'kc61.js:KD61_MC', 'kc61.js:k61Tubs']),
+    S_('3.1 Waking, and the ordinary stay (Misaki)', 'All stays. A mild stay (severity under 4) clears by the first morning. In the room, kc28’s spots have two labels: what she thinks it is while it is a cell (clarity under 2), and what it is.', ['kc28.js:kdMedStart', 'kc28.js:KD_CHART', 'kc28.js:spot: *', 'kc32.js:spot: *', 'kc33.js:spot: *', 'kc28.js:kdMedRun', 'kc28.js:openPhone', 'kc28.js:kdBacklog', 'kc28.js:kdMedMorning', 'kc48.js:KD_NIGHT', 'kc48.js:KD_NIGHT.push(…)', 'kc48.js:spot: *', 'kc48.js:KD_DOOR', 'kc48.js:kdVisitor', 'kc60.js:spot: *', 'kc61.js:spot: *', 'kc61.js:KD61_MC', 'kc61.js:k61Tubs']),
     S_('3.2 The infirmary phone threads', '', ['kc28.js:tx_kd_help', 'kc28.js:tx_kd_mdoor', 'kc28.js:tx_kd_selfie', 'kc28.js:tx_kd_rvis', 'kc28.js:tx_kd_adoc', 'kc28.js:tx_kd_rhand']),
     S_('3.3 V’s side of the stay', 'V POV.', ['kc28.js:sideHub', 'kc28.js:kdSit', 'kc48.js:kdSit', 'kc60.js:sideHub#2', 'kc60.js:A60COR', 'kc61.js:sideHub', 'kc61.js:KD61_THINGS', 'kc61.js:KD61_FILE', 'kc61.js:KD61_ASK', 'kc61.js:KD61_VC']),
-    S_('3.4 The extended delusion', 'Severity 4+ gives one extra day in the cell, 6+ two. On those mornings the room is a cell again, whatever she worked out the day before.', ['kc46.js:KD_STILL_M', 'kc46.js:KD_STILL_V', 'kc46.js:kdMedMorning#1', 'kc46.js:code@47', 'kc46.js:kdMedMorning#2', 'kc61.js:KD61_MX', 'kc61.js:KD61_VX']),
+    S_('3.4 The extended delusion', 'Severity 4+ gives one extra day in the cell, 6+ two. On those mornings the room is a cell again, whatever she worked out the day before.', ['kc46.js:KD_STILL_M', 'kc46.js:KD_STILL_V', 'kc46.js:kdMedMorning#1', 'kc46.js:spot: *', 'kc46.js:kdMedMorning#2', 'kc61.js:KD61_MX', 'kc61.js:KD61_VX']),
     S_('3.5 The worst route: Friday', 'Severity 6+ (worst stays). At 8+ the stay never clears by itself (the code fridaycomes starts here).', ['kc49.js:hub', 'kc49.js:KD_BYE', 'kc49.js:kdGoodbye', 'kc49.js:kdMedMorning', 'kc49.js:kd_delivered']),
     S_('3.6 The worst route: the room, her mind, the clues', 'Severity 8+, Misaki POV, still deluded.', ['kc50.js:KD_DESC', 'kc51.js:KD_MIND', 'kc52.js:code@47', 'kc52.js:KD_UNCANNY', 'kc50.js:KD_SPIRAL_WARN', 'kc60.js:hub', 'kc61.js:KD61_MW', 'kc61.js:KD61_VW', 'kc50.js:KD_CLUES', 'kc50.js:code@17', 'kc50.js:kdLogicOut']),
     S_('3.7 The worst route: the bright turn, the spiral, lucid too late, the interrupted secret', 'Composure 3 or less at bedtime. The bright turn plays first, then the spiral the same night.', ['kc52.js:kdBright', 'kc52.js:KD_HUM', 'kc52.js:KD_LEFT', 'kc52.js:KD_SHAPE', 'kc50.js:kdSpiral', 'kc50.js:kdInterrupted', 'kc50.js:kd_interrupted_after']),
     S_('3.8 The shatter', 'How the cell drawing breaks away when clarity returns, by route; and the pieces that don’t go.', ['kc53.js:KD_SHATTER_LINES', 'kc53.js:kd_shards']),
-    S_('3.9 Full story only: the examination, the photographs, the denial, the hidden route', 'These scenes exist only in the full-story setting. They play after discharge, in the aftermath order. What happened is never named. The honest option is always on the menu and always greyed out, except once (kd_last).', ['@SA']),
-    S_('3.10 Injuries only: the recovery', 'These exist only in the injuries-only setting. No doctor, no denial.', ['kc36.js:code@14', 'kc33.js:code@85', 'kc36.js:code@31', 'kc36.js:spot: The lightbox', 'kc36.js:spot: Walk the corridor', '@REC', 'kc36.js:sideHub']),
+    S_('3.9 Full story only: the examination, the photographs, the denial, the hidden route', 'These scenes exist only in the full-story setting. They play after discharge, in the aftermath order. What happened is never named. The honest option is always on the menu and always greyed out, except once (kd_last).', ['kc36.js:KD_SA_HELP', '@SA']),
+    S_('3.10 Injuries only: the recovery', 'These exist only in the injuries-only setting. No doctor, no denial.', ['kc36.js:code@14', 'kc36.js:spot: *', '@REC', 'kc36.js:sideHub']),
   ] },
   { title: '4. Recovery and aftermath', intro: 'Once she is out of the infirmary the scheduler (kc35) plays the next due scene every morning and the first time the planner opens in the afternoon, evening and night, in KD_ORDER. Each scene still needs its own conditions. Scenes already printed in section 3 are listed here by name only, so the order stays readable.', subs: [
     S_('4.1 The aftermath scenes, in scheduler order', '', ['@ORDER']),
@@ -766,3 +805,344 @@ const SECTIONS = [
     S_('5.3 Ending lines', 'Added to the ending screen when they apply. In the injuries-only setting, lines about the sum, the doctor’s second page, saying yes, the window, the false name, the “dentist” and the ceiling/radio are filtered out (kc36).', ['@END']),
   ] },
 ];
+
+const ROUTE_MAP = `
+**When it starts.** The kidnapping is set the night Misaki pays the rent for the second time (or, if she has moved in, on the day she would otherwise be evicted) and happens at the next night card. In Misaki’s POV you play the cell; in V’s POV you play the search; in the joint POV both run.
+
+**Misaki: getting out (section 2.4)**
+- *Escape*: the vent (needs the tray, listening at the door, and four screws worked loose) or the door (the star clip or the boot pick, once the guards’ steps are learned) → the stealth run → the loading dock → **she walks to V’s door** (\`escaped\`).
+- *First failed escape*: back to the cell; they stand on her hand.
+- *Second failed escape*: closeness tier 2+ (or the joint POV) → **V comes** (\`vRescueCut\`). Below tier 2 → **the last chance**: the cell again and a short third session. Failing again → **the late route** (\`lateM\`): V carries her out and dies by the car → Misaki’s lone route (5.2).
+
+**V: getting her out (sections 2.5–2.6)**
+- *Find her*: trace the phone, shake down one of their people, call Ronin and Angel, hunt along the river (the fourth warehouse; Angel’s fans find it if he called her) → “Go get her”: the rescue run → carrying her out → **he reaches her cell** (\`rescued\`). Being seen means the fight; same ending.
+- Each night she is missing makes the rescue harder; at **four nights** → **the late route** (\`lateV\`): he is too late → V’s lone route (5.2).
+
+**The infirmary: severity (section 3).** When she is carried in, the stay is scored: +1 for each session beyond the first, +1 at 16+ lost hours, +1 at 24+, +1 for two failed escapes, +1 for the last-chance route, +1 for composure under 35, +1 if she said two or more things under the needle, +1 for three or more nights missing; +2 with the code *thetallone*. The code *fridaycomes* starts at 14.
+- **Under 4 — the ordinary stay** (3.1): clears by the first morning; the shatter is the *morning* version; the bin of soup tubs.
+- **4+ — the extended delusion** (3.4): one extra day in the cell; **6+**: two extra days, and on an extra night **Friday** (3.5): she leaves goodbyes with “the tall one”, who is V. Tier 3 can look at the guard’s face and end it early.
+- **8+ — the worst route** (Misaki POV, 3.5–3.7): it never clears by itself. Each deluded morning costs 7 composure; each day brings a state-of-mind scene by composure band.
+  - *Think it through*: five clues in the room. **Four clues → she reasons it out**, opens the door and finds V (shatter: *logic*).
+  - *Composure 3 or less at bedtime* → **the bright turn** (three choices: what she hums, what she leaves out, where she sits) → **the spiral** the same night:
+    - with **2+ clues and a goodbye left for V** at Friday → **the secret, interrupted**: V is listening at the door and gets there in time; she lives (shatter: *caught*; \`kd_interrupted_after\`).
+    - otherwise → **lucid too late**: she knows it is V’s house and Tuesday, and cannot call out (shatter: *late*); the bright-turn choices decide what V finds → **V alone** (5.1, \`KD_AFTER\`).
+
+**The setting** (title screen or pause menu: *Kidnapping aftermath: full story / injuries only*).
+- **Full story**: adds the strand about the hours she cannot remember: the doctor’s question, the examination window, the photographs, the precaution cup, the white box, the denial (3.9). Never named.
+- **Injuries only**: removes that strand and these scenes: \`kd_konbini\`, \`kd_angelsees\`, \`kd_card\`, \`kd_discharge\`, \`kd_checkup\`, \`kd_pins\`, \`kd_wrists\`, threads \`tx_kd_fine\`, \`tx_kd_selfie\`, \`tx_kd_adoc\`. Adds the plain room spots and the \`kd_rec_*\` recovery (3.10). Scenes that branch on the setting show both versions below.
+
+**The hidden route** (\`kd_last\`, full story, Misaki POV). On the last Saturday the examination would still show, “Answer the question.” is enabled only if all five hold: she **kept the room** (\`kd_blank\`), **read the note-taker’s notebook herself** (\`kd_book\`), **looked at the photographs and handed them back** (\`kd_photos\` then \`kd_photodeny\`), **took the precaution tablets** (\`kd_cup\`), and **found the white box** in the infirmary fridge. Then \`kd_told_box\`, \`kd_told_dentist\` and \`kd_told_sleep\` replace the usual scenes, and the collapses (\`kd_crash\`, \`kd_crash2\`) do not happen.
+
+**After discharge (section 4).** One scheduled scene every morning and once each in the afternoon, evening and night, in the order of 4.1. The big choices: the notebook (read it / V holds it / burn it), keep the room or let it go blank, the clip (wear it / file it / the river), the trailer (sleep there / move it / leave), and the many small pretences that raise *denial* (full story).
+`;
+
+const TITLES = {
+  'index.html:takenM': 'The van (Misaki)', 'index.html:interrogate': 'The interrogation (original questions)', 'kc27.js:interrogate': 'Waking in the cell; the session wrapper',
+  'kc27.js:kdBlankQ': 'Before nine', 'kc28.js:kdBlankQ': 'The chair', 'kc28.js:kdHoldOn': 'The chair (on-screen words)', 'kc27.js:kdShort': 'Later sessions',
+  'kc27.js:kdDose': 'The dose', 'kc28.js:KD_INJ': 'After the dose: what she says about her injuries (full story)', 'kc28.js:KD_INJ_OFF': 'After the dose (injuries only)',
+  'kc27.js:KD_SAID': 'What the note-taker wrote', 'kc27.js:kdTheyCome': 'They come for another session', 'index.html:ROOMS': 'The cell (original spots)',
+  'kc27.js:code@65': 'The cell: two more spots', 'kc28.js:code@36': 'The cell: the screws and the steps', 'kc30.js:code@15': 'The radio: overheard',
+  'index.html:escapeRun': 'The escape run', 'kc28.js:kdDock': 'The loading dock', 'kc30.js:kdDock': 'The dock stairs', 'index.html:escaped': 'She gets out',
+  'index.html:failedEscape#1': 'A failed escape', 'index.html:failedEscape#2': 'The second failure: the last chance', 'index.html:vRescueCut': 'V at the loading bay',
+  'index.html:interrogateLite': 'The third session', 'index.html:lateM': 'The late route (Misaki)', 'index.html:takenV': 'Delivered (V)', 'index.html:hub': 'Find her (V’s menu)',
+  'index.html:informant': 'Shake down one of their people', 'kc27.js:kdScout': 'Hunt along the river', 'index.html:two_cups': 'Two cups', 'index.html:gl_taken': 'At a window',
+  'index.html:chatLog': 'The server chat', 'index.html:sleepBase': 'Nights missing', 'index.html:lateV': 'The late route (V)', 'index.html:vRescue': 'The rescue run',
+  'kc28.js:kdCarry': 'Carrying her out', 'index.html:rescued': 'The cell door', 'index.html:after': 'After', 'index.html:kdTell': 'Leaks reach her friends', 'kc27.js:stealth': 'Shaking hands',
+  'index.html:theList': 'The list', 'index.html:listTarget': 'A name on the list', 'kc59.js:W59REC': 'The list: recognition lines', 'index.html:finale': 'The finale',
+  'index.html:finalM': 'Misaki goes after the boss', 'index.html:finalV': 'V goes after the boss', 'kc56.js:k56BossScene': 'The address was bought',
+  'kc28.js:kdMedStart': 'The room that says LAUNDRY', 'kc28.js:KD_CHART': 'The chart', 'kc28.js:code@83': 'The infirmary room', 'kc28.js:kdMedRun': 'Running',
+  'kc28.js:openPhone': 'No phone', 'kc28.js:kdBacklog': 'The backlog', 'kc28.js:kdMedMorning': 'Infirmary mornings', 'kc48.js:KD_NIGHT': 'Nights', 'kc48.js:KD_NIGHT.push(…)': 'The fifth night',
+  'kc48.js:KD_DOOR': 'Talk through the door: the five topics', 'kc48.js:kdVisitor': 'Visitors', 'kc61.js:KD61_MC': 'Afternoons, clear', 'kc61.js:k61Tubs': 'The bin',
+  'kc28.js:sideHub': 'Sublevel two (V’s menu)', 'kc28.js:kdSit': 'Sit with her', 'kc48.js:kdSit': 'Sit with her: three more', 'kc60.js:sideHub#2': 'The kennel corridor (menu)',
+  'kc60.js:A60COR': 'The kennel corridor, at night', 'kc61.js:sideHub': 'V’s infirmary menu (kc61)', 'kc61.js:KD61_THINGS': 'Her things, from the river', 'kc61.js:KD61_FILE': 'Her file',
+  'kc61.js:KD61_ASK': 'Ask what she needs', 'kc61.js:KD61_VC': 'V’s days, clear', 'kc46.js:KD_STILL_M': 'A cell again (Misaki)', 'kc46.js:KD_STILL_V': 'She does not know him (V)',
+  'kc46.js:kdMedMorning#1': 'Extended-delusion mornings: the choice', 'kc46.js:code@47': 'The spots on those days', 'kc46.js:kdMedMorning#2': 'On the stairs',
+  'kc61.js:KD61_MX': 'Afternoons, extended (Misaki)', 'kc61.js:KD61_VX': 'Extended (V)', 'kc49.js:hub': 'Eleven days', 'kc49.js:KD_BYE': 'The goodbyes', 'kc49.js:kdGoodbye': 'Friday',
+  'kc49.js:kdMedMorning': 'Friday, from V’s side', 'kc50.js:KD_DESC': 'The room, described', 'kc51.js:KD_MIND': 'State of mind', 'kc52.js:code@47': 'State of mind: a third scene per band',
+  'kc52.js:KD_UNCANNY': 'Uncanny moments', 'kc50.js:KD_SPIRAL_WARN': 'Dark thoughts', 'kc60.js:hub': 'The rule', 'kc61.js:KD61_MW': 'Worst (Misaki)', 'kc61.js:KD61_VW': 'Worst (V)',
+  'kc50.js:KD_CLUES': 'The five clues', 'kc50.js:code@17': 'Think it through', 'kc50.js:kdLogicOut': 'The logic-out', 'kc52.js:kdBright': 'The bright turn',
+  'kc52.js:KD_HUM': 'What she hummed', 'kc52.js:KD_LEFT': 'What she left out', 'kc52.js:KD_SHAPE': 'Where she sat', 'kc50.js:kdSpiral': 'The spiral, and lucid too late',
+  'kc50.js:kdInterrupted': 'The secret, interrupted', 'kc53.js:KD_SHATTER_LINES': 'The shatter lines', 'kc36.js:code@14': 'The small fridge (injuries only)',
+  'kc33.js:code@85': 'The cabinet (injuries only)', 'kc36.js:code@31': 'The plain room (injuries only)', 'kc36.js:sideHub': 'Physio and walking (injuries only)',
+  'kc28.js:hub': 'Tired mornings', 'kc47.js:SD_NOTES': 'Small sad things', 'kc54.js:sideHub': 'Progress', 'index.html:flashCheck': 'Flashbacks', 'index.html:ground': 'Breathing',
+  'index.html:sleepAfter': 'After-phase nights', 'kc51.js:KD_AFTER': 'After the spiral', 'kc52.js:code@59': 'After the spiral, more', 'kc52.js:sideHub': 'Sit in the infirmary doorway',
+  'index.html:loneIntro': 'Six weeks later', 'index.html:LBEATS': 'Lone beats', 'index.html:LONE_EV': 'Lone mornings', 'index.html:morningEvent': 'Lost mornings',
+  'index.html:sleep': 'Where tonight', 'index.html:act2Hub': 'Grief', 'index.html:npcBarks': 'Floating words', 'index.html:dmTab': 'Delivered', 'index.html:collapseEnding': 'The Chair By The Door',
+  'index.html:loneEnding': 'Lone endings', 'kc59.js:W59G': 'Glimpses', 'kc27.js:kdKn': 'kd_knock1 – kd_knock3: the knocks', 'kc56.js:k56_grey': 'The man in grey',
+};
+
+/* ------------------------------------------------------------------ runtime lists (order, setting gates) */
+function runtimeLists() {
+  const fallback = { o: ['kd_shards', 'kd_interrupted_after', 'kd_discharge', 'kd61_home', 'kd_book', 'kd_delivered', 'kd_count', 'kd61_rent', 'kd_rec_list', 'kd_rec_stitches', 'kd_rec_ronin', 'kd_rec_angel', 'kd_rec_vpins', 'kd_rec_eat', 'kd_rec_job', 'kd_card', 'w59_know', 'kd_ask', 'kd_math', 'w59_hale_after', 'kd_konbini', 'kd_window', 'kd_cup', 'kd_bodymap', 'kd_still_relapse', 'kd_blank', 'kd_photos', 'kd_angelsees', 'kd_wrists', 'kd_clothes', 'kd_exam', 'kd_practice', 'kd_recount', 'kd_photodeny', 'kd_home', 'kd_results', 'kd_vtable', 'kd_vdoc', 'kd_last', 'kd_told_box', 'kd_kitgone', 'kd_pins', 'kd_wash', 'kd_smell', 'kd_notask', 'kd_vknows', 'kd_slip', 'kd_sleeptalk', 'kd_parcel', 'kd_roncrow', 'kd_vod', 'kd_bank', 'kd_jacket', 'kd_shop', 'kd_round', 'kd_knock1', 'kd_knock2', 'kd_knock3', 'kd_ronradio', 'kd_ronmad', 'kd_reh_fist', 'kd_reh_dark', 'kd_reh_rifle', 'kd_reh_adapt', 'kd_reh_perform', 'kd_reh_laugh', 'kd_reh_who', 'kd_cast', 'kd_bookout', 'kd_van', 'kd_hara', 'kd_dentist', 'kd_told_dentist', 'kd_told_sleep', 'kd_later', 'kd_crash', 'kd_crash2', 'kd_march', 'kd_checkup', 'kd_epi', 'kd_v_ledger', 'kd60_vpage', 'kd_v_kitchen', 'kd_v_nobody', 'kd_v_tally', 'kd_hard_first', 'kd_hard_work', 'kd_hard_angel', 'kd60_rule', 'kd60_wr', 'kd_v_sees', 'kd_hard_rule', 'kd_v_cant', 'k58_creak', 'k58_pages', 'k58_cups', 'k58_cupv', 'k58_read', 'k58_test', 'k58_steps', 'k58_end'],
+    sa: ['kd_math', 'kd_clothes', 'kd_exam', 'kd_photos', 'kd_wash', 'kd_smell', 'kd_notask', 'kd_vknows', 'kd_later', 'kd_draft', 'kd_recount', 'kd_slip', 'kd_sleeptalk', 'kd_shop', 'kd_ask', 'kd_window', 'kd_bodymap', 'kd_photodeny', 'kd_cup', 'kd_results', 'kd_dentist', 'kd_vdoc', 'kd_kitgone', 'kd_last', 'kd_told_box', 'kd_told_dentist', 'kd_told_sleep'],
+    tx: ['tx_kd_sleep', 'tx_kd_ask', 'tx_kd_vdots', 'tx_kd_ronsoft', 'tx_kd_docstop'], gone: ['kd_konbini', 'kd_angelsees', 'kd_card', 'kd_discharge', 'kd_checkup', 'kd_pins', 'kd_wrists'], live: false };
+  try {
+    const cp = require('child_process');
+    const g = cp.execSync('npm root -g', { stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim();
+    const code = `const {chromium}=require(${JSON.stringify(path.join(g, 'playwright'))});(async()=>{const b=await chromium.launch();const p=await b.newPage();await p.route('**/fonts.g*/**',r=>r.abort());
+      await p.goto('file://'+${JSON.stringify(path.join(ROOT, 'index.html'))});await p.waitForTimeout(400);
+      const r=await p.evaluate(()=>({o:KD_ORDER,sa:KD_SA_EV,tx:KD_SA_TX,gone:KD_OFF_GONE}));console.log(JSON.stringify(r));await b.close()})().catch(e=>{console.error(e);process.exit(1)});`;
+    const out = cp.execFileSync(process.execPath, ['-e', code], { stdio: ['ignore', 'pipe', 'ignore'], timeout: 60000 }).toString().trim().split('\n').pop();
+    const r = JSON.parse(out); r.live = true; return r;
+  } catch (e) { return fallback; }
+}
+
+/* ------------------------------------------------------------------ assemble */
+function main() {
+  const RT = runtimeLists();
+  const OFF_TX = ['tx_kd_fine', 'tx_kd_selfie', 'tx_kd_adoc'];
+  const all = [];
+  for (const f of INCLUDE_FILES) {
+    let scenes;
+    if (f === 'index.html') {
+      scenes = extractFile(f, {
+        only: nm => INDEX_UNITS.test(nm) || /^(TOPICS_|EVENTS|LIGHT|DARK)/.test(nm) || true,
+        focus: (nm, st, ctx) => {
+          if (/^(hub|sleepBase|chatLog)$/.test(nm)) {
+            const hits = []; (function rec(x) { if (!x || typeof x !== 'object') return; if (x.type === 'IfStatement' && /phase==='(taken|after)'/.test(src(ctx, x.test)) && (nm !== 'hub' || /taken/.test(src(ctx, x.test)))) { hits.push(x); return; } for (const k in x) { const v = x[k]; if (Array.isArray(v)) v.forEach(rec); else if (v && typeof v.type === 'string') rec(v); } })(st);
+            return hits.length ? hits : { type: 'EmptyStatement' };
+          }
+          if (nm === 'ROOMS') { let cell = null; (function rec(x) { if (cell || !x || typeof x !== 'object') return; if (x.type === 'Property' && propKey(x) === 'cell' && x.value.type === 'ObjectExpression') { cell = x.value; return; } for (const k in x) { const v = x[k]; if (Array.isArray(v)) v.forEach(rec); else if (v && typeof v.type === 'string') rec(v); } })(st); return cell || { type: 'EmptyStatement' }; }
+          return null;
+        }
+      });
+      scenes = scenes.filter(s => (s.kind === 'unit' && INDEX_UNITS.test(s.id)) || (s.kind !== 'unit' && INDEX_EVENTS.test(s.id)) || (s.kind === 'spot' && s.parent === 'ROOMS'));
+    } else scenes = extractFile(f);
+    const seen = {};
+    for (const sc of scenes) { seen[sc.id] = (seen[sc.id] || 0) + 1; sc.n = seen[sc.id]; sc.key = f + ':' + sc.id; all.push(sc); }
+  }
+  // occurrence counts so "#n" selectors can be checked
+  const count = {}; for (const sc of all) count[sc.key] = (count[sc.key] || 0) + 1;
+  const skip = sc => SKIP.has(sc.key) || SKIP.has(sc.key + '#' + sc.n);
+  const pool = all.filter(sc => !skip(sc));
+  const placed = new Map();   // scene -> section ref
+  const match = (sel) => {
+    let file, id, n = 0; const i = sel.indexOf(':'); file = sel.slice(0, i); id = sel.slice(i + 1);
+    const h = id.match(/^(.*)#(\d+)$/); if (h) { id = h[1]; n = +h[2]; }
+    const re = id.includes('*') ? new RegExp('^' + id.replace(/[.+?^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '.*') + '$') : null;
+    return pool.filter(sc => sc.file === file && (re ? re.test(sc.id) : sc.id === id) && (!n || sc.n === n));
+  };
+  // pass 1: explicit selectors claim their scenes
+  const plan = [];
+  for (const S1 of SECTIONS) for (const sub of S1.subs) {
+    const slot = { sec: S1, sub, ref: sub.title.split(' ')[0], scenes: [] }; plan.push(slot);
+    for (const sel of sub.sel) {
+      if (sel[0] === '@') { slot.scenes.push({ special: sel }); continue; }
+      const m = match(sel); if (!m.length) console.warn('selector matched nothing:', sel);
+      for (const sc of m) { if (placed.has(sc)) continue; placed.set(sc, slot.ref); slot.scenes.push(sc); }
+    }
+  }
+  const byId = id => pool.filter(sc => sc.id === id && sc.kind === 'event');
+  // pass 2: specials in document order
+  for (const slot of plan) {
+    const out = [];
+    for (const it of slot.scenes) {
+      if (!it.special) { out.push(it); continue; }
+      const take = list => list.forEach(sc => { if (!placed.has(sc)) { placed.set(sc, slot.ref); out.push(sc); } });
+      if (it.special === '@SA') {
+        const ids = RT.o.filter(id => RT.sa.includes(id)).concat(RT.sa.filter(id => !RT.o.includes(id)));
+        ids.forEach(id => take(byId(id)));
+        take(pool.filter(sc => sc.kind === 'topic' && sc.id === 'kd_second'));
+        take(pool.filter(sc => sc.kind === 'thread' && RT.tx.includes(sc.id)));
+      } else if (it.special === '@REC') take(pool.filter(sc => /^kd_rec_/.test(sc.id)));
+      else if (it.special === '@ORDER') {
+        RT.o.forEach((id, k) => {
+          const L = byId(id);
+          if (!L.length && DYN[id]) { const h = pool.find(x => x.key === DYN[id]); if (h && !placed.has(h)) { placed.set(h, slot.ref); h.title = h.title || ''; h.dynId = id; out.push(h); } else out.push({ xref: id, text: `${k + 1}. ${id}: the same scene as above, for the next thing she said` }); return; }
+          if (!L.length) { out.push({ xref: id, text: `${id}: (no text found)` }); return; }
+          L.forEach(sc => { if (placed.has(sc)) out.push({ xref: id, at: placed.get(sc), pos: k + 1 }); else { placed.set(sc, slot.ref); out.push(sc); } });
+        });
+      } else if (it.special === '@TX') take(pool.filter(sc => sc.kind === 'thread'));
+      else if (it.special === '@TOPIC') take(pool.filter(sc => sc.kind === 'topic'));
+      else if (it.special === '@END') take(pool.filter(sc => sc.id === 'extraEnding'));
+    }
+    slot.scenes = out;
+  }
+  for (const slot of plan) {
+    const out = [];
+    for (const sc of slot.scenes) {
+      out.push(sc);
+      if (sc.xref || !sc.id) continue;
+      for (const [hk, ev] of Object.entries(ATTACH)) if (ev === sc.id) for (const h of pool.filter(x => x.key === hk && !placed.has(x))) { placed.set(h, slot.ref); out.push(h); }
+    }
+    slot.scenes = out;
+  }
+  const rest = pool.filter(sc => !placed.has(sc));
+  if (rest.length) plan.push({ sec: { title: 'Appendix: other text from the same modules' }, sub: { title: 'Not placed above', intro: 'Text from the arc’s modules that the sections above do not place.' }, ref: 'A', scenes: rest });
+
+  /* condition note per scene */
+  const orderPos = id => { const i = RT.o.indexOf(id); return i < 0 ? 0 : i + 1; };
+  const setNote = sc => {
+    if (RT.sa.includes(sc.id) || RT.tx.includes(sc.id) || sc.id === 'kd_second') return 'Full-story setting only.';
+    if (RT.gone.includes(sc.id) || OFF_TX.includes(sc.id)) return 'Full-story setting only (cut from injuries-only).';
+    if (sc.helper === 'kdRec' || /^kd_rec_/.test(sc.id)) return 'Injuries-only setting only.';
+    return '';
+  };
+  const noteFor = sc => {
+    const k = sc.key, kn = k + '#' + sc.n, parts = [];
+    const hand = NOTE[kn] || NOTE[k]; if (hand) parts.push(hand);
+    if (sc.kind === 'event' || sc.kind === 'thread' || sc.kind === 'topic' || sc.kind === 'spot') {
+      let c = sc.cond || '';
+      if (sc.day != null && sc.helper === 'kdEv2') c = `day ${sc.day}+ after discharge` + (c ? ', ' + c : '');
+      if (sc.day != null && sc.helper === 'kdRec') c = `day ${sc.day}+ after discharge` + (c ? ', ' + c : '');
+      if (c) parts.push((sc.kind === 'spot' ? 'Shown when: ' : sc.kind === 'topic' ? 'Offered when: ' : 'Plays when: ') + c + '.');
+      if (sc.kind === 'topic') parts.push(/_V\b|TOPICS_V|TDTOP_V/.test(sc.unit || '') ? 'Talk topic in V’s POV.' : /_M\b|TOPICS_M|TDTOP_M/.test(sc.unit || '') ? 'Talk topic in Misaki’s POV.' : 'Talk topic.');
+    }
+    const p = orderPos(sc.id); if (p && sc.kind === 'event') parts.push(`Aftermath order: ${p} of ${RT.o.length}.`);
+    const s = setNote(sc); if (s) parts.push(s);
+    if (sc.kind === 'unit' && !hand && sc.id === 'extraEnding') parts.push('Ending lines (' + sc.file + ').');
+    return parts.join(' ');
+  };
+  const headFor = sc => {
+    const t = TITLES[sc.key + '#' + sc.n] || TITLES[sc.key];
+    if (t) return t;
+    if (sc.kind === 'spot') return 'Spot: ' + sc.id.replace(/^spot: /, '');
+    if (sc.kind === 'thread') return sc.title.replace('Phone thread: ', 'Thread: ') + ' (' + sc.id + ')';
+    if (sc.kind === 'topic') return 'Topic: ' + (sc.title || sc.id) + ' (' + sc.id + ')';
+    if (sc.id === 'extraEnding') return 'Ending lines (' + sc.file + ')';
+    return sc.id;
+  };
+
+  /* ---------- markdown ---------- */
+  const md = [];
+  const anchors = new Set();
+  const slug = t => { let b = t.toLowerCase().replace(/<[^>]+>/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 's'; let s = b, i = 2; while (anchors.has(s)) s = b + '-' + i++; anchors.add(s); return s; };
+  md.push('# Killer Chat! Off Hours — the kidnapping arc, the infirmary and the recovery', '');
+  md.push(`Every line of the arc’s text, compiled from the game source by \`tools/kd_script.js\` (regenerate with \`node tools/kd_script.js\`). Lines are quoted as written; \`[placeholders]\` stand for text the game fills in (the captor organisation, the boss, numbers). Where Misaki’s line changes with closeness, all four tiers are shown (tier 0 = least close; after the kidnapping the voice is pushed toward the plainer tiers). Branches show which condition or choice leads where; ▸ marks a choice the player makes; greyed-out options are marked.`, '');
+  md.push('**Speakers:** Misaki (hitmeuppp), V (K9), Angel (Angelic), Ronin (ronin.beaufort); *italic lines are narration*.', '');
+  md.push(RT.live ? '_Scheduler order and setting lists were read from the running game._' : '_Scheduler order and setting lists: the snapshot built into the script (the game could not be loaded headless)._', '');
+  md.push('## Contents', '');
+  md.push('- [Route map](#@@Route map@@)');
+  const secTitles = [];
+  for (const slot of plan) { if (!secTitles.includes(slot.sec.title)) { secTitles.push(slot.sec.title); md.push(`- [${slot.sec.title}](#@@${slot.sec.title}@@)`); } md.push(`  - [${slot.sub.title}](#@@${slot.sub.title}@@)`); }
+  anchors.clear(); md.push('', '## Route map', '', ROUTE_MAP.trim(), '');
+  slug('Route map'); for (const t of secTitles) slug(t);
+  const usedSec = new Set();
+  const sceneAnchor = new Map();
+  for (const slot of plan) {
+    if (!usedSec.has(slot.sec.title)) { usedSec.add(slot.sec.title); md.push('', '## ' + slot.sec.title, ''); if (slot.sec.intro) md.push(slot.sec.intro, ''); }
+    md.push('### ' + slot.sub.title, ''); if (slot.sub.intro) md.push('> ' + slot.sub.intro, '');
+    for (const sc of slot.scenes) {
+      if (sc.xref) { md.push(sc.at ? `- *${sc.pos}. \`${sc.xref}\` — printed in ${sc.at}.*` : `- *${sc.text}*`, ''); continue; }
+      md.push('#### ' + headFor(sc).replace(/[*_]/g, m => '\\' + m), '');
+      const nt = noteFor(sc); if (nt) md.push('> ' + nt.replace(/\n/g, ' '), '');
+      md.push(mdItems(sc.items), '');
+    }
+  }
+  // GitHub-style anchors: computed over every heading in order, then the contents links are filled in
+  const ghSeen = {}, ghFirst = {};
+  for (const l of md.join('\n').split('\n')) {
+    const h = l.match(/^#{1,6} (.*)$/); if (!h) continue;
+    const plain = h[1].replace(/\\([*_])/g, '$1');
+    let b = plain.toLowerCase().replace(/[^\p{L}\p{N} _-]/gu, '').replace(/ /g, '-');
+    const n = ghSeen[b] || 0; ghSeen[b] = n + 1; const a = n ? b + '-' + n : b;
+    if (!(plain in ghFirst)) ghFirst[plain] = a;
+  }
+  const mdText = md.join('\n').replace(/\]\(#@@(.*?)@@\)/g, (m, t) => '](#' + (ghFirst[t] || '') + ')').replace(/\n{3,}/g, '\n\n') + '\n';
+
+  /* ---------- html ---------- */
+  const esc = t => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const inl = t => esc(t).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/(^|[^*\w])\*([^*\n]+?)\*(?=[^*\w]|$)/g, '$1<i>$2</i>').replace(/`([^`]+)`/g, '<code>$1</code>');
+  const whoCls = w => /^Misaki/.test(w) ? 'm' : /^V\b/.test(w) ? 'v' : /^Angel/.test(w) ? 'a' : /^Ronin/.test(w) ? 'r' : /boss|^\[/.test(w) ? 'x' : 'o';
+  const altsHtml = (it, cls) => it.alts.length === 1 ? `<span class="${cls}">${esc(it.alts[0].text)}</span>`
+    : '<ul class="alts">' + it.alts.map(a => `<li>${a.label ? `<span class="lab">${esc(a.label)}</span> ` : ''}<span class="${cls}">${esc(a.text)}</span></li>`).join('') + '</ul>';
+  const itemsHtml = items => {
+    const h = [];
+    for (const it of items) {
+      const pad = ` style="--d:${it.d || 0}"`;
+      switch (it.type) {
+        case 'line': if (!it.who) h.push(`<p class="ln nar"${pad}>${altsHtml(it, 'tx')}</p>`); else h.push(`<p class="ln"${pad}><span class="who ${whoCls(it.who)}">${esc(it.who)}</span> ${altsHtml(it, 'tx')}</p>`); break;
+        case 'prompt': h.push(`<p class="ln prompt"${pad}>${it.who ? `<span class="who ${whoCls(it.who)}">${esc(it.who)}</span> ` : ''}<span class="tag">choice</span> ${altsHtml(it, 'tx')}</p>`); break;
+        case 'opt': h.push(`<p class="ln opt${it.dis ? ' dis' : ''}"${pad}><span class="arrow">▸</span> ${it.who ? `<span class="who ${whoCls(it.who)}">${esc(it.who)}</span> ` : ''}${altsHtml(it, 'tx')}${it.sub ? ` <span class="sub">(${esc(it.sub)})</span>` : ''}${it.dis ? ` <span class="tag">${esc(it.dis)}</span>` : ''}</p>`); break;
+        case 'branch': h.push(`<p class="br"${pad}>${esc(it.text)}</p>`); break;
+        case 'key': h.push(`<p class="key"${pad}><code>${esc(KEYNAME[it.text] || it.text)}</code></p>`); break;
+        case 'note': h.push(`<p class="nt${it.go ? ' go' : ''}"${pad}>${esc(it.text)}</p>`); break;
+        case 'loose': h.push(`<p class="ln loose"${pad}>${it.key ? `<code>${esc(KEYNAME[it.key] || it.key)}</code> ` : ''}${altsHtml(it, 'tx')}</p>`); break;
+      }
+    }
+    return h.join('\n');
+  };
+  const hAnch = new Set(); const hs = t => { let b = t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 's'; let s = b, i = 2; while (hAnch.has(s)) s = b + '-' + i++; hAnch.add(s); return s; };
+  const toc = [], body = [];
+  const done = new Set();
+  for (const slot of plan) {
+    if (!done.has(slot.sec.title)) {
+      done.add(slot.sec.title); const a = hs(slot.sec.title);
+      if (toc.length) toc.push('</ul></li>'); toc.push(`<li><a href="#${a}">${esc(slot.sec.title)}</a><ul>`);
+      body.push(`<h2 id="${a}">${esc(slot.sec.title)}</h2>` + (slot.sec.intro ? `<p class="intro">${esc(slot.sec.intro)}</p>` : ''));
+    }
+    const a = hs(slot.sub.title); toc.push(`<li><a href="#${a}">${esc(slot.sub.title)}</a></li>`);
+    body.push(`<section><h3 id="${a}">${esc(slot.sub.title)}</h3>` + (slot.sub.intro ? `<div class="cond">${esc(slot.sub.intro)}</div>` : ''));
+    for (const sc of slot.scenes) {
+      if (sc.xref) { body.push(sc.at ? `<p class="xref">${sc.pos}. <code>${esc(sc.xref)}</code> — printed in ${esc(sc.at)}</p>` : `<p class="xref">${esc(sc.text)}</p>`); continue; }
+      const nt = noteFor(sc);
+      body.push(`<article class="scene"><h4 id="${hs('s-' + sc.key + '-' + sc.n)}">${esc(headFor(sc))} <span class="src">${esc(sc.file)}</span></h4>${nt ? `<div class="cond">${esc(nt)}</div>` : ''}\n${itemsHtml(sc.items)}</article>`);
+    }
+    body.push('</section>');
+  }
+  toc.push('</ul></li>');
+  const routeHtml = ROUTE_MAP.trim().split('\n').reduce((acc, l) => {
+    const m = l.match(/^(\s*)- (.*)$/);
+    if (m) { const lvl = m[1].length / 2; acc.push(`<li class="l${lvl}">${inl(m[2])}</li>`); } else if (l.trim()) acc.push(`<p>${inl(l)}</p>`);
+    return acc;
+  }, []).join('\n').replace(/(<li[^>]*>[\s\S]*?<\/li>\n?)+/g, m => `<ul class="rm">${m}</ul>`);
+  const html = `<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kidnapping Arc Script</title>
+<style>
+:root{--bg:#f6f3ee;--paper:#fffdf9;--ink:#1f1c22;--muted:#6b6470;--rule:#e2dcd3;--cond-bg:#efebe4;--cond-ink:#5a5360;--accent:#8a2b3a;
+--m:#b0306b;--v:#2f5b8f;--a:#a0458f;--r:#7a5a1e;--x:#7d2e2e;--o:#4c5a4c;--br:#7a6a8a;--opt:#215a4a;--dis:#9a949e;--code:#f1ece4}
+@media (prefers-color-scheme: dark){:root{--bg:#141217;--paper:#1b181f;--ink:#e8e4ec;--muted:#a59fac;--rule:#2e2934;--cond-bg:#24202a;--cond-ink:#b8b0c0;--accent:#e07a8c;
+--m:#f08ab8;--v:#8fb6ec;--a:#e2a0d6;--r:#e0bd78;--x:#e69a9a;--o:#a9c2a9;--br:#bba8d6;--opt:#7fd1b7;--dis:#77717d;--code:#2a2530}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Georgia,"Iowan Old Style","Palatino Linotype",serif;-webkit-text-size-adjust:100%}
+.wrap{display:grid;grid-template-columns:minmax(0,1fr);max-width:1180px;margin:0 auto}
+@media (min-width:960px){.wrap{grid-template-columns:290px minmax(0,1fr);gap:28px;padding:0 20px}}
+nav.toc{background:var(--paper);border-bottom:1px solid var(--rule);padding:8px 16px}
+@media (min-width:960px){nav.toc{position:sticky;top:0;align-self:start;max-height:100vh;overflow:auto;border:0;border-right:1px solid var(--rule);padding:20px 16px 40px 0;background:transparent}}
+nav.toc summary{cursor:pointer;font:600 15px/1.4 system-ui,sans-serif;padding:6px 0}
+nav.toc ul{list-style:none;margin:0;padding-left:12px;font:14px/1.45 system-ui,sans-serif}nav.toc>details>ul{padding-left:0}
+nav.toc li{margin:3px 0}nav.toc a{color:var(--muted);text-decoration:none}nav.toc a:hover{color:var(--accent)}
+main{padding:16px;min-width:0}@media (min-width:960px){main{padding:24px 0 80px}}
+h1{font-size:1.7rem;line-height:1.25;margin:.4em 0}h2{font-size:1.4rem;margin:2.2em 0 .4em;padding-top:.6em;border-top:2px solid var(--accent)}
+h3{font-size:1.15rem;margin:1.8em 0 .5em;color:var(--accent)}h4{font-size:1.02rem;margin:1.6em 0 .4em;font-family:system-ui,sans-serif}
+h4 .src{font-weight:400;font-size:.75rem;color:var(--muted);margin-left:.4em}
+.lead{color:var(--muted)}
+.cond{background:var(--cond-bg);color:var(--cond-ink);border-radius:6px;padding:8px 12px;margin:.4em 0 .8em;font:14px/1.5 system-ui,sans-serif}
+.intro{color:var(--muted)}
+.scene{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:6px 16px 10px;margin:14px 0;overflow-wrap:anywhere}
+.ln,.br,.nt,.key{margin:.45em 0 .45em calc(var(--d,0) * 18px);padding-left:calc(min(var(--d,0),1) * 10px);border-left:calc(min(var(--d,0),1) * 2px) solid var(--rule)}
+@media (max-width:600px){.ln,.br,.nt,.key{margin-left:calc(var(--d,0) * 10px)}}
+.nar .tx{font-style:italic}.who{font:700 13px/1 system-ui,sans-serif;letter-spacing:.02em;margin-right:.35em}
+.who.m{color:var(--m)}.who.v{color:var(--v)}.who.a{color:var(--a)}.who.r{color:var(--r)}.who.x{color:var(--x)}.who.o{color:var(--o)}
+.br{font:600 13px/1.4 system-ui,sans-serif;color:var(--br)}
+.opt .tx{font-weight:600;color:var(--opt)}.opt.dis .tx{color:var(--dis);text-decoration:line-through;text-decoration-thickness:1px}
+.arrow{color:var(--opt)}.sub{color:var(--muted);font-size:.9em;font-style:italic}
+.tag{font:11px/1 system-ui,sans-serif;background:var(--code);color:var(--muted);border-radius:4px;padding:2px 5px;white-space:nowrap}
+.prompt .tx{font-style:italic;color:var(--muted)}
+.nt{font:13px/1.4 system-ui,sans-serif;color:var(--muted)}.nt.go{color:var(--br)}
+.loose code,.key code,code{font:12px/1.4 ui-monospace,Menlo,monospace;background:var(--code);border-radius:3px;padding:1px 4px}
+ul.alts{margin:.2em 0 .2em 0;padding-left:1.1em}ul.alts li{margin:.15em 0}.lab{font:600 12px/1.3 system-ui,sans-serif;color:var(--muted)}
+.xref{color:var(--muted);font:14px/1.4 system-ui,sans-serif;margin:.3em 0}
+.route{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:4px 18px}
+ul.rm{padding-left:1.2em}li.l1{margin-left:1.4em}li.l2{margin-left:2.8em}
+</style></head>
+<body><div class="wrap">
+<nav class="toc" aria-label="Contents"><details open><summary>Contents</summary><ul><li><a href="#route-map">Route map</a></li>${toc.join('\n')}</ul></details></nav>
+<main>
+<h1>Killer Chat! Off Hours — the kidnapping arc, the infirmary and the recovery</h1>
+<p class="lead">Every line of the arc’s text, compiled from the game source by <code>tools/kd_script.js</code>. Lines are quoted as written; [placeholders] stand for text the game fills in. Where Misaki’s line changes with closeness, all four tiers are shown (tier 0 = least close). ▸ marks a choice; greyed-out choices are struck through. Narration is in italics. Grey boxes say when a scene plays.</p>
+<p class="lead">${RT.live ? 'Scheduler order and setting lists were read from the running game.' : 'Scheduler order and setting lists: the snapshot built into the script.'}</p>
+<h2 id="route-map">Route map</h2><div class="route">${routeHtml}</div>
+${body.join('\n')}
+</main></div></body></html>
+`;
+  fs.mkdirSync(path.join(ROOT, 'docs'), { recursive: true });
+  fs.writeFileSync(path.join(ROOT, 'docs', 'kidnapping_script.md'), mdText);
+  fs.writeFileSync(path.join(ROOT, 'docs', 'kidnapping_script.html'), html);
+  const quoted = all.filter(sc => placed.has(sc) || rest.includes(sc)).reduce((n, sc) => n + sc.items.reduce((m, it) => m + (it.alts ? it.alts.reduce((k, a) => k + (a.text.match(/\S+/g) || []).length, 0) : 0), 0), 0);
+  console.log(`docs/kidnapping_script.md: ${(mdText.match(/\S+/g) || []).length} words, ${(Buffer.byteLength(mdText) / 1024).toFixed(0)} KB`);
+  console.log(`docs/kidnapping_script.html: ${(Buffer.byteLength(html) / 1024).toFixed(0)} KB`);
+  console.log(`quoted game text: ${quoted} words in ${placed.size + rest.length} scenes (${rest.length} unplaced, in the appendix); runtime lists: ${RT.live ? 'live' : 'snapshot'}`);
+}
+if (require.main === module && !process.argv[2]) main();
