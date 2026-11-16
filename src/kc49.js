@@ -15,7 +15,7 @@ function kdGoodbye(after){const said=[];S.f.kdGoodbye=1;save();go(cutBg('#04040a
   ['','You do the sums the way you always do the sums. You don’t get a Saturday. That’s fine. You had five years and then some extra. You were lucky. You always said you were lucky.'],
   ['','The tall one is on the other side of the door. He always is. He breathes like somebody trying not to be heard.'],
   ['hitmeuppp',MV('...hey.','hey. tall guy. u awake.','Hey. You. Are you awake?','Hey. Tall one. I know you’re there, you breathe like a radiator. Are you awake?')],
-  ['','A pause. Then, very quietly: “Yes.”'],
+  ['','A pause. Then: “Yes.”'],
   ['hitmeuppp',MV('i need u to pass some stuff on.','i need you to pass some stuff on. after. you don’t have to. but you’re the only one here.','I need you to pass some things on. After. You don’t have to. You’re just the only one here.','I need you to do something for me. After Friday. You don’t have to, you don’t owe me, but you’re the only person in this whole building who ever knelt down, so it’s you. I need you to pass some things on.')],
   ['','A longer pause. Then: “Tell me.”']],next);
  function next(){const o=[['v','For V.'],['a','For Angel.'],['r','For Ronin.'],['h','For the hounds.']].filter(([k])=>!said.includes(k)).map(([k,t])=>({t,fn:()=>{said.push(k);say([['hitmeuppp',KD_BYE[k]],['','On the other side of the door, nothing. Then, after a while: “I will tell them.”'+(k==='v'?' The voice does something on the last word that a guard’s voice wouldn’t.':'')]],next)}}));
@@ -23,7 +23,7 @@ function kdGoodbye(after){const said=[];S.f.kdGoodbye=1;save();go(cutBg('#04040a
  function end(){S.f.kdBye=said.slice();save();say([
   ['hitmeuppp',MV('ok. thanks.','ok. that’s it. thanks. sorry about the soup.','That’s all. Thank you. I’m sorry about the soup.','That’s everyone. That’s all of them. Thank you. Sorry I never ate your soup, it smelled really good. Sorry I called you the tall one. You were the only nice thing in here.')],
   ['','You lie down with your back against the door. On the other side somebody lies down too. You can tell from the sound, a long slow slide down the wood, the way somebody sits down when their legs stop working.'],
-  ['','Through two inches of door, very quietly, the tall one starts to read aloud. It is tax history. It is the most boring book in the world. You are asleep in four minutes.'],
+  ['','Through two inches of door, the tall one starts to read aloud. It is tax history. It is the most boring book in the world. You are asleep in four minutes.'],
   ['','He reads until it gets light. He doesn’t stop once, because if he stops she will hear what his voice is doing.']],after)}}
 /* Misaki's side: on a worst-stay night, before sleep */
 const _sleepKD49=sleep;sleep=function(){const a=arguments,self=this;if(typeof kdMedM==='function'&&kdMedM()&&kdFri()&&kdClar()<2)return kdGoodbye(()=>{S.done.kdNight=1;_sleepKD49.apply(self,a)});return _sleepKD49.apply(self,a)};

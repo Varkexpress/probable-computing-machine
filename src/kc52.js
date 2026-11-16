@@ -67,6 +67,6 @@ const _shKD52=sideHub;sideHub=function(late){const o=_shKD52(late);if(!S||S.lone
  return o.concat([{t:'Sit in the infirmary doorway',sub:S.done.kdDoorway?'done today':'costs time',dis:late||!!S.done.kdDoorway,fn:()=>{spend();S.done.kdDoorway=1;S.f.kdDoorwayN=(S.f.kdDoorwayN||0)+1;save();go(cutBg('#0c0e10'));
   const L=pk([[['','He sits in the doorway where the door used to be. The bed is made, hospital corners. He made it the morning after and has not touched it since.'],['K9','It is Tuesday. It is my house.']],
    [['','He reads aloud to the empty room. Tax history, chapter six. He reads until his voice goes, and then he sits, and the grey hound comes down the stairs and lies across the threshold beside him.']],
-   [['','He sits in the doorway and does the crossword. He fills in seven down, for the first time in his life. The answer was never difficult. He just liked leaving it for her.']],
+   [['','He sits in the doorway and does the crossword, and fills in seven down, which he has always left for her.']],
    [['','He tells the empty room what the hounds did today, who ate what, who was sick on the stairs, the way he would have told her through the door. It takes four minutes. Then there is nothing else to say, and he sits there for an hour anyway.']]]);
   say(L,()=>{apply({heart:-1});hub()})}}])};

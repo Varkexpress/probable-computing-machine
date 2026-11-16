@@ -31,7 +31,7 @@ PT_EV.push({id:'pt_pulse',when:()=>pt_started()&&S.day>=6,run:done=>{pt_set();pt
  if(pt_M())pt_say([
   ['','You wake up at six and check for a pulse, the way you do after a job. Two fingers on the wrist. Nothing.'],
   ['','You try the other wrist. Nothing.'],
-  ['','You lie there and work it through, the way you would work through a floor plan. No pulse. No hunger, either, now you think about it. The room is cold and you are not shivering. It is not a feeling. It is a conclusion.'],
+  ['','You lie there and work it through, the way you would work through a floor plan. No pulse. No hunger, either, now you think about it. The room is cold and you are not shivering.'],
   ['M','huh.'],
   ['','You get up, because the alternative is lying there being correct. You make toast. You do not eat it. It is for whoever lives here.'],
   ['M','(server) quick q. how long can a person go without a pulse'],
@@ -83,7 +83,7 @@ PT_EV.push({id:'pt_door',when:()=>pt_after('pulse'),run:done=>{pt_set();pt_mark(
 PT_EV.push({id:'pt_food',when:()=>pt_after('door'),run:done=>{pt_set();pt_mark('food');const P=pt_P();
  const L=pt_M()?[
   ['','Breakfast. The rice tastes like the idea of rice: a word with a temperature.'],
-  ['','You do the arithmetic. If nothing tastes of anything, then eating is just moving food from one place to another. It would be more use to somebody else. That is not sad. It is efficient.'],
+  ['','You do the arithmetic. If nothing tastes of anything, then eating is just moving food from one place to another. It would be more use to somebody else.'],
   ['','You take the sandwich down to the lot and break it up for the crows. They know what to do with it. It is a relief to watch something that knows what to do with it.'],
   ['','The crows were not there. You remember them, but when you look at the photo you took, the lot is empty and the rice is on the gravel and nobody is eating it.'],
   P==='K9'?['K9','(text) Did you eat?']:P===AN?[AN,'(text) babe did u eat. be honest. i can smell lies through the phone']:[RN,'(text) You eat today, darlin’? Don’t lie, I’ll know.'],
@@ -155,7 +155,7 @@ PT_EV.push({id:'pt_air',when:()=>pt_after('count'),run:done=>{pt_set();pt_mark('
   ['','November, and every window in the guest room is open. You have been awake since four. You opened them one at a time.'],
   ['','There is a smell. Sweet, and wrong, and close. You have stood near enough rooms after enough jobs to know what it is.'],
   ['','You shower. You shower again, with the blue one, the one for hair, on your arms. You light Angel’s incense, the expensive one.'],
-  ['','The smell is the lilies. Somebody left lilies on the landing two days ago. They are turning. That is all it was.'],
+  ['','The smell is the lilies. Somebody left lilies on the landing two days ago. They are turning.'],
   ['','You do not find that out for an hour, and for that hour it was you.'],
   ['K9','(through the door) Misaki. It is four degrees in there.'],
   ['M','do i smell'],
@@ -215,7 +215,7 @@ PT_EV.push({id:'pt_cell',when:()=>pt_after('proofs',2)&&['after','act2','act3','
   ['K9','Then I will not ask you to stop. Not yet. I will only point out that the dead do not decide things, and you just told me you did.'],
   ['hitmeuppp','...that’s a cheap shot.'],
   ['K9','It is a very cheap shot. I have been saving it.'],
-  ['','The fridge hums. Upstairs a dog changes position and sighs. At some point she leans on your shoulder, and at some point after that she says, very quietly, without making it a joke:'],
+  ['','The fridge hums. Upstairs a dog changes position and sighs. At some point she leans on your shoulder, and at some point after that she says, without making it a joke:'],
   ['hitmeuppp','present tense. for a minute.']];
  pt_say(L,()=>{apply({aff:4});if(S.dark)calm(8);note('pt_cell','“Out here it’s easier to be dead. You can’t take something that isn’t there.” She decided it on day two in the cell.');done()},'grief')}});
 

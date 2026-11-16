@@ -45,7 +45,7 @@ function kdSpiral(){S.f.kdSpiral=1;save();const full=typeof kdSA!=='function'||k
   ['','You think about the four of them at the table on a Sunday, the bread and the salt and the week laid out between them. You think about the grey hound’s seam under your palm. You hold the thought up and look at it, and it is lovely, and it is somebody else’s, a photograph of a town you used to live in.'],
   ['hitmeuppp','(They’ll be okay. They were okay before me. Angel will cry on main. Ronin will break something. V will make tea for two for a while and then he’ll stop.)'],
   ['hitmeuppp','(He won’t stop. I know he won’t. I know exactly what he’s like. I’m sorry. I’m so sorry. I’m so tired.)'],
-  ['','There is one thing nobody has ever been able to take off you. Not before nine, not in the cell, not here. When. You have always, always decided when.'],
+  ['','You have always decided when. Nobody took that off you before nine, or in the cell, and nobody here is going to.'],
   ['hitmeuppp','(Not Friday. Not them.)'],
   ['','The light is on. You leave it on.']];
  if(kdSpiralSecret())return cut(L,kdInterrupted,'#000');

@@ -63,7 +63,7 @@ dkEv('dk_ledger',()=>S.pov==='v'&&(S.f.loreScan||S.f.kdSuspect)&&S.day>=9,done=>
     ['hitmeuppp',MV('still a joke.','i’m keeping the joke.','I’m keeping the joke. I mean it.','I’m keeping the joke. Write the names down, though. All of them. And save me one.')],['K9','I will save you one.']],done)}},
   {t:'Burn the book.',fn:()=>{S.f.dkLedger='burned';apply({heart:1,veng:4});save();say([['','He burns it in the kennel incinerator, page by page, and stays until the binding goes. He has already copied out every name that was in it.']],done)}}])));
 const _xeDK=extraEnding;extraEnding=function(){const L=_xeDK();if(!S||!S.f)return L;
- if(S.f.loreScan==='no')L.push('There is an ultrasound machine in the kennel room with its cable coiled on top. Nobody has ever used it on her. She still tells the joke.');
+ if(S.f.loreScan==='no')L.push('There is an ultrasound machine in the kennel room with its cable coiled on top. She has never let him use it on her. She still tells the joke.');
  if(S.f.dkLedger==='shown')L.push('Every name in the intake book is crossed out now. One was crossed out by her.');
  else if(S.f.dkLedger==='kept')L.push('There is an intake book in the archive under M. She has never seen it. Every name in it is crossed out.');
  return L};

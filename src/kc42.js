@@ -42,7 +42,7 @@ wkEv('dk_r_hymn',()=>frT('r')>=1&&S.day>=5,done=>say([
  ['','They sing it all the way through together. Ronin harmonises. At the last line he finishes the job, and holds the note on his own, and it is so lovely that for a second nobody in the room can move.']],()=>{fr('r',2);done()}));
 /* ---------- Angel ---------- */
 wkEv('dk_a_mirror',()=>frT('a')>=2,done=>{const m=S.pov!=='v';say([
- ['','Angel is in front of her mirror practising a face. It is grief. She is going to a funeral tomorrow as Maria, to film a tribute, for a man she shot on Tuesday.'],
+ ['','Angel is in front of her mirror practising her sad face. She is going to a funeral tomorrow as Maria, to film a tribute, for a man she shot on Tuesday.'],
  [AN,'too much? it’s too much. the lip’s doing too much.'],
  ['',m?'She does it again. It is perfect: the brave smile that isn’t holding, the eyes. You have seen real grief do worse.':'She does it again. It is perfect. V has seen real grief look less convincing.'],
  [AN,'the comments are going to say i’m so brave. i’m going to read every one.'],

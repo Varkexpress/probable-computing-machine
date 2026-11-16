@@ -41,7 +41,7 @@ lvEv('rom_vr_pew',()=>S.vrom==='r'&&S.pov==='v'&&frT('r')>=3,done=>say([
  ['','A woman two rows ahead turns round to glare at the snoring. V looks at her until she turns back.']],()=>{fr('r',4);done()}));
 lvEv('rom_vr_crowbar',()=>S.vrom==='r'&&frT('r')>=3&&S.day>=8,done=>say([
  ['','V cleans Ronin’s crowbar for him on Sunday nights, at the kitchen table, with the same care he gives his own knives. Ronin watches him do it with his chin on his fists.'],
- [RN,'Nobody’s ever cleaned it for me.'],['K9','Nobody has ever left it on my table before.'],
+ [RN,'Nobody cleans my shit for me.'],['K9','It has not been left on my table before.'],
  [RN,'That’s the gayest thing you ever said to me, Vee. Say it again, slower.'],
  ['','He says it again, slower. Outside there is a news van parked across the road, filming the house of somebody else. Neither of them goes to the window.']],()=>{fr('r',3);done()}));
 /* V and Misaki, married */

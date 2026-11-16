@@ -50,7 +50,7 @@ hdEv('kd_hard_angel',()=>kdD()>=11&&frT('a')>=1,done=>{const m=S.pov!=='v';say([
  [AN,'that’s not light. that’s—'],
  ['','She stops. She looks at Misaki for a while, the way she looks down a scope, and decides not to finish.'],
  [AN,'ok. ok. your call. you know i’d never tell you how to work.'],
- ['',m?'She hugs you on the way out, harder than usual. Over your shoulder, she looks at V, and V looks back, and neither of them says anything, and you notice, and you pretend you didn’t.':'She hugs Misaki on the way out, too hard. Over Misaki’s shoulder she looks at him. He looks back. Neither of them says anything. Misaki notices. Misaki pretends she did not.']],()=>{fr('a',-1);done()})});
+ ['',m?'She hugs you on the way out, harder than usual. Over your shoulder, she looks at V, and V looks back, and neither of them says anything, and you notice, and you pretend you didn’t.':'She hugs Misaki on the way out, too hard. Over Misaki’s shoulder she looks at him. He looks back. Misaki notices, and pretends she did not.']],()=>{fr('a',-1);done()})});
 /* ---------- V sees it ---------- */
 hdEv('kd_v_sees',()=>S.pov==='v'&&kdD()>=10,done=>say([
  ['','She took three contracts this week. She came back from all three without a mark on her and without a word, and ate, and went to bed at nine, and slept, which she has not done since.'],

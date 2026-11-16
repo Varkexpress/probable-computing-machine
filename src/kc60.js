@@ -280,7 +280,7 @@ const A60COR=[
   ['','He listens to her do it. She is faster than the doctor, in the right order, and she makes no sound at all when the saline goes on.'],
   ['K9','(Somebody taught her this. Or nobody did, and she learned it alone, which is worse.)'],
   ['','In the morning the old dressings are in the bin, folded very small, the way a person folds them who has always had to hide them.']],
- ()=>(typeof kdWorstOf==='function'&&kdWorstOf())?[['','Two in the morning. Through the door, very quietly, she starts talking to the tall one, which she has never done before.'],
+ ()=>(typeof kdWorstOf==='function'&&kdWorstOf())?[['','Two in the morning. Through the door, she starts talking to the tall one, which she has never done before.'],
   ['hitmeuppp','You can stop waiting for somebody to come for me. Nobody’s coming. We have a rule.'],
   ['hitmeuppp','Forty-eight hours, then you move on. It’s a good rule. I voted for it. So did he. They’ll have done my list by now. You should tell your boss not to expect anybody.'],
   ['','He sits on the other side of the door and listens to the rule he voted for explained to him, kindly, as the reason he is not there.'],
