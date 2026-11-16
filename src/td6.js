@@ -150,8 +150,8 @@ function trGlove(){tdLayer('glove',[{lines:()=>[['','Napkins. A tyre gauge. Thre
 @keyframes buzz{0%,86%,100%{transform:none}88%{transform:translateX(-2px) rotate(-4deg)}90%{transform:translateX(2px) rotate(4deg)}92%{transform:translateX(-2px) rotate(-3deg)}94%{transform:none}}
 @media (prefers-reduced-motion:reduce){#phBtn.un{animation:none}}`;document.head.appendChild(st);
  const b=document.createElement('div');b.id='phBtn';b.title='Phone (P)';b.innerHTML='<i></i><b></b><s></s>';const stg=document.getElementById('stage');if(stg)stg.appendChild(b);
- b.addEventListener('pointerdown',e=>{e.stopPropagation();e.preventDefault();if(!S||dlg||PAUSED||(typeof BAG!=='undefined'&&BAG.el))return;if(ctrl&&!(scene&&scene.isMap))return;if(S.phase==='taken'&&S.pov!=='v'){toast('They took your phone.');return}if(scene&&scene.isRoom)openPhone('rel');else{S.phoneFromRoom=0;phone()}});
- setInterval(()=>{const show=!!S&&!document.querySelector('.splash');b.style.display=show?'block':'none';if(!show)return;b.classList.toggle('un',!!S.unread);b.querySelector('s').textContent=S.unread||'';b.style.visibility=(dlg||document.querySelector('.panel')||document.querySelector('.bag'))?'hidden':'visible'},300)})();
+ b.addEventListener('pointerdown',e=>{e.stopPropagation();e.preventDefault();if(!S||dlg||PAUSED||mgOn()||(typeof BAG!=='undefined'&&BAG.el))return;if(ctrl&&!(scene&&scene.isMap))return;if(S.phase==='taken'&&S.pov!=='v'){toast('They took your phone.');return}if(scene&&scene.isRoom)openPhone('rel');else{S.phoneFromRoom=0;phone()}});
+ setInterval(()=>{const show=!!S&&!document.querySelector('.splash')&&!mgOn();b.style.display=show?'block':'none';if(!show)return;b.classList.toggle('un',!!S.unread);b.querySelector('s').textContent=S.unread||'';b.style.visibility=(dlg||document.querySelector('.panel')||document.querySelector('.bag'))?'hidden':'visible'},300)})();
 /* ---------- 5. plot fixes ---------- */
 /* she isn't in the trailer while she's taken, gone, or living at V's */
 ROOMS.trailer.npcs=()=>(S.visitAs==='v'&&S.phase!=='taken'&&!isLone()&&!S.f.movedIn&&!(typeof trailerLocked==='function'&&trailerLocked()))?[mNpc(222,140,talkMisaki)]:[];

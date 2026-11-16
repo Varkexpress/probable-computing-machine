@@ -99,7 +99,7 @@ const BTABS=[['all','All'],['gift','Gifts'],['food','Food'],['tools','Tools'],['
 function bagItems(){const inv=Object.keys(S.inv||{}).filter(k=>S.inv[k]>0).map(k=>({id:k,n:iname(k),c:S.inv[k],cat:icat(k)}));
  let L=BAG.tab==='all'?inv.concat(gearList().map(g=>Object.assign({cat:'tools'},g))):BAG.tab==='keep'?keepList():BAG.tab==='tools'?inv.filter(i=>i.cat==='tools').concat(gearList()):inv.filter(i=>i.cat===BAG.tab);
  if(BAG.sort==='az')L=L.slice().sort((a,b)=>a.n.localeCompare(b.n));if(BAG.sort==='count')L=L.slice().sort((a,b)=>(b.c||0)-(a.c||0));return L}
-function bagOpen(tab){if(!S||dlg||PAUSED||BAG.el)return;if(document.querySelector('.logbox'))return;BAG.prev=ctrl;if(tab)BAG.tab=tab;BAG.sel=0;BAG.mode='grid';BAG.thought='';BAG.seen=BAG.seen||Object.assign({},S.f.bagSeen||{});
+function bagOpen(tab){if(!S||dlg||PAUSED||BAG.el||mgOn())return;if(document.querySelector('.logbox'))return;BAG.prev=ctrl;if(tab)BAG.tab=tab;BAG.sel=0;BAG.mode='grid';BAG.thought='';BAG.seen=BAG.seen||Object.assign({},S.f.bagSeen||{});
  const el=document.createElement('div');el.className='bag';ui.appendChild(el);BAG.el=el;ctrl=BAG.C;sfx('sel');bagRender()}
 function bagClose(){if(!BAG.el)return;BAG.el.remove();BAG.el=null;S.f.bagSeen=BAG.seen;save();ctrl=BAG.prev&&document.body.contains(BAG.prev.box||ui)?BAG.prev:null;BAG.prev=null;if(ctrl===BAG.C)ctrl=null;drawHud()}
 function bagActs(it){if(!it)return[];if(it.keep)return[{t:'Remember',fn:()=>{BAG.thought=it.d}}];if(it.tool)return[{t:'Inspect',fn:()=>{BAG.thought=it.d}}];
