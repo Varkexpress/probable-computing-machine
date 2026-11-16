@@ -50,7 +50,7 @@ const _hubPH=hub;hub=function(){if(S&&!isLone()){phDeliver();txTick()}_hubPH();i
 const MEp=()=>phMe()==='v'?'K9':'hitmeuppp';
 /* Misaki ↔ V: the job she didn't mention */
 txDef('tx_vjob',{with:'v',pov:'m',prio:3,when:()=>tier()>=1&&S.phase==='normal'&&S.f&&Object.keys(S.f).some(f=>f.startsWith('done_')),nodes:{
- start:{in:()=>['You took the Shinjuku contract.'],expire:3,onExpire:()=>{S.f.vDrove=S.day;relApply&&relApply({tension:6})},
+ start:{in:()=>['You took the north-side contract.'],expire:3,onExpire:()=>{S.f.vDrove=S.day;relApply&&relApply({tension:6})},
   opts:()=>[{t:'“yeah. and?”',fx:()=>{relApply({tension:5});S.f.vJob='cold'},reply:()=>['Nothing. Noted.']},
    {t:'“i was careful. want the details?”',fx:()=>{relApply({trust:4});S.f.vJob='open'},reply:()=>['Only the exit. The rest is your craft and I will not insult it.'],next:'exit'},
    {t:'“how the fuck do u know that”',reply:()=>['The police scanner. You were on it for four minutes. They did not have your face.'],next:'how'}]},
