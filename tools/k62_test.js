@@ -1,4 +1,4 @@
-/* kc62: every spot, option (greyed ones included), daily scene, aftermath scene and variant of "the good one", both POVs and
+/* kc62: every spot, option (greyed ones included), daily scene, aftermath scene and variant of "the file", both POVs and
    both aftermath settings. Usage: node tools/k62_test.js */
 const ROOT=require('path').resolve(__dirname,'..');
 const {chromium}=require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
@@ -14,7 +14,7 @@ await ev(()=>{window.__drain=(pick,opts)=>{let first=1;for(let k=0;k<60;k++){for
 const load=i=>ev(i=>{benchLoad(BENCH[i]);for(let k=0;k<80&&dlg;k++)adv();if(ctrl&&ctrl.close)try{ctrl.close()}catch(e){}},i);
 const play=(setup,fn,pick,flags)=>{runs++;return ev(([setup,fn,pick,flags])=>{const opts=[];window.__done=0;window.__said=[];try{(new Function(setup))();const r=(new Function('cb',fn))(()=>{window.__done=1});__drain(pick||0,opts);
   return {r:r===undefined?null:r,done:window.__done,n:window.__said.length,txt:window.__said.join(' | '),opts,f:(flags||[]).map(k=>S.f[k])}}catch(e){return {err:e.message+' '+(e.stack||'').split('\n')[1]}}},[setup,fn,pick||0,flags||[]])};
-const F=['k62Th','k62LsAt','k62Rule','k62Pic','k62MP','k62Nap','k62Fl','k62FlC','k62Day','k62VW','k62VR','k62VC','k62Sir','k62File','k62Clock','k62Truck','k58Stair','kdThanks','kdInterrupted','k61Day','kdMindDay'];
+const F=['k62Th','k62LsAt','k62Rule','k62Pic','k62MP','k62Nap','k62Fl','k62FlC','k62Day','k62VW','k62VR','k62VC','k62File','k62Clock','k62Truck','k58Stair','kdThanks','kdInterrupted','k61Day','kdMindDay'];
 const med=(pov,o)=>`S.captor=S.captor||captorOrg();S.takenDay=S.takenDay||S.day-6;S.pov="${pov}";S.dark=0;S.lone=null;S.phase="after";if(!S.kd)KD();S.kd.days=6;S.kd.med=${JSON.stringify(o)};S.done={};S.slot=1;S.aff=100;S.fr={a:60,r:60};S.comp=30;META.kdFull=1;`+F.map(k=>`S.f.${k}=0;`).join('');
 const spot=lab=>`const sp=ROOMS.medbay.spots.find(s=>s.label===${JSON.stringify(lab)}&&(!s.show||s.show()));if(!sp)return 'hidden';sp.act();cb();`;
 const shown=lab=>`return !!ROOMS.medbay.spots.find(s=>s.label===${JSON.stringify(lab)}&&(!s.show||s.show()));`;
@@ -80,16 +80,14 @@ const post=pov=>`S.pov="${pov}";S.phase="after";if(!S.kd)KD();S.kd.med=null;S.kd
 const evr=id=>`const e=EVENTS.find(e=>e.id===${JSON.stringify(id)});let w;KD_RUN=1;try{w=e.when()}finally{KD_RUN=0}if(!w)return 'not due';S.seen[e.id]=1;e.run(cb);`;
 for(const [bi,pov] of [[2,'m'],[3,'v']]){await load(bi);const me=pov==='m';
  /* sir: Misaki both choices (and the greyed one); V one path; ordinary and worst */
- for(const w of [0,9])for(const [pick,want] of me?[[0,'joke'],[1,'left']]:[[0,'v']]){r=await play(post(pov)+`S.kd.sev0=${w};`,evr('kd62_sir'),pick,['kd62_sir','k62Sir']);
-  chk(`sir ${pov} w${w} ${want}`,r,r=>r.f[0]===1&&r.f[1]===want&&/sir/i.test(r.txt)&&(/second time this morning/.test(r.txt)===!!w)&&(!me||r.opts[0].includes('×Tell him')))}
  /* the file at four in the morning */
- for(const th of [0,4])for(const [pick,want] of me?[[0,'wrote'],[1,'bed']]:[[0,'v']]){r=await play(post(pov)+`S.f.kd62_sir=1;S.f.k62Th=${th};`,evr('kd62_file'),pick,['kd62_file','k62File']);
+ for(const th of [0,4])for(const [pick,want] of me?[[0,'wrote'],[1,'bed']]:[[0,'v']]){r=await play(post(pov)+`S.f.k62Th=${th};`,evr('kd62_file'),pick,['kd62_file','k62File']);
   chk(`file ${pov} th${th} ${want}`,r,r=>r.f[0]===1&&r.f[1]===want&&(me?(/still has his steps/.test(r.txt)===!!th):/margin/.test(r.txt)))}
- r=await play(post(pov),evr('kd62_file'));ok(r.r==='not due','file waits for sir '+pov);
+ r=await play(post(pov)+'S.kd.t0=S.day-1;',evr('kd62_file'));ok(r.r==='not due','file waits for day 3 '+pov);
  /* counting his house: both choices, worst and not, the seventh step or not */
  for(const w of [0,9])for(const st of ['his','over'])for(const [pick,want] of me?[[0,'count'],[1,'tried']]:[[0,'told'],[1,'kept']]){
   r=await play(post(pov)+`S.f.k58_creak=1;S.kd.sev0=${w};S.f.k58Stair="${st}";`,evr('kd62_clock'),pick,['kd62_clock','k62Clock']);
-  chk(`clock ${pov} w${w} ${st} ${want}`,r,r=>r.f[0]===1&&r.f[1]===want&&(/good one again|tall one’s voice/.test(r.txt)===!!w)&&(!me||(st==='his'?/seventh step/:/eighth step/).test(r.txt)))}
+  chk(`clock ${pov} w${w} ${st} ${want}`,r,r=>r.f[0]===1&&r.f[1]===want&&(/file opens by itself|tall one’s voice/.test(r.txt)===!!w)&&(!me||(st==='his'?/seventh step/:/eighth step/).test(r.txt)))}
  r=await play(post(pov),evr('kd62_clock'));ok(r.r==='not due','clock waits for the stair '+pov);
  /* the truck */
  const hard=me?'S.f.kd_hard_work=1;':'S.f.kd_v_sees=1;';
@@ -99,10 +97,10 @@ for(const [bi,pov] of [[2,'m'],[3,'v']]){await load(bi);const me=pov==='m';
  /* the scheduler reaches each one */
  const kn=await ev(c=>{(new Function(c))();S.f.k58_creak=1;S.f.kd_hard_work=1;S.f.kd_v_sees=1;EVENTS.filter(e=>e.kd&&!/^kd62_/.test(e.id)).forEach(e=>S.seen[e.id]=1);const out=[];
   for(let i=0;i<4;i++){const e=kdNext();if(!e)break;out.push(e.id);S.seen[e.id]=1;S.f[e.id]=1}return out},post(pov));
- ok(kn.length===4&&kn[0]==='kd62_sir'&&kn[1]==='kd62_file'&&kn.includes('kd62_clock')&&kn.includes('kd62_truck'),'kdNext '+pov+' '+kn);
- const lone=await ev(c=>{(new Function(c))();S.lone='v';const e=EVENTS.find(e=>e.id==='kd62_sir');KD_RUN=1;try{return e.when()}finally{KD_RUN=0;S.lone=null}},post(pov));ok(!lone,'not lone '+pov)}
-const ord=await ev(()=>['kd61_home','kd62_sir','kd61_rent','kd62_file','k58_creak','kd62_clock','kd_v_sees','kd62_truck'].map(k=>KD_ORDER.indexOf(k)));
-ok(ord.every(i=>i>=0)&&ord[0]<ord[1]&&ord[2]<ord[3]&&ord[4]<ord[5]&&ord[6]<ord[7]&&ord[1]<ord[3],'KD_ORDER '+ord);
+ ok(kn.length===3&&kn[0]==='kd62_file'&&kn.includes('kd62_clock')&&kn.includes('kd62_truck'),'kdNext '+pov+' '+kn);
+ const lone=await ev(c=>{(new Function(c))();S.lone='v';const e=EVENTS.find(e=>e.id==='kd62_file');KD_RUN=1;try{return e.when()}finally{KD_RUN=0;S.lone=null}},post(pov));ok(!lone,'not lone '+pov)}
+const ord=await ev(()=>['kd61_rent','kd62_file','k58_creak','kd62_clock','kd_v_sees','kd62_truck'].map(k=>KD_ORDER.indexOf(k)));
+ok(ord.every(i=>i>=0)&&ord[0]<ord[1]&&ord[2]<ord[3]&&ord[4]<ord[5],'KD_ORDER '+ord);
 /* ending lines */
 const en=await ev(()=>{S.kd.t0=S.kd.t0||1;const f=S.f,out=[];f.kd62_clock=1;f.k62Clock='count';f.kd62_truck=1;f.kd62_file=1;
  out.push(extraEnding().filter(x=>/counts the doors|engine stops|margin of his newspaper/.test(x)).length);f.k62Clock='told';out.push(extraEnding().some(x=>/cactus magnet/.test(x)));

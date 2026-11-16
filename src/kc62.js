@@ -1,6 +1,5 @@
-/* ===================== THE GOOD ONE (kc62) =====================
-   The infirmary, inside Misaki's head. While the room is a cell her mind keeps a file on V as "the good one", the
-   guard you are meant to like, and the file is a symptom: it runs at four in the morning instead of sleep, it eats every
+/* ===================== THE FILE (kc62) =====================
+   The infirmary, inside Misaki's head. While the room is a cell her mind keeps a file on V as one of them, and the file is a symptom: it runs at four in the morning instead of sleep, it eats every
    kind thing he does, and she can partly see her own head doing it and cannot make it stop. Under it, fear she hides
    completely: on the surface she is flat, joking and competent; the narration (and options she cannot take) show the
    rest. V is mostly at a distance, noticing the rituals and the flatness, and that she hides it from him most of all.
@@ -8,7 +7,7 @@
    - Misaki, evenings while it is a cell: sleep she won't allow, the napkin, the joke over the tray, the handle.
      Worst route, after she reasons or is talked out: the file keeps running after she knows.
    - V, once a day by band: the ritual through the gap in the door; the light that stays on (worst); the spoon (clear).
-   - After discharge (aftermath order): "sorry, sir" in the kitchen, the file at four in the morning, counting his house
+   - After discharge (aftermath order): the file at four in the morning, counting his house
      (after kc58's stair), and the truck in the garage (after kc55's hardening). Ending lines.
    Nothing here names what happened in the hours she cannot remember, and nothing shows a method. */
 const k62Med=()=>!!(typeof kdMed==='function'&&kdMed());
@@ -43,7 +42,7 @@ const KD62_TH=[
  ()=>({L:[['','At four in the morning you notice that you have been writing a file on the tall one in your head for hours, instead of sleeping. His steps are in it, and his hands, and the coat, and that he never raises his voice and says “I apologise” to the tape on your hand.'],
    ['',S.f.kdThanks?'Every set has one of these. In the other place it was the one who brought the water. You said thanks through the slot and you started keeping him, and the file says that was how they got in.':'Every set has one of these. In the other place it was the one who brought the water, who never once looked at you. The file says that is how they get in: you like one of them.'],
    ['','You can see your head doing this. You can see it the way you would watch somebody else do it, from up near the light: a girl on a cot, eyes open, adding to a list about a man who brings soup. It doesn’t stop when you see it.'],
-   ['hitmeuppp',MV('(the good one.)','(he’s the good one. write it down.)','(He’s the good one. Write that down.)','(He’s the good one. Every set has one. Write it down. I don’t know who I’m writing it down for.)')]],
+   ['hitmeuppp',MV('(write it down.)','(write it down. all of it.)','(Write it down. All of him.)','(Write it down. All of him. I don’t know who I’m writing it down for.)')]],
   q:'(The file.)',o:[
    {t:'Add to it.',fn:()=>{S.f.k62Rule='add';calm(-1);save();say([['','You add the soup. Then the way he knelt. Then the fact that you added the soup. It is light at the top of the light-well before you stop, and you didn’t stop, you just ran out of him.']])}},
    {t:'Watch yourself from the corner.',fn:()=>{S.f.k62Rule='watch';calm(-2);save();say([['','You stay up by the light and watch the girl on the cot for the rest of the night. She doesn’t sleep either. Once she laughs at something, and you can’t think what.']])}},
@@ -108,23 +107,7 @@ const _hub62=hub;hub=function(){const a=arguments,self=this;try{const s=k62Scene
 
 /* ---------- after discharge ---------- */
 const k62Ev=(id,when,run)=>kdEv(id,()=>!S.f[id]&&!isLone()&&when(),done=>{S.f[id]=1;save();run(done)});
-k62Ev('kd62_sir',()=>kdD()>=1,done=>{const me=S.pov!=='v',w=k62Sev0()>=8;
- const sorry=['hitmeuppp',MV('sorry. sorry sir.','sorry. sorry, sir.','Sorry. Sorry, sir.','Sorry. I’m sorry, sir. I didn’t mean to be in the way.')];
- if(me)return say([['','The second morning upstairs. He reaches past your shoulder for the tea.'],
-  ['','You are off the stool and against the fridge before the spoon hits the floor, and your mouth says it on its own, in the voice from the slot.'],sorry,
-  w?['','It was the second time this morning. You only heard this one.']:null,
-  ['','Then you hear it. Your face does the rest before you can stop it: a laugh and an eye-roll. Under the island your right hand has closed on nothing and won’t open.']],()=>ask('hitmeuppp','(Your hand.)',[
-  {t:'Make a joke of it.',fn:()=>{S.f.k62Sir='joke';calm(-2);save();say([['hitmeuppp',MV('lol. cell brain.','lol sorry. cell brain. it’s fine.','Sorry. Cell brain. It’s fine, it’s funny.','Sorry. Cell brain. Give it a week and I’ll be calling you “your majesty.” It’s fine. It’s funny.')],
-    ['','He picks up the spoon and gives it to you handle first. You eat the cereal with the left hand in the cast, because the right one is still shut under the island, and you keep it there until he has gone to feed the hounds.']],done)}},
-  {t:'Pick up the spoon. Say nothing.',fn:()=>{S.f.k62Sir='left';calm(-2);save();say([['','You pick up the spoon with the left and sit back down. You count the doors out of the kitchen while you eat. There are two. You count them again.']],done)}},
-  k62No('Tell him what just happened.','you’d have to know')]));
- say([['','The second morning upstairs. He reaches past her shoulder for the tea, as he has a thousand times, and forgets.'],
-  ['','She is off the stool and against the fridge before the spoon hits the floor.'],sorry,
-  w?['','It is the second time this morning. She did not hear the first.']:null,
-  ['','Then she laughs and says something about cell brain, very fast. He picks the spoon up and gives it to her handle first.'],
-  ['','She eats with the hand in the cast. The other one stays under the island the whole time, and from where he stands at the kettle he can see that it is shut.']],()=>{S.f.k62Sir='v';calm(-2);save();done()})});
-
-k62Ev('kd62_file',()=>kdD()>=4&&!!S.f.kd62_sir,done=>{const me=S.pov!=='v',n=S.f.k62Th||0;
+k62Ev('kd62_file',()=>kdD()>=3,done=>{const me=S.pov!=='v',n=S.f.k62Th||0;
  if(me)return say([['','Four in the morning in his kitchen. You are home, and you know it, and you are adding to the file.'],
   ['',n?'It still has his steps in it, and his hands, and now new pages: he leaves the bathroom door open so you can hear the tap; he says your name on the stairs; he buys your cereal. Every kind thing he does goes in, and comes out the other end as technique.':'It has his steps in it, and his hands, and new pages: he says your name on the stairs; he buys your cereal. Every kind thing he does goes in, and comes out the other end as technique.'],
   ['','You watch yourself do it from the doorway. A girl at an island in a hoodie, very still, thinking hard. It looks like a person deciding what to have for breakfast.'],
@@ -138,7 +121,7 @@ k62Ev('kd62_file',()=>kdD()>=4&&!!S.f.kd62_sir,done=>{const me=S.pov!=='v',n=S.f
 k62Ev('kd62_clock',()=>kdD()>=6&&!!S.f.k58_creak,done=>{const me=S.pov!=='v',w=k62Sev0()>=8;
  if(me)return say([['','Since the night on the back stair with the pistol, you count. Doors, every time you go into a room. His steps, wherever he is in the house.'],
   ['','You have his whole day without trying to: the hounds at five, coffee at seven with his back to the room, the study until noon, and the back stair at three with water. '+(S.f.k58Stair==='his'?'The seventh step goes, and you have the pistol in your hand before you remember what the seventh step means.':'You know his weight on the eighth step, and you have the pistol in your hand before you remember whose weight it is.')],
-  w?['','Some afternoons the file opens by itself for an hour and he is the good one again, and you are polite to him at the island, and nothing shows on your face at all.']:null,
+  w?['','Some afternoons the file opens by itself for an hour while he reads across the island from you, and you add to it, and nothing shows on your face at all.']:null,
   ['','Ronin asks how you are and you say “fine, bored, want a job,” and it is the truest-sounding thing you have ever said.']],()=>ask('hitmeuppp','(The doors.)',[
   {t:'Count them.',fn:()=>{S.f.k62Clock='count';calm(-1);save();say([['','Four in the hall. Two in the kitchen. You count them again from the hall. You get the same number, and it doesn’t help, and you count them again.']],done)}},
   {t:'Walk in without counting.',fn:()=>{S.f.k62Clock='tried';calm(-3);save();say([['','You walk into the kitchen without counting. You get as far as the island. Then you go back out and count them from the hall, and your hands are wet, and you dry them on your jeans before anyone can see.']],done)}}]));
@@ -162,7 +145,7 @@ k62Ev('kd62_truck',()=>kdD()>=11&&(S.pov!=='v'?!!S.f.kd_hard_work:!!S.f.kd_v_see
   ['K9','(She sat in the dark for forty minutes so that I would not see it. I will not let her know that I heard.)'],
   ['','He makes the toast, and laughs in the right places.']],()=>{S.f.k62Truck='v';apply({heart:-1});save();done()})});
 (function(){if(typeof KD_ORDER==='undefined')return;const put=(id,after)=>{const i=KD_ORDER.indexOf(after);if(i<0)KD_ORDER.push(id);else KD_ORDER.splice(i+1,0,id)};
- put('kd62_sir','kd61_home');put('kd62_file','kd61_rent');put('kd62_clock','k58_creak');put('kd62_truck','kd_v_sees')})();
+ put('kd62_file','kd61_rent');put('kd62_clock','k58_creak');put('kd62_truck','kd_v_sees')})();
 
 /* ---------- ending lines ---------- */
 const _xe62=extraEnding;extraEnding=function(){const L=_xe62();try{if(!S||!S.f)return L;const f=S.f;

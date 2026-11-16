@@ -1,3 +1,5 @@
+> Revision: the kitchen "sorry, sir" scene (`kd62_sir`, flag `k62Sir`) and the "good one" label were removed at the author's request. `kd62_file` now needs only `kdD()>=3`. Notes below that mention them are historical.
+
 # kc62: the good one (inside her head)
 
 All in `src/kc62.js`. Test: `node tools/k62_test.js`.
