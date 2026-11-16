@@ -24,9 +24,9 @@ function k56Hits(){const k=(S&&S.captor)||captorOrg();const n=(S.orgs&&S.orgs[k]
 function k56Due(){if(!S||!S.f||S.f.k56Last===S.day)return null;return K56.find(x=>{if(k56Seen(x.id))return false;try{return !!x.when()}catch(e){return false}})||null}
 function k56Play(id,cb){const sc=K56.find(x=>x.id===id);if(!sc){if(cb)cb();return}k56Mark(id);sc.run(cb||hub)}
 /* shared cap: at most two scheduled story beats (kc56/kc58/kc59/kc60) per morning */
-function mbOk(){return !(S&&S.f&&S.f.mbDay===S.day&&(S.f.mbN||0)>=2)}
+function mbOk(own){if(!S||!S.f)return true;const n=S.f.mbDay===S.day?(S.f.mbN||0):0;if(n>=2)return false;/* main-plot bridges (kc56) get the last slot first: other modules leave one free when one is due */if(!own&&n>=1){try{if(k56Due())return false}catch(e){}}return true}
 function mbUse(){if(!S||!S.f)return;if(S.f.mbDay!==S.day){S.f.mbDay=S.day;S.f.mbN=0}S.f.mbN=(S.f.mbN||0)+1}
-const _k56me=morningEvent;morningEvent=function(done){const sc=mbOk()?k56Due():null;if(sc){mbUse();S.f.k56Last=S.day;k56Mark(sc.id);return sc.run(()=>_k56me(done))}return _k56me(done)};
+const _k56me=morningEvent;morningEvent=function(done){const sc=mbOk(1)?k56Due():null;if(sc){mbUse();S.f.k56Last=S.day;k56Mark(sc.id);return sc.run(()=>_k56me(done))}return _k56me(done)};
 const K56M=(...a)=>['hitmeuppp',MV(...a)];
 
 /* ---------- Act I: two grudges on the same name ---------- */
