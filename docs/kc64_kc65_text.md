@@ -17,10 +17,18 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 **Angel:** the free tithe gave me a man with a lantern. i don’t want the man with a lantern.
 
+*You leave at one. She is still on the couch with her knees up and her face lit blue. When you come back for your charger at two she does not look up.*
+
+*(or)* *V goes to bed at one. She is still on the couch with her knees up and her face lit blue. When he comes down at two for water she does not look up.*
+
 **Angel:** it’s for the sponsor.
 
 
 ### g64\_3am
+
+*3:12 in the morning. Your phone lights up the trailer.*
+
+*(or)* *3:12 in the morning. V is still in the ops deck when the server starts going.*
 
 **Angel:** (server) is anyone awake. i need a second opinion on a woman
 
@@ -34,14 +42,26 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 **Ronin:** (server) ...ok yeah she’s hot. go to sleep
 
+*She is still online at five. So are you, because she keeps sending you the odds to check.*
+
+*(or)* *She is still online at five. He knows because the little green dot is still there when he feeds the hounds.*
+
 **Angel:** (server) [screenshot: a nun with pale hair and enormous shears, standing on a pile of men]
 
 **Ronin:** (server) she’s standin on guys
 
 **Angel:** (server) she’s standing on GUYS
 
+*You look at the nun for a while. You understand Angel a lot better.*
+
+*(or)* *V looks at the nun for some time. He understands Angel better than he would like to.*
+
 
 ### g64\_money
+
+*Angel does V’s accounts on his couch and he does her alibis, the usual Thursday. You are on the floor with the grey hound, so you see V find it.*
+
+*(or)* *Angel does V’s accounts on his couch and he does her alibis, the usual Thursday. Her card statement is under the alibis.*
 
 *Fourteen lines in a row. NINEFOLD*CANDLES $99.99.*
 
@@ -70,11 +90,19 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 ### g64\_hide
 
+*Maria’s Sunday makeup tutorial. You’re her “assistant,” which means you stand behind the ring light in a hoodie holding a brush you will not be allowed to touch her with.*
+
+*(or)* *Maria’s Sunday makeup tutorial. Ronin is her “assistant.” V is on the couch out of frame, reading.*
+
 *Her phone is face down on the vanity, in shot. It buzzes. It lights up through the case. It says, in gold letters, YOUR TITHE IS READY.*
 
 *The chat fills: <i>maria plays ninefold??</i> <i>MARIA WHO R U PULLING FOR</i> <i>omg same i’m at 74 pity</i>*
 
 **Angel:** (as Maria, sweetly) oh! no, that’s my assistant’s phone, sorry, guys. he’s obsessed. it’s so embarrassing for him.
+
+*She hands you the phone without looking. You hold it up to the ring light like it is yours.*
+
+*(or)* *She hands the phone back to Ronin without looking. Ronin, live on stream, holds it up to the light.*
 
 **Ronin:** Yeah. Love the nun. Big nun guy.
 
@@ -91,6 +119,10 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 **Angel:** you were supposed to be dead in five years. you said so. you’re the luckiest person i know. one tithe. it’s banner day nine.
 
+*She puts the phone in your hands as carefully as a rifle. You look at the odds page.*
+
+*(or)* *She puts the phone in Misaki’s hands as carefully as a rifle. Misaki looks at the odds page.*
+
 **Misaki:** Point six percent a prayer, so one minus point nine nine four to the tenth. Call it five point eight percent on a tithe. Angel, that’s worse than a coin toss off a roof.
 
 **Angel:** pray.
@@ -104,6 +136,10 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 *The second tithe is ten men with lanterns.*
 
 **Angel:** you’re banned. you are banned from my phone forever.
+
+*At three that morning she texts you a photo of her phone on a pillow and asks you to breathe on it.*
+
+*(or)* *At three that morning Misaki gets a photo of Angel’s phone on a pillow, and a request to breathe on it.*
 
 **Angel:** he’s a five-star. he’s worthless. he’s a five-star.
 
@@ -186,6 +222,10 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 **Angel:** forty. fine. forty. i can do forty.
 
+*She spends it at 12:01 on the first of the month, every month, and sends you a screenshot as proof she has not gone over.*
+
+*(or)* *She spends it at 12:01 on the first of the month, every month, and sends V a screenshot as proof she has not gone over. He files them.*
+
 **Angel:** thank you. i love you. i love all of you. ronin give me your phone, i’ll show you how to level your priest.
 
 *The intervention ends with all four of them on the couch around two phones. V is holding the folders and asking what a fifty-fifty is.*
@@ -216,6 +256,10 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 *V needs a bookcase. All four of them go, which is a mistake, to the big furniture store off the motorway with the one-way arrows painted on the floor.*
 
+*You note every fire exit on the way in, out loud, so that the others will know them. V has already noted them. He is reading the floor plan like a briefing.*
+
+*(or)* *Misaki notes every fire exit on the way in, out loud. V has already noted them. He is reading the floor plan like a briefing.*
+
 *Ronin lies down on every bed in the bedroom section and announces how he would kill a man in it.*
 
 **Ronin:** This one, pillow. This one, the fuckin’ headboard, look at it. This one I’d just leave him in, it’s comfy, he’d thank me.
@@ -231,6 +275,10 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 *Board game night. The game is the one where you buy streets and charge rent, and V reads all of the rules aloud before anyone may touch the dice. It takes twenty-five minutes.*
 
+*You buy every orange street and then every red one. By the second lap you own the bottom half of the board, and you charge whatever you like.*
+
+*(or)* *Misaki buys every orange street and then every red one. By the second lap she owns the bottom half of the board, and she charges whatever she likes.*
+
 **Ronin:** That’s not the rent on the card. That ain’t the rent on the card, Vee, tell her.
 
 **Misaki:** That’s market rate. I scalped dresses for three years, Ronin. You land on my street, you pay what the street’s worth to you right now, and right now it’s worth everything.
@@ -242,6 +290,10 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 *He flips the board. The houses go everywhere. The black hound eats a hotel. V fishes it out of the hound’s mouth, puts it back on the red street, and says that the game will resume after a ten minute recess.*
 
 **Ronin:** ...Aw. Gremlin.
+
+*He owes you for the rest of the game. You collect at the end in washing-up.*
+
+*(or)* *He owes her for the rest of the game. She collects at the end in washing-up. He does it for a week, badly, with the radio on.*
 
 
 ### e64\_selfie
@@ -257,6 +309,10 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 *He smiles. It is the smile from the man on the table, and Angel takes the phone off him and puts it face down.*
 
 **Angel:** no. smile like when the old hound puts her head on your knee.
+
+*Forty photographs later there is one. V is nearly smiling, and the black hound’s head is coming into the frame from below, very large. Behind him, out of focus, you are pulling a face.*
+
+*(or)* *Forty photographs later there is one. He is nearly smiling, and the black hound’s head is coming into the frame from below, very large. Behind him, out of focus, Misaki is pulling a face.*
 
 *He has it printed, and framed, and puts it on the piano nobody plays.*
 
@@ -276,6 +332,10 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 **Ronin:** You’re tryin’ t’kill me.
 
 **V:** If I were trying, you would not be able to talk.
+
+*You take his temperature. It is thirty-seven point four.*
+
+*(or)* *Misaki takes his temperature. It is thirty-seven point four.*
 
 **Ronin:** Write that down. That’s a fever. Write it down so they know, after.
 
@@ -309,17 +369,37 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 ### c64\_bed
 
+*You come in after a job, kick your boots off, lie on the bed, and do integrals in the back of a notebook until your hands stop feeling like somebody else’s.*
+
+*(or)* *Misaki is lying on the bed in the trailer with a notebook held up over her face, doing integrals. There is still somebody else’s blood on her knuckles.*
+
 **Misaki:** Integration by parts. You pick the bit that gets simpler when you differentiate it, and the rest takes care of itself. I love it. I don’t know why. It’s like folding laundry.
+
+*It’s the most relaxing thing you know, after the work. Nobody taught you to do it this way. Nobody taught you any of it.*
+
+*(or)* *V asks whether she is working. She says no, this is the opposite of working, and turns the page.*
 
 
 ### c64\_env
 
+*The envelope from yesterday’s client is still on the table. On the back, in your handwriting, there are four derivatives you did while you waited for him to finish talking.*
+
+*(or)* *There is a contract envelope that Misaki left on the side. On the back, in her small upright writing, there are four derivatives and a little drawing of a frog.*
+
 *d/dx of x squared sine x. The chain rule twice. A quotient. The last one is circled and has “ha!” written next to it.*
+
+*The client was paying forty thousand dollars for a man on a balcony. You remember the derivatives better than the man.*
+
+*(or)* *The client paid forty thousand dollars for a man on a balcony. V has no record of the man. He keeps the envelope.*
 
 **Misaki:** He talked for twenty minutes about his ex-business-partner. I needed something to do with my hands that wasn’t strangling a client, so I did the chain rule.
 
 
 ### c64\_limits
+
+*Ronin’s workshop. Ronin is at the bench, and you’re on the floor with chalk, explaining limits to him, because he asked what they were and then couldn’t stop you.*
+
+*(or)* *Ronin’s workshop. Ronin is at the bench, and Misaki is on the floor with chalk, explaining limits to him, because he asked what they were and then could not stop her.*
 
 **Misaki:** You get closer and then closer again, half the distance each time, forever. You never actually arrive. But the limit is where you were going, so we say that’s the answer.
 
@@ -329,8 +409,16 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 **Ronin:** That’s my whole fuckin’ love life, gremlin. I been livin’ calculus since I was fifteen.
 
+*You laugh so hard you smudge the chalk. He makes you explain it again, slower, with the crowbar as the x axis.*
+
+*(or)* *Misaki laughs so hard she smudges the chalk. He makes her explain it again, slower, with the crowbar as the x axis.*
+
 
 ### c64\_parab
+
+*You’re at the range under the house with V, scoring yesterday’s shots off the drone footage.*
+
+*(or)* *V is at the range under the house with Misaki, scoring yesterday’s shots off the drone footage.*
 
 **Misaki:** Look at that. Clean parabola. Drag’s barely touching it. The vertex is right where I said. I’d frame that, if it wasn’t evidence.
 
@@ -342,6 +430,10 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 
 ### c64\_book
+
+*V has one of your notebooks open on his knee. He did not hear you come in.*
+
+*(or)* *There is a notebook under the couch cushion that is not V’s. He opens it to see whose it is.*
 
 *It is full of solved problems, front to back. No crossings-out. The dates go back two years. Some pages have a coffee ring; one has a bloody thumbprint at the corner, perfectly dry.*
 
@@ -355,6 +447,10 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 
 ### c64\_skin
+
+*Angel is doing her face at the vanity. You’re on her bed with a notebook, doing a definite integral to unwind.*
+
+*(or)* *Angel is doing her face at the vanity. Misaki is on her bed with a notebook, and V is waiting for both of them in the doorway.*
 
 **Angel:** what are you doing
 
@@ -385,12 +481,20 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 **Ronin:** Fuckin’ love you, gremlin. Gimme the forty.
 
+*He digs the forty. You were right about the shoulders.*
+
+*(or)* *He digs the forty. She was right about the shoulders.*
+
 
 ### g64\_couch
 
 *Angel is on V’s couch with her phone clutched to her chest and her eyes shut.*
 
 **Angel:** don’t look at me. i’m at eighty-nine. i’m letting it rest.
+
+*You ask why a phone needs to rest.*
+
+*(or)* *V asks why a phone needs to rest.*
 
 **Angel:** the bells can smell fear.
 
@@ -428,6 +532,10 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 **Misaki:** Give me a second. The cable’s got a swing on it, about a second and a half each way. You don’t drop it on the bat, you drop it where the bat’s going to be.
 
+*You get*
+
+*(or)* *Misaki gets*
+
 **Angel:** say “gambling for babies” back to me. say it.
 
 **Misaki:** No. You’re hugging the bat. You know exactly what you said.
@@ -463,6 +571,10 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 ### x64\_spar
 
+*Sparring in the training hall. Ronin goes for your knees, and you put him on his back in a second and a half and sit on his chest.*
+
+*(or)* *Ronin and Misaki are sparring in the training hall. Ronin goes for her knees, and she puts him on his back in a second and a half and sits on his chest.*
+
 **Ronin:** (winded) If you wanted me on my back, gremlin, all you had t’do was buy me dinner.
 
 **Misaki:** I’ve seen your apartment. You’re a two-drink guy at best, and one of them would be the water I gave you for the concussion.
@@ -482,12 +594,20 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 **Angel:** (from inside the car, lying down in the back seat) it was ronin.
 
+*You ask how long they have both been in here.*
+
+*(or)* *V asks how long they have both been in here.*
+
 **Angel:** since tuesday. it’s the quietest room in the city. your car is a church, v.
 
 *V leaves them there. He takes the bus to the gala, in the coat, and does not mention it to anybody.*
 
 
 ### f64\_shelf
+
+*You’re in V’s bath with the door unlocked, shirtless, the way you always are in this house, and you have used every bottle on his shelf. There are eleven.*
+
+*(or)* *Misaki is in V’s bath with the door unlocked, shirtless, the way she always is in this house, and she has used every bottle on his shelf. There are eleven.*
 
 **V:** (in the doorway) That is a forty dollar serum.
 
@@ -504,9 +624,17 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 ### f64\_roof
 
+*The roof at night. You have your feet on V’s knees and you’re reading him calculus pick-up lines off a website.*
+
+*(or)* *The roof at night. Misaki has their feet on V’s knees and is reading him calculus pick-up lines off a website.*
+
 **Misaki:** Are you a differentiable function? Because I’d like to find your maximum. Set you to zero, do the second-derivative test, all of it.
 
 **V:** My second derivative is negative everywhere. You would find it.
+
+*It takes you a second to work out what he said.*
+
+*(or)* *It takes her a second to work out what he said.*
 
 **Misaki:** Did you just flirt back in calculus? V. V, that was so good. Say something else concave.
 
@@ -517,7 +645,15 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 ### f64\_kitchen
 
+*V is cooking. You’re sitting on the counter next to the stove, which he has asked you not to do eleven times.*
+
+*(or)* *V is cooking. Misaki is sitting on the counter next to the stove, which he has asked them not to do eleven times.*
+
 **Misaki:** Let me taste it. Come on. Hold the spoon out, I won’t bite. I might bite.
+
+*He holds the spoon out. You take it slowly and look at him the whole time, on purpose.*
+
+*(or)* *He holds the spoon out. She takes it slowly and looks at him the whole time, on purpose.*
 
 **V:** Is it seasoned?
 
@@ -532,6 +668,10 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 **Angel:** (from the kitchen) whoever’s touching my phone, she bites.
 
 - ▸ Leave it
+
+*You leave it face down. It buzzes twice more while you stand there, like something under a floor.*
+
+*(or)* *V leaves it face down. It buzzes twice more while he stands there, like something under a floor.*
 
 
 ### c64\_t\_why
@@ -798,6 +938,10 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 ### k65mr\_morn
 
 *You wake up at Ronin’s at noon with the gospel radio still going from last night. He’s been up since four. There’s bacon, and he’s wearing the apron over a pair of boxers with skulls on and nothing else.*
+
+*His rings are lined up on the nightstand, eight skulls in a row, and a gap at the end where the first one used to sit. That one’s on your thumb.*
+
+*(or)* *His rings are lined up on the nightstand, nine skulls in a row, in the order of the names inside them.*
 
 **Ronin:** (from the kitchen) Don’t wear ’em to bed. Ain’t puttin’ skulls in anybody’s hair.
 
