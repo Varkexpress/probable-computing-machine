@@ -46,6 +46,17 @@ coming. They are funny because they are dangerous and at ease with it, never bec
   their own) and no clubs, but very good at timed competition maths: third at regionals at eleven, trophy pawned for
   dinner. They say a lot of talents were wasted on them; most of it went into wind, distance and drop.
 
+- Lore: from about thirteen to sixteen, after school stopped, they scalped lolita dresses: queued all night outside an uptown
+  boutique for the limited drops (two per customer), bought their two, and had them listed online by breakfast at three times
+  the price. The old seller page has four hundred reviews, a frog sock in the corner of every photo, and packing notes that said
+  “THANK YOU FOR FUNDING AVIATION.” They wanted to be a pilot and were saving for flight school: $4,112 in a biscuit tin. The
+  school needed a birth certificate; all they had was the enrolment form with “March” written in by themselves. The money went
+  on rent and then a scope. They kept one dress, bought the day the school said no and never listed; it no longer fits (they got
+  tall late, once they were eating). It belongs with the other wasted talents (competition maths, the architect): a pilot does
+  the same sums as a sniper, and a cockpit is a room with one door that locks from your side. Ronin calls them a scalper. (kc60)
+- Lore: their will, as Angel keeps it in “list (final) (2)”: rifle to Angel, truck and chainsaw to Ronin, Prickles to V, the
+  star clips in the bin. V has left them the hounds. (kc60)
+
 
 ## V (K9)
 - Formal, exact, no contractions. "merely", "serviceable", "I find that your kind say that about me, often."
