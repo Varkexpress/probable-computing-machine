@@ -1,5 +1,5 @@
 /* kc58: every event, option, thread, topic and side option of the V–Misaki through-line, both POVs. */
-const ROOT='/home/user/probable-computing-machine/.claude/worktrees/agent-ab04ff018d2402e46';
+const ROOT=require('path').resolve(__dirname,'..');
 const {chromium}=require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
 (async()=>{const b=await chromium.launch();const p=await b.newPage({viewport:{width:1000,height:700}});const errs=[];
 p.on('pageerror',e=>errs.push(e.message+' '+(e.stack||'').split('\n')[1]));

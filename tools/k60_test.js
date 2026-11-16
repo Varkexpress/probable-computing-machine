@@ -33,7 +33,7 @@ for(const [bi,pov] of [[0,'m'],[1,'v']]){await load(bi);
  /* not in the wrong phases */
  const gate=await ev(nm=>{(new Function(nm))();const id=['a60_hurt','a60_body','a60_hounds','a60_epi','lp60_fly'];return id.filter(i=>EVENTS.find(e=>e.id===i).when())},nm);ok(gate.length===0,'gated in normal '+gate);
  /* the scheduler: a morning plays the server beat, not again the next day; the side menu offers the next one */
- const sch=await ev(nm=>{(new Function(nm))();S.f.a60Last=-9;S.f.a60Day=0;let ran=0;morningEvent(()=>{ran=1});const L=[],O=[];__drain(0,L,O);const a=!!S.f.a60_server;
+ const sch=await ev(nm=>{(new Function(nm))();S.f.a60Last=-9;S.f.a60Day=0;S.f.k58Last=S.day;S.f.mbN=0;if(typeof W59B!=="undefined")W59B.forEach(b=>S.seen[b.id]=1);let ran=0;morningEvent(()=>{ran=1});const L=[],O=[];__drain(0,L,O);const a=!!S.f.a60_server;
   S.day+=1;const gap=S.day-(S.f.a60Last||-9)<2;S.slot=1;S.done={};S.f.a60Side=0;const nx=a60Next();const o=sideHub(false).filter(o=>nx&&o.t===nx.side&&o.sub==='costs time · the four of you');let side=null;
   if(o.length){o[0].fn();__drain(0,L,O);side=o[0].t}const again=sideHub(false).filter(o=>o.sub==='tomorrow'&&o.dis).length;return {a,gap,side,again,l:S.f.a60_list}},nm);
  ok(sch.a&&sch.gap&&sch.side&&sch.again===1,'scheduler '+pov+JSON.stringify(sch));

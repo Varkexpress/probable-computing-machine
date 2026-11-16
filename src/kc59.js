@@ -212,7 +212,7 @@ w59B('w59_a2_hale',()=>S.phase==='act2'&&S.day>=(S.act2Start||0)+1&&(w59F().deal
    ['Hale','Then I’m back to the other file. The one with your name on it.']],()=>{if(!kept)apply({heat:6});done()})});
 /* scheduler: one beat per morning, before the rest of the morning */
 function w59Next(){if(!W59())return null;const F=w59F();F.hp=0;if(F.day===S.day)return null;return W59B.find(b=>!w59Seen(b.id)&&(()=>{try{return b.when()}catch(e){return false}})())||null}
-const _me59=morningEvent;morningEvent=function(done){let b=null;try{b=w59Next()}catch(e){}if(!b)return _me59(done);const F=w59F();F.day=S.day;S.seen[b.id]=1;save();b.run(()=>_me59(done))};
+const _me59=morningEvent;morningEvent=function(done){let b=null;try{if(mbOk())b=w59Next()}catch(e){}if(!b)return _me59(done);mbUse();const F=w59F();F.day=S.day;S.seen[b.id]=1;save();b.run(()=>_me59(done))};
 /* ---------- glimpses on the way home from a job ---------- */
 const _jr59=jobResult;jobResult=function(t,ok,info){try{if(W59()&&S.phase==='normal'&&w59Me()==='m'&&w59NextG()&&w59F().gl!==S.day)w59F().pend=1}catch(e){}return _jr59.apply(this,arguments)};
 const _hub59=hub;hub=function(){try{const F=S&&S.f&&S.f.w59;if(F&&F.pend&&!dlg&&!ctrl&&W59()&&S.phase==='normal'){F.pend=0;const id=w59NextG();if(id){go(cutBg('#0e0a10'));return w59Glimpse(id,'m',()=>_hub59())}}}catch(e){}return _hub59.apply(this,arguments)};

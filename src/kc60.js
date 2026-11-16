@@ -24,7 +24,7 @@ const A60B=[];
 function a60B(id,side,when,run){const e={id,a60:1,side,when:()=>{try{return A60()&&!S.f[id]&&when()}catch(x){return false}},run:done=>{S.f[id]=1;S.seen[id]=1;S.f.a60Last=S.day;save();run(done)}};A60B.push(e);EVENTS.push(e)}
 const a60Next=()=>A60B.find(e=>e.when())||null;
 /* one every other morning, before everything else that morning */
-const _me60=morningEvent;morningEvent=function(done){let b=null;try{if(A60()&&S.f.a60Day!==S.day&&S.day-(S.f.a60Last||-9)>=2)b=a60Next()}catch(x){}if(!b)return _me60(done);S.f.a60Day=S.day;return b.run(()=>_me60(done))};
+const _me60=morningEvent;morningEvent=function(done){let b=null;try{const k58due=typeof K58N!=='undefined'&&S.phase==='normal'&&S.f.k58Day!==S.day&&S.day-(S.f.k58Last||-9)>=2&&!!K58N.find(e=>{try{return e.when()}catch(x){return false}});if(!k58due&&mbOk()&&A60()&&S.f.a60Day!==S.day&&S.day-(S.f.a60Last||-9)>=2)b=a60Next()}catch(x){}if(!b)return _me60(done);mbUse();S.f.a60Day=S.day;return b.run(()=>_me60(done))};
 /* or from the side menu, once a day */
 const _sh60=sideHub;sideHub=function(late){const o=_sh60(late);try{if(!A60())return o;const b=a60Next();if(!b)return o;const today=S.f.a60Side===S.day;
  return o.concat([{t:typeof b.side==='function'?b.side():b.side,sub:today?'tomorrow':'costs time · the four of you',dis:!!late||today,fn:()=>{spend();S.f.a60Side=S.day;save();go(cutBg('#0a0a10'));b.run(()=>hub())}}])}catch(e){return o}};

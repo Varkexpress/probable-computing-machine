@@ -15555,7 +15555,10 @@ const K56NUM=['no','one','two','three','four','five','six','seven','eight','nine
 function k56Hits(){const k=(S&&S.captor)||captorOrg();const n=(S.orgs&&S.orgs[k])||1;return n<K56NUM.length?K56NUM[n]:'a dozen'}
 function k56Due(){if(!S||!S.f||S.f.k56Last===S.day)return null;return K56.find(x=>{if(k56Seen(x.id))return false;try{return !!x.when()}catch(e){return false}})||null}
 function k56Play(id,cb){const sc=K56.find(x=>x.id===id);if(!sc){if(cb)cb();return}k56Mark(id);sc.run(cb||hub)}
-const _k56me=morningEvent;morningEvent=function(done){const sc=k56Due();if(sc){S.f.k56Last=S.day;k56Mark(sc.id);return sc.run(()=>_k56me(done))}return _k56me(done)};
+/* shared cap: at most two scheduled story beats (kc56/kc58/kc59/kc60) per morning */
+function mbOk(){return !(S&&S.f&&S.f.mbDay===S.day&&(S.f.mbN||0)>=2)}
+function mbUse(){if(!S||!S.f)return;if(S.f.mbDay!==S.day){S.f.mbDay=S.day;S.f.mbN=0}S.f.mbN=(S.f.mbN||0)+1}
+const _k56me=morningEvent;morningEvent=function(done){const sc=mbOk()?k56Due():null;if(sc){mbUse();S.f.k56Last=S.day;k56Mark(sc.id);return sc.run(()=>_k56me(done))}return _k56me(done)};
 const K56M=(...a)=>['hitmeuppp',MV(...a)];
 
 /* ---------- Act I: two grudges on the same name ---------- */
@@ -16222,7 +16225,7 @@ const k58Knows=()=>k58Score()>=5;
 /* ---------- before: one beat every other morning, in order ---------- */
 const K58N=[];
 function k58N(id,when,run){const e={id,k58:1,when:()=>{try{return S.phase==='normal'&&k58Ok()&&!S.dark&&!S.f[id]&&when()}catch(x){return false}},run:done=>{S.f[id]=1;S.seen[id]=1;save();run(done)}};K58N.push(e);EVENTS.push(e)}
-const _me58=morningEvent;morningEvent=function(done){try{if(S&&S.phase==='normal'&&S.f.k58Day!==S.day&&S.day-(S.f.k58Last||-9)>=2){const e=K58N.find(e=>e.when());if(e){S.f.k58Day=S.day;S.f.k58Last=S.day;return e.run(()=>_me58(done))}}}catch(x){}return _me58(done)};
+const _me58=morningEvent;morningEvent=function(done){try{if(S&&mbOk()&&S.phase==='normal'&&S.f.k58Day!==S.day&&S.day-(S.f.k58Last||-9)>=2){const e=K58N.find(e=>e.when());if(e){mbUse();S.f.k58Day=S.day;S.f.k58Last=S.day;return e.run(()=>_me58(done))}}}catch(x){}return _me58(done)};
 
 k58N('k58_stair',()=>S.day>=2&&(S.f.movedIn||tier()>=1),done=>{const m=k58M();
  const L=[
@@ -16726,7 +16729,7 @@ w59B('w59_a2_hale',()=>S.phase==='act2'&&S.day>=(S.act2Start||0)+1&&(w59F().deal
    ['Hale','Then I’m back to the other file. The one with your name on it.']],()=>{if(!kept)apply({heat:6});done()})});
 /* scheduler: one beat per morning, before the rest of the morning */
 function w59Next(){if(!W59())return null;const F=w59F();F.hp=0;if(F.day===S.day)return null;return W59B.find(b=>!w59Seen(b.id)&&(()=>{try{return b.when()}catch(e){return false}})())||null}
-const _me59=morningEvent;morningEvent=function(done){let b=null;try{b=w59Next()}catch(e){}if(!b)return _me59(done);const F=w59F();F.day=S.day;S.seen[b.id]=1;save();b.run(()=>_me59(done))};
+const _me59=morningEvent;morningEvent=function(done){let b=null;try{if(mbOk())b=w59Next()}catch(e){}if(!b)return _me59(done);mbUse();const F=w59F();F.day=S.day;S.seen[b.id]=1;save();b.run(()=>_me59(done))};
 /* ---------- glimpses on the way home from a job ---------- */
 const _jr59=jobResult;jobResult=function(t,ok,info){try{if(W59()&&S.phase==='normal'&&w59Me()==='m'&&w59NextG()&&w59F().gl!==S.day)w59F().pend=1}catch(e){}return _jr59.apply(this,arguments)};
 const _hub59=hub;hub=function(){try{const F=S&&S.f&&S.f.w59;if(F&&F.pend&&!dlg&&!ctrl&&W59()&&S.phase==='normal'){F.pend=0;const id=w59NextG();if(id){go(cutBg('#0e0a10'));return w59Glimpse(id,'m',()=>_hub59())}}}catch(e){}return _hub59.apply(this,arguments)};
@@ -16840,7 +16843,7 @@ const A60B=[];
 function a60B(id,side,when,run){const e={id,a60:1,side,when:()=>{try{return A60()&&!S.f[id]&&when()}catch(x){return false}},run:done=>{S.f[id]=1;S.seen[id]=1;S.f.a60Last=S.day;save();run(done)}};A60B.push(e);EVENTS.push(e)}
 const a60Next=()=>A60B.find(e=>e.when())||null;
 /* one every other morning, before everything else that morning */
-const _me60=morningEvent;morningEvent=function(done){let b=null;try{if(A60()&&S.f.a60Day!==S.day&&S.day-(S.f.a60Last||-9)>=2)b=a60Next()}catch(x){}if(!b)return _me60(done);S.f.a60Day=S.day;return b.run(()=>_me60(done))};
+const _me60=morningEvent;morningEvent=function(done){let b=null;try{const k58due=typeof K58N!=='undefined'&&S.phase==='normal'&&S.f.k58Day!==S.day&&S.day-(S.f.k58Last||-9)>=2&&!!K58N.find(e=>{try{return e.when()}catch(x){return false}});if(!k58due&&mbOk()&&A60()&&S.f.a60Day!==S.day&&S.day-(S.f.a60Last||-9)>=2)b=a60Next()}catch(x){}if(!b)return _me60(done);mbUse();S.f.a60Day=S.day;return b.run(()=>_me60(done))};
 /* or from the side menu, once a day */
 const _sh60=sideHub;sideHub=function(late){const o=_sh60(late);try{if(!A60())return o;const b=a60Next();if(!b)return o;const today=S.f.a60Side===S.day;
  return o.concat([{t:typeof b.side==='function'?b.side():b.side,sub:today?'tomorrow':'costs time · the four of you',dis:!!late||today,fn:()=>{spend();S.f.a60Side=S.day;save();go(cutBg('#0a0a10'));b.run(()=>hub())}}])}catch(e){return o}};

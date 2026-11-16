@@ -1,6 +1,6 @@
 const {chromium}=require(require('child_process').execSync('npm root -g').toString().trim()+'/playwright');
 const path=require('path');
-const ROOT='/home/user/probable-computing-machine/.claude/worktrees/agent-a2a2b2a7ae131b8f0';
+const ROOT=require('path').resolve(__dirname,'..');
 (async()=>{const b=await chromium.launch();const p=await b.newPage({viewport:{width:1000,height:700}});const errs=[];
 p.on('pageerror',e=>errs.push(e.message+' '+(e.stack||'').split('\n')[1]));
 await p.route('**/fonts.g*/**',r=>r.abort());await p.goto('file://'+path.join(ROOT,'index.html'));await p.waitForTimeout(500);await p.keyboard.press('x');await p.waitForTimeout(600);

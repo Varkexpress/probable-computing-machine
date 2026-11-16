@@ -28,7 +28,7 @@ const k58Knows=()=>k58Score()>=5;
 /* ---------- before: one beat every other morning, in order ---------- */
 const K58N=[];
 function k58N(id,when,run){const e={id,k58:1,when:()=>{try{return S.phase==='normal'&&k58Ok()&&!S.dark&&!S.f[id]&&when()}catch(x){return false}},run:done=>{S.f[id]=1;S.seen[id]=1;save();run(done)}};K58N.push(e);EVENTS.push(e)}
-const _me58=morningEvent;morningEvent=function(done){try{if(S&&S.phase==='normal'&&S.f.k58Day!==S.day&&S.day-(S.f.k58Last||-9)>=2){const e=K58N.find(e=>e.when());if(e){S.f.k58Day=S.day;S.f.k58Last=S.day;return e.run(()=>_me58(done))}}}catch(x){}return _me58(done)};
+const _me58=morningEvent;morningEvent=function(done){try{if(S&&mbOk()&&S.phase==='normal'&&S.f.k58Day!==S.day&&S.day-(S.f.k58Last||-9)>=2){const e=K58N.find(e=>e.when());if(e){mbUse();S.f.k58Day=S.day;S.f.k58Last=S.day;return e.run(()=>_me58(done))}}}catch(x){}return _me58(done)};
 
 k58N('k58_stair',()=>S.day>=2&&(S.f.movedIn||tier()>=1),done=>{const m=k58M();
  const L=[
