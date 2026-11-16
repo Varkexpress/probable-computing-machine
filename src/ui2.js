@@ -78,7 +78,6 @@ function gearList(){const L=[];const add=(id,n,d,ic,c)=>L.push({id,n,d,ic,c,tool
 function keepList(){const t=(S.td&&S.td.f)||{};const L=[];const add=(id,n,d,ic)=>L.push({id,n,d,ic,keep:1});
  if(t.stars)add('k_stars','49.8','Glow stars on the trailer ceiling. Fastest girl in the prefecture, one summer.',['star','#b8ffc0']);
  if(t.drawerDone)add('k_ticket','A one-way ticket','The train ticket she left home on. On the back: “you’re allowed.”',['ticket']);
- if(t.coach)add('k_coach','A card to Coach','Eight years late. “still fast. different track.”',['letter','#f2d24a']);
  if(t.clip)add('k_clip','The lost star clip','Day three, the rooftop. V has carried it ever since.',['clip']);
  if(t.book)add('k_book','“Half agony, half hope”','The line V underlined in Persuasion, traced until the pencil shone.',['book','#5a3a2a']);
  if(t.opLetters)add('k_stay','“Stay.”','The one word that survived the eraser.',['letter','#c2253a']);
