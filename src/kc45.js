@@ -8,7 +8,7 @@ const mwEv=(id,when,run)=>EVENTS.push({id,when:()=>{try{return MW()&&when()}catc
 mwEv('dk_v_dawn',()=>S.pov==='v'&&S.day>=4,done=>say([
  ['','Five in the morning. V feeds the hounds himself, every day, from the cold room. He weighs each portion on a kitchen scale and writes the weight down.'],
  ['','He talks to them while they eat. He tells them what the weather will do and which of them needs a bath. He has never once in his life spoken to a person as gently as this.'],
- ['K9','(Nothing is wasted. That is the only principle I have that nobody has ever argued me out of.)']],()=>{apply({heart:-1});Object.keys(S.dogs||{}).forEach(k=>S.dogs[k]=clamp(S.dogs[k]+4));done()}));
+ ['K9','(Nothing is wasted. I have not been argued out of that one.)']],()=>{apply({heart:-1});Object.keys(S.dogs||{}).forEach(k=>S.dogs[k]=clamp(S.dogs[k]+4));done()}));
 mwEv('dk_v_self',()=>S.pov==='v'&&S.day>=7,done=>say([
  ['','January, or near enough. V updates the files on the four of them. The last one is his own.'],
  ['','He reads last year’s entry. “Subject has no reason to stop.” He writes this year’s underneath it, and it is the same sentence, and then after a while he adds: “Subject no longer looks for one.”'],
@@ -26,7 +26,7 @@ mwEv('dk_m_hands',()=>frT('a')>=2,done=>say([
  ['','Angel holds her hand out flat over the table to show how steady it is. It doesn’t move. Then Misaki puts theirs beside it. Neither of them moves at all.'],
  [AN,'see. that’s how you know. normal people shake a little.'],
  ['hitmeuppp',MV('we’re not normal.','we’re not normal people.','We aren’t normal people.','We stopped being normal people a long time ago. I don’t even remember shaking. I think I skipped it.')],
- ['','They hold their hands out side by side over the breakfast table for a whole minute, like a contest, and nobody wins.']],()=>{fr('a',2);done()}));
+ ['','They hold their hands out side by side over the breakfast table for a whole minute, like a contest.']],()=>{fr('a',2);done()}));
 /* ---------- the four ---------- */
 mwEv('rel_alibi',()=>frT('a')>=1&&frT('r')>=1&&S.day>=5,done=>{const m=S.pov!=='v';say([
  ['','Sunday dinner. They build each other’s alibis for the week the way other families plan the school run.'],
@@ -68,7 +68,7 @@ if(typeof AP_NOTES!=='undefined')AP_NOTES.push(
  ['','A missing-person poster has gone up on the lamp post outside V’s gate. Misaki uses it to wipe the mud off a hound’s paw on the way in.'],
  ['','The four of them watch a documentary about serial killers. Ronin heckles the experts. Angel critiques the lighting. V corrects a date. Misaki falls asleep halfway through.'],
  ['','There is a vigil in the square for “the victims of the last year.” The four drive past it on the way to dinner, and Angel says the candles are a nice touch.'],
- ['','A neighbour asks V whether he feels safe with everything that has been going on. V says that he does, very much, and means it.']);
+ ['','A neighbour asks V whether he feels safe with everything that has been going on. V says that he does, very much.']);
 const _xeMW=extraEnding;extraEnding=function(){const L=_xeMW();if(!S||!S.seen)return L;
  if(S.seen.dk_v_self)L.push('V’s file on himself has the same line every January: “Subject has no reason to stop.” Under it, in a newer ink: “Subject no longer looks for one.”');
  if(S.f&&S.f.mwTable)L.push('Sundays are still at the table downstairs. Somebody hums. The hounds are fed by weight.');

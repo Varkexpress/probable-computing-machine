@@ -12,7 +12,7 @@ const _condKD=kdCond;kdCond=function(){const n=_condKD();if(!n||!S.kd||S.phase!=
  const did=k=>S.done['kdRx_'+k],mark=k=>{S.done['kdRx_'+k]=1;S.done.kdRxN=(S.done.kdRxN||0)+1;save()};
  R.spots.push({at:[150,170],mark:[150,160],label:'A tray of instruments',show:lo,act:()=>ask('hitmeuppp','(Scissors. Forceps. Something with a hook. All laid out in a row.)',[
    {t:'Take the scissors.',fn:()=>{S.f.kdScissors=1;save();say([['','She takes the scissors and puts them under the mattress with the blades open. Whoever comes for her next gets them.'],['','They are bandage scissors. The ends are rounded, so that they can’t cut the patient.']])}},
-   {t:'Tip the tray over.',fn:()=>{calm(-2);say([['','It makes a great deal of noise. Nobody comes running. After a while somebody on the other side of the door says, quietly, “I will bring another.”']])}},
+   {t:'Tip the tray over.',fn:()=>{calm(-2);say([['','It makes a great deal of noise. Nobody comes running. After a while somebody on the other side of the door says, “I will bring another.”']])}},
    {t:'Leave it.',fn:()=>{}}])},
   {at:[150,170],mark:[150,160],label:'Treatment trolley',show:hi,act:()=>{const rx=kdRx();if((S.done.kdRxN||0)>=2)return say([['hitmeuppp','(that’s enough being poked for one day. the doctor said two. i heard her.)']]);
    const o=[];
@@ -64,7 +64,7 @@ kdEv2('kd_vod',2,()=>kdMe()&&frT('a')>=1,done=>say([
  ['','At forty-one minutes Maria stops talking and looks at something off camera for nine seconds. The chat fills with hearts. Misaki knows that look. It is the one Angel has before she goes out with the shotgun.'],
  ['hitmeuppp',MV('she cried on MAIN.','she cried on main. for me. on a monetised stream.','She cried on her main channel. For me. With ads on.','She cried on main, with the ads on, in the good cardigan. And then she went and killed somebody. I’ve never been so flattered.')]],()=>ask('hitmeuppp','(1.2 million views.)',[
   {t:'Text her: “nice cardigan”',fn:()=>{fr('a',4);phQueue('a',['don’t','i looked SO sad. sad doesn’t get engagement. rage does','...it did numbers though. u were good for the channel. never do it again or i’ll kill u myself'],0);done()}},
-  {t:'Watch all forty-one minutes again.',fn:()=>{calm(3);fr('a',2);say([['','She watches it twice more. Nobody has ever looked for her on camera before.']],done)}}])));
+  {t:'Watch all forty-one minutes again.',fn:()=>{calm(3);fr('a',2);say([['','She watches it twice more.']],done)}}])));
 /* Ronin wants one of them, and wants her to say which */
 kdEv2('kd_roncrow',3,()=>frT('r')>=1&&S.list&&S.list.some(x=>!x.st&&!x.gone),done=>{const m=kdMe();const left=S.list.filter(x=>!x.st&&!x.gone&&x.id!=='water');
  say([[RN,'So there’s a list. Vee showed me. Real neat handwriting, like a fuckin’ wedding invite.'],

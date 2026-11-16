@@ -73,7 +73,7 @@ function iconURL(spec){const key=spec.join('|');if(ICONC[key])return ICONC[key];
 function iicon(k){if(IICON[k])return iconURL(IICON[k]);if(k.startsWith('dish_'))return iconURL(['bowl',['#e0c070','#c2603a','#f4f0ea','#7a4a2a','#e8a0b0'][Math.abs([...k].reduce((a,c)=>a+c.charCodeAt(0),0))%5]]);return iconURL(['box','#c2253a'])}
 /* ---------- gear and keepsakes (not in S.inv) ---------- */
 function gearList(){const L=[];const add=(id,n,d,ic,c)=>L.push({id,n,d,ic,c,tool:1});
- if(S.smoke)add('smoke','Smoke grenade',`Pop one, lose them in it. ×${S.smoke}`,['can','#8a8a92'],S.smoke);if(S.sup)add('sup','Suppressor','Quiet is a kind of manners.',['tube']);if(S.pick)add('pick','Boot lockpick','Lives in the left boot. Has opened worse.',['pick']);
+ if(S.smoke)add('smoke','Smoke grenade',`Pop one, lose them in it. ×${S.smoke}`,['can','#8a8a92'],S.smoke);if(S.sup)add('sup','Suppressor','Keeps the neighbours asleep.',['tube']);if(S.pick)add('pick','Boot lockpick','Lives in the left boot. Has opened worse.',['pick']);
  if(S.key)add('key','Vault keycard','Found on the old hound’s collar. It let you take it. That is the frightening part.',['card']);if(S.treat)add('treat','Raw meat, wrapped','For the hounds. V weighs every portion.',['bone']);return L}
 function keepList(){const t=(S.td&&S.td.f)||{};const L=[];const add=(id,n,d,ic)=>L.push({id,n,d,ic,keep:1});
  if(t.stars)add('k_stars','49.8','Glow stars on the trailer ceiling. Fastest girl in the prefecture, one summer.',['star','#b8ffc0']);

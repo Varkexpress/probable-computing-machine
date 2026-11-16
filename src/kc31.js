@@ -22,7 +22,7 @@ kdEv2('kd_slip',4,()=>S.f.kdHas,done=>{const m=kdMe();say([
    {t:'“...in movies. they do that in movies.”',fn:()=>{kdDeny();say([[RN,'Yeah. Movies. Sure.'],['','Ronin finishes his story with a different ending from the one it had. Under the table, a hound puts its whole head on her foot.']],done)}},
    {t:'Get up. The hounds need walking.',fn:()=>{kdDeny();calm(-3);say([['','She walks all four hounds at once, at eleven at night, in the rain. When she comes back the dishes are done and nobody is in the kitchen, by arrangement.']],done)}}]:[
    {t:'Ask Ronin to pass the rice.',fn:()=>{kdDeny();apply({aff:3});say([['K9','Ronin. The rice.'],[RN,'...Yeah. Rice. Catch.'],['','She breathes out. She finds his foot under the table and stands on it, lightly. It is the nearest she will come to thanking him.']],done)}},
-   {t:'Let the silence stand.',fn:()=>{kdDeny();apply({tension:3});say([['hitmeuppp',MV('what.','what. it’s a thing people do. in movies.','What? It’s a thing people do. In films.','What? Everybody knows that. It’s in every film. Stop looking at me, all of you, eat.')],['','They eat.']],done)}},
+   {t:'Say nothing.',fn:()=>{kdDeny();apply({tension:3});say([['hitmeuppp',MV('what.','what. it’s a thing people do. in movies.','What? It’s a thing people do. In films.','What? Everybody knows that. It’s in every film. Stop looking at me, all of you, eat.')],['','They eat.']],done)}},
    KD_NO('Ask her how she knows that.','he is not going to do that to her')]))});
 /* what she says asleep */
 kdEv2('kd_sleeptalk',5,()=>S.f.kd_math&&tier()>=2,done=>{const m=kdMe();

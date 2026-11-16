@@ -43,7 +43,7 @@ K22EV.push(
  {id:'k28_set2',when:()=>k28Ok()&&!!k28Partner()&&!!S.seen.k28_set1,run:done=>{const m=S.pov!=='v';
   say([['','You do not need to call each other. '+(m?'V':'Misaki')+' turns up on the nights you would have called, which is how it has always worked.'],
    ['','You finish each other’s sentences in front of people who find it unsettling. You know where the other one is in a room without looking. You share a toothbrush cup at V’s house and neither of you remembers deciding that.'],
-   ['','Nobody has ever asked either of you to choose. Your partners worked it out within a week: the two of you are not a couple, and you are not two people either. You are a package. You come together or not at all.']],()=>{apply({aff:2});done()})}});
+   ['','Nobody has ever asked either of you to choose. Your partners worked it out within a week: the two of you are not a couple, and you are not two people either. You are a package.']],()=>{apply({aff:2});done()})}});
 
 /* ---------- the other pairing ---------- */
 function k28Other(){const k=k28Partner();if(!k)return null;return k==='r'?'a':'r'}

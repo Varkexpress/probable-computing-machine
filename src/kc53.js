@@ -24,7 +24,7 @@ const KD_SHATTER_LINES={
   ['','You sit down on the floor, because your legs have decided to, and you don’t cry, and then you do.']],
  logic:[['','The last piece goes into place, and the cell doesn’t so much break as stop being able to stand up.'],
   ['','It comes down around you in pieces the size of hands. The bulb goes, and is a lamp. The radio goes, and is the boiler. The cot goes, and is a bed with ironed sheets. The guard’s chair outside the door goes, and is a man on the floor with a book.'],
-  ['','You stand in the middle of it while it falls, the way you’d stand in snow, and none of it hurts you. It never could have. It was never there.']],
+  ['','You stand in the middle of it while it falls, the way you’d stand in snow, and none of it hurts you.']],
  caught:[['','He says the menu. He says the angle of the bed. He says Tuesday. And it breaks.'],
   ['','The whole cell goes at once, all of it, bars and bulb and nine days, in pieces, falling away from you like something dropped down a stairwell, and underneath it is his face, very close, lower than yours, wet, which you have never seen.']],
  late:[['','It breaks.'],['','Now, of all the times. Every piece of the cell comes away at once and underneath, too clear, too bright, there is the room you drew on a menu, and his sheets, and his breathing on the other side of the door.'],

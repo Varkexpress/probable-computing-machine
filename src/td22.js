@@ -42,12 +42,12 @@ const k22Say=(L,cb,mood)=>{if(mood)try{mzForce(mood)}catch(e){}say(L.filter(Bool
 /* the clothes, straight away */
 K22EV.push({id:'k22_clothes',when:()=>k22Post(),run:done=>k22Say(k22M()?[
  ['','The skirt goes in a bin bag. Then the platform boots. Then the striped top. You do not decide to do it. Your hands do it and you watch.'],
- ['','You keep one hoodie, the grey one, two sizes too big. Black trousers. Flat boots you can run in. In the mirror there is a person you would walk past without looking at twice. That is the point.'],
+ ['','You keep one hoodie, the grey one, two sizes too big. Black trousers. Flat boots you can run in. In the mirror there is a person you would walk past without looking at twice.'],
  [AN,'(text) babe u left a bin bag of clothes outside my door. the GOOD clothes. are u ok'],
  ['M','(text) keep them. or burn them. either.'],
  [AN,'(text) i’m keeping them. i’m keeping them in a box with ur name on it. not because u want them back. just so they’re somewhere.']]
  :[['','She comes down to breakfast in a grey hoodie two sizes too big and black trousers. No skirt. No stripes. No platform boots. She has never once, in all the time you have known her, worn anything she could not be noticed in.'],
- ['','Now she is dressed to be nobody. She sits with her back to the wall and eats in silence, and the silence is the part you cannot stop noticing.'],
+ ['','Now she is dressed to be nobody. She sits with her back to the wall and eats without saying a word.'],
  ['K9','(to yourself) Noted.'],
  ['','You do not say anything to her about it. You go to the ops deck and open a new page in the notebook, and you write the date, and under it: clothes.']],done)});
 
@@ -56,7 +56,7 @@ K22EV.push({id:'k22_sus1',when:()=>k22Post()&&S.seen.k22_clothes&&S.day>=(S.f.re
  ['','V watches you. He thinks you do not notice. You notice everything. It is the job, and it was the job before they took you.'],
  ['','He watches you check the room behind you before you sit. He watches you flinch at the sound of tape coming off a roll. He watches you not let anybody stand behind you, not even him.'],
  ['','You told him about the bulb and the radio. You told him about the door and the tray. You did not tell him about the four days you do not remember, because you do not remember them, and you are not going to guess out loud.'],
- ['','He is guessing. You can see it on him like weather. You let him. The version he is imagining is probably worse than whatever it was. Probably. You do not know. That is the whole problem.']]
+ ['','He is guessing. You can see it on him like weather. You let him. The version he is imagining is probably worse than whatever it was. Probably. You do not know.']]
  :[['','You lay it out the way you would lay out a case. She was gone eleven days. She has accounted for seven: the bulb, the radio, the tray, the door. Four days are missing, and she talks around them the way people talk around a hole in the floor.'],
  ['','The clothes. The tape: she left the room yesterday when Angel taped a box. The way she will not let anyone stand behind her, including you. The way she stopped laughing at things and started watching them.'],
  ['','Something was done to her that she has not said. Perhaps that she cannot say. You have seen this before, on other people, in rooms you got to too late.'],

@@ -7,7 +7,7 @@ const kdIn=()=>typeof kdMedM==='function'&&kdMedM();
 /* ---------- nights ---------- */
 const KD_NIGHT=[
  [['','The first night she does not sleep. She lies on her side facing the door with her eyes open, the way animals do, and watches the gap under it for feet.'],
-  ['','At two the light under the door goes dark: somebody has sat down against it. At three the somebody starts to read aloud, very quietly, something about land tax in the eighteen-seventies. At four the voice stops in the middle of a sentence, and she realises he has fallen asleep sitting up.'],
+  ['','At two the light under the door goes dark: somebody has sat down against it. At three the somebody starts to read aloud, under his breath, something about land tax in the eighteen-seventies. At four the voice stops in the middle of a sentence, and she realises he has fallen asleep sitting up.'],
   ['','She listens to him breathe until it gets light. She does not know who he is. She knows his breathing better than her own by morning.']],
  [['','She dreams the van. Not the inside, only the door, the side door, sliding back on its track, over and over, the sound it makes.'],
   ['','She wakes up with her good hand already round the drip stand and the needle out of her other hand, and blood on the sheet, and the room dark.'],
@@ -18,17 +18,17 @@ const KD_NIGHT=[
   ['','The grey hound. She knows it’s the grey hound because of the seam down the shoulder, under her palm, where V sewed her back together when she was a pup.'],
   ['hitmeuppp',MV('(...hi.)','(hi. ok. hi. you can stay.)','(Hi. You can stay. You can stay.)','(Hi, baby. Hi. You can stay. You can absolutely stay. I’ll leave the light however you want it.)')],
   ['','She sleeps with her hand on the seam and the light off. It is the first time since the van that the dark has been just dark.']],
- [['','She wakes at four with her face wet and doesn’t know why. She checks the room in order, the way she checks a roof: door, corners, bed, ceiling, her own hands. Everything is where it should be.'],
+ [['','She wakes at four with her face wet and doesn’t know why. She checks the room in order, the way she checks a roof: door, corners, bed, ceiling, her own hands.'],
   ['','It isn’t the cell. She knows it isn’t. She cried anyway, in her sleep, about something she can’t reach, and she lies there furious about it, as though somebody had gone through her pockets.'],
   ['hitmeuppp',MV('(stupid.)','(stupid. nothing happened. it was a dream about nothing.)','(Stupid. It was a dream about nothing.)','(Crying in my sleep. Over what? Some dream I don’t even get to keep. If I’m going to cry I want to at least know what it was about. That’s the deal. That’s the bare minimum.)')]]];
 KD_NIGHT.push(
  [['','Fifth night. She has started to know the sounds of the house: the boiler at one, a hound turning over at two, the lift somewhere above going up and down for no reason anybody has ever explained to her.'],
-  ['','She lies there cataloguing them, the way she catalogued the building with the radio. It is the same skill. She is using it for a different thing now, and she notices, and she isn’t sure whether that’s getting better or just getting used to it.'],
+  ['','She lies there cataloguing them, the way she catalogued the building with the radio.'],
   ['hitmeuppp',MV('(boiler. hound. lift.)','(boiler, hound, lift. that’s his house. that’s his house breathing.)','(Boiler. Hound. Lift. His house, breathing.)','(Boiler at one. Hound at two. Lift at whenever it likes. It’s a house. It’s a house breathing in its sleep. I’m in a house that breathes and nobody in it wants anything from me.)')],
   ['','She falls asleep before three for the first time. In the morning she will not remember deciding to.']]);
 ROOMS.medbay.spots.push({at:[124,128],mark:[124,24],label:'The light-well',show:()=>kdIn()&&kdClar()>=2,act:()=>{const d=(S.kd.med.d||0);say([
  ['','High up in the ceiling there is a slot of thick glass, a light-well, that goes up through four floors of house to the garden. A little grey daylight comes down it. Nothing else does.'],
- d>=2?['','Today a leaf is stuck on the glass at the top, very small, very far up. You watch it for a long time. It is the only thing from outside you’ve seen in a week that nobody brought in to you on a tray.']:['','You can’t see sky through it. Just light, which changes. You find you are timing it: brighter at eleven, gone by five.'],
+ d>=2?['','Today a leaf is stuck on the glass at the top, very small, very far up. You watch it for a long time. It is the only thing from outside you’ve seen in a week that nobody brought in to you on a tray.']:['','You can’t see sky through it. Only light, and it changes. You find you are timing it: brighter at eleven, gone by five.'],
  ['hitmeuppp',MV('(outside.)','(that’s outside. it’s still there.)','(That’s outside. It’s still there.)','(It’s still out there, then. The whole city. Nobody turned it off while I was gone. That’s nice of it. That’s honestly really rude of it.)')]])}});
 const _sleepKD48=sleep;sleep=function(){const a0=arguments,s0=this;if(kdIn()&&!S.done.kdVisEve){S.done.kdVisEve=1;if(kdVisitor(()=>sleep.apply(s0,a0)))return}if(!kdIn()||S.done.kdNight)return _sleepKD48.apply(this,arguments);S.done.kdNight=1;const m=S.kd.med;const n=Math.min(KD_NIGHT.length-1,m.d||0);
  go(cutBg('#04040a'));const a=arguments,self=this;return say(KD_NIGHT[n],()=>{if(n>=2)calm(4);_sleepKD48.apply(self,a)})};
@@ -58,14 +58,14 @@ ROOMS.medbay.spots.push({at:[246,160],mark:[246,150],label:'Talk to V through th
  const o=KD_DOOR.map((x,i)=>({t:x[0],dis:used.includes(i)||(i===4&&used.length<3),sub:i===4&&used.length<3?'not yet':'',fn:()=>{S.f.kdDoorT=used.concat([i]);apply({aff:2});calm(2);save();say(x[1])}}));
  ask('hitmeuppp','(He is on the other side. He always is.)',o.concat([{t:'Not now',fn:()=>{}}]))}});
 /* ---------- the sink ---------- */
-ROOMS.medbay.spots.push({at:[230,128],mark:[230,96],label:'The sink',show:()=>kdIn()&&kdClar()>=2,act:()=>{if(S.f.kdSink)return say([['hitmeuppp','(hair’s clean. first time in days. still smells like his shampoo, which is somehow worse and better.)']]);
+ROOMS.medbay.spots.push({at:[230,128],mark:[230,96],label:'The sink',show:()=>kdIn()&&kdClar()>=2,act:()=>{if(S.f.kdSink)return say([['hitmeuppp','(hair’s clean. first time in days. still smells like his shampoo. which i hate. and don’t.)']]);
  ask('hitmeuppp','(Your hair has the cell in it. You can smell it. You can’t lift your left arm above your shoulder.)',[
   {t:'Do it yourself, one-handed.',fn:()=>{S.f.kdSink=1;apply({energy:-10});calm(-1);save();say([['','It takes forty minutes. The water runs grey, then clear. You get shampoo in the stitches above your ear and stand there with your forehead against the cold mirror until the sting stops.'],['hitmeuppp',MV('(done.)','(done. alone. good.)','(Done. On my own.)','(Done, on my own. I needed one thing in here to be mine.)')]])}},
   {t:'Ask V. He’s the only one allowed behind you.',dis:tier()<2,sub:tier()<2?'you can’t make yourself':'',fn:()=>{S.f.kdSink=2;apply({aff:4});calm(5);save();say([
-   ['','He comes in when you call, which is the first time he has come all the way in. He stands where you can see him in the mirror the whole time, and asks before every single thing: the tap, the jug, his hands.'],
+   ['','He comes in when you call, which is the first time he has come all the way in. He stands where you can see him in the mirror the whole time, and asks before each thing: the tap, the jug, his hands.'],
    ['','He wraps the cast in a bread bag and tapes it. He washes your hair the way he washes the hounds, thoroughly, without hurrying, talking the whole time about nothing, about the weather he can’t see.'],
    ['','The water goes grey. He keeps going until it doesn’t. You watch his face in the mirror. It is very calm. His hands are not, quite, and he keeps them moving so that you won’t notice.'],
-   ['hitmeuppp',MV('...thanks.','thank u. nobody’s ever.','Thank you. Nobody’s ever done that.','Thank you. I don’t think anyone’s ever done that for me. Not ever. Not even before nine, probably. I think I’d remember that. Even I’d remember that.')],
+   ['hitmeuppp',MV('...thanks.','thank u. nobody’s ever.','Thank you. That’s the cleanest my hair’s been in years.','Thank you. I don’t think anyone’s ever done that for me. Not ever. Not even before nine, probably. I think I’d remember that. Even I’d remember that.')],
    ['K9','Then I will do it again on Thursday.']])}},
   {t:'Leave it.',fn:()=>{}}])}});
 /* ---------- the corridor, and the hounds ---------- */
@@ -105,10 +105,10 @@ const _sitKD48=kdSit;kdSit=function(){const m=S.kd.med;if(m.clar<2||S.f.kdVsit>=
  const V=[
   [['','She knows him now, mostly. He sits on the chair by the door rather than the floor, and she watches him decide that, and nods once, which is permission.'],
    ['hitmeuppp',MV('read me something.','read me something. not tax.','Read me something. Not tax.','Read me something. Anything but tax. I swear to God, if I hear the word “assessment” again I’m going to climb out the light-well.')],
-   ['','He reads her the only other book he has in his coat, which is Persuasion. She is asleep by chapter two. He keeps reading to the end of chapter three, quietly, in case stopping wakes her, and because he has realised he wants to know how it goes this time.']],
+   ['','He reads her the only other book he has in his coat, which is Persuasion. She is asleep by chapter two. He keeps reading to the end of chapter three in case stopping wakes her.']],
   [['','He changes the wrist dressings with her awake, for the first time. She watches every movement. He narrates each one before he makes it, the way you would for an animal that has been hurt by people.'],
    ['K9','I am going to lift the tape now. This will pull. I am going to clean it with saline. That will sting for four seconds. One. Two. Three. Four.'],
-   ['hitmeuppp',MV('...u counted.','u counted for me.','You counted. For me.','You counted the four seconds out loud. Nobody’s ever counted for me. I’ve always done my own counting.')],
+   ['hitmeuppp',MV('...u counted.','u counted for me.','You counted. For me.','You counted the four seconds out loud. I always have to do my own counting.')],
    ['K9','You may do mine, then, when it is my turn.'],
    ['','She laughs, and then she doesn’t, and then she lets him finish. When he’s done she doesn’t let go of his sleeve for a while, and he doesn’t ask her to.']],
   [['','She is asleep. He isn’t needed. He stays anyway, because he cannot think of anywhere in the house that would be bearable instead.'],

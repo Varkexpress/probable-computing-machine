@@ -89,7 +89,7 @@ function k57rTruck(){const m=k57M();go(cutBg('#0a0c10'));k57Mark('r_truck');S.f.
      ['','He takes the silver pen out of the visor, writes a 1 on the dashboard, and circles it twice.']],()=>{k57rTwo();hub()})}}]));
  say([
   ['','V reviews the traffic cameras after every one of Misaki’s jobs. He has never told her that he does it. Tonight he notices something in the corner of the frame that he has been looking past for weeks.'],
-  ['','A black pickup, parked two streets from her, engine running. It is there on four different nights, in four districts. It is always two streets.'],
+  ['','A black pickup, parked two streets from her, engine running. It is there on four different nights, in four districts.'],
   ['','He finds Ronin on the roof of the garage at two in the morning, where Ronin sits when he cannot sleep, and lays the stills out on the gravel between them one by one.'],
   [RN,'Aw. You made me a photo album.'],
   ['K9','You have been two streets from every job she has done since she came home.'],

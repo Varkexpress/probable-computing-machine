@@ -44,7 +44,7 @@ k56Add({id:'k56_file',when:()=>S.phase==='normal'&&S.day>=3&&!isLone()&&Object.k
   ['K9','I am filing against them on paper. My file, your bodies. Anyone who reads both will see two kinds of trouble arriving from two directions, and will want to know who stands between them.'],
   K56M('so we’re like. coworkers','so we’re a team now. cute. terrifying','So somebody’s going to put us in the same sentence. Great.','So the same people want us both dead for two different reasons. That’s almost romantic. That’s a bit romantic, V.'),
   ['K9','Lock the door at night. Both bolts.'],
-  ['','She locks one. It is a matter of principle.']],()=>{S.f.k56File='m';done()})}});
+  ['','She locks one, on principle.']],()=>{S.f.k56File='m';done()})}});
 
 k56Add({id:'k56_grey',when:()=>S.phase==='normal'&&S.day>=4&&!isLone()&&k56Seen('k56_file')&&S.f.k56.k56_file<S.day,run:done=>{
  if(S.pov==='v')return say([['','An anonymous donation lands in the shelter fund overnight: forty-one thousand dollars, one for each city, from a company called Constance Holdings.'],

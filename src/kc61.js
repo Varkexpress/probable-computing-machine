@@ -102,7 +102,7 @@ const KD61_MX=[
  cb=>say([['','You go through it all again, so that they can’t have it. The trailer is lot fourteen. Rent is due on the first. Prickles gets a quarter of a cup every other Sunday. The hounds, by colour: grey, old, black, pale. V takes his tea with nothing in it.'],
    ['','You get to the end and start again, and the second time round you can’t remember the lot number. Fourteen, or forty.'],
    ['hitmeuppp',MV('(14. or 40.)','(fourteen. or forty. it’s fourteen. is it.)','(Fourteen. Or forty. It’s fourteen. Isn’t it?)','(Fourteen. It’s fourteen. It’s forty. I’ve lived there for years, I’ve given that number to a hundred delivery men, it’s— which is it.)')],
-   ['','You start counting up from one, under your breath, to see which number looks like home. On the other side of the door somebody says, very quietly, “fourteen,” and you stop, and don’t trust it, and start again from one.']],()=>{calm(-2);cb()})];
+   ['','You start counting up from one, under your breath, to see which number looks like home. On the other side of the door somebody says “fourteen,” and you stop, and don’t trust it, and start again from one.']],()=>{calm(-2);cb()})];
 const KD61_MW=[
  cb=>say([['','There is a bread roll with the soup now, still warm. You leave it on the tray with everything else they bring.'],
    ['','At night you have heard a hound in the corridor. They have a hound out there, a big one, and sometimes she whines very low and scratches once at the door, the way a hound does when somebody has told her no. You know what places like this do to animals.'],

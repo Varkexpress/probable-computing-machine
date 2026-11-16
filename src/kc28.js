@@ -66,7 +66,7 @@ function kdMedStart(self,L){const k=KD();k.med={d:0,clar:0,run:0};k.aftL=L.filte
  if(S.pov==='v')return cut([['','The infirmary is on sublevel two, behind a door marked LAUNDRY. V had it built four years ago for the hounds and for himself. No other person has ever been in it.'],
   ['','The doctor works on her for six hours and V holds the lamp. He learns that the left hand was broken on the first day and again on the third, and that she walked out of that building on a foot that should not have taken weight.'],
   ['K9','She told me in the car that she was fine. She said it twice.'],
-  ['','She will wake in a room she has never seen, with a needle in her and one light on. He takes the bulb out of its cage and fits a lampshade from the east wing. It helps very little.']],hub,'#05040a');
+  ['','She will wake in a room she has never seen, with a needle in her and one light on. He takes the bulb out of its cage and fits a lampshade from the east wing.']],hub,'#05040a');
  cut([['','She comes up in pieces again: a ceiling, a bulb, a needle taped into the back of her hand.'],
   ['','There is a door. Her shoes are gone, and the clip was in the shoe.'],
   ['hitmeuppp','(no. no no no. i got OUT. i remember getting out.)'],
