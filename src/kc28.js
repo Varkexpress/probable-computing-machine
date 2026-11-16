@@ -20,16 +20,17 @@ const kdFlipG=G=>G.map(p=>p.map(([x,y])=>[19-x,y]));
 /* ---------- 1. MORE TO GET THROUGH ---------- */
 /* the chair: stay level while the band narrows */
 function kdHoldOn(cb,o){cb=once(cb);if(kdAuto())return cb(kdAuto()>0);o=o||{};let y=50,v=0,t=0,inb=0,band=36;const N=o.len||560;const say3=o.lines||['Count the hounds.','Grey. Old. Black. Pale.','Again. From the grey one.','Don’t listen to the radio. Count.'];
- go({onTap(){},update(){t++;v+=held.act?-.1:.075;v+=Math.sin(t/23)*.03+(Math.random()-.5)*.09;v=Math.max(-1.7,Math.min(1.7,v));y+=v;if(y<0){y=0;v=0}if(y>100){y=100;v=0}
-   band=36-16*t/N;if(Math.abs(y-50)<=band/2)inb++;if(t>=N)cb(inb/N>=.55)},
-  draw(){(o.bg||drawInterro)();rect(0,0,W,H,'rgba(0,0,0,.6)');rect(0,0,W,14,'#0c0a08');rect(0,156,W,24,'#0c0a08');hudBar(o.title||'The chair',o.hint||'hold E to stay level');
+ let fin=0;go({onTap(){held.act=1},onRelease(){held.act=0},update(){if(fin){if(++fin>50)cb(inb/N>=.55);return}if(hit('back')){inb=0;fin=1;return}t++;v+=held.act?-.1:.075;v+=Math.sin(t/23)*.03+(Math.random()-.5)*.09;v*=.97;v=Math.max(-1.7,Math.min(1.7,v));y+=v;if(y<0){y=0;v=0}if(y>100){y=100;v=0}
+   band=36-16*t/N;if(Math.abs(y-50)<=band/2)inb++;if(t>=N)fin=1},
+  draw(){(o.bg||drawInterro)();rect(0,0,W,H,'rgba(0,0,0,.6)');rect(0,0,W,14,'#0c0a08');rect(0,156,W,24,'#0c0a08');hudBar(o.title||'The chair',o.hint||'hold E to stay level',isTouch()?'hold a finger on the screen to rise, let go to sink':'');
    rect(150,28,20,120,'#1a1612');rect(150,28+(50-band/2)*1.2,20,band*1.2,'#3a5a3a');rect(146,28+y*1.2-1,28,3,'#ece4da');
-   bar(110,158,100,4,t/N*100,'#5fd4c4');txt(say3[Math.min(3,Math.floor(t/140))],160,172,'#c9c39a',11,'center')}})}
+   bar(110,158,100,4,t/N*100,'#5fd4c4');txt(say3[Math.min(3,Math.floor(t/140))],160,172,'#c9c39a',11,'center');
+   if(fin)txt(inb/N>=.55?'level':'lost it',160,140,inb/N>=.55?'#7fe08a':'#ff8080',12,'center')}})}
 /* a timing bar: used for the vent screws and, later, the foam ball */
 function kdTurn(cb,o){cb=once(cb);if(kdAuto())return cb(kdAuto()>0);o=o||{};let pos=0,dir=1,ok=0,miss=0,zone=ri(25,75),end=0,sp=1.6+kdWoozy()*.3+(o.fast||0);
  go({update(){if(end){if(++end>50)cb(ok>=3);return}if(hit('back'))return cb(false);pos+=dir*sp;if(pos>100||pos<0)dir*=-1;
    if(hit('act')){if(Math.abs(pos-zone)<=9){ok++;zone=ri(20,80);sp+=.3}else miss++;if(ok>=3||miss>=2)end=1}},
-  draw(){(o.bg||drawCell)();rect(60,60,200,60,'rgba(10,8,8,.92)');hudBar(o.title||'The vent screw',(o.unit||'turns')+' '+ok+'/3');rect(74,96,172,8,'#222');rect(74+zone*1.72-15,96,31,8,'#5a8a3a');rect(74+pos*1.72-1,92,3,16,'#ece4da');
+  draw(){(o.bg||drawCell)();rect(60,60,200,60,'rgba(10,8,8,.92)');hudBar(o.title||'The vent screw',(o.unit||'turns')+' '+ok+'/3 · ✗ '+miss+'/2');rect(74,96,172,8,'#222');rect(74+zone*1.72-15,96,31,8,'#5a8a3a');rect(74+pos*1.72-1,92,3,16,'#ece4da');
    txt(end?(ok>=3?(o.ok||'It turns.'):(o.bad||'The tray slips and rings on the concrete.')):(o.hint||'Press E when the edge bites.'),160,84,'#ece4da',12,'center')}})}
 const _tmKD2=takenM;takenM=function(){S.f.kdScrews=0;S.f.kdSteps=0;return _tmKD2()};
 (function(){const R=ROOMS.cell;const vent=R.spots.find(s=>s.label==='Vent'),va=vent.act;

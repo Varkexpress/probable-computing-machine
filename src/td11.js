@@ -47,7 +47,9 @@ function dpRange(cb){cb=once(cb);let t=0,score=0,ammo=20,cx=160,cy=90,flash=0,ov
    rect(0,140,W,40,'#3a3e46');rect(0,140,W,2,'#5a6066');for(let i=0;i<ammo;i++)rect(8+i*6,156,3,8,'#c9a050');txt('SCORE '+score,W-10,154,'#f4f0ea',8,'right');txt(Math.max(0,Math.ceil((TT-t)/60))+'s',W-10,170,'#8a8296',7,'right');if(civ)txt('BYSTANDERS '+civ,W/2,170,'#ff6a8a',7,'center');
    pops.forEach(p=>txt(p.s,p.x,p.y-(30-p.t)*.4,p.col,8,'center'));
    c.strokeStyle=flash?'#f2d24a':'#7fe08a';c.lineWidth=1;c.beginPath();c.arc(cx,cy,8,0,7);c.stroke();rect(cx-12,cy,6,1,c.strokeStyle);rect(cx+7,cy,6,1,c.strokeStyle);rect(cx,cy-12,1,6,c.strokeStyle);rect(cx,cy+7,1,6,c.strokeStyle);
-   if(flash){c.fillStyle='rgba(255,240,200,.07)';c.fillRect(0,0,W,H)}if(over)txt('CEASE FIRE',W/2,H/2,'#f2d24a',16,'center')}})}
+   if(flash){c.fillStyle='rgba(255,240,200,.07)';c.fillRect(0,0,W,H)}
+   hudBar('B4 firing range',ammo+' rounds','Arrows aim · E fires (or tap) · never shoot the pink cards');
+   if(over){rect(90,66,140,44,'rgba(8,6,12,.9)');txt('CEASE FIRE',W/2,84,'#f2d24a',16,'center');txt('score '+score+' · '+hits+' hits'+(civ?' · '+civ+' bystander'+(civ>1?'s':''):''),W/2,100,civ?'#ff8aa0':'#ece4da',10,'center')}}})}
 function dpRangeDone(who,r){if(r.quit&&r.score===0)return;const t=tdS().f;const k=who==='v'?'rangeBestV':'rangeBestM';const best=r.score>(t[k]||0);if(best)t[k]=r.score;t.rangeCiv=(t.rangeCiv||0)+r.civ;if(r.score>=40&&!r.civ&&who==='m')t.rangeSmile=1;save();apply({energy:-4});
  const grade=r.civ?'':r.score>=46?'S':r.score>=36?'A':r.score>=24?'B':'C';
  const L=[['','Score '+r.score+' · targets '+r.hits+(r.civ?' · bystanders '+r.civ:' · no bystanders')+(grade?' · grade '+grade:'')+(best?' · new best':'')]];
