@@ -3259,6 +3259,102 @@ V’s infirmary on sublevel two, behind a door marked LAUNDRY. In Misaki’s POV
 > *You fish the lids out and wipe them on the sheet, one at a time, and stack them under your pillow in order, because you want to have them.*
 >
 
+#### Spot: Your wristband
+
+> Misaki POV, once she knows the room: the plastic band with her name on it (once). Shown when: `k63M()`, she knows where she is (clarity 2+).
+
+- *if `k63SA()`:* *There is a plastic band on your right wrist with your name on it. The doctor wrote it in on the first night, in capitals, with a date of birth under it that she must have got from V, because it is the one you made up.*
+- *otherwise:* *There is a plastic band on your right wrist with your name on it. V wrote it in on the first night, in fountain pen, with a date of birth under it. It is the one you made up, because there isn’t another one.*
+
+*You read it when you wake. You read it before you eat, and whenever the boiler comes on, because for half a second the boiler is the radio, and after that half-second you need to see your name.*
+
+*It always says the same thing. You keep expecting a number instead, or UNCOOPERATIVE, which is what they wrote next to you in the other building.*
+
+**Misaki:** 
+- *tier 0:* (still me.)
+- *tier 1:* (still says misaki. ok.)
+- *tier 2:* (It still says Misaki. Okay.)
+- *tier 3:* (It still says Misaki. Spelled right and everything. Somebody in this house can spell me, which is more than the school ever managed.)
+
+**Misaki — choice:** *(The band.)*
+
+▸ **Read it again.**
+
+> *You read your name, then the date, then your name again, to check it didn’t change while you were reading the date.*
+>
+> *When V knocks you have your sleeve pulled down over it, and you tell him you were doing a crossword in your head. Seven down was “wristband”. You are very pleased with it.*
+>
+▸ **Pull your sleeve down over it.**
+
+> *You pull the cuff of his shirt down over it.*
+>
+> *For the rest of the afternoon your thumb goes under the cuff every few minutes to find the edge of the plastic, and you only notice it doing that on about one time in five.*
+>
+Ask him to cut it off.
+
+then you couldn’t check
+
+#### Her head, clear (Misaki)
+
+> Misaki POV, once she knows the room and the shatter has happened: one a day through the hub, after kc61’s and kc62’s scene for that day.
+
+*You test your head the way you would test a rifle somebody else has had their hands on, with questions only you know the answers to.*
+
+*What was in the biscuit tin when the flight school said no? Four thousand one hundred and twelve dollars. Where did you come at regionals, at eleven? Third. Nine hundred metres with the old scope? Four clicks up.*
+
+*You get all of them. An hour later you ask them again, in case.*
+
+- *if `k63SA()`:* *There are hours the questions don’t go near. You set them round those hours like a fence, and walk the fence.*
+- *otherwise:* *There is a van the questions don’t go near. You set them round it like a fence, and walk the fence.*
+
+**Misaki:** 
+- *tier 0:* (4112. third. 4 up.)
+- *tier 1:* (4112. third. four up. still here.)
+- *tier 2:* (Four thousand one hundred and twelve. Third. Four clicks. I’m still in here.)
+- *tier 3:* (Four thousand one hundred and twelve, third, four clicks up. All correct. I’m still in here. I’ll check again at four.)
+
+**Misaki — choice:** *(The questions.)*
+
+▸ **Ask one you might get wrong.**
+
+> *You ask yourself what day the van was. You get Thursday, then Wednesday, and then you can’t tell which of them you made up.*
+>
+> *You go back to the tin. Four thousand one hundred and twelve. That one has never moved, and you say it over until your mouth is dry.*
+>
+▸ **Stop while you’re ahead.**
+
+> *You stop. When V knocks with the soup you tell him you have been doing mental arithmetic for fun, and he believes you, because you used to.*
+>
+Ask V if your answers are right.
+
+what if they aren’t
+
+*There is a high note in the room tonight. It might be the pump on the drip stand, or the lamp, or the inside of your own ears.*
+
+*The pump’s little green screen says nothing is wrong. A minute later you check it again. You put your good ear to the pump, then to the lamp, then to the pillow, and the note is exactly as loud in each place.*
+
+*In the corridor a hound’s claws tick on the lino. Your whole body has gone rigid before you know what the sound was, and it stays rigid long after your head has caught up and is telling it so.*
+
+**Misaki:** 
+- *tier 0:* (hound. stand down.)
+- *tier 1:* (it’s a hound. stand DOWN.)
+- *tier 2:* (It’s a hound. Stand down. It’s one of his.)
+- *tier 3:* (That was a hound. One of his, going for water. I know her claws. Stand down. I said stand down, you stupid body.)
+
+**Misaki — choice:** *(The note.)*
+
+▸ **Count your heartbeats instead.**
+
+> *You count the gaps between your own heartbeats, which are at least yours. Some time after midnight the note stops, or you stop hearing it. At three it starts again.*
+>
+▸ **Sleep with your hand on the pump.**
+
+> *You sleep with the pillow over your head and your right hand flat on the pump, so that if it changes you will feel it. In the morning your hand is still there, and cold.*
+>
+Ask V if he can hear it.
+
+then he’d know you can’t tell
+
 ### 3.2 The infirmary phone threads
 
 #### Thread: Misaki and V (tx\_kd\_help)
@@ -3793,6 +3889,28 @@ V’s infirmary on sublevel two, behind a door marked LAUNDRY. In Misaki’s POV
 > *She practises her signature on the back of a soup label with her right hand for an hour. It looks like a child’s. She keeps going until it looks like hers.*
 >
 
+#### From the doorway (V)
+
+> V POV, once she knows him: one a day through the hub, after kc61’s and kc62’s.
+
+*The first day she knows him, he watches her go back through the days.*
+
+*He can see it from the doorway. He kneels to put the tray down, as he has every day, and her eyes go to his knee on the lino and stay there, and something crosses her face and is put away. He hands her the spoon, and the same thing happens. When she thanks him he says “you are welcome”, and she shuts her eyes for a second.*
+
+**V:** (She is taking each thing I did while she did not know me and finding me in it. I cannot do that for her, and I cannot make there be fewer of them.)
+
+*He goes out and sits down in the corridor, where he sat on all the other days.*
+
+*In the afternoon, through the door, she is saying numbers under her breath. Four thousand one hundred and twelve. Third. Four clicks.*
+
+*An hour later she says them again in the same order, at the same speed, like a check before a shot.*
+
+*He knows the first one. It was in a biscuit tin, a long time ago, and it was going to be flight school.*
+
+**V:** (She is making sure that she is still in there, with things only she would know. She gets them right, and an hour later she checks again.)
+
+*He does not knock until she has finished. He writes nothing down.*
+
 ### 3.4 The extended delusion
 
 > Severity 4+ gives one extra day in the cell, 6+ two. On those mornings the room is a cell again, whatever she worked out the day before.
@@ -4030,6 +4148,120 @@ V’s infirmary on sublevel two, behind a door marked LAUNDRY. In Misaki’s POV
 **V:** (She thinks that I am the guard, and she drinks from the left side of my cup.)
 
 *He sits down on the floor outside the door with the other green mug, the one with no chip, and drinks from the left as well, so that it will be the same.*
+
+#### Her head, extended (Misaki)
+
+> Misaki POV, extended delusion (not the worst route), while it is a cell: one a day through the hub.
+
+*Here is what you can’t get past. Yesterday, for most of a day, you believed you were in a house. You ate the soup. You let a hound lie on your feet. You were happy in it.*
+
+*So one of the two days was your head building a room round you, and you can’t tell which. If it can build a house that well, it can build bars.*
+
+*You look at the bars, and they look like bars. Your head has never lied to you before. You have searched every room you were ever put in, and you have no way to pat this one down.*
+
+**Misaki:** 
+- *tier 0:* (which one.)
+- *tier 1:* (which one was real. which ONE.)
+- *tier 2:* (Which one was real? Yesterday, or this?)
+- *tier 3:* (Which one was it. The house or this. I can’t check my own head for wires. I can’t get behind it to look.)
+
+**Misaki — choice:** *(Yesterday.)*
+
+▸ **Hold on to yesterday.**
+
+> *You hold on to the house: the island, the cereal, the hounds at five. You hold it so hard that by the afternoon you can’t tell whether you are remembering it or making it, and you put it down.*
+>
+▸ **Let yesterday go. Believe the bars.**
+
+> *You decide on the bars, because the worse one has always turned out to be the true one. For about an hour your hands stop shaking.*
+>
+Ask the tall one which one is real.
+
+he would lie either way
+
+*You work out the order before they come again, so that it will be yours and not the needle’s.*
+
+*If they come they will ask about people. Last time you gave them things without knowing you had. This time you will decide first: who they get, and in what order, and how much about each.*
+
+*It takes all afternoon. The worst part is that it has an order at all, that your head can rank them, quite calmly, by who would forgive you fastest.*
+
+**Misaki:** 
+- *tier 0:* (ronin first. he’d get it.)
+- *tier 1:* (ronin first, he’d laugh. angel second. not V. never V.)
+- *tier 2:* (Ronin first; he’d understand. Angel second. V nowhere. They don’t get V.)
+- *tier 3:* (Ronin first, because he’d understand and then he’d kill them. Angel second, because she’d forgive me before I finished asking. V nowhere on it. They don’t get V, whatever they do.)
+
+**Misaki — choice:** *(The order.)*
+
+▸ **Put yourself at the top.**
+
+> *You cross them all out and put your own name first, and under it your own name again, all the way down. Whatever they want, they can have it out of you.*
+>
+> *You go to sleep on that. It is the first real sleep in two days.*
+>
+▸ **Leave it as it is.**
+
+> *You leave it. You go over it until you know it like a phone number, and you hate the girl who wrote it, and you go over it again at night in case you need it.*
+>
+it’s in your head. there’s nothing to tear
+
+#### The list through the door (V)
+
+> V POV, extended delusion, while she does not know him: once.
+
+*At four in the afternoon she is talking to herself on the far side of the door, low and businesslike, in the voice she uses to price a job.*
+
+*It is names. Ronin, then Angel, in that order, and what she could give about each of them, and how much.*
+
+*His name is not on it. He listens for it twice through.*
+
+*The third time through she stops, and begins again with her own name, and then her own name again, and nothing else.*
+
+**V:** (She is deciding whom to give them, so that the needle cannot decide it. She has left me off, and put herself on in my place.)
+
+*He sits with his back to the door until the list stops.*
+
+#### It comes back without breaking
+
+> Misaki POV, extended delusion: the first hub after clarity comes back on an extra day (no shatter this time).
+
+*It comes back without breaking, this time. Nothing cracks and nothing falls. The bulb is a lamp again, as a word comes back that was on the tip of your tongue, and you can’t remember not knowing it.*
+
+*You don’t trust it. You had a whole room yesterday and woke up in the other one.*
+
+*So you keep very still inside it, as if you were standing on ice.*
+
+**Misaki:** 
+- *tier 0:* (don’t move.)
+- *tier 1:* (don’t move. don’t look at it hard.)
+- *tier 2:* (Don’t move. Don’t look at it too hard or it goes.)
+- *tier 3:* (Don’t move. Don’t look straight at it. Last time I looked straight at it, it went, and I was back in there by breakfast.)
+
+**Misaki — choice:** *(The lamp.)*
+
+▸ **Say the date out loud.**
+
+> *You say it to the lamp. He told you it through the door this morning. You say it again at noon and at four, like a reading off a gauge, and it stays the same date.*
+>
+▸ **Don’t believe it yet.**
+
+> *You eat the soup as a guard’s soup and lie on the bed as if it were a cot, in case, so that it can’t be taken off you twice.*
+>
+Tell V it’s back.
+
+not till it stays
+
+#### The date at intervals (V)
+
+> V POV, extended delusion: the first day she knows him again.
+
+*She knows him again by the afternoon. It comes back to her slowly this time, and she holds it very carefully, as though it could be taken away.*
+
+*She hardly moves. She eats his soup, looks at the lamp, and says the date to herself at intervals, like a reading off a gauge.*
+
+**V:** (The last time she knew me, it went in the night. She remembers that better than I do.)
+
+*He does not go in. He says the date through the door at noon, and again at four, in the same words, so that it will match.*
 
 ### 3.5 The file: V read as one of them
 
@@ -4392,7 +4624,7 @@ For the hounds.
 
 #### kd\_delivered
 
-> Plays when: day 2+ after discharge, flag kdBye set. Aftermath order: 6 of 104.
+> Plays when: day 2+ after discharge, flag kdBye set. Aftermath order: 8 of 107.
 
 - *if Misaki POV:* *Angel is strange with you at lunch. She keeps touching your arm. Ronin comes by at three with nothing to say and stays until nine.*
 - *otherwise:* *He delivers them the morning she comes upstairs, in person, word for word, standing in a doorway each time, the way you would deliver news of a death.*
@@ -4752,6 +4984,75 @@ For the hounds.
 
 **V:** (Tonight I will put two rolls on the tray. She will push both of them under the door. I will still put two.)
 
+#### Her head, worst (Misaki)
+
+> Misaki POV, worst route, still deluded: one a day, after that day’s state-of-mind scene.
+
+*Two fingers on the inside of your right wrist, all day. Your pulse is the one instrument in the room you trust. Nobody brought it in on a tray.*
+
+*You count it for a minute and get a number. You count it again and get a different one. You decide to stop when you get the same number three times running.*
+
+*You never get it three times. By the evening your two fingers have left a dent, and you can’t remember what the first number was.*
+
+*When the tall one comes in with the tray you tell him you are taking your pulse for fun. It’s a hobby. Some people knit.*
+
+**Misaki:** 
+- *tier 0:* (98. 104. 91.)
+- *tier 1:* (ninety-eight. a hundred and four. ninety-one. again.)
+- *tier 2:* (Ninety-eight. A hundred and four. Ninety-one. Again.)
+- *tier 3:* (Ninety-eight. A hundred and four. Ninety-one. It can’t be all of those. One of them is lying, and I’m the only one counting. Again.)
+
+**Misaki — choice:** *(Again.)*
+
+▸ **Count again.**
+
+> *Eighty-eight, the lowest yet. You don’t believe it, so you count again.*
+>
+▸ **Take your fingers off.**
+
+> *You take them off and sit on the hand. Without the count the room gets bigger. Ten minutes later the fingers are back on your wrist, and you didn’t feel yourself put them there.*
+>
+Let it be whatever it is.
+
+you have to know
+
+*You say your name into the pillow, to hear it. Misaki. It sounds like a word from a language you learned off a tape.*
+
+*You say it louder. You can’t tell any more whether it is yours or something they called you in the other building.*
+
+*Through the door, the tall one says it back, low and even, as a hound is called in from a field. In his mouth it sounds more like you than it did in yours.*
+
+**Misaki:** 
+- *tier 0:* (don’t answer.)
+- *tier 1:* (don’t answer him. don’t.)
+- *tier 2:* (Don’t answer. That’s how they do it: they give you your own name back.)
+- *tier 3:* (Don’t answer. They take your name off you, and then they’re the only ones who say it right, and you start coming when they call.)
+
+**Misaki — choice:** *(He said it.)*
+
+▸ **Say it yourself until it fits.**
+
+> *You say it to the wall forty times. Around the thirtieth it stops meaning anything, and you lie there with the sound of it in your mouth and no girl attached to it.*
+>
+▸ **Push your face into the pillow until he stops.**
+
+> *He says it twice more, a long way apart, and then he stops. You wait for him to say it again for the rest of the night.*
+>
+
+#### Her name, forty times (V)
+
+> V POV, worst stay (severity 8+): once.
+
+*From the corridor he hears her say her own name. Then again, louder, as if she were testing a microphone.*
+
+*She says it forty times. He counts, because there is nothing else he can do with his hands.*
+
+*Twice he says it back, low, through the wood. Both times she stops, and the room goes very still, and then she starts again.*
+
+**V:** (My voice is in the wrong place. Anything I give her through this door goes into the cell with her.)
+
+*He stops answering. At forty she stops too. He writes “40” on the chart, and does not know why.*
+
 #### The five clues
 
 > Worst route (severity 8+, Misaki): the five things she can “think through”. Each is the spot it belongs to; each gives +3 composure. Four of them is the logic-out.
@@ -5062,7 +5363,7 @@ The night in the infirmary when the tall one was V, and he was listening. Neithe
 
 #### kd\_interrupted\_after
 
-> Plays when: flag kdInterrupted set, day 1+ after discharge. Aftermath order: 2 of 104.
+> Plays when: flag kdInterrupted set, day 1+ after discharge. Aftermath order: 2 of 107.
 
 **⟨If Misaki POV⟩**
 
@@ -5132,9 +5433,85 @@ The night in the infirmary when the tall one was V, and he was listening. Neithe
 > *You can see all of it. You can see exactly where you are. There is nothing left you can do with it.*
 >
 
+#### After the shatter: her body has not been told
+
+> Misaki POV, normal stays: right after the morning shatter lines and the bin.
+
+*The room is a room. Your body hasn’t been told.*
+
+*Your heart is still going at the speed it kept in the cell, and your right hand is still shut. Every few seconds your eyes go to the gap under the door to check it for feet.*
+
+*Then the days come back, all at once, and they have changed while you weren’t looking. Every time the tall one knelt, it was V kneeling. Every time you thanked the guard for the water in the voice from the slot, you were thanking V, and he said “you are welcome”, and went out, and sat down outside.*
+
+*You go through them one at a time, sitting on the floor, and each one turns over and has his face on the other side.*
+
+**⟨If `k63SA()`⟩**
+
+> *Under the floor of it there are still the hours from the other building. The break doesn’t reach that far down.*
+>
+**⟨Otherwise⟩**
+
+> *Under the cast the hand goes on throbbing at its own speed, the same as it did in the cell.*
+>
+**Misaki:** 
+- *tier 0:* (it was him.)
+- *tier 1:* (it was him. every time. it was him.)
+- *tier 2:* (It was him every time. I thanked him like he was one of them.)
+- *tier 3:* (It was V. Every soup. Every time I said thanks in that voice. He sat there and took it and said “you are welcome”, and I counted his steps.)
+
+**Misaki — choice:** *(The floor.)*
+
+▸ **Get up before he comes in.**
+
+> *You get up and sit on the bed with your legs crossed and your hair pushed back. When he knocks you say come in, and you sound completely normal, and your fist is under your thigh.*
+>
+▸ **Stay down there until your hands stop.**
+
+> *You stay on the floor. Your hands don’t stop. After an hour you get up anyway, because the lino is cold and the hands have no plans.*
+>
+not with this face
+
+#### After the logic or caught shatter: so sure
+
+> Misaki POV, worst route: the next hub after the logic or the caught shatter (variant by which).
+
+- *if flag kdInterrupted set:* *He let go of your wrists at six. Since then you have known where you are, completely.*
+- *otherwise:* *You worked it out, and opened the door, and he was there. Since then you have known where you are, completely.*
+
+*It came with everything else attached. Everything you said to the tall one. The sums you did about Friday, very calmly, in a clean bed in his house, while he read a yard away.*
+
+*You were so sure. You were sure enough to decide things. Your head did that by itself, and from the inside it felt exactly like being right.*
+
+**Misaki:** 
+- *tier 0:* (it was so sure.)
+- *tier 1:* (i was SURE. i was so sure.)
+- *tier 2:* (I was sure. I was completely sure, and I was wrong.)
+- *tier 3:* (I was so sure. I’d have bet my life on it. I nearly did. My own head did that, and it’s still in here with me, and I have to sleep next to it.)
+
+**Misaki — choice:** *(Your head.)*
+
+▸ **Lie down facing the door.**
+
+> *You lie down facing the door, as you have in every room of your life except that one. He is on the other side of it. You can hear the pages.*
+>
+▸ **Count what’s true.**
+
+> **Misaki:** 
+> - *tier 0:* (1 ironed. 2 his. 3 me.)
+> - *tier 1:* (one: ironed. two: his house. three: i’m in it.)
+> - *tier 2:* (One: the bed is ironed. Two: it’s his house. Three: I’m in it.)
+> - *tier 3:* (One: the bed is ironed. Two: it’s his house. Three: I’m in it. Four: there isn’t a four yet. Start again.)
+>
+> *You say them in order, and again, and you don’t get to four, because there isn’t a four you trust yet.*
+>
+Tell him what you’d decided.
+
+- *if flag kdInterrupted set:* he heard. you know he heard
+- *otherwise:* he can’t ever know
+
 #### kd\_shards
 
-> Plays when: day 1+ after discharge, stay severity 4+. Aftermath order: 1 of 104.
+> Plays when: day 1+ after discharge, stay severity 4+. Aftermath order: 1 of 107.
 
 **⟨If Misaki POV⟩**
 
@@ -5171,7 +5548,7 @@ Kidnapping aftermath — full story includes a strand about what may have been d
 
 #### kd\_ask
 
-> Plays when: day 1+ after discharge, flag kdCard set or flag kdCount set. Aftermath order: 19 of 104. Full-story setting only.
+> Plays when: day 1+ after discharge, flag kdCard set or flag kdCount set. Aftermath order: 22 of 107. Full-story setting only.
 
 I am required to ask you one question. I will ask it once a day until Saturday, and after Saturday I will stop, because the answer will no longer change what I can do.
 
@@ -5222,7 +5599,7 @@ I am required to ask you one question. I will ask it once a day until Saturday, 
 
 #### kd\_math
 
-> Plays when: day 1+ after discharge, flag kdCount set. Aftermath order: 20 of 104. Full-story setting only.
+> Plays when: day 1+ after discharge, flag kdCount set. Aftermath order: 23 of 107. Full-story setting only.
 
 **⟨If Misaki POV⟩**
 
@@ -5275,7 +5652,7 @@ I am required to ask you one question. I will ask it once a day until Saturday, 
 
 #### kd\_window
 
-> Plays when: day 2+ after discharge, flag kd_ask set. Aftermath order: 23 of 104. Full-story setting only.
+> Plays when: day 2+ after discharge, flag kd_ask set. Aftermath order: 26 of 107. Full-story setting only.
 
 The examination is only worth doing for a few more days. I want you to know there is a time limit, so that if you let it run out you are choosing that, and it is not just happening to you.
 
@@ -5323,7 +5700,7 @@ The examination is only worth doing for a few more days. I want you to know ther
 
 #### kd\_cup
 
-> Plays when: day 3+ after discharge, flag kd_ask set. Aftermath order: 24 of 104. Full-story setting only.
+> Plays when: day 3+ after discharge, flag kd_ask set. Aftermath order: 27 of 107. Full-story setting only.
 
 *There is a second paper cup on the tray this morning. Three small tablets and one large one. The label, in the doctor’s hand, says “as a precaution.” It does not say against what.*
 
@@ -5377,7 +5754,7 @@ The examination is only worth doing for a few more days. I want you to know ther
 
 #### kd\_bodymap
 
-> Plays when: day 2+ after discharge, flag kdChart set or flag kdChartV set. Aftermath order: 25 of 104. Full-story setting only.
+> Plays when: day 2+ after discharge, flag kdChart set or flag kdChartV set. Aftermath order: 28 of 107. Full-story setting only.
 
 *There is a page in the chart she hadn’t turned to. It is a printed outline of a person, front and back, with nothing on the face. The doctor has marked it in red biro, and numbered each mark, and the numbers match the photographs.*
 
@@ -5425,7 +5802,7 @@ The examination is only worth doing for a few more days. I want you to know ther
 
 #### kd\_photos
 
-> Plays when: day 3+ after discharge, flag kdChart set or flag kdChartV set or flag kdCount set. Aftermath order: 28 of 104. Full-story setting only.
+> Plays when: day 3+ after discharge, flag kdChart set or flag kdChartV set or flag kdCount set. Aftermath order: 31 of 107. Full-story setting only.
 
 **⟨If Misaki POV⟩**
 
@@ -5472,7 +5849,7 @@ The examination is only worth doing for a few more days. I want you to know ther
 
 #### kd\_clothes
 
-> Plays when: day 2+ after discharge, flag kd_math set. Aftermath order: 31 of 104. Full-story setting only.
+> Plays when: day 2+ after discharge, flag kd_math set. Aftermath order: 34 of 107. Full-story setting only.
 
 - *if Misaki POV:* *V has kept what she was wearing when she came out of that building. It is in a paper bag on the dryer, folded, with a note: “Yours to keep or burn.”*
 - *otherwise:* *He has kept what she was wearing, folded, in a paper bag. He should have burned it. He puts it on the dryer with a note and leaves the room before she comes in.*
@@ -5520,7 +5897,7 @@ The examination is only worth doing for a few more days. I want you to know ther
 
 #### kd\_exam
 
-> Plays when: day 2+ after discharge, flag kdCard set. Aftermath order: 32 of 104. Full-story setting only.
+> Plays when: day 2+ after discharge, flag kdCard set. Aftermath order: 35 of 107. Full-story setting only.
 
 *The doctor comes back with one more form. It is short. There is an examination she has not done, and it needs a signature either way.*
 
@@ -5577,7 +5954,7 @@ The examination is only worth doing for a few more days. I want you to know ther
 
 #### kd\_recount
 
-> Plays when: day 2+ after discharge, flag kd_math set. Aftermath order: 34 of 104. Full-story setting only.
+> Plays when: day 2+ after discharge, flag kd_math set. Aftermath order: 37 of 107. Full-story setting only.
 
 **⟨If Misaki POV⟩**
 
@@ -5612,7 +5989,7 @@ The examination is only worth doing for a few more days. I want you to know ther
 
 #### kd\_photodeny
 
-> Plays when: day 4+ after discharge, flag kd_photos set or flag kdPhotos set. Aftermath order: 35 of 104. Full-story setting only.
+> Plays when: day 4+ after discharge, flag kd_photos set or flag kdPhotos set. Aftermath order: 38 of 107. Full-story setting only.
 
 *The photographs again. Each one has a paper ruler along the bottom edge and a card with the date, the time, and a number. The doctor took them the first night, with a second person in the room to witness it, as the procedure says.*
 
@@ -5674,7 +6051,7 @@ The examination is only worth doing for a few more days. I want you to know ther
 
 #### kd\_results
 
-> Plays when: day 5+ after discharge, flag kd_cup set. Aftermath order: 37 of 104. Full-story setting only.
+> Plays when: day 5+ after discharge, flag kd_cup set. Aftermath order: 40 of 107. Full-story setting only.
 
 *An envelope comes from the laboratory, addressed to her, marked for the addressee only. It is the standard set of tests. The doctor ran them the first night, from blood she already had to take.*
 
@@ -5727,7 +6104,7 @@ The examination is only worth doing for a few more days. I want you to know ther
 
 #### kd\_vdoc
 
-> Plays when: day 3+ after discharge, V POV, flag kd_ask set. Aftermath order: 39 of 104. Full-story setting only.
+> Plays when: day 3+ after discharge, V POV, flag kd_ask set. Aftermath order: 42 of 107. Full-story setting only.
 
 Without her consent I can record only what is on the outside of her, and that she refused. I have done both. I cannot tell you what I think.
 
@@ -5750,7 +6127,7 @@ I am not permitted to answer that. I have done this work for twenty years, and I
 
 #### kd\_last
 
-> Plays when: Misaki POV, flag kd_window set, day 3+ after discharge. Aftermath order: 40 of 104. Full-story setting only.
+> Plays when: Misaki POV, flag kd_window set, day 3+ after discharge. Aftermath order: 43 of 107. Full-story setting only.
 
 *Saturday. V has taken all four hounds to the river, because she told him they were getting fat. The house is empty apart from the doctor, who has come to ask for the last time.*
 
@@ -5801,7 +6178,7 @@ After today it would not show, and I stop asking. So: once more.
 
 #### kd\_told\_box
 
-> Plays when: she told the doctor (hidden route), flag kdKit set. Aftermath order: 41 of 104. Full-story setting only.
+> Plays when: she told the doctor (hidden route), flag kdKit set. Aftermath order: 44 of 107. Full-story setting only.
 
 *The white box is gone from the infirmary fridge a day before its date. V notices the gap, and decides that the doctor must have wanted the shelf.*
 
@@ -5815,7 +6192,7 @@ After today it would not show, and I stop asking. So: once more.
 
 #### kd\_kitgone
 
-> Plays when: day 3+ after discharge, flag kdKit set, she has not told the doctor, (flag kd_last set or V POV). Aftermath order: 42 of 104. Full-story setting only.
+> Plays when: day 3+ after discharge, flag kdKit set, she has not told the doctor, (flag kd_last set or V POV). Aftermath order: 45 of 107. Full-story setting only.
 
 *The white box has gone from the bottom shelf of the infirmary fridge. The date on it was yesterday. Somebody has wiped the shelf.*
 
@@ -5830,7 +6207,7 @@ After today it would not show, and I stop asking. So: once more.
 
 #### kd\_wash
 
-> Plays when: day 3+ after discharge, flag kd_math set, Misaki POV. Aftermath order: 44 of 104. Full-story setting only.
+> Plays when: day 3+ after discharge, flag kd_math set, Misaki POV. Aftermath order: 47 of 107. Full-story setting only.
 
 *She has three washes: one for the job, one for the walk home, one for luck. Tonight she is on the fifth, and the water has gone cold, and she is still under it.*
 
@@ -5844,7 +6221,7 @@ After today it would not show, and I stop asking. So: once more.
 
 #### kd\_smell
 
-> Plays when: day 4+ after discharge, flag kd_math set. Aftermath order: 45 of 104. Full-story setting only.
+> Plays when: day 4+ after discharge, flag kd_math set. Aftermath order: 48 of 107. Full-story setting only.
 
 - *if Misaki POV:* *The man ahead of her in the corner shop queue is wearing a cologne. She doesn’t know it. Her stomach does.*
 - *otherwise:* *She is beside him in the corner shop queue when the man ahead of them turns round. He is nobody. He smells of some cologne.*
@@ -5863,7 +6240,7 @@ After today it would not show, and I stop asking. So: once more.
 
 #### kd\_notask
 
-> Plays when: day 4+ after discharge, flag kdAngelSees set or Angel friendship 2+. Aftermath order: 46 of 104. Full-story setting only.
+> Plays when: day 4+ after discharge, flag kdAngelSees set or Angel friendship 2+. Aftermath order: 49 of 107. Full-story setting only.
 
 **Angel:** babe. can i ask you one thing. just one, and then never again.
 
@@ -5880,7 +6257,7 @@ After today it would not show, and I stop asking. So: once more.
 
 #### kd\_vknows
 
-> Plays when: day 5+ after discharge, V POV, flag kd_math set. Aftermath order: 47 of 104. Full-story setting only.
+> Plays when: day 5+ after discharge, V POV, flag kd_math set. Aftermath order: 50 of 107. Full-story setting only.
 
 *He knows what the second page says. He has known for a week. She knows that he knows, and has arranged every conversation since so that it cannot come up.*
 
@@ -5906,7 +6283,7 @@ After today it would not show, and I stop asking. So: once more.
 
 #### kd\_slip
 
-> Plays when: day 4+ after discharge, flag kdHas set. Aftermath order: 48 of 104. Full-story setting only.
+> Plays when: day 4+ after discharge, flag kdHas set. Aftermath order: 51 of 107. Full-story setting only.
 
 *The four of them are at the table. Ronin is telling a story about a man who kept his radio on while he worked.*
 
@@ -5961,7 +6338,7 @@ After today it would not show, and I stop asking. So: once more.
 
 #### kd\_sleeptalk
 
-> Plays when: day 5+ after discharge, flag kd_math set, closeness tier 2+. Aftermath order: 49 of 104. Full-story setting only.
+> Plays when: day 5+ after discharge, flag kd_math set, closeness tier 2+. Aftermath order: 52 of 107. Full-story setting only.
 
 **⟨If Misaki POV⟩**
 
@@ -6022,7 +6399,7 @@ After today it would not show, and I stop asking. So: once more.
 
 #### kd\_shop
 
-> Plays when: day 5+ after discharge, flag kd_clothes set, Angel friendship 1+. Aftermath order: 55 of 104. Full-story setting only.
+> Plays when: day 5+ after discharge, flag kd_clothes set, Angel friendship 1+. Aftermath order: 58 of 107. Full-story setting only.
 
 *Angel takes her shopping. She had six pairs of shorts and wore them in February. She walks past the shorts.*
 
@@ -6041,7 +6418,7 @@ After today it would not show, and I stop asking. So: once more.
 
 #### kd\_dentist
 
-> Plays when: Act II or later, she has not told the doctor, flag kdRes set, day 10+ after discharge. Aftermath order: 73 of 104. Full-story setting only.
+> Plays when: Act II or later, she has not told the doctor, flag kdRes set, day 10+ after discharge. Aftermath order: 76 of 107. Full-story setting only.
 
 *The kitchen calendar says “dentist” today, in his handwriting. It is the six-week date.*
 
@@ -6095,7 +6472,7 @@ After today it would not show, and I stop asking. So: once more.
 
 #### kd\_told\_dentist
 
-> Plays when: she told the doctor (hidden route), Act II or later, flag kdRes set, day 10+ after discharge. Aftermath order: 74 of 104. Full-story setting only.
+> Plays when: she told the doctor (hidden route), Act II or later, flag kdRes set, day 10+ after discharge. Aftermath order: 77 of 107. Full-story setting only.
 
 *The calendar says “dentist.” She drives herself, goes up the stairs above the pharmacy, and gives her own name at the desk.*
 
@@ -6107,7 +6484,7 @@ After today it would not show, and I stop asking. So: once more.
 
 #### kd\_told\_sleep
 
-> Plays when: she told the doctor (hidden route), Act II or later, day 8+ after discharge. Aftermath order: 75 of 104. Full-story setting only.
+> Plays when: she told the doctor (hidden route), Act II or later, day 8+ after discharge. Aftermath order: 78 of 107. Full-story setting only.
 
 *She sleeps six hours and tells people six.*
 
@@ -6115,7 +6492,7 @@ After today it would not show, and I stop asking. So: once more.
 
 #### kd\_later
 
-> Plays when: day 9+ after discharge, Act II or later, denial 3+. Aftermath order: 76 of 104. Full-story setting only.
+> Plays when: day 9+ after discharge, Act II or later, denial 3+. Aftermath order: 79 of 107. Full-story setting only.
 
 - *if Misaki POV:* *It has been weeks. She hasn’t said it, and by now there is a way of walking round it that she does without thinking, like the low beam in the trailer.*
 - *otherwise:* *It has been weeks. She has not said it. She goes round it the way she goes round the low beam in her trailer, without looking.*
@@ -6564,7 +6941,7 @@ The small fridge
 
 #### kd\_rec\_list
 
-> Plays when: day 1+ after discharge. Aftermath order: 10 of 104. Injuries-only setting only.
+> Plays when: day 1+ after discharge. Aftermath order: 13 of 107. Injuries-only setting only.
 
 - *if Misaki POV:* *V asks how she is. She tells him, in order, the way she would report a job.*
 - *otherwise:* *He asks how she is. She tells him, in order, the way she reports a job.*
@@ -6588,7 +6965,7 @@ The small fridge
 
 #### kd\_rec\_stitches
 
-> Plays when: day 2+ after discharge. Aftermath order: 11 of 104. Injuries-only setting only.
+> Plays when: day 2+ after discharge. Aftermath order: 14 of 107. Injuries-only setting only.
 
 - *if Misaki POV:* *The scalp stitches are ready. She takes them out herself in the bathroom with nail scissors and tweezers, by feel, in about four minutes.*
 - *otherwise:* *He finds her in the bathroom with nail scissors, taking out her own scalp stitches by feel. She has done eleven of the fourteen.*
@@ -6640,7 +7017,7 @@ The small fridge
 
 #### kd\_rec\_ronin
 
-> Plays when: day 2+ after discharge, Ronin friendship 1+. Aftermath order: 12 of 104. Injuries-only setting only.
+> Plays when: day 2+ after discharge, Ronin friendship 1+. Aftermath order: 15 of 107. Injuries-only setting only.
 
 **Ronin:** Brought you a get-well basket. Vet painkillers, three beers, a cookie shaped like a crowbar. Don’t cha cry.
 
@@ -6666,7 +7043,7 @@ The small fridge
 
 #### kd\_rec\_angel
 
-> Plays when: day 3+ after discharge, Angel friendship 1+. Aftermath order: 13 of 104. Injuries-only setting only.
+> Plays when: day 3+ after discharge, Angel friendship 1+. Aftermath order: 16 of 107. Injuries-only setting only.
 
 *Angel cuts her hair around the shaved patch, so that it looks like she meant it.*
 
@@ -6690,7 +7067,7 @@ The small fridge
 
 #### kd\_rec\_vpins
 
-> Plays when: day 3+ after discharge. Aftermath order: 14 of 104. Injuries-only setting only.
+> Plays when: day 3+ after discharge. Aftermath order: 17 of 107. Injuries-only setting only.
 
 *The pins come out. V does it on the kitchen island with a pair of pliers he boiled, because he has taken pins out of hounds and the procedure is the same.*
 
@@ -6704,7 +7081,7 @@ The small fridge
 
 #### kd\_rec\_eat
 
-> Plays when: day 4+ after discharge. Aftermath order: 15 of 104. Injuries-only setting only.
+> Plays when: day 4+ after discharge. Aftermath order: 18 of 107. Injuries-only setting only.
 
 *She is seven kilos down. V cooks four times a day, small, and leaves it where she will pass it.*
 
@@ -6719,7 +7096,7 @@ The small fridge
 
 #### kd\_rec\_job
 
-> Plays when: day 6+ after discharge, Misaki POV. Aftermath order: 16 of 104. Injuries-only setting only.
+> Plays when: day 6+ after discharge, Misaki POV. Aftermath order: 19 of 107. Injuries-only setting only.
 
 *First contract since. One hand and a boot. She sets up on a roof she knows, with the rifle on a bag because she can’t hold the fore-end.*
 
@@ -6787,7 +7164,7 @@ Once she is out of the infirmary the scheduler (kc35) plays the next due scene e
 
 #### kd\_discharge
 
-> Plays when: flag kdNoteDue set. Aftermath order: 3 of 104. Full-story setting only (cut from injuries-only).
+> Plays when: flag kdNoteDue set. Aftermath order: 3 of 107. Full-story setting only (cut from injuries-only).
 
 *The doctor leaves a discharge note on the kitchen table, one page.*
 
@@ -6822,7 +7199,7 @@ Once she is out of the infirmary the scheduler (kc35) plays the next due scene e
 
 #### kd61\_home
 
-> Plays when: day 0+ after discharge. Aftermath order: 4 of 104.
+> Plays when: day 0+ after discharge. Aftermath order: 4 of 107.
 
 **⟨If Misaki POV⟩**
 
@@ -6855,9 +7232,105 @@ Once she is out of the infirmary the scheduler (kc35) plays the next due scene e
 > > *In the hall he takes the one clean trainer from beside the front door and puts it in the cupboard under the stairs, so that she will not have to see that there is only one.*
 > >
 
+#### kd63\_boots
+
+> Plays when: day 1+ after discharge. Aftermath order: 5 of 107.
+
+**⟨If Misaki POV⟩**
+
+> *The first nights upstairs you sleep in your boots.*
+>
+> *Laced and double-knotted, under his duvet, with your jeans on and your phone in the back pocket. If they come, you will not be the girl with one shoe on the cell floor again.*
+>
+> *You know nobody is coming. Your feet haven’t been told.*
+>
+> *You tell him it’s a trailer thing; the floor there is freezing. He has stood on that floor in summer, and he lets it go.*
+>
+> **Misaki:** 
+> - *tier 0:* (boots on. good.)
+> - *tier 1:* (boots on. if they come i run.)
+> - *tier 2:* (Boots on. If they come, I can run.)
+> - *tier 3:* (Boots on. Knots doubled. If they come I can run on a broken foot, as long as it’s in a boot. I’ve done the maths.)
+>
+> **Misaki — choice:** *(The boots.)*
+>
+> ▸ **Keep them on.**
+>
+> > *You keep them on. In the morning there is mud from the garage on his sheets. He changes them without a word and stands your boots by the bed for the next night, with the laces loosened.*
+> >
+> ▸ **Take them off. Stand them by the bed, laced.**
+>
+> > *You stand them by the bed with the laces open and the tongues pulled out, pointing at the door. At two you wake with one foot already in the left one.*
+> >
+> he’d be careful with you for ever
+>
+**⟨Otherwise (V POV)⟩**
+
+> *The first night upstairs he finds her asleep on her side of his bed fully dressed, under the duvet, in her boots, laced.*
+>
+> *In the morning she says it is a trailer habit; the floor there is freezing. He has stood on the trailer floor in summer.*
+>
+> **V:** (She is sleeping ready to run. She is doing it in my bed.)
+>
+> **V — choice:** *(Her boots.)*
+>
+> ▸ **Change the sheets. Say nothing.**
+>
+> > *He changes the sheets every morning. On the fourth he buys a second set, dark grey, so that the mud from the garage will not show and she will not have to see it.*
+> >
+> ▸ **Stand his own boots by the bed.**
+>
+> > *He stands his own boots by the bed, beside the place hers would go, laces open.*
+> >
+> > *She looks at them for a long time that night. In the morning hers are still on her feet, but she has turned his round so that they point at the door as well.*
+> >
+
+#### kd63\_alarms
+
+> Plays when: day 2+ after discharge. Aftermath order: 6 of 107.
+
+**⟨If Misaki POV⟩**
+
+> *You set alarms: one every forty minutes, from midnight to six, on vibrate, under your pillow.*
+>
+> *The rule from the other building holds when you are asleep. If you go under for too long, things happen that you don’t get to see. Forty minutes is as long as you think you can afford.*
+>
+> 
+> - *if `k63SA()`:* *You don’t think about why forty. It is a number you came up with in the dark, and you leave the reason where it is.*
+> - *otherwise:* *You picked forty because the radio in the other building did the jingle on the forty, and your body still keeps that time.*
+>
+> *Each time it buzzes you wake all at once, check the door and your hands, and lie back down. By morning you have woken nine times.*
+>
+> **Misaki:** 
+> - *tier 0:* (9. fine.)
+> - *tier 1:* (nine alarms. still here each time.)
+> - *tier 2:* (Nine alarms. I was still here every time.)
+> - *tier 3:* (Nine alarms. Nine checks, and I was in his bed every time, boots on. That’s a good night. That’s data.)
+>
+> **Misaki — choice:** *(The alarms.)*
+>
+> ▸ **Keep all of them.**
+>
+> > *You keep them. At breakfast you are bright and quick and make toast for both of you, and you drop the butter knife twice without noticing either time.*
+> >
+> ▸ **Turn off the three o’clock.**
+>
+> > *You turn off the three o’clock. At three you wake anyway, on the minute, without it, and lie there with your heart going until the four o’clock comes to tell you that you are allowed to be awake.*
+> >
+**⟨Otherwise (V POV)⟩**
+
+> *At night her phone buzzes under her pillow every forty minutes, from midnight to six. Each time she wakes all the way, lifts her head, looks at the door, and lies back down.*
+>
+> *He lies still and counts with her. Nine times.*
+>
+> **V:** (She has set a guard over herself. It is her, every forty minutes, all night.)
+>
+> *In the morning she is cheerful and makes toast, and drops the butter knife twice. He sets the coffee for five without mentioning the phone, so that it will be ready when she wakes for the last one.*
+>
+
 #### kd\_book
 
-> Plays when: kdBook not set, the notes man has been dealt with (list). Aftermath order: 5 of 104.
+> Plays when: kdBook not set, the notes man has been dealt with (list). Aftermath order: 7 of 107.
 
 **⟨Unless she said something under the needle⟩**
 
@@ -6964,11 +7437,11 @@ Once she is out of the infirmary the scheduler (kc35) plays the next due scene e
 > - *otherwise:* moved my stuff to ur garage. left them a fish hook where the key was :)
 >
 
-- *6. `kd_delivered` — printed in 3.6.*
+- *8. `kd_delivered` — printed in 3.6.*
 
 #### kd\_count
 
-> Plays when: day 1+ after discharge. Aftermath order: 7 of 104.
+> Plays when: day 1+ after discharge. Aftermath order: 9 of 107.
 
 Misaki cannot account for about [hours] hours of the [days] days she was held. The man who kept the notes could.
 
@@ -7017,7 +7490,7 @@ Misaki cannot account for about [hours] hours of the [days] days she was held. T
 
 #### kd61\_rent
 
-> Plays when: day 5+ after discharge. Aftermath order: 8 of 104.
+> Plays when: day 5+ after discharge. Aftermath order: 10 of 107.
 
 **⟨If `!me`, flag k61VPaid set⟩**
 
@@ -7072,7 +7545,7 @@ Misaki cannot account for about [hours] hours of the [days] days she was held. T
 
 #### kd62\_file
 
-> Plays when: day 3+ after discharge. Aftermath order: 9 of 104.
+> Plays when: day 3+ after discharge. Aftermath order: 11 of 107.
 
 **⟨If Misaki POV⟩**
 
@@ -7109,23 +7582,70 @@ Misaki cannot account for about [hours] hours of the [days] days she was held. T
 > *He goes back up without being seen. In the morning the margin has been torn off the paper, neatly, and she is cheerful at breakfast, and asks if he slept.*
 >
 
-- *10. `kd_rec_list` — printed in 3.11.*
+#### kd63\_card
 
-- *11. `kd_rec_stitches` — printed in 3.11.*
+> Plays when: day 4+ after discharge. Aftermath order: 12 of 107.
 
-- *12. `kd_rec_ronin` — printed in 3.11.*
+**⟨If Misaki POV⟩**
 
-- *13. `kd_rec_angel` — printed in 3.11.*
+> *Every morning in his bathroom, with the toothbrush in your mouth, you run the questions. The tin: four thousand one hundred and twelve. Regionals: third. Nine hundred metres with the old scope: four clicks up.*
+>
+> *On the sixth morning you get five clicks.*
+>
+> *You stand there with foam on your chin. Then you go down to the truck in his shirt and your boots, and find the dope card in the glovebox, in your own writing, and it says four.*
+>
+> *So your head moved a number while you slept and handed it back to you as if nothing had happened. You wonder what else it has moved that you don’t have a card for.*
+>
+> **Misaki:** 
+> - *tier 0:* (4. it’s 4.)
+> - *tier 1:* (four. it’s four. it was always four.)
+> - *tier 2:* (Four. It was always four. What else did it move?)
+> - *tier 3:* (Four. It was always four. I’ve dialled it a thousand times. What else has it moved, then? What else am I sure of that’s wrong?)
+>
+> **Misaki — choice:** *(The card.)*
+>
+> ▸ **Write everything you know on cards.**
+>
+> > *You buy a pack of index cards and write down everything you know for certain, one fact to a card, and keep them in the glovebox with a rubber band round them. Every morning you check one against your head.*
+> >
+> > *At breakfast you tell V you are learning a language. You do the accent.*
+> >
+> ▸ **Put it back. Go and finish your teeth.**
+>
+> > *You put it back and shut the glovebox, and go up and finish your teeth. At breakfast you tell V you are thinking about a new scope. When he asks why, you say four clicks for no reason and laugh at it.*
+> >
+> Tell V it moved.
+>
+> he’d look at you differently
+>
+**⟨Otherwise (V POV)⟩**
 
-- *14. `kd_rec_vpins` — printed in 3.11.*
+> *On the sixth morning she comes out of his bathroom with toothpaste on her chin, walks past him without a word, and goes down to the garage in his shirt and her boots.*
+>
+> *From the kitchen window he watches her sit in the truck with the glovebox open, reading a small card for a long time. Then she puts it back and comes up to finish brushing her teeth.*
+>
+> *At breakfast she says she is thinking of learning a language. She is very funny about it.*
+>
+> **V:** (She went down to check something against her own handwriting. I do not know what it was. I know that she did not like the answer.)
+>
 
-- *15. `kd_rec_eat` — printed in 3.11.*
+- *13. `kd_rec_list` — printed in 3.11.*
 
-- *16. `kd_rec_job` — printed in 3.11.*
+- *14. `kd_rec_stitches` — printed in 3.11.*
+
+- *15. `kd_rec_ronin` — printed in 3.11.*
+
+- *16. `kd_rec_angel` — printed in 3.11.*
+
+- *17. `kd_rec_vpins` — printed in 3.11.*
+
+- *18. `kd_rec_eat` — printed in 3.11.*
+
+- *19. `kd_rec_job` — printed in 3.11.*
 
 #### kd\_card
 
-> Plays when: day 2+ after discharge, flag kdCount set, closeness tier 1+. Aftermath order: 17 of 104. Full-story setting only (cut from injuries-only).
+> Plays when: day 2+ after discharge, flag kdCount set, closeness tier 1+. Aftermath order: 20 of 107. Full-story setting only (cut from injuries-only).
 
 *V’s doctor comes to the house with a clipboard: blood type, allergies, childhood illnesses, date of birth.*
 
@@ -7143,7 +7663,7 @@ Misaki cannot account for about [hours] hours of the [days] days she was held. T
 
 #### w59\_know
 
-> Plays when: one of the list men was glimpsed before the van. Aftermath order: 18 of 104.
+> Plays when: one of the list men was glimpsed before the van. Aftermath order: 21 of 107.
 
 **⟨If Misaki POV⟩**
 
@@ -7182,13 +7702,13 @@ Misaki cannot account for about [hours] hours of the [days] days she was held. T
 > - *tier 3:* Stop it. I waved at the driver. I took change from the water guy. If we’re doing blame I’m winning, so put the folder down and come and eat.
 >
 
-- *19. `kd_ask` — printed in 3.10.*
+- *22. `kd_ask` — printed in 3.10.*
 
-- *20. `kd_math` — printed in 3.10.*
+- *23. `kd_math` — printed in 3.10.*
 
 #### w59\_hale\_after
 
-> Plays when: day 2+ after discharge. Aftermath order: 21 of 104.
+> Plays when: day 2+ after discharge. Aftermath order: 24 of 107.
 
 *Inspector Hale comes to the house in daylight and stands on the step, because he hasn’t been asked in and won’t ask.*
 
@@ -7239,7 +7759,7 @@ Misaki cannot account for about [hours] hours of the [days] days she was held. T
 
 #### kd\_konbini
 
-> Plays when: day 1+ after discharge, Misaki POV. Aftermath order: 22 of 104. Full-story setting only (cut from injuries-only).
+> Plays when: day 1+ after discharge, Misaki POV. Aftermath order: 25 of 107. Full-story setting only (cut from injuries-only).
 
 *At the corner shop the clerk rings up her noodles, looks at her, and voids the sale. He pushes the bag across the counter with two fingers and looks at the cigarette display until she leaves.*
 
@@ -7251,15 +7771,15 @@ Misaki cannot account for about [hours] hours of the [days] days she was held. T
 
 *On the way out a child points at her and is turned around by the shoulders.*
 
-- *23. `kd_window` — printed in 3.10.*
+- *26. `kd_window` — printed in 3.10.*
 
-- *24. `kd_cup` — printed in 3.10.*
+- *27. `kd_cup` — printed in 3.10.*
 
-- *25. `kd_bodymap` — printed in 3.10.*
+- *28. `kd_bodymap` — printed in 3.10.*
 
 #### kd\_still\_relapse
 
-> Plays when: after discharge from the infirmary, day 4+ after discharge, stay severity 4+. Aftermath order: 26 of 104.
+> Plays when: after discharge from the infirmary, day 4+ after discharge, stay severity 4+. Aftermath order: 29 of 107.
 
 **⟨If Misaki POV⟩**
 
@@ -7286,7 +7806,7 @@ Misaki cannot account for about [hours] hours of the [days] days she was held. T
 
 #### kd\_blank
 
-> Plays when: day 3+ after discharge, kdKeep = undefined. Aftermath order: 27 of 104.
+> Plays when: day 3+ after discharge, kdKeep = undefined. Aftermath order: 30 of 107.
 
 *She is a few days out and the third session has already gone soft at the edges, the way everything before she was nine did. She knows the feeling. If she leaves the room alone for a month, it will be gone.*
 
@@ -7382,11 +7902,11 @@ Misaki let the room go blank. V has it now. One name on the list has nothing und
 - *tier 2:* (It’s quiet in here. I’m not going to ask what that cost.)
 - *tier 3:* (It’s quiet, and I slept. Somebody’s still carrying it, and it isn’t me. Sucks to be him.)
 
-- *28. `kd_photos` — printed in 3.10.*
+- *31. `kd_photos` — printed in 3.10.*
 
 #### kd\_angelsees
 
-> Plays when: day 1+ after discharge, Angel friendship 1+. Aftermath order: 29 of 104. Full-story setting only (cut from injuries-only).
+> Plays when: day 1+ after discharge, Angel friendship 1+. Aftermath order: 32 of 107. Full-story setting only (cut from injuries-only).
 
 *Angel comes through the door already talking and stops in the middle of a word.*
 
@@ -7402,7 +7922,7 @@ Misaki let the room go blank. V has it now. One name on the list has nothing und
 
 #### kd\_wrists
 
-> Plays when: day 2+ after discharge, in the after-phase. Aftermath order: 30 of 104. Full-story setting only (cut from injuries-only).
+> Plays when: day 2+ after discharge, in the after-phase. Aftermath order: 33 of 107. Full-story setting only (cut from injuries-only).
 
 *The wrist dressings are changed every morning. The cable ties went in a long way. On the left one there is a pale cord at the bottom of it that moves when she moves her thumb.*
 
@@ -7419,13 +7939,13 @@ Misaki let the room go blank. V has it now. One name on the list has nothing und
 - *if Misaki POV:* *She moves the thumb for the doctor on request, four times, and watches it work with real interest. It doesn’t occur to her that this ought to hurt.*
 - *otherwise:* *She moves the thumb on request and watches the cord slide, pleased with it. V finds he is holding the bed rail and lets go of it.*
 
-- *31. `kd_clothes` — printed in 3.10.*
+- *34. `kd_clothes` — printed in 3.10.*
 
-- *32. `kd_exam` — printed in 3.10.*
+- *35. `kd_exam` — printed in 3.10.*
 
 #### kd\_practice
 
-> Plays when: day 2+ after discharge, flag kdCount set. Aftermath order: 33 of 104.
+> Plays when: day 2+ after discharge, flag kdCount set. Aftermath order: 36 of 107.
 
 *About [hours] hours are gone and it bothers her less than it should, because she has had practice. Everything before she was nine is gone too, and she has never once gone looking for it.*
 
@@ -7490,13 +8010,13 @@ Misaki let the room go blank. V has it now. One name on the list has nothing und
 > > **V:** You first.
 > >
 
-- *34. `kd_recount` — printed in 3.10.*
+- *37. `kd_recount` — printed in 3.10.*
 
-- *35. `kd_photodeny` — printed in 3.10.*
+- *38. `kd_photodeny` — printed in 3.10.*
 
 #### kd\_home
 
-> Plays when: day 1+ after discharge, she has not moved in. Aftermath order: 36 of 104.
+> Plays when: day 1+ after discharge, she has not moved in. Aftermath order: 39 of 107.
 
 - *if Misaki POV:* *She goes back to the trailer. The fence post has been scrubbed. Somebody has raked the gravel, and she can tell from the rake marks that it was him.*
 - *otherwise:* *He has scrubbed the fence post and raked the gravel. She sees it in the first second and says nothing about it.*
@@ -7544,11 +8064,11 @@ Misaki let the room go blank. V has it now. One name on the list has nothing und
 > > - *tier 3:* Yeah. Three metres. And don’t say why to the tow guy, just say feng shui.
 > >
 
-- *37. `kd_results` — printed in 3.10.*
+- *40. `kd_results` — printed in 3.10.*
 
 #### kd\_vtable
 
-> Plays when: day 3+ after discharge, V POV, in the after-phase. Aftermath order: 38 of 104.
+> Plays when: day 3+ after discharge, V POV, in the after-phase. Aftermath order: 41 of 107.
 
 *The doctor needed a steel surface, a drain and a strong light to redo the hand. There is one in the house. It is his, downstairs, and he has taken a great many people apart on it.*
 
@@ -7583,17 +8103,17 @@ Misaki let the room go blank. V has it now. One name on the list has nothing und
 > - *tier 3:* Huh. So I’m the only one who ever got up off it. That’s— I’m choosing to find that romantic. Don’t say anything.
 >
 
-- *39. `kd_vdoc` — printed in 3.10.*
+- *42. `kd_vdoc` — printed in 3.10.*
 
-- *40. `kd_last` — printed in 3.10.*
+- *43. `kd_last` — printed in 3.10.*
 
-- *41. `kd_told_box` — printed in 3.10.*
+- *44. `kd_told_box` — printed in 3.10.*
 
-- *42. `kd_kitgone` — printed in 3.10.*
+- *45. `kd_kitgone` — printed in 3.10.*
 
 #### kd\_pins
 
-> Plays when: in the after-phase, day 4+ after discharge. Aftermath order: 43 of 104. Full-story setting only (cut from injuries-only).
+> Plays when: in the after-phase, day 4+ after discharge. Aftermath order: 46 of 107. Full-story setting only (cut from injuries-only).
 
 *The pins come out today. There is a pair of pliers for it. There is no sedation, because of how she reacts, and the local only does the skin.*
 
@@ -7654,21 +8174,21 @@ I need the hand flat and still for about two minutes. You may shout. You may not
 > > <small>(then the same passage as above)</small>
 > >
 
-- *44. `kd_wash` — printed in 3.10.*
+- *47. `kd_wash` — printed in 3.10.*
 
-- *45. `kd_smell` — printed in 3.10.*
+- *48. `kd_smell` — printed in 3.10.*
 
-- *46. `kd_notask` — printed in 3.10.*
+- *49. `kd_notask` — printed in 3.10.*
 
-- *47. `kd_vknows` — printed in 3.10.*
+- *50. `kd_vknows` — printed in 3.10.*
 
-- *48. `kd_slip` — printed in 3.10.*
+- *51. `kd_slip` — printed in 3.10.*
 
-- *49. `kd_sleeptalk` — printed in 3.10.*
+- *52. `kd_sleeptalk` — printed in 3.10.*
 
 #### kd\_parcel
 
-> Plays when: day 3+ after discharge. Aftermath order: 50 of 104.
+> Plays when: day 3+ after discharge. Aftermath order: 53 of 107.
 
 *A parcel comes with no return address. Inside is a ring box, and in the ring box is her star clip, cleaned.*
 
@@ -7713,7 +8233,7 @@ I need the hand flat and still for about two minutes. You may shout. You may not
 
 #### kd\_roncrow
 
-> Plays when: day 3+ after discharge, Ronin friendship 1+, a name is left on the list. Aftermath order: 51 of 104.
+> Plays when: day 3+ after discharge, Ronin friendship 1+, a name is left on the list. Aftermath order: 54 of 107.
 
 **Ronin:** So there’s a list. Vee showed me. Real neat handwriting, like a fuckin’ wedding invite.
 
@@ -7754,7 +8274,7 @@ I need the hand flat and still for about two minutes. You may shout. You may not
 
 #### kd\_vod
 
-> Plays when: day 2+ after discharge, Misaki POV, Angel friendship 1+. Aftermath order: 52 of 104.
+> Plays when: day 2+ after discharge, Misaki POV, Angel friendship 1+. Aftermath order: 55 of 107.
 
 *She finds the stream from the Wednesday she was gone. Maria is in a cream cardigan, asking two million people for leads in a voice Misaki has never heard her use on anyone.*
 
@@ -7783,7 +8303,7 @@ I need the hand flat and still for about two minutes. You may shout. You may not
 
 #### kd\_bank
 
-> Plays when: day 3+ after discharge, Misaki POV, flag kdLoops set. Aftermath order: 53 of 104.
+> Plays when: day 3+ after discharge, Misaki POV, flag kdLoops set. Aftermath order: 56 of 107.
 
 *She goes to close her bank account, as promised. The branch plays the jingle in the lobby, on a loop, at a tasteful volume.*
 
@@ -7814,7 +8334,7 @@ I need the hand flat and still for about two minutes. You may shout. You may not
 
 #### kd\_jacket
 
-> Plays when: day 4+ after discharge, Angel friendship 1+. Aftermath order: 54 of 104.
+> Plays when: day 4+ after discharge, Angel friendship 1+. Aftermath order: 57 of 107.
 
 - *if Misaki POV:* *Angel reaches round from behind to help her out of her jacket. It is what Angel has done at every door for four years.*
 - *otherwise:* *Angel reaches round from behind to help her out of her jacket, as she always has.*
@@ -7836,11 +8356,11 @@ I need the hand flat and still for about two minutes. You may shout. You may not
 
 Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
-- *55. `kd_shop` — printed in 3.10.*
+- *58. `kd_shop` — printed in 3.10.*
 
 #### kd\_round
 
-> Plays when: kdRound = 1, day 3+ after discharge. Aftermath order: 56 of 104.
+> Plays when: kdRound = 1, day 3+ after discharge. Aftermath order: 59 of 107.
 
 *Angel says “the whole [days] days” on a voice note, in passing, and Misaki plays it four times.*
 
@@ -7927,13 +8447,13 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 > > > - *tier 3:* It was me. There’s nothing there when I look for it, and it was still me. Don’t be nice about it.
 > > >
 
-- *58. kd_knock2: the same scene as above, for the next thing she said*
+- *61. kd_knock2: the same scene as above, for the next thing she said*
 
-- *59. kd_knock3: the same scene as above, for the next thing she said*
+- *62. kd_knock3: the same scene as above, for the next thing she said*
 
 #### kd\_ronradio
 
-> Plays when: in the after-phase, day 3+ after discharge, flag kdRonCall set, the radio man is still on the list. Aftermath order: 60 of 104.
+> Plays when: in the after-phase, day 3+ after discharge, flag kdRonCall set, the radio man is still on the list. Aftermath order: 63 of 107.
 
 **Ronin:** So I went and found your radio fella. He had the bank song for a ringtone. Swear t’God.
 
@@ -7949,7 +8469,7 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
 #### kd\_ronmad
 
-> Plays when: in the after-phase, flag kdRonCall set, the radio man has been dealt with (list). Aftermath order: 61 of 104.
+> Plays when: in the after-phase, flag kdRonCall set, the radio man has been dealt with (list). Aftermath order: 64 of 107.
 
 **Ronin:** Heard the radio guy’s done. Heard it wasn’t me that did it.
 
@@ -7957,7 +8477,7 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
 #### kd\_reh\_fist
 
-> Plays when: kdGripN ≥ 6 or flag kdCast set. Aftermath order: 62 of 104.
+> Plays when: kdGripN ≥ 6 or flag kdCast set. Aftermath order: 65 of 107.
 
 **⟨If Misaki POV⟩**
 
@@ -7984,7 +8504,7 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
 #### kd\_reh\_dark
 
-> Plays when: day 4+ after discharge. Aftermath order: 63 of 104.
+> Plays when: day 4+ after discharge. Aftermath order: 66 of 107.
 
 **⟨If Misaki POV⟩**
 
@@ -8011,7 +8531,7 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
 #### kd\_reh\_rifle
 
-> Plays when: Misaki POV, day 5+ after discharge. Aftermath order: 64 of 104.
+> Plays when: Misaki POV, day 5+ after discharge. Aftermath order: 67 of 107.
 
 *First time on the range since. The rifle comes out of its case and it’s yours, it’s the one you know best in the world, and it feels like somebody else’s.*
 
@@ -8029,7 +8549,7 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
 #### kd\_reh\_adapt
 
-> Plays when: day 6+ after discharge, Angel friendship 1+, Ronin friendship 1+. Aftermath order: 65 of 104.
+> Plays when: day 6+ after discharge, Angel friendship 1+, Ronin friendship 1+. Aftermath order: 68 of 107.
 
 *Everyone has learned. That’s the worst part, if you had to choose one.*
 
@@ -8046,7 +8566,7 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
 #### kd\_reh\_perform
 
-> Plays when: day 7+ after discharge, closeness tier 1+. Aftermath order: 66 of 104.
+> Plays when: day 7+ after discharge, closeness tier 1+. Aftermath order: 69 of 107.
 
 **⟨If Misaki POV⟩**
 
@@ -8073,7 +8593,7 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
 #### kd\_reh\_laugh
 
-> Plays when: day 8+ after discharge, Ronin friendship 1+. Aftermath order: 67 of 104.
+> Plays when: day 8+ after discharge, Ronin friendship 1+. Aftermath order: 70 of 107.
 
 *Ronin tells the priest joke. It’s the first time since. Everybody goes still for a second, waiting, the way people wait to see if a dropped glass is going to break.*
 
@@ -8086,7 +8606,7 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
 #### kd\_reh\_who
 
-> Plays when: day 10+ after discharge. Aftermath order: 68 of 104.
+> Plays when: day 10+ after discharge. Aftermath order: 71 of 107.
 
 **⟨If Misaki POV⟩**
 
@@ -8111,7 +8631,7 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
 #### kd\_cast
 
-> Plays when: Act II or later, kdCast not set. Aftermath order: 69 of 104.
+> Plays when: Act II or later, kdCast not set. Aftermath order: 72 of 107.
 
 *The cast comes off. The hand under it is thinner than the other one, and there are two small round scars on the back of it where the pins were.*
 
@@ -8137,7 +8657,7 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
 #### kd\_bookout
 
-> Plays when: Act II or later, kdBook not set. Aftermath order: 70 of 104.
+> Plays when: Act II or later, kdBook not set. Aftermath order: 73 of 107.
 
 **⟨If not (she said something under the needle)⟩**
 
@@ -8164,7 +8684,7 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
 #### kd\_van
 
-> Plays when: Act II or later, kdKeep decided. Aftermath order: 71 of 104.
+> Plays when: Act II or later, kdKeep decided. Aftermath order: 74 of 107.
 
 *A grey van idles outside the corner shop with its side door open. She is on the roof of the bike shelter before the shop doors have finished closing behind her.*
 
@@ -8193,7 +8713,7 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
 #### kd\_hara
 
-> Plays when: Act II, Misaki POV. Aftermath order: 72 of 104.
+> Plays when: Act II, Misaki POV. Aftermath order: 75 of 107.
 
 **Hale:** One question, off the record. There are [days] days last month when nobody saw you. No purchases, no trains, no phone. Where were you?
 
@@ -8214,17 +8734,17 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 > *Angel uploads the “archive footage” within the hour. Hale watches forty minutes of a nail tutorial and closes the file.*
 >
 
-- *73. `kd_dentist` — printed in 3.10.*
+- *76. `kd_dentist` — printed in 3.10.*
 
-- *74. `kd_told_dentist` — printed in 3.10.*
+- *77. `kd_told_dentist` — printed in 3.10.*
 
-- *75. `kd_told_sleep` — printed in 3.10.*
+- *78. `kd_told_sleep` — printed in 3.10.*
 
-- *76. `kd_later` — printed in 3.10.*
+- *79. `kd_later` — printed in 3.10.*
 
 #### kd\_crash
 
-> Plays when: Act II or later, she has not told the doctor, denial 6+. Aftermath order: 77 of 104.
+> Plays when: Act II or later, she has not told the doctor, denial 6+. Aftermath order: 80 of 107.
 
 - *if Misaki POV:* *She goes down on the stairs at V’s. There is no warning. She is carrying a bowl, and then she is looking at the underside of the banister and the bowl is in four pieces.*
 - *otherwise:* *She goes down on the stairs with a bowl in her hand. He hears the bowl. He is there before it has stopped moving.*
@@ -8244,7 +8764,7 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
 #### kd\_crash2
 
-> Plays when: Act II or later, she has not told the doctor, denial 9+, flag kdCrash set, two days after the first collapse. Aftermath order: 78 of 104.
+> Plays when: Act II or later, she has not told the doctor, denial 9+, flag kdCrash set, two days after the first collapse. Aftermath order: 81 of 107.
 
 - *if Misaki POV:* *She is on a roof with a man in the scope, four hundred metres, no wind. Her finger does not close. She tells it to, and nothing happens, and he walks out of the frame with his coffee.*
 - *otherwise:* *She comes back from a job at noon with the rifle clean. It has not been fired. She has never once come back with it clean.*
@@ -8262,7 +8782,7 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
 #### kd\_march
 
-> Plays when: day 8+ after discharge, kdFile = 'open', Act II or later, Angel friendship 1+. Aftermath order: 79 of 104.
+> Plays when: day 8+ after discharge, kdFile = 'open', Act II or later, Angel friendship 1+. Aftermath order: 82 of 107.
 
 **Angel:** ok so. march. u picked the month when u were nine, which, iconic. but nobody ever picked a DAY.
 
@@ -8295,7 +8815,7 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
 #### kd\_checkup
 
-> Plays when: Act II or later, flag kdNote set. Aftermath order: 80 of 104. Full-story setting only (cut from injuries-only).
+> Plays when: Act II or later, flag kdNote set. Aftermath order: 83 of 107. Full-story setting only (cut from injuries-only).
 
 - *if `d>=6`:* *The doctor comes for the monthly check. Weight: up three kilos of the seven. Pulse at rest: 104.*
 - *otherwise:* *The doctor comes for the monthly check. Weight: up three kilos of the seven. Pulse at rest: 82.*
@@ -8314,7 +8834,7 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
 #### kd\_epi
 
-> Plays when: epilogue. Aftermath order: 81 of 104.
+> Plays when: epilogue. Aftermath order: 84 of 107.
 
 - *if flag kdCard set:* *The medical card is still in her wallet, behind the train pass. The date of birth on it says March, and she knows now who chose that.*
 - *otherwise:* *She still writes March on forms.*
@@ -8331,7 +8851,7 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
 #### kd\_v\_ledger
 
-> Plays when: V POV, day 3+ after discharge. Aftermath order: 82 of 104.
+> Plays when: V POV, day 3+ after discharge. Aftermath order: 85 of 107.
 
 *He keeps a ledger of her recovery in the same book he keeps the house accounts in, because it is the only book he trusts. Weight. Sleep. Composure, his estimate. Light off, in seconds.*
 
@@ -8343,7 +8863,7 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
 #### kd60\_vpage
 
-> Plays when: V POV, day 6+ after discharge. Aftermath order: 83 of 104.
+> Plays when: V POV, day 6+ after discharge. Aftermath order: 86 of 107.
 
 *He is looking for the vet’s number in the back of the house ledger and finds a page he wrote on the night before the river.*
 
@@ -8366,7 +8886,7 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
 #### kd\_v\_kitchen
 
-> Plays when: V POV, day 5+ after discharge. Aftermath order: 84 of 104.
+> Plays when: V POV, day 5+ after discharge. Aftermath order: 87 of 107.
 
 *Four in the morning. He is in the kitchen with the light off, because she sleeps badly with light coming under the door, and he cannot sleep at all.*
 
@@ -8378,7 +8898,7 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
 #### kd\_v\_nobody
 
-> Plays when: V POV, day 7+ after discharge, Ronin friendship 1+. Aftermath order: 85 of 104.
+> Plays when: V POV, day 7+ after discharge, Ronin friendship 1+. Aftermath order: 88 of 107.
 
 *Ronin asks him, on the roof, how he is doing. Nobody else has.*
 
@@ -8398,7 +8918,7 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
 #### kd\_v\_tally
 
-> Plays when: V POV, day 9+ after discharge. Aftermath order: 86 of 104.
+> Plays when: V POV, day 9+ after discharge. Aftermath order: 89 of 107.
 
 *He is cleaning the infirmary, finally, after. Under the bed, scratched into the floor near the wall with something small and sharp, there is a tally. Short lines, in groups of five.*
 
@@ -8408,7 +8928,7 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
 #### kd\_hard\_first
 
-> Plays when: day 8+ after discharge, Misaki POV. Aftermath order: 87 of 104.
+> Plays when: day 8+ after discharge, Misaki POV. Aftermath order: 90 of 107.
 
 *You decide, one morning, very clearly, the way you decide on a roof: you are not going to be less.*
 
@@ -8424,7 +8944,7 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
 #### kd\_hard\_work
 
-> Plays when: day 10+ after discharge, Misaki POV. Aftermath order: 88 of 104.
+> Plays when: day 10+ after discharge, Misaki POV. Aftermath order: 91 of 107.
 
 *You’re better than you were. That’s the frightening thing. Quicker on the setup, colder on the trigger, nothing wasted. You don’t talk to them any more before. You used to talk to them, do a bit, call them sugar. Now you just do it.*
 
@@ -8438,7 +8958,7 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
 #### kd\_hard\_angel
 
-> Plays when: day 11+ after discharge, Angel friendship 1+. Aftermath order: 89 of 104.
+> Plays when: day 11+ after discharge, Angel friendship 1+. Aftermath order: 92 of 107.
 
 **Angel:** babe. you took the job on the man with the kid. you never take those. you have a rule.
 
@@ -8459,7 +8979,7 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
 #### kd60\_rule
 
-> Plays when: day 4+ after discharge, Angel friendship 1+, Ronin friendship 1+. Aftermath order: 90 of 104.
+> Plays when: day 4+ after discharge, Angel friendship 1+, Ronin friendship 1+. Aftermath order: 93 of 107.
 
 *The first Sunday since. Nobody has put anybody on the table. They are eating takeaway out of the cartons, and the hounds are under it.*
 
@@ -8504,7 +9024,7 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
 #### kd60\_wr
 
-> Plays when: day 6+ after discharge, stay severity 8+, Angel friendship 1+, Ronin friendship 1+. Aftermath order: 91 of 104.
+> Plays when: day 6+ after discharge, stay severity 8+, Angel friendship 1+, Ronin friendship 1+. Aftermath order: 94 of 107.
 
 *Late, on V’s roof. Ronin has brought beer nobody is drinking.*
 
@@ -8541,7 +9061,7 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
 #### kd\_v\_sees
 
-> Plays when: V POV, day 10+ after discharge. Aftermath order: 92 of 104.
+> Plays when: V POV, day 10+ after discharge. Aftermath order: 95 of 107.
 
 *She took three contracts this week. She came back from all three without a mark on her and without a word, and ate, and went to bed at nine, and slept, which she has not done since.*
 
@@ -8584,7 +9104,7 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
 #### kd62\_truck
 
-> Plays when: day 11+ after discharge, `S.pov!=='v'?!!S.f.kd_hard_work:!!S.f.kd_v_sees`. Aftermath order: 93 of 104.
+> Plays when: day 11+ after discharge, `S.pov!=='v'?!!S.f.kd_hard_work:!!S.f.kd_v_sees`. Aftermath order: 96 of 107.
 
 **⟨If Misaki POV⟩**
 
@@ -8621,7 +9141,7 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
 #### kd\_hard\_rule
 
-> Plays when: day 12+ after discharge, Misaki POV. Aftermath order: 94 of 104.
+> Plays when: day 12+ after discharge, Misaki POV. Aftermath order: 97 of 107.
 
 *A man on his knees in a car park. He has a kid’s car seat in the back of his car. You see it. You used to have a thing about car seats: you’d pass, or wait, or do it somewhere the kid would never have to see.*
 
@@ -8637,7 +9157,7 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
 #### kd\_v\_cant
 
-> Plays when: V POV, day 14+ after discharge, flag kd_v_sees set. Aftermath order: 95 of 104.
+> Plays when: V POV, day 14+ after discharge, flag kd_v_sees set. Aftermath order: 98 of 107.
 
 *She comes home at three in the morning from a job and walks past him in the kitchen without seeing him, and washes her hands once. Once. She used to wash them three times: one for the job, one for the walk home, one for luck.*
 
@@ -8649,7 +9169,7 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
 #### k58\_creak
 
-> Plays when: day 3+ after discharge. Aftermath order: 96 of 104.
+> Plays when: day 3+ after discharge. Aftermath order: 99 of 107.
 
 `his` The seventh step goes. The seventh step means V. It has meant V every night since you asked it to, and you’ve slept through it fifty times.
 
@@ -8736,7 +9256,7 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
 #### kd62\_clock
 
-> Plays when: day 6+ after discharge, flag k58_creak set. Aftermath order: 97 of 104.
+> Plays when: day 6+ after discharge, flag k58_creak set. Aftermath order: 100 of 107.
 
 **⟨If Misaki POV⟩**
 
@@ -8787,7 +9307,7 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
 #### k58\_pages
 
-> Plays when: day 6+ after discharge, flag k58_creak set. Aftermath order: 98 of 104.
+> Plays when: day 6+ after discharge, flag k58_creak set. Aftermath order: 101 of 107.
 
 - *if k58Book = 'wrote':* “I WAS HERE,” in her capitals, with his time beside it.
 - *otherwise:* “I don’t do quiet. I do loud with breaks.”
@@ -8825,7 +9345,7 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
 #### k58\_cups
 
-> Plays when: Misaki POV, (flag kd_hard_work set or day 12+ after discharge). Aftermath order: 99 of 104.
+> Plays when: Misaki POV, (flag kd_hard_work set or day 12+ after discharge). Aftermath order: 102 of 107.
 
 *Every night you work, V leaves a second cup of tea on the island. You find it in the morning, cold, with a skin on it. You drink it cold and say thanks and go.*
 
@@ -8854,7 +9374,7 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
 #### k58\_cupv
 
-> Plays when: V POV, flag kd_v_cant set. Aftermath order: 100 of 104.
+> Plays when: V POV, flag kd_v_cant set. Aftermath order: 103 of 107.
 
 **⟨If k58Name = 'look' or k58Rule = 'kept' or `k58Score()>=5`⟩**
 
@@ -8881,7 +9401,7 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
 #### k58\_read
 
-> Plays when: phase: act2 / act3 / epilogue, flag k58_creak set. Aftermath order: 101 of 104.
+> Plays when: phase: act2 / act3 / epilogue, flag k58_creak set. Aftermath order: 104 of 107.
 
 **⟨If flag k58Date set⟩**
 
@@ -8954,7 +9474,7 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
 #### k58\_test
 
-> Plays when: phase: act2 / act3 / epilogue, flag k58_creak set, (`S.phase!=='act2'` or `S.day>=(S.act2Start||0)+2`), (`S.day-S.f.k58Wait>=3`). Aftermath order: 102 of 104.
+> Plays when: phase: act2 / act3 / epilogue, flag k58_creak set, (`S.phase!=='act2'` or `S.day>=(S.act2Start||0)+2`), (`S.day-S.f.k58Wait>=3`). Aftermath order: 105 of 107.
 
 **Misaki:** 
 - *tier 0:* come up the stairs some night. don’t say my name.
@@ -9064,7 +9584,7 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
 #### k58\_steps
 
-> Plays when: Act III, Act III day 5+. Aftermath order: 103 of 104.
+> Plays when: Act III, Act III day 5+. Aftermath order: 106 of 107.
 
 **Misaki:** 
 - *tier 0:* one. two ways off the deck. two. four of us.
@@ -9127,7 +9647,7 @@ Nobody helps Misaki out of a coat from behind. Angel says “jacket” first.
 
 #### k58\_end
 
-> Plays when: epilogue, flag k58_creak set. Aftermath order: 104 of 104.
+> Plays when: epilogue, flag k58_creak set. Aftermath order: 107 of 107.
 
 - *if `st==='his'`:* The seventh step goes.
 - *otherwise:* Somebody steps over the seventh tread and leans on the eighth.
@@ -11028,5 +11548,26 @@ There is a rifle on Angel’s wall engraved “lighting was always good.” It h
 **⟨If flag kd62\_file set⟩**
 
 > At four in the morning, some nights, there is a strip torn off the margin of his newspaper.
+>
+
+#### Ending lines (kc63.js)
+
+> Ending lines (kc63.js).
+
+**⟨If flag kd63\_boots set, k63Boots = 'his'⟩**
+
+> Two pairs of boots stand by V’s bed, laces open, pointing at the door. Nobody moves them.
+>
+**⟨If flag kd63\_boots set⟩**
+
+> For a long time after the river she slept with her boots by the bed, laced, pointing at the door.
+>
+**⟨If flag kd63\_alarms set⟩**
+
+> Some nights her phone still buzzes under the pillow every forty minutes. She is always awake for it.
+>
+**⟨If k63Card = 'cards'⟩**
+
+> There is a stack of index cards in the glovebox of her truck, one fact to a card, in her handwriting. She checks one every morning.
 >
 
