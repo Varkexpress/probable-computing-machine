@@ -19720,12 +19720,12 @@ const _xe68=extraEnding;extraEnding=function(){const L=_xe68();try{if(!S||!S.f||
  if(f.k68Boots==='new')L.push(X68.L.e7[1]);}catch(e){}return L};
 
 /* ===================== STORY SETTING: SUGGESTIVE SCENES (kc70) =====================
-   META.sug (default on). "On" keeps flirting, innuendo, fade-outs and mornings after. "Off" plays a platonic version of
-   every such scene instead: the same people and the same closeness, written as quiet company, catharsis, the kind of
-   nothing they do together. Content modules branch with sugOn() at the line or scene that is suggestive.
+   META.sug (default on). "On" keeps flirting, innuendo, fade-outs and mornings after. "Off" keeps flirting, innuendo-flavoured banter and
+   romance, and removes only implications that anything actually happened: those moments become close, cathartic,
+   at-rest versions (still romantic) instead. Content modules branch with sugOn() at the line or scene that is suggestive.
    sugOn is a function declaration so every module in the one script can call it, whatever order it loads in. */
 function sugOn(){return typeof META==='undefined'||!META||META.sug!==0}
-const SUG_HELP='Suggestive scenes — <b>on</b> keeps the flirting, innuendo and fade-outs on the romance routes. <b>Off</b> replaces each of them with a platonic version: the same people, just as close, without the suggestion. Nothing is ever explicit either way.';
+const SUG_HELP='Suggestive scenes — <b>on</b> keeps fade-outs and mornings after on the romance routes. <b>Off</b> keeps the flirting and the romance but never implies that anything happened: those moments become a different kind of closeness instead. Nothing is ever explicit either way.';
 const sugLab=()=>'Suggestive scenes: '+(sugOn()?'on':'off');
 const sugToggle=()=>{META.sug=sugOn()?0:1;saveMeta();toast(sugLab())};
 const _setSug=settings;settings=function(){_setSug.apply(this,arguments);const box=document.querySelector('.panel');if(!box)return;
