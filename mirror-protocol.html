@@ -4995,7 +4995,7 @@ function c6Proof(id,mode){const p=CH6P.find(x=>x.id===id);if(!p)return ch6Home('
  c6bind('proofs');$('#c6cr').onclick=()=>ch6Home('proofs');UI.querySelectorAll('[data-pm]').forEach(b=>b.onclick=()=>c6Proof(id,b.dataset.pm));if(nxt)$('#pfNext').onclick=()=>c6Proof(nxt.id);
  $('#pfHint').onclick=()=>{const a=$('#pfAux');a.hidden=false;a.textContent='Hint: '+p.hint};$('#pfPlan').onclick=()=>{const a=$('#pfAux');a.hidden=false;a.textContent='Plan: '+p.plan};
  $('#pfExp').onclick=()=>explainItem({prompt:esc('Given: '+p.given.join('; ')+'. Prove: '+p.prove),fig:c6fig(p.fig),big:p.plan,steps:rows.map(r=>esc(r[0]+' — because: '+r[1]+'.')).concat(['Answer: '+esc(p.prove)+' is proved.']),skill:'Proof · '+p.title});
- const done=(score,max)=>{const full=score===max;const was=C6.pf[p.id]>=1;if(full)C6.pf[p.id]=1;gmAward(full,{d:p.d});if(full&&!was){GM.xp+=30;if(typeof confetti==='function')confetti(50)}save();gmHud()};
+ const done=(score,max)=>{const full=score===max;const was=C6.pf[p.id]>=1;if(full)C6.pf[p.id]=1;if(full&&typeof c6Event==='function')c6Event('proof',p.id);gmAward(full,{d:p.d});if(full&&!was){GM.xp+=30;if(typeof confetti==='function')confetti(50)}save();gmHud()};
  if(M==='fill')$('#pfCheck').onclick=()=>{let sc=0;rows.forEach((r,i)=>{const tr=UI.querySelector(`tr[data-r="${i}"]`);const v=tr.querySelector('select').value;const ok=v===r[1];if(ok)sc++;tr.className=ok?'ok':'no';if(!ok&&!tr.querySelector('.fix'))tr.cells[2].insertAdjacentHTML('beforeend',`<div class="fix muted" style="font-size:13px;margin-top:4px">Correct reason: ${esc(r[1])}</div>`)});done(sc,rows.length);
   $('#fb').innerHTML=`<div class="fb ${sc===rows.length?'ok':'no'}"><span class="t">${sc} / ${rows.length} reasons correct</span><p>${sc===rows.length?'Every step is justified. Now try putting the statements in order, then write it yourself.':'Read each corrected reason and ask why it fits that statement. Then try again.'}</p></div>`};
  if(M==='order'){const order=shuffle(rows.map((r,i)=>i));const mine=[];const draw=()=>{$('#ordPool').innerHTML=order.filter(i=>!mine.includes(i)).map(i=>`<button type="button" data-oi="${i}">${esc(rows[i][0])}</button>`).join('');$('#ordMine').innerHTML=mine.map((i,k)=>`<button type="button" data-om="${k}">${k+1}. ${esc(rows[i][0])}</button>`).join('')||'<p class="muted">Nothing yet.</p>';
@@ -5124,7 +5124,7 @@ function c6Final(){const used=new Set(),list=[];C6SK.forEach(s=>{const L=shuffle
 
 /* ---------- skill training ---------- */
 function c6Train(g){const lv=c6lvl(g);const pool=C6POOL.filter(q=>c6skill(q)===g);const ds=lv<1?[1,1,2,2,2,3]:lv<2?[1,2,2,2,3,3]:[2,2,3,3,3,2];const list=c6pickList(pool,ds,6);const s=C6SK.find(x=>x.id===g);
- c6Run(list,'Train: '+s.goal.replace(/\.$/,''),(R)=>{const ok=R.res.filter(r=>r.ok).length;const nl=c6lvl(g);clear3D();
+ c6Run(list,'Train: '+s.goal.replace(/\.$/,''),(R)=>{if(typeof c6Event==='function')c6Event('train',g);const ok=R.res.filter(r=>r.ok).length;const nl=c6lvl(g);clear3D();
   setPanel(`<div class="eyebrow">Skill ${g.slice(1)}</div><h2>${ok} / ${R.res.length} correct</h2><p>${esc(s.goal)}</p><div class="skRow"><b>${c6lvlName(nl)}</b>${c6bars(nl)}<span class="muted">${c6acc(g)}</span></div>${nl===3&&lv<3?'<p style="font-size:20px">🏅 Skill mastered!</p>':''}${s.tips?`<div class="bigP"><b>Tip</b>${esc(s.tips)}</div>`:''}
   <div class="row"><button class="btn" id="again" type="button">Train again</button><button class="btn ghost" id="wk" type="button">Next weakest skill</button><button class="btn ghost" id="ms" type="button">Mastery board</button></div>`,'wide tall');
   if(nl===3&&lv<3&&typeof confetti==='function')confetti(30);$('#again').onclick=()=>c6Train(g);$('#wk').onclick=()=>c6Train(c6weakest(g));$('#ms').onclick=()=>ch6Home('mastery')})}
@@ -5139,7 +5139,7 @@ function c6centers(T){const[A,B,C]=T.P,[a,b,c]=T.s;const D=2*(A[0]*(B[1]-C[1])+B
  const O=[(sq(A)*(B[1]-C[1])+sq(B)*(C[1]-A[1])+sq(C)*(A[1]-B[1]))/D,(sq(A)*(C[0]-B[0])+sq(B)*(A[0]-C[0])+sq(C)*(B[0]-A[0]))/D];
  const G=[(A[0]+B[0]+C[0])/3,(A[1]+B[1]+C[1])/3];const I=[(a*A[0]+b*B[0]+c*C[0])/(a+b+c),(a*A[1]+b*B[1]+c*C[1])/(a+b+c)];const H=[A[0]+B[0]+C[0]-2*O[0],A[1]+B[1]+C[1]-2*O[1]];return{circumcenter:O,incenter:I,centroid:G,orthocenter:H}}
 function c6Hunt(){let round=0,total=0;const order=shuffle(Object.keys(HUNT)).concat(shuffle(Object.keys(HUNT)).slice(0,2));const N=order.length;
- const play=()=>{if(round>=N){C6.hunt=Math.max(C6.hunt,total);save();if(typeof gmBadges==='function')gmBadges();clear3D();
+ const play=()=>{if(round>=N){C6.hunt=Math.max(C6.hunt,total);save();if(typeof c6Event==='function')c6Event('hunt',total);if(typeof gmBadges==='function')gmBadges();clear3D();
    setPanel(`<div class="eyebrow">Concurrency Hunt</div><h2>${total} / ${N*100} points</h2><p>${total>=N*85?'Sharpshooter! You can see the centers without drawing a line.':total>=N*65?'Solid eye. Picture the three special lines before you tap.':'Keep hunting: say the three lines out loud first, then tap where they cross.'} Best: ${C6.hunt}.</p><div class="row"><button class="btn" id="hA" type="button">Play again</button><button class="btn ghost" id="hM" type="button">Quest map</button></div>`,'wide tall');
    if(total>=N*80&&typeof confetti==='function')confetti(36);$('#hA').onclick=c6Hunt;$('#hM').onclick=()=>ch6Home('quest');return}
   const kind=order[round],T=c6tri(kind!=='circumcenter'||Math.random()<.6),C=c6centers(T),tgt=C[kind];const[A,B,Cc]=T.P;const L=['A','B','C'];
@@ -5173,7 +5173,7 @@ function c6Speed(){let sc=0,streak=0,left=60,pen=0,q=null,busy=false;const t0=Da
   $('#sB').querySelectorAll('button').forEach(b=>b.onclick=()=>{if(busy||left<=0)return;busy=true;const ok=+b.dataset.i===q.a;b.classList.add(ok?'ok':'no');if(!ok)$('#sB').querySelector(`[data-i="${q.a}"]`).classList.add('ok');
    if(ok){sc++;streak++}else{streak=0;pen+=3}if(typeof gsfx==='function')gsfx(ok?'ok':'bad');$('#sS').textContent=sc;$('#sK').textContent=streak>=3?'🔥 ×'+streak:'';$('#sW').textContent=(ok?'Right: ':'Not quite: ')+q.why;setTimeout(()=>{busy=false;if(left>0)next()},ok?350:1400)})};
  next();const tick=setInterval(()=>{if(!document.getElementById('sT')){clearInterval(tick);return}left=60-(Date.now()-t0)/1000-pen;const el=$('#sT');el.style.width=Math.max(0,left/60*100)+'%';
-  if(left<=0){clearInterval(tick);const best=sc>C6.speed;C6.speed=Math.max(C6.speed,sc);save();if(typeof gmBadges==='function')gmBadges();
+  if(left<=0){clearInterval(tick);const best=sc>C6.speed;C6.speed=Math.max(C6.speed,sc);save();if(typeof c6Event==='function')c6Event('speed',sc);if(typeof gmBadges==='function')gmBadges();
    setPanel(`<div class="eyebrow">Time!</div><h2>${sc} correct</h2><p>${best?'🏆 New personal best!':'Best: '+C6.speed+'.'} ${sc>=20?'Lightning-fast triangle sense.':sc>=12?'Strong. Push for 20.':'Each round you get faster: the rules become automatic.'}</p><div class="row"><button class="btn" id="sA" type="button">Play again</button><button class="btn ghost" id="sM" type="button">Quest map</button></div>`,'wide tall');
    if(best&&sc>=10&&typeof confetti==='function')confetti(30);$('#sA').onclick=c6Speed;$('#sM').onclick=()=>ch6Home('quest')}},250)}
 
@@ -5248,6 +5248,145 @@ C6TABS=[['quest','Quest'],['learn','Learn'],['thm','Theorems'],['proofs','Proof 
 
 /* ---------- badges ---------- */
 if(typeof BADGES!=='undefined'){BADGES.push(['c6boss','Boss Slayer','Defeat all six Chapter 6 lesson bosses.',()=>CH6.sections.every(s=>(GM.ch6.boss||{})[s.id]>0)],['c6hunt','Point Hunter','Score 450+ in Concurrency Hunt.',()=>(GM.ch6.hunt||0)>=450],['c6speed','Triangle Sense','Get 20+ in a Triangle Sense speed round.',()=>(GM.ch6.speed||0)>=20],['c6master','Chapter 6 Master','Defeat the Triangle Titan.',()=>!!GM.ch6.master])}
+
+/* ===================== Chapter 6, part 3: the daily loop — ranks, Daily Triangle + streak, daily quests, chests, theorem cards, Endless Climb, Reason Rush ===================== */
+Object.assign(C6,Object.assign({xp:0,dstreak:0,dlast:null,freeze:0,daily:{},dq:{},cards:{},chests:0,climb:0,rush:0,seen:{}},C6));
+(function(){const st=document.createElement('style');st.textContent=`
+.c6strip{display:grid;grid-template-columns:auto 1fr auto auto auto;gap:10px;align-items:center;border:1px solid var(--line);border-radius:10px;padding:8px 12px;background:linear-gradient(90deg,rgba(232,185,49,.08),rgba(95,212,196,.06))}
+.c6strip .rk{font:700 14px var(--f-body)}.c6strip .rk small{display:block;font:600 11px var(--f-mono);color:var(--dim);letter-spacing:.06em;text-transform:uppercase}
+.c6strip .bar{height:10px;border-radius:5px;background:var(--ink);border:1px solid var(--line);overflow:hidden}.c6strip .bar i{display:block;height:100%;background:linear-gradient(90deg,#5fd4c4,#e8b931)}
+.c6strip .pillx{font:700 14px var(--f-mono);white-space:nowrap}.c6strip button{all:unset;cursor:pointer;font:700 13px var(--f-body);padding:6px 10px;border-radius:8px;border:1px solid var(--tape);color:var(--tape)}
+.c6strip button.glow{animation:qPulse 1.6s infinite;background:rgba(232,185,49,.12)}
+.today{display:grid;grid-template-columns:1.2fr 1fr;gap:12px}.today>div{border:1px solid var(--line);border-radius:10px;padding:12px;background:var(--slate2);display:flex;flex-direction:column;gap:8px}
+.bigGo{all:unset;cursor:pointer;display:block;text-align:center;padding:14px;border-radius:10px;background:var(--tape);color:#151515;font:800 18px var(--f-body)}.bigGo:hover{filter:brightness(1.08)}.bigGo small{display:block;font:600 13px var(--f-body);opacity:.8}
+.dq{display:grid;grid-template-columns:1fr auto;gap:4px 8px;align-items:center;font-size:14.5px}.dq .bar{grid-column:1/-1;height:7px;border-radius:4px;background:var(--ink);overflow:hidden;border:1px solid var(--line)}.dq .bar i{display:block;height:100%;background:var(--prime)}.dq.done{color:var(--ok)}
+.chestOv{position:fixed;inset:0;background:rgba(5,8,10,.82);display:grid;place-items:center;z-index:9999}
+.chestBox{text-align:center;display:flex;flex-direction:column;align-items:center;gap:12px;max-width:min(420px,92vw)}
+.chestIc{font-size:96px;cursor:pointer;animation:chShake 1s infinite;user-select:none}@keyframes chShake{0%,100%{transform:rotate(0)}20%{transform:rotate(-8deg)}40%{transform:rotate(8deg)}60%{transform:rotate(-4deg)}}
+.tcard{width:260px;border-radius:14px;padding:16px;border:2px solid var(--line);background:linear-gradient(160deg,#16252a,#0d1416);text-align:left;display:flex;flex-direction:column;gap:6px;animation:cardIn .6s}
+@keyframes cardIn{from{transform:rotateY(90deg) scale(.6);opacity:0}to{transform:none;opacity:1}}
+.tcard.r1{border-color:#5fd4c4}.tcard.r2{border-color:#c8a2f0;box-shadow:0 0 22px rgba(200,162,240,.35)}.tcard.r3{border-color:#e8b931;box-shadow:0 0 30px rgba(232,185,49,.5)}
+.tcard .rar{font:700 11px var(--f-mono);letter-spacing:.12em;text-transform:uppercase}.tcard.r1 .rar{color:#5fd4c4}.tcard.r2 .rar{color:#c8a2f0}.tcard.r3 .rar{color:#e8b931}
+.tcard b{font-size:17px}.tcard p{margin:0;font-size:14px;line-height:1.5}.tcard .ic{font-size:34px}
+.album{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}.album .tcard{width:auto;animation:none}.album .tcard.off{filter:grayscale(1);opacity:.35}
+.climbT{display:flex;gap:3px;flex-wrap:wrap}.climbT i{width:16px;height:10px;border-radius:2px;background:var(--ink);border:1px solid var(--line)}.climbT i.on{background:var(--prime)}.climbT i.ten{border-color:var(--tape)}
+.rankOv h2{font-size:34px;margin:0}.nudge{pointer-events:none;position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--slate2);border:1px solid var(--tape);border-radius:10px;padding:10px 16px;font:600 14.5px var(--f-body);z-index:9998;animation:cardIn .4s;max-width:92vw}
+@media(max-width:700px){.today{grid-template-columns:1fr}.c6strip{grid-template-columns:auto 1fr auto;}.c6strip .hideM{display:none}}`;document.head.appendChild(st)})();
+
+/* ---------- helpers ---------- */
+const c6ymd=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');const c6day=()=>c6ymd(new Date());
+function c6rng(seed){let h=2166136261;for(const ch of String(seed)){h^=ch.charCodeAt(0);h=Math.imul(h,16777619)}return()=>{h+=0x6D2B79F5;let t=h;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296}}
+const c6dd=(a,b)=>{const P=x=>{const[y,m,d]=x.split('-').map(Number);return new Date(y,m-1,d)};return Math.round((P(b)-P(a))/864e5)};
+function c6nudge(t){const o=document.querySelector('.nudge');if(o)o.remove();const d=document.createElement('div');d.className='nudge';d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),3200)}
+
+/* ---------- ranks ---------- */
+const C6RANKS=[['Point',0,'·'],['Segment',120,'—'],['Ray',300,'→'],['Angle',550,'∠'],['Bisector',850,'⟂'],['Median',1250,'△'],['Altitude',1750,'⊥'],['Midsegment',2400,'∥'],['Centroid',3200,'G'],['Incenter',4200,'I'],['Circumcenter',5400,'O'],['Orthocenter',6900,'H'],['Hinge Master',8700,'⦣'],['Triangle Titan',11000,'👑']];
+function c6rank(xp){xp=xp==null?C6.xp:xp;let i=0;while(i+1<C6RANKS.length&&xp>=C6RANKS[i+1][1])i++;const cur=C6RANKS[i],nx=C6RANKS[i+1];return{i,name:cur[0],ic:cur[2],next:nx&&nx[0],pct:nx?Math.round((xp-cur[1])/(nx[1]-cur[1])*100):100,toNext:nx?nx[1]-xp:0}}
+function c6gainXP(n){const before=c6rank().i;C6.xp+=n;const r=c6rank();if(r.i>before){C6.chests++;save();setTimeout(()=>c6RankUp(r),700)}}
+function c6RankUp(r){if(document.querySelector('.chestOv,.lvlUp,#rT,#sT,#hSvg'))return setTimeout(()=>c6RankUp(r),900);const ov=document.createElement('div');ov.className='chestOv rankOv';ov.innerHTML=`<div class="chestBox"><div style="font-size:72px">${r.ic}</div><div class="eyebrow">Rank up</div><h2>${esc(r.name)}</h2><p>You earned a treasure chest.${r.next?` Next rank: ${esc(r.next)}.`:' Highest rank reached.'}</p><div class="row"><button class="btn" type="button" id="ruO">Open chest</button><button class="btn ghost" type="button" id="ruL">Later</button></div></div>`;document.body.appendChild(ov);if(typeof confetti==='function')confetti(60);if(typeof gsfx==='function')gsfx('badge');
+ ov.querySelector('#ruO').onclick=()=>{ov.remove();c6OpenChest()};ov.querySelector('#ruL').onclick=()=>{ov.remove();c6refresh()}}
+
+/* ---------- theorem cards (collectibles that teach) ---------- */
+const C6CARDS=(function(){const L=[];(CH6.theorems||[]).forEach((t,i)=>L.push({id:'t'+t.n,ic:'📜',r:/6\.(9|10|11|12|13)$/.test(t.n)?2:1,n:'Theorem '+t.n+': '+t.name,p:t.plain||t.stmt}));
+ (CH6.concurrency||[]).forEach(c=>L.push({id:'c'+c.pt,ic:'✳️',r:2,n:c.pt[0].toUpperCase()+c.pt.slice(1),p:'Where the '+c.seg.toLowerCase()+'s meet. '+c.prop}));
+ L.push({id:'xIndirect',ic:'🔄',r:2,n:'Indirect Proof',p:'Assume the opposite of what you want to prove, reason until you reach a contradiction, then conclude the original statement must be true.'});
+ L.push({id:'xEuler',ic:'🌟',r:3,n:'Euler Line',p:'In any triangle that is not equilateral, the circumcenter, centroid and orthocenter lie on one line, and the centroid is twice as far from the orthocenter as from the circumcenter.'});
+ L.push({id:'xNine',ic:'🌟',r:3,n:'Nine-Point Circle',p:'The midpoints of the three sides, the feet of the three altitudes, and the midpoints of the segments from each vertex to the orthocenter all lie on one circle.'});
+ L.push({id:'xMid4',ic:'🌟',r:3,n:'Medial Triangle',p:'The three midsegments cut any triangle into four congruent triangles, each similar to the original with half the side lengths.'});return L})();
+const RAR=['','Common','Rare','Legendary'];
+const c6cardHTML=(c,off)=>`<div class="tcard r${c.r} ${off?'off':''}"><span class="ic">${c.ic}</span><span class="rar">${RAR[c.r]}${!off&&C6.cards[c.id]>1?' · ×'+C6.cards[c.id]:''}</span><b>${esc(c.n)}</b><p>${off?'Not collected yet: open chests to find it.':esc(c.p)}</p></div>`;
+function c6OpenChest(){if(C6.chests<=0)return toast('No chests yet: finish the Daily Triangle, daily quests, bosses or Climb floors to earn them');C6.chests--;
+ const roll=Math.random(),r=roll<.06?3:roll<.38?2:1;const pool=C6CARDS.filter(c=>c.r===r);const card=pick(pool);const dup=(C6.cards[card.id]||0)>0;C6.cards[card.id]=(C6.cards[card.id]||0)+1;
+ const coins=15+Math.floor(Math.random()*26)+(dup?25:0);GM.coins=(GM.coins||0)+coins;const fz=Math.random()<.12;if(fz)C6.freeze=Math.min(3,C6.freeze+1);save();if(typeof gmHud==='function')gmHud();
+ const ov=document.createElement('div');ov.className='chestOv';ov.innerHTML=`<div class="chestBox"><div class="chestIc" role="button" tabindex="0" aria-label="Tap to open">🎁</div><p class="muted">Tap to open</p></div>`;document.body.appendChild(ov);
+ const open=()=>{if(typeof gsfx==='function')gsfx(r===3?'badge':'ok');ov.querySelector('.chestBox').innerHTML=`${c6cardHTML(card)}<p><b>${dup?'Duplicate: +25 bonus coins':'New card!'}</b> · +${coins} 🪙${fz?' · ❄️ Streak freeze!':''}</p><p class="muted">${C6CARDS.filter(c=>C6.cards[c.id]).length}/${C6CARDS.length} cards collected</p><div class="row" style="justify-content:center">${C6.chests>0?`<button class="btn" type="button" id="chN">Open next (${C6.chests})</button>`:''}<button class="btn ghost" type="button" id="chX">Continue</button><button class="btn ghost" type="button" id="chA">Album</button></div>`;
+  if(r>=2&&typeof confetti==='function')confetti(r===3?80:30);const n=ov.querySelector('#chN');if(n)n.onclick=()=>{ov.remove();c6OpenChest()};ov.querySelector('#chX').onclick=()=>{ov.remove();c6refresh()};ov.querySelector('#chA').onclick=()=>{ov.remove();c6Album()}};
+ const ic=ov.querySelector('.chestIc');ic.onclick=open;ic.onkeydown=e=>{if(e.key==='Enter'||e.key===' ')open()}}
+function c6Album(){clear3D();hudCh('Theorem cards');c6setTab();const n=C6CARDS.filter(c=>C6.cards[c.id]).length;
+ setPanel(`<div class="crumb"><button type="button" id="c6cr">Chapter 6</button> › Card album</div><h2>Theorem cards: ${n}/${C6CARDS.length}</h2><p>Every card is a theorem or fact from this chapter. Read them: they are the reasons you cite in proofs. ${C6.chests?`<button class="btn sm" type="button" id="alO">Open chest (${C6.chests})</button>`:''}</p><div class="album">${C6CARDS.map(c=>c6cardHTML(c,!C6.cards[c.id])).join('')}</div>${c6back()}`,'wide tall');c6bind('quest');$('#c6cr').onclick=()=>ch6Home('quest');const o=document.getElementById('alO');if(o)o.onclick=c6OpenChest}
+
+/* ---------- daily quests ---------- */
+const C6QDEF=[['correct','Answer 15 questions correctly',15],['correct2','Answer 25 questions correctly',25],['boss','Win a boss battle',1],['hunt','Score 350+ in Concurrency Hunt',1],['speed','Score 12+ in Triangle Sense',1],['proof','Complete a proof',1],['train','Finish 2 skill training sets',2],['combo','Reach a 6-answer combo',1],['climb','Reach floor 10 in Endless Climb',1],['rush','Score 10+ in Reason Rush',1]];
+function c6quests(){const d=c6day();if(C6.dq.day!==d){const R=c6rng('q'+d);const ids=C6QDEF.map(q=>q[0]).sort(()=>R()-.5);const pick3=[ids.find(x=>/^correct/.test(x))].concat(ids.filter(x=>!/^correct/.test(x)).slice(0,2));C6.dq={day:d,ids:pick3,p:{},claimed:false}}return C6.dq}
+function c6Event(type,val){const Q=c6quests();const inc=(id,n)=>{if(!Q.ids.includes(id))return;const def=C6QDEF.find(q=>q[0]===id);const was=(Q.p[id]||0)>=def[2];Q.p[id]=Math.min(def[2],(Q.p[id]||0)+n);if(!was&&Q.p[id]>=def[2]){setTimeout(()=>{if(typeof xpPop==='function')xpPop('✅ Quest complete',def[1]);if(typeof gsfx==='function')gsfx('badge')},500)}};
+ if(type==='correct'){inc('correct',1);inc('correct2',1);if((GM.combo||0)>=6)inc('combo',1)}
+ if(type==='boss')inc('boss',1);if(type==='hunt'&&val>=350)inc('hunt',1);if(type==='speed'&&val>=12)inc('speed',1);if(type==='proof')inc('proof',1);if(type==='train')inc('train',1);if(type==='climb'&&val>=10)inc('climb',1);if(type==='rush'&&val>=10)inc('rush',1);
+ if(!Q.claimed&&Q.ids.every(id=>(Q.p[id]||0)>=C6QDEF.find(q=>q[0]===id)[2])){Q.claimed=true;C6.chests++;c6gainXP(100);setTimeout(()=>{if(typeof xpPop==='function')xpPop('🎁 All daily quests done','+1 chest · +100 XP');if(typeof confetti==='function')confetti(40)},1400)}
+ save()}
+
+/* ---------- XP + nudges on every Chapter 6 answer ---------- */
+const _c6HookC=c6Hook;c6Hook=function(q,ok,it){const g=c6skill(q),before=g?c6lvl(g):0;_c6HookC.apply(this,arguments);
+ if(ok){c6gainXP([0,10,20,35][q.d||1]*(it&&it._hint?.5:1));c6Event('correct')}else save();
+ if(g){const after=c6lvl(g);const s=C6SK.find(x=>x.id===g);const a=C6.sk[g];
+  if(after>before&&after>=2)setTimeout(()=>{if(typeof xpPop==='function')xpPop(after===3?'🏅 Goal mastered':'⬆ Proficient','Goal '+g.slice(1)+': '+s.goal.replace(/\.$/,''));if(after===3&&typeof confetti==='function')confetti(36)},700);
+  else if(after<3&&a&&a.h.length>=3){const last=a.h.slice(-3);const streak=(()=>{let n=0;for(let i=a.h.length-1;i>=0&&a.h[i][0];i--)n++;return n})();
+   if(ok&&after===2&&streak<3)c6nudge(`${3-streak} more right in a row to master goal ${g.slice(1)}`);else if(ok&&after===1&&a.h.length<4)c6nudge(`${4-a.h.length} more answers on goal ${g.slice(1)} to reach Proficient`)}}};
+
+/* ---------- Daily Triangle + streak ---------- */
+function c6streak(){const d=c6day();if(C6.dlast&&C6.dlast!==d){const gap=c6dd(C6.dlast,d);if(gap>1){const need=gap-1;if(C6.freeze>=need){C6.freeze-=need;{const[y,m,dd]=d.split('-').map(Number);C6.dlast=c6ymd(new Date(y,m-1,dd-1))}toast('❄️ Streak freeze used: your streak is safe')}else C6.dstreak=0}}return C6.dstreak}
+function c6DailyList(){const R=c6rng('d'+c6day());const by=d=>C6POOL.filter(q=>q.d===d);const pk=L=>L[Math.floor(R()*L.length)];const L=[];[1,2,2,3,3].forEach(d=>{let q;for(let k=0;k<20;k++){q=pk(by(d));if(!L.includes(q))break}L.push(q)});return L}
+function c6Daily(){c6streak();const d=c6day();if(C6.daily.day===d&&C6.daily.done)return toast('Daily Triangle done: come back tomorrow for a new one');const list=c6DailyList();
+ c6Run(list,'Daily Triangle',(R,quit)=>{if(quit)return ch6Home('quest');const ok=R.res.filter(r=>r.ok).length;const first=C6.daily.day!==d||!C6.daily.done;
+  if(first){C6.daily={day:d,done:true,score:ok};if(C6.dlast!==d){C6.dstreak=(C6.dlast&&c6dd(C6.dlast,d)===1?C6.dstreak:0)+1;C6.dlast=d}C6.chests++;if(C6.dstreak%7===0)C6.freeze=Math.min(3,C6.freeze+1);c6gainXP(50+ok*10);save()}
+  clear3D();setPanel(`<div class="eyebrow">Daily Triangle · ${d}</div><h2>${ok} / 5 ${'⭐'.repeat(ok)}</h2><p style="font-size:22px">🔥 ${C6.dstreak}-day streak</p><p>${C6.dstreak%7===0?'A full week! You earned a streak freeze ❄️ (protects one missed day).':`${7-C6.dstreak%7} more day${7-C6.dstreak%7>1?'s':''} to earn a streak freeze.`} A new Daily Triangle unlocks tomorrow.</p>
+  <div class="col">${R.res.map(({q,ok})=>`<div class="step"><span>${ok?'✓':'✗'} ${esc(q.q.slice(0,90))}${q.q.length>90?'…':''}</span><span class="chip ${ok?'done':'go'}">${q.sec}</span></div>`).join('')}</div>
+  <div class="row"><button class="btn" id="dCh" type="button">🎁 Open your chest</button><button class="btn ghost" id="dQ" type="button">Quest map</button></div>`,'wide tall');if(typeof confetti==='function')confetti(30);$('#dCh').onclick=c6OpenChest;$('#dQ').onclick=()=>ch6Home('quest')})}
+
+/* ---------- Endless Climb ---------- */
+function c6Climb(){let floor=0,lives=3;const used=new Set();
+ const next=()=>{if(lives<=0)return end();const ds=floor<5?[1]:floor<12?[1,2,2]:floor<20?[2,3]:[3];const d=pick(ds);let L=C6POOL.filter(q=>q.d===d&&!used.has(q));if(!L.length)L=C6POOL.filter(q=>!used.has(q));if(!L.length)return end();const q=pick(L);used.add(q);const it=c6item(q);clear3D();hudCh('Endless Climb');c6setTab();
+  setPanel(`<div class="eyebrow">Endless Climb · floor ${floor+1} · ${'❤️'.repeat(lives)}${'🖤'.repeat(3-lives)} · best ${C6.climb}</div><div class="climbT" aria-hidden="true">${Array.from({length:Math.max(20,floor+5)},(_,i)=>`<i class="${i<floor?'on':''} ${(i+1)%10===0?'ten':''}"></i>`).join('')}</div>`+itemHTML(it,`Floor ${floor+1} · ${['','easy','medium','hard'][q.d]}`)+`<div class="row"><button class="btn" id="sub" type="button">Climb</button><button class="btn ghost sm" id="bk" type="button">Stop here</button></div><div id="fb"></div>`,'wide tall');
+  addHint(it,document.getElementById('sub').parentElement);$('#bk').onclick=end;
+  $('#sub').onclick=()=>{const ok=gradeItem(it)>=.999;c6Hook(q,ok,it);$('#sub').disabled=true;if(ok){floor++;if(floor%10===0){C6.chests++;setTimeout(()=>xpPop&&xpPop('🎁 Floor '+floor,'+1 chest'),300)}}else lives--;C6.climb=Math.max(C6.climb,floor);save();
+   $('#fb').innerHTML=`<div class="fb ${ok?'ok':'no'}"><span class="t">${ok?'Up to floor '+(floor+1):'Ouch: −1 heart'}</span>${ok?'':stepsHTML(it)}<div class="row"><button class="btn" id="nx" type="button">${lives>0?'Keep climbing':'See results'}</button></div></div>`;$('#nx').onclick=next}};
+ const end=()=>{c6Event('climb',floor);const best=floor>=C6.climb&&floor>0;clear3D();setPanel(`<div class="eyebrow">Endless Climb</div><h2>You reached floor ${floor}</h2><p>${best?'🏆 Personal best!':'Best: floor '+C6.climb+'.'} Every 10 floors earns a chest. Difficulty rises at floors 5, 12 and 20.</p><div class="row"><button class="btn" id="cA" type="button">Climb again</button><button class="btn ghost" id="cM" type="button">Quest map</button></div>`,'wide tall');if(best&&floor>=5&&typeof confetti==='function')confetti(30);$('#cA').onclick=c6Climb;$('#cM').onclick=()=>ch6Home('quest')};
+ next()}
+
+/* ---------- Reason Rush: name the reason for a proof step, 60 seconds ---------- */
+function c6rushQ(){const rows=[];CH6P.forEach(p=>(p.steps||[]).forEach(r=>{if(r[1]&&!/^Given$/.test(r[1]))rows.push([p,r])}));const[p,r]=pick(rows);const all=[...new Set(rows.map(x=>x[1][1]))].filter(x=>x!==r[1]);
+ const same=all.filter(x=>x.split(' ').some(w=>w.length>5&&r[1].includes(w)));const ds=shuffle(same).slice(0,2);shuffle(all).forEach(x=>{if(ds.length<3&&!ds.includes(x))ds.push(x)});const c=shuffle([r[1]].concat(ds));return{p,st:r[0],c,a:c.indexOf(r[1])}}
+function c6Rush(){let sc=0,pen=0,busy=false,q;const t0=Date.now();clear3D();hudCh('Reason Rush');c6setTab();
+ setPanel(`<div class="eyebrow">Reason Rush · 60 seconds</div><h2>Score <span id="rS">0</span></h2><div class="timer"><i id="rT" style="width:100%"></i></div><p class="muted" id="rCtx" style="margin-top:10px"></p><div class="speedQ" id="rQ" style="font-size:19px"></div><div class="col" id="rB"></div><p class="muted" id="rW" aria-live="polite" style="min-height:2.5em"></p><p class="muted">Pick the reason that justifies the statement. Wrong: −3 seconds. This is exactly the skill two-column proofs need.</p>`,'wide tall');
+ const nx=()=>{q=c6rushQ();$('#rCtx').textContent='From: '+q.p.title;$('#rQ').textContent=q.st;mathifyIn&&mathifyIn($('#rQ'));$('#rB').innerHTML=q.c.map((c,i)=>`<button class="btn ghost" type="button" data-i="${i}" style="text-align:left;white-space:normal">${esc(c)}</button>`).join('');
+  $('#rB').querySelectorAll('button').forEach(b=>b.onclick=()=>{if(busy)return;busy=true;const ok=+b.dataset.i===q.a;b.style.borderColor=ok?'var(--ok)':'var(--blood)';if(!ok)$('#rB').querySelector(`[data-i="${q.a}"]`).style.borderColor='var(--ok)';if(ok)sc++;else pen+=3;if(typeof gsfx==='function')gsfx(ok?'ok':'bad');$('#rS').textContent=sc;$('#rW').textContent=ok?'Right.':'Answer: '+q.c[q.a];setTimeout(()=>{busy=false;nx()},ok?350:1500)})};nx();
+ const tk=setInterval(()=>{const el=document.getElementById('rT');if(!el){clearInterval(tk);return}const left=60-(Date.now()-t0)/1000-pen;el.style.width=Math.max(0,left/60*100)+'%';if(left<=0){clearInterval(tk);const best=sc>C6.rush;C6.rush=Math.max(C6.rush,sc);c6gainXP(sc*5);c6Event('rush',sc);save();
+  setPanel(`<div class="eyebrow">Time!</div><h2>${sc} reasons</h2><p>${best?'🏆 New personal best!':'Best: '+C6.rush+'.'} +${sc*5} XP.</p><div class="row"><button class="btn" id="rA" type="button">Play again</button><button class="btn ghost" id="rRb" type="button">Reason bank</button><button class="btn ghost" id="rM" type="button">Quest map</button></div>`,'wide tall');$('#rA').onclick=c6Rush;$('#rRb').onclick=c6ReasonBank;$('#rM').onclick=()=>ch6Home('quest')}},250)}
+
+/* ---------- XP for games and bosses ---------- */
+const _c6BattleC=c6Battle;c6Battle=function(key,opts){const w=opts.onWin;opts.onWin=(h,res)=>{const first=key!=='all'&&!(C6.boss[key]>0);w(h,res);c6Event('boss');if(first||h===3)C6.chests++;c6gainXP(key==='all'?500:60+h*20);save()};return _c6BattleC(key,opts)};
+const _c6EvC=c6Event;c6Event=function(type,val){if(type==='hunt')c6gainXP(Math.round(val/10));if(type==='speed')c6gainXP(val*4);if(type==='proof')c6gainXP(40);return _c6EvC(type,val)};
+
+/* ---------- next best action ---------- */
+function c6NextAction(){const d=c6day();if(!(C6.daily.day===d&&C6.daily.done))return['Daily Triangle','5 problems · keeps your 🔥 streak alive',c6Daily];
+ const ls=CH6.sections.find(s=>!((C6.sec[s.id]||0)>=4));const bs=CH6.sections.find(s=>(C6.sec[s.id]||0)>=4&&!(C6.boss[s.id]>0));
+ if(bs)return['Fight '+C6BOSS[bs.id][1],'Lesson '+bs.id+' boss battle',()=>c6Boss(bs.id)];if(ls)return['Lesson '+ls.id+': '+ls.t,'Learn it, then pass the 5-question check',()=>c6Section(ls.id)];
+ const due=C6SK.find(s=>c6lvl(s.id)===2.5);if(due)return['Review goal '+due.id.slice(1),'Due for review so it sticks',()=>c6Train(due.id)];
+ const w=C6SK.find(s=>c6lvl(s.id)<3);if(w){const g=c6weakest();return['Train goal '+g.slice(1),C6SK.find(s=>s.id===g).goal,()=>c6Train(g)]}
+ if(!C6.master&&c6gates().every(x=>x[0]))return['Face the Triangle Titan','The Mastery Challenge is unlocked',c6Final];return['Endless Climb','How high can you go? Best: floor '+C6.climb,c6Climb]}
+
+/* ---------- status strip on every Chapter 6 home page ---------- */
+function c6stripHTML(){c6streak();const r=c6rank();const Q=c6quests();const qd=Q.ids.filter(id=>(Q.p[id]||0)>=C6QDEF.find(q=>q[0]===id)[2]).length;
+ return`<div class="c6strip"><span class="rk">${r.ic} ${esc(r.name)}<small>${C6.xp} XP${r.next?' · '+r.toNext+' to '+esc(r.next):''}</small></span><span class="bar" aria-label="Rank progress ${r.pct}%"><i style="width:${r.pct}%"></i></span><span class="pillx" title="Daily streak">🔥${C6.dstreak}${C6.freeze?' ❄️'+C6.freeze:''}</span><span class="pillx hideM" title="Daily quests">✅${qd}/3</span><button type="button" id="stCh" class="${C6.chests?'glow':''}" title="Treasure chests">🎁 ${C6.chests}</button></div>`}
+const _ch6HomeC=ch6Home;ch6Home=function(){const r=_ch6HomeC.apply(this,arguments);const tab=UI.querySelector('.c6tab');if(tab&&!UI.querySelector('.c6strip')){tab.insertAdjacentHTML('beforebegin',c6stripHTML());const b=document.getElementById('stCh');if(b)b.onclick=()=>C6.chests?c6OpenChest():c6Album()}return r};
+function c6refresh(){if(UI.querySelector('.c6strip'))ch6Home()}
+
+/* ---------- Quest tab: Today panel + arcade additions ---------- */
+const _qHtml=C6X.quest.html,_qBind=C6X.quest.bind;
+C6X.quest.html=function(){const Q=c6quests();const[nt,ns]=c6NextAction();const d=c6day();const dd=C6.daily.day===d&&C6.daily.done;
+ const today=`<div class="today"><div><span class="eyebrow">Today</span><button class="bigGo" type="button" id="goNext">▶ ${esc(nt)}<small>${esc(ns)}</small></button>
+  <div class="row"><button class="btn ${dd?'ghost':''} sm" type="button" id="goDaily">${dd?'✓ Daily Triangle: '+C6.daily.score+'/5':'☀️ Daily Triangle'}</button><button class="btn ghost sm" type="button" id="goAlb">🃏 Cards ${C6CARDS.filter(c=>C6.cards[c.id]).length}/${C6CARDS.length}</button>${C6.chests?`<button class="btn sm" type="button" id="goCh">🎁 Open chest (${C6.chests})</button>`:''}</div></div>
+  <div><span class="eyebrow">Daily quests ${Q.claimed?'· all done ✓':'· finish all 3 for a chest'}</span>${Q.ids.map(id=>{const def=C6QDEF.find(q=>q[0]===id);const p=Q.p[id]||0;return`<div class="dq ${p>=def[2]?'done':''}"><span>${p>=def[2]?'✓ ':''}${esc(def[1])}</span><span class="muted">${p}/${def[2]}</span><span class="bar"><i style="width:${p/def[2]*100}%"></i></span></div>`}).join('')}</div></div>`;
+ let h=_qHtml.call(this);h=h.replace('<div class="qMap">',today+'<h3>Quest map</h3><div class="qMap">');
+ const more=`<button class="card" type="button" id="qClimb"><span class="num">⛰</span><span class="nm"><b>Endless Climb</b><span>Unlimited questions that get harder as you rise. 3 hearts. A chest every 10 floors. Best: floor ${C6.climb}.</span></span><span class="chip go">Play</span></button><button class="card" type="button" id="qRush"><span class="num">⚖</span><span class="nm"><b>Reason Rush</b><span>60 seconds: pick the reason for each proof statement. Best: ${C6.rush}.</span></span><span class="chip go">Play</span></button>`;
+ return h.replace(/(<h3>Arcade<\/h3><div class="cards">)/,'$1'+more)};
+C6X.quest.bind=function(){_qBind.call(this);const on=(i,f)=>{const e=document.getElementById(i);if(e)e.onclick=f};on('goNext',()=>c6NextAction()[2]());on('goDaily',c6Daily);on('goAlb',c6Album);on('goCh',c6OpenChest);on('qClimb',c6Climb);on('qRush',c6Rush)};
+
+/* ---------- make Chapter 6 the main focus ---------- */
+if(TRAINER){const nav=document.querySelector('.tnav');const t=nav&&nav.querySelector('[data-tab="ch6"]');const home=nav&&nav.querySelector('[data-tab="home"]');if(t&&home){home.after(t);t.innerHTML='△ Geometry Ch 6'}
+ let firstHome=true;const _thC=trainerHome;trainerHome=function(){if(firstHome){firstHome=false;return ch6Home('quest')}_thC.apply(this,arguments);const q=document.querySelector('.quick');const p=UI.querySelector('h1,h2');
+  if(!document.getElementById('c6Hero')){const[nt,ns]=c6NextAction();const r=c6rank();const html=`<div id="c6Hero" class="today" style="margin:6px 0 10px"><div><span class="eyebrow">Geometry Chapter 6 · your main course</span><button class="bigGo" type="button" id="heroGo">▶ ${esc(nt)}<small>${esc(ns)}</small></button></div><div><span class="eyebrow">Progress</span><b>${r.ic} ${esc(r.name)} · ${C6.xp} XP</b><span>🔥 ${C6.dstreak}-day streak · 🎁 ${C6.chests} chest${C6.chests===1?'':'s'} · ${C6SK.filter(s=>c6lvl(s.id)===3).length}/14 goals mastered</span><button class="btn ghost sm" type="button" id="heroMap">Open the quest map</button></div></div>`;
+   (p||q).insertAdjacentHTML(p?'afterend':'beforebegin',html);document.getElementById('heroGo').onclick=()=>c6NextAction()[2]();document.getElementById('heroMap').onclick=()=>ch6Home('quest')}}}
+if(typeof BADGES!=='undefined')BADGES.push(['c6streak7','Week of Triangles','Keep a 7-day Daily Triangle streak.',()=>(GM.ch6.dstreak||0)>=7],['c6cards','Collector','Collect 15 theorem cards.',()=>Object.keys(GM.ch6.cards||{}).length>=15],['c6climb','Summit','Reach floor 25 in Endless Climb.',()=>(GM.ch6.climb||0)>=25],['c6rush','Reason Machine','Score 15+ in Reason Rush.',()=>(GM.ch6.rush||0)>=15]);
 
 
 if(EMBED){$('#bBack').hidden=false;$('#bBack').onclick=()=>mpPost('mp-close')}
