@@ -123,7 +123,7 @@ function k67Row(){go(cutBg(S.f.k67Photo==='told'?'#0c0806':'#0e0a0a'));k67Mark('
   ['','Ronin laughs like a lion in feast, and the boiler room throws it back at him off every pipe.']],
   ()=>ask('K9','(He is sitting on the floor with his back to the warm boiler, where he used to sleep, looking up at you.)',[
    {t:'Sit down with him.',fn:()=>{S.f.k67Row='kiss';fr('r',4);say([
-     ['','You sit down on the coal-black floor in your good trousers. He makes a noise about the trousers. Then he pulls you in by the collar, and the torch rolls away under the boiler, and nobody goes after it for a long time.'],
+     ['',sugOn()?'You sit down on the coal-black floor in your good trousers. He makes a noise about the trousers. Then he pulls you in by the collar, and the torch rolls away under the boiler, and nobody goes after it for a long time.':'You sit down on the coal-black floor in your good trousers. He makes a noise about the trousers. Then he pulls you in by the collar and kisses you, and the torch rolls away under the boiler, and nobody goes after it. You sit in the dark against the warm boiler where he used to sleep, with his head on your shoulder, saying nothing at all, until he is asleep the way he must have slept down here that first winter, and you stay where you are until the boiler ticks itself cool.'],
      [RN,'(later) If the old man’s watchin’ he’s laughin’. Always said I’d bring somebody nice down here and ruin ’em.']],hub)}},
    {t:'“Tell it again, in order. It is going in your file.”',fn:()=>{S.f.k67Row='file';fr('r',3);say([
      [RN,'Romantic.'],
@@ -302,7 +302,7 @@ function k67Epi(){go(cutBg('#0c0806'));k67Mark('vr67_epi');const t=S.f.k67Ten;
 
 /* ===================================== MORNINGS ===================================== */
 EVENTS.push({id:'k67vr_morn',when:()=>{try{return K67()&&S.phase==='normal'&&k67Did('church')&&(S.vromDates||0)>=2}catch(e){return false}},run:done=>say([
- ['','You wake at Ronin’s at nine, in his bed above the workshop. Through the floor you can hear the gospel radio and something frying. Downstairs the church clock over the bench still says twenty to eleven.'],
+ ['',sugOn()?'You wake at Ronin’s at nine, in his bed above the workshop. Through the floor you can hear the gospel radio and something frying. Downstairs the church clock over the bench still says twenty to eleven.':'You wake at Ronin’s at nine, on top of the covers of his bed above the workshop, still in your shirt and trousers, where you fell asleep at two while he was reading you the wrestling results. Through the floor you can hear the gospel radio and something frying. Downstairs the church clock over the bench still says twenty to eleven.'],
  ['','While he cooks, you take his crowbars off the wall and hang them back up in order of length. It takes eleven minutes and it is the most relaxing thing you have done in a year.'],
  [RN,'(on the stairs, holding a spatula) The fuck did you do to my wall.'],
  ['K9','I put them in order.'],
@@ -318,7 +318,7 @@ EVENTS.push({id:'k67vr_loft',when:()=>{try{return K67()&&S.phase==='act2'&&!!S.f
  [AN,'(text) don’t thank me. also you look so good in that coat. i’m not telling ronin i said that, he’d fight me for it']],()=>{fr('a',1);done()})});
 
 EVENTS.push({id:'k67vr_morn2',when:()=>{try{return K67()&&S.phase==='epilogue'&&k67Did('epi')}catch(e){return false}},run:done=>say([
- ['','You wake at ten in your own bed with coal dust on the pillowcase, on your hands, and, you discover in the bathroom mirror, on your neck in the shape of four fingers and a thumb.'],
+ ['',sugOn()?'You wake at ten in your own bed with coal dust on the pillowcase, on your hands, and, you discover in the bathroom mirror, on your neck in the shape of four fingers and a thumb.':'You wake at ten in your own bed with coal dust on the pillowcase, on your hands, and, you discover in the bathroom mirror, on your neck in the shape of four fingers and a thumb, where he held on to you, asleep, all the way home from the church in the back of the car last night.'],
  [RN,'(from the bed) Leave it. Go to the board like that.'],
  ['K9','I have a board meeting at eleven.'],
  [RN,'I know. I read your diary. Why d’you think I done it.'],

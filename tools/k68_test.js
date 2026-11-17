@@ -85,6 +85,28 @@ const END=[[{k68Brolly:'rent'},/umbrella stand/],[{k68Brolly:'stand'},/umbrella 
  [{k68Sing:'sang'},/karaoke video/],[{k68Sing:'home'},/kitchen drawer/],[{k68Bingo:'table'},/lilac scarf/],[{k68Boots:'new'},/old boots/]];
 for(const [f,rx] of END){await load('e',f);const L2=await ev(()=>extraEnding());const hit=L2.filter(x=>rx.test(x));want.add('ending '+JSON.stringify(f));log.push(`ending ${JSON.stringify(f)}: ${hit[0]||'MISSING'}`);if(!hit.length)errs.push('ending '+JSON.stringify(f));else got.add('ending '+JSON.stringify(f))}
 await load('e',{k68Brolly:'rent',k68Carve:'desk',k68Truck:'kerb',k68Sing:'sang',k68Bingo:'table',k68Boots:'new'});{const L2=await ev(()=>{S.vrom='a';return extraEnding()});if(L2.some(x=>/umbrella stand|wooden hound|parking tickets|karaoke|lilac|old boots/.test(x)))errs.push('ending leak off route')}
+/* SUG. the suggestive-scenes setting (kc70): every branched scene, morning, thread and ending line runs with META.sug=1 and
+   META.sug=0. Both must finish the same way and set the same flags, and the off text must differ. With SUGDUMP=<dir> the
+   off-only lines are written to <dir>/<test>.json for the reading copy. */
+const SUGD=[];
+const sugBoth=async(label,prep,play,flagsOf)=>{const o={};for(const s of [1,0]){await prep();await ev(s=>{META.sug=s;window.__sug0=window.__lines.length},s);const r=await play();
+  const t=await ev(()=>window.__lines.slice(window.__sug0));o[s]={r,t,f:await flagsOf()}}
+ await ev(()=>{META.sug=1});const on=o[1].t.map(x=>x[1]),off=o[0].t.map(x=>x[1]);const dif=on.join('\n')!==off.join('\n');
+ log.push(`sug ${label}: ${o[1].r}/${o[0].r} differs=${dif} flags ${o[0].f}`);
+ if(o[1].r!==o[0].r||!dif||o[1].f!==o[0].f)errs.push(`sug ${label}: ${o[1].r}/${o[0].r} differs=${dif} flags ${o[1].f} vs ${o[0].f}`);
+ SUGD.push({label,off:o[0].t.filter(x=>!on.includes(x[1]))})};
+const sugTh=(id,path)=>ev(([id,path])=>{const T=TXS[id];S.tx=null;txStart(id);S.slot++;phDeliver();let node='start';
+  for(const i of path){const run=phS().run[id];if(!run.await||run.node!==node)return 'not awaiting';const o=T.nodes[node].opts()[i];window.__lines.push(['opt',String(o.t)]);txChoose(id,o);S.slot++;phDeliver();node=o.next||null}
+  (phS().th[T.with]||[]).forEach(m=>window.__lines.push([m[0],String(m[1])]));return 'done '+!!phS().run[id].done},[id,path]);
+const sugEnd=()=>ev(()=>{extraEnding().forEach(t=>window.__lines.push(['end',t]));return 'ok'});
+const sugDump=name=>{if(process.env.SUGDUMP)require('fs').writeFileSync(require('path').join(process.env.SUGDUMP,name+'.json'),JSON.stringify(SUGD,null,1))};
+{const f68=()=>ev(()=>JSON.stringify(Object.fromEntries(Object.entries(S.f).filter(([k])=>/^k68/.test(k)))));
+ const go68=(code,o)=>async()=>{await ev(code=>{window.__hubbed=0;const cb=()=>{window.__hubbed=1};(new Function('cb',code))(cb)},code);return drive(o)};
+ for(const [id,o] of [['vr68_brolly',0],['vr68_suit',0],['vr68_glasses',0],['vr68_truck',1],['vr68_bath',0]])
+  await sugBoth(`loc ${id} #${o}`,()=>load('n'),go68(`l68Run(L68.find(e=>e.id==="${id}"),cb)`,o),f68);
+ await sugBoth('morning m68_shirt',()=>load('n'),go68(`M68.find(e=>e.id==="m68_shirt").run(cb)`,0),f68);
+ await sugBoth('evening #5 (the record)',()=>load('n'),go68(`say(E68[4](),cb)`,0),f68);
+ sugDump('k68')}
 /* 7. text checks */
 const lines=await ev(()=>window.__lines);let vbad=[];for(const [w,t] of lines){if(w==='K9'&&/n[’']t\b|[’'](re|ll|ve|m|d)\b|\b(it|that|he|she|there|what|let|who|here)[’']s\b/i.test(t.replace(/“[^”]*”/g,'')))vbad.push(t);
  if(/\b(Biscuit|Sergeant|Mochi|Pancake|Elysium)\b/.test(t))errs.push('forbidden name: '+t);if(/undefined|NaN/.test(t))errs.push('bad text: '+t)}

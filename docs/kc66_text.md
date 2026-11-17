@@ -1,6 +1,6 @@
 # New text: V × Misaki route expansion (kc66)
 
-Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines that change with POV; ▸ marks a choice; "(or)" marks the other version of a line.
+Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines that change with POV; ▸ marks a choice; "(or)" marks the other version of a line. Lines with a version for the suggestive-scenes setting turned off show both, the off one after "(or)"; docs/sug_off_text.md has the off versions on their own.
 
 # kc66.js
 
@@ -55,6 +55,18 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 
 ### k66\_audit
+
+**Misaki:** Then collect. I’m not scoring this part.
+
+*He collects. *
+
+*Between three and four the bedroom sensor goes off eleven times, because the black hound keeps getting down to check the stairs and climbing back up. The next afternoon you go through the alarm log with your feet on his desk and mark every one of them as a false alarm, in red.*
+
+**Misaki:** Then collect. I’m not scoring this part.
+
+*You collect. *
+
+*Between three and four the bedroom sensor goes off eleven times, because the black hound keeps getting down to check the stairs and climbing back up. In the afternoon she goes through the alarm log with her feet on your desk and marks every one as a false alarm, in red, and initials them.*
 
 **Misaki:** Then collect. I’m not scoring this part.
 
@@ -177,6 +189,8 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 **Misaki:** Later. Here. On this island, where you eat your toast every morning and read the paper like a grandfather. You’ll never look at toast the same way again.
 
+**Misaki:** Later. You dance with me, V. On this island, where you eat your toast every morning and read the paper like a grandfather. In socks. You’ll never look at toast the same way again.
+
 **V:** Start the timer.
 
 **Misaki:** And if I beat first place? You do the washing up for a month. In an apron. I’ll pick the apron.
@@ -285,6 +299,10 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 *(or)* *You move over. The bedroom sensor goes off fourteen times before four. In the morning she marks them false alarms in red, and you initial every one under hers.*
 
+*He moves over. The penalty turns out to be a cup of tea in bed at half past three and your cold feet on his shins until you fall asleep. The black hound sets the bedroom sensor off fourteen times before four, going up and down to check the stairs. You mark them all false alarms in the morning, in red, and he initials every one under yours.*
+
+*(or)* *You move over. The penalty turns out to be a cup of tea in bed at half past three and her cold feet on your shins until she falls asleep. The black hound sets the bedroom sensor off fourteen times before four, going up and down to check the stairs. In the morning she marks them false alarms in red, and you initial every one under hers.*
+
 *The kitchen light is on. He is at the table with two bowls of cereal poured, and on the wall above him is last year’s cereal box, flattened, in a frame, with the score showing.*
 
 *(or)* *You are at the kitchen table with two bowls of cereal poured, under last year’s cereal box, which you have flattened and framed and hung with the score showing.*
@@ -310,6 +328,56 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 
 ### vm\_epi
+
+*You wake at noon in V’s bed, on top of the covers, still in last night’s black, with the old hound across your calves and the black hound across the old hound. V is awake. V has been awake since half past five, because he slept his three and a half hours and not a minute more. He hasn’t got up, because you are lying on his arm.*
+
+**V:** I lost the feeling in this arm at six. I have decided you may keep it.
+
+**Misaki:** What time is it? Why didn’t you get up? You’ve been lying there six hours. You could have rolled me.
+
+**V:** Twelve minutes past twelve. I have been busy with the notebook.
+
+*The notebook is open on his chest. The last entry is dated last night, and it has a line through it, firmly, in the same pen.*
+
+**Misaki:** What did I say last night? Why is it crossed out? V, you never cross anything out.
+
+**V:** You said it at ten past three, asleep, in the middle of a sentence about the dog door. I crossed it out because I could never read it aloud at breakfast without having to sit down. I have it by heart.
+
+**Misaki:** Tell me. Tell me or I lie on the other arm, and then you’ve got no arms, and you’ll have to sign things with your teeth.
+
+**V:** No.
+
+*You lie on the other arm. He loses the feeling in that one as well, and does not mention it, and lies there with no arms and two hounds on his legs, looking pleased with himself.*
+
+**V:** There is one thing I should have asked last night, as a physician. You stuck in the dog door at the hips. I would like to examine the hips.
+
+**Misaki:** Oh my god. You’re doing the doctor voice. At noon. Under two dogs. With no arms. Go on, then.
+
+**Misaki:** They’re fine, doctor. I’m built like a coat hanger. There’s nothing there to bruise. The dog door hurt my pride, and you can’t put a plaster on that.
+
+**V:** There are no further questions.
+
+*He says it in exactly the voice he uses in board meetings, with no arms and a hound on his shins, and you laugh into his shoulder so hard that the old hound gets off the bed in protest and the black hound moves up into its place.*
+
+*You slept three and a half hours, as always, and woke at half past five, as always. You have not got up. She is lying across your arm on top of the covers, still in last night’s black, with the old hound across her calves and the black hound across the old hound, and you have decided the arm is hers now.*
+
+*You spend the six hours on the notebook. At ten past twelve you put a line through last night’s entry, firmly. It is what she said at ten past three, asleep, in the middle of a sentence about the dog door, and you will never be able to read it aloud at breakfast without having to sit down. You have it by heart.*
+
+**Misaki:** You crossed something out. What did I say? V. What did I say last night?
+
+**V:** Something I will not be repeating before noon. It is twelve minutes past. I will not be repeating it after noon either.
+
+**Misaki:** Tell me. Tell me or I lie on the other arm, and then you’ve got no arms, and you’ll have to sign things with your teeth.
+
+*She lies on the other arm. You lose the feeling in that one too, and do not mention it.*
+
+**V:** There is one thing I should have asked last night, as a physician. You stuck in the dog door at the hips. I would like to examine the hips.
+
+**Misaki:** They’re fine, doctor. I’m built like a coat hanger. There’s nothing there to bruise. The dog door hurt my pride, and you can’t put a plaster on that.
+
+**V:** There are no further questions.
+
+*You say it in exactly the voice you use in board meetings, with no arms and a hound on your shins. She laughs into your shoulder so hard that the old hound gets off the bed in protest, and the black hound moves up into its place.*
 
 **Misaki:** Nothing in there to worry about, doctor. Either I was born without one or somebody sold it before I was nine. I’ve never found out which, and either way, no refunds. Next question.
 

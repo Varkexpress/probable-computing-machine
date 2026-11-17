@@ -31,7 +31,7 @@ l68('vr68_brolly',['atrium'],.4,()=>true,done=>say([
  {t:'“Then he pays rent.”',fn:()=>{S.f.k68Brolly='rent';fr('r',3);save();say([
   [RN,'Yeah? What’s the rent?'],
   ['K9','He comes home every night.'],
-  ['','Ronin gets up off the couch at once, which he has never done for anything on television, and kisses you up against the coat hooks hard enough to knock the stand over. The umbrellas roll under the hall table. Nobody picks them up until morning.']],done)}},
+  ['',sugOn()?'Ronin gets up off the couch at once, which he has never done for anything on television, and kisses you up against the coat hooks hard enough to knock the stand over. The umbrellas roll under the hall table. Nobody picks them up until morning.':'Ronin gets up off the couch at once, which he has never done for anything on television, and kisses you up against the coat hooks hard enough to knock the stand over. The umbrellas roll under the hall table. Then he hauls you back to the couch by the lapels and lies across you to watch the end of the wrestling, and falls asleep on you during the main event, and nobody picks the umbrellas up until morning.']],done)}},
  {t:'Move the umbrellas to the cupboard.',fn:()=>{S.f.k68Brolly='stand';fr('r',2);save();say([
   ['','You put both umbrellas in the hall cupboard. The crowbar has the stand to itself.'],
   [RN,'Look at him. He’s got his own room. You’re spoilin’ him.'],
@@ -46,7 +46,7 @@ l68('vr68_suit',['ronin'],.4,()=>k68Ron(),done=>say([
  [RN,'You’re real good at that. It’s kinda filthy how good you are at that.'],
  ['K9','It is a crease.'],
  [RN,'It’s a crease when anybody else does it. Do the other leg slower.'],
- ['','You do the other leg slower. Afterwards the trousers hang on the door for some time with nobody in them. On Thursday he wears them to court with a crease you could slice bread on, and the magistrate halves the fine.']],()=>{fr('r',3);done()}));
+ ['',sugOn()?'You do the other leg slower. Afterwards the trousers hang on the door for some time with nobody in them. On Thursday he wears them to court with a crease you could slice bread on, and the magistrate halves the fine.':'You do the other leg slower. Afterwards he lies down along the bench with his head on your knee to admire the crease from below, and falls asleep there in his rings, and you do not move until the iron has gone cold. On Thursday he wears them to court with a crease you could slice bread on, and the magistrate halves the fine.']],()=>{fr('r',3);done()}));
 
 l68('vr68_boots',['kennel'],.4,()=>true,done=>say([
  ['','Ronin came in through the skylight at two and left his boots at the top of the stairs. At seven they were gone.'],
@@ -77,7 +77,7 @@ l68('vr68_glasses',['archive'],.4,()=>true,done=>say([
  [RN,'Oh. Oh, you like it. Mister Foundation’s got a thing for specs.'],
  ['K9','I have a thing for my glasses being returned to me.'],
  [RN,'So come get ’em.'],
- ['','You come and get them. It takes a great deal longer than taking off a pair of glasses should take, the file ends up on the floor, and the man in it goes to the hounds on Sunday instead.']],()=>{fr('r',3);done()}));
+ ['',sugOn()?'You come and get them. It takes a great deal longer than taking off a pair of glasses should take, the file ends up on the floor, and the man in it goes to the hounds on Sunday instead.':'You come and get them. It takes a great deal longer than taking off a pair of glasses should take, because he kisses you every time you get a hand on them, and in the end you read the file together on the floor, him in the glasses and you with your head on his shoulder, until you both fall asleep on it. The man in it goes to the hounds on Sunday instead.']],()=>{fr('r',3);done()}));
 
 l68('vr68_heat',['ops'],.4,()=>true,done=>say([
  ['','Your house is kept cold. The hounds like it cold, and so do you. Today it is warm enough on the ops deck to grow tomatoes.'],
@@ -128,7 +128,7 @@ l68('vr68_truck',['garage'],.4,()=>true,done=>say([
   [RN,'...Say you did that on purpose.'],
   ['K9','I did that on purpose.'],
   [RN,'Pull over.'],
-  ['','You pull over, indicating. The windows of the truck take some time to clear.']],done)}}])));
+  ['',sugOn()?'You pull over, indicating. The windows of the truck take some time to clear.':'You pull over, indicating. He kisses you across the gearstick, then lies down along the bench seat with his head in your lap and his boots out of the window, and the two of you stay parked across two bays until the engine has gone cold and the estate lights come on.']],done)}}])));
 
 l68('vr68_pink',['laundro'],.4,()=>true,done=>say([
  ['','The laundromat at three in the morning. Ronin did the washing, and he did yours with his. Your white shirts come out of the machine the colour of a tongue.'],
@@ -200,7 +200,7 @@ l68('vr68_bath',['vbath'],.4,()=>true,done=>say([
  [RN,'There’s room if you lie on top. Physics, Vee.'],
  ['K9','That is not physics.'],
  [RN,'So get in here and prove it ain’t.'],
- ['','You get in and attempt to prove it. The water on the floor gets deeper. The grey hound comes up to see what the noise is and stands in the doorway with its head on one side, until a wet sponge hits the door and the door swings shut on it.']],()=>{fr('r',3);done()}));
+ ['',sugOn()?'You get in and attempt to prove it. The water on the floor gets deeper. The grey hound comes up to see what the noise is and stands in the doorway with its head on one side, until a wet sponge hits the door and the door swings shut on it.':'You take your shoes and socks off, roll your trousers to the knee and sit on the edge with your feet in, and he leans his wet head back against your shins and sings the rest of the hymn to the ceiling. The water on the floor gets deeper. The grey hound comes up to see what the noise is and stands in the doorway with its head on one side, until a wet sponge hits the door and the door swings shut on it.']],()=>{fr('r',3);done()}));
 
 /* how they fire: on walking into a room, sometimes, once each; one a day, shared with kc64's location events */
 const K68ROOMS=[...new Set(L68.reduce((a,e)=>a.concat(e.rooms),[]))];
@@ -243,15 +243,15 @@ m68('m68_bingo',()=>true,done=>say([
   [RN,'First honest thing that church ever gave away.']],done)}}])));
 
 m68('m68_shirt',()=>true,done=>say([
- ['','You wake at nine in Ronin’s apartment, with the bells going in the church across the road, on his mattress, which is on the floor of a room with a crowbar on every wall.'],
+ ['',sugOn()?'You wake at nine in Ronin’s apartment, with the bells going in the church across the road, on his mattress, which is on the floor of a room with a crowbar on every wall.':'You wake at nine in Ronin’s apartment, with the bells going in the church across the road, on top of his mattress, which is on the floor of a room with a crowbar on every wall. You fell asleep on it at four, in your trousers, while he was reading you his forty-one parking tickets in order.'],
  ['','He is at the stove in your shirt. It does not close over his chest. He has done up the middle button, out of respect.'],
  [RN,'Mornin’, Mister Foundation. Coffee’s in a saucepan. Don’t start about the saucepan.'],
- ['K9','Where are my clothes?'],
- [RN,'Your shirt’s on me. Your trousers are on the landin’. Your tie’s...'],
+ ...(sugOn()?[['K9','Where are my clothes?']]:[['K9','Where is my shirt?']]),
+ ...(sugOn()?[[RN,'Your shirt’s on me. Your trousers are on the landin’. Your tie’s...']]:[[RN,'On me. You took it off at three ’cause it was creasin’ and I was cold. Your tie’s...']]),
  ['','He points up with the spoon. Your tie is going round slowly on the ceiling fan.'],
  ['','You have a board meeting at ten. You go in your own suit, and his T-shirt under it, the one with a skull on the front that has been washed so many times you can see through it. Nobody at the board can see it. You can feel it all morning.'],
  [AN,'(text) why is ronin wearing ur shirt in a selfie on the server'],
- [AN,'(text) he captioned it “spoils.” i’m screaming. i’m in a meeting with a brand and i’m screaming']],()=>{fr('r',3);fr('a',1);done()}));
+ ...(sugOn()?[[AN,'(text) he captioned it “spoils.” i’m screaming. i’m in a meeting with a brand and i’m screaming']]:[[AN,'(text) he captioned it “mine.” i’m screaming. i’m in a meeting with a brand and i’m screaming']])],()=>{fr('r',3);fr('a',1);done()}));
 
 m68('m68_choir',()=>true,done=>say([
  ['','Six in the morning. There is singing in the kitchen. Ronin has the gospel radio up loud, and he is conducting with a wooden spoon, and all four of the hounds are sitting in a row in front of him with their heads back, howling along with the choir.'],
@@ -289,7 +289,7 @@ const E68=[
   ['','He finishes the back. It is a very good haircut. Afterwards he blows the cut hair off your neck instead of brushing it off, which takes him much longer than it needs to.']],
  ()=>[['','Ronin’s workshop. He has a record player on the bench, older than both of you, and one record that is not gospel. He puts it on and holds out a hand with sawdust on it.'],
   [RN,'Dance with me. C’mon. Nobody’s lookin’. The Devil’s lookin’, but he’s seen worse.'],
-  ['','You dance in the sawdust in your socks. You lead. He lets you, for most of a song, and then he does not, and the record goes round to the end and keeps going, clicking, in the groove at the middle, and neither of you gets up to take the needle off until morning.']]];
+  ['',sugOn()?'You dance in the sawdust in your socks. You lead. He lets you, for most of a song, and then he does not, and the record goes round to the end and keeps going, clicking, in the groove at the middle, and neither of you gets up to take the needle off until morning.':'You dance in the sawdust in your socks. You lead. He lets you, for most of a song, and then he does not, and the record goes round to the end and keeps going, clicking, in the groove at the middle. Nobody takes the needle off. You end up sitting in the sawdust against the bench with his head on your shoulder, and he falls asleep there, and you stay, and the record clicks until morning.']]];
 const _sh68=sideHub;sideHub=function(late){const o=_sh68(late);try{if(!K68())return o;const d=S.done.k68Eve;
  return o.concat([{t:'Spend the evening with Ronin',sub:d?'done today':'costs time · nothing planned',dis:!!late||!!d,fn:()=>{spend();S.done.k68Eve=1;const n=S.f.k68EveN||0;S.f.k68EveN=n+1;save();go(cutBg('#100a08'));
   say(E68[n%E68.length](),()=>{fr('r',2);calm(3);hub()})}}])}catch(e){return o}};

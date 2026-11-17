@@ -1,6 +1,6 @@
 # New text: V × Ronin, off hours (kc68)
 
-Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice; server pings and ending lines come last, under their ids.
+Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice; server pings and ending lines come last, under their ids. Lines with a version for the suggestive-scenes setting turned off show both, the off one after "(or)"; docs/sug_off_text.md has the off versions on their own.
 
 # kc68.js
 
@@ -28,6 +28,8 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice; serve
 **V:** He comes home every night.
 
 *Ronin gets up off the couch at once, which he has never done for anything on television, and kisses you up against the coat hooks hard enough to knock the stand over. The umbrellas roll under the hall table. Nobody picks them up until morning.*
+
+*(or)* *Ronin gets up off the couch at once, which he has never done for anything on television, and kisses you up against the coat hooks hard enough to knock the stand over. The umbrellas roll under the hall table. Then he hauls you back to the couch by the lapels and lies across you to watch the end of the wrestling, and falls asleep on you during the main event, and nobody picks the umbrellas up until morning.*
 
 - ▸ Move the umbrellas to the cupboard.
 
@@ -57,6 +59,8 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice; serve
 **Ronin:** It’s a crease when anybody else does it. Do the other leg slower.
 
 *You do the other leg slower. Afterwards the trousers hang on the door for some time with nobody in them. On Thursday he wears them to court with a crease you could slice bread on, and the magistrate halves the fine.*
+
+*(or)* *You do the other leg slower. Afterwards he lies down along the bench with his head on your knee to admire the crease from below, and falls asleep there in his rings, and you do not move until the iron has gone cold. On Thursday he wears them to court with a crease you could slice bread on, and the magistrate halves the fine.*
 
 
 ### vr68\_boots
@@ -117,6 +121,8 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice; serve
 **Ronin:** So come get ’em.
 
 *You come and get them. It takes a great deal longer than taking off a pair of glasses should take, the file ends up on the floor, and the man in it goes to the hounds on Sunday instead.*
+
+*(or)* *You come and get them. It takes a great deal longer than taking off a pair of glasses should take, because he kisses you every time you get a hand on them, and in the end you read the file together on the floor, him in the glasses and you with your head on his shoulder, until you both fall asleep on it. The man in it goes to the hounds on Sunday instead.*
 
 
 ### vr68\_heat
@@ -216,6 +222,8 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice; serve
 **Ronin:** Pull over.
 
 *You pull over, indicating. The windows of the truck take some time to clear.*
+
+*(or)* *You pull over, indicating. He kisses you across the gearstick, then lies down along the bench seat with his head in your lap and his boots out of the window, and the two of you stay parked across two bays until the engine has gone cold and the estate lights come on.*
 
 
 ### vr68\_pink
@@ -351,6 +359,8 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice; serve
 
 *You get in and attempt to prove it. The water on the floor gets deeper. The grey hound comes up to see what the noise is and stands in the doorway with its head on one side, until a wet sponge hits the door and the door swings shut on it.*
 
+*(or)* *You take your shoes and socks off, roll your trousers to the knee and sit on the edge with your feet in, and he leans his wet head back against your shins and sings the rest of the hymn to the ceiling. The water on the floor gets deeper. The grey hound comes up to see what the noise is and stands in the doorway with its head on one side, until a wet sponge hits the door and the door swings shut on it.*
+
 
 ### m68\_cook
 
@@ -408,13 +418,19 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice; serve
 
 *You wake at nine in Ronin’s apartment, with the bells going in the church across the road, on his mattress, which is on the floor of a room with a crowbar on every wall.*
 
+*(or)* *You wake at nine in Ronin’s apartment, with the bells going in the church across the road, on top of his mattress, which is on the floor of a room with a crowbar on every wall. You fell asleep on it at four, in your trousers, while he was reading you his forty-one parking tickets in order.*
+
 *He is at the stove in your shirt. It does not close over his chest. He has done up the middle button, out of respect.*
 
 **Ronin:** Mornin’, Mister Foundation. Coffee’s in a saucepan. Don’t start about the saucepan.
 
 **V:** Where are my clothes?
 
+**V:** Where is my shirt?
+
 **Ronin:** Your shirt’s on me. Your trousers are on the landin’. Your tie’s...
+
+**Ronin:** On me. You took it off at three ’cause it was creasin’ and I was cold. Your tie’s...
 
 *He points up with the spoon. Your tie is going round slowly on the ceiling fan.*
 
@@ -423,6 +439,8 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice; serve
 **Angel:** (text) why is ronin wearing ur shirt in a selfie on the server
 
 **Angel:** (text) he captioned it “spoils.” i’m screaming. i’m in a meeting with a brand and i’m screaming
+
+**Angel:** (text) he captioned it “mine.” i’m screaming. i’m in a meeting with a brand and i’m screaming
 
 
 ### m68\_choir
@@ -482,6 +500,8 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice; serve
 **Ronin:** Dance with me. C’mon. Nobody’s lookin’. The Devil’s lookin’, but he’s seen worse.
 
 *You dance in the sawdust in your socks. You lead. He lets you, for most of a song, and then he does not, and the record goes round to the end and keeps going, clicking, in the groove at the middle, and neither of you gets up to take the needle off until morning.*
+
+*(or)* *You dance in the sawdust in your socks. You lead. He lets you, for most of a song, and then he does not, and the record goes round to the end and keeps going, clicking, in the groove at the middle. Nobody takes the needle off. You end up sitting in the sawdust against the bench with his head on your shoulder, and he falls asleep there, and you stay, and the record clicks until morning.*
 
 - ▸ Spend the evening with Ronin
 

@@ -112,6 +112,25 @@ const END=[[{k67Epi:'own'},/every heading/],[{k67Epi:'quote'},/dying speech/],[{
  [{k67Ten:'walk'},/postcard/],[{k67Ten:'end'},/used twice/],[{k67Pew:'hand'},/organ loft/]];
 for(const [f,rx] of END){await load('e',f,{});const L=await ev(()=>extraEnding());const hit=L.filter(x=>rx.test(x));log.push(`ending ${JSON.stringify(f)}: ${hit[0]||'MISSING'}`);if(!hit.length)errs.push('ending '+JSON.stringify(f))}
 await load('e',{k67Epi:'own'},{});{const L=await ev(()=>{S.vrom='a';return extraEnding()});if(L.some(x=>/every heading/.test(x)))errs.push('ending leak across routes')}
+/* SUG. the suggestive-scenes setting (kc70): every branched scene, morning, thread and ending line runs with META.sug=1 and
+   META.sug=0. Both must finish the same way and set the same flags, and the off text must differ. With SUGDUMP=<dir> the
+   off-only lines are written to <dir>/<test>.json for the reading copy. */
+const SUGD=[];
+const sugBoth=async(label,prep,play,flagsOf)=>{const o={};for(const s of [1,0]){await prep();await ev(s=>{META.sug=s;window.__sug0=window.__lines.length},s);const r=await play();
+  const t=await ev(()=>window.__lines.slice(window.__sug0));o[s]={r,t,f:await flagsOf()}}
+ await ev(()=>{META.sug=1});const on=o[1].t.map(x=>x[1]),off=o[0].t.map(x=>x[1]);const dif=on.join('\n')!==off.join('\n');
+ log.push(`sug ${label}: ${o[1].r}/${o[0].r} differs=${dif} flags ${o[0].f}`);
+ if(o[1].r!==o[0].r||!dif||o[1].f!==o[0].f)errs.push(`sug ${label}: ${o[1].r}/${o[0].r} differs=${dif} flags ${o[1].f} vs ${o[0].f}`);
+ SUGD.push({label,off:o[0].t.filter(x=>!on.includes(x[1]))})};
+const sugTh=(id,path)=>ev(([id,path])=>{const T=TXS[id];S.tx=null;txStart(id);S.slot++;phDeliver();let node='start';
+  for(const i of path){const run=phS().run[id];if(!run.await||run.node!==node)return 'not awaiting';const o=T.nodes[node].opts()[i];window.__lines.push(['opt',String(o.t)]);txChoose(id,o);S.slot++;phDeliver();node=o.next||null}
+  (phS().th[T.with]||[]).forEach(m=>window.__lines.push([m[0],String(m[1])]));return 'done '+!!phS().run[id].done},[id,path]);
+const sugEnd=()=>ev(()=>{extraEnding().forEach(t=>window.__lines.push(['end',t]));return 'ok'});
+const sugDump=name=>{if(process.env.SUGDUMP)require('fs').writeFileSync(require('path').join(process.env.SUGDUMP,name+'.json'),JSON.stringify(SUGD,null,1))};
+{await sugBoth('k67Row told opt0',()=>load('2',{k67Photo:'told'},{done:['vr67_church','vr67_photo']}),async()=>{await ev(()=>{window.__hubbed=0;k67Row()});return drive(0)},fx);
+ for(const [id,ph,f,d] of [['k67vr_morn','n',{},['vr67_church']],['k67vr_morn2','e',{k67Page:'his'},['vr67_epi']]])
+  await sugBoth(id,()=>load(ph,f,{done:d}),async()=>{await ev(id=>{window.__hubbed=0;EVENTS.find(e=>e.id===id).run(()=>{window.__hubbed=1})},id);return drive(0)},fx);
+ sugDump('k67')}
 /* 9. text checks: V never contracts; no hound names */
 const lines=await ev(()=>window.__lines);let vbad=[];for(const [w,t] of lines){if(w==='K9'&&/n[’']t\b|[’'](re|ll|ve|m|d)\b|\b(it|that|he|she|there|what|let|who|here)[’']s\b/i.test(t.replace(/“[^”]*”/g,'')))vbad.push(t);
  if(/\b(Biscuit|Sergeant|Mochi|Pancake|Elysium)\b/.test(t))errs.push('forbidden name: '+t)}
