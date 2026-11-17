@@ -53,11 +53,30 @@ function k71Quiet(cb,w,lie){S.f.k71How=lie?'lied':'quiet';save();
   ['','At some point she stops being on the stool. The floor is cold and clean and the drain is a nice shape. The old hound arranges himself along her back.'],
   ['','The last thing she sees is V, still at the steel table, holding the jug up to the light and frowning at it like a column of figures that does not add up.']],
   ()=>k71Down(cb,w))}
-function k71Down(cb,w){
- say([['','She wakes at eleven in his bed with her boots still on. There is a glass of water on the side table, plain, and two aspirin, and a note on the back of a gas bill in fountain pen.'],
-  ['','“The bottle was 1961. It was meant for a wedding. I carried you up four flights, which at my age you will appreciate. The old hound would not let go of your sleeve the whole way. You said a great many things on the stairs about my shirts. I have written them down. — V.”'],
-  ['','Under that, in the same pen, smaller: “I did not notice until you were on the floor. I apologise for the floor, and for nothing else.”'],
-  ['hitmeuppp',MV('(…)','(i’m never drinking water again)','(I’m never drinking water again.)',S.f.married?'(I am never drinking water again. I married this man. I am going to make him open another one.)':w?'(I am never drinking water again. I am going to marry this man. I am going to make him open another one.)':'(I am never drinking water again. Also I need to know what I said about his shirts.)')]],
-  ()=>{apply({energy:-15,aff:3});if(typeof relApply==='function')relApply({trust:2});cb()})}
+/* where she wakes depends on how close they are: 1 the cellar floor, 2 the couch, 3 his armchair by the fire, 4 his bed, 5 his bed with him in it */
+function k71Lvl(){const l=k71Lvl0();return (S.rom||S.f.k58End==='apart')&&!S.f.married?Math.min(l,3):l}
+function k71Lvl0(){const t=tier();if(S.f.married||(t>=3&&(S.phase==='epilogue'||S.aff>=95)))return 5;if(t>=3)return 4;if(t>=2)return 3;return S.aff>=38?2:1}
+const K71_WAKE={
+ 1:[['','She wakes at eleven on the cellar floor, exactly where she went down. Someone has put a folded horse blanket under her head and a second one over her, tucked in at the sides like a hound after surgery.'],
+  ['','The old hound is still along her back. The jug is gone. On the steel table: a glass of plain water, two aspirin, and a note on the back of a gas bill in fountain pen.'],
+  ['','“The bottle was 1961. It was meant for a wedding. I did not think you would want to be carried, so I brought the blankets down instead. The old hound would not move, which settled it. You said several things about my shirts before you slept. I have written them down. — V.”']],
+ 2:[['','She wakes at eleven on the couch upstairs with her boots still on, under the blanket that smells of hound. The curtains have been pulled. Somebody has put a cushion under her bad shoulder, the right one, the one she never mentions.'],
+  ['','On the coffee table: a glass of plain water, two aspirin, and a note on the back of a gas bill in fountain pen.'],
+  ['','“The bottle was 1961. It was meant for a wedding. I carried you up four flights, which at my age you will appreciate. The old hound would not let go of your sleeve the whole way. You said a great many things on the stairs about my shirts. I have written them down. — V.”']],
+ 3:[['','She wakes at eleven in the big leather armchair in his study, the one nobody is allowed to sit in. His coat is over her like a blanket, collar up round her ears. The fire has been banked and fed again since; it is still warm, and the old hound is asleep across the hearth with his back to it.'],
+  ['','On the arm of the chair: a glass of plain water, two aspirin, and a note on the back of a gas bill in fountain pen.'],
+  ['','“The bottle was 1961. It was meant for a wedding. I carried you up four flights and put you by the fire because your hands were cold, and then I sat at the desk and did not get any work done. You said a great many things on the stairs about my shirts. I have written them down. — V.”']],
+ 4:[['','She wakes at eleven in his bed with her boots still on. There is a glass of water on the side table, plain, and two aspirin, and a note on the back of a gas bill in fountain pen.'],
+  ['','“The bottle was 1961. It was meant for a wedding. I carried you up four flights, which at my age you will appreciate. The old hound would not let go of your sleeve the whole way. You said a great many things on the stairs about my shirts. I have written them down. — V.”']],
+ 5:[['','She wakes at eleven, warm all the way through, which never happens. His bed. Her boots are off and lined up by the door. The heavy quilt is over both of them, and V is still asleep, on his back, one arm under her neck, at eleven in the morning, for the first time she has ever seen.'],
+  ['','Both hounds are on the end of the bed. The old one has his chin on her ankle. The sun has got as far as the pillows. Nobody in the house is awake but her, and she does not move, because moving would end it.'],
+  ['','The note is on his chest, on the back of a gas bill, where he must have put it before he fell asleep. “The bottle was 1961. It was meant for a wedding. I carried you up four flights and meant to sit in the chair. I did not make it to the chair. — V.”']]};
+function k71Down(cb,w){const lv=k71Lvl();S.f.k71Wake=lv;save();
+ const L=K71_WAKE[lv].slice();
+ if(lv<5)L.push(['','Under that, in the same pen, smaller: “I did not notice until you were on the floor. I apologise for the floor, and for nothing else.”']);
+ L.push(['hitmeuppp',lv===5?MV('(…stay.)','(don’t move. he’s asleep.)','(Don’t move. He’s asleep. He’s actually asleep.)',S.f.married?'(I am never drinking water again. I married this man. I am not moving until he wakes up, and then I am going to make him open another one.)':'(Don’t move. He’s asleep, at eleven, with his arm under my head. I am going to marry this man. I am not moving until he wakes up.)')
+  :lv===1?MV('(…)','(ow. ok. blankets.)','(Ow. Okay. He brought the blankets down.)','(Ow. He brought the bedding down to me. That is the most V thing that has ever happened.)')
+  :MV('(…)','(i’m never drinking water again)','(I’m never drinking water again.)','(I am never drinking water again. Also I need to know what I said about his shirts.)')]);
+ say(L,()=>{apply({energy:lv===5?-5:-15,aff:2+lv});if(typeof relApply==='function')relApply({trust:1+Math.floor(lv/2)});cb()})}
 const _afterBed71=afterBed;afterBed=function(){const a=arguments,self=this;if(k71Ok()&&(globalThis.K71_FORCE||Math.random()<.4))return k71Scene(()=>_afterBed71.apply(self,a));return _afterBed71.apply(self,a)};
 if(typeof extraEnding==='function'){const _xe71=extraEnding;extraEnding=function(){const L=_xe71();try{if(S.pov!=='v'&&S.f.k71Peach)L.push(S.f.k71How==='told'?'There is still a jug of peach water in the cellar. Nothing else goes in it now without a label in fountain pen.':'V never found out that she knew about the jug by the third glass. She never told him. She did ask for it again.')}catch(e){}return L}}

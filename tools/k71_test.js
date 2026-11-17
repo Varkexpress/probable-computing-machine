@@ -17,4 +17,6 @@ const gates=await p.evaluate(()=>{benchLoad(BENCH[0]);S.f.k71Peach=0;S.done.job=
  S.pov='v';g.v=k71Ok();S.pov='m';S.done.job=0;g.nojob=k71Ok();S.done.job=1;S.bed='trailer';g.trailer=k71Ok();S.bed='vbed';S.f.k71Peach=1;g.once=k71Ok();return g});
 ok(!gates.v&&!gates.nojob&&!gates.trailer&&!gates.once,'gates '+JSON.stringify(gates));
 const v=require('fs').readFileSync(ROOT+'/src/kc71.js','utf8');ok(!/\['K9','[^']*\b\w+’(t|s|re|ll|ve|d)\b/.test(v),'V contractions');
+const lv=await p.evaluate(()=>{const out={};for(const [aff,mar,ph] of [[30,0,'act2'],[42,0,'act2'],[60,0,'act2'],[80,0,'act2'],[80,0,'epilogue'],[80,1,'act2']]){benchLoad(BENCH[6]);S.phase=ph;S.pov='m';S.aff=aff;S.f.married=mar;S.f.k71Peach=0;S.done.job=1;S.bed='vbed';S.dark=0;let fin=0;const t=tier();k71Down(()=>{fin=1},0);const txt=[];for(let i=0;i<40&&!fin;i++){if(dlg){txt.push(dlg.lines[dlg.i][1]);adv()}else break}out[aff+'/'+mar+'/'+ph]={t,lv:S.f.k71Wake,fin,first:txt[0]&&txt[0].slice(0,40)}}return out});
+console.log(JSON.stringify(lv));ok(Object.values(lv).every(x=>x.fin)&&new Set(Object.values(lv).map(x=>x.lv)).size===5,'wake levels');
 console.log(fails?'K71 FAIL '+fails:'K71 OK','page errors',errs.length,errs.slice(0,3));await b.close();process.exit(fails||errs.length?1:0)})();

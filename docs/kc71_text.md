@@ -80,11 +80,33 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice; "(or)
 
 *The last thing she sees is V, still at the steel table, holding the jug up to the light and frowning at it like a column of figures that does not add up.*
 
+*She wakes at eleven on the cellar floor, exactly where she went down. Someone has put a folded horse blanket under her head and a second one over her, tucked in at the sides like a hound after surgery.*
+
+*The old hound is still along her back. The jug is gone. On the steel table: a glass of plain water, two aspirin, and a note on the back of a gas bill in fountain pen.*
+
+*“The bottle was 1961. It was meant for a wedding. I did not think you would want to be carried, so I brought the blankets down instead. The old hound would not move, which settled it. You said several things about my shirts before you slept. I have written them down. — V.”*
+
+*She wakes at eleven on the couch upstairs with her boots still on, under the blanket that smells of hound. The curtains have been pulled. Somebody has put a cushion under her bad shoulder, the right one, the one she never mentions.*
+
+*On the coffee table: a glass of plain water, two aspirin, and a note on the back of a gas bill in fountain pen.*
+
+*“The bottle was 1961. It was meant for a wedding. I carried you up four flights, which at my age you will appreciate. The old hound would not let go of your sleeve the whole way. You said a great many things on the stairs about my shirts. I have written them down. — V.”*
+
+*She wakes at eleven in the big leather armchair in his study, the one nobody is allowed to sit in. His coat is over her like a blanket, collar up round her ears. The fire has been banked and fed again since; it is still warm, and the old hound is asleep across the hearth with his back to it.*
+
+*On the arm of the chair: a glass of plain water, two aspirin, and a note on the back of a gas bill in fountain pen.*
+
+*“The bottle was 1961. It was meant for a wedding. I carried you up four flights and put you by the fire because your hands were cold, and then I sat at the desk and did not get any work done. You said a great many things on the stairs about my shirts. I have written them down. — V.”*
+
 *She wakes at eleven in his bed with her boots still on. There is a glass of water on the side table, plain, and two aspirin, and a note on the back of a gas bill in fountain pen.*
 
 *“The bottle was 1961. It was meant for a wedding. I carried you up four flights, which at my age you will appreciate. The old hound would not let go of your sleeve the whole way. You said a great many things on the stairs about my shirts. I have written them down. — V.”*
 
-*Under that, in the same pen, smaller: “I did not notice until you were on the floor. I apologise for the floor, and for nothing else.”*
+*She wakes at eleven, warm all the way through, which never happens. His bed. Her boots are off and lined up by the door. The heavy quilt is over both of them, and V is still asleep, on his back, one arm under her neck, at eleven in the morning, for the first time she has ever seen.*
 
-**Misaki:** (I am never drinking water again. Also I need to know what I said about his shirts.)
+*Both hounds are on the end of the bed. The old one has his chin on her ankle. The sun has got as far as the pillows. Nobody in the house is awake but her, and she does not move, because moving would end it.*
+
+*The note is on his chest, on the back of a gas bill, where he must have put it before he fell asleep. “The bottle was 1961. It was meant for a wedding. I carried you up four flights and meant to sit in the chair. I did not make it to the chair. — V.”*
+
+*Under that, in the same pen, smaller: “I did not notice until you were on the floor. I apologise for the floor, and for nothing else.”*
 
