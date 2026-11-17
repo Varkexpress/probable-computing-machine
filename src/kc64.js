@@ -334,7 +334,7 @@ l64('f64_shelf',['vbath'],.4,()=>fl64(),done=>{const m=m64();say([
  ['','He comes here. He checks, carefully, at her neck, for longer than the question needs.'],
  ['K9','It is working.'],
  ['hitmeuppp',MV('ur blushing.','ur ears are red','Your ears have gone red.','Your ears have gone red, V. I can see them from here. Shut the door, you’re letting the steam out.')],
- ['','He shuts the door. He stays on the inside of it.']],()=>{apply({aff:4});done()})});
+ ['',sugOn()?'He shuts the door. He stays on the inside of it.':'He shuts the door and sits down on the bath mat with his back against the tub. She puts one wet hand on his head and leaves it there while he tells her what each of the eleven bottles is for.']],()=>{apply({aff:4});done()})});
 
 l64('f64_roof',['roof'],.4,()=>fl64()&&c64Any(),done=>{const m=m64();say([
  ['',m?'The roof at night. You have your feet on V’s knees and you’re reading him calculus pick-up lines off a website.':'The roof at night. Misaki has their feet on V’s knees and is reading him calculus pick-up lines off a website.'],
