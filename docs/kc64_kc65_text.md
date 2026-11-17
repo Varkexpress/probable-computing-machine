@@ -1,6 +1,6 @@
 # New text: off hours (kc64) and the Angel/Ronin routes (kc65)
 
-Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines that change with POV; ▸ marks a choice.
+Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines that change with POV; ▸ marks a choice. Lines with a version for the suggestive-scenes setting turned off show both, the off one after "(or)"; docs/sug_off_text.md has the off versions on their own.
 
 # kc64.js
 
@@ -844,6 +844,10 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 *The torch rolls off the bench and goes out. Around one o’clock the booth makes a noise no booth was built to make, and up at the altar the candles don’t even flicker.*
 
+**Ronin:** Father’s comin’ through. Can’t hear a fuckin’ thing through a cheese grater.
+
+*He takes the grille out and puts his head and one arm through the hole, and you finish the confession with his chin on your shoulder and his rings in your hair. The torch rolls off the bench and goes out. Around one o’clock you both fall asleep in there, folded up like deckchairs, and at six the cleaner finds a pair of boots sticking out of the confessional and walks backwards out of the church.*
+
 *He swaps. He kneels, which you have never once seen him do, and he’s quiet so long you think he’s gone to sleep on the cushion.*
 
 **Ronin:** Bless me, Father. I ain’t sorry for a single one of ’em. I’d do every one again with a smile on.
@@ -937,6 +941,18 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 ### k65mr\_morn
 
+*You wake up at Ronin’s at noon on his couch, under his only blanket, with your head on his thigh and the gospel radio still going from last night. You both fell asleep halfway through an argument about wrestling. He’s been up since four and hasn’t moved, because of your head. Now there’s bacon, and he’s wearing the apron over a T-shirt with a skull on it.*
+
+*His rings are lined up on the arm of the couch, eight skulls in a row, and a gap at the end where the first one used to sit. That one’s on your thumb.*
+
+*(or)* *His rings are lined up on the arm of the couch, nine skulls in a row, in the order of the names inside them.*
+
+**Ronin:** (from the kitchen) Don’t go tryin’ ’em on. You got no knuckles. They’ll fall off in the bacon.
+
+**Angel:** (text) u didn’t come home. ronin isn’t answering. are u both dead or did u fall asleep on his couch again
+
+**Angel:** (text) gross. proud of u. tell him he owes me a crowbar, he left one in my hallway and it scratched the floor
+
 *You wake up at Ronin’s at noon with the gospel radio still going from last night. He’s been up since four. There’s bacon, and he’s wearing the apron over a pair of boxers with skulls on and nothing else.*
 
 *His rings are lined up on the nightstand, eight skulls in a row, and a gap at the end where the first one used to sit. That one’s on your thumb.*
@@ -973,6 +989,8 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 **Angel:** that’s so mean. that’s the meanest thing anyone’s ever wanted. drive faster.
 
+**Angel:** that’s so mean. that’s the meanest thing anyone’s ever wanted. fine. your floor. i’m bringing the cherries.
+
 *You put the round two inches left of the cherry and swear about it, loudly. Angel turns her head on the gravel and looks at you for a long time.*
 
 **Angel:** you missed on purpose.
@@ -982,6 +1000,8 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 **Angel:** a draw means we both do whatever the other one says.
 
 **Angel:** we go at the same time. obviously. i’ve thought about this a lot.
+
+**Angel:** then we nap at the same time. on top of each other. obviously. i’ve thought about this a lot.
 
 *She shoots the last cherry off the wall without using the scope, to make a point, and goes to get the car.*
 
@@ -1025,11 +1045,17 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 *You move the hand.*
 
+*(or)* *You draw a small heart on her knee with one finger, very slowly, and then a skull.*
+
 **Angel:** (maria) a BALM, sorry guys, i’m so tired today, um. okay.
 
 *The chat fills up with “maria are u ok” and “she’s flushed???” and a hundred thousand fire emojis. She ends the stream four minutes early, the first time in four years, with the smile still on.*
 
 **Angel:** (lowercase, not smiling) bedroom. now. you’re in so much trouble.
+
+**Angel:** (lowercase, not smiling) couch. now. you’re in so much trouble.
+
+*The trouble is that she lies down on top of you on the couch in full Maria, lashes and all, with her face in your neck, and calls you a menace into it until she falls asleep there, and you can’t get up for two hours.*
 
 
 ### ma\_boat
@@ -1053,11 +1079,17 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 **Angel:** (afterwards) i want a rematch. i want a rematch so bad.
 
+*It’s been months and you’re still collecting on the roof. Every so often you say “bet” at dinner, and Angel takes her lashes off at the table, one at a time, and lets her hair down, and puts your hoodie on, and lies on the living-room floor with her head on your stomach for the rest of the night without a word, and Ronin has to step over you both to get to the fridge.*
+
+**Angel:** (at midnight, from the floor) i want a rematch. i want a rematch so bad.
+
 *She still hasn’t collected. She hasn’t told you what you owe. Every Sunday she looks at you across the table, says “not yet” and smiles with all her teeth, and you haven’t had a calm Sunday since.*
 
 **Angel:** i’m saving it. it’s going to be so good. you have no idea.
 
 *You still haven’t settled the draw. You’ve tried every order there is. Angel keeps a spreadsheet of the attempts, colour-coded, with a notes column she won’t let V see.*
+
+*You still haven’t settled the draw. Every Sunday you both say “nap” at the same time and you both lose, on her couch, tangled up under one blanket with the ring light off. Angel keeps a spreadsheet of the naps, colour-coded, with a notes column for who snored and who drooled on whose neck.*
 
 **Angel:** rematch on the roof sunday. tiebreaker’s the cherry. i bought a whole crate.
 
@@ -1069,6 +1101,16 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 
 ### k65ma\_morn
+
+*You wake up on the floor of Angel’s studio, under the ring light, still in yesterday’s clothes, with a cushion under your head that wasn’t there when you fell asleep mid-argument about lip liner. She’s cross-legged beside you in your T-shirt, with her phone held flat above her face, filming the ceiling.*
+
+**Angel:** found it. the right ceiling. the brands can wait though. this one’s mine.
+
+*There is a lipstick print on your cheek the exact shade of the one on her mouth, from a goodnight kiss you don’t remember. You go to rub it off and she catches your hand and puts it back on the cushion.*
+
+**Angel:** don’t. that’s a watermark.
+
+**Angel:** wear it to sunday dinner. i want ronin to choke on his bread.
 
 *You wake up in Angel’s bed. She’s already up, cross-legged at the bottom of it in your T-shirt, with her phone held flat above her face, filming the ceiling.*
 
@@ -1114,6 +1156,8 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 *You wait. You are very good at waiting. At twenty to two he puts his mug down, takes your hand off the desk, turns it over, looks at it, and says it again, sober, with worse grammar and more swearing. Then he does something with your hand that he did not mention the first time.*
 
+*(or)* *You wait. You are very good at waiting. At twenty to two he puts his mug down, takes your hand off the desk, turns it over, looks at it, and says it again, sober, with worse grammar and more swearing. Then he kisses the palm, once, and does not give the hand back. He holds it on his knee like something he is minding for you, and falls asleep on the arm of your chair.*
+
 **V:** (The tea went cold. Neither mug was finished.)
 
 - ▸ “You said nothing I had not already filed.”
@@ -1137,6 +1181,8 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 **Ronin:** ...That’s the worst thing anybody ever said t’me. Say it again.
 
 *You do not get to say it again. He is in your lap before you are through the first word, and the mug that says MINE goes off the edge of the desk and breaks, and afterwards he makes you promise not to file that.*
+
+*(or)* *You do not get to say it again. He is in your lap before you are through the first word, kissing you, and the mug that says MINE goes off the edge of the desk and breaks. Then he puts his face in your collar and stays there, all of him, far too heavy, until he is asleep and the lamp has burned the room orange, and in the morning he makes you promise not to file that.*
 
 
 ### vr\_after
@@ -1183,6 +1229,8 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 **V:** Thank you. I had a great deal of motivation.
 
 *You leave before dessert. He takes the tie with him.*
+
+*(or)* *You leave before dessert and eat it in the back of the car out of a napkin he stole, his head on your shoulder, still talking about your tie. He takes the tie with him.*
 
 - ▸ Send him to the car.
 
@@ -1280,8 +1328,6 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 - ▸ “The chairman is looking at me.”
 
-- ▸ “You may take it off yourself. Seven o’clock.”
-
 
 ### va\_theatre
 
@@ -1303,9 +1349,19 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 **V:** I would rather not make you do anything in this room.
 
+*She sits up at once, because she heard what you meant. She kisses you hard enough to knock your reading glasses crooked and makes you carry her up three floors to the kitchen, complaining the whole way that it is so much less interesting, and she falls asleep against your shoulder at the counter halfway through a bowl of cereal, in her slip and your coat.*
+
+**Angel:** make me.
+
+**V:** I would rather not make you do anything in this room.
+
 *She sits up at once, because she heard what you meant. She kisses you hard enough to knock your reading glasses crooked and makes you carry her up three floors to a room with an ordinary bed in it, which, she complains the whole way up, is so much less interesting.*
 
 - ▸ “Stay where you are.”
+
+**Angel:** (not narrating any more) ...oh.
+
+*You turn the big lamp off. She stays on the steel with one arm hanging off the edge, and you lie down on the tiles beside the table in your good suit and hold her hand, and for an hour the two of you look up into the dark and say almost nothing, and she does not narrate a second of it. Afterwards she says the steel was freezing and she would like to come back in the summer.*
 
 **Angel:** (not narrating any more) ...oh.
 

@@ -1,6 +1,6 @@
 # New text: V × Ronin, the Butcher’s balance (kc67)
 
-Reading copy. ▸ marks a choice; lines that change with earlier choices follow one another (the photograph, the ring, Hale or the envelope, the boat). Thread replies are in `src/kc67.js`.
+Reading copy. ▸ marks a choice; lines that change with earlier choices follow one another (the photograph, the ring, Hale or the envelope, the boat). Thread replies are in `src/kc67.js`. Lines with a version for the suggestive-scenes setting turned off show both, the off one after "(or)"; docs/sug_off_text.md has the off versions on their own.
 
 # kc67.js
 
@@ -162,6 +162,8 @@ Reading copy. ▸ marks a choice; lines that change with earlier choices follow 
 - ▸ Sit down with him.
 
 *You sit down on the coal-black floor in your good trousers. He makes a noise about the trousers. Then he pulls you in by the collar, and the torch rolls away under the boiler, and nobody goes after it for a long time.*
+
+*(or)* *You sit down on the coal-black floor in your good trousers. He makes a noise about the trousers. Then he pulls you in by the collar and kisses you, and the torch rolls away under the boiler, and nobody goes after it. You sit in the dark against the warm boiler where he used to sleep, with his head on your shoulder, saying nothing at all, until he is asleep the way he must have slept down here that first winter, and you stay where you are until the boiler ticks itself cool.*
 
 **Ronin:** (later) If the old man’s watchin’ he’s laughin’. Always said I’d bring somebody nice down here and ruin ’em.
 
@@ -483,6 +485,8 @@ Reading copy. ▸ marks a choice; lines that change with earlier choices follow 
 
 *You wake at Ronin’s at nine, in his bed above the workshop. Through the floor you can hear the gospel radio and something frying. Downstairs the church clock over the bench still says twenty to eleven.*
 
+*(or)* *You wake at Ronin’s at nine, on top of the covers of his bed above the workshop, still in your shirt and trousers, where you fell asleep at two while he was reading you the wrestling results. Through the floor you can hear the gospel radio and something frying. Downstairs the church clock over the bench still says twenty to eleven.*
+
 *While he cooks, you take his crowbars off the wall and hang them back up in order of length. It takes eleven minutes and it is the most relaxing thing you have done in a year.*
 
 **Ronin:** (on the stairs, holding a spatula) The fuck did you do to my wall.
@@ -512,6 +516,8 @@ Reading copy. ▸ marks a choice; lines that change with earlier choices follow 
 ### k67vr\_morn2
 
 *You wake at ten in your own bed with coal dust on the pillowcase, on your hands, and, you discover in the bathroom mirror, on your neck in the shape of four fingers and a thumb.*
+
+*(or)* *You wake at ten in your own bed with coal dust on the pillowcase, on your hands, and, you discover in the bathroom mirror, on your neck in the shape of four fingers and a thumb, where he held on to you, asleep, all the way home from the church in the back of the car last night.*
 
 **Ronin:** (from the bed) Leave it. Go to the board like that.
 

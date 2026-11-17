@@ -18275,8 +18275,10 @@ function k65mrBooth(){go(cutBg('#120a08'));k65Mark('mr_booth');
      ['','You confess something filthy. You take your time over it, and you use the voice.'],
      [RN,'(after a while) ...Hang on.'],
      ['','There are four screws holding the grille in. Ronin has a screwdriver on his keyring. Of course he does.'],
-     [RN,'Father’s comin’ through. Penance is gonna be real hands-on.'],
-     ['','The torch rolls off the bench and goes out. Around one o’clock the booth makes a noise no booth was built to make, and up at the altar the candles don’t even flicker.']],hub)}},
+     ...(sugOn()?[[RN,'Father’s comin’ through. Penance is gonna be real hands-on.'],
+     ['','The torch rolls off the bench and goes out. Around one o’clock the booth makes a noise no booth was built to make, and up at the altar the candles don’t even flicker.']]
+     :[[RN,'Father’s comin’ through. Can’t hear a fuckin’ thing through a cheese grater.'],
+     ['','He takes the grille out and puts his head and one arm through the hole, and you finish the confession with his chin on your shoulder and his rings in your hair. The torch rolls off the bench and goes out. Around one o’clock you both fall asleep in there, folded up like deckchairs, and at six the cleaner finds a pair of boots sticking out of the confessional and walks backwards out of the church.']])],hub)}},
    {t:MV('make him swap','make him swap sides','Make him swap sides.','Make him swap sides. It’s his turn.'),fn:()=>{S.f.k65mrBooth='his';fr('r',4);say([
      K65M('no. ur turn. swap','swap. your turn. you get the cushion.','No. Swap. You’re on the cushion.','No. Swap. I hear you in the back pew every Sunday, telling him things. Tell me.'),
      ['','He swaps. He kneels, which you have never once seen him do, and he’s quiet so long you think he’s gone to sleep on the cushion.'],
@@ -18342,7 +18344,13 @@ function k65mrEpi(){go(cutBg('#120a08'));k65Mark('mr_epi');const b=S.f.k65mrBoot
  L.push([RN,'C’mon. Back pew. Devil’s saved us seats.']);
  say(L,()=>{fr('r',2);hub()})}
 
-EVENTS.push({id:'k65mr_morn',when:()=>{try{return K65()&&k65R()==='mr'&&S.phase==='normal'&&(S.romDates||0)>=2}catch(e){return false}},run:done=>say([
+EVENTS.push({id:'k65mr_morn',when:()=>{try{return K65()&&k65R()==='mr'&&S.phase==='normal'&&(S.romDates||0)>=2}catch(e){return false}},run:done=>say(!sugOn()?[
+ ['','You wake up at Ronin’s at noon on his couch, under his only blanket, with your head on his thigh and the gospel radio still going from last night. You both fell asleep halfway through an argument about wrestling. He’s been up since four and hasn’t moved, because of your head. Now there’s bacon, and he’s wearing the apron over a T-shirt with a skull on it.'],
+ ['',S.seen&&S.seen.rom_r_ring?'His rings are lined up on the arm of the couch, eight skulls in a row, and a gap at the end where the first one used to sit. That one’s on your thumb.':'His rings are lined up on the arm of the couch, nine skulls in a row, in the order of the names inside them.'],
+ [RN,'(from the kitchen) Don’t go tryin’ ’em on. You got no knuckles. They’ll fall off in the bacon.'],
+ [AN,'(text) u didn’t come home. ronin isn’t answering. are u both dead or did u fall asleep on his couch again'],
+ K65M('(text) couch','(text) the couch','(text) The couch.','(text) The couch. He put his only blanket on me. Don’t tell V.'),
+ [AN,'(text) gross. proud of u. tell him he owes me a crowbar, he left one in my hallway and it scratched the floor']]:[
  ['','You wake up at Ronin’s at noon with the gospel radio still going from last night. He’s been up since four. There’s bacon, and he’s wearing the apron over a pair of boxers with skulls on and nothing else.'],
  ['',S.seen&&S.seen.rom_r_ring?'His rings are lined up on the nightstand, eight skulls in a row, and a gap at the end where the first one used to sit. That one’s on your thumb.':'His rings are lined up on the nightstand, nine skulls in a row, in the order of the names inside them.'],
  [RN,'(from the kitchen) Don’t wear ’em to bed. Ain’t puttin’ skulls in anybody’s hair.'],
@@ -18371,7 +18379,7 @@ function k65maBet(){go(cutBg('#1a0c14'));k65Mark('ma_bet');
      ['','You take the stalk off the last cherry. Angel watches it go through her scope, then rolls onto her back on the gravel and stares at the sky.'],
      [AN,'ok. ok. what do you want.'],
      K65M('ur hair down. no lashes. my hoodie.','maria off. hair down, no lashes, my hoodie, no narrating.','I want Maria off. Hair down, no lashes, my hoodie, and you don’t narrate anything.','I want Maria off. All of it. Hair down, no lashes, my hoodie, and you don’t narrate a single thing all night, however much you want to.'),
-     [AN,'that’s so mean. that’s the meanest thing anyone’s ever wanted. drive faster.']],hub)}},
+     ...(sugOn()?[[AN,'that’s so mean. that’s the meanest thing anyone’s ever wanted. drive faster.']]:[[AN,'that’s so mean. that’s the meanest thing anyone’s ever wanted. fine. your floor. i’m bringing the cherries.']])],hub)}},
    {t:MV('miss it on purpose','miss it on purpose','Miss it on purpose.','Miss it on purpose. Make it look good.'),fn:()=>{S.f.k65maBet='lost';fr('a',3);say([
      ['','You put the round two inches left of the cherry and swear about it, loudly. Angel turns her head on the gravel and looks at you for a long time.'],
      [AN,'you missed on purpose.'],
@@ -18379,8 +18387,9 @@ function k65maBet(){go(cutBg('#1a0c14'));k65Mark('ma_bet');
      [AN,'there’s no wind. ok. you’re going to regret that so much. get in the car.']],hub)}},
    {t:MV('“draw?”','“call it a draw.”','“Call it a draw.”','“Call it a draw. We both win.”'),fn:()=>{S.f.k65maBet='draw';fr('a',4);say([
      [AN,'a draw means we both do whatever the other one says.'],
-     K65M('...oh','oh. OH.','Oh. That’s a problem.','Oh. That’s a logistics problem. That’s a real logistics problem. Who goes first?'),
-     [AN,'we go at the same time. obviously. i’ve thought about this a lot.'],
+     sugOn()?K65M('...oh','oh. OH.','Oh. That’s a problem.','Oh. That’s a logistics problem. That’s a real logistics problem. Who goes first?')
+      :K65M('...oh. what if we both say nap','oh. what if we both say “nap”','Oh. What if we both say “nap”?','Oh. That’s a logistics problem. What if we both say “nap”? Who goes first?'),
+     ...(sugOn()?[[AN,'we go at the same time. obviously. i’ve thought about this a lot.']]:[[AN,'then we nap at the same time. on top of each other. obviously. i’ve thought about this a lot.']]),
      ['','She shoots the last cherry off the wall without using the scope, to make a point, and goes to get the car.']],hub)}}]))}
 
 function k65maAfter(){go(cutBg('#140c10'));k65Mark('ma_after');
@@ -18409,10 +18418,12 @@ function k65maLive(){go(cutBg('#2a1428'));k65Mark('ma_live');
    {t:MV('misbehave','misbehave','Misbehave.','Misbehave. Carefully.'),fn:()=>{S.f.k65maLive='bad';fr('a',3);say([
      ['','You get off the daybed. You stay low, under the eyeline of the camera, and put one hand on her knee under the desk.'],
      [AN,'(maria) so for an evening routine i always start with a, with a cleansing balm—'],
-     ['','You move the hand.'],
+     ['',sugOn()?'You move the hand.':'You draw a small heart on her knee with one finger, very slowly, and then a skull.'],
      [AN,'(maria) a BALM, sorry guys, i’m so tired today, um. okay.'],
      ['','The chat fills up with “maria are u ok” and “she’s flushed???” and a hundred thousand fire emojis. She ends the stream four minutes early, the first time in four years, with the smile still on.'],
-     [AN,'(lowercase, not smiling) bedroom. now. you’re in so much trouble.']],hub)}}]))}
+     ...(sugOn()?[[AN,'(lowercase, not smiling) bedroom. now. you’re in so much trouble.']]
+     :[[AN,'(lowercase, not smiling) couch. now. you’re in so much trouble.'],
+     ['','The trouble is that she lies down on top of you on the couch in full Maria, lashes and all, with her face in your neck, and calls you a menace into it until she falls asleep there, and you can’t get up for two hours.']])],hub)}}]))}
 
 function k65maBoat(){go(cutBg('#0c0a14'));k65Mark('ma_boat');const l=S.f.k65maLive;
  const L=[['','The night before the boat you go up on Angel’s roof to check sightlines over the water. She lies next to you on the wet gravel and narrates you instead of the water.'],
@@ -18425,18 +18436,27 @@ function k65maBoat(){go(cutBg('#0c0a14'));k65Mark('ma_boat');const l=S.f.k65maLi
  say(L,()=>{fr('a',3);hub()})}
 
 function k65maEpi(){go(cutBg('#1a0c14'));k65Mark('ma_epi');const b=S.f.k65maBet;let L;
- if(b==='won')L=[['','It’s been months and you’re still collecting on the roof. Every so often you say “bet” at dinner, and Angel takes her lashes off at the table, one at a time, and lets her hair down, and doesn’t say a word for the rest of the night, and Ronin has to leave the room.'],
-  [AN,'(afterwards) i want a rematch. i want a rematch so bad.']];
+ if(b==='won')L=sugOn()?[['','It’s been months and you’re still collecting on the roof. Every so often you say “bet” at dinner, and Angel takes her lashes off at the table, one at a time, and lets her hair down, and doesn’t say a word for the rest of the night, and Ronin has to leave the room.'],
+  [AN,'(afterwards) i want a rematch. i want a rematch so bad.']]
+  :[['','It’s been months and you’re still collecting on the roof. Every so often you say “bet” at dinner, and Angel takes her lashes off at the table, one at a time, and lets her hair down, and puts your hoodie on, and lies on the living-room floor with her head on your stomach for the rest of the night without a word, and Ronin has to step over you both to get to the fridge.'],
+  [AN,'(at midnight, from the floor) i want a rematch. i want a rematch so bad.']];
  else if(b==='lost')L=[['','She still hasn’t collected. She hasn’t told you what you owe. Every Sunday she looks at you across the table, says “not yet” and smiles with all her teeth, and you haven’t had a calm Sunday since.'],
   [AN,'i’m saving it. it’s going to be so good. you have no idea.']];
- else if(b==='draw')L=[['','You still haven’t settled the draw. You’ve tried every order there is. Angel keeps a spreadsheet of the attempts, colour-coded, with a notes column she won’t let V see.'],
+ else if(b==='draw')L=[sugOn()?['','You still haven’t settled the draw. You’ve tried every order there is. Angel keeps a spreadsheet of the attempts, colour-coded, with a notes column she won’t let V see.']
+  :['','You still haven’t settled the draw. Every Sunday you both say “nap” at the same time and you both lose, on her couch, tangled up under one blanket with the ring light off. Angel keeps a spreadsheet of the naps, colour-coded, with a notes column for who snored and who drooled on whose neck.'],
   [AN,'rematch on the roof sunday. tiebreaker’s the cherry. i bought a whole crate.']];
  else L=[['','Angel has bought a crate of cherries and two boxes of rounds. She would like a bet. She hasn’t told you the stakes, and she’s already wearing your hoodie, which you think is a tell.']];
  if(S.f.romMarried)L.push([AN,'also we’re married, so legally your debts are my debts, so i owe me. i love that.']);
  L.push(['','She turns the ring light on, looks at you through the phone for a while, and turns it off again without recording anything.']);
  say(L,()=>{fr('a',2);hub()})}
 
-EVENTS.push({id:'k65ma_morn',when:()=>{try{return K65()&&k65R()==='ma'&&S.phase==='normal'&&(S.romDates||0)>=2}catch(e){return false}},run:done=>say([
+EVENTS.push({id:'k65ma_morn',when:()=>{try{return K65()&&k65R()==='ma'&&S.phase==='normal'&&(S.romDates||0)>=2}catch(e){return false}},run:done=>say(!sugOn()?[
+ ['','You wake up on the floor of Angel’s studio, under the ring light, still in yesterday’s clothes, with a cushion under your head that wasn’t there when you fell asleep mid-argument about lip liner. She’s cross-legged beside you in your T-shirt, with her phone held flat above her face, filming the ceiling.'],
+ [AN,'found it. the right ceiling. the brands can wait though. this one’s mine.'],
+ ['','There is a lipstick print on your cheek the exact shade of the one on her mouth, from a goodnight kiss you don’t remember. You go to rub it off and she catches your hand and puts it back on the cushion.'],
+ [AN,'don’t. that’s a watermark.'],
+ K65M('ur insane','you’re insane','You’re insane.','You’re insane, and I’m wearing it to Sunday dinner.'),
+ [AN,'wear it to sunday dinner. i want ronin to choke on his bread.']]:[
  ['','You wake up in Angel’s bed. She’s already up, cross-legged at the bottom of it in your T-shirt, with her phone held flat above her face, filming the ceiling.'],
  [AN,'found it. the right ceiling. the brands can wait though. this one’s mine.'],
  ['','There is a lipstick print on your collarbone the exact shade of the one on her mouth. You go to rub it off and she catches your hand and puts it back on the pillow.'],
@@ -18465,7 +18485,7 @@ function k65vrMugs(){go(cutBg('#100a08'));k65Mark('vr_mugs');
    {t:'“Say the part about my hands again.”',fn:()=>{S.f.k65vrTea='again';fr('r',3);say([
      [RN,'Nah.'],
      ['K9','You said it sedated. I would like to hear it sober. I will wait.'],
-     ['','You wait. You are very good at waiting. At twenty to two he puts his mug down, takes your hand off the desk, turns it over, looks at it, and says it again, sober, with worse grammar and more swearing. Then he does something with your hand that he did not mention the first time.'],
+     ['',sugOn()?'You wait. You are very good at waiting. At twenty to two he puts his mug down, takes your hand off the desk, turns it over, looks at it, and says it again, sober, with worse grammar and more swearing. Then he does something with your hand that he did not mention the first time.':'You wait. You are very good at waiting. At twenty to two he puts his mug down, takes your hand off the desk, turns it over, looks at it, and says it again, sober, with worse grammar and more swearing. Then he kisses the palm, once, and does not give the hand back. He holds it on his knee like something he is minding for you, and falls asleep on the arm of your chair.'],
      ['K9','(The tea went cold. Neither mug was finished.)']],hub)}},
    {t:'“You said nothing I had not already filed.”',fn:()=>{S.f.k65vrTea='filed';fr('r',2);say([
      [RN,'You FILED it?'],
@@ -18477,7 +18497,7 @@ function k65vrMugs(){go(cutBg('#100a08'));k65Mark('vr_mugs');
      [RN,'Don’t.'],
      ['K9','I think about the way you say “Vee”. You say it as though I owe you money. I have run the figures. I would pay it.'],
      [RN,'...That’s the worst thing anybody ever said t’me. Say it again.'],
-     ['','You do not get to say it again. He is in your lap before you are through the first word, and the mug that says MINE goes off the edge of the desk and breaks, and afterwards he makes you promise not to file that.']],hub)}}]))}
+     ['',sugOn()?'You do not get to say it again. He is in your lap before you are through the first word, and the mug that says MINE goes off the edge of the desk and breaks, and afterwards he makes you promise not to file that.':'You do not get to say it again. He is in your lap before you are through the first word, kissing you, and the mug that says MINE goes off the edge of the desk and breaks. Then he puts his face in your collar and stays there, all of him, far too heavy, until he is asleep and the lamp has burned the room orange, and in the morning he makes you promise not to file that.']],hub)}}]))}
 
 function k65vrAfter(){go(cutBg('#0c0c10'));k65Mark('vr_after');
  say([['','Four in the morning. You have not slept since Misaki came home. Ronin finds you on the landing outside her door, in a chair you carried up from the kitchen, with a scalpel on your knee.'],
@@ -18502,7 +18522,7 @@ function k65vrGala(){go(cutBg('#14100a'));k65Mark('vr_gala');
    {t:'Give the speech. Do not stop him.',fn:()=>{S.f.k65vrGala='stay';fr('r',3);say([
      ['','You give your whole speech. He gives his whole speech, low, in your ear, the entire time, in more detail than yours. You do not pause once. At the end there is a standing ovation, and the chair of the board tells you that you were more passionate than usual this year.'],
      ['K9','Thank you. I had a great deal of motivation.'],
-     ['','You leave before dessert. He takes the tie with him.']],hub)}},
+     ['',sugOn()?'You leave before dessert. He takes the tie with him.':'You leave before dessert and eat it in the back of the car out of a napkin he stole, his head on your shoulder, still talking about your tie. He takes the tie with him.']],hub)}},
    {t:'Send him to the car.',fn:()=>{S.f.k65vrGala='car';fr('r',2);say([
      ['K9','(without moving your lips) Car.'],
      [RN,'Yes sir.'],
@@ -18552,7 +18572,7 @@ txDef('tx_k65_vr',{with:'r',pov:'v',prio:1,when:()=>K65()&&k65R()==='vr'&&['norm
    {t:'“Your shirt. You left it here.”',fx:()=>fr('r',3),reply:()=>['you’re wearin my shirt','to a board meeting','vee I’m gonna have to sit down']}]},
  board:{in:()=>['take it off','in the board meeting. I’ll wait'],
   opts:()=>[{t:'“The chairman is looking at me.”',fx:()=>fr('r',2),reply:()=>['good','tell him who you’re textin','actually don’t, he’ll want in, they always want in']},
-   {t:'“You may take it off yourself. Seven o’clock.”',fx:()=>fr('r',3),reply:()=>['7:00','on the dot. been early once in my life and I’m about to do it again']}]}}});
+   {t:sugOn()?'“You may take it off yourself. Seven o’clock.”':'“You may tell me to my face. Seven o’clock.”',fx:()=>fr('r',3),reply:()=>['7:00','on the dot. been early once in my life and I’m about to do it again']}]}}});
 
 /* ===================================== V × ANGEL ===================================== */
 function k65vaTheatre(){go(cutBg('#0e1214'));k65Mark('va_theatre');
@@ -18563,11 +18583,16 @@ function k65vaTheatre(){go(cutBg('#0e1214'));k65Mark('va_theatre');
   ['K9','They are.'],
   [AN,'(narrating, sweet) and she’s asking about the straps very casually, very normally, like a girl with nothing on her mind at all.']],
   ()=>ask('K9','(She is looking at you upside down off the end of the table.)',[
-   {t:'“Get off the table.”',fn:()=>{S.f.k65vaTable='off';fr('a',3);say([
+   {t:'“Get off the table.”',fn:()=>{S.f.k65vaTable='off';fr('a',3);if(!sugOn())return say([
+     [AN,'make me.'],
+     ['K9','I would rather not make you do anything in this room.'],
+     ['','She sits up at once, because she heard what you meant. She kisses you hard enough to knock your reading glasses crooked and makes you carry her up three floors to the kitchen, complaining the whole way that it is so much less interesting, and she falls asleep against your shoulder at the counter halfway through a bowl of cereal, in her slip and your coat.']],hub);say([
      [AN,'make me.'],
      ['K9','I would rather not make you do anything in this room.'],
      ['','She sits up at once, because she heard what you meant. She kisses you hard enough to knock your reading glasses crooked and makes you carry her up three floors to a room with an ordinary bed in it, which, she complains the whole way up, is so much less interesting.']],hub)}},
-   {t:'“Stay where you are.”',fn:()=>{S.f.k65vaTable='stay';fr('a',4);say([
+   {t:'“Stay where you are.”',fn:()=>{S.f.k65vaTable='stay';fr('a',4);if(!sugOn())return say([
+     [AN,'(not narrating any more) ...oh.'],
+     ['','You turn the big lamp off. She stays on the steel with one arm hanging off the edge, and you lie down on the tiles beside the table in your good suit and hold her hand, and for an hour the two of you look up into the dark and say almost nothing, and she does not narrate a second of it. Afterwards she says the steel was freezing and she would like to come back in the summer.']],hub);say([
      [AN,'(not narrating any more) ...oh.'],
      ['','You lock the theatre door. The straps are, in the end, adjustable. Afterwards she says the steel was freezing and she would like to come back in the summer.']],hub)}}]))}
 
@@ -18674,7 +18699,7 @@ const _xeK65=extraEnding;extraEnding=function(){const L=_xeK65();if(!S||!S.f)ret
   else if(f.k65mrBooth==='his')L.push('Once a month Ronin kneels in the church across town and confesses to Misaki that he isn’t sorry about any of them, and that he loves her, in that order.');}
  if(S.rom==='a'){if(f.k65maBet==='won')L.push('Every so often, at dinner, Misaki says “bet”, and Angel takes Maria off at the table, one lash at a time.');
   else if(f.k65maBet==='lost')L.push('Angel is still saving what Misaki owes her from the roof. She smiles with all her teeth about it every Sunday.');
-  else if(f.k65maBet==='draw')L.push('The bet on the roof was a draw, and Misaki and Angel are still working out who goes first. Angel keeps a spreadsheet.');
+  else if(f.k65maBet==='draw')L.push(sugOn()?'The bet on the roof was a draw, and Misaki and Angel are still working out who goes first. Angel keeps a spreadsheet.':'The bet on the roof was a draw. Every Sunday Misaki and Angel settle it with a nap at the same time, under one blanket. Angel keeps a spreadsheet.');
   if(f.k65maLive==='bad')L.push('A clip called “the flush” on Maria de la Rosa’s channel has forty million views. Nobody in the comments knows whose hand it was.');}
  if(S.vrom==='r'){if(f.k65vrRing==='on')L.push('V wears a dead stranger’s skull ring on his ring finger to every board meeting. Nobody on the board has asked about it.');
   else if(f.k65vrRing==='chain')L.push('V wears a skull ring on a chain under his shirt. Ronin is the only one who knows it is there, and he checks most nights.');
@@ -18744,7 +18769,13 @@ function k66Audit(){go(cutBg('#06080c'));k66Mark('vm_audit');const m=k66M(),wed=
   K66MV('u left ur door open. -2','u left ur door open. minus two','You left your door open. That’s minus two.','You left your own door open, V. Minus two. The house was perfect and you ruined it because you wanted to be found.'),
   ...film,...law,
   ['','You rehearsed that from eleven until half past two. It comes out exactly as rehearsed. She takes the hair clip out of her teeth and stares at you, and the black hound, which has followed her up, sits down in the doorway to watch.']];
- const date=()=>{S.f.k66Audit='date';apply({aff:4});note('k66_audit','Break-in night: once a year Misaki breaks into V’s house to test the alarms she wired.');save();say(m?[
+ const date=()=>{S.f.k66Audit='date';apply({aff:4});note('k66_audit','Break-in night: once a year Misaki breaks into V’s house to test the alarms she wired.');save();if(!sugOn())return say(m?[
+   K66MV('then collect.','then collect, doctor.','Then collect.','Then collect. I’m not scoring this part.'),
+   ['','He collects. '+(wed?'The rings go on the bedside table by the water, where they live at night. ':'')+'He kisses you once, very formally, like a man signing for a parcel, and then he opens the door for the black hound, which gets onto the bed and lies across both of you like a sandbag. You lie on top of the covers in your black, with dog hair all down your front and your head on his chest, and tell him about the dog door until you are both laughing too hard to talk. You fall asleep mid-sentence with the hair clip still in your teeth. He takes it out without waking you and puts it on the lampshade. You don’t find it for a week.'],
+   ['','Between three and four the bedroom sensor goes off eleven times, because the black hound keeps getting down to check the stairs and climbing back up. The next afternoon you go through the alarm log with your feet on his desk and mark every one of them as a false alarm, in red.']]:[
+   K66MV('then collect.','then collect, doctor.','Then collect.','Then collect. I’m not scoring this part.'),
+   ['','You collect. '+(wed?'The rings go on the bedside table by the water, where they live at night. ':'')+'You kiss her once, formally, and then you open the door for the black hound, which gets onto the bed and lies across both of you like a sandbag. She lies on top of the covers in her black, with dog hair all down her front and her head on your chest, and tells you about the dog door until neither of you can talk for laughing, and falls asleep mid-sentence with the hair clip in her teeth. You take it out without waking her and put it on the lampshade.'],
+   ['','Between three and four the bedroom sensor goes off eleven times, because the black hound keeps getting down to check the stairs and climbing back up. In the afternoon she goes through the alarm log with her feet on your desk and marks every one as a false alarm, in red, and initials them.']],hub);say(m?[
    K66MV('then collect.','then collect, doctor.','Then collect.','Then collect. I’m not scoring this part.'),
    ['','He collects. '+(wed?'The rings go on the bedside table by the water, where they live at night. ':'')+'He shuts the door on the black hound, very politely, and it lies down against the other side and sighs at intervals, like a lodger. Your hair clip ends up on the lampshade. You don’t find it for a week.'],
    ['','Between three and four the bedroom sensor goes off eleven times. The next afternoon you go through the alarm log with your feet on his desk and mark every one of them as a false alarm, in red.']]:[
@@ -18821,7 +18852,8 @@ function k66Troph(){go(cutBg('#0e0c08'));k66Mark('vm_troph');const m=k66M(),r=k6
   ...(r?[
    K66MV('what do i get if i win','and if i beat first place?','And what do I get if I beat first place?','And what do I get if I beat first place? Don’t say the trophy. I’ve got the trophy. I want a prize, V, a proper one.'),
    K66V('Name it.'),
-   K66MV('...later. here.','later. here. on the island','Later. Here. On the island, where you eat your toast.','Later. Here. On this island, where you eat your toast every morning and read the paper like a grandfather. You’ll never look at toast the same way again.'),
+   sugOn()?K66MV('...later. here.','later. here. on the island','Later. Here. On the island, where you eat your toast.','Later. Here. On this island, where you eat your toast every morning and read the paper like a grandfather. You’ll never look at toast the same way again.')
+    :K66MV('...later. a dance. on the island','later. u dance with me. on the island','Later. You dance with me. On the island, where you eat your toast.','Later. You dance with me, V. On this island, where you eat your toast every morning and read the paper like a grandfather. In socks. You’ll never look at toast the same way again.'),
    K66V('Start the timer.')]:[
    K66MV('and if i win?','and if i beat first place?','And if I beat first place?','And if I beat first place? You do the washing up for a month. In an apron. I’ll pick the apron.'),
    K66V('Agreed. Start the timer.')]),
@@ -18832,12 +18864,14 @@ function k66Troph(){go(cutBg('#0e0c08'));k66Mark('vm_troph');const m=k66M(),r=k6
  const shelf=()=>{S.f.k66Troph='shelf';apply({aff:3});calm(3);save();say([
    ['',m?'It goes on the shelf in the security room, above the screens, where you can see it at three in the morning. He puts it up himself with a spirit level. The protractor falls off twice. You glue it.':'It goes on the shelf in the security room, above the screens, where she will see it at three in the morning. You put it up with a spirit level. The protractor falls off twice. She glues it, and holds it in place for the full four minutes on the tube.'],
    K66MV('third place. at 3am. good.','third place, watching the doors.','Third place, on night watch.','Third place, on the night watch. Promoted. Somebody in this house finally has a medal.'),
-   ['',r?(m?'You collect your prize that evening on the island, after he has moved the toast rack. The kitchen timer gets knocked off the counter and rings under the fridge for a full minute, and neither of you goes to get it.':'She collects her prize that evening on the island, after you have moved the toast rack. The kitchen timer gets knocked off the counter and rings under the fridge for a full minute, and neither of you goes to get it.')
+   ['',r?(!sugOn()?(m?'You collect your prize that evening on the island, in socks, after he has moved the toast rack. He dances like a man filling in a form, and then, around the third song, less like one, and you end up just holding on to each other and turning very slowly. The kitchen timer gets knocked off the counter and rings under the fridge for a full minute, and neither of you lets go to get it.':'She collects her prize that evening on the island, in socks, after you have moved the toast rack. You dance like a man filling in a form, and then, around the third song, less like one, and in the end you are both only holding on and turning very slowly. The kitchen timer gets knocked off the counter and rings under the fridge for a full minute, and neither of you lets go to get it.')
+    :(m?'You collect your prize that evening on the island, after he has moved the toast rack. The kitchen timer gets knocked off the counter and rings under the fridge for a full minute, and neither of you goes to get it.':'She collects her prize that evening on the island, after you have moved the toast rack. The kitchen timer gets knocked off the counter and rings under the fridge for a full minute, and neither of you goes to get it.'))
     :(m?'He does the washing up for a month in the apron you pick, which has a cartoon lobster on it, with his sleeves rolled exactly to the elbow. He does not mention the lobster once.':'You do the washing up for a month in the apron she picks, which has a cartoon lobster on it, with your sleeves rolled exactly to the elbow. You do not mention the lobster once.')]],hub)};
  const pawn=()=>{S.f.k66Troph='pawn';apply({aff:3});save();say([
    K66MV('we’re pawning it again. dinner','we’re pawning it again. for dinner','We’re pawning it again. For dinner.','We’re pawning it again. For dinner. That’s what it’s for. That’s what it was always for.'),
    ['','The man under the flyover offers twelve dollars for it. He has never seen V without the watch, and he looks at the watch for a long time.'],
-   ['',r?(m?'Twelve dollars is two bowls of noodles and one beer, and you split the beer. Under the table you hook your ankle round his, and tell him the prize is waiting at home and costs a lot more than twelve dollars, and he asks for the bill before the noodles have arrived.':'Twelve dollars is two bowls of noodles and one beer, split. Under the table she hooks her ankle round yours and tells you the prize is waiting at home and costs a great deal more than twelve dollars. You ask for the bill before the noodles have arrived.')
+   ['',r?(!sugOn()?(m?'Twelve dollars is two bowls of noodles and one beer, and you split the beer. Under the table you hook your ankle round his and tell him the prize is waiting at home on the island, in socks, and he asks for the bill before the noodles have arrived. You dance on the island till one, and the hounds watch from the doorway like a jury.':'Twelve dollars is two bowls of noodles and one beer, split. Under the table she hooks her ankle round yours and tells you the prize is waiting at home on the island, in socks. You ask for the bill before the noodles have arrived, and you dance on the island till one while the hounds watch from the doorway like a jury.')
+    :(m?'Twelve dollars is two bowls of noodles and one beer, and you split the beer. Under the table you hook your ankle round his, and tell him the prize is waiting at home and costs a lot more than twelve dollars, and he asks for the bill before the noodles have arrived.':'Twelve dollars is two bowls of noodles and one beer, split. Under the table she hooks her ankle round yours and tells you the prize is waiting at home and costs a great deal more than twelve dollars. You ask for the bill before the noodles have arrived.'))
     :(m?'Twelve dollars is two bowls of noodles and one beer, split, with the hounds’ leads tied round the chair legs. You tell him about question seventeen for an hour. He listens to all of it, and then he does the washing up at home in the lobster apron.':'Twelve dollars is two bowls of noodles and one beer, split, with the hounds’ leads tied round the chair legs. She tells you about question seventeen for an hour, and you listen to all of it, and then you go home and put on the lobster apron.')],
    ['',m?'The next morning the trophy is back on the island, and the man under the flyover has started calling him “sir”. You never ask what that cost.':'The next morning you are under the flyover at seven. He has put the price back up to four hundred dollars. You pay it.']],hub)};
  say(L,()=>ask(m?'hitmeuppp':'K9',m?'(Where does it go?)':'(She is holding it like a rifle.)',m?[
@@ -18866,7 +18900,8 @@ function k66House(){go(cutBg('#08080e'));k66Mark('vm_house');const m=k66M(),c=S.
  if(mode==='set')L.push(['',m?'At ten he goes to bed, because the old hound refuses to go up without him. You sit on the end of his bed with the rifle across your knees and your back to the footboard. He sleeps three and a half hours, as always. You don’t sleep at all. At half past one he wakes, exactly on time, and sees you still there. He gets up without telling you to go to bed, and makes two cups.':'At ten you go to bed, because the old hound will not go up without you. She sits on the end of your bed with the rifle across her knees and her back to the footboard. You sleep three and a half hours, as always. At half past one you wake, exactly on time, and she is still there. You get up without telling her to go to bed, and make two cups.']);
  else L.push(K66V('This is the bedroom. I believe you are familiar with it.'),
   K66MV('tour me','go on. tour me','Go on, then. Give me the tour.','Go on, then, doctor. Give me the full tour. Point at things. Use the voice.'),
-  ['',m?'He uses the voice. The coach party is shut out on the landing. '+(mode==='wed'?'The rings go on the bedside table by the water. ':'')+'Afterwards he sleeps three and a half hours, as always, and you stay awake the whole time with your hand flat on his chest and the rifle against the headboard, watching the door.':'You use the voice. The coach party is shut out on the landing. '+(mode==='wed'?'The rings go on the bedside table by the water. ':'')+'Afterwards you sleep three and a half hours, as always. When you wake she is lying on her side with her hand flat on your chest and the rifle against the headboard, watching the door.'],
+  ...(sugOn()?[['',m?'He uses the voice. The coach party is shut out on the landing. '+(mode==='wed'?'The rings go on the bedside table by the water. ':'')+'Afterwards he sleeps three and a half hours, as always, and you stay awake the whole time with your hand flat on his chest and the rifle against the headboard, watching the door.':'You use the voice. The coach party is shut out on the landing. '+(mode==='wed'?'The rings go on the bedside table by the water. ':'')+'Afterwards you sleep three and a half hours, as always. When you wake she is lying on her side with her hand flat on your chest and the rifle against the headboard, watching the door.']]
+   :[['',m?'He uses the voice. He points at the lamp, the water glass, the window and you, and names each one, while the coach party climbs onto the bed behind him one hound at a time. '+(mode==='wed'?'The rings go on the bedside table by the water. ':'')+'Then he lies down among them in his clothes with your head on his chest, and sleeps three and a half hours, as always, and you stay awake the whole time with your hand flat on his chest and the rifle against the headboard, watching the door.':'You use the voice. You point at the lamp, the water glass, the window and her, and name each one, while the coach party climbs onto the bed behind you one hound at a time. '+(mode==='wed'?'The rings go on the bedside table by the water. ':'')+'Then you lie down among them in your clothes with her head on your chest, and sleep three and a half hours, as always. When you wake she is lying on her side with her hand flat on your chest and the rifle against the headboard, watching the door.']]),
   K66MV('ur turn to sleep. mine to watch','go back to sleep. i’ve got the door','Go back to sleep. I’ve got the door.','Go back to sleep. Four more hours. I’ve got the door, V. I designed the door.'),
   ['',m?'He goes back to sleep. He has never once in his life slept past half past one. He sleeps until six, and wakes up furious about it, and you laugh into his shoulder until the hounds start barking downstairs.':'You go back to sleep. You have never slept past half past one in your adult life. You sleep until six, and wake up furious, and she laughs into your shoulder until the hounds start barking downstairs.']);
  say(L,k66Fin({aff:3},hub))}
@@ -18877,7 +18912,8 @@ function k66Epi(){go(cutBg('#06080c'));k66Mark('vm_epi');const m=k66M(),a=S.f.k6
  if(k66Apart())L.push(['',m?'He does not leave his door open any more. You get in at ten past three, touch his door handle to show you were there, and go back down. In the morning your score is on the island on the back of a cereal box, and under it, in fountain pen, he has written “Noted.” and the time.':'You do not leave your door open any more. She gets in at ten past three, touches your door handle and goes back down the stair. In the morning her score is on the island on the back of a cereal box. You write “Noted.” and the time under it, and leave it where it was.']);
  else if(a==='date'&&mode!=='set')L.push(['',m?'His door is open an inch. On the floor in front of it somebody has chalked MINUS TWO, and beside that, on a card, in fountain pen: “I have been informed of the penalty. I am prepared to pay it.”':'You leave your door open an inch, and chalk MINUS TWO on the floor in front of it, and beside that a card: “I have been informed of the penalty. I am prepared to pay it.”'],
   K66MV('...u PREPARED?','u prepared. u wrote a card.','You prepared. You wrote me a card.','You prepared. You wrote me a card, V, in fountain pen, about the penalty. Move over.'),
-  ['',m?'He moves over. The bedroom sensor goes off fourteen times before four. You mark them all false alarms in the morning, in red, and he initials every one under yours.':'You move over. The bedroom sensor goes off fourteen times before four. In the morning she marks them false alarms in red, and you initial every one under hers.']);
+  ...(sugOn()?[['',m?'He moves over. The bedroom sensor goes off fourteen times before four. You mark them all false alarms in the morning, in red, and he initials every one under yours.':'You move over. The bedroom sensor goes off fourteen times before four. In the morning she marks them false alarms in red, and you initial every one under hers.']]
+   :[['',m?'He moves over. The penalty turns out to be a cup of tea in bed at half past three and your cold feet on his shins until you fall asleep. The black hound sets the bedroom sensor off fourteen times before four, going up and down to check the stairs. You mark them all false alarms in the morning, in red, and he initials every one under yours.':'You move over. The penalty turns out to be a cup of tea in bed at half past three and her cold feet on your shins until she falls asleep. The black hound sets the bedroom sensor off fourteen times before four, going up and down to check the stairs. In the morning she marks them false alarms in red, and you initial every one under hers.']]));
  else L.push(['',m?'The kitchen light is on. He is at the table with two bowls of cereal poured, and on the wall above him is last year’s cereal box, flattened, in a frame, with the score showing.':'You are at the kitchen table with two bowls of cereal poured, under last year’s cereal box, which you have flattened and framed and hung with the score showing.'],
   K66V('I have left room on the wall for forty more.'),
   K66MV('40 years of 7s','forty years of sevens. u optimist','Forty years of sevens. You optimist.','Forty years of sevens, V. You absolute optimist. Pass the milk. The black hound’s still a disgrace and I’m taking it off this year’s too.'));
@@ -18889,6 +18925,32 @@ function k66Epi(){go(cutBg('#06080c'));k66Mark('vm_epi');const m=k66M(),a=S.f.k6
 
 /* ===================================== THE MORNING AFTER ===================================== */
 EVENTS.push({id:'k66_morn',when:()=>{try{return K66()&&k66Rom()&&S.f.k66Audit==='date'&&!k66Apart()&&(S.phase==='normal'||S.phase==='epilogue'&&k66Done('vm_epi'))}catch(e){return false}},run:done=>{const m=k66M(),wed=!!S.f.married;
+ if(!sugOn())return say(m?[
+ ['','You wake at noon in V’s bed, on top of the covers, still in last night’s black, with the old hound across your calves and the black hound across the old hound. V is awake. V has been awake since half past five, because he slept his three and a half hours and not a minute more. He hasn’t got up, because you are lying on his arm.'],
+ K66V('I lost the feeling in this arm at six. I have decided you may keep it.'),
+ K66MV('...time','what time is it','What time is it? Why didn’t you get up?','What time is it? Why didn’t you get up? You’ve been lying there six hours. You could have rolled me.'),
+ K66V('Twelve minutes past twelve. I have been busy with the notebook.'),
+ ['','The notebook is open on his chest. The last entry is dated last night, and it has a line through it, firmly, in the same pen.'],
+ K66MV('what did i say','what did i SAY','What did I say? Why is it crossed out?','What did I say last night? Why is it crossed out? V, you never cross anything out.'),
+ K66V('You said it at ten past three, asleep, in the middle of a sentence about the dog door. I crossed it out because I could never read it aloud at breakfast without having to sit down. I have it by heart.'),
+ K66MV('tell me','tell me or i lie on the other arm','Tell me, or I lie on the other arm.','Tell me. Tell me or I lie on the other arm, and then you’ve got no arms, and you’ll have to sign things with your teeth.'),
+ K66V('No.'),
+ ['','You lie on the other arm. He loses the feeling in that one as well, and does not mention it, and lies there with no arms and two hounds on his legs, looking pleased with himself.'],
+ K66V('There is one thing I should have asked last night, as a physician. You stuck in the dog door at the hips. I would like to examine the hips.'),
+ K66MV('the doctor voice. at noon.','oh my god. the doctor voice','Oh my god. The doctor voice. Now?','Oh my god. You’re doing the doctor voice. At noon. Under two dogs. With no arms. Go on, then.'),
+ K66MV('hips r fine. i’m a coat hanger','they’re fine. i’m a coat hanger. nothing to bruise','They’re fine. I’m built like a coat hanger, V. There’s nothing there to bruise.','They’re fine, doctor. I’m built like a coat hanger. There’s nothing there to bruise. The dog door hurt my pride, and you can’t put a plaster on that.'),
+ K66V('There are no further questions.'),
+ ['','He says it in exactly the voice he uses in board meetings, with no arms and a hound on his shins, and you laugh into his shoulder so hard that the old hound gets off the bed in protest and the black hound moves up into its place.'+(wed?' His ring is still on the bedside table. Yours is on your thumb, where you sleep with it.':'')]]:[
+ ['','You slept three and a half hours, as always, and woke at half past five, as always. You have not got up. She is lying across your arm on top of the covers, still in last night’s black, with the old hound across her calves and the black hound across the old hound, and you have decided the arm is hers now.'],
+ ['','You spend the six hours on the notebook. At ten past twelve you put a line through last night’s entry, firmly. It is what she said at ten past three, asleep, in the middle of a sentence about the dog door, and you will never be able to read it aloud at breakfast without having to sit down. You have it by heart.'],
+ K66MV('...u crossed something out','u crossed something out. u never cross anything out','You crossed something out. You never cross anything out.','You crossed something out. What did I say? V. What did I say last night?'),
+ K66V('Something I will not be repeating before noon. It is twelve minutes past. I will not be repeating it after noon either.'),
+ K66MV('tell me','tell me or i lie on the other arm','Tell me, or I lie on the other arm.','Tell me. Tell me or I lie on the other arm, and then you’ve got no arms, and you’ll have to sign things with your teeth.'),
+ ['','She lies on the other arm. You lose the feeling in that one too, and do not mention it.'],
+ K66V('There is one thing I should have asked last night, as a physician. You stuck in the dog door at the hips. I would like to examine the hips.'),
+ K66MV('hips r fine. i’m a coat hanger','they’re fine. i’m a coat hanger. nothing to bruise','They’re fine. I’m built like a coat hanger, V. There’s nothing there to bruise.','They’re fine, doctor. I’m built like a coat hanger. There’s nothing there to bruise. The dog door hurt my pride, and you can’t put a plaster on that.'),
+ K66V('There are no further questions.'),
+ ['','You say it in exactly the voice you use in board meetings, with no arms and a hound on your shins. She laughs into your shoulder so hard that the old hound gets off the bed in protest, and the black hound moves up into its place.'+(wed?' Your ring is on the bedside table. Hers is on her thumb, where she sleeps with it.':'')]],()=>{apply({aff:3});done()});
  const born=K66MV('nothing in there. born that way or sold. no refunds','nothing in there, V. born that way or sold before i was nine. no refunds','There’s nothing in there to worry about. I was born that way or somebody sold it before I was nine. No refunds either way.','Nothing in there to worry about, doctor. Either I was born without one or somebody sold it before I was nine. I’ve never found out which, and either way, no refunds. Next question.');
  say(m?[
  ['','You wake at noon in V’s bed, face down, shirtless, with the old hound across your calves and the black hound across the old hound. V is awake. V has been awake since half past five, because he slept his three and a half hours and not a minute more. He hasn’t got up, because you are lying on his arm.'],
@@ -18925,8 +18987,8 @@ txDef('tx_k66_m',{with:'v',pov:'m',prio:1,when:()=>K66()&&k66Done('vm_audit')&&[
    o.push({t:'“that’s the house’s score”',fx:()=>apply({aff:1}),reply:()=>['The house has never scored below nine.','I would like to know where it lost the points.'],next:'house'});
    o.push({t:k66Rom()?'“wash it off”':'“appeal denied”',fx:()=>apply({aff:1}),reply:()=>k66Rom()?['No.','I am in a board meeting. The chairman has asked about my shoulder. I said it was a filing error.']:['I have told it.','It wagged.']});return o}},
  scale:{in:()=>['I am asking for my records.'],
-  opts:()=>[{t:'“out of 10. room for improvement”',fx:()=>apply({aff:2}),reply:()=>['Noted.','I have cleared my evening.']},
-   {t:'“out of 7.”',fx:()=>apply({aff:3}),reply:()=>['I am in a board meeting.','I am going to have to remain seated for some time.']}]},
+  opts:()=>[{t:'“out of 10. room for improvement”',fx:()=>apply({aff:2}),reply:()=>sugOn()?['Noted.','I have cleared my evening.']:['Noted.','I have cleared my evening. I will be asleep by ten past three this time.']},
+   {t:'“out of 7.”',fx:()=>apply({aff:3}),reply:()=>sugOn()?['I am in a board meeting.','I am going to have to remain seated for some time.']:['I am in a board meeting.','I have had to pretend to cough for some time.']}]},
  house:{in:()=>['Where, please.'],
   opts:()=>[{t:'“the dog door. u could fit a sofa through it”',fx:()=>apply({aff:1}),reply:()=>['I fitted you through it.','With help.','I will not have it made smaller. You would have to come in another way.']},
    {t:'“the black hound. -2. a disgrace”',fx:()=>apply({aff:2}),reply:()=>['It pushed you through the door.','It has never pushed me through anything.','I have reprimanded it. It wagged.']}]}}});
@@ -18941,7 +19003,7 @@ txDef('tx_k66_v',{with:'m',pov:'v',prio:1,when:()=>K66()&&k66Done('vm_audit')&&S
    {t:'“I forfeit.”',fx:()=>apply({aff:1}),reply:()=>['u can’t forfeit ur own house','ok fine. u owe me cereal','i’m on the roof. bring the cereal up']}]},
  bed:{in:()=>['ok yes. ur bed. i’m in it. ur glasses are on'],
   opts:()=>[{t:'“I am in a board meeting.”',fx:()=>apply({aff:2}),reply:()=>['i know','that’s why i’m telling u now','have a good meeting v. don’t stand up']},
-   {t:'“I will be home in twenty minutes.”',fx:()=>apply({aff:3}),reply:()=>['the meeting’s for an hour','...','ok. 20. step on the stair']}]}}});
+   {t:'“I will be home in twenty minutes.”',fx:()=>apply({aff:3}),reply:()=>sugOn()?['the meeting’s for an hour','...','ok. 20. step on the stair']:['the meeting’s for an hour','...','ok. 20. i’m keeping the glasses on. i’ll probably be asleep in them. don’t take them off me']}]}}});
 
 /* ===================================== DELIVERY ===================================== */
 const K66B=[
@@ -18956,7 +19018,7 @@ const _shK66=sideHub;sideHub=function(late){const o=_shK66(late);try{if(!K66())r
 
 /* ===================================== ENDINGS ===================================== */
 const _xeK66=extraEnding;extraEnding=function(){const L=_xeK66();try{if(!S||!S.f||S.rom||S.vrom||S.f.k28pair)return L;const f=S.f,apart=f.k58End==='apart';
- if(f.k66Audit==='date'&&!apart&&!f.k66Set)L.push('Once a year Misaki breaks into V’s house by four in the morning, usually through the dog door. The score for that night has never been written down. The bedroom sensor logs a great many false alarms.');
+ if(f.k66Audit==='date'&&!apart&&!f.k66Set)L.push(sugOn()?'Once a year Misaki breaks into V’s house by four in the morning, usually through the dog door. The score for that night has never been written down. The bedroom sensor logs a great many false alarms.':'Once a year Misaki breaks into V’s house by four in the morning, usually through the dog door. They fall asleep on top of the covers before the score is written down, and the black hound sets off the bedroom sensor all night.');
  else if(f.k66Audit==='date')L.push('Misaki still breaks into V’s house once a year. She leaves her score on the island, and in the morning V writes “Noted.” under it.');
  else if(f.k66Audit)L.push('On the kitchen wall of V’s house there is a row of framed cereal boxes, one a year, each with the house’s score on the back in fountain pen. The black hound is always marked down.');
  if(f.k66Codes==='hers')L.push('Every lock in V’s house is 0311: third, at eleven. Only Misaki can change them. V knocks on his own bedroom door, and she lets him in.');
@@ -19090,7 +19152,7 @@ function k67Row(){go(cutBg(S.f.k67Photo==='told'?'#0c0806':'#0e0a0a'));k67Mark('
   ['','Ronin laughs like a lion in feast, and the boiler room throws it back at him off every pipe.']],
   ()=>ask('K9','(He is sitting on the floor with his back to the warm boiler, where he used to sleep, looking up at you.)',[
    {t:'Sit down with him.',fn:()=>{S.f.k67Row='kiss';fr('r',4);say([
-     ['','You sit down on the coal-black floor in your good trousers. He makes a noise about the trousers. Then he pulls you in by the collar, and the torch rolls away under the boiler, and nobody goes after it for a long time.'],
+     ['',sugOn()?'You sit down on the coal-black floor in your good trousers. He makes a noise about the trousers. Then he pulls you in by the collar, and the torch rolls away under the boiler, and nobody goes after it for a long time.':'You sit down on the coal-black floor in your good trousers. He makes a noise about the trousers. Then he pulls you in by the collar and kisses you, and the torch rolls away under the boiler, and nobody goes after it. You sit in the dark against the warm boiler where he used to sleep, with his head on your shoulder, saying nothing at all, until he is asleep the way he must have slept down here that first winter, and you stay where you are until the boiler ticks itself cool.'],
      [RN,'(later) If the old man’s watchin’ he’s laughin’. Always said I’d bring somebody nice down here and ruin ’em.']],hub)}},
    {t:'“Tell it again, in order. It is going in your file.”',fn:()=>{S.f.k67Row='file';fr('r',3);say([
      [RN,'Romantic.'],
@@ -19269,7 +19331,7 @@ function k67Epi(){go(cutBg('#0c0806'));k67Mark('vr67_epi');const t=S.f.k67Ten;
 
 /* ===================================== MORNINGS ===================================== */
 EVENTS.push({id:'k67vr_morn',when:()=>{try{return K67()&&S.phase==='normal'&&k67Did('church')&&(S.vromDates||0)>=2}catch(e){return false}},run:done=>say([
- ['','You wake at Ronin’s at nine, in his bed above the workshop. Through the floor you can hear the gospel radio and something frying. Downstairs the church clock over the bench still says twenty to eleven.'],
+ ['',sugOn()?'You wake at Ronin’s at nine, in his bed above the workshop. Through the floor you can hear the gospel radio and something frying. Downstairs the church clock over the bench still says twenty to eleven.':'You wake at Ronin’s at nine, on top of the covers of his bed above the workshop, still in your shirt and trousers, where you fell asleep at two while he was reading you the wrestling results. Through the floor you can hear the gospel radio and something frying. Downstairs the church clock over the bench still says twenty to eleven.'],
  ['','While he cooks, you take his crowbars off the wall and hang them back up in order of length. It takes eleven minutes and it is the most relaxing thing you have done in a year.'],
  [RN,'(on the stairs, holding a spatula) The fuck did you do to my wall.'],
  ['K9','I put them in order.'],
@@ -19285,7 +19347,7 @@ EVENTS.push({id:'k67vr_loft',when:()=>{try{return K67()&&S.phase==='act2'&&!!S.f
  [AN,'(text) don’t thank me. also you look so good in that coat. i’m not telling ronin i said that, he’d fight me for it']],()=>{fr('a',1);done()})});
 
 EVENTS.push({id:'k67vr_morn2',when:()=>{try{return K67()&&S.phase==='epilogue'&&k67Did('epi')}catch(e){return false}},run:done=>say([
- ['','You wake at ten in your own bed with coal dust on the pillowcase, on your hands, and, you discover in the bathroom mirror, on your neck in the shape of four fingers and a thumb.'],
+ ['',sugOn()?'You wake at ten in your own bed with coal dust on the pillowcase, on your hands, and, you discover in the bathroom mirror, on your neck in the shape of four fingers and a thumb.':'You wake at ten in your own bed with coal dust on the pillowcase, on your hands, and, you discover in the bathroom mirror, on your neck in the shape of four fingers and a thumb, where he held on to you, asleep, all the way home from the church in the back of the car last night.'],
  [RN,'(from the bed) Leave it. Go to the board like that.'],
  ['K9','I have a board meeting at eleven.'],
  [RN,'I know. I read your diary. Why d’you think I done it.'],
@@ -19385,7 +19447,7 @@ l68('vr68_brolly',['atrium'],.4,()=>true,done=>say([
  {t:'“Then he pays rent.”',fn:()=>{S.f.k68Brolly='rent';fr('r',3);save();say([
   [RN,'Yeah? What’s the rent?'],
   ['K9','He comes home every night.'],
-  ['','Ronin gets up off the couch at once, which he has never done for anything on television, and kisses you up against the coat hooks hard enough to knock the stand over. The umbrellas roll under the hall table. Nobody picks them up until morning.']],done)}},
+  ['',sugOn()?'Ronin gets up off the couch at once, which he has never done for anything on television, and kisses you up against the coat hooks hard enough to knock the stand over. The umbrellas roll under the hall table. Nobody picks them up until morning.':'Ronin gets up off the couch at once, which he has never done for anything on television, and kisses you up against the coat hooks hard enough to knock the stand over. The umbrellas roll under the hall table. Then he hauls you back to the couch by the lapels and lies across you to watch the end of the wrestling, and falls asleep on you during the main event, and nobody picks the umbrellas up until morning.']],done)}},
  {t:'Move the umbrellas to the cupboard.',fn:()=>{S.f.k68Brolly='stand';fr('r',2);save();say([
   ['','You put both umbrellas in the hall cupboard. The crowbar has the stand to itself.'],
   [RN,'Look at him. He’s got his own room. You’re spoilin’ him.'],
@@ -19400,7 +19462,7 @@ l68('vr68_suit',['ronin'],.4,()=>k68Ron(),done=>say([
  [RN,'You’re real good at that. It’s kinda filthy how good you are at that.'],
  ['K9','It is a crease.'],
  [RN,'It’s a crease when anybody else does it. Do the other leg slower.'],
- ['','You do the other leg slower. Afterwards the trousers hang on the door for some time with nobody in them. On Thursday he wears them to court with a crease you could slice bread on, and the magistrate halves the fine.']],()=>{fr('r',3);done()}));
+ ['',sugOn()?'You do the other leg slower. Afterwards the trousers hang on the door for some time with nobody in them. On Thursday he wears them to court with a crease you could slice bread on, and the magistrate halves the fine.':'You do the other leg slower. Afterwards he lies down along the bench with his head on your knee to admire the crease from below, and falls asleep there in his rings, and you do not move until the iron has gone cold. On Thursday he wears them to court with a crease you could slice bread on, and the magistrate halves the fine.']],()=>{fr('r',3);done()}));
 
 l68('vr68_boots',['kennel'],.4,()=>true,done=>say([
  ['','Ronin came in through the skylight at two and left his boots at the top of the stairs. At seven they were gone.'],
@@ -19431,7 +19493,7 @@ l68('vr68_glasses',['archive'],.4,()=>true,done=>say([
  [RN,'Oh. Oh, you like it. Mister Foundation’s got a thing for specs.'],
  ['K9','I have a thing for my glasses being returned to me.'],
  [RN,'So come get ’em.'],
- ['','You come and get them. It takes a great deal longer than taking off a pair of glasses should take, the file ends up on the floor, and the man in it goes to the hounds on Sunday instead.']],()=>{fr('r',3);done()}));
+ ['',sugOn()?'You come and get them. It takes a great deal longer than taking off a pair of glasses should take, the file ends up on the floor, and the man in it goes to the hounds on Sunday instead.':'You come and get them. It takes a great deal longer than taking off a pair of glasses should take, because he kisses you every time you get a hand on them, and in the end you read the file together on the floor, him in the glasses and you with your head on his shoulder, until you both fall asleep on it. The man in it goes to the hounds on Sunday instead.']],()=>{fr('r',3);done()}));
 
 l68('vr68_heat',['ops'],.4,()=>true,done=>say([
  ['','Your house is kept cold. The hounds like it cold, and so do you. Today it is warm enough on the ops deck to grow tomatoes.'],
@@ -19482,7 +19544,7 @@ l68('vr68_truck',['garage'],.4,()=>true,done=>say([
   [RN,'...Say you did that on purpose.'],
   ['K9','I did that on purpose.'],
   [RN,'Pull over.'],
-  ['','You pull over, indicating. The windows of the truck take some time to clear.']],done)}}])));
+  ['',sugOn()?'You pull over, indicating. The windows of the truck take some time to clear.':'You pull over, indicating. He kisses you across the gearstick, then lies down along the bench seat with his head in your lap and his boots out of the window, and the two of you stay parked across two bays until the engine has gone cold and the estate lights come on.']],done)}}])));
 
 l68('vr68_pink',['laundro'],.4,()=>true,done=>say([
  ['','The laundromat at three in the morning. Ronin did the washing, and he did yours with his. Your white shirts come out of the machine the colour of a tongue.'],
@@ -19554,7 +19616,7 @@ l68('vr68_bath',['vbath'],.4,()=>true,done=>say([
  [RN,'There’s room if you lie on top. Physics, Vee.'],
  ['K9','That is not physics.'],
  [RN,'So get in here and prove it ain’t.'],
- ['','You get in and attempt to prove it. The water on the floor gets deeper. The grey hound comes up to see what the noise is and stands in the doorway with its head on one side, until a wet sponge hits the door and the door swings shut on it.']],()=>{fr('r',3);done()}));
+ ['',sugOn()?'You get in and attempt to prove it. The water on the floor gets deeper. The grey hound comes up to see what the noise is and stands in the doorway with its head on one side, until a wet sponge hits the door and the door swings shut on it.':'You take your shoes and socks off, roll your trousers to the knee and sit on the edge with your feet in, and he leans his wet head back against your shins and sings the rest of the hymn to the ceiling. The water on the floor gets deeper. The grey hound comes up to see what the noise is and stands in the doorway with its head on one side, until a wet sponge hits the door and the door swings shut on it.']],()=>{fr('r',3);done()}));
 
 /* how they fire: on walking into a room, sometimes, once each; one a day, shared with kc64's location events */
 const K68ROOMS=[...new Set(L68.reduce((a,e)=>a.concat(e.rooms),[]))];
@@ -19597,15 +19659,15 @@ m68('m68_bingo',()=>true,done=>say([
   [RN,'First honest thing that church ever gave away.']],done)}}])));
 
 m68('m68_shirt',()=>true,done=>say([
- ['','You wake at nine in Ronin’s apartment, with the bells going in the church across the road, on his mattress, which is on the floor of a room with a crowbar on every wall.'],
+ ['',sugOn()?'You wake at nine in Ronin’s apartment, with the bells going in the church across the road, on his mattress, which is on the floor of a room with a crowbar on every wall.':'You wake at nine in Ronin’s apartment, with the bells going in the church across the road, on top of his mattress, which is on the floor of a room with a crowbar on every wall. You fell asleep on it at four, in your trousers, while he was reading you his forty-one parking tickets in order.'],
  ['','He is at the stove in your shirt. It does not close over his chest. He has done up the middle button, out of respect.'],
  [RN,'Mornin’, Mister Foundation. Coffee’s in a saucepan. Don’t start about the saucepan.'],
- ['K9','Where are my clothes?'],
- [RN,'Your shirt’s on me. Your trousers are on the landin’. Your tie’s...'],
+ ...(sugOn()?[['K9','Where are my clothes?']]:[['K9','Where is my shirt?']]),
+ ...(sugOn()?[[RN,'Your shirt’s on me. Your trousers are on the landin’. Your tie’s...']]:[[RN,'On me. You took it off at three ’cause it was creasin’ and I was cold. Your tie’s...']]),
  ['','He points up with the spoon. Your tie is going round slowly on the ceiling fan.'],
  ['','You have a board meeting at ten. You go in your own suit, and his T-shirt under it, the one with a skull on the front that has been washed so many times you can see through it. Nobody at the board can see it. You can feel it all morning.'],
  [AN,'(text) why is ronin wearing ur shirt in a selfie on the server'],
- [AN,'(text) he captioned it “spoils.” i’m screaming. i’m in a meeting with a brand and i’m screaming']],()=>{fr('r',3);fr('a',1);done()}));
+ ...(sugOn()?[[AN,'(text) he captioned it “spoils.” i’m screaming. i’m in a meeting with a brand and i’m screaming']]:[[AN,'(text) he captioned it “mine.” i’m screaming. i’m in a meeting with a brand and i’m screaming']])],()=>{fr('r',3);fr('a',1);done()}));
 
 m68('m68_choir',()=>true,done=>say([
  ['','Six in the morning. There is singing in the kitchen. Ronin has the gospel radio up loud, and he is conducting with a wooden spoon, and all four of the hounds are sitting in a row in front of him with their heads back, howling along with the choir.'],
@@ -19643,7 +19705,7 @@ const E68=[
   ['','He finishes the back. It is a very good haircut. Afterwards he blows the cut hair off your neck instead of brushing it off, which takes him much longer than it needs to.']],
  ()=>[['','Ronin’s workshop. He has a record player on the bench, older than both of you, and one record that is not gospel. He puts it on and holds out a hand with sawdust on it.'],
   [RN,'Dance with me. C’mon. Nobody’s lookin’. The Devil’s lookin’, but he’s seen worse.'],
-  ['','You dance in the sawdust in your socks. You lead. He lets you, for most of a song, and then he does not, and the record goes round to the end and keeps going, clicking, in the groove at the middle, and neither of you gets up to take the needle off until morning.']]];
+  ['',sugOn()?'You dance in the sawdust in your socks. You lead. He lets you, for most of a song, and then he does not, and the record goes round to the end and keeps going, clicking, in the groove at the middle, and neither of you gets up to take the needle off until morning.':'You dance in the sawdust in your socks. You lead. He lets you, for most of a song, and then he does not, and the record goes round to the end and keeps going, clicking, in the groove at the middle. Nobody takes the needle off. You end up sitting in the sawdust against the bench with his head on your shoulder, and he falls asleep there, and you stay, and the record clicks until morning.']]];
 const _sh68=sideHub;sideHub=function(late){const o=_sh68(late);try{if(!K68())return o;const d=S.done.k68Eve;
  return o.concat([{t:'Spend the evening with Ronin',sub:d?'done today':'costs time · nothing planned',dis:!!late||!!d,fn:()=>{spend();S.done.k68Eve=1;const n=S.f.k68EveN||0;S.f.k68EveN=n+1;save();go(cutBg('#100a08'));
   say(E68[n%E68.length](),()=>{fr('r',2);calm(3);hub()})}}])}catch(e){return o}};

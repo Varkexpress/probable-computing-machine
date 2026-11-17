@@ -43,8 +43,10 @@ function k65mrBooth(){go(cutBg('#120a08'));k65Mark('mr_booth');
      ['','You confess something filthy. You take your time over it, and you use the voice.'],
      [RN,'(after a while) ...Hang on.'],
      ['','There are four screws holding the grille in. Ronin has a screwdriver on his keyring. Of course he does.'],
-     [RN,'Father’s comin’ through. Penance is gonna be real hands-on.'],
-     ['','The torch rolls off the bench and goes out. Around one o’clock the booth makes a noise no booth was built to make, and up at the altar the candles don’t even flicker.']],hub)}},
+     ...(sugOn()?[[RN,'Father’s comin’ through. Penance is gonna be real hands-on.'],
+     ['','The torch rolls off the bench and goes out. Around one o’clock the booth makes a noise no booth was built to make, and up at the altar the candles don’t even flicker.']]
+     :[[RN,'Father’s comin’ through. Can’t hear a fuckin’ thing through a cheese grater.'],
+     ['','He takes the grille out and puts his head and one arm through the hole, and you finish the confession with his chin on your shoulder and his rings in your hair. The torch rolls off the bench and goes out. Around one o’clock you both fall asleep in there, folded up like deckchairs, and at six the cleaner finds a pair of boots sticking out of the confessional and walks backwards out of the church.']])],hub)}},
    {t:MV('make him swap','make him swap sides','Make him swap sides.','Make him swap sides. It’s his turn.'),fn:()=>{S.f.k65mrBooth='his';fr('r',4);say([
      K65M('no. ur turn. swap','swap. your turn. you get the cushion.','No. Swap. You’re on the cushion.','No. Swap. I hear you in the back pew every Sunday, telling him things. Tell me.'),
      ['','He swaps. He kneels, which you have never once seen him do, and he’s quiet so long you think he’s gone to sleep on the cushion.'],
@@ -110,7 +112,13 @@ function k65mrEpi(){go(cutBg('#120a08'));k65Mark('mr_epi');const b=S.f.k65mrBoot
  L.push([RN,'C’mon. Back pew. Devil’s saved us seats.']);
  say(L,()=>{fr('r',2);hub()})}
 
-EVENTS.push({id:'k65mr_morn',when:()=>{try{return K65()&&k65R()==='mr'&&S.phase==='normal'&&(S.romDates||0)>=2}catch(e){return false}},run:done=>say([
+EVENTS.push({id:'k65mr_morn',when:()=>{try{return K65()&&k65R()==='mr'&&S.phase==='normal'&&(S.romDates||0)>=2}catch(e){return false}},run:done=>say(!sugOn()?[
+ ['','You wake up at Ronin’s at noon on his couch, under his only blanket, with your head on his thigh and the gospel radio still going from last night. You both fell asleep halfway through an argument about wrestling. He’s been up since four and hasn’t moved, because of your head. Now there’s bacon, and he’s wearing the apron over a T-shirt with a skull on it.'],
+ ['',S.seen&&S.seen.rom_r_ring?'His rings are lined up on the arm of the couch, eight skulls in a row, and a gap at the end where the first one used to sit. That one’s on your thumb.':'His rings are lined up on the arm of the couch, nine skulls in a row, in the order of the names inside them.'],
+ [RN,'(from the kitchen) Don’t go tryin’ ’em on. You got no knuckles. They’ll fall off in the bacon.'],
+ [AN,'(text) u didn’t come home. ronin isn’t answering. are u both dead or did u fall asleep on his couch again'],
+ K65M('(text) couch','(text) the couch','(text) The couch.','(text) The couch. He put his only blanket on me. Don’t tell V.'),
+ [AN,'(text) gross. proud of u. tell him he owes me a crowbar, he left one in my hallway and it scratched the floor']]:[
  ['','You wake up at Ronin’s at noon with the gospel radio still going from last night. He’s been up since four. There’s bacon, and he’s wearing the apron over a pair of boxers with skulls on and nothing else.'],
  ['',S.seen&&S.seen.rom_r_ring?'His rings are lined up on the nightstand, eight skulls in a row, and a gap at the end where the first one used to sit. That one’s on your thumb.':'His rings are lined up on the nightstand, nine skulls in a row, in the order of the names inside them.'],
  [RN,'(from the kitchen) Don’t wear ’em to bed. Ain’t puttin’ skulls in anybody’s hair.'],
@@ -139,7 +147,7 @@ function k65maBet(){go(cutBg('#1a0c14'));k65Mark('ma_bet');
      ['','You take the stalk off the last cherry. Angel watches it go through her scope, then rolls onto her back on the gravel and stares at the sky.'],
      [AN,'ok. ok. what do you want.'],
      K65M('ur hair down. no lashes. my hoodie.','maria off. hair down, no lashes, my hoodie, no narrating.','I want Maria off. Hair down, no lashes, my hoodie, and you don’t narrate anything.','I want Maria off. All of it. Hair down, no lashes, my hoodie, and you don’t narrate a single thing all night, however much you want to.'),
-     [AN,'that’s so mean. that’s the meanest thing anyone’s ever wanted. drive faster.']],hub)}},
+     ...(sugOn()?[[AN,'that’s so mean. that’s the meanest thing anyone’s ever wanted. drive faster.']]:[[AN,'that’s so mean. that’s the meanest thing anyone’s ever wanted. fine. your floor. i’m bringing the cherries.']])],hub)}},
    {t:MV('miss it on purpose','miss it on purpose','Miss it on purpose.','Miss it on purpose. Make it look good.'),fn:()=>{S.f.k65maBet='lost';fr('a',3);say([
      ['','You put the round two inches left of the cherry and swear about it, loudly. Angel turns her head on the gravel and looks at you for a long time.'],
      [AN,'you missed on purpose.'],
@@ -147,8 +155,9 @@ function k65maBet(){go(cutBg('#1a0c14'));k65Mark('ma_bet');
      [AN,'there’s no wind. ok. you’re going to regret that so much. get in the car.']],hub)}},
    {t:MV('“draw?”','“call it a draw.”','“Call it a draw.”','“Call it a draw. We both win.”'),fn:()=>{S.f.k65maBet='draw';fr('a',4);say([
      [AN,'a draw means we both do whatever the other one says.'],
-     K65M('...oh','oh. OH.','Oh. That’s a problem.','Oh. That’s a logistics problem. That’s a real logistics problem. Who goes first?'),
-     [AN,'we go at the same time. obviously. i’ve thought about this a lot.'],
+     sugOn()?K65M('...oh','oh. OH.','Oh. That’s a problem.','Oh. That’s a logistics problem. That’s a real logistics problem. Who goes first?')
+      :K65M('...oh. what if we both say nap','oh. what if we both say “nap”','Oh. What if we both say “nap”?','Oh. That’s a logistics problem. What if we both say “nap”? Who goes first?'),
+     ...(sugOn()?[[AN,'we go at the same time. obviously. i’ve thought about this a lot.']]:[[AN,'then we nap at the same time. on top of each other. obviously. i’ve thought about this a lot.']]),
      ['','She shoots the last cherry off the wall without using the scope, to make a point, and goes to get the car.']],hub)}}]))}
 
 function k65maAfter(){go(cutBg('#140c10'));k65Mark('ma_after');
@@ -177,10 +186,12 @@ function k65maLive(){go(cutBg('#2a1428'));k65Mark('ma_live');
    {t:MV('misbehave','misbehave','Misbehave.','Misbehave. Carefully.'),fn:()=>{S.f.k65maLive='bad';fr('a',3);say([
      ['','You get off the daybed. You stay low, under the eyeline of the camera, and put one hand on her knee under the desk.'],
      [AN,'(maria) so for an evening routine i always start with a, with a cleansing balm—'],
-     ['','You move the hand.'],
+     ['',sugOn()?'You move the hand.':'You draw a small heart on her knee with one finger, very slowly, and then a skull.'],
      [AN,'(maria) a BALM, sorry guys, i’m so tired today, um. okay.'],
      ['','The chat fills up with “maria are u ok” and “she’s flushed???” and a hundred thousand fire emojis. She ends the stream four minutes early, the first time in four years, with the smile still on.'],
-     [AN,'(lowercase, not smiling) bedroom. now. you’re in so much trouble.']],hub)}}]))}
+     ...(sugOn()?[[AN,'(lowercase, not smiling) bedroom. now. you’re in so much trouble.']]
+     :[[AN,'(lowercase, not smiling) couch. now. you’re in so much trouble.'],
+     ['','The trouble is that she lies down on top of you on the couch in full Maria, lashes and all, with her face in your neck, and calls you a menace into it until she falls asleep there, and you can’t get up for two hours.']])],hub)}}]))}
 
 function k65maBoat(){go(cutBg('#0c0a14'));k65Mark('ma_boat');const l=S.f.k65maLive;
  const L=[['','The night before the boat you go up on Angel’s roof to check sightlines over the water. She lies next to you on the wet gravel and narrates you instead of the water.'],
@@ -193,18 +204,27 @@ function k65maBoat(){go(cutBg('#0c0a14'));k65Mark('ma_boat');const l=S.f.k65maLi
  say(L,()=>{fr('a',3);hub()})}
 
 function k65maEpi(){go(cutBg('#1a0c14'));k65Mark('ma_epi');const b=S.f.k65maBet;let L;
- if(b==='won')L=[['','It’s been months and you’re still collecting on the roof. Every so often you say “bet” at dinner, and Angel takes her lashes off at the table, one at a time, and lets her hair down, and doesn’t say a word for the rest of the night, and Ronin has to leave the room.'],
-  [AN,'(afterwards) i want a rematch. i want a rematch so bad.']];
+ if(b==='won')L=sugOn()?[['','It’s been months and you’re still collecting on the roof. Every so often you say “bet” at dinner, and Angel takes her lashes off at the table, one at a time, and lets her hair down, and doesn’t say a word for the rest of the night, and Ronin has to leave the room.'],
+  [AN,'(afterwards) i want a rematch. i want a rematch so bad.']]
+  :[['','It’s been months and you’re still collecting on the roof. Every so often you say “bet” at dinner, and Angel takes her lashes off at the table, one at a time, and lets her hair down, and puts your hoodie on, and lies on the living-room floor with her head on your stomach for the rest of the night without a word, and Ronin has to step over you both to get to the fridge.'],
+  [AN,'(at midnight, from the floor) i want a rematch. i want a rematch so bad.']];
  else if(b==='lost')L=[['','She still hasn’t collected. She hasn’t told you what you owe. Every Sunday she looks at you across the table, says “not yet” and smiles with all her teeth, and you haven’t had a calm Sunday since.'],
   [AN,'i’m saving it. it’s going to be so good. you have no idea.']];
- else if(b==='draw')L=[['','You still haven’t settled the draw. You’ve tried every order there is. Angel keeps a spreadsheet of the attempts, colour-coded, with a notes column she won’t let V see.'],
+ else if(b==='draw')L=[sugOn()?['','You still haven’t settled the draw. You’ve tried every order there is. Angel keeps a spreadsheet of the attempts, colour-coded, with a notes column she won’t let V see.']
+  :['','You still haven’t settled the draw. Every Sunday you both say “nap” at the same time and you both lose, on her couch, tangled up under one blanket with the ring light off. Angel keeps a spreadsheet of the naps, colour-coded, with a notes column for who snored and who drooled on whose neck.'],
   [AN,'rematch on the roof sunday. tiebreaker’s the cherry. i bought a whole crate.']];
  else L=[['','Angel has bought a crate of cherries and two boxes of rounds. She would like a bet. She hasn’t told you the stakes, and she’s already wearing your hoodie, which you think is a tell.']];
  if(S.f.romMarried)L.push([AN,'also we’re married, so legally your debts are my debts, so i owe me. i love that.']);
  L.push(['','She turns the ring light on, looks at you through the phone for a while, and turns it off again without recording anything.']);
  say(L,()=>{fr('a',2);hub()})}
 
-EVENTS.push({id:'k65ma_morn',when:()=>{try{return K65()&&k65R()==='ma'&&S.phase==='normal'&&(S.romDates||0)>=2}catch(e){return false}},run:done=>say([
+EVENTS.push({id:'k65ma_morn',when:()=>{try{return K65()&&k65R()==='ma'&&S.phase==='normal'&&(S.romDates||0)>=2}catch(e){return false}},run:done=>say(!sugOn()?[
+ ['','You wake up on the floor of Angel’s studio, under the ring light, still in yesterday’s clothes, with a cushion under your head that wasn’t there when you fell asleep mid-argument about lip liner. She’s cross-legged beside you in your T-shirt, with her phone held flat above her face, filming the ceiling.'],
+ [AN,'found it. the right ceiling. the brands can wait though. this one’s mine.'],
+ ['','There is a lipstick print on your cheek the exact shade of the one on her mouth, from a goodnight kiss you don’t remember. You go to rub it off and she catches your hand and puts it back on the cushion.'],
+ [AN,'don’t. that’s a watermark.'],
+ K65M('ur insane','you’re insane','You’re insane.','You’re insane, and I’m wearing it to Sunday dinner.'),
+ [AN,'wear it to sunday dinner. i want ronin to choke on his bread.']]:[
  ['','You wake up in Angel’s bed. She’s already up, cross-legged at the bottom of it in your T-shirt, with her phone held flat above her face, filming the ceiling.'],
  [AN,'found it. the right ceiling. the brands can wait though. this one’s mine.'],
  ['','There is a lipstick print on your collarbone the exact shade of the one on her mouth. You go to rub it off and she catches your hand and puts it back on the pillow.'],
@@ -233,7 +253,7 @@ function k65vrMugs(){go(cutBg('#100a08'));k65Mark('vr_mugs');
    {t:'“Say the part about my hands again.”',fn:()=>{S.f.k65vrTea='again';fr('r',3);say([
      [RN,'Nah.'],
      ['K9','You said it sedated. I would like to hear it sober. I will wait.'],
-     ['','You wait. You are very good at waiting. At twenty to two he puts his mug down, takes your hand off the desk, turns it over, looks at it, and says it again, sober, with worse grammar and more swearing. Then he does something with your hand that he did not mention the first time.'],
+     ['',sugOn()?'You wait. You are very good at waiting. At twenty to two he puts his mug down, takes your hand off the desk, turns it over, looks at it, and says it again, sober, with worse grammar and more swearing. Then he does something with your hand that he did not mention the first time.':'You wait. You are very good at waiting. At twenty to two he puts his mug down, takes your hand off the desk, turns it over, looks at it, and says it again, sober, with worse grammar and more swearing. Then he kisses the palm, once, and does not give the hand back. He holds it on his knee like something he is minding for you, and falls asleep on the arm of your chair.'],
      ['K9','(The tea went cold. Neither mug was finished.)']],hub)}},
    {t:'“You said nothing I had not already filed.”',fn:()=>{S.f.k65vrTea='filed';fr('r',2);say([
      [RN,'You FILED it?'],
@@ -245,7 +265,7 @@ function k65vrMugs(){go(cutBg('#100a08'));k65Mark('vr_mugs');
      [RN,'Don’t.'],
      ['K9','I think about the way you say “Vee”. You say it as though I owe you money. I have run the figures. I would pay it.'],
      [RN,'...That’s the worst thing anybody ever said t’me. Say it again.'],
-     ['','You do not get to say it again. He is in your lap before you are through the first word, and the mug that says MINE goes off the edge of the desk and breaks, and afterwards he makes you promise not to file that.']],hub)}}]))}
+     ['',sugOn()?'You do not get to say it again. He is in your lap before you are through the first word, and the mug that says MINE goes off the edge of the desk and breaks, and afterwards he makes you promise not to file that.':'You do not get to say it again. He is in your lap before you are through the first word, kissing you, and the mug that says MINE goes off the edge of the desk and breaks. Then he puts his face in your collar and stays there, all of him, far too heavy, until he is asleep and the lamp has burned the room orange, and in the morning he makes you promise not to file that.']],hub)}}]))}
 
 function k65vrAfter(){go(cutBg('#0c0c10'));k65Mark('vr_after');
  say([['','Four in the morning. You have not slept since Misaki came home. Ronin finds you on the landing outside her door, in a chair you carried up from the kitchen, with a scalpel on your knee.'],
@@ -270,7 +290,7 @@ function k65vrGala(){go(cutBg('#14100a'));k65Mark('vr_gala');
    {t:'Give the speech. Do not stop him.',fn:()=>{S.f.k65vrGala='stay';fr('r',3);say([
      ['','You give your whole speech. He gives his whole speech, low, in your ear, the entire time, in more detail than yours. You do not pause once. At the end there is a standing ovation, and the chair of the board tells you that you were more passionate than usual this year.'],
      ['K9','Thank you. I had a great deal of motivation.'],
-     ['','You leave before dessert. He takes the tie with him.']],hub)}},
+     ['',sugOn()?'You leave before dessert. He takes the tie with him.':'You leave before dessert and eat it in the back of the car out of a napkin he stole, his head on your shoulder, still talking about your tie. He takes the tie with him.']],hub)}},
    {t:'Send him to the car.',fn:()=>{S.f.k65vrGala='car';fr('r',2);say([
      ['K9','(without moving your lips) Car.'],
      [RN,'Yes sir.'],
@@ -320,7 +340,7 @@ txDef('tx_k65_vr',{with:'r',pov:'v',prio:1,when:()=>K65()&&k65R()==='vr'&&['norm
    {t:'“Your shirt. You left it here.”',fx:()=>fr('r',3),reply:()=>['you’re wearin my shirt','to a board meeting','vee I’m gonna have to sit down']}]},
  board:{in:()=>['take it off','in the board meeting. I’ll wait'],
   opts:()=>[{t:'“The chairman is looking at me.”',fx:()=>fr('r',2),reply:()=>['good','tell him who you’re textin','actually don’t, he’ll want in, they always want in']},
-   {t:'“You may take it off yourself. Seven o’clock.”',fx:()=>fr('r',3),reply:()=>['7:00','on the dot. been early once in my life and I’m about to do it again']}]}}});
+   {t:sugOn()?'“You may take it off yourself. Seven o’clock.”':'“You may tell me to my face. Seven o’clock.”',fx:()=>fr('r',3),reply:()=>['7:00','on the dot. been early once in my life and I’m about to do it again']}]}}});
 
 /* ===================================== V × ANGEL ===================================== */
 function k65vaTheatre(){go(cutBg('#0e1214'));k65Mark('va_theatre');
@@ -331,11 +351,16 @@ function k65vaTheatre(){go(cutBg('#0e1214'));k65Mark('va_theatre');
   ['K9','They are.'],
   [AN,'(narrating, sweet) and she’s asking about the straps very casually, very normally, like a girl with nothing on her mind at all.']],
   ()=>ask('K9','(She is looking at you upside down off the end of the table.)',[
-   {t:'“Get off the table.”',fn:()=>{S.f.k65vaTable='off';fr('a',3);say([
+   {t:'“Get off the table.”',fn:()=>{S.f.k65vaTable='off';fr('a',3);if(!sugOn())return say([
+     [AN,'make me.'],
+     ['K9','I would rather not make you do anything in this room.'],
+     ['','She sits up at once, because she heard what you meant. She kisses you hard enough to knock your reading glasses crooked and makes you carry her up three floors to the kitchen, complaining the whole way that it is so much less interesting, and she falls asleep against your shoulder at the counter halfway through a bowl of cereal, in her slip and your coat.']],hub);say([
      [AN,'make me.'],
      ['K9','I would rather not make you do anything in this room.'],
      ['','She sits up at once, because she heard what you meant. She kisses you hard enough to knock your reading glasses crooked and makes you carry her up three floors to a room with an ordinary bed in it, which, she complains the whole way up, is so much less interesting.']],hub)}},
-   {t:'“Stay where you are.”',fn:()=>{S.f.k65vaTable='stay';fr('a',4);say([
+   {t:'“Stay where you are.”',fn:()=>{S.f.k65vaTable='stay';fr('a',4);if(!sugOn())return say([
+     [AN,'(not narrating any more) ...oh.'],
+     ['','You turn the big lamp off. She stays on the steel with one arm hanging off the edge, and you lie down on the tiles beside the table in your good suit and hold her hand, and for an hour the two of you look up into the dark and say almost nothing, and she does not narrate a second of it. Afterwards she says the steel was freezing and she would like to come back in the summer.']],hub);say([
      [AN,'(not narrating any more) ...oh.'],
      ['','You lock the theatre door. The straps are, in the end, adjustable. Afterwards she says the steel was freezing and she would like to come back in the summer.']],hub)}}]))}
 
@@ -442,7 +467,7 @@ const _xeK65=extraEnding;extraEnding=function(){const L=_xeK65();if(!S||!S.f)ret
   else if(f.k65mrBooth==='his')L.push('Once a month Ronin kneels in the church across town and confesses to Misaki that he isn’t sorry about any of them, and that he loves her, in that order.');}
  if(S.rom==='a'){if(f.k65maBet==='won')L.push('Every so often, at dinner, Misaki says “bet”, and Angel takes Maria off at the table, one lash at a time.');
   else if(f.k65maBet==='lost')L.push('Angel is still saving what Misaki owes her from the roof. She smiles with all her teeth about it every Sunday.');
-  else if(f.k65maBet==='draw')L.push('The bet on the roof was a draw, and Misaki and Angel are still working out who goes first. Angel keeps a spreadsheet.');
+  else if(f.k65maBet==='draw')L.push(sugOn()?'The bet on the roof was a draw, and Misaki and Angel are still working out who goes first. Angel keeps a spreadsheet.':'The bet on the roof was a draw. Every Sunday Misaki and Angel settle it with a nap at the same time, under one blanket. Angel keeps a spreadsheet.');
   if(f.k65maLive==='bad')L.push('A clip called “the flush” on Maria de la Rosa’s channel has forty million views. Nobody in the comments knows whose hand it was.');}
  if(S.vrom==='r'){if(f.k65vrRing==='on')L.push('V wears a dead stranger’s skull ring on his ring finger to every board meeting. Nobody on the board has asked about it.');
   else if(f.k65vrRing==='chain')L.push('V wears a skull ring on a chain under his shirt. Ronin is the only one who knows it is there, and he checks most nights.');
