@@ -84,7 +84,7 @@ TDTOP_V.push({id:'lucky',label:()=>'“i really didn’t expect to be lucky.”'
 if(!TOPICS_V.find(x=>x.id==='lucky'))TOPICS_V.splice(TOPICS_V.length-1,0,TDTOP_V[TDTOP_V.length-1]);
 /* the server log gets a few more lines too */
 const _chatLK=chatLog;chatLog=function(){const L=_chatLK();if(!S||S.phase==='taken')return L;const k=(S.day*7+S.slot)%6;
- if(k===0)L.push(['an','reminder that i found misaki on a SNIPING FORUM and now she’s mine. ours. whatever. brunch sunday']);
+ if(k===0)L.push(['an','reminder that i found misaki on a SNIPING FORUM and now they’re mine. ours. whatever. brunch sunday']);
  if(k===2)L.push(['ro','day 4 of the tarp situation. first one of you t’bring it up gets wrapped in one']);
  if(k===4)L.push(['mi','someone ask me if i ate so i can say no and get yelled at']);
  return L};

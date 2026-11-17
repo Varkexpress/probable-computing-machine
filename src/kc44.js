@@ -27,7 +27,7 @@ lvEv('rom_a_rule',()=>S.rom==='a'&&frT('a')>=3&&S.day>=8,done=>say([
  ['','Angel tells you the rule, the real one, lying in her bed in the dark: none of them can say they didn’t have it coming. Then she tells you there is one person it doesn’t apply to.'],
  [AN,'if anybody ever touches you again. i’m not going to check if they had it coming. i won’t even ask.'],
  ['hitmeuppp',MV('that’s sweet.','that’s the sweetest thing anyone’s said to me.','That’s the sweetest thing anyone has ever said to me.','That’s the most romantic thing anyone’s ever said to me, and it was a threat against a stranger. I love you. Go to sleep.')],
- ['','She is asleep in a minute. You lie awake a while, happy, while outside the city has the kind of night it has, and none of it reaches the bed.']],()=>{fr('a',4);done()}));
+ ['','They are asleep in a minute. You lie awake a while, happy, while outside the city has the kind of night it has, and none of it reaches the bed.']],()=>{fr('a',4);done()}));
 /* V and Angel */
 lvEv('rom_va_file',()=>S.vrom==='a'&&S.pov==='v'&&frT('a')>=3,done=>say([
  ['','V keeps a file on each of the four, updated every January. Angel’s has changed. There are no notes in it any more. Every page is something she has said to him, dated, in fountain pen.'],
@@ -47,7 +47,7 @@ lvEv('rom_vr_crowbar',()=>S.vrom==='r'&&frT('r')>=3&&S.day>=8,done=>say([
 /* V and Misaki, married */
 lvEv('rom_vm_married',()=>S.f.married&&tier()>=3,done=>{const m=mP44();say([
  ['','Being married turns out to be mostly the same as before, with paperwork. You still eat cereal at the island. He still writes your quotes down. The hounds still sleep across both of you.'],
- ['',m?'The only real difference is that when the news says the city is frightened, you look at the ring, and then at him, and then you can’t find a single thing in the whole city that you need to be frightened of.':'The only difference is that when the news says the city is frightened, she looks at the ring, and then at him, and then she changes the channel.'],
+ ['',m?'The only real difference is that when the news says the city is frightened, you look at the ring, and then at him, and then you can’t find a single thing in the whole city that you need to be frightened of.':'The only difference is that when the news says the city is frightened, they look at the ring, and then at him, and then they change the channel.'],
  ['hitmeuppp',MV('we’re boring now.','we’re so boring. i love it.','We’ve become boring. I love it.','We’re boring now. We’re a boring married couple who feed people to hounds on Sundays. I didn’t know I was allowed this.')]],()=>{apply({aff:3});done()})});
 /* V and Misaki, not a couple: the package deal */
 lvEv('rom_vm_package',()=>!S.f.married&&!S.rom&&!S.vrom&&tier()>=3,done=>say([

@@ -49,7 +49,7 @@ for(const pov of ['m','v']){
  if(off.entry!==0)errs.push('retired day 1–4 entry still offered '+pov);
  if(off.after||off.cap!==100||off.due||off.aff!==30||off.th.length||off.chat||off.loc||!off.k66||off.ends||off.morn)errs.push('route leaks when not chosen '+pov+' '+JSON.stringify(off));
  /* the kidnapping hooks pass straight through */
- await load('t',pov,{},0);const hk=await ev(()=>{window.__lines=[];try{after(false)}catch(e){}for(let i=0;i<5&&dlg;i++)adv();return {m:JSON.stringify(S.f.e2ld||null),l:window.__lines.some(x=>/Of all the people|In the car she sleeps/.test(x[1]))}});
+ await load('t',pov,{},0);const hk=await ev(()=>{window.__lines=[];try{after(false)}catch(e){}for(let i=0;i<5&&dlg;i++)adv();return {m:JSON.stringify(S.f.e2ld||null),l:window.__lines.some(x=>/Of all the people|In the car they sleep/.test(x[1]))}});
  if(hk.l||hk.m!=='null')errs.push('after hook fired off-route '+pov);
  /* entry gates */
  for(const [name,patch] of [['day 5',s=>{S.day=5}],['kidnap set',s=>{S.f.kidnapSet=1}],['moved in',s=>{S.f.movedIn=1}],['rom',s=>{S.rom='r'}],['lone',s=>{S.lone='m'}],['asked',s=>{S.f.e2lAsk=1}]]){
@@ -107,7 +107,7 @@ for(const o of [0,1]){await load('t','v',{});const k='v k73Come #'+o;want.add(k)
 {await load('t','m',{});const r=await ev(()=>{window.__lines=[];vRescue&&0;return 1})}
 for(const pov of ['m','v'])for(const self of [0,1]){await load('t',pov,{});const k=`${pov} k73Door self${self}`;want.add(k);
  const d=await ev(self=>{window.__hubbed=0;let fin=0;k73Door(!!self,()=>{fin=1});for(let i=0;i<40&&dlg;i++)adv();return fin},self);if(!d)errs.push('door '+k);else got.add(k)}
-for(const pov of ['m','v']){await load('t',pov,{});const r=await ev(()=>{window.__lines=[];try{after(false)}catch(e){}for(let i=0;i<20&&dlg;i++)adv();return {m:!!(S.f.e2ld&&S.f.e2ld.e2l_door),l:window.__lines.some(x=>/Of all the people|In the car she sleeps/.test(x[1]))}});
+for(const pov of ['m','v']){await load('t',pov,{});const r=await ev(()=>{window.__lines=[];try{after(false)}catch(e){}for(let i=0;i<20&&dlg;i++)adv();return {m:!!(S.f.e2ld&&S.f.e2ld.e2l_door),l:window.__lines.some(x=>/Of all the people|In the car they sleep/.test(x[1]))}});
  log.push('after wrapper '+pov+' '+JSON.stringify(r));if(!r.m||!r.l)errs.push('after wrapper '+pov)}
 /* 5. the infirmary: delivered through the hub, in order; every scene, option and variant */
 for(const pov of ['m','v']){await load('m',pov,{});const seq=await ev(pov=>{const o61=k61Scene,o62=k62Scene,o63=k63Scene;k61Scene=()=>null;k62Scene=()=>null;k63Scene=()=>null;const out=[];for(let day=0;day<4;day++){for(let sl=1;sl<4;sl++){S.slot=sl;window.__lines=[];const s=k73MedScene();if(s){let fin=0;s(()=>{fin=1});for(let i=0;i<60&&dlg;i++)adv();

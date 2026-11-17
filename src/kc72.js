@@ -28,42 +28,42 @@ function k72How(r,h){S.f['k72'+r+'How']=h;save()}
 
 /* ===================================== MISAKI × RONIN ===================================== */
 function k72Mr(cb){const h=S.bed==='ronin';
- say([['',h?'Twenty past three. Ronin’s couch, under the blanket that smells of smoke. The phone buzzes on her chest.':'Twenty past three. The phone buzzes on her chest, and she has it unlocked before she is properly awake.'],
+ say([['',h?'Twenty past three. Ronin’s couch, under the blanket that smells of smoke. The phone buzzes on their chest.':'Twenty past three. The phone buzzes on their chest, and they have it unlocked before they are properly awake.'],
   [RN,'(text) you up. workshop. bring the boots that slip'],
   [RN,'(text) and don’t cha make that face, I can hear it from here'],
   K72M('(u cant hear a face)','(he can’t hear a face. he’s right though)','(He can’t hear a face. I’m making the face.)','(You can’t hear a face, you idiot. I am making it. I’m also already putting my coat on.)'),
-  ['',h?'She goes down the back stairs in her socks with the boots in one hand.':'She drives across town with the boots on the passenger seat and goes in through the yard, past his truck.'],
+  ['',h?'They go down the back stairs in their socks with the boots in one hand.':'They drive across town with the boots on the passenger seat and go in through the yard, past his truck.'],
   ['','The workshop is lit by one bulb and a blowtorch. Ronin is at the bench in a vest and his rings. The spare tyre off his truck is on the floor, and half of it has already been cut into strips.'],
   ['','In the bench vice, wrapped in foil, is a sandwich. He runs the blowtorch along the foil slowly, like he is stripping paint, and the whole workshop smells of burnt cheese.'],
   [RN,'Toasties. Vice is the press, torch is the grill. Patent pendin’. Siddown, little killer.'],
   K72M('is that ur tyre','is that your TYRE','Is that the spare off your truck?','Is that the spare tyre off your truck? On the floor? In strips?'),
   [RN,'Spare’s for emergencies. You slid three feet on a wet roof Tuesday, Angel told me. That’s an emergency. Truck tread grips like a fuckin’ tick. Gimme the boots.']],
  ()=>ask('hitmeuppp',MV('(toastie)','(he’s holding out a toastie. with pliers.)','(He’s holding the first toastie out with the pliers. It’s still smoking.)','(He’s holding the first one out to me with the pliers, still smoking, very proud of himself.)'),[
-  {t:'Eat it off the pliers.',fn:()=>{k72How('mr','pliers');say([['','She bites it straight off the pliers. It is the best thing she has eaten all week and it takes the skin off the roof of her mouth.'],
+  {t:'Eat it off the pliers.',fn:()=>{k72How('mr','pliers');say([['','They bite it straight off the pliers. It is the best thing they have eaten all week and it takes the skin off the roof of their mouth.'],
     [RN,'Burned your mouth and you’re still chewin’. Fuckin’ beautiful. Hold still, there’s cheese on your chin.']],()=>k72MrSleep(cb))}},
   {t:'Make him blow on it first.',fn:()=>{k72How('mr','blow');say([[RN,'Blow on it? Fuck’s sake. You kill people for a livin’.'],
     ['','He blows on it anyway, three big careful puffs, and checks it on the back of his wrist like a baby’s bottle before he hands it over.']],()=>k72MrSleep(cb))}},
-  {t:'Take the torch. Do the next one yourself.',fn:()=>{k72How('mr','torch');say([['','She takes the torch. Her toastie comes out of the vice black on one side and cold on the other, and she eats it with total confidence.'],
+  {t:'Take the torch. Do the next one yourself.',fn:()=>{k72How('mr','torch');say([['','They take the torch. Their toastie comes out of the vice black on one side and cold on the other, and they eat it with total confidence.'],
     [RN,'That’s a war crime. Gimme the torch back before you weld my vice shut.']],()=>k72MrSleep(cb))}}]))}
 function k72MrSleep(cb){
- say([['','He does the boots after. He cuts the tread to the shape of her soles with a box cutter, by eye, glues it on and clamps each boot in the vice where the toasties were. The radio on the shelf is playing gospel, low, because it is the only station that comes in down here.'],
+ say([['','He does the boots after. He cuts the tread to the shape of their soles with a box cutter, by eye, glues it on and clamps each boot in the vice where the toasties were. The radio on the shelf is playing gospel, low, because it is the only station that comes in down here.'],
   [RN,'Herringbone, see. Water goes out the sides. Same tread as the truck, so you’ll grip like the truck, and the truck don’t fall off roofs.'],
   K72M('(warm in here)','(it’s so warm in here. why is it so warm)','(It’s warm in here, with the torch and the heater going. I’m shutting my eyes for a minute.)','(It’s warm and he’s explaining water to me and I’m going to close my eyes for one minute. One.)'),
-  ['','There is an old bench seat out of a car against the wall with a horse blanket on it. She lies down on it to listen better. He is still explaining herringbone when she goes.'],
+  ['','There is an old bench seat out of a car against the wall with a horse blanket on it. They lie down on it to listen better. He is still explaining herringbone when they go.'],
   [RN,'…and that’s why you never buy the cheap ones. You hear me? Misaki. Aw, fuck me, out like a light. Sucks t’be you, I ain’t finished.']],
   ()=>k72Wake('mr',cb))}
 const K72W_MR=lv=>({id:'mr_wake',
- 1:[['','She wakes at ten on the bench seat with the horse blanket over her and his jacket over that. It smells of smoke and burnt cheese. The bulb is off. Her boots are on her feet, laced in double knots, and the soles are black truck tread.'],
-  ['','On her chest, on an offcut of tyre, in silver pen: “Glue’s set. Don’t cha go up anythin’ wet till noon. You snore like an outboard motor, and I let you, ’cause I’m a saint. — R.”']],
- 2:[['','She wakes at ten across the bench seat of his truck out in the yard, under his jacket. The windows have fogged from her breathing. The back of the truck has a gap where the spare tyre used to be.'],
-  ['','Her boots are on the dashboard with the new soles turned up where she can see them. In the fog on the windscreen, written with one big finger: “BACK IN 10. DONT TOUCH THE RADIO. — R”. The radio is still on the gospel station, low.']],
- 3:[['','She wakes at ten on his couch upstairs, under the blanket that smells of smoke. Heathers is paused on the croquet lawn. Somebody has put the Gameboy on her chest, switched off, with his high score on a sticker on the back so she knows what to beat.'],
-  ['','Her boots are by the couch with the new soles up. A takeaway menu is tucked into the left one, with silver pen on the back: “Glue’s set. Carried you up. You talked in your sleep about integrals, nerd. — R.”']],
- 4:[['','She wakes at ten in his bed, which is a mattress on the floor, with the sheet tucked in round her as if he thought she might roll off it. The church bells across the road are going. Her boots stand at the end of the mattress with the new soles showing.'],
+ 1:[['','They wake at ten on the bench seat with the horse blanket over them and his jacket over that. It smells of smoke and burnt cheese. The bulb is off. Their boots are on their feet, laced in double knots, and the soles are black truck tread.'],
+  ['','On their chest, on an offcut of tyre, in silver pen: “Glue’s set. Don’t cha go up anythin’ wet till noon. You snore like an outboard motor, and I let you, ’cause I’m a saint. — R.”']],
+ 2:[['','They wake at ten across the bench seat of his truck out in the yard, under his jacket. The windows have fogged from their breathing. The back of the truck has a gap where the spare tyre used to be.'],
+  ['','Their boots are on the dashboard with the new soles turned up where they can see them. In the fog on the windscreen, written with one big finger: “BACK IN 10. DONT TOUCH THE RADIO. — R”. The radio is still on the gospel station, low.']],
+ 3:[['','They wake at ten on his couch upstairs, under the blanket that smells of smoke. Heathers is paused on the croquet lawn. Somebody has put the Gameboy on their chest, switched off, with his high score on a sticker on the back so they know what to beat.'],
+  ['','Their boots are by the couch with the new soles up. A takeaway menu is tucked into the left one, with silver pen on the back: “Glue’s set. Carried you up. You talked in your sleep about integrals, nerd. — R.”']],
+ 4:[['','They wake at ten in his bed, which is a mattress on the floor, with the sheet tucked in round them as if he thought they might roll off it. The church bells across the road are going. Their boots stand at the end of the mattress with the new soles showing.'],
   ['','Ronin is asleep in the doorway, sitting up against the frame with the crowbar across his knees. There is a sticky note on the crowbar: “Took the door. Glue’s set. Don’t cha step on me. — R.”']],
- 5:[['',sugOn()?'She wakes at ten on his mattress under the heavy blanket, in yesterday’s clothes, too warm to want to move. Ronin is asleep on his back with one arm flung over her and his mouth open. His rings are off and lined up on the windowsill.':'She wakes at ten on top of his mattress, both of them still dressed and still in their socks, under his jacket and the heavy blanket. Ronin is asleep on his back with one arm flung over her and his mouth open. His rings are off and lined up on the windowsill.'],
-  ['','The church bells go across the road and he does not wake. At the end of the mattress her boots stand with the soles turned out, and he has burned a word into each heel with the tip of the torch. Both of them say KISS.'],
-  ['','There is a note in silver pen on the back of her hand, where she will see it first: “Didn’t make it to the couch. Your fault. — R.”']]})[lv];
+ 5:[['',sugOn()?'They wake at ten on his mattress under the heavy blanket, in yesterday’s clothes, too warm to want to move. Ronin is asleep on his back with one arm flung over them and his mouth open. His rings are off and lined up on the windowsill.':'They wake at ten on top of his mattress, both of them still dressed and still in their socks, under his jacket and the heavy blanket. Ronin is asleep on his back with one arm flung over them and his mouth open. His rings are off and lined up on the windowsill.'],
+  ['','The church bells go across the road and he does not wake. At the end of the mattress their boots stand with the soles turned out, and he has burned a word into each heel with the tip of the torch. Both of them say KISS.'],
+  ['','There is a note in silver pen on the back of their hand, where they will see it first: “Didn’t make it to the couch. Your fault. — R.”']]})[lv];
 const K72T_MR=lv=>lv===5?K72M('(stay)','(don’t move. he’s asleep)','(Don’t move. He’s actually asleep. He sleeps like he’s been shot.)',S.f.romMarried?'(My husband sleeps like he’s been shot, mouth open, one arm on me like a fallen fence. I’m not moving till the bells stop.)':'(He sleeps like he’s been shot, mouth open, one arm on me like a fallen fence. I am not moving till the bells stop.)')
  :lv===1?K72M('(ow)','(ow. ok. car seat)','(Ow. I slept on a car seat.)','(Ow. I slept on a car seat in a workshop that smells of cheese, and my feet have never been happier.)')
  :K72M('(boots)','(he did the boots)','(He did both boots while I was asleep.)','(He did both boots while I was asleep and wrote me a note like a fucking schoolgirl. I’m going to stamp around in these all day.)');
@@ -75,7 +75,7 @@ function k72Ma(cb){const h=S.bed==='angel';
   ['','Her eyes are shut. She is in full lashes and a silk bonnet and looks exactly like a woman asleep in an advert for sheets. Forty-one thousand people are watching her.'],
   [AN,'(on mic, in Maria’s softest voice, eyes shut) mmm. night night, my loves. so sleepy. this tea is doing wonders.'],
   ['','Then, without opening her eyes, she moves her lips at the camera. The chat thinks she is dreaming. Misaki can read it fine: “help.”'],
-  ['',h?'Misaki crawls in on her elbows, under the line of the camera, and lies on the floor by the bed out of shot.':'Misaki is there in twenty minutes. She lets herself in the back way, crawls into the studio on her elbows under the line of the camera, and lies on the floor by the bed out of shot.'],
+  ['',h?'Misaki crawls in on their elbows, under the line of the camera, and lies on the floor by the bed out of shot.':'Misaki is there in twenty minutes. They let themself in the back way, crawl into the studio on their elbows under the line of the camera, and lie on the floor by the bed out of shot.'],
   [AN,'(a whisper, lips not moving) don’t come in frame. the tea people paid for eight hours of maria sleeping. eight. i have never slept on camera in my life.'],
   [AN,'(whisper) i’ve been lying here two hours doing a face. chat says i look peaceful. i want to kill every one of them.'],
   K72M('why 8 hrs','why did u say yes to eight hours','Why did you agree to eight hours?','Babe. Why would you sign up for eight hours of sleeping on camera when you can’t sleep with the light off, let alone on?'),
@@ -89,7 +89,7 @@ function k72Ma(cb){const h=S.bed==='angel';
     [AN,'(whisper) i hate this so much. keep going. what’s a strip.']],()=>k72MaSleep(cb))}}]))}
 function k72MaSleep(cb){
  say([['','At twenty to five Angel’s sleeping face goes slack in a way she could never do on purpose. Her mouth falls open. She snores once, small, like a cat.'],
-  ['','The chat loses its mind. Misaki watches the numbers climb with the phone on her chest and the ring light making a white square on the ceiling, and some time after five she stops watching.']],
+  ['','The chat loses its mind. Misaki watches the numbers climb with the phone on their chest and the ring light making a white square on the ceiling, and some time after five they stop watching.']],
   ()=>k72Wake('ma',cb))}
 const K72W_MA=lv=>({id:'ma_wake',
  1:[['','She wakes at nine on the studio floor among the cables, out of frame, with a sheet mask on her face that she did not put there. The ring light is off and so is the camera. Angel has put a cushion under her head and the faux-fur throw over her.'],
@@ -100,8 +100,8 @@ const K72W_MA=lv=>({id:'ma_wake',
   ['','Her phone has a voice memo on it, recorded at six. It is Maria, very sweetly: “good morning, beautiful. you snored at my sponsors. there are pancakes in the oven, and one of them is shaped like an integral. i looked it up.”']],
  4:[['','She wakes at nine in Angel’s bed, under the duvet from the stream, with the ring light turned to face the wall. Angel’s side is made very neatly. She has gone to a nine o’clock shoot.'],
   ['','On the pillow, on the back of the tea contract, in eyeliner: “you slept in maria’s bed. two million people would kill you for that. i’d kill them first. back by two. stay put ♡ a”']],
- 5:[['',sugOn()?'She wakes at nine in Angel’s bed with the curtains shut and the ring light off, warm all the way through. Angel is asleep beside her for real, on her front, mouth open, in yesterday’s lashes, still holding Misaki’s hand under the duvet.':'She wakes at nine on top of Angel’s duvet, both of them still in yesterday’s clothes, under the faux-fur throw, with the curtains shut and the ring light off. Angel is asleep beside her for real, on her front, mouth open, still holding Misaki’s hand.'],
-  ['','One of Angel’s lashes has come off in the night and is stuck to Misaki’s cheek. On the nightstand, her phone has a text from Angel, sent at 6:58 with her eyes visibly shut: “stream’s over. i slept. dont move. dont u DARE move.”']]})[lv];
+ 5:[['',sugOn()?'They wake at nine in Angel’s bed with the curtains shut and the ring light off, warm all the way through. Angel is asleep beside them for real, on her front, mouth open, in yesterday’s lashes, still holding Misaki’s hand under the duvet.':'They wake at nine on top of Angel’s duvet, both of them still in yesterday’s clothes, under the faux-fur throw, with the curtains shut and the ring light off. Angel is asleep beside them for real, on her front, mouth open, still holding Misaki’s hand.'],
+  ['','One of Angel’s lashes has come off in the night and is stuck to Misaki’s cheek. On the nightstand, their phone has a text from Angel, sent at 6:58 with her eyes visibly shut: “stream’s over. i slept. dont move. dont u DARE move.”']]})[lv];
 const K72T_MA=lv=>lv===5?K72M('(ok)','(not moving. ok)','(Not moving. She’s asleep. She’s actually asleep.)',S.f.romMarried?'(My wife is asleep with her mouth open and her lash is on my face. I’m putting the lash in my wallet. Don’t ask.)':'(She’s asleep with her mouth open and her lash is on my face. I’m putting the lash in my wallet. Don’t ask.)')
  :lv===1?K72M('(ow)','(ow. floor)','(Ow. I slept on her floor in a sheet mask.)','(Ow. I slept on a studio floor in a sheet mask, and two million people heard me snore. Fine. Iconic.)')
  :K72M('(she slept)','(she slept tho)','(She slept, though. She actually slept.)','(She slept, on camera, for five hours, with me on the floor holding the edge of the duvet. Fuck the tea people.)');

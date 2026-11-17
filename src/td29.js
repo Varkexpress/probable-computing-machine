@@ -36,9 +36,9 @@ K22EV.push(
   say([['',m?'You come home to a cake on V’s kitchen table. One candle. Your name on it in icing that has clearly been redone twice.':'You come home to find Angel in your kitchen with a cake. One candle. Misaki’s name on it in icing that has clearly been redone twice.'],
    [AN,'ok before u say anything. u never tell anyone ur birthday. u said once u put “march” on a form and it stuck and u don’t know if it’s true.'],
    [AN,'so i picked one. today. it’s today now. i put it in my calendar with a reminder for every year until i die, and i have very good skincare, so that’s a long time.'],
-   [m?'hitmeuppp':'K9',m?MV('angel','angel. u didn’t have to','Angel. You did not have to.','Angel. Nobody has ever picked a day for me.'):'She has never let anyone do this.'],
+   [m?'hitmeuppp':'K9',m?MV('angel','angel. u didn’t have to','Angel. You did not have to.','Angel. Nobody has ever picked a day for me.'):'They have never let anyone do this.'],
    [AN,'i know i didn’t have to. that’s the whole point of a friend, babe. somebody who does the stuff nobody had to.'],
-   ['','She makes everyone sing. Ronin sings in a register that rattles the windows. V sings perfectly on key, formally, like a national anthem. '+(m?'You do not sing. You eat the cake. You let it be your birthday.':'Misaki does not sing. She eats the cake. She lets it be her birthday.')]],()=>{fr('a',4);apply({aff:2});done()})}},
+   ['','She makes everyone sing. Ronin sings in a register that rattles the windows. V sings perfectly on key, formally, like a national anthem. '+(m?'You do not sing. You eat the cake. You let it be your birthday.':'Misaki does not sing. They eat the cake. They let it be their birthday.')]],()=>{fr('a',4);apply({aff:2});done()})}},
  {id:'k29_angelwhy',when:()=>k29Ok()&&frT('a')>=2&&!!S.seen.k29_bday,run:done=>{const m=k29M();
   say([['','You see the transfer by accident on Angel’s laptop: her entire sponsorship payment for the quarter, sent to a children’s hospital, with no name on it.'],
    [m?'hitmeuppp':'K9',m?MV('angel. that’s all of it','angel that’s ALL of it','Angel, that is all of it.','Angel. That is the whole quarter.'):'Angelic. That is the whole quarter.'],
@@ -59,11 +59,11 @@ K22EV.push(
    ['','Nobody asks him to stop. Everyone in the server knows he would not, and that the folders are the closest thing V has to saying he would come for any of you, anywhere, with everything he has.']],()=>{if(typeof relApply==='function')relApply({trust:3});done()})}},
  /* Misaki draws the four of them */
  {id:'k29_drawing',when:()=>k29Ok()&&!!S.f.k22art&&frT('r')>=1&&frT('a')>=1,run:done=>{const m=k29M();const post=typeof k22Post==='function'&&k22Post();
-  say(post?[['',m?'You open the tablet for the first time in weeks and draw the four of you, at V’s table, from behind: Ronin’s jacket, Angel’s hair, V’s shoulders, your own hood.':'Misaki shows you a drawing on her tablet: the four of you at your table, from behind. Ronin’s jacket, Angel’s hair, your shoulders, her hood.'],
+  say(post?[['',m?'You open the tablet for the first time in weeks and draw the four of you, at V’s table, from behind: Ronin’s jacket, Angel’s hair, V’s shoulders, your own hood.':'Misaki shows you a drawing on their tablet: the four of you at your table, from behind. Ronin’s jacket, Angel’s hair, your shoulders, their hood.'],
     ['','No faces. You can’t do faces any more. But anyone who knew you would know exactly who each of them was from the backs of their heads.'],
     [AN,'(server) can i print this. can i print this and frame it. i’m printing it.'],
     [RN,'(server) Looks like the back of a real nice album cover. Satan’s Greatest Hits.']]
-   :[['',m?'You draw the four of you for fun, the way you used to draw commissions: chibi, huge eyes, Ronin with tiny horns, Angel with a halo and a rifle, V in his coat with the hounds drawn as four very small, very sinister clouds.':'Misaki draws the four of you the way she used to draw commissions: huge eyes, Ronin with tiny horns, Angel with a halo and a rifle, you in your coat with the hounds drawn as four very small, very sinister clouds.'],
+   :[['',m?'You draw the four of you for fun, the way you used to draw commissions: chibi, huge eyes, Ronin with tiny horns, Angel with a halo and a rifle, V in his coat with the hounds drawn as four very small, very sinister clouds.':'Misaki draws the four of you the way they used to draw commissions: huge eyes, Ronin with tiny horns, Angel with a halo and a rifle, you in your coat with the hounds drawn as four very small, very sinister clouds.'],
     [RN,'(server) The horns are accurate. I’m gettin’ ’em tattooed.'],
     [AN,'(server) MY HALO. i’m making this my profile picture. i’m making it EVERYONE’S profile picture'],
     ['K9','(server) The hounds are not clouds.'],

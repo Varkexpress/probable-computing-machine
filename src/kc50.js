@@ -60,33 +60,33 @@ function kdSpiral(){S.f.kdSpiral=1;save();const full=typeof kdSA!=='function'||k
   ['','The tall one stops reading at four, because the breathing on the other side of the door has changed, and he knows that breathing better than his own.'],
   ['','He is through the door before the book hits the floor. He has the bag. He has the light. He is fast, and he is very good, and he is too late by minutes, not hours.'],
   ...(typeof kdShapeLines==='function'?kdShapeLines():[]),
-  ['','She is looking at the door. Her face is not afraid. It is the face she makes when she has worked something out a second too late, on a roof, when the wind has changed. He has seen it a hundred times. He knows exactly what it means.'],
+  ['','They are looking at the door. Their face is not afraid. It is the face they make when they have worked something out a second too late, on a roof, when the wind has changed. He has seen it a hundred times. He knows exactly what it means.'],
   ['','The grey hound lies down across the threshold and will not move for anyone for two days.'],
   ['','The funeral is small. Angel does the eyeliner one last time, and her hands shake the whole way through, and she does not stop until it is perfect. Ronin stands at the back with his crowbar and does not sing.'],
-  ...(S.kd&&S.kd.med&&S.kd.med.br3?[['','Later, under the mattress, he finds one more soup label, one word on it in biro, very small, written after everything else: “V?”']]:[['','Under the mattress, V finds a paper cup, washed, and a soup label with one word on it in biro, written very small, the last thing she wrote: “V?”']]),
-  ['K9','(She knew. At the end, she knew where she was. She was in my house the whole time.)']],()=>{S.kd.med=null;S.f.lateRoute='self';save();startLone('v')},'#000')},'#000')},'#000')}
+  ...(S.kd&&S.kd.med&&S.kd.med.br3?[['','Later, under the mattress, he finds one more soup label, one word on it in biro, very small, written after everything else: “V?”']]:[['','Under the mattress, V finds a paper cup, washed, and a soup label with one word on it in biro, written very small, the last thing they wrote: “V?”']]),
+  ['K9','(They knew. At the end, they knew where they were. They were in my house the whole time.)']],()=>{S.kd.med=null;S.f.lateRoute='self';save();startLone('v')},'#000')},'#000')},'#000')}
 /* the secret: she had started to work it out, and she had said goodbye to him by name. He is listening when it matters. */
 function kdInterrupted(){const m=S.kd.med;S.f.kdInterrupted=1;save();go(cutBg('#000'));cut([
- ['','The tall one is not reading tonight. He has not read since the night she gave him her goodbyes to pass on. He has been sitting against the door listening, every night, because of what she said for V.'],
+ ['','The tall one is not reading tonight. He has not read since the night they gave him their goodbyes to pass on. He has been sitting against the door listening, every night, because of what they said for V.'],
  ['','So he hears it the second it changes. Not the breathing. Before that. The small sound of somebody deciding.'],
  ['','The door comes off its top hinge. He doesn’t slow down for it.'],
- ['','He has her wrists, both of them, in one hand, very gently, the broken one and the other one, and his face is lower than hers, the way he always kneels, and he is saying something over and over that she can’t hear yet.'],
+ ['','He has their wrists, both of them, in one hand, very gently, the broken one and the other one, and his face is lower than theirs, the way he always kneels, and he is saying something over and over that they can’t hear yet.'],
  ['','“—Tuesday. It is Tuesday. It is my house. You drew this room. You drew it on a menu. The bed is at that angle because you said nobody should stand behind you. It is my house. It is Tuesday. You drew this room.”'],
  ['hitmeuppp','(...the menu.)'],
  ['hitmeuppp','(the pizza place with the dog on the sign. the pepperoni side. i drew the bed at an angle.)'],
- ['','The ironed sheet. The green cap. The M. The breathing she has fallen asleep to on a couch, in a car, on a roof. It comes at her all at once, the way a room comes back when somebody turns the light on, and it is so much worse and so much better than the cell that she can’t breathe.'],
+ ['','The ironed sheet. The green cap. The M. The breathing they have fallen asleep to on a couch, in a car, on a roof. It comes at them all at once, the way a room comes back when somebody turns the light on, and it is so much worse and so much better than the cell that they can’t breathe.'],
  ['hitmeuppp','V.'],
  ['K9','Yes.'],
  ['hitmeuppp','V, i nearly— i was going to— it’s Tuesday?'],
  ['K9','It is Tuesday. You are in my house. I am not letting go of your hands until you tell me to, and I would rather you did not tell me to.'],
- ['','She doesn’t tell him to. They sit on the infirmary floor with the door hanging off its hinge until it gets light, and the grey hound comes in over the broken door and lies down across both of them, and nobody says anything else at all.']],()=>{m.logicOut=1;m.ext=0;m.clar=3;S.comp=clamp(S.comp+25);apply({aff:6});note('kd_interrupted','The night in the infirmary when the tall one was V, and he was listening. Neither of them talks about it. He sleeps against the door for a month afterwards.');save();toRoom('medbay',[150,150])},'#000')}
+ ['','They don’t tell him to. They sit on the infirmary floor with the door hanging off its hinge until it gets light, and the grey hound comes in over the broken door and lies down across both of them, and nobody says anything else at all.']],()=>{m.logicOut=1;m.ext=0;m.clar=3;S.comp=clamp(S.comp+25);apply({aff:6});note('kd_interrupted','The night in the infirmary when the tall one was V, and he was listening. Neither of them talks about it. He sleeps against the door for a month afterwards.');save();toRoom('medbay',[150,150])},'#000')}
 kdEv('kd_interrupted_after',()=>S.f.kdInterrupted&&kdD()>=1&&!S.f.kdIntAfter,done=>{S.f.kdIntAfter=1;save();const me=S.pov!=='v';say(me?[
  ['','The infirmary door has a new hinge. V fitted it himself. He did not replace the door. There is a dent in it at the height of a man’s shoulder.'],
  ['','He sleeps against your bedroom door now, on the floor, on a dog bed. You found out on the second night. You haven’t said anything. Neither has he.'],
  ['hitmeuppp',MV('(he heard me.)','(he was listening. every night. because i said goodbye to him by name.)','(He was listening because I said goodbye to him by name. That’s why he was in time.)','(I said goodbye to the guard and asked him to tell V, and V was the guard, and he listened to it, and then he sat by the door every night after just in case. That’s the only reason. That’s the whole reason I’m here.)')]]:[
  ['','He fits a new hinge on the infirmary door. He does not replace the door. He leaves the dent.'],
- ['','He sleeps on a dog bed outside her room for a month. On the first night the grey hound comes and lies down beside him, and on the second the other three, and nobody in the house mentions it.'],
- ['K9','(I was listening because she said goodbye to me. If she had not, I would have been reading, and I would not have heard. I have thought about that every night since. I will not stop.)']],()=>{apply({aff:4});calm(3);done()})});
+ ['','He sleeps on a dog bed outside their room for a month. On the first night the grey hound comes and lies down beside him, and on the second the other three, and nobody in the house mentions it.'],
+ ['K9','(I was listening because they said goodbye to me. If they had not, I would have been reading, and I would not have heard. I have thought about that every night since. I will not stop.)']],()=>{apply({aff:4});calm(3);done()})});
 if(typeof KD_ORDER!=='undefined')KD_ORDER.unshift('kd_interrupted_after');
 /* descriptions that change by the day and the state of her mind */
 const KD_DESC={

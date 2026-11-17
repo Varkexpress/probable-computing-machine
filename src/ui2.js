@@ -76,13 +76,13 @@ function gearList(){const L=[];const add=(id,n,d,ic,c)=>L.push({id,n,d,ic,c,tool
  if(S.smoke)add('smoke','Smoke grenade',`Pop one, lose them in it. ×${S.smoke}`,['can','#8a8a92'],S.smoke);if(S.sup)add('sup','Suppressor','Keeps the neighbours asleep.',['tube']);if(S.pick)add('pick','Boot lockpick','Lives in the left boot. Has opened worse.',['pick']);
  if(S.key)add('key','Vault keycard','Found on the old hound’s collar. It let you take it. That is the frightening part.',['card']);if(S.treat)add('treat','Raw meat, wrapped','For the hounds. V weighs every portion.',['bone']);return L}
 function keepList(){const t=(S.td&&S.td.f)||{};const L=[];const add=(id,n,d,ic)=>L.push({id,n,d,ic,keep:1});
- if(t.stars)add('k_stars','49.8','Glow stars on the trailer ceiling. Fastest girl in the prefecture, one summer.',['star','#b8ffc0']);
- if(t.drawerDone)add('k_ticket','A one-way ticket','The train ticket she left home on. On the back: “you’re allowed.”',['ticket']);
+ if(t.stars)add('k_stars','49.8','Glow stars on the trailer ceiling. Fastest kid in the prefecture, one summer.',['star','#b8ffc0']);
+ if(t.drawerDone)add('k_ticket','A one-way ticket','The train ticket they left home on. On the back: “you’re allowed.”',['ticket']);
  if(t.clip)add('k_clip','The lost star clip','Day three, the rooftop. V has carried it ever since.',['clip']);
  if(t.book)add('k_book','“Half agony, half hope”','The line V underlined in Persuasion, traced until the pencil shone.',['book','#5a3a2a']);
  if(t.opLetters)add('k_stay','“Stay.”','The one word that survived the eraser.',['letter','#c2253a']);
  if(t.bike)add('k_bike','A bike with stabilisers','Navy blue, name scratched off. In the garage, behind the crates.',['bike','#2a4a7a']);
- if(t.keepList)add('k_keep','The keep-list','THINGS SHE HAS SAID THAT I WANT TO KEEP. The bottom is blank on purpose.',['list']);
+ if(t.keepList)add('k_keep','The keep-list','THINGS THEY HAVE SAID THAT I WANT TO KEEP. The bottom is blank on purpose.',['list']);
  if(S.f&&S.f.motherPhoto)add('k_maman','“Maman. New Year.”','A photo from under the floorboard. A woman mid-song with a wooden spoon.',['photo','#c9a050']);
  if(S.photos&&S.photos.length)add('k_photos',`Photos (${S.photos.length})`,'Snapshots you took. Press C in any room to take another.',['photo','#5fd4c4']);
  return L}
@@ -106,10 +106,10 @@ function bagActs(it){if(!it)return[];if(it.keep)return[{t:'Remember',fn:()=>{BAG
  giftTargets().forEach(w=>A.push({t:'Give to '+WHO[w],fn:()=>bagGive(it,w)}));
  A.push({t:'Inspect',fn:()=>{BAG.thought=bagThink(it)}});return A}
 function bagThink(it){const v=ME2()==='K9';const k=it.id;const pv=S.f['pref_v'+k]&&PREF.v[k],pm=S.f['pref_m'+k]&&PREF.m[k];
- if(v)return pm?`She ${pm[0]>=6?'loved':pm[0]>=3?'liked':'tolerated'} this. I keep a note.`:it.cat==='food'?'Food. I should eat it, or give it to someone who forgets to.':'I am not sure who this is for yet. Someone will tell me.';
+ if(v)return pm?`They ${pm[0]>=6?'loved':pm[0]>=3?'liked':'tolerated'} this. I keep a note.`:it.cat==='food'?'Food. I should eat it, or give it to someone who forgets to.':'I am not sure who this is for yet. Someone will tell me.';
  return pv?`he ${pv[0]>=6?'loved':pv[0]>=3?'liked':'was polite about'} this one. noted. obviously.`:it.cat==='food'?'snack. or a gift. or a snack.':'who’s this for. i’ll know when i see their face.'}
 function bagEat(it){const e=ieat(it.id);S.inv[it.id]--;apply(e);sfx('chime');if(S.dark&&typeof calm==='function')calm(2);
- BAG.thought=ME2()==='K9'?pk(['He eats standing up, the way he always does. Then sits down, because she would tell him to.','Good. Fuel. ...Very good, actually.']):pk(['nom. ok. better.','ate it. feel like a person again. a small one.','that hit the spot. the spot was empty.']);toast(fx(e)||'Ate it');bagRender()}
+ BAG.thought=ME2()==='K9'?pk(['He eats standing up, the way he always does. Then sits down, because they would tell him to.','Good. Fuel. ...Very good, actually.']):pk(['nom. ok. better.','ate it. feel like a person again. a small one.','that hit the spot. the spot was empty.']);toast(fx(e)||'Ate it');bagRender()}
 function bagGive(it,w){bagClose();const back=()=>{if(scene&&scene.isRoom)toRoom(S.room,S.roomPos||scene.pos())};
  if(w==='a'||w==='r'){friendGift(w,back)}else giftMenu(w,back);
  setTimeout(()=>{const o=[...document.querySelectorAll('.dlg .opt')].find(e=>e.textContent.replace(/^\d+\s*/,'').startsWith(iname(it.id)));if(o)o.click()},30)}

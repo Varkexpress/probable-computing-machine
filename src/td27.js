@@ -10,7 +10,7 @@ K22EV.push(
   say([['','Angel is nervous. You can tell because she has started narrating.'],
    [AN,'(very quietly) and here we see angel, in the waiting room, she’s fine, she’s totally fine, she’s holding the paper cup like it’s a grenade, which, side note, is a very valid way to hold a paper cup—'],
    [m?'hitmeuppp':'K9',m?MV('angel','angel. you’re doing the voice.','Angel. You are doing the voice.','Angel. You’re doing the voice.'):'Angelic. You are doing the voice.'],
-   [AN,'(normal) i know. i KNOW. i can’t stop. if i’m the camera then it’s happening to the girl in the video and not to me. it’s a whole thing. my therapist calls it “a whole thing.”'],
+   [AN,'(normal) i know. i KNOW. i can’t stop. if i’m the camera then it’s happening to the kid in the video and not to me. it’s a whole thing. my therapist calls it “a whole thing.”'],
    ['','She does it on rooftops too, before a shot. Under her breath, in the bright, sweet voice she uses for skincare: “and she breathes in, and she breathes out, and she’s so steady, look how steady she is.” She has never missed. Nobody has ever heard her do it but the three of you.']],()=>{fr('a',3);done()})}},
  {id:'k27_ceiling',when:()=>k27Ok()&&frT('a')>=1&&!!S.seen.k27_narrate,run:done=>say([
    [RN,'(server) Angel. Darlin’. Tell ’em about the ceilin’.'],

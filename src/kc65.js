@@ -98,7 +98,7 @@ function k65mrBoat(){go(cutBg('#0a0a12'));k65Mark('mr_boat');const r=S.f.k65mrRa
 function k65mrEpi(){go(cutBg('#120a08'));k65Mark('mr_epi');const b=S.f.k65mrBooth;
  const L=[['','The church across town, after midnight. He still has the key.']];
  if(b==='true')L.push(['','The booth is still there. So is what he wrote on the inside of his door that night, in silver pen, and this time he lets you read it.'],
-  ['','It says the date, and under it, in his worst handwriting: SHE THINKS ABOUT ME ON ROOFS. GOD HELP ME.'],
+  ['','It says the date, and under it, in his worst handwriting: THEY THINK ABOUT ME ON ROOFS. GOD HELP ME.'],
   [RN,'Priest’s never seen it. Or he has, and he’s prayin’ for me. Either way.']);
  else if(b==='filthy')L.push(['','The grille is back in with eight screws instead of four. Somebody in the parish noticed something.'],
   [RN,'Eight. Eight fuckin’ screws, little killer. Like that’s gonna stop me.'],
@@ -268,12 +268,12 @@ function k65vrMugs(){go(cutBg('#100a08'));k65Mark('vr_mugs');
      ['',sugOn()?'You do not get to say it again. He is in your lap before you are through the first word, and the mug that says MINE goes off the edge of the desk and breaks, and afterwards he makes you promise not to file that.':'You do not get to say it again. He is in your lap before you are through the first word, kissing you, and the mug that says MINE goes off the edge of the desk and breaks. Then he puts his face in your collar and stays there, all of him, far too heavy, until he is asleep and the lamp has burned the room orange, and in the morning he makes you promise not to file that.']],hub)}}]))}
 
 function k65vrAfter(){go(cutBg('#0c0c10'));k65Mark('vr_after');
- say([['','Four in the morning. You have not slept since Misaki came home. Ronin finds you on the landing outside her door, in a chair you carried up from the kitchen, with a scalpel on your knee.'],
+ say([['','Four in the morning. You have not slept since Misaki came home. Ronin finds you on the landing outside their door, in a chair you carried up from the kitchen, with a scalpel on your knee.'],
   [RN,'Shift change, Vee.'],
   ['K9','I am fine.'],
   [RN,'You’re a fuckin’ statue. Get up.'],
-  ['','He does not pull you up. He knows better than to make a noise on this landing. He leans the crowbar against her door frame, sits down on the floor with his back to the wall and his boots across the landing, and waits.'],
-  [RN,'She’s in there. I’m out here. You’re in bed down the hall, where I can hear you. Anybody wants her, they come through me, then through four of your fuckin’ monsters, then through you, rested. That’s an order, Mister Foundation.'],
+  ['','He does not pull you up. He knows better than to make a noise on this landing. He leans the crowbar against their door frame, sits down on the floor with his back to the wall and his boots across the landing, and waits.'],
+  [RN,'They’re in there. I’m out here. You’re in bed down the hall, where I can hear you. Anybody wants them, they come through me, then through four of your fuckin’ monsters, then through you, rested. That’s an order, Mister Foundation.'],
   ['K9','You do not give me orders.'],
   [RN,'I do tonight. Go on. I’ll wake you if a fly lands.'],
   ['','You go. You sleep three and a half hours exactly. When you come back he has not moved, except that the grey hound is lying across his boots with its head up, watching the stairs, and he has a hand on its back.']],()=>{fr('r',4);calm(1);hub()})}
@@ -285,16 +285,16 @@ function k65vrGala(){go(cutBg('#14100a'));k65Mark('vr_gala');
   ['K9','You may not tell donors what they smell like.'],
   [RN,'He’s got a second family, Vee. Check your file. Bet you got a file.'],
   ['K9','...He does have a second family.'],
-  ['','Then they call you up to give the speech. You have given it nine years running. Ronin stands at your elbow, holding your notes, and as you begin he leans in to your ear.']],
-  ()=>ask('K9','(Four hundred people are watching you. Ronin is murmuring about your tie and what he means to do with it.)',[
-   {t:'Give the speech. Do not stop him.',fn:()=>{S.f.k65vrGala='stay';fr('r',3);say([
-     ['','You give your whole speech. He gives his whole speech, low, in your ear, the entire time, in more detail than yours. You do not pause once. At the end there is a standing ovation, and the chair of the board tells you that you were more passionate than usual this year.'],
-     ['K9','Thank you. I had a great deal of motivation.'],
+  ['','You sit where you always sit, at the table by the kitchen doors, where nobody looks. The chair of the board goes up to give the speech. You have written it nine years running and never once given it; as far as anyone in this room knows, the foundation has no founder. Ronin sits at your elbow with your copy of the notes, and as the chair begins he leans in to your ear.']],
+  ()=>ask('K9','(Four hundred people are watching the chair. Ronin is murmuring about your tie and what he means to do with it.)',[
+   {t:'Sit through the speech. Do not stop him.',fn:()=>{S.f.k65vrGala='stay';fr('r',3);say([
+     ['','The chair gives your whole speech. Ronin gives his whole speech, low, in your ear, the entire time, in more detail than yours. You do not move once. At the end there is a standing ovation for the chair, and afterwards she finds you by the kitchen doors and says the speech was more passionate than usual this year.'],
+     ['K9','Thank you. Whoever wrote it had a great deal of motivation.'],
      ['',sugOn()?'You leave before dessert. He takes the tie with him.':'You leave before dessert and eat it in the back of the car out of a napkin he stole, his head on your shoulder, still talking about your tie. He takes the tie with him.']],hub)}},
    {t:'Send him to the car.',fn:()=>{S.f.k65vrGala='car';fr('r',2);say([
      ['K9','(without moving your lips) Car.'],
      [RN,'Yes sir.'],
-     ['','He says “yes sir” like a threat, and goes. You give the speech with perfect composure in eleven minutes, the shortest it has ever been, to a puzzled standing ovation, and you are out of the door before the applause stops. He is lying across the back seat of the car with his shoes off, eating canapés he stole, and he does not sit up.'],
+     ['','He says “yes sir” like a threat, and goes. You sit through the chair’s eleven minutes with perfect composure, and you are out of the side door before the applause stops. He is lying across the back seat of the car with his shoes off, eating canapés he stole, and he does not sit up.'],
      [RN,'Took your time. Get in.']],hub)}}]))}
 
 function k65vrRing(){go(cutBg('#0e0a0a'));k65Mark('vr_ring');
@@ -318,7 +318,7 @@ function k65vrEpi(){go(cutBg('#100a08'));k65Mark('vr_epi');const g=S.f.k65vrGala
  const L=[['','January, when you update the files. Ronin finds his on your desk. He has never been allowed to read it. He reads it on your bed with his boots on.'],
   [RN,S.seen&&S.seen.k27_tea?'“Subject drinks other people’s tea.” Fuck you.':'“Subject arrives at seven exactly.” Course I do.'],
   [RN,'“Subject cannot be stopped from comin’ in through the skylight.”'+(S.seen&&S.seen.k65vr_morn?' ...“Subject sleeps on top of me. I sleep eight hours. See medical.”':'')]];
- if(g==='stay')L.push([RN,'“Gala, autumn. Subject described what he would do with my tie for eleven minutes. I gave the speech. See attached.” See attached what, Vee? ...Oh. You kept the tie.']);
+ if(g==='stay')L.push([RN,'“Gala, autumn. Subject described what he would do with my tie for eleven minutes. The chair gave the speech. See attached.” See attached what, Vee? ...Oh. You kept the tie.']);
  else if(g==='car')L.push([RN,'“Gala, autumn. Subject sent to the car. Subject ate forty-one canapés.” You counted?'],['K9','The caterer counted. She billed me.']);
  if(t==='filed')L.push([RN,'And there’s my bit, page four, underlined twice. Still true, asshole.']);
  if(r==='on')L.push([RN,'Last page just says “the ring fits.” That’s it? That’s the whole page?'],['K9','That is the whole page.']);
@@ -464,7 +464,7 @@ const _vdK65=vromDate;vromDate=function(k){try{if(K65()&&k65R()==='v'+k&&(S.vrom
 const _xeK65=extraEnding;extraEnding=function(){const L=_xeK65();if(!S||!S.f)return L;const f=S.f;
  if(S.rom==='r'){if(f.k65mrBooth==='true')L.push('There is a sentence in silver pen on the inside of a confessional door in the church across town. The priest has never read it. Ronin checks on it every Sunday.');
   else if(f.k65mrBooth==='filthy')L.push('The confessional in the church across town has eight screws in its grille now. Ronin owns a bigger screwdriver.');
-  else if(f.k65mrBooth==='his')L.push('Once a month Ronin kneels in the church across town and confesses to Misaki that he isn’t sorry about any of them, and that he loves her, in that order.');}
+  else if(f.k65mrBooth==='his')L.push('Once a month Ronin kneels in the church across town and confesses to Misaki that he isn’t sorry about any of them, and that he loves them, in that order.');}
  if(S.rom==='a'){if(f.k65maBet==='won')L.push('Every so often, at dinner, Misaki says “bet”, and Angel takes Maria off at the table, one lash at a time.');
   else if(f.k65maBet==='lost')L.push('Angel is still saving what Misaki owes her from the roof. She smiles with all her teeth about it every Sunday.');
   else if(f.k65maBet==='draw')L.push(sugOn()?'The bet on the roof was a draw, and Misaki and Angel are still working out who goes first. Angel keeps a spreadsheet.':'The bet on the roof was a draw. Every Sunday Misaki and Angel settle it with a nap at the same time, under one blanket. Angel keeps a spreadsheet.');

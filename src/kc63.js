@@ -66,7 +66,7 @@ const KD63_MX=[
    ['hitmeuppp',MV('(ronin first. he’d get it.)','(ronin first, he’d laugh. angel second. not V. never V.)','(Ronin first; he’d understand. Angel second. V nowhere. They don’t get V.)','(Ronin first, because he’d understand and then he’d kill them. Angel second, because she’d forgive me before I finished asking. V nowhere on it. They don’t get V, whatever they do.)')]],()=>ask('hitmeuppp','(The order.)',[
    {t:'Put yourself at the top.',fn:()=>{S.f.k63Ord='self';calm(1);save();say([['','You cross them all out and put your own name first, and under it your own name again, all the way down. Whatever they want, they can have it out of you.'],
      ['','You go to sleep on that. It is the first real sleep in two days.']],cb)}},
-   {t:'Leave it as it is.',fn:()=>{S.f.k63Ord='list';calm(-2);save();say([['','You leave it. You go over it until you know it like a phone number, and you hate the girl who wrote it, and you go over it again at night in case you need it.']],cb)}},
+   {t:'Leave it as it is.',fn:()=>{S.f.k63Ord='list';calm(-2);save();say([['','You leave it. You go over it until you know it like a phone number, and you hate the kid who wrote it, and you go over it again at night in case you need it.']],cb)}},
    k63No('Tear it up.','it’s in your head. there’s nothing to tear')]))];
 const KD63_MW=[
  cb=>say([['','Two fingers on the inside of your right wrist, all day. Your pulse is the one instrument in the room you trust. Nobody brought it in on a tray.'],
@@ -139,29 +139,29 @@ function k63Scene(){if(!S||!S.f||dlg||!k63Med())return null;const m=S.kd.med;
 
 /* ---------- V: one a day, by band, from a distance ---------- */
 const KD63_VC=[
- cb=>say([['','The first day she knows him, he watches her go back through the days.'],
-   ['','He can see it from the doorway. He kneels to put the tray down, as he has every day, and her eyes go to his knee on the lino and stay there, and something crosses her face and is put away. He hands her the spoon, and the same thing happens. When she thanks him he says “you are welcome”, and she shuts her eyes for a second.'],
-   ['K9','(She is taking each thing I did while she did not know me and finding me in it. I cannot do that for her, and I cannot make there be fewer of them.)'],
+ cb=>say([['','The first day they know him, he watches them go back through the days.'],
+   ['','He can see it from the doorway. He kneels to put the tray down, as he has every day, and their eyes go to his knee on the lino and stay there, and something crosses their face and is put away. He hands them the spoon, and the same thing happens. When they thank him he says “you are welcome”, and they shut their eyes for a second.'],
+   ['K9','(They are taking each thing I did while they did not know me and finding me in it. I cannot do that for them, and I cannot make there be fewer of them.)'],
    ['','He goes out and sits down in the corridor, where he sat on all the other days.']],()=>{calm(-1);cb()}),
- cb=>say([['','In the afternoon, through the door, she is saying numbers under her breath. Four thousand one hundred and twelve. Third. Four clicks.'],
-   ['','An hour later she says them again in the same order, at the same speed, like a check before a shot.'],
+ cb=>say([['','In the afternoon, through the door, they are saying numbers under their breath. Four thousand one hundred and twelve. Third. Four clicks.'],
+   ['','An hour later they say them again in the same order, at the same speed, like a check before a shot.'],
    ['','He knows the first one. It was in a biscuit tin, a long time ago, and it was going to be flight school.'],
-   ['K9','(She is making sure that she is still in there, with things only she would know. She gets them right, and an hour later she checks again.)'],
-   ['','He does not knock until she has finished. He writes nothing down.']],()=>{calm(-1);cb()})];
-const KD63_VX=cb=>say([['','At four in the afternoon she is talking to herself on the far side of the door, low and businesslike, in the voice she uses to price a job.'],
+   ['K9','(They are making sure that they are still in there, with things only they would know. They get them right, and an hour later they check again.)'],
+   ['','He does not knock until they have finished. He writes nothing down.']],()=>{calm(-1);cb()})];
+const KD63_VX=cb=>say([['','At four in the afternoon they are talking to themself on the far side of the door, low and businesslike, in the voice they use to price a job.'],
  ['','It is names. Ronin, then Angel, in that order, and what she could give about each of them, and how much.'],
  ['','His name is not on it. He listens for it twice through.'],
- ['','The third time through she stops, and begins again with her own name, and then her own name again, and nothing else.'],
- ['K9','(She is deciding whom to give them, so that the needle cannot decide it. She has left me off, and put herself on in my place.)'],
+ ['','The third time through they stop, and begins again with their own name, and then their own name again, and nothing else.'],
+ ['K9','(They are deciding whom to give them, so that the needle cannot decide it. They have left me off, and put themself on in my place.)'],
  ['','He sits with his back to the door until the list stops.']],()=>{calm(-2);cb()});
-const KD63_VW=cb=>say([['','From the corridor he hears her say her own name. Then again, louder, as if she were testing a microphone.'],
- ['','She says it forty times. He counts, because there is nothing else he can do with his hands.'],
- ['','Twice he says it back, low, through the wood. Both times she stops, and the room goes very still, and then she starts again.'],
- ['K9','(My voice is in the wrong place. Anything I give her through this door goes into the cell with her.)'],
- ['','He stops answering. At forty she stops too. He writes “40” on the chart, and does not know why.']],()=>{calm(-2);cb()});
-const KD63_VB=cb=>say([['','She knows him again by the afternoon. It comes back to her slowly this time, and she holds it very carefully, as though it could be taken away.'],
- ['','She hardly moves. She eats his soup, looks at the lamp, and says the date to herself at intervals, like a reading off a gauge.'],
- ['K9','(The last time she knew me, it went in the night. She remembers that better than I do.)'],
+const KD63_VW=cb=>say([['','From the corridor he hears them say their own name. Then again, louder, as if they were testing a microphone.'],
+ ['','They say it forty times. He counts, because there is nothing else he can do with his hands.'],
+ ['','Twice he says it back, low, through the wood. Both times they stop, and the room goes very still, and then they start again.'],
+ ['K9','(My voice is in the wrong place. Anything I give them through this door goes into the cell with them.)'],
+ ['','He stops answering. At forty they stop too. He writes “40” on the chart, and does not know why.']],()=>{calm(-2);cb()});
+const KD63_VB=cb=>say([['','They know him again by the afternoon. It comes back to them slowly this time, and they hold it very carefully, as though it could be taken away.'],
+ ['','They hardly move. They eat his soup, looks at the lamp, and says the date to themself at intervals, like a reading off a gauge.'],
+ ['K9','(The last time they knew me, it went in the night. They remember that better than I do.)'],
  ['','He does not go in. He says the date through the door at noon, and again at four, in the same words, so that it will match.']],()=>{calm(1);cb()});
 
 const _hub63=hub;hub=function(){const a=arguments,self=this;try{const s=k63Scene();if(s)return s(()=>_hub63.apply(self,a))}catch(e){}return _hub63.apply(self,a)};
@@ -170,19 +170,19 @@ const _hub63=hub;hub=function(){const a=arguments,self=this;try{const s=k63Scene
 const k63Ev=(id,when,run)=>kdEv(id,()=>!S.f[id]&&!isLone()&&when(),done=>{S.f[id]=1;save();run(done)});
 k63Ev('kd63_boots',()=>kdD()>=1,done=>{const me=S.pov!=='v';
  if(me)return say([['','The first nights upstairs you sleep in your boots.'],
-  ['','Laced and double-knotted, under his duvet, with your jeans on and your phone in the back pocket. If they come, you will not be the girl with one shoe on the cell floor again.'],
+  ['','Laced and double-knotted, under his duvet, with your jeans on and your phone in the back pocket. If they come, you will not be the kid with one shoe on the cell floor again.'],
   ['','You know nobody is coming. Your feet haven’t been told.'],
   ['','You tell him it’s a trailer thing; the floor there is freezing. He has stood on that floor in summer, and he lets it go.'],
   ['hitmeuppp',MV('(boots on. good.)','(boots on. if they come i run.)','(Boots on. If they come, I can run.)','(Boots on. Knots doubled. If they come I can run on a broken foot, as long as it’s in a boot. I’ve done the maths.)')]],()=>ask('hitmeuppp','(The boots.)',[
   {t:'Keep them on.',fn:()=>{S.f.k63Boots='on';calm(-1);save();say([['','You keep them on. In the morning there is mud from the garage on his sheets. He changes them without a word and stands your boots by the bed for the next night, with the laces loosened.']],done)}},
   {t:'Take them off. Stand them by the bed, laced.',fn:()=>{S.f.k63Boots='off';calm(-2);save();say([['','You stand them by the bed with the laces open and the tongues pulled out, pointing at the door. At two you wake with one foot already in the left one.']],done)}},
   k63No('Tell him why.','he’d be careful with you for ever')]));
- say([['','The first night upstairs he finds her asleep on her side of his bed fully dressed, under the duvet, in her boots, laced.'],
-  ['','In the morning she says it is a trailer habit; the floor there is freezing. He has stood on the trailer floor in summer.'],
-  ['K9','(She is sleeping ready to run. She is doing it in my bed.)']],()=>ask('K9','(Her boots.)',[
-  {t:'Change the sheets. Say nothing.',fn:()=>{S.f.k63Boots='sheets';save();say([['','He changes the sheets every morning. On the fourth he buys a second set, dark grey, so that the mud from the garage will not show and she will not have to see it.']],done)}},
-  {t:'Stand his own boots by the bed.',fn:()=>{S.f.k63Boots='his';apply({aff:2});save();say([['','He stands his own boots by the bed, beside the place hers would go, laces open.'],
-    ['','She looks at them for a long time that night. In the morning hers are still on her feet, but she has turned his round so that they point at the door as well.']],done)}}]))});
+ say([['','The first night upstairs he finds them asleep on their side of his bed fully dressed, under the duvet, in their boots, laced.'],
+  ['','In the morning they say it is a trailer habit; the floor there is freezing. He has stood on the trailer floor in summer.'],
+  ['K9','(They are sleeping ready to run. They are doing it in my bed.)']],()=>ask('K9','(Their boots.)',[
+  {t:'Change the sheets. Say nothing.',fn:()=>{S.f.k63Boots='sheets';save();say([['','He changes the sheets every morning. On the fourth he buys a second set, dark grey, so that the mud from the garage will not show and they will not have to see it.']],done)}},
+  {t:'Stand his own boots by the bed.',fn:()=>{S.f.k63Boots='his';apply({aff:2});save();say([['','He stands his own boots by the bed, beside the place theirs would go, laces open.'],
+    ['','They look at them for a long time that night. In the morning theirs are still on their feet, but they have turned his round so that they point at the door as well.']],done)}}]))});
 k63Ev('kd63_alarms',()=>kdD()>=2,done=>{const me=S.pov!=='v';
  if(me)return say([['','You set alarms: one every forty minutes, from midnight to six, on vibrate, under your pillow.'],
   ['','The rule from the other building holds when you are asleep. If you go under for too long, things happen that you don’t get to see. Forty minutes is as long as you think you can afford.'],
@@ -192,10 +192,10 @@ k63Ev('kd63_alarms',()=>kdD()>=2,done=>{const me=S.pov!=='v';
   {t:'Keep all of them.',fn:()=>{S.f.k63Alarm='all';calm(-1);apply({energy:-6});save();say([['','You keep them. At breakfast you are bright and quick and make toast for both of you, and you drop the butter knife twice without noticing either time.']],done)}},
   {t:'Turn off the three o’clock.',fn:()=>{S.f.k63Alarm='three';calm(-2);save();say([['','You turn off the three o’clock. At three you wake anyway, on the minute, without it, and lie there with your heart going until the four o’clock comes to tell you that you are allowed to be awake.']],done)}},
   k63No('Sleep through.','not yet')]));
- say([['','At night her phone buzzes under her pillow every forty minutes, from midnight to six. Each time she wakes all the way, lifts her head, looks at the door, and lies back down.'],
-  ['','He lies still and counts with her. Nine times.'],
-  ['K9','(She has set a guard over herself. It is her, every forty minutes, all night.)'],
-  ['','In the morning she is cheerful and makes toast, and drops the butter knife twice. He sets the coffee for five without mentioning the phone, so that it will be ready when she wakes for the last one.']],()=>{S.f.k63Alarm='v';apply({heart:-1});save();done()})});
+ say([['','At night their phone buzzes under their pillow every forty minutes, from midnight to six. Each time they wake all the way, lift their head, looks at the door, and lies back down.'],
+  ['','He lies still and counts with them. Nine times.'],
+  ['K9','(They have set a guard over themself. It is them, every forty minutes, all night.)'],
+  ['','In the morning they are cheerful and make toast, and drop the butter knife twice. He sets the coffee for five without mentioning the phone, so that it will be ready when they wake for the last one.']],()=>{S.f.k63Alarm='v';apply({heart:-1});save();done()})});
 k63Ev('kd63_card',()=>kdD()>=4,done=>{const me=S.pov!=='v';
  if(me)return say([['','Every morning in his bathroom, with the toothbrush in your mouth, you run the questions. The tin: four thousand one hundred and twelve. Regionals: third. Nine hundred metres with the old scope: four clicks up.'],
   ['','On the sixth morning you get five clicks.'],
@@ -206,16 +206,16 @@ k63Ev('kd63_card',()=>kdD()>=4,done=>{const me=S.pov!=='v';
     ['','At breakfast you tell V you are learning a language. You do the accent.']],done)}},
   {t:'Put it back. Go and finish your teeth.',fn:()=>{S.f.k63Card='back';calm(-2);save();say([['','You put it back and shut the glovebox, and go up and finish your teeth. At breakfast you tell V you are thinking about a new scope. When he asks why, you say four clicks for no reason and laugh at it.']],done)}},
   k63No('Tell V it moved.','he’d look at you differently')]));
- say([['','On the sixth morning she comes out of his bathroom with toothpaste on her chin, walks past him without a word, and goes down to the garage in his shirt and her boots.'],
-  ['','From the kitchen window he watches her sit in the truck with the glovebox open, reading a small card for a long time. Then she puts it back and comes up to finish brushing her teeth.'],
-  ['','At breakfast she says she is thinking of learning a language. She is very funny about it.'],
-  ['K9','(She went down to check something against her own handwriting. I do not know what it was. I know that she did not like the answer.)']],()=>{S.f.k63Card='v';apply({heart:-1});save();done()})});
+ say([['','On the sixth morning they come out of his bathroom with toothpaste on their chin, walk past him without a word, and go down to the garage in his shirt and their boots.'],
+  ['','From the kitchen window he watches them sit in the truck with the glovebox open, reading a small card for a long time. Then they put it back and come up to finish brushing their teeth.'],
+  ['','At breakfast they say they are thinking of learning a language. They are very funny about it.'],
+  ['K9','(They went down to check something against their own handwriting. I do not know what it was. I know that they did not like the answer.)']],()=>{S.f.k63Card='v';apply({heart:-1});save();done()})});
 (function(){if(typeof KD_ORDER==='undefined')return;const put=(id,after)=>{const i=KD_ORDER.indexOf(after);if(i<0)KD_ORDER.push(id);else KD_ORDER.splice(i+1,0,id)};
  put('kd63_boots','kd61_home');put('kd63_alarms','kd63_boots');put('kd63_card','kd62_file')})();
 
 /* ---------- ending lines ---------- */
 const _xe63=extraEnding;extraEnding=function(){const L=_xe63();try{if(!S||!S.f)return L;const f=S.f;
  if(f.kd63_boots&&f.k63Boots==='his')L.push('Two pairs of boots stand by V’s bed, laces open, pointing at the door. Nobody moves them.');
- else if(f.kd63_boots)L.push('For a long time after the river she slept with her boots by the bed, laced, pointing at the door.');
- if(f.kd63_alarms)L.push('Some nights her phone still buzzes under the pillow every forty minutes. She is always awake for it.');
- if(f.k63Card==='cards')L.push('There is a stack of index cards in the glovebox of her truck, one fact to a card, in her handwriting. She checks one every morning.')}catch(e){}return L};
+ else if(f.kd63_boots)L.push('For a long time after the river they slept with their boots by the bed, laced, pointing at the door.');
+ if(f.kd63_alarms)L.push('Some nights their phone still buzzes under the pillow every forty minutes. They are always awake for it.');
+ if(f.k63Card==='cards')L.push('There is a stack of index cards in the glovebox of their truck, one fact to a card, in their handwriting. They check one every morning.')}catch(e){}return L};

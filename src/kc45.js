@@ -16,7 +16,7 @@ mwEv('dk_v_self',()=>S.pov==='v'&&S.day>=7,done=>say([
 mwEv('dk_v_thread',()=>S.day>=6&&tier()>=1,done=>{const m=S.pov!=='v';say([
  ['','Three in the morning in the room off the kennel. V is stitching a hound’s paw on the steel table, with a curved needle and the fine thread, talking to her the whole time.'],
  ['','When he has finished he lifts her down, washes the table, and lays out the same needle and the same thread for the man on the trolley by the door. He works on the man with exactly the same care. It just has a different purpose.'],
- ['',m?'You’re sitting on the counter eating an apple, keeping him company. You don’t find it strange. You notice that you don’t, and you finish the apple.':'Misaki is sitting on the counter eating an apple, keeping him company. She doesn’t find any of it strange, and he has stopped being surprised by that.']],()=>{apply({edge:2});done()})});
+ ['',m?'You’re sitting on the counter eating an apple, keeping him company. You don’t find it strange. You notice that you don’t, and you finish the apple.':'Misaki is sitting on the counter eating an apple, keeping him company. They don’t find any of it strange, and he has stopped being surprised by that.']],()=>{apply({edge:2});done()})});
 /* ---------- Misaki ---------- */
 mwEv('dk_m_bench',()=>S.pov!=='v'&&S.f.fiveDone&&S.day>=10,done=>say([
  ['','You pass the station bench where you did the sums at sixteen. Five years, you worked out. You’re past it now.'],

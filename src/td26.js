@@ -67,11 +67,11 @@ K22EV.push(
  {id:'k26_poolfour',when:()=>k26Ok()&&frT('r')>=1&&frT('a')>=1&&tier()>=1&&S.day>=12,run:done=>say([
    ['','Two in the morning, B5, the pool. All four of you, because the server agreed it was too hot to sleep and V’s house is the only place in the city with a pool nobody else knows about.'],
    ['','Ronin cannonballs in fully clothed and comes up singing. Angel sits on the edge with her feet in, filming nothing, for once. V swims lengths in perfect silence, counting. Misaki goes under and does not come up for a long time.'],
-   [RN,'...She alright?'],
+   [RN,'...They alright?'],
    ['K9','Give it a minute.'],
    [AN,'it’s been like two minutes'],
    ['K9','Give it another.'],
-   ['','She comes up at four minutes ten, perfectly calm, and asks who ate the last of the crisps. Ronin crosses himself, backwards.'],
+   ['','They come up at four minutes ten, perfectly calm, and ask who ate the last of the crisps. Ronin crosses himself, backwards.'],
    ['','The grow lights tick over to their night cycle, the water goes dark green, and nobody goes upstairs until the sun is up somewhere far above them.']],()=>{fr('r',2);fr('a',2);apply({aff:2});done()})});
 
 /* ---------- tone: the killing is a fact here, not a refrain ---------- */

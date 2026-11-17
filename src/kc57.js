@@ -88,18 +88,18 @@ function k57rTruck(){const m=k57M();go(cutBg('#0a0c10'));k57Mark('r_truck');S.f.
      [RN,'One street. Fuck me. That’s practically a date.'],
      ['','He takes the silver pen out of the visor, writes a 1 on the dashboard, and circles it twice.']],()=>{k57rTwo();hub()})}}]));
  say([
-  ['','V reviews the traffic cameras after every one of Misaki’s jobs. He has never told her that he does it. Tonight he notices something in the corner of the frame that he has been looking past for weeks.'],
-  ['','A black pickup, parked two streets from her, engine running. It is there on four different nights, in four districts.'],
+  ['','V reviews the traffic cameras after every one of Misaki’s jobs. He has never told them that he does it. Tonight he notices something in the corner of the frame that he has been looking past for weeks.'],
+  ['','A black pickup, parked two streets from them, engine running. It is there on four different nights, in four districts.'],
   ['','He finds Ronin on the roof of the garage at two in the morning, where Ronin sits when he cannot sleep, and lays the stills out on the gravel between them one by one.'],
   [RN,'Aw. You made me a photo album.'],
-  ['K9','You have been two streets from every job she has done since she came home.'],
+  ['K9','You have been two streets from every job they have done since they came home.'],
   [RN,'Yep.'],
   ['K9','Why two?'],
   [RN,'’Cause that’s where I was last time. You know that. It’s in the file.'],
-  [RN,'Don’t tell her. She’ll think I think she can’t do it. I know she can fuckin’ do it, Vee. It ain’t for her.']],
+  [RN,'Don’t tell them. They’ll think I think they can’t do it. I know they can fuckin’ do it, Vee. It ain’t for them.']],
   ()=>ask('K9','(The stills are on the gravel. Ronin has put a rock on each one so the wind cannot take them.)',[
-   {t:'“I will tell her.”',fn:()=>{S.f.k57rStreets='stop';S.f.k57rKnow=1;fr('r',1);if(typeof relApply==='function')relApply({rivalry:2,trust:2});say([
-     ['K9','I do not keep things from her about her own work. You know that. It is also in the file.'],
+   {t:'“I will tell them.”',fn:()=>{S.f.k57rStreets='stop';S.f.k57rKnow=1;fr('r',1);if(typeof relApply==='function')relApply({rivalry:2,trust:2});say([
+     ['K9','I do not keep things from them about their own work. You know that. It is also in the file.'],
      [RN,'Course you don’t. Fuck you, then.'],
      ['','The next evening Misaki texts Ronin one word, which V does not see, and the truck is not there any more. Ronin sends V a photograph of a middle finger with a silver skull ring on it.']],()=>{k57rTwo();hub()})}},
    {t:'Pick up the stills and say nothing.',fn:()=>{S.f.k57rStreets='let';S.f.k57rKnow=0;fr('r',3);if(typeof relApply==='function')relApply({rivalry:-2});say([
@@ -108,9 +108,9 @@ function k57rTruck(){const m=k57M();go(cutBg('#0a0c10'));k57Mark('r_truck');S.f.
      [RN,'Look at you, lyin’. Devil’s gonna be so proud.']],()=>{k57rTwo();hub()})}},
    {t:'“Two streets is a poor position.”',fn:()=>{S.f.k57rStreets='closer';S.f.k57rKnow=0;fr('r',4);if(typeof relApply==='function')relApply({rivalry:-4});say([
      ['K9','If you are going to do it, do it properly. Two streets is a poor position. You cannot see the exits from there.'],
-     ['','He takes out a pen and writes her next three jobs on the back of a still, with the addresses and the best place to park for each.'],
+     ['','He takes out a pen and writes their next three jobs on the back of a still, with the addresses and the best place to park for each.'],
      [RN,'Vee. Is this a fuckin’ rota?'],
-     ['K9','It is a sightline. Do not let her see you.'],
+     ['K9','It is a sightline. Do not let them see you.'],
      [RN,'I’m the size of a door, Vee. In a pickup. Sure.']],()=>{k57rTwo();hub()})}}]))}
 function k57rTwo(){try{const id=k57M()?'tx_k57r_two':'tx_k57r_two_v';const P=phS();if(!P.run[id])txStart(id)}catch(e){}}
 
@@ -127,13 +127,13 @@ txDef('tx_k57r_two',{with:'r',pov:'m',prio:2,when:()=>false,nodes:{
    return[{t:'“how many now”',fx:()=>fr('r',2),reply:()=>['don’t count em out loud. bad luck','more than the rings. less than the rest']},
     {t:'“bring me fries next time”',fx:()=>fr('r',2),reply:()=>['already in the bag','they’re cold. you took too long. you always take too long, it’s a nice long count']}]}}}});
 txDef('tx_k57r_two_v',{with:'r',pov:'v',prio:2,when:()=>false,nodes:{
- start:{in:()=>{const s=S.f.k57rStreets;return s==='stop'?['she told me to fuck off home','I went home. you happy']
-   :s==='closer'?['position’s better. you were right','can see three exits and her hood from here. she hums before she shoots. you know that?']
-   :['you tore em up. i saw','you lied to her for me. you don’t lie']},expire:3,
+ start:{in:()=>{const s=S.f.k57rStreets;return s==='stop'?['they told me to fuck off home','I went home. you happy']
+   :s==='closer'?['position’s better. you were right','can see three exits and their hood from here. they hum before they shoot. you know that?']
+   :['you tore em up. i saw','you lied to them for me. you don’t lie']},expire:3,
   opts:()=>{const s=S.f.k57rStreets;
    if(s==='stop')return[{t:'“Yes.”',fx:()=>fr('r',1),reply:()=>['course you are']},{t:'“No.”',fx:()=>fr('r',3),reply:()=>['...yeah','me neither. night vee']}];
    if(s==='closer')return[{t:'“I know.”',fx:()=>fr('r',2),reply:()=>['course you do. it’s in the file under hums']},
-    {t:'“Do not let her see you.”',fx:()=>{S.f.k57rKnow=1;fr('r',2)},reply:()=>['vee I’m the size of a door, in a pickup','she saw me. she waved. she waved with the rifle']}];
+    {t:'“Do not let them see you.”',fx:()=>{S.f.k57rKnow=1;fr('r',2)},reply:()=>['vee I’m the size of a door, in a pickup','they saw me. they waved. they waved with the rifle']}];
    return[{t:'“I declined to volunteer it.”',fx:()=>fr('r',2),reply:()=>['that’s lyin in a suit','I’m keepin it. best thing you ever done for me and it was a crime']},
     {t:'“Do not make me regret it.”',fx:()=>fr('r',1),reply:()=>['you regret everything. I’m in the file under regret']}]}}}});
 
@@ -152,14 +152,14 @@ function k57rBoat(){const m=k57M(),s=S.f.k57rStreets,kn=S.f.k57rKnow;go(cutBg('#
  const L=[['','Ronin comes in through the kitchen door at ten forty exactly, with the crowbar over his shoulder, and sits on the island with his boots on V’s chairs.'],
   [RN,'Read my page in that ledger. They got me down as “the Butcher,” one T. I’m gonna make somebody eat that page.'],
   [RN,'Boat night. Where d’you want me.']];
- if(s==='stop')L.push([RN,m?'You told me home. I been home. I watched so much wrestling, Misaki.':'She told me home. I been home. I watched so much wrestling, Vee.'],[RN,'I’m askin’ once. Two streets. Just the one night. Then I go back to the wrestling.']);
+ if(s==='stop')L.push([RN,m?'You told me home. I been home. I watched so much wrestling, Misaki.':'They told me home. I been home. I watched so much wrestling, Vee.'],[RN,'I’m askin’ once. Two streets. Just the one night. Then I go back to the wrestling.']);
  else if(s==='closer')L.push([RN,'One street, I figure. Or the boat. Fuck it. Put me on the boat.']);
- else if(s==='let')L.push(kn?[RN,m?'Don’t make that face. I been two streets over twenty-some times since you come home and you never said nothin’ after the first one, which is the nicest thing anybody ever done for me, and I’m gonna hold it against you.':'Don’t make that face. She knows. She got in the truck the one time and never said nothin’ after, and you never said nothin’ either. Nicest thing two people ever done for me. I’m gonna hold it against you both.']
-   :[RN,m?'Don’t make that face. You don’t know nothin’ about where I park. Vee don’t know nothin’ either. Nobody knows nothin’.':'She don’t know. You know. That’s already one too many.']);
+ else if(s==='let')L.push(kn?[RN,m?'Don’t make that face. I been two streets over twenty-some times since you come home and you never said nothin’ after the first one, which is the nicest thing anybody ever done for me, and I’m gonna hold it against you.':'Don’t make that face. They know. They got in the truck the one time and never said nothin’ after, and you never said nothin’ either. Nicest thing two people ever done for me. I’m gonna hold it against you both.']
+   :[RN,m?'Don’t make that face. You don’t know nothin’ about where I park. Vee don’t know nothin’ either. Nobody knows nothin’.':'They don’t know. You know. That’s already one too many.']);
  else L.push([RN,'And don’t say home. Last time I was home, or near enough, two streets near enough, and look how that went.']);
  say(L,()=>ask(RN,'(He is turning one of his skull rings round and round on his finger.)',[
-  {t:m?'“On the boat. Next to me.”':'“On the boat. Next to her.”',fn:()=>{S.f.k57rBoat='on';fr('r',4);say([
-    [RN,m?'Next to you. Front row.':'Next to her. Front row.'],
+  {t:m?'“On the boat. Next to me.”':'“On the boat. Next to them.”',fn:()=>{S.f.k57rBoat='on';fr('r',4);say([
+    [RN,m?'Next to you. Front row.':'Next to them. Front row.'],
     ['','He drums the rings on the crowbar, all nine at once, and laughs, and keeps it up for most of a minute, until V asks him to get his boots off the chairs.']],hub)}},
   {t:'“Two streets over. Where you always are.”',fn:()=>{S.f.k57rBoat='two';fr('r',2);say([
     [RN,'Two streets. Right. I’ll listen for it.'],
@@ -172,13 +172,13 @@ function k57rBoat(){const m=k57M(),s=S.f.k57rStreets,kn=S.f.k57rKnow;go(cutBg('#
 function k57rPew(){const m=k57M(),b=S.f.k57rBoat;go(cutBg('#100c0a'));k57Mark('r_pew');
  const L=[['','Sunday. The church across town. Ronin in his good jacket at ten twenty-five, early, which nobody alive has ever seen.']];
  if(b==='on')L.push(['','He walks past the back pew. He walks all the way up the aisle, past everyone, and sits in the front row, in the middle, where the whole congregation can see who came in, and he pats the seat beside him.'],
-   [RN,'(under his breath) I was there. Right next to '+(m?'you':'her')+', on time, the whole fuckin’ night. First time since I was nine.'],
+   [RN,'(under his breath) I was there. Right next to '+(m?'you':'them')+', on time, the whole fuckin’ night. First time since I was nine.'],
    [RN,'Devil can sit in the back for once. See how he likes it.']);
  else if(b==='two')L.push(['','He sits in the back pew, same as always, and puts his arm along the top of it.'],
    [RN,'Two streets. Heard every shot. Counted to a hundred like a good boy.'],
    [RN,'Back’s fine. Back’s where you can see the door.']);
  else if(b==='home')L.push(['','He sits in the back pew. He doesn’t fold his hands. When the priest says “deliver us from evil,” he doesn’t say “not today, Father.” He watches the clock over the door for the whole service.'],
-   [RN,'(outside, after) I was home. '+(m?'You were':'She was')+' on a boat. I was home with the wrestling on, and I counted to a hundred about forty times.']);
+   [RN,'(outside, after) I was home. '+(m?'You were':'They were')+' on a boat. I was home with the wrestling on, and I counted to a hundred about forty times.']);
  else L.push(['','He sits in the back pew, the way he does every week, with his head bowed like the most devout man in the building.'],
    [RN,'Ten forty. On time.']);
  say(L,()=>ask(RN,'(The service is starting. He has saved you the seat.)',[
@@ -385,7 +385,7 @@ txDef('tx_k57_epi_r',{with:'r',pov:'m',prio:1,when:()=>K57()&&S.phase==='epilogu
   opts:()=>[{t:'“on my way”',fx:()=>fr('r',2),reply:()=>['don’t be late','I mean it. don’t be late']},{t:'“say hi to him for me”',fx:()=>fr('r',1),reply:()=>['he says hi back','he says you’re still the best show in town']}]}}});
 txDef('tx_k57_epi_rv',{with:'r',pov:'v',prio:1,when:()=>K57()&&S.phase==='epilogue'&&!!S.f.k57rBoat,nodes:{
  start:{in:()=>{const b=S.f.k57rBoat;return b==='on'?['front row. you comin or what','I’m not savin this seat for the devil all mornin']
-   :['back pew. 10:40','she’s fine btw. I know you know. I’m just sayin it out loud']},expire:3,
+   :['back pew. 10:40','they’re fine btw. I know you know. I’m just sayin it out loud']},expire:3,
   opts:()=>[{t:'“I will be there at ten forty.”',fx:()=>fr('r',2),reply:()=>['don’t be early. early’s for cowards']},{t:'“I do not attend church.”',fx:()=>fr('r',1),reply:()=>['you attend me. same thing','that’s blasphemy vee, I love it']}]}}});
 txDef('tx_k57_epi_a',{with:'a',pov:'m',prio:1,when:()=>K57()&&S.phase==='epilogue'&&!!S.f.k57aBack,nodes:{
  start:{in:()=>{const k=S.f.k57aBack;return ['gave','late','kept'].includes(k)?['got a tip tonight','i read it. i checked it twice. i closed the laptop','tell me i’m good']

@@ -117,33 +117,33 @@ const KD61_MW=[
 
 /* ---------- V: one scene a day, by band ---------- */
 const KD61_VC=[
- cb=>say([['','She knows him this morning. He can tell from the doorway: she looks at his face first and then at his hands.'],
-   ['','The first thing she says to him, once she knows who he is, is the message he sent her three times a day for the whole of the time she was gone.'],
+ cb=>say([['','They know him this morning. He can tell from the doorway: they look at his face first and then at his hands.'],
+   ['','The first thing they say to him, once they know who he is, is the message he sent them three times a day for the whole of the time they were gone.'],
    ['hitmeuppp',MV('did u eat today.','did u eat today.','Did you eat today?','Did you eat today? Don’t lie. You look like a coat somebody left on a chair.')],
    ['','He thinks about it honestly. He has had coffee. At four this morning, in the kennel room, he ate half of a hound biscuit without noticing that he was doing it.'],
    ['K9','No.'],
    ['hitmeuppp',MV('sit.','sit down. have my soup.','Sit down. You can have half my soup.','Then sit down. You can have half of my soup. It’s your soup anyway. Sit.')],
-   ['','He sits on the end of the bed. She pushes the tray at him with her good hand and watches him eat every spoonful, the way he has been watching her not eat for days, and does not say anything about it.']],()=>{apply({aff:3});calm(4);cb()}),
- cb=>{const flat=!!S.f.k61VRcpt;say([['','She asks for the things from her pockets. He has already given her the phone.'],
-   ['',flat?'He brings the bag, and the tax history. The receipt comes out of chapter six flat and dry, and she reads it all the way through.':'He brings the bag. The receipt is still in it, a soft grey lump, and she unfolds it on her knee one-handed, very slowly, so that it will not tear.'],
+   ['','He sits on the end of the bed. They push the tray at him with their good hand and watch him eat every spoonful, the way he has been watching them not eat for days, and does not say anything about it.']],()=>{apply({aff:3});calm(4);cb()}),
+ cb=>{const flat=!!S.f.k61VRcpt;say([['','They ask for the things from their pockets. He has already given them the phone.'],
+   ['',flat?'He brings the bag, and the tax history. The receipt comes out of chapter six flat and dry, and they read it all the way through.':'He brings the bag. The receipt is still in it, a soft grey lump, and they unfold it on their knee one-handed, very slowly, so that it will not tear.'],
    ['hitmeuppp',MV('rent’s due the 1st.','rent’s due on the 1st. what’s the date.','The rent’s due on the first. What’s the date?','The rent’s due on the first. What’s today? Don’t do the careful voice, just tell me the date.')],
-   ['','She has a cast to the elbow, two pins through the back of her hand, a boot on her left foot and fourteen stitches in her scalp. She is asking about the rent.']],()=>ask('K9','(The rent.)',[
+   ['','They have a cast to the elbow, two pins through the back of their hand, a boot on their left foot and fourteen stitches in their scalp. They are asking about the rent.']],()=>ask('K9','(The rent.)',[
    {t:'“I have paid it.”',fn:()=>{S.f.k61VPaid=1;save();say([['hitmeuppp',MV('u WHAT.','u WHAT. i pay my rent.','You what? I pay my rent.','You what? V. I pay my rent. I’ve paid it every month since I was sixteen. I’ve never been late once. That’s mine.')],
      ['K9','Then you may pay me back.'],['hitmeuppp',MV('i will.','i will. to the cent.','I will. To the cent.','I will. To the cent. I want a receipt.')],
-     ['','She puts the receipt back in the bag and the bag under her pillow, and turns over, and is angry with him for the rest of the afternoon. It is the best afternoon he has had since the river.']],cb)}},
+     ['','They put the receipt back in the bag and the bag under their pillow, and turns over, and is angry with him for the rest of the afternoon. It is the best afternoon he has had since the river.']],cb)}},
    {t:'“It is the twelfth. You have until the first.”',fn:()=>{S.f.k61VPaid=0;save();say([['hitmeuppp',MV('til the 1st. ok.','til the 1st. ok. i can sign w my right. right?','The first. I can sign with my right hand, can’t I?','The first. Okay. That’s fine, that’s loads of time. I can sign with my right. I can sign with my right hand, can’t I?')],
      ['K9','Yes.'],
-     ['','She practises her signature on the back of a soup label with her right hand for an hour. It looks like a child’s. She keeps going until it looks like hers.']],cb)}}]))}];
-const KD61_VX=cb=>say([['','He brings her water in her own mug, the green one with the chip, because she has not drunk from the paper cup in two days and he has run out of other ideas.'],
- ['','She waits until he has gone before she touches the tray, as she does with everything. He watches through the gap in the door.'],
- ['','She turns the mug round in her hands for a long time. Then she drinks, and her mouth goes to the left, the side without the chip, the way it has every morning for a year at his island.'],
- ['K9','(She thinks that I am the guard, and she drinks from the left side of my cup.)'],
+     ['','They practise their signature on the back of a soup label with their right hand for an hour. It looks like a child’s. They keep going until it looks like theirs.']],cb)}}]))}];
+const KD61_VX=cb=>say([['','He brings them water in their own mug, the green one with the chip, because they have not drunk from the paper cup in two days and he has run out of other ideas.'],
+ ['','They wait until he has gone before they touch the tray, as they do with everything. He watches through the gap in the door.'],
+ ['','They turn the mug round in their hands for a long time. Then they drink, and their mouth goes to the left, the side without the chip, the way it has every morning for a year at his island.'],
+ ['K9','(They think that I am the guard, and they drink from the left side of my cup.)'],
  ['','He sits down on the floor outside the door with the other green mug, the one with no chip, and drinks from the left as well, so that it will be the same.']],()=>{calm(-1);cb()});
-const KD61_VW=cb=>say([['','Every evening he puts a bread roll on her tray beside the soup. Every morning the roll is gone and the soup has not been touched.'],
- ['','On the third morning he finds the roll on his side of the door, torn into pieces and pushed under one at a time, and nosed into a straight line along the lino. The grey hound is lying beside the line with her chin on her paws. She has not eaten one.'],
- ['','He understands it slowly. Misaki has heard a hound in the corridor and decided that the people holding her are starving it. She is giving it her bread. She has not eaten in four days.'],
+const KD61_VW=cb=>say([['','Every evening he puts a bread roll on their tray beside the soup. Every morning the roll is gone and the soup has not been touched.'],
+ ['','On the third morning he finds the roll on his side of the door, torn into pieces and pushed under one at a time, and nosed into a straight line along the lino. The grey hound is lying beside the line with her chin on her paws. They have not eaten one.'],
+ ['','He understands it slowly. Misaki has heard a hound in the corridor and decided that the people holding them are starving it. They are giving it their bread. They have not eaten in four days.'],
  ['','He picks the pieces up and does not know what to do with them. In the end he feeds them to the grey hound one at a time, from his hand, telling her each time that she is good, and the hound eats them because he asks her to.'],
- ['K9','(Tonight I will put two rolls on the tray. She will push both of them under the door. I will still put two.)']],()=>{calm(-3);cb()});
+ ['K9','(Tonight I will put two rolls on the tray. They will push both of them under the door. I will still put two.)']],()=>{calm(-3);cb()});
 
 function k61Scene(){if(!S||!S.f||dlg||!k61Med())return null;const m=S.kd.med;if(S.f.k61Day===S.day)return null;
  const run=(key,list,i,bg)=>cb=>{S.f.k61Day=S.day;S.f[key]=i+1;save();go(cutBg(bg||'#0c0a08'));(Array.isArray(list)?list[i]:list)(cb)};
@@ -170,40 +170,40 @@ const _fx61=kdShatterFx;kdShatterFx=function(cb,o){try{if(o&&o.title===''&&!o.da
 
 /* ---------- V: the side menu while she is in the infirmary ---------- */
 const KD61_THINGS=[
- ()=>[['','One trainer came back with her, the left. The right was never found. There is river water in it, a stone in the toe, something from the cell floor dried into the laces, and her name in biro inside the tongue, the way a child’s shoes are labelled for school.'],
+ ()=>[['','One trainer came back with them, the left. The right was never found. There is river water in it, a stone in the toe, something from the cell floor dried into the laces, and their name in biro inside the tongue, the way a child’s shoes are labelled for school.'],
   ['','He washes it in the kennel sink with the hounds’ brush and dries it on the boiler.'],
-  ['','Then he stands in the hall holding one clean shoe and finds that he does not know where it goes. In the end he puts it by the front door beside his own, where she kicks hers off when she comes in, and lines it up straight.'],
-  ['K9','(She will want the other one. I will go back to the river on Thursday and look again.)']],
- ()=>[['','In her back pocket, the rent receipt, soaked through. The landlord’s PAID has run pink across the paper.'],
+  ['','Then he stands in the hall holding one clean shoe and finds that he does not know where it goes. In the end he puts it by the front door beside his own, where they kick theirs off when they come in, and lines it up straight.'],
+  ['K9','(They will want the other one. I will go back to the river on Thursday and look again.)']],
+ ()=>[['','In their back pocket, the rent receipt, soaked through. The landlord’s PAID has run pink across the paper.'],
   ['','He lays it flat in his tax history at chapter six and puts the book under a sack of hound food in the kennel room. The key is on a ring with a rubber frog. He washes the frog.'],
-  ['','Two days later he takes the receipt out, dry and flat, and reads it. Rent paid to the end of the month. She paid it two days before the van. She texted him about it at the time, in capitals.'],
-  ['K9','(The rent is due on the first. She will ask about the rent before she asks about her hand. I would put money on it.)']],
- ()=>[['','Her phone is in his inside pocket. At nine on Sunday it goes off against his ribs: WATER PRICKLES (every other sun, NOT MORE).'],
-  ['','He cannot unlock it and does not know how to stop it. It goes off every nine minutes until ten while he sits on the floor outside her door.'],
-  ['','At noon he drives to the trailer and gives the cactus a quarter of a cup of water, measured. Her kettle still has water in it from the morning of the van.'],
-  ['','He pours it out. Then he stands there holding the empty kettle and cannot think why he did that, and fills it again, and leaves it on the hob for her.']]];
+  ['','Two days later he takes the receipt out, dry and flat, and reads it. Rent paid to the end of the month. They paid it two days before the van. They texted him about it at the time, in capitals.'],
+  ['K9','(The rent is due on the first. They will ask about the rent before they ask about their hand. I would put money on it.)']],
+ ()=>[['','Their phone is in his inside pocket. At nine on Sunday it goes off against his ribs: WATER PRICKLES (every other sun, NOT MORE).'],
+  ['','He cannot unlock it and does not know how to stop it. It goes off every nine minutes until ten while he sits on the floor outside their door.'],
+  ['','At noon he drives to the trailer and gives the cactus a quarter of a cup of water, measured. Their kettle still has water in it from the morning of the van.'],
+  ['','He pours it out. Then he stands there holding the empty kettle and cannot think why he did that, and fills it again, and leaves it on the hob for them.']]];
 const KD61_FILE=()=>k61SA()?[
  ['','The doctor has left the file on his desk. He has read every page of it eleven times: the hand, the ribs, the foot, the wrists.'],
  ['','At the back there is a brown envelope, sealed and numbered in the corner, with a strip across the flap that says DO NOT SHOW PATIENT.'],
  ['','He leaves it sealed. He puts it in the safe behind the vaccination records, face down, turns the dial, and stands with his hand flat on the safe door for some time.'],
- ['K9','(It is hers. If she ever wants it, it will be here. She will not want it. It will be here.)']]:[
- ['','He weighs her on the scale in the kennel room, because it is the only scale in the house. He weighs the hounds on it at five every morning.'],
- ['','She stands on it in his shirt and the boot, holding the rail, and reads the number before he can.'],
+ ['K9','(It is theirs. If they ever wants it, it will be here. They will not want it. It will be here.)']]:[
+ ['','He weighs them on the scale in the kennel room, because it is the only scale in the house. He weighs the hounds on it at five every morning.'],
+ ['','They stand on it in his shirt and the boot, holding the rail, and reads the number before he can.'],
  ['hitmeuppp',MV('winter weight.','winter weight. been lighter.','Winter weight. I’ve been lighter than that.','Winter weight. Don’t write it down like that, I’ve been way lighter. At eleven I was twenty-six kilos. I remember because somebody weighed me for something.')],
  ['K9','Who weighed you?'],
  ['hitmeuppp',MV('dunno.','dunno. somebody w a clipboard.','I don’t know. Somebody with a clipboard.','Don’t know. Somebody with a clipboard. It was ages ago. Can I go back to bed?')],
- ['','She steps off and goes back to bed. He writes the number down. Under it he writes “age 11: 26 kg?”, and looks at it for a long time. The grey hound weighed more than that at six months.']];
-const KD61_ASK=[['','He knocks twice and asks, through the door, what she needs.'],
+ ['','They step off and go back to bed. He writes the number down. Under it he writes “age 11: 26 kg?”, and looks at it for a long time. The grey hound weighed more than that at six months.']];
+const KD61_ASK=[['','He knocks twice and asks, through the door, what they need.'],
  ['hitmeuppp',MV('nothing. i’m good.','nothing! i’m good. thx.','Nothing. I’m good. Thank you.','Nothing, honestly. I’m good. I’ve got soup, I’ve got a light-well. Go to bed, V.')],
  ['','He asks again in the evening, with the same knock, and gets the same answer in the same cheerful voice.'],
- ['','So he makes a list of everything she has ever wanted in his house, which is not long, and brings all of it down and lays it out on the corridor floor: the hoodie, the Switch, Prickles, the other frog sock, the rifle-cleaning kit, the cereal, the pillow from her side of the bed. Then he goes to the far end of the corridor and sits down.'],
+ ['','So he makes a list of everything they have ever wanted in his house, which is not long, and brings all of it down and lays it out on the corridor floor: the hoodie, the Switch, Prickles, the other frog sock, the rifle-cleaning kit, the cereal, the pillow from their side of the bed. Then he goes to the far end of the corridor and sits down.'],
  ['','After an hour the door opens a hand’s width. One hand comes out and takes the cleaning kit and nothing else, and the door shuts.'],
- ['K9','(She took the only thing on the floor that is for work.)']];
+ ['K9','(They took the only thing on the floor that is for work.)']];
 const _sh61=sideHub;sideHub=function(late){const o=_sh61(late);try{if(!k61Med()||S.pov!=='v'||isLone())return o;const add=[];const n=S.f.k61Things||0;
- if(n<KD61_THINGS.length)add.push({t:'Her things, from the river',sub:S.done.k61Th?'done today':'costs time · what came back with her',dis:!!late||!!S.done.k61Th,fn:()=>{spend();S.done.k61Th=1;S.f.k61Things=n+1;if(n===0)S.f.k61Shoe=1;if(n===1)S.f.k61VRcpt=1;save();go(cutBg('#0c0e10'));say(KD61_THINGS[n](),()=>{calm(1);hub()})}});
- if(!S.f.k61File)add.push({t:'Her file',sub:S.done.k61Fl?'done today':'costs time · in his study',dis:!!late||!!S.done.k61Fl,fn:()=>{spend();S.done.k61Fl=1;S.f.k61File=1;save();go(cutBg('#0c0e10'));say(KD61_FILE(),()=>{apply({heart:-1});hub()})}});
- if(!S.f.k61Ask&&(S.kd.med.clar||0)>=2)add.push({t:'Ask what she needs',sub:S.done.k61Ak?'done today':'costs time · through the door',dis:!!late||!!S.done.k61Ak,fn:()=>{spend();S.done.k61Ak=1;S.f.k61Ask=1;save();go(cutBg('#0c0e10'));say(KD61_ASK,()=>ask('K9','(The rest of it is still on the floor.)',[
-  {t:'Carry it all back upstairs.',fn:()=>{S.f.k61AskR='back';save();say([['','He carries it back one thing at a time and puts every piece exactly where she left it, so that the house will be the same when she comes up.']],hub)}},
+ if(n<KD61_THINGS.length)add.push({t:'Their things, from the river',sub:S.done.k61Th?'done today':'costs time · what came back with them',dis:!!late||!!S.done.k61Th,fn:()=>{spend();S.done.k61Th=1;S.f.k61Things=n+1;if(n===0)S.f.k61Shoe=1;if(n===1)S.f.k61VRcpt=1;save();go(cutBg('#0c0e10'));say(KD61_THINGS[n](),()=>{calm(1);hub()})}});
+ if(!S.f.k61File)add.push({t:'Their file',sub:S.done.k61Fl?'done today':'costs time · in his study',dis:!!late||!!S.done.k61Fl,fn:()=>{spend();S.done.k61Fl=1;S.f.k61File=1;save();go(cutBg('#0c0e10'));say(KD61_FILE(),()=>{apply({heart:-1});hub()})}});
+ if(!S.f.k61Ask&&(S.kd.med.clar||0)>=2)add.push({t:'Ask what they need',sub:S.done.k61Ak?'done today':'costs time · through the door',dis:!!late||!!S.done.k61Ak,fn:()=>{spend();S.done.k61Ak=1;S.f.k61Ask=1;save();go(cutBg('#0c0e10'));say(KD61_ASK,()=>ask('K9','(The rest of it is still on the floor.)',[
+  {t:'Carry it all back upstairs.',fn:()=>{S.f.k61AskR='back';save();say([['','He carries it back one thing at a time and puts every piece exactly where they left it, so that the house will be the same when they come up.']],hub)}},
   {t:'Leave it where it is.',fn:()=>{S.f.k61AskR='leave';save();say([['','He leaves it. In the morning nothing has moved, except that Prickles has been turned in the night so that his good side faces the door.']],()=>{calm(2);hub()})}}]))}});
  return o.concat(add)}catch(e){return o}};
 
@@ -215,19 +215,19 @@ k61Ev('kd61_home',()=>kdD()>=0,done=>{const me=S.pov!=='v',d=(typeof kdDays==='f
  ['','In the cupboard where your cereal goes there are '+nw+' boxes of it, the same kind, unopened, in a row. He went to the shop while you were gone, and every time he came back with a box.'],
  ['hitmeuppp',MV('('+n+' boxes.)','('+n+' boxes. he kept buying my cereal.)','('+k61Cap(nw)+' boxes. He kept buying my cereal.)','('+k61Cap(nw)+' boxes. He kept buying my cereal. He kept buying it, in case.)')],
  ['','You open the oldest one, because it will go stale first, and eat a bowl standing at the island in the dark with your back to the wall. He comes in, sees you, and goes out again without turning on the light.']]:[
- ['','The first evening upstairs, she goes round the house the way she went round the infirmary on her worst day, checking each room from the doorway before she goes in.'],
- ['','In the cupboard she finds the cereal: '+nw+' boxes of it, unopened, in a row. He had not counted them until he watched her count them.'],
+ ['','The first evening upstairs, they go round the house the way they went round the infirmary on their worst day, checking each room from the doorway before they go in.'],
+ ['','In the cupboard they find the cereal: '+nw+' boxes of it, unopened, in a row. He had not counted them until he watched them count them.'],
  ['K9','(I bought one every time I went to the shop. Not buying it would have meant deciding something.)'],
- ['','She opens the oldest box and eats a bowl at the island in the dark, standing, with her back to the wall, and does not look at him. He goes out again without turning on the light.'],
- S.f.k61Shoe?['','In the hall he takes the one clean trainer from beside the front door and puts it in the cupboard under the stairs, so that she will not have to see that there is only one.']:null],()=>{calm(-2);done()})});
+ ['','They open the oldest box and eat a bowl at the island in the dark, standing, with their back to the wall, and do not look at him. He goes out again without turning on the light.'],
+ S.f.k61Shoe?['','In the hall he takes the one clean trainer from beside the front door and puts it in the cupboard under the stairs, so that they will not have to see that there is only one.']:null],()=>{calm(-2);done()})});
 k61Ev('kd61_rent',()=>kdD()>=5,done=>{const me=S.pov!=='v',paid=!me&&S.f.k61VPaid;
- if(paid)return say([['','On the first of the month she puts an envelope on the kitchen island in front of him, with RENT on it in capitals and the exact amount inside, counted twice.'],
+ if(paid)return say([['','On the first of the month they put an envelope on the kitchen island in front of him, with RENT on it in capitals and the exact amount inside, counted twice.'],
   ['hitmeuppp',MV('rent. to the cent.','rent. to the cent. receipt pls.','Rent. To the cent. I want a receipt.','Rent. To the cent, count it. I want a receipt. A proper one, with the date.')],
-  ['','He writes her one on a page of the house ledger, in fountain pen, with the date and the amount and PAID, and tears it out along the spine. She reads it all the way through before she puts it in her back pocket.'],
-  ['K9','(Her left hand is broken in two places and pinned. She has checked my arithmetic.)']],()=>{apply({aff:2});done()});
- if(!me)return say([['','She loses the first of the month somewhere. On the second she drives to the lot office one-handed, which she is not allowed to do, to pay her rent a day late.'],
-  ['','She comes back angrier about the twenty-five dollar late fee than he has seen her about anything since the river, and writes to the lot office to contest it, with her right hand, three drafts.'],
-  ['K9','(She cannot hold a fork in her left hand. She has asked me to check the spelling of “unprecedented.”)']],()=>{calm(1);done()});
+  ['','He writes them one on a page of the house ledger, in fountain pen, with the date and the amount and PAID, and tears it out along the spine. They read it all the way through before they put it in their back pocket.'],
+  ['K9','(Their left hand is broken in two places and pinned. They have checked my arithmetic.)']],()=>{apply({aff:2});done()});
+ if(!me)return say([['','They lose the first of the month somewhere. On the second they drive to the lot office one-handed, which they are not allowed to do, to pay their rent a day late.'],
+  ['','They come back angrier about the twenty-five dollar late fee than he has seen them about anything since the river, and write to the lot office to contest it, with their right hand, three drafts.'],
+  ['K9','(They cannot hold a fork in their left hand. They have asked me to check the spelling of “unprecedented.”)']],()=>{calm(1);done()});
  say([['','The rent was due on the first. You were sure all day that the first was the thirtieth, and you find out it wasn’t on the second, from the date on V’s newspaper. You drive to the lot office one-handed, which you are not allowed to do, and stand at the window.'],
   ['','The man behind the glass looks at the cast, and the eye, and the stitches, and asks what happened.'],
   ['hitmeuppp',MV('ladder.','fell off a ladder lol.','I fell off a ladder.','Ladder. Fell off a ladder, hanging fairy lights. Very festive, very stupid. Can I pay my rent?')],
@@ -240,7 +240,7 @@ k61Ev('kd61_rent',()=>kdD()>=5,done=>{const me=S.pov!=='v',paid=!me&&S.f.k61VPai
 
 /* ---------- ending lines ---------- */
 const _xe61=extraEnding;extraEnding=function(){const L=_xe61();try{if(!S||!S.f)return L;const f=S.f;
- if(f.kd61_rent&&f.k61Rcpt==='cast')L.push('When the cast came off she kept it, because there were two rent receipts inside. It is in a drawer at V’s. Nobody is allowed to throw it out.');
- else if(f.kd61_rent&&f.k61VPaid&&S.pov==='v')L.push('In the back of V’s house ledger there is a torn edge where a page came out. It was a receipt for one month’s rent, and she still has it.');
- else if(f.kd61_rent)L.push('The lot office has one late payment on her account, from the month after the river. She has asked twice to have it removed.');
- if(f.k61Lids)L.push('Under the pillow on her side of V’s bed there is a stack of plastic lids, each with a day on it in fountain pen.')}catch(e){}return L};
+ if(f.kd61_rent&&f.k61Rcpt==='cast')L.push('When the cast came off they kept it, because there were two rent receipts inside. It is in a drawer at V’s. Nobody is allowed to throw it out.');
+ else if(f.kd61_rent&&f.k61VPaid&&S.pov==='v')L.push('In the back of V’s house ledger there is a torn edge where a page came out. It was a receipt for one month’s rent, and they still have it.');
+ else if(f.kd61_rent)L.push('The lot office has one late payment on their account, from the month after the river. They have asked twice to have it removed.');
+ if(f.k61Lids)L.push('Under the pillow on their side of V’s bed there is a stack of plastic lids, each with a day on it in fountain pen.')}catch(e){}return L};

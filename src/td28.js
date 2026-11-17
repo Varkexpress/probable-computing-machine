@@ -36,7 +36,7 @@ const k28LeadN=()=>k28Lead()==='v'?'V':'Misaki';
 /* ---------- the package deal ---------- */
 K22EV.push(
  {id:'k28_set1',when:()=>k28Ok()&&!!k28Partner()&&tier()>=2,run:done=>{const k=k28Partner(),P=k28PN(k),m=S.pov!=='v';
-  say([['',m?'Movie night at V’s. You fall asleep against V’s shoulder halfway through, exactly the way you always have. '+k28Name(k)+' comes back from the kitchen with popcorn, looks at the two of you, and puts the blanket over both.':'Movie night. Misaki falls asleep on your shoulder halfway through, exactly the way she always has. '+k28Name(k)+' comes back from the kitchen with popcorn, looks at the two of you, and puts the blanket over both.'],
+  say([['',m?'Movie night at V’s. You fall asleep against V’s shoulder halfway through, exactly the way you always have. '+k28Name(k)+' comes back from the kitchen with popcorn, looks at the two of you, and puts the blanket over both.':'Movie night. Misaki falls asleep on your shoulder halfway through, exactly the way they always have. '+k28Name(k)+' comes back from the kitchen with popcorn, looks at the two of you, and puts the blanket over both.'],
    [P,k==='r'?'Don’t look at me like that, Vee. I knew what I was signin’ up for. I didn’t date one of you. I dated the whole terrible set.':'don’t look at me like that. i knew. everybody knows. u two are a two-for-one deal. i read the terms and conditions.'],
    ['K9',m?'...Thank you.':'...Thank you.'],
    [P,k==='r'?'Ain’t a favour, darlin’. Just facts. Pass the salt.':'it’s not a favour babe it’s just how u come. pass the popcorn.']],()=>{fr(k,2);apply({aff:2});done()})}},

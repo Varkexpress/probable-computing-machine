@@ -41,7 +41,7 @@ a60B('a60_server','The server, at two in the morning',()=>S.phase==='normal'&&S.
  [AN,'(server) all in favour'],
  ['','Three thumbs come up under it. V’s comes four minutes later.'],
  [RN,'(server) cool. anyone want wings. place on ninth is open till four'],
- ['',m?'You do want wings. You get dressed. Nobody mentions the rule again, and the four of you eat in Ronin’s car with the heater on and the bones in a bag on the dashboard.':'He does not want wings. He gets dressed anyway. Nobody mentions the rule again; they eat in Ronin’s car with the heater on, and Misaki falls asleep against the window with a bone in her hand.']],
+ ['',m?'You do want wings. You get dressed. Nobody mentions the rule again, and the four of you eat in Ronin’s car with the heater on and the bones in a bag on the dashboard.':'He does not want wings. He gets dressed anyway. Nobody mentions the rule again; they eat in Ronin’s car with the heater on, and Misaki falls asleep against the window with a bone in their hand.']],
  ()=>{S.f.a60Rule=1;note('a60_rule','The rule, from the server: nobody goes back for the body. Forty-eight hours to clear anything that leads to the others. Then move on.');fr('a',1);fr('r',1);done()})});
 
 /* 2 · normal: who gets what, at the Sunday table */
@@ -59,11 +59,11 @@ a60B('a60_list','Sunday at V’s table',()=>S.phase==='normal'&&S.day>=3&&!!S.f.
  [AN,'and me: delete maria. don’t post anything. let the comments find out on their own. i want to know how long it takes them'],
  [RN,'You won’t know. You’ll be dead.'],
  [AN,'i’ll know.'],
- ['','She saves it as “list (final) (2)”.']],()=>ask(m?'hitmeuppp':'K9',m?'(He left you the hounds. He is cutting round the shoulder joint as if he had not.)':'(She is looking at him over the shoulder joint.)',m?[
+ ['','She saves it as “list (final) (2)”.']],()=>ask(m?'hitmeuppp':'K9',m?'(He left you the hounds. He is cutting round the shoulder joint as if he had not.)':'(They are looking at him over the shoulder joint.)',m?[
   {t:'“don’t die then.”',fn:()=>{S.f.a60Hounds='said';apply({aff:3});say([['hitmeuppp',MV('don’t die then.','ok well don’t die then. i can’t lift the black one','Don’t die, then. I can’t lift the black one.','Fine. Don’t die, then. I can’t even lift the black one, he’d have to walk himself to the vet.')],['K9','I will bear it in mind.'],['','The black hound gets the first piece. Nobody says anything else about any of it.']],done)}},
   {t:'Say nothing. Keep cutting.',fn:()=>{S.f.a60Hounds='quiet';apply({edge:1});say([['','You go back to the elbow. Under the table the grey hound leans her whole weight on your shin, and you let her, and the black hound gets the first piece.']],done)}}]:[
-  {t:'“It is only practical.”',fn:()=>{S.f.a60Hounds='said';apply({aff:2});say([['K9','It is only practical. They know you.'],['hitmeuppp',MV('k.','ok. practical.','All right. Practical.','Okay. Practical. You’re a very practical man, V.')],['','She goes back to the elbow. The black hound gets the first piece.']],done)}},
-  {t:'Say nothing. Keep cutting.',fn:()=>{S.f.a60Hounds='quiet';say([['','He goes back to the shoulder. She watches him for a while longer and then goes back to the elbow, and the black hound gets the first piece, and nobody mentions the lawyer again.']],done)}}]))
+  {t:'“It is only practical.”',fn:()=>{S.f.a60Hounds='said';apply({aff:2});say([['K9','It is only practical. They know you.'],['hitmeuppp',MV('k.','ok. practical.','All right. Practical.','Okay. Practical. You’re a very practical man, V.')],['','They go back to the elbow. The black hound gets the first piece.']],done)}},
+  {t:'Say nothing. Keep cutting.',fn:()=>{S.f.a60Hounds='quiet';say([['','He goes back to the shoulder. They watch him for a while longer and then go back to the elbow, and the black hound gets the first piece, and nobody mentions the lawyer again.']],done)}}]))
 });
 
 /* 3 · normal or Act II: a job goes quiet */
@@ -89,7 +89,7 @@ a60B('a60_hurt','Angel, at the back door',()=>['act2','act3'].includes(S.phase)&
  ['hitmeuppp',MV('ya.','yeah. obviously','Yes. Obviously.','Yeah. Obviously. They’re really good noodles.')],
  ['K9','I would have finished the noodles. Then I would have gone to your flat for the hard drives.'],
  [AN,'good. ok. good. that’s what i wanted to hear'],
- ['','He puts in nine stitches. She eats with her other hand while he does it and does not look. When he ties off the last one she leans her head against '+(m?'your':'Misaki’s')+' shoulder for about a second, and then sits up and asks Ronin for the chilli.']],()=>{fr('a',2);done()})});
+ ['','He puts in nine stitches. They eat with their other hand while he does it and do not look. When he ties off the last one they lean their head against '+(m?'your':'Misaki’s')+' shoulder for about a second, and then sits up and asks Ronin for the chilli.']],()=>{fr('a',2);done()})});
 
 /* 5 · Act II: what to do with the body */
 a60B('a60_body','The kennel room, at feeding time',()=>S.phase==='act2'&&S.day>=(S.act2Start||0)+2&&frT('r')>=1,done=>{const m=a60M();say([
@@ -112,14 +112,14 @@ a60B('a60_hounds','An envelope on the island',()=>S.phase==='act3'&&typeof a3d==
  ['','There is an envelope on the kitchen island. On the front, in fountain pen: “If I am dead. Hounds.”'],
  ['K9','The grey, the black and the pale will take to whoever feeds them. The old one will not. She will stop eating within a day of me, and she will not start again.'],
  ['K9','If I am dead, she is to be put down inside the week. The drug and the dose are in the envelope. Do not let her starve out of sentiment. That would be a cruelty, and I would be very angry about it.']],
- ()=>ask(m?'hitmeuppp':'K9',m?'(He means you. Nobody else is in the kitchen.)':'(She has picked it up and is reading the dose.)',m?[
+ ()=>ask(m?'hitmeuppp':'K9',m?'(He means you. Nobody else is in the kitchen.)':'(They have picked it up and are reading the dose.)',m?[
   {t:'“ok.”',fn:()=>{S.f.a60Env='ok';apply({aff:2});say([['hitmeuppp',MV('ok.','ok. inside the week.','All right. Inside the week.','Okay. Inside the week. I’ll do it myself, I won’t make Angel.')],['K9','Thank you.'],['','He puts the envelope in the drawer with the takeaway menus. Then you make dinner.']],done)}},
   {t:'“and if it’s me?”',fn:()=>{S.f.a60Env='bed';apply({aff:3});say([['hitmeuppp',MV('and if it’s me','and if it’s me. who stops eating','And if it’s me that dies? Which of them stops eating?','And if it’s me? Which one of them goes off her food for me?')],
     ['K9','The grey one will sleep outside your door. After a week somebody should move her bed. She will not like it.'],
     ['hitmeuppp',MV('k. write it down','ok. write that down too','All right. Write that down as well.','Okay. Write that down too. Week one, move her bed. Don’t let her sleep in a doorway for a month like an idiot.')],
     ['','He writes it on the back of the envelope, under his own, and puts it in the drawer with the takeaway menus.']],done)}}]:[
-  {t:'Ask her to be the one who does it.',fn:()=>{S.f.a60Env='ok';apply({aff:2});say([['K9','I would like it to be you. She trusts your hands.'],['hitmeuppp',MV('k.','ok. me.','All right. Me.','Okay. Me. Inside the week. I won’t make Angel.')],['','She puts the envelope in the drawer with the takeaway menus herself. Then they make dinner.']],done)}},
-  {t:'Say nothing more.',fn:()=>{S.f.a60Env='bed';say([['hitmeuppp',MV('and if it’s me','what about if it’s me','And if it’s me?','And if it’s me? Which one of them goes off her food for me?')],['K9','The grey one will sleep outside your door. After a week somebody should move her bed.'],['','She takes his pen and writes it on the back of the envelope, “week one, move her bed,” under his, and puts it in the drawer with the menus.']],done)}}]))});
+  {t:'Ask them to be the one who does it.',fn:()=>{S.f.a60Env='ok';apply({aff:2});say([['K9','I would like it to be you. She trusts your hands.'],['hitmeuppp',MV('k.','ok. me.','All right. Me.','Okay. Me. Inside the week. I won’t make Angel.')],['','They put the envelope in the drawer with the takeaway menus themself. Then they make dinner.']],done)}},
+  {t:'Say nothing more.',fn:()=>{S.f.a60Env='bed';say([['hitmeuppp',MV('and if it’s me','what about if it’s me','And if it’s me?','And if it’s me? Which one of them goes off her food for me?')],['K9','The grey one will sleep outside your door. After a week somebody should move her bed.'],['','They take his pen and write it on the back of the envelope, “week one, move her bed,” under his, and puts it in the drawer with the menus.']],done)}}]))});
 
 /* 7 · epilogue: the list again */
 a60B('a60_epi','The list, once a year',()=>S.phase==='epilogue',done=>{const m=a60M();say([
@@ -128,7 +128,7 @@ a60B('a60_epi','The list, once a year',()=>S.phase==='epilogue',done=>{const m=a
  ['K9','Unchanged.'],
  [AN,'misaki?'],
  ['hitmeuppp',MV('...it’s longer.','it’s longer now. hang on','It’s longer now. Give me a minute.','It’s longer now. I own things. When did I start owning things? Give me a minute, I have to go room by room.')],
- ['',m?'It takes you twenty minutes. There are mugs on it now, and a coat, and a stool at the island that has worn into your shape, and a drawer of takeaway menus with floor plans drawn on the backs.':'It takes her twenty minutes. There are mugs on it now, and a coat, and a stool at the island that has worn into her shape, and a drawer of takeaway menus with floor plans on the backs.'],
+ ['',m?'It takes you twenty minutes. There are mugs on it now, and a coat, and a stool at the island that has worn into your shape, and a drawer of takeaway menus with floor plans drawn on the backs.':'It takes their twenty minutes. There are mugs on it now, and a coat, and a stool at the island that has worn into their shape, and a drawer of takeaway menus with floor plans on the backs.'],
  [AN,'who gets the stool'],
  ['hitmeuppp',MV('nobody. burn it','nobody. burn the stool','Nobody. Burn the stool.','Nobody gets the stool. Burn it. I don’t want anybody sitting on it pretending.')],
  [AN,'(typing) “burn stool.”'],
@@ -163,7 +163,7 @@ a60B('lp60_dress','The dress, on a Sunday',()=>S.f.lp60Dress==='show'&&S.day-(S.
  ['','The dress comes out pale blue, with a great deal of lace and a bow at the back the size of a hound’s head. The boutique’s tag is still on it: ninety-five dollars. On the back of the tag, in pencil, “list at 290,” and a line through it.'],
  [AN,'oh my god. put it on'],
  ['hitmeuppp',MV('won’t fit.','it won’t fit. i was tiny','It won’t fit. I was tiny at sixteen.','It won’t fit. I was tiny at sixteen, I hadn’t started eating yet. I got tall all at once, at about eighteen. It was very upsetting for everybody.')],
- ['','Angel holds it up against '+(m?'you':'her')+' anyway. It stops halfway down '+(m?'your':'her')+' thigh, and the sleeves would end at the elbow. Ronin laughs until he has to put his head down on the steel.'],
+ ['','Angel holds it up against '+(m?'you':'them')+' anyway. It stops halfway down '+(m?'your':'their')+' thigh, and the sleeves would end at the elbow. Ronin laughs until he has to put his head down on the steel.'],
  [AN,'maria is wearing this to the gala. i’ll get it let out. i’m paying'],
  ['hitmeuppp',MV('290.','290. it says on the tag','Two hundred and ninety. It’s on the tag.','Two hundred and ninety. It says on the tag. I don’t set the prices, babe, sixteen-year-old me sets the prices.')],
  ['',m?'Angel pays in cash, on the spot. You put it in a biscuit tin on top of the fridge. V writes something down.':'Angel pays in cash, on the spot. Misaki puts it in a biscuit tin on top of the fridge. V writes something down.'],
@@ -175,14 +175,14 @@ a60B('lp60_fly','An airfield an hour out',()=>S.phase==='epilogue'&&!!S.f.lp60_l
   ['','At two thousand feet he takes his hands off the controls.'],
   ['hitmeuppp',MV('(oh.)','(oh. it’s the sums.)','(Oh. It’s the same sums.)','(Oh. Oh, it’s the same sums. Crosswind twelve knots off the left, you hold it with your feet. It’s a rifle you sit in.)')],
   ['','You find V’s house from the air by the dark square of the kennel yard, and bank over it twice. There are four dots on the grass, and one tall one, all looking up.']]:[
-  ['','He has found a small airfield an hour out of the city where the instructor takes cash for a trial lesson and does not ask for anything on paper. He drives her there and then drives home, and tells her the hounds have not been fed, which is not true.'],
+  ['','He has found a small airfield an hour out of the city where the instructor takes cash for a trial lesson and does not ask for anything on paper. He drives them there and then drives home, and tells them the hounds have not been fed, which is not true.'],
   ['','At ten past three he is in the kennel yard with all four of them when a small white plane comes over low from the west and banks over the house, twice. The old hound barks at it, once, which she has not done at anything in years.'],
-  ['K9','(She is up there, above everything, where nobody can get behind her.)']];
- say(up,()=>{const back=[['','She comes back with grass on her knees and the instructor’s card in her pocket.'],
+  ['K9','(They are up there, above everything, where nobody can get behind them.)']];
+ say(up,()=>{const back=[['','They come back with grass on their knees and the instructor’s card in their pocket.'],
    ['hitmeuppp',MV('78/hr.','seventy-eight dollars an hour','Seventy-eight dollars an hour. I had it at fifteen.','Seventy-eight dollars an hour. I had it at fifteen. I had it in a tin.')]];
-  say(back,()=>ask(m?'hitmeuppp':'K9',m?'(The card says Thursdays.)':'(She keeps turning the card over.)',[
+  say(back,()=>ask(m?'hitmeuppp':'K9',m?'(The card says Thursdays.)':'(They keep turning the card over.)',[
    {t:m?'“same time thursday.”':'“Shall I drive you on Thursday?”',fn:()=>{S.f.lp60Fly='more';apply({aff:4});say([['hitmeuppp',MV('thursday.','thursday. don’t make it a thing','Thursday. Don’t make it a thing.','Thursday. Cash. Don’t make it a thing, V, I can see you making it a thing.')],['','He makes it a thing. He writes “Thursday” in the kitchen calendar in fountain pen, and draws a very small plane beside it.']],done)}},
-   {t:m?'“once was enough.”':'Ask nothing.',fn:()=>{S.f.lp60Fly='once';apply({aff:2});say([['hitmeuppp',MV('once was enough','once was enough. i wanted to know','Once was enough. I only wanted to know.','Once was enough. I only wanted to know whether I’d have been good at it.')],['K9','And?'],['hitmeuppp',MV('ya.','yeah.','Yes.','Yeah. Obviously.')],['','She puts the card on the fridge under the magnet shaped like a fish, and it stays there for years.']],done)}}]))})});
+   {t:m?'“once was enough.”':'Ask nothing.',fn:()=>{S.f.lp60Fly='once';apply({aff:2});say([['hitmeuppp',MV('once was enough','once was enough. i wanted to know','Once was enough. I only wanted to know.','Once was enough. I only wanted to know whether I’d have been good at it.')],['K9','And?'],['hitmeuppp',MV('ya.','yeah.','Yes.','Yeah. Obviously.')],['','They put the card on the fridge under the magnet shaped like a fish, and it stays there for years.']],done)}}]))})});
 
 /* talk */
 TDTOP_M.push({id:'lp60_t_why',label:()=>'“Why a pilot?”',show:()=>!S.dark&&!isLone()&&!!S.f.lp60_listing&&!(S.talks&&S.talks.lp60_t_why),run:b=>{S.talks=S.talks||{};warm('m','lp60_t_why',3);S.talks.lp60_t_why=1;const drew=!!(S.seen&&(S.seen.lore_architect||S.talks.lore_draw));say([
@@ -191,7 +191,7 @@ TDTOP_M.push({id:'lp60_t_why',label:()=>'“Why a pilot?”',show:()=>!S.dark&&!
  ['K9',drew?'You have drawn me that room. You labelled it “not a cell.”':'That is a very particular heaven.'],
  ['hitmeuppp',MV('shut up.','shut up. it was a cockpit first','Shut up. It was a cockpit first.','Shut up. I drew a cockpit first, years before you. You just paid for the walls.')],
  ['hitmeuppp',MV('add it to the list.','add it to the wasted list','Put it on the list. The wasted one.','Put it on the list. Maths, pilot, architect, apparently. I’m a careers fair nobody turned up to.')],
- ['','He does not tell her it was a waste. He writes down “careers fair.”']],b)}});
+ ['','He does not tell them it was a waste. He writes down “careers fair.”']],b)}});
 TDTOP_V.push({id:'lp60_t_now',label:()=>'“do you think they’d let me fly now?”',show:()=>!S.dark&&!isLone()&&!!S.f.lp60_listing&&tier()>=2&&!(S.talks&&S.talks.lp60_t_now),run:b=>{S.talks=S.talks||{};warm('v','lp60_t_now',3);S.talks.lp60_t_now=1;say([
  ['hitmeuppp',MV('could i fly now?','would they let me fly now. like now now','Do you think they’d let me fly now?','Do you think they’d let me fly now? I still don’t have a birth certificate. I have a school form that says March.')],
  ['K9','A licence, no. Not without paper, and I will not make you paper that a stranger could check. A lesson, yes. There are airfields that take cash.'],
@@ -219,12 +219,12 @@ txDef('tx_a60_will',{with:'a',pov:'m',prio:2,when:()=>A60()&&!!S.f.a60_list,node
    {t:'“give it to v. he’ll want the screenshots.”',fx:()=>{fr('a',2);apply({aff:1})},reply:()=>['ok. “phone: V (screenshots).” done','you two are so weird about each other']},
    {t:'“u can have the clips”',fx:()=>fr('a',3),reply:()=>['already put me down for them. i was being polite']}]}}});
 txDef('tx_a60_willv',{with:'a',pov:'v',prio:2,when:()=>A60()&&!!S.f.a60_list,nodes:{
- start:{in:()=>['you put misaki down for the hounds and didn’t tell her first. she’s been weird all day','she keeps saying “my hounds” and then “if”'],expire:3,
-  opts:()=>[{t:'“Is that a problem?”',fx:()=>fr('a',1),reply:()=>['no. i just thought you should know she’s practising']},
-   {t:'“I should have asked her.”',fx:()=>fr('a',2),reply:()=>['lol no. if you’d asked she’d have said no. this way she has to keep them']}]}}});
+ start:{in:()=>['you put misaki down for the hounds and didn’t tell them first. they’ve been weird all day','they keep saying “my hounds” and then “if”'],expire:3,
+  opts:()=>[{t:'“Is that a problem?”',fx:()=>fr('a',1),reply:()=>['no. i just thought you should know they’re practising']},
+   {t:'“I should have asked them.”',fx:()=>fr('a',2),reply:()=>['lol no. if you’d asked they’d have said no. this way they have to keep them']}]}}});
 txDef('tx_lp60_v',{with:'a',pov:'v',prio:2,when:()=>!isLone()&&!S.dark&&!!S.f.lp60_listing,nodes:{
- start:{in:()=>['ok i can’t stop reading her old reviews','“arrived with a little plane drawn on the packing slip.” V. a PLANE'],expire:3,
-  opts:()=>[{t:'“She wanted to fly.”',fx:()=>fr('a',1),reply:()=>['i know. i was there. i’m just saying. a plane']},
+ start:{in:()=>['ok i can’t stop reading their old reviews','“arrived with a little plane drawn on the packing slip.” V. a PLANE'],expire:3,
+  opts:()=>[{t:'“They wanted to fly.”',fx:()=>fr('a',1),reply:()=>['i know. i was there. i’m just saying. a plane']},
    {t:'“Send me the link.”',fx:()=>{fr('a',2);S.f.lp60Link=1},reply:()=>['sent. don’t buy anything off a dead account','you’re going to buy something off a dead account']}]}}});
 txDef('tx_a60_after',{with:'m',pov:'v',prio:2,when:()=>!isLone()&&!S.dark&&['act2','act3','epilogue'].includes(S.phase)&&!!S.f.kd60_rule,nodes:{
  start:{in:()=>['if it happens again. i mean it. 48h then move on','write it down so u have to'],expire:3,
@@ -268,27 +268,27 @@ const A60COR=[
   [RN,'Forty-eight hours, we said. Then move on.'],
   [AN,'we did say that'],
   ['K9','We did.'],
-  ['','Nobody gets up. The bottle goes round. On the other side of the door Misaki turns over, and all three of them stop to listen until she settles.'],
-  [RN,'Anyway. Rule’s for when you’re dead. She ain’t dead. Technicality.'],
+  ['','Nobody gets up. The bottle goes round. On the other side of the door Misaki turns over, and all three of them stop to listen until they settle.'],
+  [RN,'Anyway. Rule’s for when you’re dead. They ain’t dead. Technicality.'],
   [AN,'technicality. yeah'],
   ['','At six they are still there, Angel asleep on Ronin’s shoulder and the crowbar across his knees. V steps over his legs to put the kettle on.']],
  ()=>kdSA()?[['','At four in the morning the shower in the infirmary runs. It runs for forty minutes.'],
-  ['','He does not knock. He goes to the boiler room and turns the hot water up as far as it will go, so that it will not run cold on her, and sits on the floor by the boiler until he hears the water stop.'],
-  ['K9','(If I ask, she will tell me it is the cell she is washing off. So I do not ask.)'],
+  ['','He does not knock. He goes to the boiler room and turns the hot water up as far as it will go, so that it will not run cold on them, and sits on the floor by the boiler until he hears the water stop.'],
+  ['K9','(If I ask, they will tell me it is the cell they are washing off. So I do not ask.)'],
   ['','The next night it runs for an hour. He turns the boiler up again, and does not write it in the ledger.']]
-  :[['','At three he hears tape tear on the other side of the door, one strip and then another. She is changing her own wrist dressings in the dark.'],
-  ['','He listens to her do it. She is faster than the doctor, in the right order, and she makes no sound at all when the saline goes on.'],
-  ['K9','(Somebody taught her this. Or nobody did, and she learned it alone, which is worse.)'],
+  :[['','At three he hears tape tear on the other side of the door, one strip and then another. They are changing their own wrist dressings in the dark.'],
+  ['','He listens to them do it. They are faster than the doctor, in the right order, and they make no sound at all when the saline goes on.'],
+  ['K9','(Somebody taught them this. Or nobody did, and they learned it alone, which is worse.)'],
   ['','In the morning the old dressings are in the bin, folded very small, the way a person folds them who has always had to hide them.']],
- ()=>(typeof kdWorstOf==='function'&&kdWorstOf())?[['','Two in the morning. Through the door, she starts talking to the tall one, which she has never done before.'],
+ ()=>(typeof kdWorstOf==='function'&&kdWorstOf())?[['','Two in the morning. Through the door, they start talking to the tall one, which they have never done before.'],
   ['hitmeuppp','You can stop waiting for somebody to come for me. Nobody’s coming. We have a rule.'],
   ['hitmeuppp','Forty-eight hours, then you move on. It’s a good rule. I voted for it. So did he. They’ll have done my list by now. You should tell your boss not to expect anybody.'],
   ['','He sits on the other side of the door and listens to the rule he voted for explained to him, kindly, as the reason he is not there.'],
-  ['','He says “I see” in the tall one’s voice, because it is the only voice she will answer. She says “yeah,” and turns over.']]
-  :[['','At two in the morning she talks in her sleep, clear as anything.'],
+  ['','He says “I see” in the tall one’s voice, because it is the only voice they will answer. They say “yeah,” and turns over.']]
+  :[['','At two in the morning they talk in their sleep, clear as anything.'],
   ['hitmeuppp','Rifle to Angel. Truck and the chainsaw to Ronin. Prickles to V. The clips in the bin.'],
-  ['','She says it twice, the way she goes over a list before a job. Then she says “forty-eight hours” and is quiet.'],
-  ['','He sits with his back to the door until the boiler comes on at six. Then he goes upstairs and moves Prickles to the kitchen windowsill, where she will see him when she comes up.']]];
+  ['','They say it twice, the way they go over a list before a job. Then they say “forty-eight hours” and is quiet.'],
+  ['','He sits with his back to the door until the boiler comes on at six. Then he goes upstairs and moves Prickles to the kitchen windowsill, where they will see him when they come up.']]];
 const _sh60k=sideHub;sideHub=function(late){const o=_sh60k(late);try{if(!kdMed()||S.pov!=='v'||isLone())return o;const n=S.f.a60Cor||0;if(n>=A60COR.length)return o;
  return o.concat([{t:'The kennel corridor, at night',sub:S.done.a60Cor?'done today':'costs time · outside the door marked LAUNDRY',dis:!!late||!!S.done.a60Cor,fn:()=>{spend();S.done.a60Cor=1;S.f.a60Cor=n+1;save();go(cutBg('#06060c'));say(A60COR[n](),()=>{calm(2);if(n===0){fr('a',1);fr('r',1)}hub()})}}])}catch(e){return o}};
 
@@ -306,12 +306,12 @@ kd60Ev('kd60_rule',()=>kdD()>=4&&frT('a')>=1&&frT('r')>=1,done=>{const m=kdMe(),
  [AN,'i did grey your line on the list though. on the '+(n>=3?'third':'second')+' day. like you’re supposed to'],
  ['hitmeuppp',MV('good.','good. that’s the rule','Good. That’s the rule.','Good. That’s correct. That’s what you’re supposed to do.')],
  [AN,'and then i un-greyed it that night. it looked stupid grey'],
- ['',m?'You tell them that next time they follow it. Ronin and Angel both say sure. V eats his noodles. Under the table the grey hound has her chin on your foot and will not move it.':'She tells them that next time they are to follow it. Ronin and Angel both say sure. V does not answer, and she does not make him. Under the table the grey hound has her chin on Misaki’s foot and will not move it.']],()=>{fr('a',1);fr('r',1);done()})});
+ ['',m?'You tell them that next time they follow it. Ronin and Angel both say sure. V eats his noodles. Under the table the grey hound has her chin on your foot and will not move it.':'They tell them that next time they are to follow it. Ronin and Angel both say sure. V does not answer, and they do not make him. Under the table the grey hound has her chin on Misaki’s foot and will not move it.']],()=>{fr('a',1);fr('r',1);done()})});
 kd60Ev('kd60_vpage',()=>S.pov==='v'&&kdD()>=6,done=>say([
  ['','He is looking for the vet’s number in the back of the house ledger and finds a page he wrote on the night before the river.'],
  ['','It is in his ordinary hand. “Trailer: give notice to the lot, end of month. Truck and chainsaw: Ronin. Rifle: Angel. Prickles: kitchen windowsill, water fortnightly. The hounds: tell them nothing. They will know.”'],
- ['','He wrote it at two in the morning on the floor of the kennel corridor. At six he went out again to look for her, and found her, and he had forgotten until now that he ever wrote it.'],
- ['K9','(I kept the rule for one night. I did it neatly. I listed her cactus.)']],()=>ask('K9','(The page.)',[
+ ['','He wrote it at two in the morning on the floor of the kennel corridor. At six he went out again to look for them, and found them, and he had forgotten until now that he ever wrote it.'],
+ ['K9','(I kept the rule for one night. I did it neatly. I listed their cactus.)']],()=>ask('K9','(The page.)',[
   {t:'Tear it out.',fn:()=>{S.f.kd60Page='burn';say([['','He tears it out along the spine and puts it in the stove, and watches it go. Then he finds the vet’s number, on the next page, where it always was.']],done)}},
   {t:'Leave it where it is.',fn:()=>{S.f.kd60Page='keep';apply({heart:-1});say([['','He leaves it. He turns over to the vet’s number, which is on the next page, where it always was, and rings about the black hound’s ear.']],done)}}])));
 kd60Ev('kd60_wr',()=>kdD()>=6&&((S.kd.sev0||0)>=8)&&frT('a')>=1&&frT('r')>=1,done=>{const m=kdMe();say([
@@ -320,11 +320,11 @@ kd60Ev('kd60_wr',()=>kdD()>=6&&((S.kd.sev0||0)>=8)&&frT('a')>=1&&frT('r')>=1,don
  [RN,'Rule’s off.'],
  [AN,'off. i deleted the sheet'],
  ['hitmeuppp',MV('put it back.','put it back','Put it back.','Put it back. I mean it. I need it to be there. I’m the one who used it.')],
- ['','Angel looks at her for a long moment, and then gets her phone out and types it in again from memory, word for word, and turns the screen round to show her.'],
+ ['','Angel looks at them for a long moment, and then gets her phone out and types it in again from memory, word for word, and turns the screen round to show them.'],
  ['K9','I voted for it four minutes late. I was thinking about it.'],
  ['hitmeuppp',MV('and?','and?','And?','And? What did you think?')],
  ['K9','That I would vote for it, and not keep it.'],
- ['',m?'Ronin opens the beer, in the end, and hands you the first one.':'Ronin opens the beer, in the end, and hands her the first one.']],()=>{fr('a',1);fr('r',1);calm(2);done()})});
+ ['',m?'Ronin opens the beer, in the end, and hands you the first one.':'Ronin opens the beer, in the end, and hands them the first one.']],()=>{fr('a',1);fr('r',1);calm(2);done()})});
 (function(){if(typeof KD_ORDER==='undefined')return;const put=(id,after)=>{const i=KD_ORDER.indexOf(after);if(i<0)KD_ORDER.push(id);else KD_ORDER.splice(i+1,0,id)};
  put('kd60_vpage','kd_v_ledger');put('kd60_rule','kd_hard_angel');put('kd60_wr','kd60_rule')})();
 
@@ -342,6 +342,6 @@ if(typeof AP_NOTES!=='undefined')AP_NOTES.push(
 const _xe60=extraEnding;extraEnding=function(){const L=_xe60();try{if(!S||!S.f)return L;const f=S.f;
  if(f.a60_list)L.push('Angel’s list is saved as “list (final) (2)”. The rule is at the top: nobody goes back, forty-eight hours, move on.'+(f.kd60_rule?' All four of them have broken it once, and Misaki made Angel put it back.':''));
  if(f.a60Env==='bed')L.push('There is an envelope in the drawer with the takeaway menus that says “If I am dead. Hounds.” On the back, in a second hand: “week one, move her bed.”');
- if(f.kd60Page==='keep')L.push('In the back of V’s house ledger there is a page he wrote the night before the river, saying where her things should go. He has never torn it out.');
- if(f.lp60Fly==='more')L.push('Misaki flies on Thursdays, for cash, an hour out of the city. She banks twice over V’s house every time, and the old hound barks once.');
+ if(f.kd60Page==='keep')L.push('In the back of V’s house ledger there is a page he wrote the night before the river, saying where their things should go. He has never torn it out.');
+ if(f.lp60Fly==='more')L.push('Misaki flies on Thursdays, for cash, an hour out of the city. They bank twice over V’s house every time, and the old hound barks once.');
  else if(f.lp60_listing)L.push('There is a dead seller page with four hundred reviews and a frog sock in every photo. Angel left the last review.')}catch(e){}return L};

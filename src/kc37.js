@@ -26,9 +26,9 @@ function drinks(){const m=S.pov!=='v',me=m?'hitmeuppp':'K9';go({draw:hubBg});
    [AN,'...are you playing POKÉMON. in the DARK. at a PARTY.'],
    ['hitmeuppp',MV('ya.','yeah. it’s quiet in here.','Yes. It’s quiet in here.','Yeah. It’s quiet and it’s dark and nobody’s talking about priests. Best party I’ve been to all year.')],
    [AN,'(to the floor) and you?'],
-   ['K9','I came in to bring her water. I lay down for one moment. They have decided.'],
+   ['K9','I came in to bring them water. I lay down for one moment. They have decided.'],
    ['','The grey hound opens one eye at Angel. It does not move. Nothing moves. V’s glass of water, held upright on his chest, does not spill.'],
-   ['K9','I have been here for forty minutes. I am very comfortable. I would like it noted that I did not lock the door. She did.'],
+   ['K9','I have been here for forty minutes. I am very comfortable. I would like it noted that I did not lock the door. They did.'],
    ['hitmeuppp',MV('i did.','i did. u hacked it. rude.','I did lock it. You hacked it. Rude.','I locked it. You hacked my lock, Angel. In this house. That’s a crime. I’m pressing charges, as soon as I’ve caught this.')]]
   ,()=>ask(m?'hitmeuppp':'K9','(Angel is standing in the doorway with her phone torch off, considering it.)',[
    {t:'“get in. shut the door.”',fn:()=>end('in')},

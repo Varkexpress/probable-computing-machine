@@ -190,7 +190,7 @@ l68('vr68_coat',['roof'],.4,()=>true,done=>say([
  ['','You sit down next to him on the parapet and open your coat, and he gets inside it with you without being asked. It is a long coat, and nowhere near long enough for two. Most of him stays outside it, and he lets you know about it.'],
  [RN,'Lizard on a rock, Vee. Lizard on a cold rock.'],
  ['','He falls asleep in it at about one, half inside your coat, with his head on your shoulder and his rings cold against your wrist. You do not move. At five the old hound comes up the stairs and lies down across both your feet.'],
- ['','Misaki comes up at seven with her coffee and stops at the top of the stairs.'],
+ ['','Misaki comes up at seven with their coffee and stops at the top of the stairs.'],
  K68M('...','oh my god. look at u two','You two look like a pile of coats someone’s giving to charity.','You look like a pile of coats somebody’s about to give to charity. I’m taking a picture. I’m taking it for the server. Don’t move, V, you’re fine, you’re a coat.')],()=>{fr('r',3);calm(2);done()}));
 
 l68('vr68_bath',['vbath'],.4,()=>true,done=>say([
@@ -258,7 +258,7 @@ m68('m68_choir',()=>true,done=>say([
  [RN,'Altos! Where’re my altos! There she is. Beautiful.'],
  ['','The old hound is the alto. She is flat. He does not tell her.'],
  [RN,'(to you, not stopping) They got real feelin’, Vee. Better’n my church. My church just mumbles.'],
- ['','Misaki comes down the stairs in a T-shirt and one sock with her hair over her face and stands at the bottom of them.'],
+ ['','Misaki comes down the stairs in a T-shirt and one sock with their hair over their face and stands at the bottom of them.'],
  K68M('it’s six.','it’s six in the morning. why is there a choir','It’s six in the morning. Why is there a choir?','It’s six in the morning, Ronin. Why is there a choir in the kitchen. Why are they good.'),
  [RN,'Grab a spoon, gremlin. We need a soprano.']],()=>{fr('r',2);if(S.dogs)Object.keys(S.dogs).forEach(k=>S.dogs[k]=clamp(S.dogs[k]+2));done()}));
 

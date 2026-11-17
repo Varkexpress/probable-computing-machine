@@ -46,10 +46,10 @@ K22EV.push({id:'k22_clothes',when:()=>k22Post(),run:done=>k22Say(k22M()?[
  [AN,'(text) babe u left a bin bag of clothes outside my door. the GOOD clothes. are u ok'],
  ['M','(text) keep them. or burn them. either.'],
  [AN,'(text) i’m keeping them. i’m keeping them in a box with ur name on it. not because u want them back. just so they’re somewhere.']]
- :[['','She comes down to breakfast in a grey hoodie two sizes too big and black trousers. No skirt. No stripes. No platform boots. She has never once, in all the time you have known her, worn anything she could not be noticed in.'],
- ['','Now she is dressed to be nobody. She sits with her back to the wall and eats without saying a word.'],
+ :[['','They come down to breakfast in a grey hoodie two sizes too big and black trousers. No skirt. No stripes. No platform boots. They have never once, in all the time you have known them, worn anything they could not be noticed in.'],
+ ['','Now they are dressed to be nobody. They sit with their back to the wall and eat without saying a word.'],
  ['K9','(to yourself) Noted.'],
- ['','You do not say anything to her about it. You go to the ops deck and open a new page in the notebook, and you write the date, and under it: clothes.']],done)});
+ ['','You do not say anything to them about it. You go to the ops deck and open a new page in the notebook, and you write the date, and under it: clothes.']],done)});
 
 /* V suspects */
 K22EV.push({id:'k22_sus1',when:()=>k22Post()&&S.seen.k22_clothes&&S.day>=(S.f.returnDay||0)+3,run:done=>k22Say(k22M()?[
@@ -57,19 +57,19 @@ K22EV.push({id:'k22_sus1',when:()=>k22Post()&&S.seen.k22_clothes&&S.day>=(S.f.re
  ['','He watches you check the room behind you before you sit. He watches you flinch at the sound of tape coming off a roll. He watches you not let anybody stand behind you, not even him.'],
  ['','You told him about the bulb and the radio. You told him about the door and the tray. You did not tell him about the four days you do not remember, because you do not remember them, and you are not going to guess out loud.'],
  ['','He is guessing. You can see it on him like weather. You let him. The version he is imagining is probably worse than whatever it was. Probably. You do not know.']]
- :[['','You lay it out the way you would lay out a case. She was gone eleven days. She has accounted for seven: the bulb, the radio, the tray, the door. Four days are missing, and she talks around them the way people talk around a hole in the floor.'],
+ :[['','You lay it out the way you would lay out a case. They were gone eleven days. They have accounted for seven: the bulb, the radio, the tray, the door. Four days are missing, and they talk around them the way people talk around a hole in the floor.'],
  ['','The clothes. The tape: she left the room yesterday when Angel taped a box. The way she will not let anyone stand behind her, including you. The way she stopped laughing at things and started watching them.'],
- ['','Something was done to her that she has not said. Perhaps that she cannot say. You have seen this before, on other people, in rooms you got to too late.'],
- ['K9','(I will not ask. If I ask, she will give me an answer to stop me asking, and then that will be the answer forever.)'],
+ ['','Something was done to them that they have not said. Perhaps that they cannot say. You have seen this before, on other people, in rooms you got to too late.'],
+ ['K9','(I will not ask. If I ask, they will give me an answer to stop me asking, and then that will be the answer forever.)'],
  ['','You write the four days on a page by themselves. You do not write anything under them. You leave the space.']],done,'dark')});
 
 K22EV.push({id:'k22_sus2',when:()=>k22Post()&&S.seen.k22_sus1&&frT('r')>=1,run:done=>k22Say([
  ['','Ronin’s flat. The good crowbar is on the table between you, and Ronin is looking at it the way other men look at a drink.'],
  [RN,'You’ve got a face on you, Vee. The face of a man doin’ arithmetic he don’t like the answer to.'],
- ['K9','Four days. She does not account for them.'],
+ ['K9','Four days. They do not account for them.'],
  [RN,'...Yeah. Yeah, I clocked that too.'],
  ['','He smiles. It is not a nice smile. It is the smile you have seen in crime-scene photographs, reflected in a window behind the body.'],
- [RN,'Here’s what I’m offerin’, and I want you to hear the whole thing. You find me the men who had her those four days. You give me the names. And then you go home, and you don’t ask, and you don’t read the paper for a week.'],
+ [RN,'Here’s what I’m offerin’, and I want you to hear the whole thing. You find me the men who had them those four days. You give me the names. And then you go home, and you don’t ask, and you don’t read the paper for a week.'],
  [RN,'’Cause what I’ll do to ’em, Vee, the Devil himself’d tap me on the shoulder and ask me to take a break. And I wouldn’t.'],
  ['K9','You know my rules.'],
  [RN,'I know your rules. I respect your rules. Your rules ain’t got nothin’ to do with what I do on my own time.'],
@@ -85,11 +85,11 @@ K22EV.push({id:'k22_hair',when:()=>k22Post()&&S.seen.k22_clothes&&(S.day>=(S.f.r
  [AN,'there. u look like u. a different u. a u that doesn’t want to be looked at.'],
  [AN,'i’ll fix the back next week. u flinched on the left. i won’t go near the left again.']]
  :[['','She comes back from Angel’s at four in the morning and the red is gone.'],
- ['','All of it. Her hair is shorter, cut in uneven layers that fall into her eyes. Black, nothing else. She looks younger, and older, and like nobody in particular, which you understand is exactly what she asked for.'],
+ ['','All of it. Their hair is shorter, cut in uneven layers that fall into their eyes. Black, nothing else. They look younger, and older, and like nobody in particular, which you understand is exactly what they asked for.'],
  ['K9','It suits you.'],
  ['hitmeuppp','it doesn’t do anything. that’s the point.'],
- ['','Angel texts you an hour later: a photo of a white envelope, sealed, with MISAKI written on it in her round handwriting. “for if she ever wants it back. don’t tell her i kept it.”'],
- ['','You add a line to the page with the four days on it: the hair.']],()=>{toast('Misaki cut the red out of her hair');done()},'loss')}});
+ ['','Angel texts you an hour later: a photo of a white envelope, sealed, with MISAKI written on it in her round handwriting. “for if they ever wants it back. don’t tell them i kept it.”'],
+ ['','You add a line to the page with the four days on it: the hair.']],()=>{toast('Misaki cut the red out of their hair');done()},'loss')}});
 
 /* what they are */
 K22EV.push({id:'k22_hounds',when:()=>S.day>=5,run:done=>k22Say([

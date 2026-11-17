@@ -29,14 +29,16 @@ coming. They are funny because they are dangerous and at ease with it, never bec
   the sweetness. She enjoys being a little exposed.
 
 ## Misaki (hitmeuppp)
+- Pronouns: they/them only, in narration and in every other character's lines.
+  Never feminize: no she/her, girl, woman, wife. Use their name, "the kid", "spouse"/"partner"/"other half", or whatever neutral word the speaker would pick.
 - Loud, profane, hyperbolic, fast. "Oh, fuck." "seriously!" "totally" "et cetera, whatever." "Hey, don't come at her."
 - Ridiculous pet names said with a straight face: "babe", "sugar honey dumpling".
-- Talks herself through fear in numbered steps (One: ... Two: ... Three: ...), bravado on top, terror underneath.
+- Talks themself through fear in numbered steps (One: ... Two: ... Three: ...), bravado on top, terror underneath.
 - An assassin with clients and debtors. Chainsaw, rifle, machine gun, bazooka. "A double-tap never hurts!"
-- Life is unfair and she says so. She does not do quiet, wistful one-liners; when she is sincere it comes out blunt or
-  sideways, then she makes a joke.
+- Life is unfair and they say so. They do not do quiet, wistful one-liners; when they are sincere it comes out blunt or
+  sideways, then they make a joke.
 - Keep the game's tier system (`MV`/`byT`): lowercase text-speak at low tiers, fuller sentences as the relationship
-  deepens. All four tiers must stay; later tiers are longer and more articulate, still hers.
+  deepens. All four tiers must stay; later tiers are longer and more articulate, still theirs.
 
 - Lore: shirtless most of the time in V's house. They don't care about gender standards and nobody on the server cares either.
   Flat and unusually lanky from childhood malnutrition (fine growth-arrest lines on the films, “like tree rings”). They count it as
@@ -65,6 +67,9 @@ coming. They are funny because they are dangerous and at ease with it, never bec
 
 
 ## V (K9)
+- His name appears nowhere public: the foundation is anonymous by his insistence. No name on doors, plaques or donor
+  lists; no speeches, interviews or press photographs. He sits at the back of the gala or does not go; the chair speaks.
+  Private uses are fine (K9 on the server, friends, the ledger, Hale's file).
 - Formal, exact, no contractions. "merely", "serviceable", "I find that your kind say that about me, often."
 - Dry menace. "Now, shall we get to work?" One-word answers with a twitch of a smile: "Justice."
 - Convictions: lex talionis; a quick death is mercy and some do not deserve it; victims are "things", "aberrations".

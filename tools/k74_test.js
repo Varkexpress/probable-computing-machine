@@ -123,7 +123,7 @@ for(const pov of ['m','v']){const ids=await ev(pov=>K74MORN.filter(b=>b.pov===po
 /* swapped scenes */
 for(const pov of ['m','v']){
  const r1=await play(pov,null,"EVENTS.find(e=>e.id==='a60_server').run(()=>{window.__hubbed=1})",0);const a=await ev(()=>({rule:S.f.a60Rule,l:window.__lines.some(x=>/I will be the reason/.test(x[1]))}));mark(`${pov} kc60 server swap`,r1==='hub'&&a.rule===1&&a.l);
- const r2=await play(pov,()=>{S.paid=1},"window.__lines=[];EVENTS.find(e=>e.id==='kd_omen').run(()=>{window.__hubbed=1})",0);const c=await ev(()=>window.__lines.some(x=>/You know her knots/.test(x[1])));mark(`${pov} kd_omen ${pov==='v'?'swapped':'kept'}`,r2==='hub'&&c===(pov==='v'));
+ const r2=await play(pov,()=>{S.paid=1},"window.__lines=[];EVENTS.find(e=>e.id==='kd_omen').run(()=>{window.__hubbed=1})",0);const c=await ev(()=>window.__lines.some(x=>/You know their knots/.test(x[1])));mark(`${pov} kd_omen ${pov==='v'?'swapped':'kept'}`,r2==='hub'&&c===(pov==='v'));
  const r3=await play(pov,null,"EVENTS.find(e=>e.id==='drift_txt').run(()=>{window.__hubbed=1})",0);const dq=await ev(()=>(phS().q||[]).filter(x=>x.k==='v'||x.k==='m').length);mark(`${pov} drift swap`,r3==='hub'&&dq===0)}
 for(const o of [0,1,2]){const r=await play('v',null,"S.f.w59={st:{},g:{},rec:{},day:-9};W59B.find(b=>b.id==='w59_v_ask').run(()=>{window.__hubbed=1})",o);const l=await ev(()=>({lever:S.f.w59.lever,st:Object.values(S.f.w59.st)[0]}));mark('kc59 ask swap #'+o,r==='hub'&&l.st===2&&(o!==1||l.lever===1))}
 for(const o of [0,1]){const r=await play('v',null,"S.f.w59={st:{},g:{},rec:{},day:-9};window.__lines=[];W59B.find(b=>b.id==='w59_v_circle').run(()=>{window.__hubbed=1})",o);const l=await ev(()=>window.__lines.some(x=>/move in/i.test(x[1])));mark('kc59 circle swap #'+o,r==='hub'&&!l)}
@@ -170,8 +170,8 @@ for(const pov of ['m','v'])for(const id of ['e2l_after','e2l_boat']){const r=awa
   try{b.run.call(b)}catch(e){}for(let i=0;i<20&&dlg&&window.__lines.length<12;i++)adv();return window.__lines.slice(0,8).map(x=>x[1]).join(' | ')},[pov,id]);
  mark(`${pov} echo before ${id}`,/customs-house lift|old hound|fern|cactus|count stands|brass plate|photograph|plan/.test(r))}
 await ev(()=>{dlg=null;ctrl=null});
-for(const lone of ['m','v']){const r=await ev(lone=>{__set(lone,3,{e2l:1});S.lone=lone;return loneIntro().map(x=>x[1]).join(' | ')},lone);mark('lone hook '+lone,lone==='v'?/never wrote a total/.test(r)&&!/pours two cups/.test(r):/He came for her/.test(r))}
-{const off=await ev(()=>{__set('m',3,{});S.lone='m';return loneIntro().map(x=>x[1]).join(' | ')});mark('lone off-route unchanged',!/He came for her/.test(off))}
+for(const lone of ['m','v']){const r=await ev(lone=>{__set(lone,3,{e2l:1});S.lone=lone;return loneIntro().map(x=>x[1]).join(' | ')},lone);mark('lone hook '+lone,lone==='v'?/never wrote a total/.test(r)&&!/pours two cups/.test(r):/He came for them/.test(r))}
+{const off=await ev(()=>{__set('m',3,{});S.lone='m';return loneIntro().map(x=>x[1]).join(' | ')});mark('lone off-route unchanged',!/He came for them/.test(off))}
 {const L=await ev(()=>{__set('m',3,{e2l:1});Object.assign(S.f,{e2lLift:'m',e2lHound:1,e2lDinner:'glass',e2lShelter:1,e2lPrickles:1,e2lHale:'m'});return extraEnding().join(' | ')});
  mark('ending lines',/jaw/.test(L)&&/old hound/.test(L)&&/Ronin drank/.test(L)&&/brass plate/.test(L)&&/Prickles/.test(L)&&/Hale/.test(L))}
 {const L=await ev(()=>{__set('v',3,{e2l:1});Object.assign(S.f,{e2lLift:'v',e2lDinner:'fern',e2lHale:'v'});return extraEnding().join(' | ')});mark('ending lines V',/round/.test(L)&&/fern/.test(L)&&/tyres/.test(L))}

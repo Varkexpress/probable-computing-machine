@@ -161,12 +161,12 @@ e64B('e64_store','The furniture store',()=>true,done=>{const m=m64();say([
 
 e64B('e64_board','Board game night',()=>frT('r')>=1,done=>{const m=m64();say([
  ['','Board game night. The game is the one where you buy streets and charge rent, and V reads all of the rules aloud before anyone may touch the dice. It takes twenty-five minutes.'],
- ['',m?'You buy every orange street and then every red one. By the second lap you own the bottom half of the board, and you charge whatever you like.':'Misaki buys every orange street and then every red one. By the second lap she owns the bottom half of the board, and she charges whatever she likes.'],
- [RN,'That’s not the rent on the card. That ain’t the rent on the card, Vee, tell her.'],
+ ['',m?'You buy every orange street and then every red one. By the second lap you own the bottom half of the board, and you charge whatever you like.':'Misaki buys every orange street and then every red one. By the second lap they own the bottom half of the board, and they charge whatever they like.'],
+ [RN,'That’s not the rent on the card. That ain’t the rent on the card, Vee, tell them.'],
  ['hitmeuppp',MV('market rate.','market rate babe. i was a scalper','Market rate. I used to scalp dresses, Ronin.','That’s market rate. I scalped dresses for three years, Ronin. You land on my street, you pay what the street’s worth to you right now, and right now it’s worth everything.')],
  ['','Angel has been taking money out of the bank in plain sight all evening. Nobody stops her. V notices, and decides it is a lesson for the others.']],()=>ask(m?'hitmeuppp':'K9',m?'(Ronin has landed on your red street with a hotel on it.)':'(Ronin has landed on Misaki’s red street with a hotel on it.)',[
   {t:m?'“triple. pay up”':'“The card says nine hundred.”',fn:()=>{fr('r',1);say([[RN,'Fuck this.'],['','He flips the board. The houses go everywhere. The black hound eats a hotel. V fishes it out of the hound’s mouth, puts it back on the red street, and says that the game will resume after a ten minute recess.']],done)}},
-  {t:m?'“...u can owe me”':'Say nothing, and let her decide.',fn:()=>{fr('r',2);say([[RN,'...Aw. Gremlin.'],['',m?'He owes you for the rest of the game. You collect at the end in washing-up.':'He owes her for the rest of the game. She collects at the end in washing-up. He does it for a week, badly, with the radio on.']],done)}}]))});
+  {t:m?'“...u can owe me”':'Say nothing, and let them decide.',fn:()=>{fr('r',2);say([[RN,'...Aw. Gremlin.'],['',m?'He owes you for the rest of the game. You collect at the end in washing-up.':'He owes them for the rest of the game. They collect at the end in washing-up. He does it for a week, badly, with the radio on.']],done)}}]))});
 
 e64B('e64_selfie','V’s first selfie',()=>frT('a')>=1,done=>{const m=m64();say([
  ['','Angel finds out that V has never taken a photograph of himself, and puts down her coffee.'],
@@ -214,30 +214,30 @@ const l64=(id,rooms,p,when,run)=>K64L.push({id,rooms,p,when:()=>{try{return K64(
 
 /* calculus */
 l64('c64_bed',['trailer'],.35,()=>S.day>=3,done=>{const m=m64();say([
- ['',m?'You come in after a job, kick your boots off, lie on the bed, and do integrals in the back of a notebook until your hands stop feeling like somebody else’s.':'Misaki is lying on the bed in the trailer with a notebook held up over her face, doing integrals. There is still somebody else’s blood on her knuckles.'],
+ ['',m?'You come in after a job, kick your boots off, lie on the bed, and do integrals in the back of a notebook until your hands stop feeling like somebody else’s.':'Misaki is lying on the bed in the trailer with a notebook held up over their face, doing integrals. There is still somebody else’s blood on their knuckles.'],
  ['hitmeuppp',MV('ok. by parts.','ok. by parts. u times v minus the integral of v du. nice','Integration by parts. Lovely.','Integration by parts. You pick the bit that gets simpler when you differentiate it, and the rest takes care of itself. I love it. I don’t know why. It’s like folding laundry.')],
- ['',m?'It’s the most relaxing thing you know, after the work. Nobody taught you to do it this way. Nobody taught you any of it.':'V asks whether she is working. She says no, this is the opposite of working, and turns the page.']],()=>{calm(4);apply({edge:-1});done()})});
+ ['',m?'It’s the most relaxing thing you know, after the work. Nobody taught you to do it this way. Nobody taught you any of it.':'V asks whether they are working. They say no, this is the opposite of working, and turn the page.']],()=>{calm(4);apply({edge:-1});done()})});
 
 l64('c64_env',['ops','trailer'],.4,()=>S.day>=4,done=>{const m=m64();say([
- ['',m?'The envelope from yesterday’s client is still on the table. On the back, in your handwriting, there are four derivatives you did while you waited for him to finish talking.':'There is a contract envelope that Misaki left on the side. On the back, in her small upright writing, there are four derivatives and a little drawing of a frog.'],
+ ['',m?'The envelope from yesterday’s client is still on the table. On the back, in your handwriting, there are four derivatives you did while you waited for him to finish talking.':'There is a contract envelope that Misaki left on the side. On the back, in their small upright writing, there are four derivatives and a little drawing of a frog.'],
  ['','d/dx of x squared sine x. The chain rule twice. A quotient. The last one is circled and has “ha!” written next to it.'],
  ['',m?'The client was paying forty thousand dollars for a man on a balcony. You remember the derivatives better than the man.':'The client paid forty thousand dollars for a man on a balcony. V has no record of the man. He keeps the envelope.'],
  ['hitmeuppp',MV('he talked too much.','he talked for 20 mins. i needed something to do','He talked for twenty minutes. I needed something to do with my hands.','He talked for twenty minutes about his ex-business-partner. I needed something to do with my hands that wasn’t strangling a client, so I did the chain rule.')]],()=>{apply({aff:1});done()})});
 
 l64('c64_limits',['ronin'],.4,()=>frT('r')>=1&&(typeof ronWhere!=='function'||!ronWhere()),done=>{const m=m64();say([
- ['',m?'Ronin’s workshop. Ronin is at the bench, and you’re on the floor with chalk, explaining limits to him, because he asked what they were and then couldn’t stop you.':'Ronin’s workshop. Ronin is at the bench, and Misaki is on the floor with chalk, explaining limits to him, because he asked what they were and then could not stop her.'],
+ ['',m?'Ronin’s workshop. Ronin is at the bench, and you’re on the floor with chalk, explaining limits to him, because he asked what they were and then couldn’t stop you.':'Ronin’s workshop. Ronin is at the bench, and Misaki is on the floor with chalk, explaining limits to him, because he asked what they were and then could not stop them.'],
  ['hitmeuppp',MV('u get closer and closer.','u get closer and closer and closer. but u never actually get there.','You get closer and closer to it. You never actually arrive.','You get closer and then closer again, half the distance each time, forever. You never actually arrive. But the limit is where you were going, so we say that’s the answer.')],
  [RN,'Closer and closer and never get there.'],
  ['hitmeuppp',MV('ya.','yeah','Yes.','Yeah. That’s it. That’s limits.')],
  [RN,'That’s my whole fuckin’ love life, gremlin. I been livin’ calculus since I was fifteen.'],
- ['',m?'You laugh so hard you smudge the chalk. He makes you explain it again, slower, with the crowbar as the x axis.':'Misaki laughs so hard she smudges the chalk. He makes her explain it again, slower, with the crowbar as the x axis.']],()=>{fr('r',2);calm(2);done()})});
+ ['',m?'You laugh so hard you smudge the chalk. He makes you explain it again, slower, with the crowbar as the x axis.':'Misaki laughs so hard they smudge the chalk. He makes their explain it again, slower, with the crowbar as the x axis.']],()=>{fr('r',2);calm(2);done()})});
 
 l64('c64_parab',['dp_range'],.45,()=>true,done=>{const m=m64();say([
  ['',m?'You’re at the range under the house with V, scoring yesterday’s shots off the drone footage.':'V is at the range under the house with Misaki, scoring yesterday’s shots off the drone footage.'],
  ['hitmeuppp',MV('nice curve.','look at that curve. that’s a good parabola','That’s a good parabola. Look at it.','Look at that. Clean parabola. Drag’s barely touching it. The vertex is right where I said. I’d frame that, if it wasn’t evidence.')],
  ['K9','You are rating the trajectory.'],
  ['hitmeuppp',MV('9/10.','9/10. ronin’s are like 3/10 he throws stuff','Nine out of ten. Ronin’s get a three. He throws things.','Nine out of ten. Angel’s get eight, she’s greedy with elevation. Ronin’s get three, his are mostly a crowbar going in a circle, which isn’t even a parabola, it’s a crime against conics.')],
- ['','V asks how his own would rate. She says his are all straight lines, because he does it with his hands, up close, and straight lines do not count.']],()=>{apply({aff:2});done()})});
+ ['','V asks how his own would rate. They say his are all straight lines, because he does it with his hands, up close, and straight lines do not count.']],()=>{apply({aff:2});done()})});
 
 l64('c64_book',['bedroom','atrium'],.35,()=>tier()>=1&&S.day>=5,done=>{const m=m64();say([
  ['',m?'V has one of your notebooks open on his knee. He did not hear you come in.':'There is a notebook under the couch cushion that is not V’s. He opens it to see whose it is.'],
@@ -245,14 +245,14 @@ l64('c64_book',['bedroom','atrium'],.35,()=>tier()>=1&&S.day>=5,done=>{const m=m
  ['','At the top of one page, in small capitals: FOR FUN. At the top of the next: ALSO FOR FUN.'],
  ['K9','(turning a page) These are university problems.'],
  ['hitmeuppp',MV('i found a book in a bin.','found a textbook in a skip once. did all of it','I found the textbook in a skip when I was fifteen. I did all of it.','I found the textbook in a skip behind a college when I was fifteen. Somebody had chucked it at the end of term. I did every page in a year, in the cab of a truck, with a torch. Then I started again from page one.')],
- ['','He closes the notebook carefully and gives it back, and asks if she would let him read it properly some time. She says yes before she has thought about it.']],()=>{apply({aff:3});S.f.c64Book=1;done()})});
+ ['','He closes the notebook carefully and gives it back, and asks if they would let him read it properly some time. They say yes before they have thought about it.']],()=>{apply({aff:3});S.f.c64Book=1;done()})});
 
 l64('c64_skin',['studio'],.4,()=>frT('a')>=1&&(typeof angWhere!=='function'||!angWhere()),done=>{const m=m64();say([
- ['',m?'Angel is doing her face at the vanity. You’re on her bed with a notebook, doing a definite integral to unwind.':'Angel is doing her face at the vanity. Misaki is on her bed with a notebook, and V is waiting for both of them in the doorway.'],
+ ['',m?'Angel is doing her face at the vanity. You’re on her bed with a notebook, doing a definite integral to unwind.':'Angel is doing her face at the vanity. Misaki is on their bed with a notebook, and V is waiting for both of them in the doorway.'],
  [AN,'what are you doing'],
  ['hitmeuppp',MV('calculus.','calculus','Calculus.','Calculus. An integral. It’s relaxing.')],
  [AN,'oh i love calculus. their eye cream is so good. the one in the little frosted pot.'],
- ['','Nobody corrects her.'],
+ ['','Nobody corrects them.'],
  [AN,'what’s yours doing for you. you have really good skin actually.'],
  ['hitmeuppp',MV('...it keeps me calm.','it’s. yeah. it keeps me calm','It keeps me calm.','It keeps me calm. It takes the area under things. Very gentle.')],
  [AN,'see. i knew it. send me the link.']],()=>{fr('a',2);calm(2);done()})});
@@ -264,7 +264,7 @@ l64('c64_hole',['dp_forest'],.4,()=>frT('r')>=1,done=>{const m=m64();say([
  [RN,'(still digging) Did you just do the integral of a guy.'],
  ['hitmeuppp',MV('ya.','yeah','Yes.','Yeah. Roughly. Ellipses, stacked.')],
  [RN,'Fuckin’ love you, gremlin. Gimme the forty.'],
- ['',m?'He digs the forty. You were right about the shoulders.':'He digs the forty. She was right about the shoulders.']],()=>{fr('r',2);fr('a',1);done()})});
+ ['',m?'He digs the forty. You were right about the shoulders.':'He digs the forty. They were right about the shoulders.']],()=>{fr('r',2);fr('a',1);done()})});
 
 /* the gacha arc, seen in passing */
 l64('g64_couch',['atrium'],.5,()=>g64N()>=2&&g64N()<6,done=>{const m=m64();say([
@@ -311,7 +311,7 @@ l64('x64_green',['green'],.35,()=>frT('a')>=1,done=>{const m=m64();say([
  ['','She cuts that part out of the video before it goes up. She keeps the raw clip on her phone, and plays it to Ronin twice, and both times he cries laughing.']],()=>{fr('a',2);done()})});
 
 l64('x64_spar',['training'],.35,()=>frT('r')>=1,done=>{const m=m64();say([
- ['',m?'Sparring in the training hall. Ronin goes for your knees, and you put him on his back in a second and a half and sit on his chest.':'Ronin and Misaki are sparring in the training hall. Ronin goes for her knees, and she puts him on his back in a second and a half and sits on his chest.'],
+ ['',m?'Sparring in the training hall. Ronin goes for your knees, and you put him on his back in a second and a half and sit on his chest.':'Ronin and Misaki are sparring in the training hall. Ronin goes for their knees, and they put him on his back in a second and a half and sits on his chest.'],
  [RN,'(winded) If you wanted me on my back, gremlin, all you had t’do was buy me dinner.'],
  ['hitmeuppp',MV('ur not worth dinner.','u wish. ur a two drink guy at most','You’re worth a drink. Two, at most.','I’ve seen your apartment. You’re a two-drink guy at best, and one of them would be the water I gave you for the concussion.')],
  [RN,'Two drinks. I’ll take that. Gimme the knee next time, I like it.'],
@@ -328,27 +328,27 @@ l64('x64_car',['garage'],.3,()=>frT('r')>=1,done=>{const m=m64();say([
 
 /* the V/Misaki route: flirting, adult and not explicit */
 l64('f64_shelf',['vbath'],.4,()=>fl64(),done=>{const m=m64();say([
- ['',m?'You’re in V’s bath with the door unlocked, shirtless, the way you always are in this house, and you have used every bottle on his shelf. There are eleven.':'Misaki is in V’s bath with the door unlocked, shirtless, the way she always is in this house, and she has used every bottle on his shelf. There are eleven.'],
+ ['',m?'You’re in V’s bath with the door unlocked, shirtless, the way you always are in this house, and you have used every bottle on his shelf. There are eleven.':'Misaki is in V’s bath with the door unlocked, shirtless, the way they always are in this house, and they have used every bottle on his shelf. There are eleven.'],
  ['K9','(in the doorway) That is a forty dollar serum.'],
  ['hitmeuppp',MV('smells like u.','it smells like u. so','It smells like you. So I used all of it.','It smells like you. I thought I’d see if it worked better on somebody who actually goes outside. Come here and smell it, tell me if it worked.')],
- ['','He comes here. He checks, carefully, at her neck, for longer than the question needs.'],
+ ['','He comes here. He checks, carefully, at their neck, for longer than the question needs.'],
  ['K9','It is working.'],
  ['hitmeuppp',MV('ur blushing.','ur ears are red','Your ears have gone red.','Your ears have gone red, V. I can see them from here. Shut the door, you’re letting the steam out.')],
- ['',sugOn()?'He shuts the door. He stays on the inside of it.':'He shuts the door and sits down on the bath mat with his back against the tub. She puts one wet hand on his head and leaves it there while he tells her what each of the eleven bottles is for.']],()=>{apply({aff:4});done()})});
+ ['',sugOn()?'He shuts the door. He stays on the inside of it.':'He shuts the door and sits down on the bath mat with his back against the tub. They put one wet hand on his head and leave it there while he tells them what each of the eleven bottles is for.']],()=>{apply({aff:4});done()})});
 
 l64('f64_roof',['roof'],.4,()=>fl64()&&c64Any(),done=>{const m=m64();say([
  ['',m?'The roof at night. You have your feet on V’s knees and you’re reading him calculus pick-up lines off a website.':'The roof at night. Misaki has their feet on V’s knees and is reading him calculus pick-up lines off a website.'],
  ['hitmeuppp',MV('r u a function. bc i wanna find ur max','are you a function? because i want to find your maximum','Are you a function? Because I’d like to find your maximum.','Are you a differentiable function? Because I’d like to find your maximum. Set you to zero, do the second-derivative test, all of it.')],
  ['K9','My second derivative is negative everywhere. You would find it.'],
- ['',m?'It takes you a second to work out what he said.':'It takes her a second to work out what he said.'],
+ ['',m?'It takes you a second to work out what he said.':'It takes them a second to work out what he said.'],
  ['hitmeuppp',MV('...did u just','did u just flirt in calculus','Did you just flirt back in calculus?','Did you just flirt back in calculus? V. V, that was so good. Say something else concave.')],
  ['K9','No. I have used it.'],
- ['','She does not let it go for the rest of the night. He does not want her to.']],()=>{apply({aff:4});done()})});
+ ['','They do not let it go for the rest of the night. He does not want them to.']],()=>{apply({aff:4});done()})});
 
 l64('f64_kitchen',['atrium'],.3,()=>fl64()&&S.day>=4,done=>{const m=m64();say([
  ['',m?'V is cooking. You’re sitting on the counter next to the stove, which he has asked you not to do eleven times.':'V is cooking. Misaki is sitting on the counter next to the stove, which he has asked them not to do eleven times.'],
  ['hitmeuppp',MV('let me taste.','let me taste it','Let me taste it.','Let me taste it. Come on. Hold the spoon out, I won’t bite. I might bite.')],
- ['',m?'He holds the spoon out. You take it slowly and look at him the whole time, on purpose.':'He holds the spoon out. She takes it slowly and looks at him the whole time, on purpose.'],
+ ['',m?'He holds the spoon out. You take it slowly and look at him the whole time, on purpose.':'He holds the spoon out. They take it slowly and look at him the whole time, on purpose.'],
  ['K9','Is it seasoned?'],
  ['hitmeuppp',MV('needs more.','needs more of something. not salt','It needs something that isn’t salt.','It needs something, and it isn’t salt. Taste it off me and tell me what.')],
  [RN,'(from the couch, not looking up) I can hear this. All of it. Some of us are tryin’ t’watch a guy get stabbed on TV.']],()=>{apply({aff:3});fr('r',1);done()})});
@@ -383,7 +383,7 @@ TDTOP_V.push({id:'c64_t_teach',label:()=>'“want me to teach you integrals?”'
  ['hitmeuppp',MV('why','why on purpose','Why on purpose?','Why would you forget it on purpose? That’s like throwing a rifle in the river because you’re not using it this week.')],
  ['K9','To make room. I keep the hounds’ weights, everyone’s dosages, and the names.'],
  f?['hitmeuppp',MV('i’ll teach u anyway','i’ll teach u anyway. on the couch. lights off','I’ll teach you anyway. On the couch, with the lights off.','I’ll teach you anyway. On the couch, lights off, one theorem at a time. You can forget it again after. I’ll make it worth the room.')]:['hitmeuppp',MV('i’ll teach u anyway','i’ll teach u anyway. ur gonna love it','I’ll teach you anyway.','I’ll teach you anyway. One a week. You’re going to love it and hate that you love it.')],
- ['','He says yes. The first lesson is on a napkin. He gets the first one right, and she is more pleased about it than about anything she has done all week.']],b)}});
+ ['','He says yes. The first lesson is on a napkin. He gets the first one right, and they are more pleased about it than about anything they have done all week.']],b)}});
 TDTOP_V.push({id:'g64_t_angel',label:()=>'“are we doing something about angel and the nun”',show:()=>!S.dark&&!isLone()&&g64N()>=4&&g64N()<8&&!(S.talks&&S.talks.g64_t_angel),run:b=>{S.talks=S.talks||{};warm('v','g64_t_angel',2);S.talks.g64_t_angel=1;say([
  ['hitmeuppp',MV('should we do smth abt angel','are we doing something about angel and the nun','Are we going to do something about Angel and the nun?','Are we going to do something about Angel and the nun? She asked me to blow on her phone at three in the morning, V. I did it. I’d do it again. That’s how I know it’s bad.')],
  ['K9','I have started a folder.'],
@@ -392,12 +392,12 @@ TDTOP_V.push({id:'g64_t_angel',label:()=>'“are we doing something about angel 
 
 /* the side activity: integrals on the couch */
 const C64Q=[
- m=>m?[['','You lie on V’s couch with your head on the arm and the notebook held over your face, and do integrals until the sun moves across the floor. The pale hound sleeps on your feet. Your shoulders come down an inch every page.']]:[['','Misaki lies on the couch with the notebook over her face doing integrals. V reads in the chair. Nobody talks. Every so often she says “oh, nice,” to nobody, and turns the page.']],
+ m=>m?[['','You lie on V’s couch with your head on the arm and the notebook held over your face, and do integrals until the sun moves across the floor. The pale hound sleeps on your feet. Your shoulders come down an inch every page.']]:[['','Misaki lies on the couch with the notebook over their face doing integrals. V reads in the chair. Nobody talks. Every so often they say “oh, nice,” to nobody, and turns the page.']],
  m=>m?[['','You do six integrals by substitution. The last one comes out to exactly pi over four, and you say “there you are” out loud to it like a dog that came home.']]:[['','The last integral comes out to exactly pi over four. Misaki says “there you are” to it out loud, the way he talks to the old hound when she comes in out of the rain.']],
  m=>m?[['','Ronin comes in, looks at the page, says “nope,” and lies down on the floor next to the couch to be near it anyway. He falls asleep. You finish the chapter over his snoring.']]:[['','Ronin comes in, looks at Misaki’s page, says “nope,” and lies down on the floor beside the couch to be near it anyway. He is asleep in five minutes.']],
- m=>m?[['','Angel sits on the end of the couch and paints your toenails while you work. She asks what the squiggly S is. You tell her it means “add up all the tiny bits.” She says that’s what she does with her followers.']]:[['','Angel paints Misaki’s toenails at the end of the couch while she works. She asks what the long S is. Misaki says it means adding up all the tiny bits. Angel says that is what she does with her followers.']]];
+ m=>m?[['','Angel sits on the end of the couch and paints your toenails while you work. She asks what the squiggly S is. You tell her it means “add up all the tiny bits.” She says that’s what she does with her followers.']]:[['','Angel paints Misaki’s toenails at the end of the couch while they work. She asks what the long S is. Misaki says it means adding up all the tiny bits. Angel says that is what she does with her followers.']]];
 const _shC64=sideHub;sideHub=function(late){const o=_shC64(late);try{if(!K64()||!c64Any())return o;const d=S.done.c64Couch;
- return o.concat([{t:m64()?'Integrals on the couch':'Sit with Misaki while she does integrals',sub:d?'done today':'costs time · the notebook, the couch',dis:!!late||!!d,fn:()=>{spend();S.done.c64Couch=1;const n=S.f.c64N||0;S.f.c64N=n+1;save();go(cutBg('#0a0a10'));
+ return o.concat([{t:m64()?'Integrals on the couch':'Sit with Misaki while they do integrals',sub:d?'done today':'costs time · the notebook, the couch',dis:!!late||!!d,fn:()=>{spend();S.done.c64Couch=1;const n=S.f.c64N||0;S.f.c64N=n+1;save();go(cutBg('#0a0a10'));
   say(C64Q[n%C64Q.length](m64()),()=>{if(m64()){calm(5);apply({edge:-2})}else apply({aff:2});hub()})}}])}catch(e){return o}};
 
 /* ---------- threads ---------- */
@@ -406,7 +406,7 @@ txDef('tx_g64_3am',{with:'a',pov:'m',prio:2,when:()=>K64()&&g64N()>=2&&g64N()<8,
   opts:()=>[{t:'“that’s a lot”',fx:()=>fr('a',1),reply:()=>['ok but what if it was in candles'],next:'two'},
    {t:'“depends. is it for the nun”',fx:()=>fr('a',2),reply:()=>['it’s for the nun'],next:'two'}]},
  two:{in:()=>['i’m going to do it. i just wanted someone to know. like a witness'],
-  opts:()=>[{t:'“witnessed. go get her”',fx:()=>fr('a',2),reply:()=>['lantern man. lantern man again. i hate him. i love you. goodnight']},
+  opts:()=>[{t:'“witnessed. go get them”',fx:()=>fr('a',2),reply:()=>['lantern man. lantern man again. i hate him. i love you. goodnight']},
    {t:'“put the phone in the freezer”',fx:()=>fr('a',1),reply:()=>['you can still pray from the freezer misaki. i checked']}]}}});
 txDef('tx_g64_v',{with:'a',pov:'v',prio:2,when:()=>K64()&&g64N()>=3&&g64N()<8,nodes:{
  start:{in:()=>['hypothetically. if someone needed a small loan','not for anything bad. for a saint'],expire:3,

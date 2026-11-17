@@ -38,5 +38,5 @@ TDTOP_M.push({id:'lore_ribs',label:()=>'“You do not wear a shirt in the house.
  ['K9','I am not making a face.'],['','He is making a face. He goes and makes them breakfast as well, a second one, and does not explain.']],b)}});
 const _chatSH=chatLog;chatLog=function(){const L=_chatSH();if(!S||S.phase==='taken'||isLone())return L;const k=(S.day*3+S.slot)%5;
  if(k===0)L.push(['ro','hitmeuppp you’re shirtless in the background of Vee’s meeting call again'],['mi','and??'],['ro','nothin. the donor was starin at the ceiling the whole time. respect']);
- if(k===2)L.push(['an','new rule for the group photo: misaki can wear whatever she wants and that includes nothing on top. the lighting is better that way'],['k9','Seconded. Quietly.']);
+ if(k===2)L.push(['an','new rule for the group photo: misaki can wear whatever they want and that includes nothing on top. the lighting is better that way'],['k9','Seconded. Quietly.']);
  return L};

@@ -45,9 +45,9 @@ kdEv('kd_shards',()=>kdD()>=1&&S.kd&&S.kd.sev0>=4&&!S.f.kdShards,done=>{S.f.kdSh
  ['','The bulb over the kitchen island is the bulb, some mornings, for the length of a breath. The boiler at one in the morning is the radio. V, coming down the stairs in the dark, is the tall one, and your hand is already on the knife before your eyes catch up.'],
  ['hitmeuppp',MV('(it’s a piece. it’s just a piece.)','(it’s a piece. it’s glass in the carpet. it’s not the room.)','(It’s just a piece. Glass in the carpet. It isn’t the room.)','(It’s a piece. It’s just a piece of it, still lying around. You step on them sometimes. Everyone steps on them sometimes. I’m going to be stepping on these for years, aren’t I.)')],
  ['','You don’t tell him about the knife. He knows anyway. He has started saying your name on the stairs, before he comes round the corner, every time.']]:[
- ['','Pieces of it stay in her. He can see them land.'],
- ['','Some mornings, for a breath, he is the tall one again: she goes still when he comes down the stairs, and her hand goes to the knife block, and then her eyes catch up and she takes it away and says good morning a little too brightly.'],
- ['K9','(I will say her name on the stairs before I come round the corner. Every time. For as long as it takes. If it is for ever, it is for ever.)']],()=>{calm(-2);apply({aff:3});done()})});
+ ['','Pieces of it stay in them. He can see them land.'],
+ ['','Some mornings, for a breath, he is the tall one again: they go still when he comes down the stairs, and their hand goes to the knife block, and then their eyes catch up and they take it away and say good morning a little too brightly.'],
+ ['K9','(I will say their name on the stairs before I come round the corner. Every time. For as long as it takes. If it is for ever, it is for ever.)']],()=>{calm(-2);apply({aff:3});done()})});
 if(typeof KD_ORDER!=='undefined')KD_ORDER.unshift('kd_shards');
 /* remember how bad the stay was, for scenes after discharge */
 const _mmKD53=kdMedMorning;kdMedMorning=function(done){const m=S.kd&&S.kd.med;if(m)S.kd.sev0=m.sev||0;return _mmKD53(done)};

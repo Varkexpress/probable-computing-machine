@@ -138,7 +138,7 @@ function k67Row(){go(cutBg(S.f.k67Photo==='told'?'#0c0806':'#0e0a0a'));k67Mark('
   ['K9','It was not your murder. You were the one who walked out of the room.'],
   [RN,'Don’t lawyer me, Vee. Not in your own kitchen.'],
   K67MV('...i’m gonna go','i’m gonna take the hounds out. bye.','I’m taking the hounds out. All of them. For a long time.','I’m taking the hounds out. All four. It’s going to be a really long walk. Possibly a hike. Don’t kill each other on the good tiles.'),
-  ['','The back door shuts behind her and four hounds.'],
+  ['','The back door shuts behind them and four hounds.'],
   kept?[RN,'Somebody’s diggin’ up the worst night of my life and mailin’ it to the papers, and you bought the papers. You bought a whole fuckin’ newspaper so I wouldn’t find out.']
    :[RN,'Somebody’s diggin’ up the worst night of my life and mailin’ it to the papers, and you burned it. You burned police property so I wouldn’t find out. That’s the most romantic crime anybody ever done for me and I’m so fuckin’ mad about it.'],
   ['K9','I did not want you in my father’s book.'],

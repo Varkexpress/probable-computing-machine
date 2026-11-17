@@ -45,10 +45,10 @@ PT_EV.push({id:'pt_pulse',when:()=>pt_started()&&S.day>=6,run:done=>{pt_set();pt
   ['hitmeuppp','(server) kind of'],
   ['K9','(server) Where are you checking?'],
   ['','No answer. You are in the car before the hounds have finished turning their heads.'],
-  ['','She is at the trailer table with two fingers pressed to the thumb side of her wrist, very calm, like someone waiting for a kettle. There is a plate of toast in front of her that nobody has touched.'],
+  ['','They are at the trailer table with two fingers pressed to the thumb side of their wrist, very calm, like someone waiting for a kettle. There is a plate of toast in front of them that nobody has touched.'],
   ['K9','May I?'],
-  ['','She holds the arm out to you as if it belongs to someone else. You move her fingers half an inch, to the inside of the wrist, under the tendon.'],
-  ['','She goes still. You watch her count.'],
+  ['','They hold the arm out to you as if it belongs to someone else. You move their fingers half an inch, to the inside of the wrist, under the tendon.'],
+  ['','They go still. You watch them count.'],
   ['hitmeuppp','...seventy-two.'],
   ['hitmeuppp','huh. that’s a good fake.'],
   ['K9','It is not a fake. It is a radial artery. Everybody has two.'],
@@ -70,13 +70,13 @@ PT_EV.push({id:'pt_door',when:()=>pt_after('pulse'),run:done=>{pt_set();pt_mark(
   [RN,'C’mon. We’re goin’ back. You’re pullin’ that door yourself, and I’m gonna watch you do it.']]
  :[
   ['','Ronin calls at seven in the morning, which he never does.'],
-  [RN,'Vee. She tell you about the door?'],
+  [RN,'Vee. They tell you about the door?'],
   ['K9','Which door?'],
   [RN,'Corner-store door. Busted sensor. Whole neighbourhood’s been pullin’ it by hand for a week. There’s a sign.'],
-  [RN,'She stood there wavin’ at it. Then she told me, real calm, like she was readin’ me a weather report, that it was “consistent with the other thing.”'],
+  [RN,'They stood there wavin’ at it. Then they told me, real calm, like they were readin’ me a weather report, that it was “consistent with the other thing.”'],
   ['K9','What other thing?'],
-  [RN,'That’s what I asked. She said she’d tell me when she had three.'],
-  ['','After he hangs up you write it in the notebook you keep for her, under the pulse: <i>the door. She is collecting.</i>']];
+  [RN,'That’s what I asked. They said they’d tell me when they had three.'],
+  ['','After he hangs up you write it in the notebook you keep for them, under the pulse: <i>the door. They are collecting.</i>']];
  pt_say(L,()=>{if(pt_M())fr('r',3);done()},'loss')}});
 
 /* ---------- 3. food ---------- */
@@ -95,34 +95,34 @@ PT_EV.push({id:'pt_food',when:()=>pt_after('door'),run:done=>{pt_set();pt_mark('
   [P,P==='K9'?'It is Thursday.':P===AN?'it’s thursday. still counts.':'It’s Thursday. Still counts.'],
   ['','You do it again. And again. By the bottom of the bowl the words are getting less wrong. “Ginger.” “Too much ginger.” Neither of you mentions that you finished it.']]
  :[
-  ['','On the camera wall, the trailer lot, 7:12. Misaki comes out with a sandwich, unwraps it, and breaks it up on the gravel. There are no crows. She stands there as if there are.'],
-  ['','She goes back inside. The rice stays on the gravel until a cat finds it at noon.'],
+  ['','On the camera wall, the trailer lot, 7:12. Misaki comes out with a sandwich, unwraps it, and breaks it up on the gravel. There are no crows. They stand there as if there are.'],
+  ['','They go back inside. The rice stays on the gravel until a cat finds it at noon.'],
   ['K9','(text) Did you eat?'],
   ['hitmeuppp','(text) the crows did'],
   ['','You look at the empty gravel on camera four for a long moment. Then you make soup, badly, quickly, and drive.'],
   ['K9','You do not have to taste it. You only have to describe it. Three words. Wrong words are allowed.'],
   ['hitmeuppp','salt. hot. ...tuesday.'],
   ['K9','It is Thursday.'],
-  ['','She does it again. By the bottom of the bowl the words are getting less wrong. “Ginger.” “Too much ginger.” “You burned the onions.” You did.']];
+  ['','They do it again. By the bottom of the bowl the words are getting less wrong. “Ginger.” “Too much ginger.” “You burned the onions.” You did.']];
  pt_say(L,()=>{apply({energy:8,aff:2});done()},'loss')}});
 
 /* ---------- 4. the obituary ---------- */
 PT_EV.push({id:'pt_obit',when:()=>pt_after('food'),run:done=>{pt_set();pt_mark('obit');S.f.ptObit=1;
  const A=frT('a')>=1;const finder=A?AN:'K9';
  const L=[
-  ['',pt_M()?(A?'Angel borrows your phone to film something and stops scrolling halfway through your notes app.':'You leave your phone unlocked on V’s kitchen counter. When you come back he is not reading it. He is very carefully not reading it, which means he has.'):(A?'Angel calls you, which she never does. She sends a screenshot first.':'Misaki leaves her phone unlocked on your counter. A note is open. You are halfway through it before you understand what it is.')],
-  ['','A note titled “bio (final)”. It is very good. It is the best thing she has ever written. It is in the past tense.'],
-  ['','<i>“She was fast at sixteen and quiet at twenty. She was good at doors. She was survived by a trailer, a coin jar, a sticker sheet with eleven stickers left, and a man who kept a list of the ways she said no.”</i>'],
+  ['',pt_M()?(A?'Angel borrows your phone to film something and stops scrolling halfway through your notes app.':'You leave your phone unlocked on V’s kitchen counter. When you come back he is not reading it. He is very carefully not reading it, which means he has.'):(A?'Angel calls you, which she never does. She sends a screenshot first.':'Misaki leaves their phone unlocked on your counter. A note is open. You are halfway through it before you understand what it is.')],
+  ['','A note titled “bio (final)”. It is very good. It is the best thing they have ever written. It is in the past tense.'],
+  ['','<i>“They were fast at sixteen and quiet at twenty. They were good at doors. They were survived by a trailer, a coin jar, a sticker sheet with eleven stickers left, and a man who kept a list of the ways they said no.”</i>'],
   [finder,A?'babe. “was survived by.” that’s not how that works. u can’t be survived in the past tense.':'You cannot be survived in the past tense. It is grammatically impossible.'],
   [pt_M()?'M':'hitmeuppp','watch me.'],
-  ['',A?'Angel does not argue. She sits down, opens the note, and starts changing it, one verb at a time, out loud.':'He does not argue. He sits down beside her, opens the note, and changes one verb, slowly, where she can see.'],
-  [finder,A?'“she IS fast.” ...ok fine “she is FASTER than u.” “she IS good at doors.” “she HAS a coin jar.”':'“She is good at doors.”'],
-  ['',pt_M()?'You watch each verb change like a card trick you know the secret of. The trick still works on everyone else. It does not work on you. You let them do it anyway.':'She watches each verb change the way people watch a card trick they already know the secret of. She does not stop you.'],
+  ['',A?'Angel does not argue. She sits down, opens the note, and starts changing it, one verb at a time, out loud.':'He does not argue. He sits down beside them, opens the note, and changes one verb, slowly, where they can see.'],
+  [finder,A?'“they ARE fast.” ...ok fine “they are FASTER than u.” “they ARE good at doors.” “they HAVE a coin jar.”':'“They are good at doors.”'],
+  ['',pt_M()?'You watch each verb change like a card trick you know the secret of. The trick still works on everyone else. It does not work on you. You let them do it anyway.':'They watch each verb change the way people watch a card trick they already know the secret of. They do not stop you.'],
   [pt_M()?'M':'hitmeuppp','you missed one.'],
   [finder,A?'where':'Where?'],
   [pt_M()?'M':'hitmeuppp','“survived by.” you left it.'],
   [finder,A?'i left it on purpose. u ARE survived by all that stuff. every day. it’s called living with it. it’s the most boring miracle in the world.':'I left it on purpose. You are survived by all of it, every day. That is what living in a place means. It is very dull. It is extremely difficult to do.']];
- pt_say(L,()=>{note('pt_obit','She wrote her own obituary in the notes app, titled “bio (final)”. Someone changed the verbs. She let them.');if(A)fr('a',4);else apply({aff:3});done()},'loss')}});
+ pt_say(L,()=>{note('pt_obit','They wrote their own obituary in the notes app, titled “bio (final)”. Someone changed the verbs. They let them.');if(A)fr('a',4);else apply({aff:3});done()},'loss')}});
 
 /* ---------- 5. the count ---------- */
 PT_EV.push({id:'pt_count',when:()=>pt_after('obit'),run:done=>{pt_set();pt_mark('count');
@@ -133,7 +133,7 @@ PT_EV.push({id:'pt_count',when:()=>pt_after('obit'),run:done=>{pt_set();pt_mark(
   [AN,'(server) timer!! we’re ALL in it'],
   ['M','(server) i’m not'],
   [AN,'(server) u’re literally in the middle. the armchair. star clip. u’re holding the popcorn'],
-  ['','You look again. There is a girl in the armchair with a star clip, holding the popcorn, looking at the camera. You counted her. You counted her as furniture.'],
+  ['','You look again. There is a kid in the armchair with a star clip, holding the popcorn, looking at the camera. You counted them. You counted them as furniture.'],
   ['','There were four. There were always four.'],
   ['M','(server) oh. yeah. there i am'],
   ['','You set the photo as your lock screen, not because you believe it, but so that you will have to look at the evidence every time you check the time.']]
@@ -142,11 +142,11 @@ PT_EV.push({id:'pt_count',when:()=>pt_after('obit'),run:done=>{pt_set();pt_mark(
   ['hitmeuppp','(server) good pic. who took it'],
   [AN,'(server) timer!! we’re ALL in it'],
   ['hitmeuppp','(server) i’m not'],
-  ['','You open the photo. She is in the middle of it, in the armchair, holding the popcorn, looking straight down the lens.'],
+  ['','You open the photo. They are in the middle of it, in the armchair, holding the popcorn, looking straight down the lens.'],
   ['K9','(server) You are in the armchair. You are holding the popcorn. You took most of it.'],
   ['','The typing indicator comes up and goes away three times.'],
   ['hitmeuppp','(server) oh. yeah. there i am'],
-  ['','Later, at the gate, she shows you her lock screen. It is the photo. She does not say why. You do not need her to.']];
+  ['','Later, at the gate, they show you their lock screen. It is the photo. They do not say why. You do not need them to.']];
  pt_say(L,()=>{fr('a',2);done()},'loss')}});
 
 /* ---------- 6. the windows ---------- */
@@ -172,7 +172,7 @@ PT_EV.push({id:'pt_air',when:()=>pt_after('count'),run:done=>{pt_set();pt_mark('
   ['hitmeuppp','(through the door) do i smell'],
   ['K9','Of what?'],
   ['hitmeuppp','like it’s been a few days'],
-  ['','You sit down on the floor outside her door, the way you did when she showered with it open.'],
+  ['','You sit down on the floor outside their door, the way you did when they showered with it open.'],
   ['K9','You smell of lavender, the blue shampoo, and Angel’s incense, which she will want back. The lilies on the landing are dying. I am taking them out now. Nothing in that room is ending except the flowers.'],
   ['','A long silence. Then, one by one, you hear the windows close.']];
  pt_say(L,()=>{apply({aff:3});if(S.dark)calm(4);done()},'loss')}});
@@ -190,34 +190,34 @@ PT_EV.push({id:'pt_proofs',when:()=>pt_after('air'),run:done=>{pt_set();pt_mark(
   ['hitmeuppp','i identified the ginger because you always put too much in. i was remembering. that’s not tasting.'],
   ['K9','Four. The hounds let you walk past them. They do not let anyone walk past them.'],
   ['hitmeuppp','they let the butcher’s van past too. they know who’s carrying meat.'],
-  ['',pt_M()?'It goes on. Twenty-three entries. You have an answer for every one, and every answer is clean, and quick, and better than the proof.':'It goes on. Twenty-three entries. She has an answer for every one, and every answer is clean, and quick, and better than the proof.'],
-  ['',pt_M()?'You can see him realise it somewhere around entry fifteen: every proof he hands you, you take apart, and you get faster at it. He is training you.':'Somewhere around entry fifteen you understand it: every proof you hand her, she takes apart, and she is getting faster at it. You are training her.'],
+  ['',pt_M()?'It goes on. Twenty-three entries. You have an answer for every one, and every answer is clean, and quick, and better than the proof.':'It goes on. Twenty-three entries. They have an answer for every one, and every answer is clean, and quick, and better than the proof.'],
+  ['',pt_M()?'You can see him realise it somewhere around entry fifteen: every proof he hands you, you take apart, and you get faster at it. He is training you.':'Somewhere around entry fifteen you understand it: every proof you hand them, they take apart, and they are getting faster at it. You are training them.'],
   ['','He closes the notebook.'],
   ['K9','I am going to stop asking you to believe that you are alive.'],
   ['hitmeuppp','...ok?'],
   ['K9','I will ask you something smaller. On the days you are sure, text the server one word. Anyone who sees it gives you a job. Carry the dog food. Hold the ladder. Stir the pot. You may do it dead. It still has to be done.'],
   ['hitmeuppp','what word'],
   ['K9','You choose. It will be a stupid one. That is how I will know it is yours.'],
-  ['',pt_M()?'You think about it for a long minute, turning the notebook over like it might have a back door.':'She thinks about it for a long minute, turning the notebook over like it might have a back door.'],
+  ['',pt_M()?'You think about it for a long minute, turning the notebook over like it might have a back door.':'They think about it for a long minute, turning the notebook over like it might have a back door.'],
   ['hitmeuppp','“boo.”']];
- pt_say(L,()=>{note('pt_proofs','V kept twenty-three proofs that she is alive. She took every one apart. So now: on bad days she texts “boo”, and somebody gives her a chore.');apply({aff:4});if(typeof relApply==='function')relApply({trust:6});done()},'loss')}});
+ pt_say(L,()=>{note('pt_proofs','V kept twenty-three proofs that they are alive. They took every one apart. So now: on bad days they text “boo”, and somebody gives them a chore.');apply({aff:4});if(typeof relApply==='function')relApply({trust:6});done()},'loss')}});
 
 /* ---------- 8. the cell (after the kidnapping) ---------- */
 PT_EV.push({id:'pt_cell',when:()=>pt_after('proofs',2)&&['after','act2','act3','epilogue'].includes(S.phase),run:done=>{pt_set();pt_mark('cell');
  const L=[
-  ['',pt_M()?'Three in the morning. V finds you on the kitchen floor with your back to the fridge, because it hums, and the humming is proof of something.':'Three in the morning. You find her on the kitchen floor with her back against the fridge, because it hums.'],
+  ['',pt_M()?'Three in the morning. V finds you on the kitchen floor with your back to the fridge, because it hums, and the humming is proof of something.':'Three in the morning. You find them on the kitchen floor with their back against the fridge, because it hums.'],
   ['hitmeuppp','can i tell you the worst part. of the room. the cell.'],
   ['K9','Yes.'],
   ['hitmeuppp','i was alive the whole time in there. every second. i could feel my heart. i could taste the water. the light hurt. my wrists hurt. everything was so loud and so real and so mine.'],
   ['hitmeuppp','and it was unbearable.'],
   ['hitmeuppp','out here it’s easier to be dead. dead people don’t get taken. you can’t take something that isn’t there. i think i decided that in the room, on day two, and i forgot i decided it.'],
-  ['',pt_M()?'He does not tell you that you are wrong. He sits down on the floor next to you, which takes him a while, because of the knee.':'You do not tell her she is wrong. You sit down on the floor next to her, which takes a while, because of the knee.'],
+  ['',pt_M()?'He does not tell you that you are wrong. He sits down on the floor next to you, which takes him a while, because of the knee.':'You do not tell them they are wrong. You sit down on the floor next to them, which takes a while, because of the knee.'],
   ['K9','Then I will not ask you to stop. Not yet. I will only point out that the dead do not decide things, and you just told me you did.'],
   ['hitmeuppp','...that’s a cheap shot.'],
   ['K9','It is a very cheap shot. I have been saving it.'],
-  ['','The fridge hums. Upstairs a dog changes position and sighs. At some point she leans on your shoulder, and at some point after that she says, without making it a joke:'],
+  ['','The fridge hums. Upstairs a dog changes position and sighs. At some point they lean on your shoulder, and at some point after that they say, without making it a joke:'],
   ['hitmeuppp','present tense. for a minute.']];
- pt_say(L,()=>{apply({aff:4});if(S.dark)calm(8);note('pt_cell','“Out here it’s easier to be dead. You can’t take something that isn’t there.” She decided it on day two in the cell.');done()},'grief')}});
+ pt_say(L,()=>{apply({aff:4});if(S.dark)calm(8);note('pt_cell','“Out here it’s easier to be dead. You can’t take something that isn’t there.” They decided it on day two in the cell.');done()},'grief')}});
 
 /* ---------- the protocol: boo ---------- */
 const PT_CHORES=[
@@ -238,8 +238,8 @@ function pt_ghostDay(done){pt_set();const avail=PT_CHORES.filter(c=>c[0]==='K9'|
  :[
   ['hitmeuppp','(server) boo'],
   ch[0]==='K9'?['K9','(server) '+ch[1]]:[ch[0],'(server) '+ch[1]],
-  ['',ch[2].replace(/\bYou\b/g,'She').replace(/\byou\b/g,'she').replace(/\bYour\b/g,'Her').replace(/\byour\b/g,'her')],
-  ['','It does not fix anything. But the job gets done, and that evening the server gets one more message from her, unprompted, which has not happened on a “boo” day before: “ok. done.”']];
+  ['',ch[2].replace(/\bneither of you\b/g,'neither of them').replace(/\byourself\b/g,'themself').replace(/\byours\b/g,'theirs').replace(/\bYou\b/g,'They').replace(/\byou\b/g,'they').replace(/\bYour\b/g,'Their').replace(/\byour\b/g,'their')],
+  ['','It does not fix anything. But the job gets done, and that evening the server gets one more message from them, unprompted, which has not happened on a “boo” day before: “ok. done.”']];
  pt_say(L,()=>{apply({energy:-4,aff:1});if(S.dark)calm(5);done()})}
 
 /* ---------- talk topics ---------- */
@@ -251,7 +251,7 @@ function pt_ghostDay(done){pt_set();const avail=PT_CHORES.filter(c=>c[0]==='K9'|
   ['K9','The grey hound is lying across your feet. She does not lie near anyone. Last month a man with a gun stood where you are standing, and she did not lie down then.']];
   say([A[(S.talks.pt_here-1)%A.length],pt_today()?['hitmeuppp','...ok. noted. not convinced. noted.']:['hitmeuppp','ok. good. just checking the instruments.']],b)}});
  mIns({id:'pt_tense',label:()=>'“Which tense is it today?”',show:()=>!!S.f.pt_proofs&&S.phase!=='taken',run:b=>{warm('m','pt_tense',3);
-  say(pt_today()?[['hitmeuppp','past. very past. ancient history.'],['K9','Then I have a job for you. The kennel gate sticks. Hold it while I oil it.'],['','She holds it. It sticks twice. The second time she swears at it in the present tense, and catches herself, and does not take it back.']]
+  say(pt_today()?[['hitmeuppp','past. very past. ancient history.'],['K9','Then I have a job for you. The kennel gate sticks. Hold it while I oil it.'],['','They hold it. It sticks twice. The second time they swear at it in the present tense, and catch themself, and do not take it back.']]
    :[['hitmeuppp','present. ish. present-adjacent.'],['K9','Present-adjacent is acceptable. I am mostly present-adjacent myself before coffee.']],b)}});})();
 
 /* ---------- a few walking-around thoughts on past-tense days (her POV) ---------- */

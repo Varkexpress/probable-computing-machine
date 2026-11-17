@@ -45,7 +45,7 @@ const KD62_TH=[
    ['hitmeuppp',MV('(write it down.)','(write it down. all of it.)','(Write it down. All of him.)','(Write it down. All of him. I don’t know who I’m writing it down for.)')]],
   q:'(The file.)',o:[
    {t:'Add to it.',fn:()=>{S.f.k62Rule='add';calm(-1);save();say([['','You add the soup. Then the way he knelt. Then the fact that you added the soup. It is light at the top of the light-well before you stop, and you didn’t stop, you just ran out of him.']])}},
-   {t:'Watch yourself from the corner.',fn:()=>{S.f.k62Rule='watch';calm(-2);save();say([['','You stay up by the light and watch the girl on the cot for the rest of the night. She doesn’t sleep either. Once she laughs at something, and you can’t think what.']])}},
+   {t:'Watch yourself from the corner.',fn:()=>{S.f.k62Rule='watch';calm(-2);save();say([['','You stay up by the light and watch the kid on the cot for the rest of the night. They don’t sleep either. Once they laugh at something, and you can’t think what.']])}},
    k62No('Close the file.','it opens again on its own')]})];
 ROOMS.medbay.spots.push({at:[214,168],mark:[214,158],label:'Listen for the tall one',show:()=>k62M()&&kdClar()<2&&(S.f.k62Th||0)<KD62_TH.length&&S.f.k62LsAt!==S.day+'/'+(S.slot||0),act:()=>{const i=S.f.k62Th||0;S.f.k62LsAt=S.day+'/'+(S.slot||0);S.f.k62Th=i+1;save();
  const T=KD62_TH[i]();say(T.L,()=>ask('hitmeuppp',T.q,T.o))}});
@@ -54,7 +54,7 @@ ROOMS.medbay.spots.push({at:[214,168],mark:[214,158],label:'Listen for the tall 
 const KD62_MP=[
  cb=>say([['','The rule is that if you sleep, they come while you are under. So you don’t.'],
    ['','You do sums. Wind at eight knots across six hundred metres. The rent divided by thirty-one. You pinch the inside of your wrist above the dressing until there is a mark like a fingernail moon, and then another next to it.'],
-   ['','Around three the room goes thin. You are up in the corner by the light, looking down at somebody on a cot with her eyes open, pinching her own wrist, and you think, quite calmly, that she looks tired and should probably sleep, and that you won’t let her.'],
+   ['','Around three the room goes thin. You are up in the corner by the light, looking down at somebody on a cot with their eyes open, pinching their own wrist, and you think, quite calmly, that they look tired and should probably sleep, and that you won’t let them.'],
    ['hitmeuppp',MV('(awake. still awake.)','(still awake. good. good girl.)','(Still awake. Good.)','(Still awake. Good. They can’t do anything to somebody who’s watching. I’m watching. Somebody’s watching.)')]],()=>{apply({energy:-8});calm(-2);cb()}),
  cb=>say([['','On the tray tonight, under the spoon, there is a paper napkin folded in four. Inside it somebody has drawn a hound in fountain pen, badly. It is the grey one. You can tell from the seam.'],
    ['','Somebody has drawn you hounds before, on napkins and once on a parking ticket. Whoever it was could never draw either.']],()=>ask('hitmeuppp','(The hound.)',[
@@ -81,17 +81,17 @@ const k62Flash=cb=>say([['',S.f.kdInterrupted?'You know where you are. He held y
  {t:'Let it count. Eat.',fn:()=>{S.f.k62FlC='eat';calm(-2);save();say([['','You eat with your eyes on his hands and the count going. You know who he is the whole time. It doesn’t make any difference to your hands.']],cb)}}]));
 
 /* ---------- V: once a day, by band, from a distance ---------- */
-const KD62_VR=cb=>say([['','He sees it through the gap in the door, before he knocks. She is at the door on her side, touching the handle three times, then crouching to run her fingers along the bottom edge, then the handle again. Her lips are moving.'],
- ['','He knocks twice. By the time the door is open she is on the bed with her legs crossed, and she tells him the soup smells amazing.'],
- ['K9','(She stops when I am there. Whatever she is doing, she hides it from me first.)'],
- ['','He goes back to the corridor and sits down where the gap shows him nothing, so that she can start again.']],()=>{calm(-1);cb()});
-const KD62_VW=cb=>say([['','The light under her door stays on all night. It has for three nights.'],
- ['','At four he hears her through the wood, counting, very steadily, and then a small sound he takes a long time to place: a fingernail, pinching. Then the counting again from one.'],
- ['','He does not go in. Going in is the thing she is staying awake for. He writes the hours on the chart, three nights of them, in a column nobody asked for.']],()=>{calm(-2);cb()});
-const KD62_VC=cb=>say([['','She knows him today. She says his name at breakfast and rates the soup ten out of ten.'],
- ['','She sits where she can see the door. Every time it moves her eyes go to it and come back, and her face does not change. Her right hand has closed on the spoon and stayed closed, and under the tray she is working the fingers open with her thumb, one at a time, while she tells him a joke about a priest.'],
- ['K9','(She is most cheerful when I am in the room.)'],
- ['','He laughs at the end of the joke, in the right place, and goes out so that she can stop.']],()=>{calm(-1);cb()});
+const KD62_VR=cb=>say([['','He sees it through the gap in the door, before he knocks. They are at the door on their side, touching the handle three times, then crouching to run their fingers along the bottom edge, then the handle again. Their lips are moving.'],
+ ['','He knocks twice. By the time the door is open they are on the bed with their legs crossed, and they tell him the soup smells amazing.'],
+ ['K9','(They stop when I am there. Whatever they are doing, they hide it from me first.)'],
+ ['','He goes back to the corridor and sits down where the gap shows him nothing, so that they can start again.']],()=>{calm(-1);cb()});
+const KD62_VW=cb=>say([['','The light under their door stays on all night. It has for three nights.'],
+ ['','At four he hears them through the wood, counting, very steadily, and then a small sound he takes a long time to place: a fingernail, pinching. Then the counting again from one.'],
+ ['','He does not go in. Going in is the thing they are staying awake for. He writes the hours on the chart, three nights of them, in a column nobody asked for.']],()=>{calm(-2);cb()});
+const KD62_VC=cb=>say([['','They know him today. They say his name at breakfast and rates the soup ten out of ten.'],
+ ['','They sit where they can see the door. Every time it moves their eyes go to it and come back, and their face does not change. Their right hand has closed on the spoon and stayed closed, and under the tray they are working the fingers open with their thumb, one at a time, while they tell him a joke about a priest.'],
+ ['K9','(They are most cheerful when I am in the room.)'],
+ ['','He laughs at the end of the joke, in the right place, and goes out so that they can stop.']],()=>{calm(-1);cb()});
 
 function k62Scene(){if(!S||!S.f||dlg||!k62Med())return null;const m=S.kd.med;if(S.f.k62Day===S.day)return null;
  const run=(fn,bg,mark)=>cb=>{S.f.k62Day=S.day;mark();save();go(cutBg(bg));fn(cb)};
@@ -115,8 +115,8 @@ k62Ev('kd62_file',()=>kdD()>=3,done=>{const me=S.pov!=='v',n=S.f.k62Th||0;
   {t:'Write it down so it stops.',fn:()=>{S.f.k62File='wrote';calm(-1);save();say([['','You write it in the margin of his newspaper, small, in biro, with times. It doesn’t stop. In the morning you tear the margin off in strips and run them down the sink.']],done)}},
   {t:'Go back to bed and lie there.',fn:()=>{S.f.k62File='bed';calm(-2);save();say([['','You lie beside him with your eyes open and your back to the wall, and the file goes on writing itself until the hounds want feeding.']],done)}}]));
  say([['','Four in the morning. He comes down for water and stops on the stair, because the kitchen light is on.'],
-  ['','She is at the island, very still, writing in the margin of his newspaper in small biro capitals. Times. A column of times. He reads one upside down from the stair: “4:10 tap. bathroom door open. why.”'],
-  ['','He goes back up without being seen. In the morning the margin has been torn off the paper, neatly, and she is cheerful at breakfast, and asks if he slept.']],()=>{S.f.k62File='v';apply({heart:-1});save();done()})});
+  ['','They are at the island, very still, writing in the margin of his newspaper in small biro capitals. Times. A column of times. He reads one upside down from the stair: “4:10 tap. bathroom door open. why.”'],
+  ['','He goes back up without being seen. In the morning the margin has been torn off the paper, neatly, and they are cheerful at breakfast, and ask if he slept.']],()=>{S.f.k62File='v';apply({heart:-1});save();done()})});
 
 k62Ev('kd62_clock',()=>kdD()>=6&&!!S.f.k58_creak,done=>{const me=S.pov!=='v',w=k62Sev0()>=8;
  if(me)return say([['','Since the night on the back stair with the pistol, you count. Doors, every time you go into a room. His steps, wherever he is in the house.'],
@@ -125,12 +125,12 @@ k62Ev('kd62_clock',()=>kdD()>=6&&!!S.f.k58_creak,done=>{const me=S.pov!=='v',w=k
   ['','Ronin asks how you are and you say “fine, bored, want a job,” and it is the truest-sounding thing you have ever said.']],()=>ask('hitmeuppp','(The doors.)',[
   {t:'Count them.',fn:()=>{S.f.k62Clock='count';calm(-1);save();say([['','Four in the hall. Two in the kitchen. You count them again from the hall. You get the same number, and it doesn’t help, and you count them again.']],done)}},
   {t:'Walk in without counting.',fn:()=>{S.f.k62Clock='tried';calm(-3);save();say([['','You walk into the kitchen without counting. You get as far as the island. Then you go back out and count them from the hall, and your hands are wet, and you dry them on your jeans before anyone can see.']],done)}}]));
- say([['','Since the night on the back stair, she counts. He can see her do it: a small turn of the head at every doorway, the eyes going round the room once before she comes in.'],
-  ['','She knows where he is at every minute. She is at the island before he comes down at seven, in the chair that faces the study door at noon, and awake at three before he reaches the stair.'],
-  w?['','Some afternoons she is polite to him again for an hour, in the voice from the infirmary, and he answers in the tall one’s voice, because it is the one she can hear.']:null],()=>ask('K9','(She has his day.)',[
+ say([['','Since the night on the back stair, they count. He can see them do it: a small turn of the head at every doorway, the eyes going round the room once before they come in.'],
+  ['','They know where he is at every minute. They are at the island before he comes down at seven, in the chair that faces the study door at noon, and awake at three before he reaches the stair.'],
+  w?['','Some afternoons they are polite to him again for an hour, in the voice from the infirmary, and he answers in the tall one’s voice, because it is the one they can hear.']:null],()=>ask('K9','(They have his day.)',[
   {t:'Write his day on the fridge. Say nothing about it.',fn:()=>{S.f.k62Clock='told';save();say([['','He writes it out in fountain pen and puts it on the fridge under the cactus magnet: the hounds at five, coffee at seven, the study until noon, and at the bottom, “3:00, back stair, water.”'],
-    ['','She never mentions it. He sees her check it, though, every hour or so, on her way past, as she checks her watch before a shot.']],done)}},
-  {t:'Keep to it to the minute.',fn:()=>{S.f.k62Clock='kept';save();say([['','He comes down at seven exactly, and out of the study at noon, and up the stair at three, so that whatever she has worked out will always be right.']],done)}}]))});
+    ['','They never mention it. He sees their check it, though, every hour or so, on their way past, as they check their watch before a shot.']],done)}},
+  {t:'Keep to it to the minute.',fn:()=>{S.f.k62Clock='kept';save();say([['','He comes down at seven exactly, and out of the study at noon, and up the stair at three, so that whatever they have worked out will always be right.']],done)}}]))});
 
 k62Ev('kd62_truck',()=>kdD()>=11&&(S.pov!=='v'?!!S.f.kd_hard_work:!!S.f.kd_v_sees),done=>{const me=S.pov!=='v';
  if(me)return say([['','The job is clean. One shot at eleven fifty-two, no witnesses, casings in your pocket, home by two. You drive back under the limit with the radio off.'],
@@ -139,17 +139,17 @@ k62Ev('kd62_truck',()=>kdD()>=11&&(S.pov!=='v'?!!S.f.kd_hard_work:!!S.f.kd_v_see
   k62No('Go in and tell him.','not him'),
   {t:'Wait it out.',fn:()=>{S.f.k62Truck='wait';calm(-3);save();say([['','You count the hounds. Then the doors of the van. It takes forty minutes. When your hands come off you check your face in the mirror, wipe it, and go in, and you tell him it went great and you want toast.']],done)}},
   {t:'Put your head on the wheel until it passes.',fn:()=>{S.f.k62Truck='head';calm(-2);save();say([['','You put your forehead on the wheel, very carefully, so the horn doesn’t go. When it passes you go in. You tell him about the job with voices, like before, and he laughs in the right places.']],done)}}]));
- say([['','He hears her truck come into the garage at two. He hears the engine stop.'],
+ say([['','He hears their truck come into the garage at two. He hears the engine stop.'],
   ['','The garage door into the house does not open until twenty to three. In between there is no sound at all, and he stands at the kitchen island with his hand on the kettle and does not go down.'],
-  ['','When she comes in she is cheerful. It went great, and she wants toast. Her face has been wiped.'],
-  ['K9','(She sat in the dark for forty minutes so that I would not see it. I will not let her know that I heard.)'],
+  ['','When they come in they are cheerful. It went great, and they want toast. Their face has been wiped.'],
+  ['K9','(They sat in the dark for forty minutes so that I would not see it. I will not let them know that I heard.)'],
   ['','He makes the toast, and laughs in the right places.']],()=>{S.f.k62Truck='v';apply({heart:-1});save();done()})});
 (function(){if(typeof KD_ORDER==='undefined')return;const put=(id,after)=>{const i=KD_ORDER.indexOf(after);if(i<0)KD_ORDER.push(id);else KD_ORDER.splice(i+1,0,id)};
  put('kd62_file','kd61_rent');put('kd62_clock','k58_creak');put('kd62_truck','kd_v_sees')})();
 
 /* ---------- ending lines ---------- */
 const _xe62=extraEnding;extraEnding=function(){const L=_xe62();try{if(!S||!S.f)return L;const f=S.f;
- if(f.kd62_clock&&(f.k62Clock==='count'||f.k62Clock==='tried'))L.push('She still counts the doors when she walks into a room. She has got quick at it. Nobody but V has ever seen her do it.');
+ if(f.kd62_clock&&(f.k62Clock==='count'||f.k62Clock==='tried'))L.push('They still count the doors when they walk into a room. They have got quick at it. Nobody but V has ever seen them do it.');
  else if(f.k62Clock==='told')L.push('V’s day is still on the fridge under the cactus magnet, in fountain pen. He keeps to it to the minute.');
- if(f.kd62_truck)L.push('Some nights her truck sits in the garage for a while after the engine stops. V never goes down. She has never told him, and he has never let her know that he hears.');
+ if(f.kd62_truck)L.push('Some nights their truck sits in the garage for a while after the engine stops. V never goes down. They have never told him, and he has never let them know that he hears.');
  if(f.kd62_file)L.push('At four in the morning, some nights, there is a strip torn off the margin of his newspaper.')}catch(e){}return L};

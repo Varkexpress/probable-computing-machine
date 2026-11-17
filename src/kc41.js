@@ -6,7 +6,7 @@ const rlEv=(id,when,run)=>EVENTS.push({id,when:()=>{try{return RL()&&when()}catc
 const rM=()=>S.pov!=='v';
 rlEv('rel_news',()=>S.day>=4&&frT('a')>=1&&frT('r')>=1,done=>say([
  ['','The evening news leads with a body found in a canal, then a second, then a man the police describe as “known to them” who has not been seen since Thursday. All three are theirs.'],
- ['','Nobody turns it up. Angel is painting Ronin’s nails black. V is reading. Misaki is upside down on the couch with her feet on the wall.'],
+ ['','Nobody turns it up. Angel is painting Ronin’s nails black. V is reading. Misaki is upside down on the couch with their feet on the wall.'],
  [AN,'her eyeliner is uneven. she’s on national television. somebody should do something.'],
  [RN,'Somebody should. Not me. I’m busy.'],
  ['','The anchor says the city is frightened. Out in the city that is probably true. In this room nobody can find it in themselves to care, and they all notice that about each other and say nothing.']],()=>{fr('a',1);fr('r',1);calm(2);done()}));
@@ -42,7 +42,7 @@ rlEv('rel_va',()=>S.pov==='v'&&frT('a')>=1,done=>say([
  ['','Angel does V’s quarterly accounts on his couch with her feet in his lap, because she likes his spreadsheets and he likes how she formats them. He does her alibis for the month. It is the most restful thing either of them does.'],
  [AN,'there’s a fire on the east side. big one. it’s on every channel.'],
  ['K9','Is it ours?'],[AN,'no.'],['K9','Then pass me March.'],
- ['','She passes him March. They work until two. The east side burns until morning.']],()=>{fr('a',3);done()}));
+ ['','They pass him March. They work until two. The east side burns until morning.']],()=>{fr('a',3);done()}));
 rlEv('rel_scream',()=>S.day>=6&&frT('a')>=1&&frT('r')>=1&&tier()>=1,done=>{const m=rM();say([
  ['','Midnight. The four of them are in V’s car, driving out past the last streetlights, because Ronin said they should and nobody had a reason not to.'],
  ['','At the edge of the city V pulls over on the hard shoulder. Ronin winds his window down and screams, as loud as he can, at nothing, for as long as his breath lasts.'],

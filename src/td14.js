@@ -2,21 +2,21 @@
 EVENTS.push(
 /* the receipt: she paid her own rent. Someone else paid the next three months. */
 {id:'sub_receipt',when:()=>S.phase==='after'&&isM()&&S.pov!=='v'&&S.day>=(S.f.returnDay||0)+1,run:done=>say([
- ['','Laundry day. The rent receipt from that night went through the wash in her back pocket. It’s pulp. She goes to the landlord for a copy.'],
+ ['','Laundry day. The rent receipt from that night went through the wash in their back pocket. It’s pulp. They go to the landlord for a copy.'],
  ['Landlord','Copy? Sure, sure. Oh, and your, um, brother came by. Paid you through March. Very polite man. He brought me biscuits, the people kind.'],
  ['hitmeuppp','he brought you fucking BISCUITS.'],
  ['hitmeuppp',MV('yeah my brother. he’s tall and a total problem.','yeah. my brother. he’s tall and he’s a massive problem.','Sure. My brother. I’ve got one of those now, apparently.','My brother, right. He’s so polite. He’s so polite I’m going to strangle him with his own coat.')],
- ['','He paid three months of rent she didn’t earn. She knows what happens to people who owe people; she collects from them for a living. (And the first thing she felt was relief, which is so fucked.)']],
+ ['','He paid three months of rent they didn’t earn. They know what happens to people who owe people; they collect from them for a living. (And the first thing they felt was relief, which is so fucked.)']],
  ()=>ask('hitmeuppp','(What do you do about March?)',[
   {t:'Pay him back. Every cent.',sub:S.yen>0?'−'+money(Math.min(S.yen,120000))+' · it’s yours':'you’re broke · you’ll owe him',fn:()=>{const p=Math.min(S.yen,120000);S.yen-=p;S.f.rentBack=1;apply({aff:2});save();say([
-   ['','She leaves an envelope on his kitchen counter, under the okayest mug, with a note: “for march. don’t.”'],
+   ['','They leave an envelope on his kitchen counter, under the okayest mug, with a note: “for march. don’t.”'],
    ['K9','(That evening.) You did not have to.'],['hitmeuppp','yeah. i did.'],
  ['K9','I am aware. I will not cash it. You may consider that my half of the argument.'],
    ['hitmeuppp',MV('ur so fucking weird','you’re so weird. cash it or i’m egging your car.','You’re so strange. Fine, don’t cash it, see if I care. I’m still not in debt to you.','You’re impossible. I paid, it’s on your counter, we’re square, and what you do with the envelope is your own stupid business. ...Thanks for not fighting me on it.')]],done)}},
   {t:'Let it stand. Just this once.',sub:'+affection · now you owe him',fn:()=>{S.f.rentLet=1;apply({aff:4,edge:2});save();say([
    ['hitmeuppp','(text) march. i saw. i’m letting it go ONCE. make it a thing and i’ll kill u.'],
    ['K9','It is not a thing.'],['K9','(Eleven minutes later.) It is a small thing.'],
-   ['','She sits on the step of the trailer until the mosquitoes find her, watching the strawberry magnet hold up a receipt with someone else’s money on it.']],done)}}]))},
+   ['','They sit on the step of the trailer until the mosquitoes find them, watching the strawberry magnet hold up a receipt with someone else’s money on it.']],done)}}]))},
 /* the hallway: someone cleaned up after V, and wants him to know it */
 {id:'sub_hallway',when:()=>S.phase==='after'&&!S.f.selfEscape&&S.day>=(S.f.returnDay||0)+1,run:done=>say([
  ['','Late. Kitchen. Ronin is at the counter eating V’s cereal out of the box, and that is how V learns he’s in the house.'],
@@ -55,10 +55,10 @@ EVENTS.push(
   {t:'Fold it into a drawer in the archive.',sub:'he can’t wear it again',fn:()=>{S.f.coatKept=0;apply({heart:3});save();say([['','He folds it the way his mother folded flags, corners in, and lays it in an empty drawer between two files of people he got out. He labels the drawer. The label says: “Not again.”']],done)}}]))});
 /* how the threads end up, on the ending screen */
 function subEnd(){const L=[];if(!S||!S.f)return L;
- if(S.f.rentBack)L.push('The envelope for March is still in V’s kitchen drawer, unopened. He tells himself he will cash it. He never does. She knows. She lets him have that one.');
- else if(S.f.rentLet)L.push('He paid three months of her rent once. She never mentions it. Every month since, she pays the landlord herself, in person, early, with biscuits.');
+ if(S.f.rentBack)L.push('The envelope for March is still in V’s kitchen drawer, unopened. He tells himself he will cash it. He never does. They know. They let him have that one.');
+ else if(S.f.rentLet)L.push('He paid three months of their rent once. They never mention it. Every month since, they pay the landlord themself, in person, early, with biscuits.');
  if(S.f.toldAngel===1)L.push('Angel never once brings up the building. She does, now and then, call Misaki “the panda” in front of strangers, and refuses to explain.');
- else if(S.f.angelSecret)L.push('Misaki never tells Angel what she said in that room. Some nights it sits on her chest like a cat, and she tells it to fuck off, and it doesn’t.');
+ else if(S.f.angelSecret)L.push('Misaki never tells Angel what they said in that room. Some nights it sits on their chest like a cat, and they tell it to fuck off, and it doesn’t.');
  if(S.f.ronHall)L.push('Ronin and V never talk about the river again. Ronin still turns up unannounced and still says the cereal is shit. V has started leaving it out.');
  if(S.f.coatKept===0)L.push('The drawer marked “Not again” stays shut.');else if(S.f.coatKept===1)L.push('He still wears the brown coat. Most days he doesn’t think about the river.');
  return L}

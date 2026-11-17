@@ -11,13 +11,13 @@ function vromConfess(k){const N=vromWho(k);
   ['K9','I was not aware there was a difference.'],
   [AN,'i get paid for the watching. i’ve been getting greedy about the looking.'],
   [AN,'so i’m saying it once. i want you. i redo my lipstick before you come over and i’d like to see it ruined.'],
-  vromHurt()?[AN,'and yes, i know about misaki. keep her. i’m greedy, i can share a little.']:null]
+  vromHurt()?[AN,'and yes, i know about misaki. keep them. i’m greedy, i can share a little.']:null]
  :[['','Ronin’s roof, three in the morning. He called you up to “settle somethin’.” You brought the baton out of habit. He clocked it and grinned.'],
   [RN,'Vee. Been tryin’ t’work out why you piss me off so fuckin’ much.'],
   ['K9','I assumed it was the crowbar wall.'],
   [RN,'So did I. Then I caught myself ironin’ a shirt for your shitty gala. Ironin’, Vee. Fuck’s sake.'],
   [RN,'So. Kiss or kill, Mister Foundation? Pick quick. I’m gonna enjoy it either way.'],
-  vromHurt()?[RN,'And yeah, I know about your little firecracker. Keep her, I ain’t fussy. Sucks t’be you, though: I don’t lose.']:null];
+  vromHurt()?[RN,'And yeah, I know about your little firecracker. Keep them, I ain’t fussy. Sucks t’be you, though: I don’t lose.']:null];
  say(L.filter(Boolean),()=>ask('K9','(...)',[
   {t:k==='a'?'“…I have noticed the lipstick.”':'“Kiss. Do not make me say it twice.”',fn:()=>{S.vrom=k;S.vromDates=0;if(vromHurt()&&S.aff>74)S.aff=74;save();toast('♥ Romance: '+vromName(k));
    say(k==='a'?(sugOn()?[[AN,'you noticed and said NOTHING? for weeks? get behind that rack, V. now.'],['','You go. The lipstick does not survive it. (She leaves the print on your collar where it is.)']]:[[AN,'you noticed and said NOTHING? for weeks? c’mere, V. right here, under the ring light.'],['','She kisses you in the middle of the studio, in front of the cameras that are off, and then sits you on the floor among the cables and takes her face off one wipe at a time while you hold the bin. (She leaves the lipstick print on your collar where it is.)']])
@@ -27,7 +27,7 @@ function vromAfterYes(k){if(!vromHurt())return hub();const N=vromName(k);const m
  cut([['','You tell Misaki yourself. The corner store car park, four in the morning, two egg sandwiches.'],
   ['K9',`It is ${N}. I wanted you to hear it from me.`],
   ['hitmeuppp',MV('oh. lol. ok','oh. ok. cool. COOL.','Oh. Okay. Wow. Seriously?','Oh, fuck. Okay. No, okay. At least you said it to my face.')],
-  ['','She eats her whole sandwich before she says anything else. Then she eats yours.'],
+  ['','They eat their whole sandwich before they say anything else. Then they eat yours.'],
   moved?['hitmeuppp',MV('moving the trailer back. its fine','i’ll move the trailer back. it’s fine. it’s FINE.','I’m towing the trailer back to the lot this weekend. Don’t help.','I’m towing the trailer back. The mailbox stays up. Touch it and I’ll take your fingers.')]:null,
   ['hitmeuppp',MV('ur still walking the dogs with me','you still walk the dogs with me. not negotiable.','We still walk the hounds, babe. I’m not losing the grey one in the divorce.','I’m happy for you, totally, whatever. Ask me next week and I’ll mean it. Tonight I get to be a bitch about it.')],
   ['K9','The side door stays unlocked.']].filter(Boolean),()=>{if(typeof relApply==='function')relApply({tension:6});hub()},'#06050a')}

@@ -9,48 +9,48 @@
 const kdCanTell=()=>S.f.kdKeep===1&&S.f.kdBook==='read'&&S.f.kdPhotos==='seen'&&S.f.kdCupTook===1&&!!S.f.kdKit;
 const _denyKD=kdDeny;kdDeny=function(n){if(S&&S.f&&S.f.kdTold){S.f.kdHalf=(S.f.kdHalf||0)+(n||1);if(S.f.kdHalf%3)return}return _denyKD(n)};
 kdEv('kd_last',()=>kdMe()&&S.f.kd_window&&!S.f.kd_last&&!S.f.kd_kitgone&&kdD()>=3,done=>{S.f.kd_last=1;save();const can=kdCanTell();
- say([['','Saturday. V has taken all four hounds to the river, because she told him they were getting fat. The house is empty apart from the doctor, who has come to ask for the last time.'],
+ say([['','Saturday. V has taken all four hounds to the river, because they told him they were getting fat. The house is empty apart from the doctor, who has come to ask for the last time.'],
   [kdDoc,'After today it would not show, and I stop asking. So: once more.']],()=>ask('hitmeuppp','(Nobody else is in the house.)',[
   can?{t:'Answer the question.',sub:'the house is empty',fn:()=>{S.f.kdTold=1;const k=KD();k.deny=Math.floor((k.deny||0)/2);calm(12);save();note('kd_told','One person knows. It is in a file with a number on it and no name, and it is not in his house.');say([
-    ['','She opens her mouth to say that nothing happened. She has said it nine times, and it has come out every time.'],
-    ['','It does not come out. Her face does a thing she has not let it do since she was sixteen on a station bench. Then she is bent over the side of the bed with her good hand across her eyes, making a noise she did not know she had.'],
+    ['','They open their mouth to say that nothing happened. They have said it nine times, and it has come out every time.'],
+    ['','It does not come out. Their face does a thing they have not let it do since they were sixteen on a station bench. Then they are bent over the side of the bed with their good hand across their eyes, making a noise they did not know they had.'],
     [kdDoc,'I am here. Take as long as it takes. I have nowhere to be.'],
     ['hitmeuppp','i know what they did. i’ve known since the car. i can do a fucking sum, i’m not stupid, i know EXACTLY what—'],
     ['hitmeuppp','he doesn’t find out. V. nobody does. not the chart he reads, not his archive, not angel. if he ever knows i said it— it’s the one thing left that’s only mine. promise me or get out.'],
     [kdDoc,'He pays my fee. You are my patient. Those are two different things, and I have never confused them. There will be a second file with a number on it and no name. It will not be kept in this house.'],
     ['hitmeuppp','...ok. then yes. the answer’s yes. do it. all of it. then ask me the rest.'],
-    ['','It takes fifty minutes. She counts the hounds through it, out loud this time. Afterwards she answers eleven questions, and the doctor writes down what she says without putting it in quotation marks.'],
+    ['','It takes fifty minutes. They count the hounds through it, out loud this time. Afterwards they answer eleven questions, and the doctor writes down what they say without putting it in quotation marks.'],
     ['','The white box leaves the house in the doctor’s bag, under two tubs of soup.'],
-    ['','When V comes back with the hounds, she has washed her face and is on the couch with the controller. She asks what’s for dinner. He sees that her eyes are red. She says it is the hound hair, and he has no reason to think otherwise.']],done)}}:KD_NO('Answer the question.'),
+    ['','When V comes back with the hounds, they have washed their face and are on the couch with the controller. They ask what’s for dinner. He sees that their eyes are red. They say it is the hound hair, and he has no reason to think otherwise.']],done)}}:KD_NO('Answer the question.'),
   {t:'“nothing happened.” One more time.',fn:()=>{kdDeny();say([['','It comes out, the tenth time, as easily as the first. The doctor writes it down in quotation marks and closes the folder.'],[kdDoc,'Then I have finished asking. The form does not expire. I mean that.']],done)}},
-  {t:'Look at the kitchen clock until it’s four.',fn:()=>{kdDeny(2);calm(-3);say([['','She watches the minute hand for an hour and ten minutes and does not speak. At four the doctor stands up, and Misaki says “well,” and that is all either of them says.']],done)}}]))});
+  {t:'Look at the kitchen clock until it’s four.',fn:()=>{kdDeny(2);calm(-3);say([['','They watch the minute hand for an hour and ten minutes and do not speak. At four the doctor stands up, and Misaki says “well,” and that is all either of them says.']],done)}}]))});
 /* afterwards, on that route only: she keeps the appointments, and still lies about them */
 kdEv('kd_told_box',()=>S.f.kdTold&&!S.f.kd_told_box&&S.f.kdKit,done=>{S.f.kd_told_box=1;S.f.kd_kitgone=1;save();say([
  ['','The white box is gone from the infirmary fridge a day before its date. V notices the gap, and decides that the doctor must have wanted the shelf.'],
  ['hitmeuppp',MV('more room for soup.','more room for soup. finally.','Good. More room for soup.','Good. More room for soup. I told her that shelf was wasted.')],
- ['','She says it exactly as she would have said it. That is the hard part, and she is good at it.']],done)});
+ ['','They say it exactly as they would have said it. That is the hard part, and they are good at it.']],done)});
 kdEv('kd_told_dentist',()=>S.f.kdTold&&S.phase!=='after'&&S.f.kdRes&&!S.f.kd_dentist&&kdD()>=10,done=>{S.f.kd_dentist=1;S.f.kdBloodGiven=1;save();say([
- ['','The calendar says “dentist.” She drives herself, goes up the stairs above the pharmacy, and gives her own name at the desk.'],
- ['','The result goes to a post-office box the doctor rents. She reads it standing at the box, once, and burns it in the car ashtray.'],
+ ['','The calendar says “dentist.” They drive themself, go up the stairs above the pharmacy, and give their own name at the desk.'],
+ ['','The result goes to a post-office box the doctor rents. They read it standing at the box, once, and burn it in the car ashtray.'],
  ['hitmeuppp','(ok. ...ok.)'],
- ['','At home she tells V: no cavities. He says that he is glad. Both things are true, and he only knows about one of them.']],done)});
+ ['','At home they tell V: no cavities. He says that he is glad. Both things are true, and he only knows about one of them.']],done)});
 kdEv('kd_told_sleep',()=>S.f.kdTold&&S.phase!=='after'&&!S.f.kd_told_sleep&&kdD()>=8,done=>{S.f.kd_told_sleep=1;apply({energy:10});save();say([
- ['','She sleeps six hours and tells people six.'],
- ['','She still says “fine.” She still walks round it like the low beam in the trailer. Once a month she is forty minutes late back from walking the hounds, and smells faintly of a waiting room, and V puts it down to the weather.']],done)});
+ ['','They sleep six hours and tell people six.'],
+ ['','They still say “fine.” They still walk round it like the low beam in the trailer. Once a month they are forty minutes late back from walking the hounds, and smell faintly of a waiting room, and V puts it down to the weather.']],done)});
 const _xeKD8=extraEnding;extraEnding=function(){let L=_xeKD8();if(!S||!S.f||!S.f.kdTold)return L;
  L=L.filter(x=>!/most likely to kill her|The window closed on a Saturday|never rang for the result/.test(x));
- L.push('On the last Saturday, with the house empty, she said yes. One person knows. V never found out that she said it, and he was meant not to.');
+ L.push('On the last Saturday, with the house empty, they said yes. One person knows. V never found out that they said it, and he was meant not to.');
  return L};
 
 /* ===================== ORDINARY DAYS ===================== */
 const G34=()=>!S.dark&&S.phase!=='taken'&&S.phase!=='after'&&S.phase!=='act3';
 const gEv=(id,when,run)=>EVENTS.push({id,when:()=>{try{return G34()&&when()}catch(e){return false}},run});
 gEv('g_review',()=>mP()&&S.day>=3,done=>say([
- ['','A client has left a review on the forum where people like her get hired. Four point four stars.'],
- ['','“Prompt. Tidy. Left the scene cleaner than she found it. Talked the entire time. One star off for the humming.”'],
+ ['','A client has left a review on the forum where people like them get hired. Four point four stars.'],
+ ['','“Prompt. Tidy. Left the scene cleaner than they found it. Talked the entire time. One star off for the humming.”'],
  ['hitmeuppp',MV('4.4??','FOUR POINT FOUR. for HUMMING.','Four point four. He docked me for humming.','Four point four! I gave that man a clean kitchen and a dead brother-in-law, and he’s docked me for humming.')]],()=>ask('hitmeuppp','(Reply to review?)',[
   {t:'“thank u for ur feedback. i know where u live :)”',fn:()=>{apply({heat:2,edge:2,rep:1});say([['','He edits it to five stars within the minute, and adds: “The humming was lovely.”']],done)}},
-  {t:'Take it. Hum quieter.',fn:()=>{apply({rep:1});say([['','She practises humming quieter on the next job. The target hears it anyway. It doesn’t matter for long.']],done)}}])));
+  {t:'Take it. Hum quieter.',fn:()=>{apply({rep:1});say([['','They practise humming quieter on the next job. The target hears it anyway. It doesn’t matter for long.']],done)}}])));
 gEv('g_board',()=>vP()&&S.day>=3,done=>say([
  ['','A board member proposes that the new shelter wing be named after a major donor. The major donor is himself. He has brought a rendering.'],
  ['K9','(The rendering has his name in brass letters a metre high. He has had the hounds drawn smaller to make room.)']],()=>ask('K9','(He is waiting for applause.)',[
@@ -71,8 +71,8 @@ gEv('g_brand',()=>frT('a')>=1&&!isLone(),done=>{const m=mP();say([
 gEv('g_leak',()=>mP()&&!S.f.movedIn&&weather()==='rain',done=>say([
  ['','The trailer roof is leaking over the bed, in the one place a bucket won’t stand level.'],
  ['hitmeuppp',MV('ugh.','of COURSE it’s over the bed.','Of course it’s over the bed.','It’s over the bed. Of course it is. The roof’s got a whole trailer to leak on and it’s picked my pillow.')]],()=>ask('hitmeuppp','(Drip. Drip.)',[
-  {t:'Fix it yourself. Tarp, tape, a great deal of swearing.',fn:()=>{apply({energy:-10,edge:1});say([['','It holds. She stands on the roof in the rain afterwards with her arms up, and a neighbour takes a photograph.']],done)}},
-  {t:'Text V a picture of the bucket.',dis:isLone()||tier()<1,fn:()=>{apply({aff:3});say([['','He is there in nineteen minutes with a ladder, a roll of roofing felt, and a level. He does the whole roof. He does not say that he owns four buildings she could live in.'],['K9','It was the flashing. It has been the flashing since March.']],done)}}])));
+  {t:'Fix it yourself. Tarp, tape, a great deal of swearing.',fn:()=>{apply({energy:-10,edge:1});say([['','It holds. They stand on the roof in the rain afterwards with their arms up, and a neighbour takes a photograph.']],done)}},
+  {t:'Text V a picture of the bucket.',dis:isLone()||tier()<1,fn:()=>{apply({aff:3});say([['','He is there in nineteen minutes with a ladder, a roll of roofing felt, and a level. He does the whole roof. He does not say that he owns four buildings they could live in.'],['K9','It was the flashing. It has been the flashing since March.']],done)}}])));
 gEv('g_book',()=>!isLone()&&frT('a')>=1&&frT('r')>=1&&S.day>=5,done=>say([
  ['','The group chat is called “book club” now, so Angel has decided that there has to be a book. V chose it. It is Persuasion.'],
  [RN,'Read the first page. Nobody got killed. Read the second page. Still nobody.'],
@@ -99,7 +99,7 @@ txDef('tx_g_stars',{with:'v',pov:'m',prio:1,when:()=>G34()&&tier()>=1&&S.seen&&S
 const _shG=sideHub;sideHub=function(late){const o=_shG(late);if(!S||!G34()||S.slot<2||late)return o;const wait=S.day-(S.f.gMarket||-9)<3;
  return o.concat([{t:'Night market under the flyover',sub:wait?'the stalls are packing up':'costs time · three stalls',dis:wait,fn:()=>{spend();S.f.gMarket=S.day;save();gMarket()}}])};
 function gMarket(){const m=mP(),who=m?'hitmeuppp':'K9',pair=!isLone()&&tier()>=1;go({draw:hubBg});
- say([['','Strings of bulbs under the flyover, and forty stalls. It smells of charcoal and sugar.'+(pair?(m?' V has come. He is carrying your bag without having been asked.':' Misaki has come. She has already bought something on a stick.'):'')]],()=>ask(who,'(Three stalls before they close.)',[
-  {t:'The shooting gallery',fn:()=>{if(m){S.inv.plush=(S.inv.plush||0)+1;apply({edge:1});say([['','Cork rifle, bent sights, ten shots. She corrects for the sights after the first and takes the top shelf, left to right.'],['','The stallholder gives her the largest plush and asks her, politely, not to come back.'],pair?['K9','You were holding your breath between shots. On a cork gun.']:['hitmeuppp','(force of habit.)']],hub)}else say([['','V takes ten shots with great care and hits nothing. The sights are bent. A girl of about seven takes the rifle after him and clears the bottom shelf.'],['K9','(I do not use rifles. I am told that is obvious.)'],pair?['hitmeuppp',MV('LMAO.','u lost to a CHILD.','You lost to a seven-year-old.','You lost to a child. In a raincoat. With a goldfish in her other hand. I’m telling everyone.')]:null].filter(Boolean),()=>{apply({heart:2});hub()})}},
-  {t:'Fried dough, eaten too hot',fn:()=>{apply({energy:14});say([['',m?'She eats the first one whole and then stands with her mouth open, steaming, refusing to admit anything.':'He waits four minutes for them to cool, as the sign says. He is the only person at the market who has read the sign.'],pair?[m?'K9':'hitmeuppp',m?'There is a sign.':MV('just EAT it.','just eat it. live a little.','Just eat one. Live a little.','Eat it hot. Suffer like the rest of us.')]:null].filter(Boolean),hub)}},
+ say([['','Strings of bulbs under the flyover, and forty stalls. It smells of charcoal and sugar.'+(pair?(m?' V has come. He is carrying your bag without having been asked.':' Misaki has come. They have already bought something on a stick.'):'')]],()=>ask(who,'(Three stalls before they close.)',[
+  {t:'The shooting gallery',fn:()=>{if(m){S.inv.plush=(S.inv.plush||0)+1;apply({edge:1});say([['','Cork rifle, bent sights, ten shots. They correct for the sights after the first and take the top shelf, left to right.'],['','The stallholder gives them the largest plush and asks them, politely, not to come back.'],pair?['K9','You were holding your breath between shots. On a cork gun.']:['hitmeuppp','(force of habit.)']],hub)}else say([['','V takes ten shots with great care and hits nothing. The sights are bent. A girl of about seven takes the rifle after him and clears the bottom shelf.'],['K9','(I do not use rifles. I am told that is obvious.)'],pair?['hitmeuppp',MV('LMAO.','u lost to a CHILD.','You lost to a seven-year-old.','You lost to a child. In a raincoat. With a goldfish in her other hand. I’m telling everyone.')]:null].filter(Boolean),()=>{apply({heart:2});hub()})}},
+  {t:'Fried dough, eaten too hot',fn:()=>{apply({energy:14});say([['',m?'They eat the first one whole and then stand with their mouth open, steaming, refusing to admit anything.':'He waits four minutes for them to cool, as the sign says. He is the only person at the market who has read the sign.'],pair?[m?'K9':'hitmeuppp',m?'There is a sign.':MV('just EAT it.','just eat it. live a little.','Just eat one. Live a little.','Eat it hot. Suffer like the rest of us.')]:null].filter(Boolean),hub)}},
   {t:'The fortune stall',fn:()=>{const f=pk(['“Something you lost will be returned by someone tall.”','“A debt is forgiven this month. Possibly yours.”','“Avoid the east. Or the east should avoid you.”','“You will be fed. Accept it.”']);apply(m?{heart:1}:{heart:2});say([['','An old woman shakes a box until one stick falls out, and reads the number against a drawer.'],['',f],[who,m?MV('ok.','huh. ok.','Huh. All right.','Huh. I’ll allow it.'):'I do not hold with fortunes. I will keep the paper.']],hub)}}]))}
