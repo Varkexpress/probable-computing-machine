@@ -19719,7 +19719,23 @@ const _xe68=extraEnding;extraEnding=function(){const L=_xe68();try{if(!S||!S.f||
  if(f.k68Bingo==='table')L.push(X68.L.e6[1]);
  if(f.k68Boots==='new')L.push(X68.L.e7[1]);}catch(e){}return L};
 
-/* ===================== kc69: last module — topic sync =====================
+/* ===================== STORY SETTING: SUGGESTIVE SCENES (kc70) =====================
+   META.sug (default on). "On" keeps flirting, innuendo, fade-outs and mornings after. "Off" plays a platonic version of
+   every such scene instead: the same people and the same closeness, written as quiet company, catharsis, the kind of
+   nothing they do together. Content modules branch with sugOn() at the line or scene that is suggestive.
+   sugOn is a function declaration so every module in the one script can call it, whatever order it loads in. */
+function sugOn(){return typeof META==='undefined'||!META||META.sug!==0}
+const SUG_HELP='Suggestive scenes — <b>on</b> keeps the flirting, innuendo and fade-outs on the romance routes. <b>Off</b> replaces each of them with a platonic version: the same people, just as close, without the suggestion. Nothing is ever explicit either way.';
+const sugLab=()=>'Suggestive scenes: '+(sugOn()?'on':'off');
+const sugToggle=()=>{META.sug=sugOn()?0:1;saveMeta();toast(sugLab())};
+const _setSug=settings;settings=function(){_setSug.apply(this,arguments);const box=document.querySelector('.panel');if(!box)return;
+ const opts=box.querySelector('.opts');const p=document.createElement('p');p.innerHTML=sugLab().replace(': ',': <b>')+'</b>';p.style.marginTop='6px';
+ const h=document.createElement('p');h.className='hint';h.innerHTML=SUG_HELP;if(opts){box.insertBefore(p,opts);box.insertBefore(h,opts);
+  const o=document.createElement('div');o.className='opt';o.textContent='Suggestive scenes: turn '+(sugOn()?'off':'on');o.onclick=()=>{sugToggle();settings()};opts.insertBefore(o,opts.lastElementChild)}};
+const _pmSug=pauseMenu;pauseMenu=function(){_pmSug.apply(this,arguments);const box=document.querySelector('.pausebox .pbtns');if(!box)return;const b=document.createElement('button');b.textContent=sugLab();b.title='Off replaces flirting and fade-outs with platonic versions that are just as close.';
+ b.onclick=e=>{e.stopPropagation();sugToggle();b.textContent=sugLab()};box.insertBefore(b,box.lastElementChild)};
+
+/* ===================== kc99: last module — topic sync =====================
    Several modules push talk topics onto TDTOP_V/TDTOP_M only; the talk menu reads TOPICS_V/TOPICS_M.
    Copy any topic that is missing, keeping the menu's last entry (the "leave" row) last. */
 [[TDTOP_V,TOPICS_V],[TDTOP_M,TOPICS_M]].forEach(([src,dst])=>{

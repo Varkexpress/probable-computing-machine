@@ -1,4 +1,4 @@
-/* ===================== kc69: last module — topic sync =====================
+/* ===================== kc99: last module — topic sync =====================
    Several modules push talk topics onto TDTOP_V/TDTOP_M only; the talk menu reads TOPICS_V/TOPICS_M.
    Copy any topic that is missing, keeping the menu's last entry (the "leave" row) last. */
 [[TDTOP_V,TOPICS_V],[TDTOP_M,TOPICS_M]].forEach(([src,dst])=>{
