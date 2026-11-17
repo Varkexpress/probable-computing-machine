@@ -46,7 +46,7 @@ for(const pov of ['m','v']){
   S.phase='act3';S.f.e2lEnd='lovers';S.seen.e2l_morn=0;S.f.e2lMorn=0;let fired=0;const mk=morningEvent;r.morn=(()=>{const o=k73Morn;k73Morn=()=>{fired=1};try{morningEvent(()=>{})}catch(e){}k73Morn=o;return fired})();
   return r});
  log.push('not chosen '+pov+' '+JSON.stringify(off));
- if(off.entry!==1)errs.push('entry not offered on day 2 '+pov);
+ if(off.entry!==0)errs.push('retired day 1–4 entry still offered '+pov);
  if(off.after||off.cap!==100||off.due||off.aff!==30||off.th.length||off.chat||off.loc||!off.k66||off.ends||off.morn)errs.push('route leaks when not chosen '+pov+' '+JSON.stringify(off));
  /* the kidnapping hooks pass straight through */
  await load('t',pov,{},0);const hk=await ev(()=>{window.__lines=[];try{after(false)}catch(e){}for(let i=0;i<5&&dlg;i++)adv();return {m:JSON.stringify(S.f.e2ld||null),l:window.__lines.some(x=>/Of all the people|In the car she sleeps/.test(x[1]))}});
@@ -54,16 +54,16 @@ for(const pov of ['m','v']){
  /* entry gates */
  for(const [name,patch] of [['day 5',s=>{S.day=5}],['kidnap set',s=>{S.f.kidnapSet=1}],['moved in',s=>{S.f.movedIn=1}],['rom',s=>{S.rom='r'}],['lone',s=>{S.lone='m'}],['asked',s=>{S.f.e2lAsk=1}]]){
   await load('n',pov,{},0);const r=await ev(src=>{(eval('('+src+')'))(S);return k73EntryOk()},patch.toString());if(r)errs.push('entry offered with '+name)}}
-/* 1. ENTRY: both POVs, both answers */
+/* 1. ENTRY (kc74 retired the side entry; k73Entry() keeps the swear / let-go pair, k73Entry(true) is the new-game opening): both POVs, both answers */
 for(const pov of ['m','v'])for(const o of [0,1]){await load('n',pov,{},0);await ev(()=>{S.aff=30});
- const r0=await ev(()=>{const x=sideHub(false).find(o=>/^⚔/.test(o.t||''));window.__hubbed=0;const sl=S.slot;x.fn();return sl});const r=await drive(o);
+ const r0=await ev(()=>{window.__hubbed=0;const sl=S.slot;k73Entry();return sl});const r=await drive(o);
  const st=await ev(()=>{const same=(k73Due()||{}).id||null;S.day++;return {e2l:S.f.e2l,ask:S.f.e2lAsk,aff:S.aff,slot:S.slot,same,due:(k73Due()||{}).id||null}});
  log.push(`entry ${pov} opt${o} → ${r} ${JSON.stringify(st)}`);
  if(r!=='hub')errs.push('entry did not finish '+pov+o);if(st.slot!==r0)errs.push('entry cost time');
  if(o===0&&(st.e2l!==1||st.aff>10||st.same||st.due!=='e2l_eye'))errs.push('entry war '+pov+' '+JSON.stringify(st));
  if(o===1&&(st.e2l!==0||st.ask!==1||st.due))errs.push('entry let go '+pov+' '+JSON.stringify(st))}
 /* 2. the side menu offers the right beat per phase, plays it once */
-const SEQ=[['n','e2l_eye',[]],['n','e2l_sab',['e2l_eye']],['n','e2l_truce',['e2l_eye','e2l_sab']],['f','e2l_after',[]],['2','e2l_after',[]],
+const SEQ=[['n','e2l_eye',[]],['n','e2l_lift',['e2l_eye']],['n','e2l_kennel',['e2l_eye','e2l_lift']],['n','e2l_sab',['e2l_eye','e2l_lift','e2l_kennel']],['n','e2l_dinner',['e2l_eye','e2l_lift','e2l_kennel','e2l_sab']],['n','e2l_truce',['e2l_eye','e2l_lift','e2l_kennel','e2l_sab','e2l_dinner']],['f','e2l_after',[]],['2','e2l_after',[]],
  ['2','e2l_car',['e2l_after']],['2','e2l_stitch',['e2l_after','e2l_car']],['2','e2l_spar',['e2l_after','e2l_car','e2l_stitch']],['3','e2l_boat',[]],['e','e2l_epi',[]]];
 for(const pov of ['m','v'])for(const [ph,id,pre] of SEQ){await load(ph,pov,{});await ev(pre=>{pre.forEach(x=>S.f.e2ld[x]=1);if(S.phase==='act2'&&!pre.includes('e2l_after')){S.f.e2ld.e2l_after=0;KD();S.kd.t0=S.day-6;S.kd.med=0}},pre);
  if(id!=='e2l_after'&&ph==='2')await ev(()=>{S.f.e2ld.e2l_after=1});

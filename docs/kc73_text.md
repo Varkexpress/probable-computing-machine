@@ -2,6 +2,7 @@
 
 Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines that change with POV; ▸ marks a choice; "(or)" marks the other POV's version of a line. Lines that change with the suggestive-scenes setting (the end of the boat confession, the morning after, Angel's envelope) appear as consecutive alternatives, on first and off second; the off versions imply nothing happened. Thread messages are quoted (>). Design and coexistence notes: docs/notes_kc73.md.
 
+
 # kc73.js
 
 *Three nights running you have lain on the laundromat roof across from the bowling alley with your rifle, learning the card man’s evenings. He smokes at nine and takes the bins out at ten, and he lends money to people at the shelters at forty percent and takes a finger when they are late.*
@@ -43,6 +44,16 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 ### e2l\_mark
 
+**Ronin:** ok. ok. i’m openin’ a book, bc if i don’t make it a joke i’m gonna have to drive over there
+
+**Angel:** ronin that is not funny
+
+**Ronin:** it’s a little funny. fifty on the little killer. she’s quicker
+
+**Angel:** i’m not betting on which of my friends dies
+
+**Angel:** …i’m putting a hundred on something else. it’s in an envelope. i sealed it. don’t ask
+
 **Misaki:** then i’ll kill you first. somewhere stupid, like a car park
 
 **V:** You may try. I have written it down.
@@ -53,15 +64,23 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 **Misaki:** cool. you’re in mine
 
-**Ronin:** ok. ok. i’m openin’ a book, bc if i don’t make it a joke i’m gonna have to drive over there
+- ▸ Say nothing. Strip the rifle on the roof, under his camera
 
-**Angel:** ronin that is not funny
+*You do not type a word. You strip the rifle on the laundromat roof under the streetlight, piece by piece, slowly, facing the alley camera you know is his, and you put it back together with your eyes shut.*
 
-**Ronin:** it’s a little funny. fifty on the little killer. she’s quicker
+**V:** (server) I watched all of it. You are very fast.
 
-**Angel:** i’m not betting on which of my friends dies
+**Misaki:** (server) i’ll be faster on u
 
-**Angel:** …i’m putting a hundred on something else. it’s in an envelope. i sealed it. don’t ask
+- ▸ Send her the file, so she knows the charges
+
+*You send her the whole file, forty pages, with the doorman’s name and the driver’s and the date of the Tuesday, and on the last page, in fountain pen, the line from the ledger.*
+
+**Misaki:** (text) u spelled collateral right. congrats
+
+**V:** (text) Read the names.
+
+**Misaki:** (text) no
 
 **Misaki:** …whatever. enjoy your carpet
 

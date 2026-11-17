@@ -26,9 +26,13 @@ rivalry.
 
 ## How you enter
 
-On days 1–4 of the normal phase, the side menu shows one free entry: **⚔ Somebody took your mark** (Misaki) or
-**⚔ Take the card man off her roof** (V). It is offered only while rent has not been paid twice, she has not moved in,
-there is no other romance and the run is not a lone route. It costs no time.
+**Superseded by kc74** (`docs/notes_kc74.md`). The route is now chosen at new game: title → “Enemies to lovers: V ×
+Misaki” → Misaki or V. The opening is this module's card-man night, `k73Entry(true)`, where both answers are oaths
+(`S.f.e2lOath`: Misaki `loud`/`quiet`, V `ledger`/`file`). The day 1–4 side entry described below is retired
+(`k73EntryOk()` returns false); `k73Entry()` without the flag still has the old pair for old saves.
+
+Formerly: on days 1–4 of the normal phase, the side menu showed one free entry, **⚔ Somebody took your mark** (Misaki)
+or **⚔ Take the card man off her roof** (V). It costs no time.
 
 The scene: V takes the card man behind the bowling alley (forty percent to people at the shelters, a finger when they
 are late). Misaki has lain on the laundromat roof for three nights on a $900 contract for him. V tells the server she
@@ -36,9 +40,10 @@ was next.
 
 - **Swear it back** (“i’ll kill u first, grandpa”) or **Write her name in the ledger** sets `S.f.e2l=1` and drops
   affection to at most 10.
-- **Let it go** or **Leave her page blank** sets `S.f.e2lAsk=1` and `S.f.e2l=0`. The entry disappears, and nothing
-  else in this module ever runs.
-- Ignoring the entry has the same effect once day 4 passes. The normal route is the default.
+- **Let it go** or **Leave her page blank** (old flow only) sets `S.f.e2lAsk=1` and `S.f.e2l=0`.
+
+kc74 also splices three set pieces into the normal-phase beats below (eye → lift → kennel → sab → dinner → truce), and
+gates or swaps the normal route's V–Misaki interactions while the route is in its normal phase.
 
 ## Beats
 

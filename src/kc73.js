@@ -35,8 +35,11 @@ const K73Who=()=>k73M()?'hitmeuppp':'K9';
 /* The war is ideological and lethal. To V she is one of the wanton killers (no code, kills for rent, collateral), and
    he swears in his ledger to kill her. To Misaki he is a billionaire hypocrite who launders killing through a foundation
    and a moral costume, and she swears it back. Early beats are near-attempts; the jokes are dark and few. */
-const k73EntryOk=()=>{try{return !!S&&S.phase==='normal'&&S.day<=4&&!S.f.e2lAsk&&!S.f.kidnapSet&&!S.f.movedIn&&!isLone()&&!S.rom&&!S.vrom&&!S.f.k28pair}catch(e){return false}};
-function k73Entry(){go(cutBg('#07060b'));const m=k73M();
+/* Retired by kc74: the route is now chosen at new game (title → Enemies to lovers), so the early game never runs the
+   normal route's V–Misaki scenes. The day 1–4 side entry is off; k73Entry(true) is the new-game opening, where both
+   answers are oaths (S.f.e2lOath). k73Entry() without the flag keeps the old swear / let-go pair for old saves and tests. */
+const k73EntryOk=()=>false;
+function k73Entry(open){go(cutBg('#07060b'));const m=k73M();
  const pre=m?[
   ['','Three nights running you have lain on the laundromat roof across from the bowling alley with your rifle, learning the card man’s evenings. He smokes at nine and takes the bins out at ten, and he lends money to people at the shelters at forty percent and takes a finger when they are late.'],
   ['','The contract pays '+money(90000)+'. Rent is '+money(40000)+'. You have done that sum on the roof about sixty times.'],
@@ -58,20 +61,31 @@ function k73Entry(){go(cutBg('#07060b'));const m=k73M();
   [RN,'vee. you touch her and i’m in it. i mean that'],
   K73V('Then you will be in it.')];
  say(pre.concat(srv),()=>ask(K73Who(),m?'(He means it. You can tell from the full stop.)':'(Your ledger is open on the desk.)',[
-  {t:m?'“swear it back. i’ll kill u first, grandpa”':'Write her name in the ledger',sub:'starts the enemies-to-lovers route · a war to the death with '+(m?'V':'Misaki'),fn:()=>{
-   S.f.e2l=1;S.f.e2lAsk=1;S.f.e2lDay0=S.day;S.aff=Math.min(S.aff,10);k73Mark('e2l_mark');note('e2l','The war: V has sworn in his ledger to kill Misaki, and she has sworn it back.');save();drawHud();
-   say((m?[K73MV('then i’ll kill u first, grandpa. somewhere stupid. a car park','then i’ll kill you first. somewhere stupid, like a car park'),K73V('You may try. I have written it down.')]:[
-     ['','You write it in fountain pen, under the card man: MISAKI (hitmeuppp). WANTON. COLLATERAL: SEVERAL. TO BE KILLED. You date it, and blot it, and sleep your three and a half hours.'],
-     K73V('It is in my ledger. I do not cross things out.'),
-     K73MV('cool. ur in mine. i don’t have a ledger. i have a really good memory','cool. you’re in mine')]).concat([
+  ...k73Oaths(m,open)]))}
+/* the oath: the war branch is shared; open (new game) offers two oaths, otherwise the old swear / let-go pair */
+function k73Oaths(m,open){
+ const war=(oath,L)=>()=>{S.f.e2l=1;S.f.e2lAsk=1;S.f.e2lDay0=S.day;S.f.e2lOath=oath;S.aff=Math.min(S.aff,10);k73Mark('e2l_mark');note('e2l','The war: V has sworn in his ledger to kill Misaki, and she has sworn it back.');save();drawHud();
+   say(L.concat([
      [RN,'ok. ok. i’m openin’ a book, bc if i don’t make it a joke i’m gonna have to drive over there'],
      [AN,'ronin that is not funny'],
      [RN,'it’s a little funny. fifty on the little killer. she’s quicker'],
      [AN,'i’m not betting on which of my friends dies'],
-     [AN,'…i’m putting a hundred on something else. it’s in an envelope. i sealed it. don’t ask']]),hub)}},
-  {t:m?'Let it go':'Leave her page blank',sub:'the usual story',fn:()=>{S.f.e2lAsk=1;S.f.e2l=0;save();
+     [AN,'…i’m putting a hundred on something else. it’s in an envelope. i sealed it. don’t ask']]),hub)};
+ const loud=m?[K73MV('then i’ll kill u first, grandpa. somewhere stupid. a car park','then i’ll kill you first. somewhere stupid, like a car park'),K73V('You may try. I have written it down.')]:[
+     ['','You write it in fountain pen, under the card man: MISAKI (hitmeuppp). WANTON. COLLATERAL: SEVERAL. TO BE KILLED. You date it, and blot it, and sleep your three and a half hours.'],
+     K73V('It is in my ledger. I do not cross things out.'),
+     K73MV('cool. ur in mine. i don’t have a ledger. i have a really good memory','cool. you’re in mine')];
+ const o=[{t:m?'“swear it back. i’ll kill u first, grandpa”':'Write her name in the ledger',sub:'starts the enemies-to-lovers route · a war to the death with '+(m?'V':'Misaki'),fn:war(m?'loud':'ledger',loud)}];
+ if(open)o.push(m?{t:'Say nothing. Strip the rifle on the roof, under his camera',sub:'the same war, said with your hands',fn:war('quiet',[
+     ['','You do not type a word. You strip the rifle on the laundromat roof under the streetlight, piece by piece, slowly, facing the alley camera you know is his, and you put it back together with your eyes shut.'],
+     K73V('(server) I watched all of it. You are very fast.'),K73MV('(server) i’ll be faster on u')])}
+   :{t:'Send her the file, so she knows the charges',sub:'the same war, in writing',fn:war('file',[
+     ['','You send her the whole file, forty pages, with the doorman’s name and the driver’s and the date of the Tuesday, and on the last page, in fountain pen, the line from the ledger.'],
+     K73MV('(text) u spelled collateral right. congrats'),K73V('(text) Read the names.'),K73MV('(text) no')])});
+ else o.push({t:m?'Let it go':'Leave her page blank',sub:'the usual story',fn:()=>{S.f.e2lAsk=1;S.f.e2l=0;save();
    say(m?[K73MV('…whatever. enjoy ur carpet','…whatever. enjoy your carpet'),K73V('I will. Goodnight, Misaki.'),[AN,'ok. good. everybody go to bed']]:[
-    ['','You leave her page blank and send her nine hundred dollars with the memo line “Carpet.” She sends back one middle finger and, an hour later, “thx”.'],[AN,'ok. good. everybody go to bed']],hub)}}]))}
+    ['','You leave her page blank and send her nine hundred dollars with the memo line “Carpet.” She sends back one middle finger and, an hour later, “thx”.'],[AN,'ok. good. everybody go to bed']],hub)}});
+ return o}
 
 /* ===================================== NORMAL ===================================== */
 function k73Eye(){go(cutBg('#08080c'));k73Mark('e2l_eye');const m=k73M();
