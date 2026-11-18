@@ -28,14 +28,14 @@ const k76Did=id=>{try{const f=S.f;if(id==='e2l_yard')return !!f.e2lLoose;if(id==
 /* ===================================== THE CHAPTERS ===================================== */
 const K76CH=[
  {n:'I',t:'THE OATH',ph:['normal'],ids:['e2l_mark','e2l_eye','e2l_show','e2l_lift','e2l_kennel','e2l_yard','e2l_sab','e2l_dinner','e2l_truce']},
- {n:'II',t:'THE DEBT',ph:['taken','after'],ids:['e2l_gone','e2l_gone2','e2l_gone3','e2l_come','e2l_door','e2l_med','e2l_after','e2l_room','e2l_rifle','e2l_fork','e2l_thurs']},
+ {n:'II',t:'THE DEBT',ph:['taken','after'],ids:['e2l_gone','e2l_gone2','e2l_gone3','e2l_come','e2l_door','e2l_med','e2l_after','e2l_room','e2l_marks','e2l_rifle','e2l_fork','e2l_thurs']},
  {n:'III',t:'THE CASE',ph:['act2'],ids:['e2l_car','e2l_list','e2l_stitch','e2l_pair','e2l_spar','e2l_know','e2l_test']},
  {n:'IV',t:'THE TERMS',ph:['act3'],ids:['e2l_row','e2l_cant','e2l_guard','e2l_night','e2l_dress','e2l_will','e2l_boat','e2l_book','e2l_eve']},
  {n:'V',t:'A YEAR ON',ph:['epilogue'],ids:['e2l_morn','e2l_epi','e2l_page','e2l_last']}];
 const K76NAME={e2l_mark:'The card man',e2l_eye:'The trailer, at four',e2l_show:'The cold room',e2l_lift:'The customs-house lift',e2l_kennel:'The kennel, at three',
  e2l_yard:'The warehouse yard',e2l_sab:'The foundation dinner',e2l_dinner:'Angel’s table',e2l_truce:'The bowling alley accords',e2l_come:'The river',e2l_door:'The door',
  e2l_med:'The room marked LAUNDRY',e2l_after:'The kitchen, at noon',e2l_car:'Eight hours in a car',e2l_stitch:'The garage, with a needle',e2l_pair:'The first one together',
- e2l_spar:'The training hall',e2l_boat:'The Constance',e2l_morn:'The morning after',e2l_epi:'The anniversary',e2l_rifle:'The rifle',e2l_fork:'The fork',e2l_list:'The fourth body',e2l_will:'The wills',e2l_book:'The book closes',e2l_page:'The page',e2l_know:'Nine minutes',e2l_test:'The parapet',e2l_row:'The corridor',e2l_guard:'Pier Six',e2l_gone:'The empty trailer',e2l_cant:'What you cannot do',e2l_night:'Three in the morning',e2l_dress:'Two garment bags',e2l_last:'The pillow',e2l_room:'Back down the stairs',e2l_thurs:'Thursday',e2l_gone2:'Midnight, on the step',e2l_gone3:'The shoe',e2l_eve:'The night before'};
+ e2l_spar:'The training hall',e2l_boat:'The Constance',e2l_morn:'The morning after',e2l_epi:'The anniversary',e2l_rifle:'The rifle',e2l_fork:'The fork',e2l_list:'The fourth body',e2l_will:'The wills',e2l_book:'The book closes',e2l_page:'The page',e2l_know:'Nine minutes',e2l_test:'The parapet',e2l_row:'The corridor',e2l_guard:'Pier Six',e2l_gone:'The empty trailer',e2l_cant:'What you cannot do',e2l_night:'Three in the morning',e2l_dress:'Two garment bags',e2l_last:'The pillow',e2l_room:'Back down the stairs',e2l_thurs:'Thursday',e2l_gone2:'Midnight, on the step',e2l_gone3:'The shoe',e2l_eve:'The night before',e2l_marks:'What is left'};
 const k76Ids=c=>c.ids.filter(k76Has);
 const k76ChOf=id=>K76CH.find(c=>c.ids.includes(id))||null;
 const k76ChNow=()=>K76CH.find(c=>c.ph.includes(S.phase))||K76CH[0];
@@ -219,6 +219,10 @@ function k76Line(id){const f=S.f,m=k76M(),self=!!f.selfEscape;switch(id){
  case 'e2l_gone2':return f.e2lGone2==='door'?'Angel and Ronin at the door, armed, asking whether I was looking or waiting. Told them. Let Ronin drive.':'Angel and Ronin at the door, armed, asking whether I was looking or waiting. Showed them the table.';
  case 'e2l_gone3':return 'The black hound put their shoe on my pillow. Slept in the chair.';
  case 'e2l_eve':return f.e2lEnd==='lovers'?(m?'The night before the auction you cleaned his pistol and he zeroed your scope.':'The night before the auction: cleaned each other’s weapons. Did not say be careful.'):(m?'The night before the auction you loaded five rounds and put the sixth back in the box, loudly. He said thank you through the door.':'The night before the auction: they loaded five, and returned the sixth to the box where I could hear it.');
+ case 'e2l_marks':return f.e2lMarks==='boiler'?(m?'You used all the hot water in his house. He had a second boiler put in, and neither of you said why.':'The boiler gave out at eleven. Had a second put in.')
+  :f.e2lMarks==='towels'?(m?'You used all the hot water in his house. There were warm towels outside the door, and he was loud at the far end of the house.':'The boiler gave out at eleven. Left towels. Stayed at the far end of the house, audibly.')
+  :f.e2lMarks==='differ'?(m?'He took the pins out and said his trade was not the boot’s. You agreed, to be kind. He knew.':'Took the pins out. Six. Told them it was a different trade. They agreed, out of kindness.')
+  :(m?'He took the pins out and said his trade was not the boot’s. You told him it was. He did not argue.':'Took the pins out. Six. They say it is one trade. I had no answer.');
  case 'e2l_morn':return m?'The morning after. Angel opened the envelope.':'The morning after. Angel opened her envelope.';
  case 'e2l_epi':return f.e2lEnd==='lovers'?'A year on. You still race for the same marks, and the loser cooks.':'A year on. Nobody is dead. Both of you still could.'}
  return ''}

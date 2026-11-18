@@ -62,8 +62,6 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *You hold the right hand out to him, palm up. He looks at it, and something goes out of his face, as if a lamp had been carried out of a room.*
 
-**V:** It was for an exercise. The doctor left it. There is no penalty.
-
 *You do not know that word in here. You keep the hand out until he has gone, to be safe.*
 
 *It comes back in pieces while you are eating toast, and you put the toast down.*
@@ -94,17 +92,15 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 - ▸ “ur soup’s shit, by the way”
 
-**V:** It is the doctor’s soup.
+**Misaki:** Then Ronin’s soup is shit, and you can tell him I said so.
 
 **Misaki:** Then the doctor’s soup is shit, and you can tell her I said so.
 
 *For about a second he looks like a man who has been set down somewhere safe. Then he has his own face again.*
 
-**V:** I will convey it to her in those words.
-
 *They asked the tall one with the tray to carry a message to K9. He can have them. It is owed. He will pay you for it.*
 
-*(or)* *This morning they asked the doctor, in the pleasant voice, whether anybody had told K9 where they were, because he would want to know, and he pays.*
+*(or)* *This morning they asked the tall one with the tray, in the pleasant voice, whether anybody had told K9 where they were, because he would want to know, and he pays.*
 
 *You take it upstairs and sit down with it.*
 
@@ -120,8 +116,6 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *The driver at the gala. The doorman who swapped a shift. The man on a Tuesday, in front of his daughter. All of it is still true. It does not do what it did.*
 
-*The doctor has left the films on the light-box. The hand, the ribs. Further up the long bones there are fine pale lines, one above another, where a child stopped growing for want of food and started again, several times.*
-
 **V:** (I have forty pages of what they have done. Nobody in this city kept one page of what was done to them.)
 
 *You find that you have begun one, on the back of page forty, in pencil. You have written a date and the word “nine”. You stop, and put the cap on, and sit with the file shut on your knee until the tray is due.*
@@ -135,8 +129,6 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 *The doctor has worked for you for eleven years. She holds out the pen and says nothing at all.*
 
 *You write: K9. Under “relationship” you write CREDITOR, and look at it, and it is exact, and you sign.*
-
-*You asked them to open the left hand. It was for the doctor’s sheet: ten times, on the hour.*
 
 *They heard an order. When the hand would not obey it, they held the other one out to you instead, palm up, *
 

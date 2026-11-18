@@ -22,7 +22,7 @@ function k81House(){const m=k76M();const A=(id,t,sub,fn)=>({t,sub:(k81N(id)?'×'
  ask(K73Who(),m?'(his house. u live in it now, apparently. today:)':'(They are in the spare room. Today:)',[
   A('table',k76H('Eat at his table','Cook for the table'),k76H('he cooks; you have one working hand','they have one working hand'),k81Table),
   A('kennel',k76H('Go out to his kennel','Find them in the kennel'),'four hounds',k81Kennel),
-  A('hand','The hand: ten times, on the hour','the doctor’s sheet',k81Hand),
+  A('hand','The hand: ten times, on the hour','open and close',k81Hand),
   A('night',k76H('Walk his house at night','The house at night'),k76H('count the doors','they are counting the doors'),k81Night),
   ...(typeof k83Study==='function'?[A('study','The study, in the evening','two armchairs',k83Study)]:[]),
   ...((typeof k82Ask==='function'&&k82Left())?[A('ask',k76H('Ask him one thing','Ask them one thing'),'you will get a straight answer',k82Ask)]:[]),
@@ -106,7 +106,7 @@ function k81Hand(){const n=k81Inc('hand'),m=k76M();
    m?K76MV('(don’t smile at him. he said a fork. he said both hands. this is the thing he’s waiting for)','(don’t smile at him. he said a fork in both hands. this is the thing he’s waiting for)','(Don’t smile at him. He said a fork in both hands. This is the thing he is waiting for.)','(Do not smile at him. He said a fork in both hands. This is the very thing he is waiting for.)'):K76V('(I told them what I would do when that hand worked. I watched their face remember it. I would give a great deal to have said anything else in that kitchen.)'),
    ['',m?'You put the hand down under the blanket.':'They put the hand away under the blanket, where you cannot see it.']]]),hub);
  say([
-  ['',m?'The doctor’s sheet says: open and close, ten times, on the hour. The hand does it four times and then lies down.':'The doctor’s sheet says: open and close, ten times, on the hour. Their hand does it four times and then lies still.'],
+  ['',m?'The sheet says: open and close, ten times, on the hour. The hand does it four times and then lies down.':'The sheet says: open and close, ten times, on the hour. Their hand does it four times and then lies still.'],
   ['',m?'He is in the doorway with his pocket watch out. He has been there for all four.':'You are in the doorway with your watch out. You have been there for all four.'],
   K76MV('are u TIMING me','are you timing me','Are you timing me?','Are you timing me? With an actual watch?'),
   K76V('The sheet says on the hour. Somebody must know when the hour is.')],
@@ -187,11 +187,11 @@ function k81Room(){k77Go('#10100e');k73Mark('e2l_room',1);const m=k76M(),f=S.f;
 /* ===================================== II · THURSDAY ===================================== */
 function k81Thurs(){k77Go('#0b0c0e');k73Mark('e2l_thurs',1);const m=k76M(),f=S.f;
  const L=m?[
-  ['','Thursday. The doctor says you can go. Ronin brings your truck round to the gate, and you drive it to the lot yourself, one-handed, in second gear the whole way.'],
+  ['','Thursday. '+((typeof kdSA==='function'&&!kdSA())?'He says the ribs will do, and that you can go.':'The doctor says you can go.')+' Ronin brings your truck round to the gate, and you drive it to the lot yourself, one-handed, in second gear the whole way.'],
   ['','The trailer has a new lock. Inside it is exactly as you left it, except that somebody has washed the bowl and watered the cactus.'],
   ['','You lie down on your own bed in your own trailer with the pistol under the pillow. It is what you have wanted for a fortnight. It takes you about an hour to understand that you are listening for four hounds and a clock in a hall.'],
   K76MV('(no. absolutely not. i live HERE. i’ve got a cactus)','(no. absolutely not. i live here. i have a cactus)','(No. Absolutely not. I live here. I have a cactus.)','(No. Absolutely not. I live here; I have a cactus and a lock that takes him four minutes.)')]:[
-  ['','Thursday. The doctor says that they may go. Ronin brings their truck round to the gate, and they drive it out themselves, one-handed, in second gear, without looking back at the house.'],
+  ['','Thursday. '+((typeof kdSA==='function'&&!kdSA())?'The ribs will do, and you have told them that they may go.':'The doctor says that they may go.')+' Ronin brings their truck round to the gate, and they drive it out themselves, one-handed, in second gear, without looking back at the house.'],
   ['','You strip the bed in the spare room yourself. You have staff for that.'],
   ['','At nine you eat at the long table, at your own place, opposite one that is laid and empty. The hounds will not settle. The black hound goes to the side door every quarter of an hour and stands at it.'],
   K76V('(The house is as it was a month ago. I kept it like this for eleven years, and I found no fault with it.)')];
@@ -221,7 +221,7 @@ function k81Thurs(){k77Go('#0b0c0e');k73Mark('e2l_thurs',1);const m=k76M(),f=S.f
  const add=(before,b)=>{const r=b.run;b.run=function(){return k76Card(b.id,()=>r())};const i=at(before);K73B.splice(i<0?K73B.length:i,0,b)};
  const late=()=>['after','act2'].includes(S.phase);
  add('e2l_rifle',{id:'e2l_room',t:()=>k76H('Go back down to the room, in daylight','The door marked LAUNDRY is open'),sub:()=>'costs time · on purpose',when:()=>late()&&k73Done('e2l_after')&&k73Fresh(),run:k81Room});
- add('e2l_car',{id:'e2l_thurs',t:()=>'Thursday: the doctor says they can go',sub:()=>'costs time · the truck, the trailer',when:()=>late()&&k73Done('e2l_rifle')&&(k73Done('e2l_fork')||S.f.e2lAfter!=='war')&&k73Fresh(),run:k81Thurs})}catch(e){}})();
+ add('e2l_car',{id:'e2l_thurs',t:()=>'Thursday: they can go home',sub:()=>'costs time · the truck, the trailer',when:()=>late()&&k73Done('e2l_rifle')&&(k73Done('e2l_fork')||S.f.e2lAfter!=='war')&&k73Fresh(),run:k81Thurs})}catch(e){}})();
 
 /* ===================================== ENDINGS ===================================== */
 const _xe81=extraEnding;extraEnding=function(){const L=_xe81();try{if(!S||!S.f||S.f.e2l!==1||S.rom||S.vrom||S.f.k28pair)return L;const f=S.f;

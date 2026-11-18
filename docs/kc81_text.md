@@ -199,9 +199,9 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *(or)* *They put the hand away under the blanket, where you cannot see it.*
 
-*The doctor’s sheet says: open and close, ten times, on the hour. The hand does it four times and then lies down.*
+*The sheet says: open and close, ten times, on the hour. The hand does it four times and then lies down.*
 
-*(or)* *The doctor’s sheet says: open and close, ten times, on the hour. Their hand does it four times and then lies still.*
+*(or)* *The sheet says: open and close, ten times, on the hour. Their hand does it four times and then lies still.*
 
 *He is in the doorway with his pocket watch out. He has been there for all four.*
 
@@ -367,7 +367,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 ### e2l\_thurs
 
-*Thursday. The doctor says you can go. Ronin brings your truck round to the gate, and you drive it to the lot yourself, one-handed, in second gear the whole way.*
+*Thursday. *
 
 *The trailer has a new lock. Inside it is exactly as you left it, except that somebody has washed the bowl and watered the cactus.*
 
@@ -375,7 +375,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 **Misaki:** (No. Absolutely not. I live here; I have a cactus and a lock that takes him four minutes.)
 
-*Thursday. The doctor says that they may go. Ronin brings their truck round to the gate, and they drive it out themselves, one-handed, in second gear, without looking back at the house.*
+*Thursday. *
 
 *You strip the bed in the spare room yourself. You have staff for that.*
 

@@ -48,7 +48,7 @@ const K80_MC=[
   K76MV('(he said open. it didn’t open. that’s a no. u don’t say no in here)','(he said open and it didn’t open. that’s a no. you don’t say no in here)','(He said open and it didn’t open. That’s a no. You don’t say no in here.)','(He said open, and it did not open. That counts as a no, and you do not say no in here.)'),
   k80Gone()?['','You hold your right hand out to him instead, palm up.']:K76MV('this one works. use this one','this one works. you can use this one','This one works. You can use this one.','This one works. You can use this one instead. It does what it’s told.'),
   ['','You hold the right hand out to him, palm up. He looks at it, and something goes out of his face, as if a lamp had been carried out of a room.'],
-  K76V('It was for an exercise. The doctor left it. There is no penalty.'),
+  K76V((typeof kdSA==='function'&&!kdSA())?'It was for an exercise, for the hand. There is no penalty.':'It was for an exercise. The doctor left it. There is no penalty.'),
   ['','You do not know that word in here. You keep the hand out until he has gone, to be safe.']],cb)];
 
 /* ===================================== MISAKI: CLEAR ===================================== */
@@ -70,15 +70,15 @@ const K80_MX=[
     K76V('I did not keep those. They were not addressed to me.'),
     ['','He goes out. You eat the soup, and you do not say anything to the door, and it is the best thing you have done in a week.']],cb)}},
    {t:'“ur soup’s shit, by the way”',fn:()=>{S.f.e2lThanks='soup';save();say([
-    K76V('It is the doctor’s soup.'),
-    K76MV('then hers is shit','then the doctor’s soup is shit','Then the doctor’s soup is shit.','Then the doctor’s soup is shit, and you can tell her I said so.'),
+    K76V((typeof kdSA==='function'&&!kdSA())?'It is Ronin’s soup. It is out of a can.':'It is the doctor’s soup.'),
+    (typeof kdSA==='function'&&!kdSA())?K76MV('then his is shit','then ronin’s soup is shit','Then Ronin’s soup is shit.','Then Ronin’s soup is shit, and you can tell him I said so.'):K76MV('then hers is shit','then the doctor’s soup is shit','Then the doctor’s soup is shit.','Then the doctor’s soup is shit, and you can tell her I said so.'),
     ['','For about a second he looks like a man who has been set down somewhere safe. Then he has his own face again.'],
-    K76V('I will convey it to her in those words.')],cb)}}]))];
+    K76V((typeof kdSA==='function'&&!kdSA())?'I will convey it to him in those words.':'I will convey it to her in those words.')],cb)}}]))];
 
 /* ===================================== V ===================================== */
 const K80_V=[
  cb=>{const asked=!!S.f.e2lMedAsk;say([
-  ['',asked?'They asked the tall one with the tray to carry a message to K9. He can have them. It is owed. He will pay you for it.':'This morning they asked the doctor, in the pleasant voice, whether anybody had told K9 where they were, because he would want to know, and he pays.'],
+  ['',asked?'They asked the tall one with the tray to carry a message to K9. He can have them. It is owed. He will pay you for it.':'This morning they asked the tall one with the tray, in the pleasant voice, whether anybody had told K9 where they were, because he would want to know, and he pays.'],
   ['','You take it upstairs and sit down with it.'],
   K76V('(They would sooner be given to me. To the man with the sheeting, who wrote SLOW. They have weighed me against whatever had them in that building, and I am the better death.)'),
   K76V('(I intended to be the worst thing that ever happened to them. I have been outbid.)'),
@@ -87,7 +87,7 @@ const K80_V=[
  cb=>say([
   ['','You take your file on them down to the corridor and read it in the chair outside the door marked LAUNDRY. Forty pages. You read them the way a man re-reads a contract he has begun to doubt.'],
   ['','The driver at the gala. The doorman who swapped a shift. The man on a Tuesday, in front of his daughter. All of it is still true. It does not do what it did.'],
-  ['','The doctor has left the films on the light-box. The hand, the ribs. Further up the long bones there are fine pale lines, one above another, where a child stopped growing for want of food and started again, several times.'],
+  ['',((typeof kdSA==='function'&&!kdSA())?'The films are on the lightbox. The hand, the ribs.':'The doctor has left the films on the light-box. The hand, the ribs.')+' Further up the long bones there are fine pale lines, one above another, where a child stopped growing for want of food and started again, several times.'],
   K76V('(I have forty pages of what they have done. Nobody in this city kept one page of what was done to them.)'),
   ['','You find that you have begun one, on the back of page forty, in pencil. You have written a date and the word “nine”. You stop, and put the cap on, and sit with the file shut on your knee until the tray is due.']],cb),
  cb=>say([
@@ -97,7 +97,7 @@ const K80_V=[
   ['','The doctor has worked for you for eleven years. She holds out the pen and says nothing at all.'],
   ['','You write: K9. Under “relationship” you write CREDITOR, and look at it, and it is exact, and you sign.']],cb),
  cb=>say([
-  ['','You asked them to open the left hand. It was for the doctor’s sheet: ten times, on the hour.'],
+  ['',(typeof kdSA==='function'&&!kdSA())?'You asked them to open the left hand. It was for the exercise: ten times, on the hour.':'You asked them to open the left hand. It was for the doctor’s sheet: ten times, on the hour.'],
   ['','They heard an order. When the hand would not obey it, they held the other one out to you instead, palm up, '+(k80Gone()?'without a word, and kept it there.':'and said, most courteously, that this one worked and you could use this one.')],
   K76V('(They offered me the working hand, to be done with as I saw fit.)'),
   K76V('(I have wanted them afraid of me. I wrote it down as an aim. I did not know what it would look like, and I had not thought that it would be polite.)'),
