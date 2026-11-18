@@ -48,7 +48,7 @@ const K94_V=[
  cb=>say([
   N('The third time it is rage, and it comes out of nowhere, over a bowl.'),
   N('They have thanked you for the soup. They have said that it was very good, and that they are sorry to be a trouble, in that voice, with their eyes on your hands.'),
-  N('You swore to kill a person. You had a file on them. They were loud, and foul, and they put a round past your ear and called you grandpa in front of everybody you know. You have never in your life been so thoroughly despised by anything, and you had come to rely on it.'),
+  N('You swore to kill a person. You had a file on them. They were loud, and foul, and they put a round past your ear and called you “your honour” in front of everybody you know. You have never in your life been so thoroughly despised by anything, and you had come to rely on it.'),
   K76V('(This is not that person. It has their face. Somebody has taken my enemy and left me this in the bed.)'),
   N('And the thought is simply there: kill it. Not them. It. The polite thing. Put it out, so that you need not look at it another day, saying thank you with that mouth.'),
   N('Your hand has closed on the edge of the tray, hard enough that the bowl is ringing against the spoon. They have heard it. They have gone quite still.'),
@@ -101,7 +101,7 @@ const K94_V=[
  /* 7 · once more */
  cb=>say([
   N('The seventh time, they are themselves.'),
-  N('They know the house. They know you. They have told you that your soup is shit and your sign is stupid, and this morning they looked you in the face, in place of your hands, and called you grandpa, and meant every letter of it.'),
+  N('They know the house. They know you. They have told you that your soup is shit and your sign is stupid, and this morning they looked you in the face, in place of your hands, and called you “your honour”, and meant every letter of it.'),
   N('So now it would be fair. That is the thought. For a fortnight you could not, because there was nobody there to do it to: only a polite voice, and a hand that offered itself. You could not kill that. No law that you ever wrote would have let you.'),
   K76V('(But this is the one in the book. Awake, and foul-mouthed, and knowing exactly who I am. This is the person I swore it of. If it was ever to be done, it would be now, and it would be clean.)'),
   N('You wait for it to take hold. You stand in the doorway with the tray, and you look at them, propped up on three pillows, with a pink star on each fingernail, scowling at you.'),
@@ -140,11 +140,11 @@ const K94_M=[
  cb=>say([
   N('You swore to kill him. You did it in front of everybody. You told him that you would do it somewhere stupid, and you meant it; you have never meant anything more.'),
   N('You go looking for that. You want to hold it for a minute. It was yours, and nearly nothing in here is.'),
-  N('It is thin. You can find the words. “Grandpa.” “A car park.” You can remember saying them. But the heat that was under them has gone somewhere, and what is left is like the outline of a thing on a wall after it has been taken down.'),
+  N('It is thin. You can find the words. “Ur honour.” “A car park.” You can remember saying them. But the heat that was under them has gone somewhere, and what is left is like the outline of a thing on a wall after it has been taken down.'),
   M2('(he’s a rich hypocrite who cuts people up and calls it law. come on. COME ON. u know this one)','(he’s a rich hypocrite who cuts people up and calls it law. come on. come on. you know this one)'),
   N('You do know it. It is all true. It will not catch. It is hard to hate a man properly when you are lying down, and he is the one with the water.'),
   N('That frightens you more than the table. If the hatred goes, then he has had that as well. Then there is nobody left in here but the one who says thank you, and that one would walk down to the cold room on its own feet and ask where to lie.'),
-  M2('(keep it. i don’t care if it’s fake. say it till it’s real. grandpa. grandpa. i’m going to kill u somewhere stupid)','(keep it. i don’t care if it’s fake. say it until it’s real. grandpa. grandpa. i’m going to kill you somewhere stupid)'),
+  M2('(keep it. i don’t care if it’s fake. say it till it’s real. ur honour. ur honour. i’m going to kill u somewhere stupid)','(keep it. i don’t care if it’s fake. say it until it’s real. your honour. your honour. i’m going to kill you somewhere stupid)'),
   N('You say it, under your breath, to the green light, forty times. It is the nearest thing that you have to a prayer. You are asking to be allowed to go on wanting him dead.')],cb)];
 const K94_X=[
  /* clear 1 · owing */

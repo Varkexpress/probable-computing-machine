@@ -198,11 +198,11 @@ function k81Thurs(){k77Go('#0b0c0e');k73Mark('e2l_thurs',1);const m=k76M(),f=S.f
  const stayed=()=>{f.e2lThurs='stayed';save();say(m?[
    ['','You stay. You lie on your right side and count the bolts, and at about three you fall asleep, and you do not dream of the other building. You dream of a hall clock striking, in a house you have sworn to burn down.'],
    K76V('(text, at six) The spare room is as you left it. That is information, and not an invitation.'),
-   K76MV('(text) didn’t ask','(text) didn’t ask, grandpa'),
+   K76MV('(text) didn’t ask','(text) didn’t ask, ur honour'),
    K76MV('(i’m back there by sunday. i tell everyone it’s for the case)','(i’m back there by sunday. i tell everybody it’s for the case)','(I’m back there by Sunday. I tell everybody it’s for the case.)','(I’m back there by Sunday. I tell everybody that it’s for the case.)')]:[
    ['','You do not go to the gate. You go to bed at the usual time and lie awake for three and a half hours, which is the whole of your allowance.'],
    K76V('(text, at six) The spare room is as you left it. That is information, and not an invitation.'),
-   K76MV('(text) didn’t ask','(text) didn’t ask, grandpa'),
+   K76MV('(text) didn’t ask','(text) didn’t ask, ur honour'),
    ['','On Sunday their truck is at the gate. They say that it is for the case. You say that naturally it is, and you carry the bag up yourself.']],hub)};
  const gate=()=>{f.e2lThurs='gate';apply({aff:2});save();say(m?[
    ['','At one in the morning you get in the truck and drive back, and park outside his gate with the lights off, and get the blanket out from behind the seat. Ronin did this once, to stop a killing. You do not look at why you are doing it.'],

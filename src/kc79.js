@@ -109,7 +109,7 @@ function k79Dress(){k77Go('#0a080a');k73Mark('e2l_dress',1);const m=k76M(),f=S.f
    K76V('(I will write it down.)')]:[
    K76V('You wasted your money, Angel.'),
    [AN,'Thank you. Now say it to them.'],K76V('…'),[AN,'Yeah. That’s what I thought.'],
-   K76MV('i heard it','i heard it, grandpa','I heard it.','I heard it. I’m not deaf.'),K76V('I said it to Angel.'),
+   K76MV('i heard it','i heard it, ur honour','I heard it.','I heard it. I’m not deaf.'),K76V('I said it to Angel.'),
    K76V('(They heard it. I cannot tell what they will do with it. I find that I said it anyway.)')],()=>{fr('a',2);hub()})};
  const quiet=()=>{f.e2lDress='quiet';save();say([
    ['','Angel zips both bags shut again, slowly, one and then the other.'],

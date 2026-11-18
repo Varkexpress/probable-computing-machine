@@ -108,8 +108,8 @@ let runs=0,fails=0;const ok=(c,m)=>{runs++;if(!c){fails++;console.log('FAIL',m)}
  /* (d) a year on */
  const EPI='^⚔ A year on: ';
  for(const pov of ['m','v'])for(const end of ['lovers','rivals']){await ev(([pov,end])=>__set(pov,'epilogue',{done:['e2l_epi'],f:{e2lEnd:end}}),[pov,end]);ok(await side(EPI)===1,`${pov} ${end} a year on offered`);
-  for(let i=0;i<3;i++){await ev(()=>{S.done={};window.__hubbed=0;k83Epi()});ok(await drive([0])==='hub',`${pov} ${end} scene ${i}`)}
-  ok(await ev(()=>Object.keys(S.f.e2l83).length===3)&&await side(EPI)===0,`${pov} ${end} three scenes, then closed`)}
+  for(let i=0;i<6;i++){await ev(()=>{S.done={};window.__hubbed=0;k83Epi()});ok(await drive([0])==='hub',`${pov} ${end} scene ${i}`)}
+  ok(await ev(()=>Object.keys(S.f.e2l83).length===6)&&await side(EPI)===0,`${pov} ${end} six scenes, then closed`)}
  await ev(()=>__set('m','epilogue',{done:['e2l_epi'],f:{}}));ok(await side(EPI)===0,'a year on needs an outcome');
  /* (e) scenes, threads, the morning, endings */
  for(const pov of ['m','v'])for(const [id,ph,room] of [['l82_pew','act2','ronin'],['l82_reflector','act2','studio'],['l82_hall','act2','atrium']]){

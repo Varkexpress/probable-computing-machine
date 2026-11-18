@@ -222,7 +222,7 @@ function k84Marks(){k77Go('#0c0b0b');k73Mark('e2l_marks',1);const m=k76M(),f=S.f
    ['',m?'He takes the last pin out more gently than he took the first. You pretend that you have not noticed.':'You take the last pin out more gently than you took the first. They pretend that they have not noticed.']],hub)};
  const differ=()=>{f.e2lMarks='differ';apply({aff:1});save();say([
    m?K76MV('fine. it’s different. happy?','fine. it’s a different trade. happy?','Fine. It’s a different trade. Happy?','Fine. It’s a completely different trade. Are you happy?'):K76V('It is a different trade.'),
-   m?K76V('No. You do not believe it. You said it to be kind, and I find that harder to hear than the other.'):K76MV('sure it is','sure it is, grandpa','Sure it is.','Sure it is, V. Completely different.'),
+   m?K76V('No. You do not believe it. You said it to be kind, and I find that harder to hear than the other.'):K76MV('sure it is','sure it is, ur honour','Sure it is.','Sure it is, V. Completely different.'),
    ['',m?'He lays the pins out on the towel in a row, by length. There are six. He looks at them as he looked at the kicked ribs.':'They said it to be kind. You lay the pins out on the towel in a row, by length. There are six. You cannot look at them and keep your face.'],
    K76V('(Six pins, to mend what one bored man did in passing. I have never once had to mend anything of mine.)')],hub)};
  say(L,()=>ask(K73Who(),m?'(He has stopped, with the pliers on the last pin.)':'(One pin left.)',m?[

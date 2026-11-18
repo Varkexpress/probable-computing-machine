@@ -193,7 +193,7 @@ function k74Case(){const n=k74Inc('case');
 function k74Intercept(){const n=k74Inc('intercept');
  if(n>1){apply({yen:15000});return k74Say(k74Cyc('intercept',[
   [['','His next mark is a councilman’s nephew who drives drunk on purpose. You put him through his own windscreen at a red light with one round, and by the time the long black car pulls up beside the wreck you are three streets away eating noodles.'],
-   K74V('(server) That is two.'),K74MV('(server) keeping count, grandpa?'),K74V('(server) I keep count of everything you do.'),['','(+'+money(15000)+', from the nephew’s glovebox.)']],
+   K74V('(server) That is two.'),K74MV('(server) keeping count, ur honour?'),K74V('(server) I keep count of everything you do.'),['','(+'+money(15000)+', from the nephew’s glovebox.)']],
   [['','A man on his list who beats his wife in front of the neighbours. You get there first. She is standing in the kitchen doorway when you do it, and she screams, and you leave her screaming and do not look back at her.'],
    K74MV('(not my problem. nobody paid. still not my problem)'),['','That night his message is a single photograph of the kitchen doorframe, with her handprint on it in her husband’s blood.'],
    K74MV('(text) so?'),K74V('(text) You frightened her more than he ever did. She will see you in that doorway for the rest of her life.'),['','(+'+money(15000)+', from his wallet.)']]]),hub)}
@@ -259,7 +259,7 @@ function k74Plan(){const n=k74Inc('plan');
 function k74Follow(){const n=k74Inc('follow');
  if(n>1)return k74Say(k74Cyc('follow',[
   [['','They take you to the harbour this time, and sit on a bollard eating chips, and throw one to the black hound. It catches it, and then looks at you as though you have caught it doing something.'],K74V('(I will be speaking to him.)')],
-  [['','They lose you in the market under the flyover, which nobody has managed in eleven years. When you get home there is a text.'],K74MV('(text) where’d u go grandpa'),K74V('(text) Where did you go?'),K74MV('(text) into a bin. ur dog walked right past me. hi dog')]]),hub);
+  [['','They lose you in the market under the flyover, which nobody has managed in eleven years. When you get home there is a text.'],K74MV('(text) where’d u go ur honour'),K74V('(text) Where did you go?'),K74MV('(text) into a bin. ur dog walked right past me. hi dog')]]),hub);
  say([['','You pick them up after a job at the station and follow them on foot, half a street back, with the black hound on a short lead.'],
   ['','They know inside two minutes, and instead of running they give you a tour: the noodle stand, the laundromat, a church where they light a candle without kneeling, the arcade, where they play the claw machine once and lose, a bridge, another bridge, and the bowling alley, where they buy a pair of bowling shoes in your size and leave them on the counter.'],
   K74MV('(text) ur feet are huge. it’s like being followed by a boat'),K74V('(text) You lit a candle. For whom?'),K74MV('(text) for me. in advance. somebody should'),
@@ -442,7 +442,7 @@ function k74A60(done){const m=k74M();say([
  ['',m?'Two in the morning. Your phone goes on the nightstand, and again, and then it does not stop.':'Two in the morning. The server is busy. You read it in bed with your glasses on and the old hound across your feet.'],
  [RN,'(server) settle somethin. if one of us gets got on a job. do the rest come get the body or nah'],
  [AN,'(server) nah'],
- K74MV('(server) nah. leave me. especially u, grandpa. if ur standing over my body i’d better be the one who put it there'),
+ K74MV('(server) nah. leave me. especially u, ur honour. if ur standing over my body i’d better be the one who put it there'),
  K74V('(server) I will not come back for you. I will be the reason.'),
  [AN,'(server) STOP. ok. rule. nobody goes back. within 48h we clear out anything at their place that leads to the rest of us. no funerals, no visits, no stupid'],
  [AN,'(server) all in favour'],

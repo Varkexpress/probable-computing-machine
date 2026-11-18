@@ -39,7 +39,7 @@ const K85S=[
     k84No('Give the other ceiling its number.'),
     {t:'Tell V his ceiling is a six',fn:()=>{k84Deny();say([
      ['','He comes in at seven with the tray, and you get in first.'],
-     K76MV('ur ceiling’s a 6. just so u know','your ceiling’s a six. just so you know','Your ceiling’s a six. Just so you know.','Your ceiling’s a six, grandpa. Just so you know. Out of ten.'),
+     K76MV('ur ceiling’s a 6. just so u know','your ceiling’s a six. just so you know','Your ceiling’s a six. Just so you know.','Your ceiling’s a six, your honour. Just so you know. Out of ten.'),
      K76V('It is a sound ceiling.'),
      K76MV('six. the crack loses u a point','six. the crack loses you a point','Six. The crack loses you a point.','Six. You lose a point for the crack and one for the vibes.'),
      ['','By the evening the crack has been filled and painted. You did not ask him to. You lie there and look at a seven, and you are so angry that you nearly cry.']],cb)}}]))},
@@ -163,7 +163,7 @@ K85S.push(
    ['','You have heard him say it before. In the server, in the lift, across a kitchen: he says it like an item, the way he would say “the doorman”. That is not how he has just said it.'],
    K76MV('(say it again. no. don’t. say it normal, u freak, say it like u hate me)','(say it again. no, don’t. say it normally, you freak. say it like you hate me)','(Say it again. No, don’t. Say it normally, you freak. Say it like you hate me.)','(Say it again. No, don’t. Say it normally, you freak. Say it like you hate me, like you’re supposed to.)'),
    ['','He comes in with the tray, and you try him.'],
-   K76MV('what’s my name','hey. what’s my name','Hey. What’s my name?','Hey, grandpa. What’s my name?'),
+   K76MV('what’s my name','hey. what’s my name','Hey. What’s my name?','Hey, your honour. What’s my name?'),
    K76V('Misaki.'),
    ['','It is the item again, with the full stop on it. He must have heard himself out there, and put it right.'],
    K76MV('(ok. good. that’s the right one. …i liked the other one. shut UP)','(okay. good. that’s the right one. …i liked the other one. shut up)','(Okay. Good. That’s the right one. …I liked the other one. Shut up.)','(Okay. Good. That’s the right one. …I liked the other one better. Shut up, shut up.)')],cb)},

@@ -68,7 +68,7 @@ k86('g_sign','m',null,'clear','The sign on the door',[
  N('You can read the door from the bed now, backwards, through the glass panel. YRDNUAL.'),
  M2('he put me in the LAUNDRY. i thought i was getting murdered and i was in the LAUNDRY','he put me in the laundry. i thought i was being murdered, and i was in the laundry'),
  N('You say it to the ceiling. Then you say it again, because it is the first sentence in a week that has come out in your own voice, and you want to hear what that sounds like.'),
- M2('grandpa. hey. GRANDPA. ur sign’s stupid','grandpa! hey, grandpa! your sign’s stupid!'),
+ M2('ur honour. hey. UR HONOUR. ur sign’s stupid','your honour! hey, your honour! your sign’s stupid!'),
  N('Nobody answers. Somewhere a long way up the house a door closes, carefully. You find that you are grinning, and that it hurts your face, as if the muscles had been put away for the season.')]);
 k86('g_ronin','m',null,'clear','Ronin, with a chair',[
  N('Ronin comes in with a kitchen chair and puts it down backwards and sits on it. He has brought the crowbar. He always brings the crowbar.'),
@@ -99,9 +99,9 @@ k86('g_book','m',null,'clear','Ask Ronin about the book',[
  N('You nod. It is what you expected. It is better to know. You have always said so.'),
  [RN,'He also ain’t slept, he’s burned somethin’ in the furnace that stunk of leather, and he’s locked hisself out his own basement. So I dunno what the fuck the book’s worth this week.'],
  M2('(don’t. it’s worth what it says. it’s in INK)','(don’t. it’s worth what it says. it’s in ink)')]);
-k86('g_grandpa','m',null,'clear','Call him grandpa',[
+k86('g_grandpa','m',null,'clear','Call him “ur honour”',[
  N('He brings the tray. You have a line ready. You have had it ready since four in the morning.'),
- M2('took u long enough, grandpa. what, did u have to milk the cow','took you long enough, grandpa. what, did you have to milk the cow?'),
+ M2('took u long enough, ur honour. what, did u have to milk the cow','took you long enough, your honour. what, did you have to milk the cow?'),
  N('It comes out thin. The words are right, and there is nothing under them. A week ago you could have peeled paint with it.'),
  N('He looks at you for a moment. Then he answers it as though it had landed.'),
  K76V('The cow was unwilling. You have a foul mouth, and you will eat this before it is cold.'),

@@ -71,11 +71,11 @@ function k73Oaths(m,open){
      [RN,'it’s a little funny. fifty on the little killer. they’re quicker'],
      [AN,'i’m not betting on which of my friends dies'],
      [AN,'…i’m putting a hundred on something else. it’s in an envelope. i sealed it. don’t ask']]),hub)};
- const loud=m?[K73MV('then i’ll kill u first, grandpa. somewhere stupid. a car park','then i’ll kill you first. somewhere stupid, like a car park'),K73V('You may try. I have written it down.')]:[
+ const loud=m?[K73MV('then i’ll kill u first, ur honour. somewhere stupid. a car park','then i’ll kill you first. somewhere stupid, like a car park'),K73V('You may try. I have written it down.')]:[
      ['','You write it in fountain pen, under the card man: MISAKI (hitmeuppp). WANTON. COLLATERAL: SEVERAL. TO BE KILLED. You date it, and blot it, and sleep your three and a half hours.'],
      K73V('It is in my ledger. I do not cross things out.'),
      K73MV('cool. ur in mine. i don’t have a ledger. i have a really good memory','cool. you’re in mine')];
- const o=[{t:m?'“swear it back. i’ll kill u first, grandpa”':'Write their name in the ledger',sub:'starts the enemies-to-lovers route · a war to the death with '+(m?'V':'Misaki'),fn:war(m?'loud':'ledger',loud)}];
+ const o=[{t:m?'“swear it back. i’ll kill u first, ur honour”':'Write their name in the ledger',sub:'starts the enemies-to-lovers route · a war to the death with '+(m?'V':'Misaki'),fn:war(m?'loud':'ledger',loud)}];
  if(open)o.push(m?{t:'Say nothing. Strip the rifle on the roof, under his camera',sub:'the same war, said with your hands',fn:war('quiet',[
      ['','You do not type a word. You strip the rifle on the laundromat roof under the streetlight, piece by piece, slowly, facing the alley camera you know is his, and you put it back together with your eyes shut.'],
      K73V('(server) I watched all of it. You are very fast.'),K73MV('(server) i’ll be faster on u')])}
@@ -202,7 +202,7 @@ function k73Door(self,cb){const m=k73M();say(m?(self?[
   K73MV('(great. now i owe him)','(great. now i owe him. fuck)','(Great. Now I owe him. Fuck.)','(Great. Now I owe him. Of all the people in this city to owe. Fuck.)')]:[
   ['','Of all the people in the city. You think it in the dark while he carries you, very clearly, the way you think things on a roof: of course it was him. He is the only one who wanted you dead badly enough to come and check.'],
   K73MV('(…now i owe him)','(…now i owe him. fuck)','(Now I owe him. Fuck.)','(Now I owe him. Of all the people in this city to owe. Fuck.)')]):(self?[
-  ['','They came to your door. For a week they have called you grandpa in front of everyone you know, and tonight they walked two kilometres on that foot to your door, and only yours. You do not know what to do with that, so you carry them down the stairs and do not think about it.']]:[
+  ['','They came to your door. For a week they have called you “your honour” in front of everyone you know, and tonight they walked two kilometres on that foot to your door, and only yours. You do not know what to do with that, so you carry them down the stairs and do not think about it.']]:[
   ['','In the car they sleep against the window. At a red light your phone buzzes once on the dash. It is Ronin: “book’s closed. nobody wins this one.” You do not answer. You drive the rest of the way at exactly the speed limit, because if anybody stops you tonight, you will not be able to be polite to them.']]),cb)}
 
 /* ===================================== THE INFIRMARY (never romantic) ===================================== */

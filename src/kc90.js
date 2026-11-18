@@ -150,7 +150,7 @@ function k90N3m(cb){say([
  ()=>ask('hitmeuppp','(The grating is cold against your face.)',[
   {t:'Stay on the floor, with your ear to it',fn:()=>{S.f.e2lN3='ear';save();say([
    N('You stay. You lie on his tile with your ear on his drain and listen to him scrub. It goes on until four. He is sick twice more.'),
-   M2('(that’s him. that’s grandpa. down there throwing up in his own murder room)','(that’s him. that’s grandpa, down there, throwing up in his own murder room)'),
+   M2('(that’s him. that’s his honour. down there throwing up in his own murder room)','(that’s him. that’s his honour, down there, throwing up in his own murder room)'),
    N('You do not know what a man is scrubbing off a table at two in the morning, or why it should turn his stomach now when it never has. You know that he has no idea anybody can hear him. It is the first time you have ever had him at a disadvantage, and you cannot find a single thing to do with it.')],cb)}},
   {t:'Stuff the drain with his T-shirt',fn:()=>{S.f.e2lN3='shirt';save();say([
    N('You pull his T-shirt off over your head, one-handed, and push it down into the grating with your thumb until the sound stops.'),

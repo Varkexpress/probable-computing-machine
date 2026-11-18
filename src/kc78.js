@@ -36,7 +36,7 @@ function k78Know(){k77Go('#07080b');k73Mark('e2l_know',1);const m=k76M(),f=S.f;
   K76V('(They have not withdrawn a word. A car park, they said; somewhere stupid. They take what pays and they sleep well. On the day somebody prices me, they will do it between two mouthfuls of cereal and never ask what I had done.)'),
   f.e2lSpar==='kiss'?K76V('(They called it a tactic, on the mat. I chose not to believe them. I ought to believe what people tell me about themselves.)'):null];
  const hide=()=>{f.e2lKnow='hide';save();say(m?[
-   ['','On the way down you call him grandpa twice and tell him his coat makes him look like a hearse. He looks pleased, or as near to it as he gets. You feel as if you are lying to a mark.']]:[
+   ['','On the way down you call him “ur honour” twice and tell him his coat makes him look like a hearse. He looks pleased, or as near to it as he gets. You feel as if you are lying to a mark.']]:[
    ['','In the car you tell them their position was sloppy and their sling is frayed. They tell you where you may put the sling. It is exactly as it has always been, and you sit in it as if in somebody else’s coat.']],hub)};
  const watch=()=>{f.e2lKnow='watch';save();say(m?[
    ['','That night you put the pistol back under the pillow, where it has not been since the infirmary, and balance a glass on the door handle of the spare room.'],
@@ -179,7 +179,7 @@ function k78Tells(){const n=k77Inc('tells'),m=k76M();
   [['','They have zeroed the rifle on the range under your house. The last group is five rounds in a space a coin would cover, at the height of a tall man’s chest.'],
    K76V('(Every target on that lane hangs at that height. I hung them.)')],
   [['','They ask Ronin, in the server, where you park on Tuesdays.'],K76V('(A car park. Somewhere stupid.)'),
-   ['','On Tuesday there is a ticket from the machine under your wiper, four hours, paid for, with “ur meter ran out grandpa” on the back.']],
+   ['','On Tuesday there is a ticket from the machine under your wiper, four hours, paid for, with “ur meter ran out, ur honour” on the back.']],
   [['','Your teacup has been moved a hand’s width to the left of where you leave it. You pour the tea down the sink and wash the cup twice.'],
    ['','Angel mentions, that evening, that Misaki was in your kitchen looking for the sugar.']]]),hub);
  say(m?[
