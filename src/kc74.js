@@ -377,7 +377,7 @@ function k74Dinner(){go(cutBg('#0e0a0c'));k73Mark('e2l_dinner');const m=k74M();
  const glass=()=>{S.f.e2lDinner='glass';k74Tally('m');save();say([['','You tip it in. Your hand is back on your fork before he turns round.'],
    ['','Then Ronin, reaching over to steal V’s bread roll, knocks your glass into V’s, swears, sets them both upright, and hands V yours.'],['','You watch Ronin drink.'],
    ['','He is on Angel’s bathroom floor for an hour. You hold his head. V holds a wet towel to the back of his neck and does not look at you once. Angel stands in the doorway with her shotgun broken over her arm and her mascara all down her face.'],
-   [AN,'at my table. at MY TABLE'],[RN,'(from the floor) ’s fine. i’m fine. i’m gonna be sick on your rug, angel. that one’s on her'],
+   [AN,'at my table. at MY TABLE'],[RN,'(from the floor) ’s fine. i’m fine. i’m gonna be sick on your rug, angel. that one’s on them'],
    K74V('(to you, very low) That was meant for me.'),K74MV('(very low) yeah'),K74V('Thank you for the honesty.')].concat(end),hub)};
  const clean=()=>{S.f.e2lDinner='clean';save();say([['','You leave it. You watch his glass all through dessert instead, and he watches you watch it.'],
    K74V('Did you?'),K74MV('no'),K74V('Then I will drink it.'),['','He drinks it in one go, looking at you over the rim. Angel puts her face in her hands.'],

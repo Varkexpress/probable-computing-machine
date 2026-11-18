@@ -99,8 +99,8 @@ function k73Eye(){go(cutBg('#08080c'));k73Mark('e2l_eye');const m=k73M();
   ['','At four in the morning you let yourself into their trailer with a roll of sheeting under your arm and sit down at their fold-down table to wait for your hands to be ready. Their rifle is on the table. You pick it up, to have it out of their reach. Then there is a pistol at your temple.']]).concat([
   K73MV('u have 3 seconds','you have three seconds'),
   K73V('I came to kill you. You woke. It happens.'),
-  K73MV('with a SHOWER CURTAIN?','with a shower curtain?'),
-  K73V('It is sheeting. I do not like to leave a mess for whoever cleans a place after me. You took the landlord.'),
+  K73MV('what’s the plastic for','what is the plastic for'),
+  K73V('It is for you. You would have gone out of here rolled in it, and down to the cold room under my house, and the hounds would have had what was left by Friday. You took the landlord.'),
   K73MV('he charged people for air. u were going to SUE him. rich people get to sue first and kill later','he charged people for air. you were going to sue him. rich people get to sue first and kill later'),
   K73V('Lex talionis. You took one of mine. By my law I am owed one of yours. I came for all of you. Since you are awake, I will take an eye on account.'),
   K73MV('try it','try it and find out'),
@@ -131,7 +131,7 @@ function k73Sab(){go(cutBg('#0c0a10'));k73Mark('e2l_sab');const m=k73M(),eye=S.f
   ['','At eight you sent the black hound and the old hound to the bottom of the car park stairwell. They are sitting there now, in the dark, waiting for anything to come down.']]).concat([
   K73MV('nice speech. not urs obviously. 140 people clapping for a butcher and none of them know which one'),K73V('They are clapping for the shelters. They do not need to know who paid for them, and they will not.'),
   K73MV('with what. blood money with a tax receipt'),K73V('There are two hounds at the bottom of your stairwell. You have until the coffee.'),
-  ['',m?'Dessert comes out, a cake in four tiers on a trolley. The man from the hospital fund gets up to admire it, which puts him at the window at last, in your crosshairs.':'Dessert comes out, a four-tier cake on a trolley, and the man from the hospital fund gets up to admire it, which puts him at the window.'],
+  ['',m?'After the speech the man from the hospital fund gets up to shake hands, which puts him at the window at last, in your crosshairs.':'After the speech the man from the hospital fund gets up to shake hands, which puts him at the window.'],
   ['',m?'Then V gets up from the back table with a glass of water, walks over and stands in the window beside him, between you and him, and looks out into the dark at exactly where you are. His whole head is in your scope. You have wanted this for a week. He knows it.':'You stand up, take your glass of water, and go and stand in the window beside him, between the glass and the car park roof, and look straight at where they are. You have put your head in their scope, on purpose, in front of a hundred and forty witnesses. You want to know what they are.']]);
  const hers=()=>{S.f.e2lSab='m';save();say([
    ['',m?'You put the round past his ear with about a thumb to spare, through the man behind him. He keeps perfectly still, and then he turns to a hundred and forty screaming people and tells them, in his board-meeting voice, to remain seated.':'You stay exactly where you are. The round passes your ear with about a thumb of room and goes through the man behind you, and your ear rings for two days. You turn to a hundred and forty screaming people and tell them to remain seated.'],
@@ -139,19 +139,19 @@ function k73Sab(){go(cutBg('#0c0a10'));k73Mark('e2l_sab');const m=k73M(),eye=S.f
    K73MV('bc a dead billionaire at a charity dinner makes the papers, and then they put ur name on everything. u’d hate that. i want u to die somewhere stupid. a car park. a toilet'),
    K73V('(text) I will make a note of that. Your stairwell is clear now. I have called them off.')].concat(k73SabSrv('m')),hub)};
  const his=()=>{S.f.e2lSab='v';save();say([
-   ['',m?'You shoot the cake. The top tier goes up and comes down on the man from the hospital fund, on V, on the mayor’s wife, and while the room is screaming, two of Hale’s officers walk the man out through the kitchen in handcuffs and buttercream. You go down the stairwell with your pistol out, and the two hounds at the bottom stand up, look at you, and let you pass.':'She shoots the cake. The top tier comes down on the man from the hospital fund, on you and on the mayor’s wife, and while the room is screaming, Hale’s officers walk the man out through the kitchen in handcuffs and buttercream. On the stairwell camera she comes down with her pistol out, and the hounds stand up and look at her, and let her pass. You did not tell them to.'],
-   K73V('(text) You had my head. You shot a cake.'),
-   K73MV('a dead billionaire at his own charity dinner is a martyr. i want u to die somewhere stupid'),
+   ['',m?'You put the round through the glass in his hand. It goes off like a bulb. He opens his fingers, and there is glass standing in his palm and blood running down into his cuff, and he does not look at it; he looks at you. While the room is screaming, two of Hale’s officers walk the man from the hospital fund out through the kitchen in handcuffs. You go down the stairwell with your pistol out, and the two hounds at the bottom stand up, look at you, and let you pass.':'The glass goes off in your hand like a bulb. You open your fingers, and there is glass standing in your palm and blood running down into your cuff. You do not look at it; you look at the car park roof. While the room is screaming, Hale’s officers walk the man from the hospital fund out through the kitchen in handcuffs. On the stairwell camera Misaki comes down with a pistol out, and the hounds stand up and look, and let them pass. You did not tell them to.'],
+   K73V('(text) You had my head. You took my hand.'),
+   K73MV('a dead billionaire at his own charity dinner is a martyr. i want u to bleed first, where they can all see it, and die later somewhere stupid'),
    K73V('(text) My hounds let you past. I would like to know why.'),
    K73MV('ask them. they’ve got better taste than u')].concat(k73SabSrv('v')),hub)};
  say(L,()=>ask(K73Who(),m?'(His head is in your scope.)':'(Your head is in their scope.)',m?[
-  {t:'Take the mark past his ear',sub:'the mark is yours',fn:hers},{t:'Shoot the cake',sub:'he keeps the mark',fn:his}]:[
-  {t:'Stay in the window',sub:'keep the mark',fn:his},{t:'Step back and let them have him',sub:'the mark is theirs',fn:hers}]))}
+  {t:'Take the mark past his ear',sub:'the mark is yours',fn:hers},{t:'Shoot the glass out of his hand',sub:'he keeps the mark, and bleeds for it',fn:his}]:[
+  {t:'Stay in the window',sub:'keep the mark; it will cost you',fn:his},{t:'Step back and let them have him',sub:'the mark is theirs',fn:hers}]))}
 const k73SabSrv=w=>[['','The server, at midnight.'],
  [AN,'somebody shot at the foundation dinner. V are you alive. misaki are you alive. answer me'],
  K73V('I am alive.'),
  K73MV('unfortunately'),
- [RN,w==='m'?'ok. book says point to misaki. i’m not havin’ fun anymore, for the record':'ok. book says point to vee, they shot a cake. i’m not havin’ fun anymore, for the record'],
+ [RN,w==='m'?'ok. book says point to misaki. i’m not havin’ fun anymore, for the record':'ok. book says point to vee, he kept the mark. doc says nine stitches in his hand. i’m not havin’ fun anymore, for the record'],
  [AN,'nobody is having fun']];
 
 function k73Truce(){go(cutBg('#0a0810'));k73Mark('e2l_truce');const m=k73M(),eye=S.f.e2lEye;
@@ -281,15 +281,15 @@ function k73After(){go(cutBg('#0e0c0a'));k73Mark('e2l_after');const m=k73M(),sab
   ['','Everybody is being so nice to you.'],
   ['','Angel cried twice on the way in and said it was her lashes. Ronin brought soup and called you “little killer” in a voice so gentle you wanted to put a fork through his hand. The doctor says your name every time she comes in, as if she is checking it is still there. Even the hounds walk round you.'],
   ['','V comes into the kitchen at noon and stops in the doorway, and you watch him decide to be careful with you as well.']]:[
-  ['','Everybody is being careful with them. Angel cries and blames her lashes. Ronin calls them “little killer” in a voice you have only heard him use on things that were about to die. The hounds walk round her chair. She sits at your kitchen island with her cast on the counter and lets them all do it, and her face gets flatter every time.'],
+  ['','Everybody is being careful with them. Angel cries and blames her lashes. Ronin calls them “little killer” in a voice you have only heard him use on things that were about to die. The hounds walk round their chair. They sit at your kitchen island with the cast on the counter and let everybody do it, and their face gets flatter every time.'],
   ['','You come in at noon and stop in the doorway, and decide to be careful as well.']]).concat([
   K73MV('don’t','don’t. don’t u start','Don’t. Don’t you start.','Don’t. Don’t you dare start. Everybody else, fine. Not you.'),
   K73V('I beg your pardon?'),
   K73MV('be mean to me','be mean to me. i mean it','Be mean to me. I mean it. Everyone’s being nice and I can’t breathe in here.','Be mean to me, V. I mean it. Everybody is being so nice to me I can’t breathe in here. You’re the only one who has never been nice to me in his life. Don’t you dare start now.')]);
  const war=()=>{S.f.e2lAfter='war';apply({aff:4});save();say([
-   K73V('Very well. Your lock was the worst I have ever opened. '+(sab==='v'?'Your shot at the cake was low and to the left. ':sab==='m'?'Your shot past my ear was a thumb too wide. ':'')+'You kill for whoever pays and you sleep fine, and I have not changed my mind about a word of it. Your name is still in my ledger. I will kill you when you can hold a fork in both hands, and not before, because I do not kill things that cannot hold a fork. So I suggest you practise.'),
-   ['',k73M()?'You laugh. It hurts your ribs and you laugh anyway, harder, with your face on the cold counter, until Angel comes to the doorway to see what is wrong.':'She laughs. It is the first time since the river. It hurts her ribs and she does it anyway, with her face down on the cold counter, until Angel comes to the doorway to see what is wrong.'],
-   K73MV(sab==='v'?'low and to the LEFT??':'a thumb TOO WIDE??',sab==='v'?'Low and to the left? I was on a roof in a crosswind.':'A thumb too wide? I was on a roof in a crosswind.',sab==='v'?'Low and to the left? I was on a roof in a crosswind, V, and I took the top tier off clean.':'A thumb too wide? I was on a roof in a crosswind, V. I could have parted your hair.'),
+   K73V('Very well. Your lock was the worst I have ever opened. '+(sab==='v'?'Your shot at my glass was low and to the left. ':sab==='m'?'Your shot past my ear was a thumb too wide. ':'')+'You kill for whoever pays and you sleep fine, and I have not changed my mind about a word of it. Your name is still in my ledger. I will kill you when you can hold a fork in both hands, and not before, because I do not kill things that cannot hold a fork. So I suggest you practise.'),
+   ['',k73M()?'You laugh. It hurts your ribs and you laugh anyway, harder, with your face on the cold counter, until Angel comes to the doorway to see what is wrong.':'They laugh. It is the first time since the river. It hurts their ribs and they do it anyway, with their face down on the cold counter, until Angel comes to the doorway to see what is wrong.'],
+   K73MV(sab==='v'?'low and to the LEFT??':'a thumb TOO WIDE??',sab==='v'?'Low and to the left? I was on a roof in a crosswind.':'A thumb too wide? I was on a roof in a crosswind.',sab==='v'?'Low and to the left? I was on a roof in a crosswind, V, and I took a glass out of your hand.':'A thumb too wide? I was on a roof in a crosswind, V. I could have parted your hair.'),
    K73V('Practise.')],hub)};
  const soft=()=>{S.f.e2lAfter='soft';apply({aff:2});save();say([
    K73V('No.'),
@@ -338,7 +338,7 @@ function k73Stitch(){go(cutBg('#0a0a0c'));k73Mark('e2l_stitch');const m=k73M(),s
   K73V('Your left hand is not healed.'),
   K73MV('i have teeth','i’ve got teeth. hold still','I’ve got a right hand and teeth. Hold still.','I’ve got a right hand and a full set of teeth. Hold still, and if you flinch, I sew your mouth shut as well.'),
   K73V('I do not flinch.'),
-  sab==='v'?K73MV('u flinched at the cake','you flinched at the cake','You flinched at the cake. I saw it down the scope.','You flinched at the cake. I saw it down the scope. A very small flinch. I’ll treasure it forever.'):
+  sab==='v'?K73MV('u flinched when the glass went','you flinched when the glass went','You flinched when the glass went. I saw it down the scope.','You flinched when the glass went. I saw it down the scope. A very small flinch. I’ll treasure it forever.'):
    K73MV('u didn’t flinch at dinner. it annoyed me','you didn’t flinch at the dinner. it annoyed me for a week','You didn’t flinch when I put one past your ear. It annoyed me for a week.','You didn’t flinch when I put one past your ear. It annoyed me for a week. I’m going to fix that.'),
   ['',k73M()?'You sew him up with your right hand and tie each knot with your teeth, bent over his arm, close enough to smell the river still on him. He keeps dead still and watches the top of your head the whole time.':'They sew you up with their right hand and tie each knot with their teeth, bent over your arm. You keep dead still and watch the top of their head the whole time, and their lips moving as they count the stitches.']];
  const neat=()=>{S.f.e2lScar='neat';apply({aff:4});save();say([
@@ -406,9 +406,9 @@ function k73Boat(){go(cutBg('#04060c'));k73Mark('e2l_boat');const m=k73M(),f=S.f
    K73MV('counteroffer: i win','counteroffer. i win','Counteroffer: I accept. I win.','Counteroffer. I accept your war. I win it. You lose every day for the rest of your life, very slowly, and you like it.'),
    K73V('Accepted.'),
    sug&&m?['','Under the tarp of the Constance’s port lifeboat, two nights before Friday, you kiss him the way you would take a building. You do not get back to the dinghy until the sky goes grey over the cranes, and you row home in his coat with not much on under it, and he lets you row the wrong way the whole way.']:null,
-   sug&&!m?['','Under the tarp of the port lifeboat they kiss you the way they would take a building. You do not get back to the dinghy until the sky goes grey over the cranes. They row home in your coat with not much on under it, and you let their row the wrong way the whole way.']:null,
+   sug&&!m?['','Under the tarp of the port lifeboat they kiss you the way they would take a building. You do not get back to the dinghy until the sky goes grey over the cranes. They row home in your coat with not much on under it, and you let them row the wrong way the whole way.']:null,
    !sug&&m?['','Under the tarp of the Constance’s port lifeboat, two nights before Friday, you kiss him the way you would take a building. Then you lie there with your head on his chest, listening to the harbour, until the sky goes grey over the cranes, and you row home in his coat, and he lets you row the wrong way the whole way.']:null,
-   !sug&&!m?['','Under the tarp of the port lifeboat they kiss you the way they would take a building. Then they lie with their head on your chest and you listen to the harbour together until the sky goes grey over the cranes. They row home in your coat, and you let their row the wrong way the whole way.']:null],hub)};
+   !sug&&!m?['','Under the tarp of the port lifeboat they kiss you the way they would take a building. Then they lie with their head on your chest and you listen to the harbour together until the sky goes grey over the cranes. They row home in your coat, and you let them row the wrong way the whole way.']:null],hub)};
  const rivals=()=>{S.f.e2lEnd='rivals';note('e2l_end','The war: Misaki and V shook on it under a tarp on the Constance. It stands.');save();say([
    m?K73MV('if u say it i lose','don’t. if you say it, i lose','Don’t. If you say it, I lose, and I don’t lose to you.','Don’t. If you say it, one of us loses, and I don’t lose to you, and I won’t let you lose either. I like this. I like you exactly where you are, in my sights.'):
     K73V('No. I will not say it. If I said it, I would lose, and I do not lose to you.'),

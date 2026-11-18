@@ -2,7 +2,6 @@
 
 Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines that change with POV; ▸ marks a choice; "(or)" marks the other POV's version of a line. Lines that change with the suggestive-scenes setting (the end of the boat confession, the morning after, Angel's envelope) appear as consecutive alternatives, on first and off second; the off versions imply nothing happened. Thread messages are quoted (>). Design and coexistence notes: docs/notes_kc73.md.
 
-
 # kc73.js
 
 *Three nights running you have lain on the laundromat roof across from the bowling alley with your rifle, learning the card man’s evenings. He smokes at nine and takes the bins out at ten, and he lends money to people at the shelters at forty percent and takes a finger when they are late.*
@@ -17,9 +16,9 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 *You have had the card man on file since the spring. He lends to people at the shelters at forty percent and takes a finger when they are late. Tonight he goes to the cold room under your house, slowly, which he has earned one finger at a time.*
 
-*Misaki has been on the laundromat roof across the street for three nights. You have a file on her as well. It is thicker. A driver at a gala who was standing in the wrong place. A doorman. A man shot in front of his daughter because the contract said Tuesday. She takes whoever pays, and she sleeps fine.*
+*Misaki has been on the laundromat roof across the street for three nights. You have a file on them as well. It is thicker. A driver at a gala who was standing in the wrong place. A doorman. A man shot in front of his daughter because the contract said Tuesday. They take whoever pays, and they sleep fine.*
 
-*You carry the card man out to the car with the hounds at your heels, and before you shut the boot you look up at her roof for a long, level moment, the way you look at the next name.*
+*You carry the card man out to the car with the hounds at your heels, and before you shut the boot you look up at their roof for a long, level moment, the way you look at the next name.*
 
 *The server, ten minutes later.*
 
@@ -35,9 +34,9 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 **V:** Then we understand each other.
 
-**Angel:** V. no. not her. she’s ours
+**Angel:** V. no. not them. they’re ours
 
-**Ronin:** vee. you touch her and i’m in it. i mean that
+**Ronin:** vee. you touch them and i’m in it. i mean that
 
 **V:** Then you will be in it.
 
@@ -48,7 +47,7 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 **Angel:** ronin that is not funny
 
-**Ronin:** it’s a little funny. fifty on the little killer. she’s quicker
+**Ronin:** it’s a little funny. fifty on the little killer. they’re quicker
 
 **Angel:** i’m not betting on which of my friends dies
 
@@ -72,9 +71,9 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 **Misaki:** (server) i’ll be faster on u
 
-- ▸ Send her the file, so she knows the charges
+- ▸ Send them the file, so they know the charges
 
-*You send her the whole file, forty pages, with the doorman’s name and the driver’s and the date of the Tuesday, and on the last page, in fountain pen, the line from the ledger.*
+*You send them the whole file, forty pages, with the doorman’s name and the driver’s and the date of the Tuesday, and on the last page, in fountain pen, the line from the ledger.*
 
 **Misaki:** (text) u spelled collateral right. congrats
 
@@ -88,7 +87,7 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 **Angel:** ok. good. everybody go to bed
 
-*You leave her page blank and send her nine hundred dollars with the memo line “Carpet.” She sends back one middle finger and, an hour later, “thx”.*
+*You leave their page blank and send their nine hundred dollars with the memo line “Carpet.” They send back one middle finger and, an hour later, “thx”.*
 
 **Angel:** ok. good. everybody go to bed
 
@@ -103,19 +102,19 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 *You have the pistol out from under the pillow and against his head before you are properly awake. He does not move his hands, and he does not look surprised.*
 
-*At twenty to nine yesterday morning Misaki shot the shelter landlord off his own front steps, to show you she could. You had spent eleven weeks on him. Your papers were due at nine.*
+*At twenty to nine yesterday morning Misaki shot the shelter landlord off his own front steps, to show you they could. You had spent eleven weeks on him. Your papers were due at nine.*
 
-*You have studied her for a week the way you study anything you are going to put on a table. She sleeps on her right side with a pistol under the pillow. Her lock is a joke. She wakes at small sounds and not at large ones.*
+*You have studied them for a week the way you study anything you are going to put on a table. They sleep on their right side with a pistol under the pillow. Their lock is a joke. They wake at small sounds and not at large ones.*
 
-*At four in the morning you let yourself into her trailer with a roll of sheeting under your arm and sit down at her fold-down table to wait for your hands to be ready. Her rifle is on the table. You pick it up, to have it out of her reach. Then there is a pistol at your temple.*
+*At four in the morning you let yourself into their trailer with a roll of sheeting under your arm and sit down at their fold-down table to wait for your hands to be ready. Their rifle is on the table. You pick it up, to have it out of their reach. Then there is a pistol at your temple.*
 
 **Misaki:** you have three seconds
 
 **V:** I came to kill you. You woke. It happens.
 
-**Misaki:** with a shower curtain?
+**Misaki:** what is the plastic for
 
-**V:** It is sheeting. I do not like to leave a mess for whoever cleans a place after me. You took the landlord.
+**V:** It is for you. You would have gone out of here rolled in it, and down to the cold room under my house, and the hounds would have had what was left by Friday. You took the landlord.
 
 **Misaki:** he charged people for air. you were going to sue him. rich people get to sue first and kill later
 
@@ -129,7 +128,7 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 *He takes the scope off with a coin while you hold the gun on him, slowly, so you can watch every turn. Then he picks up his sheeting and goes. You keep the gun on the door until it is light.*
 
-*(or)* *You take the scope off with a coin while she holds the gun on you, slowly, so that she can watch every turn. Then you pick up the sheeting and go. She keeps the gun on the door until it is light. You know, because the black hound sits facing it until it is light.*
+*(or)* *You take the scope off with a coin while they hold the gun on you, slowly, so that they can watch every turn. Then you pick up the sheeting and go. They keep the gun on the door until it is light. You know, because the black hound sits facing it until it is light.*
 
 *At noon you let yourself into his study while he is at a board meeting and take his reading glasses, and the three spare pairs in the drawer, and leave a single bullet standing on the desk where they were.*
 
@@ -141,7 +140,7 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 *He lays the rifle on your table, whole, and writes on the back of your electricity bill with a fountain pen while you hold a gun on him. He props it against the cereal box.*
 
-*(or)* *You lay the rifle on her table, whole, and write on the back of her electricity bill with your fountain pen while she holds a gun on you. You prop it against the cereal box.*
+*(or)* *You lay the rifle on their table, whole, and write on the back of their electricity bill with your fountain pen while they hold a gun on you. You prop it against the cereal box.*
 
 *OWED: ONE EYE, AND THE REST. COLLECTABLE AT A TIME OF MY CHOOSING. —K9*
 
@@ -160,33 +159,33 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 ### e2l\_sab
 
-*The foundation dinner is at the hotel by the river: a hundred and forty people in black tie clapping for a man who cuts people up in his basement. Your contract is the man at table one, who sold the hospital fund’s debt to people who collect with pliers. Your rifle is on the roof of the car park across the street. *
+*The foundation dinner is at the hotel by the river: a hundred and forty people in black tie clapping for a foundation that will not say whose it is. The man who owns it is at a back table by the kitchen doors, where nobody looks, and he cuts people up in his basement. Your contract is the man at table one, who sold the hospital fund’s debt to people who collect with pliers. Your rifle is on the roof of the car park across the street. *
 
-*You have two names tonight. One of them is paying you. The other one is giving the speech.*
+*You have two names tonight. One of them is paying you. The other one is at the back table, pretending to be nobody.*
 
 *At seven he sent you a text that said only “Table one has been moved.” It has been moved four times since. Every time a waiter sets it down near a window, you put a round through the place card, from two hundred metres, so that he knows exactly how close you are.*
 
-*Your foundation dinner is at the hotel by the river. The man at table one sold the hospital fund’s debt to people who collect with pliers, and after dessert Inspector Hale is taking him out through the kitchen with your papers in an envelope. Misaki has the same man on a contract. She is on the roof of the car park across the street, and she has sworn to kill you.*
+*Your foundation’s dinner is at the hotel by the river. You are at a back table by the kitchen doors, an anonymous guest; the chair is giving the speech. The man at table one sold the hospital fund’s debt to people who collect with pliers, and after dessert Inspector Hale is taking him out through the kitchen with your papers in an envelope. Misaki has the same man on a contract. They are on the roof of the car park across the street, and they have sworn to kill you.*
 
-*You have moved table one four times since seven. Every time a waiter sets it down near a window, a place card leaves it, very fast, and goes into the far wall. She is telling you she can see you.*
+*You have moved table one four times since seven. Every time a waiter sets it down near a window, a place card leaves it, very fast, and goes into the far wall. They are telling you they can see you.*
 
 *At eight you sent the black hound and the old hound to the bottom of the car park stairwell. They are sitting there now, in the dark, waiting for anything to come down.*
 
-**Misaki:** nice speech. 140 people clapping for a butcher
+**Misaki:** nice speech. not urs obviously. 140 people clapping for a butcher and none of them know which one
 
-**V:** They are clapping for the shelters. I paid for the shelters.
+**V:** They are clapping for the shelters. They do not need to know who paid for them, and they will not.
 
 **Misaki:** with what. blood money with a tax receipt
 
 **V:** There are two hounds at the bottom of your stairwell. You have until the coffee.
 
-*Dessert comes out, a cake in four tiers on a trolley. The man from the hospital fund gets up to admire it, which puts him at the window at last, in your crosshairs.*
+*After the speech the man from the hospital fund gets up to shake hands, which puts him at the window at last, in your crosshairs.*
 
-*(or)* *Dessert comes out, a four-tier cake on a trolley, and the man from the hospital fund gets up to admire it, which puts him at the window.*
+*(or)* *After the speech the man from the hospital fund gets up to shake hands, which puts him at the window.*
 
-*Then V gets up from the head table with a glass of water, walks over and stands in the window beside him, between you and him, and looks out into the dark at exactly where you are. His whole head is in your scope. You have wanted this for a week. He knows it.*
+*Then V gets up from the back table with a glass of water, walks over and stands in the window beside him, between you and him, and looks out into the dark at exactly where you are. His whole head is in your scope. You have wanted this for a week. He knows it.*
 
-*(or)* *You stand up, take your glass of water, and go and stand in the window beside him, between the glass and the car park roof, and look straight at where she is. You have put your head in her scope, on purpose, in front of a hundred and forty witnesses. You want to know what she is.*
+*(or)* *You stand up, take your glass of water, and go and stand in the window beside him, between the glass and the car park roof, and look straight at where they are. You have put your head in their scope, on purpose, in front of a hundred and forty witnesses. You want to know what they are.*
 
 *You put the round past his ear with about a thumb to spare, through the man behind him. He keeps perfectly still, and then he turns to a hundred and forty screaming people and tells them, in his board-meeting voice, to remain seated.*
 
@@ -194,17 +193,17 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 **V:** (text) You had my head. Why did you not take it?
 
-**Misaki:** bc a dead billionaire at his own charity dinner is a martyr. i want u to die somewhere stupid. a car park. a toilet
+**Misaki:** bc a dead billionaire at a charity dinner makes the papers, and then they put ur name on everything. u’d hate that. i want u to die somewhere stupid. a car park. a toilet
 
 **V:** (text) I will make a note of that. Your stairwell is clear now. I have called them off.
 
-*You shoot the cake. The top tier goes up and comes down on the man from the hospital fund, on V, on the mayor’s wife, and while the room is screaming, two of Hale’s officers walk the man out through the kitchen in handcuffs and buttercream. You go down the stairwell with your pistol out, and the two hounds at the bottom stand up, look at you, and let you pass.*
+*You put the round through the glass in his hand. It goes off like a bulb. He opens his fingers, and there is glass standing in his palm and blood running down into his cuff, and he does not look at it; he looks at you. While the room is screaming, two of Hale’s officers walk the man from the hospital fund out through the kitchen in handcuffs. You go down the stairwell with your pistol out, and the two hounds at the bottom stand up, look at you, and let you pass.*
 
-*(or)* *She shoots the cake. The top tier comes down on the man from the hospital fund, on you and on the mayor’s wife, and while the room is screaming, Hale’s officers walk the man out through the kitchen in handcuffs and buttercream. On the stairwell camera she comes down with her pistol out, and the hounds stand up and look at her, and let her pass. You did not tell them to.*
+*(or)* *The glass goes off in your hand like a bulb. You open your fingers, and there is glass standing in your palm and blood running down into your cuff. You do not look at it; you look at the car park roof. While the room is screaming, Hale’s officers walk the man from the hospital fund out through the kitchen in handcuffs. On the stairwell camera Misaki comes down with a pistol out, and the hounds stand up and look, and let them pass. You did not tell them to.*
 
-**V:** (text) You had my head. You shot a cake.
+**V:** (text) You had my head. You took my hand.
 
-**Misaki:** a dead billionaire at his own charity dinner is a martyr. i want u to die somewhere stupid
+**Misaki:** a dead billionaire at his own charity dinner is a martyr. i want u to bleed first, where they can all see it, and die later somewhere stupid
 
 **V:** (text) My hounds let you past. I would like to know why.
 
@@ -212,11 +211,11 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 - ▸ Take the mark past his ear
 
-- ▸ Shoot the cake
+- ▸ Shoot the glass out of his hand
 
 - ▸ Stay in the window
 
-- ▸ Step back and let her have him
+- ▸ Step back and let them have him
 
 *The server, at midnight.*
 
@@ -249,7 +248,7 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 **Misaki:** true thing about v: he has a very steady hand. i know bc i’ve watched it down a scope all week, waiting for it to do something i can shoot him for. it never has
 
-**V:** Misaki is the best shot in this city. That is why her name is first in my ledger.
+**V:** Misaki is the best shot in this city. That is why their name is first in my ledger.
 
 **Ronin:** jesus christ. ok
 
@@ -257,7 +256,7 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 *You last until Tuesday at noon. His mark is a man who runs a dogfight in a car wash, and you can see him from your bus stop. Clause one says nobody kills anybody. You decide it means each other.*
 
-*(or)* *She lasts until Tuesday at noon. Your mark is a man who runs a dogfight in a car wash; she can see him from her bus stop. She decides clause one means each other.*
+*(or)* *They last until Tuesday at noon. Your mark is a man who runs a dogfight in a car wash; they can see him from their bus stop. They decide clause one means each other.*
 
 **Angel:** misaki. three days
 
@@ -267,9 +266,9 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 *He lasts until Wednesday. On Wednesday, Ronin comes round to borrow your chainsaw and stops in the doorway, looking at the smoke alarm, and gets on a chair, and takes a camera the size of a fingernail out of it.*
 
-*(or)* *You last until Wednesday. On Wednesday you go into her trailer while she is out and put a camera the size of a fingernail in her smoke alarm, to learn her evenings. Ronin finds it within the hour. He was looking.*
+*(or)* *You last until Wednesday. On Wednesday you go into their trailer while they are out and put a camera the size of a fingernail in their smoke alarm, to learn their evenings. Ronin finds it within the hour. He was looking.*
 
-**Ronin:** vee. there was a camera in her smoke alarm
+**Ronin:** vee. there was a camera in their smoke alarm
 
 **Angel:** V. clause two
 
@@ -283,7 +282,7 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 - ▸ Keep it to the letter
 
-- ▸ Put a camera in her trailer
+- ▸ Put a camera in their trailer
 
 *The river, past midnight. The car is two warehouses up with the lights off, and the grey hound is in the passenger seat with its chin on the dash, looking where you are looking.*
 
@@ -291,15 +290,15 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 **Ronin:** (text) vee. u at the river?
 
-**Ronin:** (text) thought u swore to kill her. it’s in ur fuckin’ book
+**Ronin:** (text) thought u swore to kill them. it’s in ur fuckin’ book
 
 **Angel:** (text) the book is closed. nobody is betting on anything. V, answer him
 
-*Her name is in your ledger, in your hand: TO BE KILLED. You stood in a window last week and let her put a round past your ear to find out what she was. You have never gone into a building for a thing you swore to put down. You are about to, and everybody you know is watching you do it.*
+*Their name is in your ledger, in your hand: TO BE KILLED. You stood in a window last week and let them put a round past your ear to find out what they were. You have never gone into a building for a thing you swore to put down. You are about to, and everybody you know is watching you do it.*
 
-- ▸ “She is mine to kill. Nobody else does it.”
+- ▸ “They are mine to kill. Nobody else does it.”
 
-**V:** (text) She is mine to kill. Nobody else in this city does it.
+**V:** (text) They are mine to kill. Nobody else in this city does it.
 
 **Ronin:** (text) yeah ok. go collect
 
@@ -309,7 +308,7 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 *You do not answer. You put the phone face down on the seat and get out, and the grey hound comes with you.*
 
-**Ronin:** (text) yeah. thought so. go get her
+**Ronin:** (text) yeah. thought so. go get them
 
 *Later you try to work out why his door. You had a week of hating him and a whole city of doors, and your feet took you to the one that belongs to the man who wanted you dead most. Nobody gets through that door. You know, because you have tried it every night this week.*
 
@@ -319,19 +318,19 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 **Misaki:** (Now I owe him. Of all the people in this city to owe. Fuck.)
 
-*She came to your door. For a week she has called you grandpa in front of everyone you know, and tonight she walked two kilometres on that foot to your door, and only yours. You do not know what to do with that, so you carry her down the stairs and do not think about it.*
+*They came to your door. For a week they have called you grandpa in front of everyone you know, and tonight they walked two kilometres on that foot to your door, and only yours. You do not know what to do with that, so you carry them down the stairs and do not think about it.*
 
-*In the car she sleeps against the window. At a red light your phone buzzes once on the dash. It is Ronin: “book’s closed. nobody wins this one.” You do not answer. You drive the rest of the way at exactly the speed limit, because if anybody stops you tonight, you will not be able to be polite to them.*
+*In the car they sleep against the window. At a red light your phone buzzes once on the dash. It is Ronin: “book’s closed. nobody wins this one.” You do not answer. You drive the rest of the way at exactly the speed limit, because if anybody stops you tonight, you will not be able to be polite to them.*
 
-*She has been downstairs in the room marked LAUNDRY for a day. You stand at the door with your hand on the frame and do not go in.*
+*They have been downstairs in the room marked LAUNDRY for a day. You stand at the door with your hand on the frame and do not go in.*
 
-*A week ago you sat in her trailer with sheeting at your feet. You have wanted her exactly like this, unable to lift her left hand, in a room you control. She says thank you now, to everything, to the soup and to the doctor and to you, in the same flat, pleasant voice, the way people speak to whoever holds the keys. Her eyes stay on your hands.*
+*A week ago you sat in their trailer with sheeting at your feet. You have wanted them exactly like this, unable to lift their left hand, in a room you control. They say thank you now, to everything, to the soup and to the doctor and to you, in the same flat, pleasant voice, the way people speak to whoever holds the keys. Their eyes stay on your hands.*
 
-*To her you are the tall one, who brings the tray. In her head the man who brings the tray is also the man who kept her in the other building, and she is being good for him.*
+*To them you are the tall one, who brings the tray. In their head the man who brings the tray is also the man who kept them in the other building, and they are being good for him.*
 
-*Upstairs, in the study, you open the ledger. Her page opens with the line you wrote on the first night: MISAKI. WANTON. COLLATERAL: SEVERAL. TO BE KILLED. Under it, a week of what she owes: the landlord, the man from the car wash, eleven place cards, your reading glasses*
+*Upstairs, in the study, you open the ledger. Their page opens with the line you wrote on the first night: MISAKI. WANTON. COLLATERAL: SEVERAL. TO BE KILLED. Under it, a week of what they owe: the landlord, the man from the car wash, eleven place cards, your reading glasses*
 
-**V:** (Nothing I wrote there is untrue. She is everything I said. I could go down those stairs tonight and close the account, and my own law would sign it.)
+**V:** (Nothing I wrote there is untrue. They are everything I said. I could go down those stairs tonight and close the account, and my own law would sign it.)
 
 - ▸ Write the total
 
@@ -345,33 +344,33 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 *Dinner at nine, in the kitchen, alone. You made it yourself and it is good.*
 
-*Halfway through, the thought arrives whole and in your own voice, the way the law always does. She is downstairs. She cannot close her left hand. The doctor goes home at ten. You are owed. Nobody in the city would ever know which building it happened in, and the hounds would keep the rest.*
+*Halfway through, the thought arrives whole and in your own voice, the way the law always does. They are downstairs. They cannot close their left hand. The doctor goes home at ten. You are owed. Nobody in the city would ever know which building it happened in, and the hounds would keep the rest.*
 
 *You get as far as the back stair in your head. You see your own hand on the LAUNDRY door. Then your fork is on the plate and you are at the sink, being sick, neatly, with the tap running.*
 
 **V:** (I have done it to men who owed me less. I am entitled to it. I would sooner put my hand in the mincer.)
 
-**V:** (I despise her. I cannot work out why this is happening, and I despise her for that as well.)
+**V:** (I despise them. I cannot work out why this is happening, and I despise them for that as well.)
 
 *You rinse the sink and scrape the plate into the hounds’ bowl. The old hound eats it and then stands looking at you for a long time, the way it looks at you when you have been ill.*
 
-*After midnight she talks through the wall.*
+*After midnight they talk through the wall.*
 
-*The infirmary is under the study and the vent carries. She is being polite to the door, in a low reasonable voice: telling it that she has been good today and ate all of it, and that she would like to keep the light on, please, if that is all right with whoever decides.*
+*The infirmary is under the study and the vent carries. They are being polite to the door, in a low reasonable voice: telling it that they have been good today and ate all of it, and that they would like to keep the light on, please, if that is all right with whoever decides.*
 
-*In her head, whoever decides is you.*
+*In their head, whoever decides is you.*
 
 *You put on your coat and take all four hounds out into the grounds in the rain at a quarter to one, as far as the far wall, where the vent is only a vent. The black hound keeps stopping to look back at the house. You keep calling it on, and it keeps coming, slower each time.*
 
-**V:** (I do not want to hear it. I would like that written down somewhere. I do not want to hear her ask me for the light.)
+**V:** (I do not want to hear it. I would like that written down somewhere. I do not want to hear them ask me for the light.)
 
-*You stay out until three. When you come in, the light under her door is on, and you leave it on.*
+*You stay out until three. When you come in, the light under their door is on, and you leave it on.*
 
 *The next night you take them out again, and the night after that. The black hound starts waiting by the back door at a quarter to one without being called.*
 
-*On the third day you change the dressing on her hand yourself, because the doctor is late and you will not wait for her.*
+*On the third day you change the dressing on their hand yourself, because the doctor is late and you will not wait for them.*
 
-*You do it the way you do everything on a table: exactly, in order, without speaking. She holds the hand out before you ask. *
+*You do it the way you do everything on a table: exactly, in order, without speaking. They hold the hand out before you ask. *
 
 **Misaki:** You’re good at this. Better than the other one. Do they rotate you, or is it just you now?
 
@@ -381,11 +380,11 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 *You tie it off. Your hands are perfectly steady. You put the old dressing in the bin and wash your hands at the little sink, and go on washing them for some time after they are clean.*
 
-**V:** (I am keeping her well so that the debt can still be collected. I said that to the mirror this morning and it sounded fine.)
+**V:** (I am keeping their well so that the debt can still be collected. I said that to the mirror this morning and it sounded fine.)
 
-*When you go she says nothing. You leave the door the way she likes it, with the light on.*
+*When you go they say nothing. You leave the door the way they like it, with the light on.*
 
-*(or)* *When you go she says thank you. You say nothing at all, and leave the door the way she likes it, with the light on.*
+*(or)* *When you go they say thank you. You say nothing at all, and leave the door the way they like it, with the light on.*
 
 *The tall one brings the tray. You know who he is now. You worked it out at about four this morning, lying on your side doing sums so you would not sleep, and once you saw it everything went together like a rifle.*
 
@@ -432,7 +431,7 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 *V comes into the kitchen at noon and stops in the doorway, and you watch him decide to be careful with you as well.*
 
-*Everybody is being careful with her. Angel cries and blames her lashes. Ronin calls her “little killer” in a voice you have only heard him use on things that were about to die. The hounds walk round her chair. She sits at your kitchen island with her cast on the counter and lets them all do it, and her face gets flatter every time.*
+*Everybody is being careful with them. Angel cries and blames her lashes. Ronin calls them “little killer” in a voice you have only heard him use on things that were about to die. The hounds walk round their chair. They sit at your kitchen island with the cast on the counter and let everybody do it, and their face gets flatter every time.*
 
 *You come in at noon and stop in the doorway, and decide to be careful as well.*
 
@@ -446,7 +445,7 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 *You laugh. It hurts your ribs and you laugh anyway, harder, with your face on the cold counter, until Angel comes to the doorway to see what is wrong.*
 
-*(or)* *She laughs. It is the first time since the river. It hurts her ribs and she does it anyway, with her face down on the cold counter, until Angel comes to the doorway to see what is wrong.*
+*(or)* *They laugh. It is the first time since the river. It hurts their ribs and they do it anyway, with their face down on the cold counter, until Angel comes to the doorway to see what is wrong.*
 
 **Misaki:** A thumb too wide? I was on a roof in a crosswind, V. I could have parted your hair.
 
@@ -456,7 +455,7 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 *He sits down across the island and pushes the soup an inch nearer, carefully, and says nothing else. You watch your worst enemy be gentle with you, and you understand for the first time how bad it must have been.*
 
-*(or)* *You sit down across the island and push the soup an inch nearer, and say nothing else. She watches you be careful for a long time, and something in her face shuts, and you understand that you have just told her how bad it was.*
+*(or)* *You sit down across the island and push the soup an inch nearer, and say nothing else. They watch you be careful for a long time, and something in their face shuts, and you understand that you have just told them how bad it was.*
 
 **Misaki:** Okay. Okay. You win that one.
 
@@ -464,7 +463,7 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 - ▸ Let him be kind
 
-- ▸ Insult her properly
+- ▸ Insult them properly
 
 - ▸ Be kind anyway
 
@@ -487,11 +486,11 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 *Eight hours, then, in V’s car, outside the next address on your old list: a flat over a launderette where a man you were once paid to kill still lives, because you never got round to him. The Mimic will presumably finish the job for you.*
 
-*(or)* *Eight hours, then, in your car, outside the next address on her old list: a flat over a launderette where a man she was once paid to kill still lives, because she never got round to him. The Mimic will presumably finish the job for her.*
+*(or)* *Eight hours, then, in your car, outside the next address on their old list: a flat over a launderette where a man they were once paid to kill still lives, because they never got round to him. The Mimic will presumably finish the job for them.*
 
 *It turns out he can keep up. You do the sightlines in your head and draw them on the windscreen in the fog of your breath, four roofs and a bus shelter, and before you have finished the third one he says “the third roof” at the same moment you do. You both stop and look at each other with real dislike.*
 
-*(or)* *It turns out she can keep up. She does the sightlines in her head and draws them on the windscreen in the fog of her breath, four roofs and a bus shelter, and before she has finished the third one you both say “the third roof” at the same moment. You stop and look at each other with real dislike.*
+*(or)* *It turns out they can keep up. They do the sightlines in their head and draw them on the windscreen in the fog of their breath, four roofs and a bus shelter, and before they have finished the third one you both say “the third roof” at the same moment. You stop and look at each other with real dislike.*
 
 **Misaki:** Stop finishing my sentences, V. It’s creepy, and you keep getting them right.
 
@@ -513,11 +512,11 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 *You close your eyes, meaning only to rest them. You have not slept with anybody else awake in the room since the river, and certainly not next to him.*
 
-*(or)* *She looks at you for a long time, the way she looks at a roof before she lies down on it. Then she closes her eyes. She has not slept with anybody else awake in the room since the river.*
+*(or)* *They look at you for a long time, the way they look at a roof before they lie down on it. Then they close their eyes. They have not slept with anybody else awake in the room since the river.*
 
 *You wake two hours later with his coat over you. He is exactly where he was, eyes on the street, and the cello is turned down so low it is only a hum.*
 
-*(or)* *She sleeps for two hours under your coat. You turn the cello down until it is only a hum and do not take your eyes off the street.*
+*(or)* *They sleep for two hours under your coat. You turn the cello down until it is only a hum and do not take your eyes off the street.*
 
 **Misaki:** That was twenty minutes, V. I said twenty minutes.
 
@@ -531,9 +530,9 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 - ▸ “u watch. i’m closing my eyes for twenty minutes”
 
-- ▸ Bet her that you see him first
+- ▸ Bet them that you see him first
 
-- ▸ Offer to watch while she sleeps
+- ▸ Offer to watch while they sleep
 
 
 ### e2l\_stitch
@@ -544,7 +543,7 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 *He will not go to the doctor. You find out why at the house: the doctor is downstairs, through the door that says LAUNDRY, and he will not go through it. He sits on a crate in the garage instead and tries to stitch his own forearm with one hand.*
 
-*(or)* *You will not go to the doctor. The doctor is downstairs, through the door that says LAUNDRY, and you have not been through that door since she came out of it. You sit on a crate in the garage and try to stitch your own forearm one-handed, and she watches you fail at it from the doorway.*
+*(or)* *You will not go to the doctor. The doctor is downstairs, through the door that says LAUNDRY, and you have not been through that door since they came out of it. You sit on a crate in the garage and try to stitch your own forearm one-handed, and they watch you fail at it from the doorway.*
 
 **Misaki:** Give me that. You’re sewing like a nun with the shakes. Give it here.
 
@@ -554,15 +553,15 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 **V:** I do not flinch.
 
-**Misaki:** You flinched at the cake. I saw it down the scope. A very small flinch. I’ll treasure it forever.
+**Misaki:** You flinched when the glass went. I saw it down the scope. A very small flinch. I’ll treasure it forever.
 
 **Misaki:** You didn’t flinch when I put one past your ear. It annoyed me for a week. I’m going to fix that.
 
 *You sew him up with your right hand and tie each knot with your teeth, bent over his arm, close enough to smell the river still on him. He keeps dead still and watches the top of your head the whole time.*
 
-*(or)* *She sews you up with her right hand and ties each knot with her teeth, bent over your arm. You keep dead still and watch the top of her head the whole time, and her lips moving as she counts the stitches.*
+*(or)* *They sew you up with their right hand and tie each knot with their teeth, bent over your arm. You keep dead still and watch the top of their head the whole time, and their lips moving as they count the stitches.*
 
-*Eleven stitches, straight as a ruled line. She bites off the thread.*
+*Eleven stitches, straight as a ruled line. They bite off the thread.*
 
 **Misaki:** There. You’ll barely scar. Don’t get used to me being good at things near you.
 
@@ -570,11 +569,11 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 *He looks at the arm for a long time. Then he tells you that you were faster than the doctor, in the voice of a man reading out a fine.*
 
-*(or)* *You look at the arm for a long time. Then you tell her she was faster than the doctor, in the voice you use for reading out fines.*
+*(or)* *You look at the arm for a long time. Then you tell them they were faster than the doctor, in the voice you use for reading out fines.*
 
 **V:** Sign it, if you are going to.
 
-*The last three stitches go off at an angle and come back, with a little hook at the end like the tail of a letter M. She bites off the thread and looks at it with enormous satisfaction.*
+*The last three stitches go off at an angle and come back, with a little hook at the end like the tail of a letter M. They bite off the thread and look at it with enormous satisfaction.*
 
 **Misaki:** Signed. Now every time you roll your sleeves up for a board meeting, you think of me and get furious.
 
@@ -593,7 +592,7 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 *The training hall, late: the knife wall, the mats, the practice blades with the edges ground off. You have your cast off for the first time and you want to hit something that hits back.*
 
-*(or)* *The training hall, late. She has her cast off for the first time, and she has asked you, very politely, to let her hit something that hits back.*
+*(or)* *The training hall, late. They have their cast off for the first time, and they have asked you, very politely, to let them hit something that hits back.*
 
 **Misaki:** First to three. Pins count, and crying counts double, and you’re going to cry, V.
 
@@ -601,11 +600,11 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 *He is better with a knife than you are, which you hate, and slower, which you love. He takes the first one with a wrist lock so neat you want to frame it. You take the second by going under his arm and laying the dull blade against the back of his knee, and he says “ah” in a way you will think about later.*
 
-*(or)* *You are better with a knife and she is faster, and she knows both of those things. You take the first with a wrist lock. She takes the second by going under your arm and laying the dull blade against the back of your knee, and you say “ah” before you can stop it, and she grins at the floor.*
+*(or)* *You are better with a knife and they are faster, and they know both of those things. You take the first with a wrist lock. They take the second by going under your arm and laying the dull blade against the back of your knee, and you say “ah” before you can stop it, and they grin at the floor.*
 
 *The third goes on for ages. It ends with him on his back on the mat and you sitting on his chest with the practice blade under his chin, both of you breathing as if you had run up all the stairs in the house, and him looking up at you with an expression you have only ever seen on him through a scope.*
 
-*(or)* *The third goes on a long time. It ends with you on your back on the mat and her sitting on your chest with the practice blade under your chin, both of you breathing hard. She looks down at you the way she looks down a scope.*
+*(or)* *The third goes on a long time. It ends with you on your back on the mat and them sitting on your chest with the practice blade under your chin, both of you breathing hard. They look down at you the way they look down a scope.*
 
 **Misaki:** Say it. Say “Misaki wins.” Out loud. I want to hear it in the board-meeting voice.
 
@@ -617,7 +616,7 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 *You kiss him with the blade still under his chin. It is a terrible kiss; your teeth hit his. He kisses you back as if he is trying to win it, and he might be, and you put the knife down on the mat so that you can have both hands.*
 
-*(or)* *She kisses you with the blade still under your chin. It is a terrible kiss, all teeth, and you kiss her back as though you could win it, and she puts the knife down on the mat so that she can use both hands.*
+*(or)* *They kiss you with the blade still under your chin. It is a terrible kiss, all teeth, and you kiss them back as though you could win it, and they put the knife down on the mat so that they can use both hands.*
 
 *When it stops, neither of you says anything for a while.*
 
@@ -629,11 +628,11 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 *He taps the mat twice, which is not the same as saying it. You know it, and he knows you know it.*
 
-*(or)* *You tap the mat twice. It is not the same as saying it, and she knows it.*
+*(or)* *You tap the mat twice. It is not the same as saying it, and they know it.*
 
 *You get up and walk out with the practice knife and do not look back. You lie awake until four, and when you go past the study for water there is a light under his door.*
 
-*(or)* *She gets up and walks out with the knife and does not look back. You lie on the mat for some time. At four she comes past the study for water, sees the light under your door, stops, and goes on.*
+*(or)* *They get up and walk out with the knife and do not look back. You lie on the mat for some time. At four they come past the study for water, see the light under your door, stop, and go on.*
 
 - ▸ Kiss him
 
@@ -650,7 +649,7 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 *You want a hide for the rifle in her port lifeboat for Friday. He wants the guard rota. You row. He tells you that you are rowing wrong, and you tell him where he can put the oar, and the dinghy turns a full circle in the dark while you argue in whispers.*
 
-*(or)* *She wants a hide for her rifle in the port lifeboat for Friday. You want the guard rota. She rows. You tell her she is rowing wrong, and she tells you where you may put the oar, and the dinghy turns a full circle in the dark while you argue in whispers.*
+*(or)* *They want a hide for their rifle in the port lifeboat for Friday. You want the guard rota. They row. You tell them they are rowing wrong, and they tell you where you may put the oar, and the dinghy turns a full circle in the dark while you argue in whispers.*
 
 *You get aboard, and you get the hide in. Then the guard comes round the deck with a torch and a cigarette, and the only place to go is under the tarp of the lifeboat, together, flat on your backs in about the space of a coffin for one.*
 
@@ -668,7 +667,7 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 *His sleeve has ridden up. In the torchlight coming through the tarp you can see the hook at the end of the scar.*
 
-*(or)* *Your sleeve has ridden up. In the torchlight through the tarp she finds the hook at the end of the scar with one finger, and leaves the finger there.*
+*(or)* *Your sleeve has ridden up. In the torchlight through the tarp they find the hook at the end of the scar with one finger, and leave the finger there.*
 
 **Misaki:** It’s still three to one, by the way. In case you were going to bring up the mat.
 
@@ -703,11 +702,11 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 *Under the tarp of the Constance’s port lifeboat, two nights before Friday, you kiss him the way you would take a building. You do not get back to the dinghy until the sky goes grey over the cranes, and you row home in his coat with not much on under it, and he lets you row the wrong way the whole way.*
 
-*Under the tarp of the port lifeboat she kisses you the way she would take a building. You do not get back to the dinghy until the sky goes grey over the cranes. She rows home in your coat with not much on under it, and you let her row the wrong way the whole way.*
+*Under the tarp of the port lifeboat they kiss you the way they would take a building. You do not get back to the dinghy until the sky goes grey over the cranes. They row home in your coat with not much on under it, and you let them row the wrong way the whole way.*
 
 *Under the tarp of the Constance’s port lifeboat, two nights before Friday, you kiss him the way you would take a building. Then you lie there with your head on his chest, listening to the harbour, until the sky goes grey over the cranes, and you row home in his coat, and he lets you row the wrong way the whole way.*
 
-*Under the tarp of the port lifeboat she kisses you the way she would take a building. Then she lies with her head on your chest and you listen to the harbour together until the sky goes grey over the cranes. She rows home in your coat, and you let her row the wrong way the whole way.*
+*Under the tarp of the port lifeboat they kiss you the way they would take a building. Then they lie with their head on your chest and you listen to the harbour together until the sky goes grey over the cranes. They row home in your coat, and you let them row the wrong way the whole way.*
 
 
 ### e2l\_end
@@ -722,7 +721,7 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 *You shake on it, flat on your backs under the tarp, with your other hand on your pistol and his on his knife, and neither of you lets go of either. On Friday you are the only two people on the Constance who know exactly where the other one is the whole time, and both of you check.*
 
-*(or)* *You shake on it lying flat under the tarp, with your other hand on your knife and hers on her pistol, and neither of you lets go of either. On Friday you are the only two people on the Constance who know exactly where the other one is the whole time, and both of you check.*
+*(or)* *You shake on it lying flat under the tarp, with your other hand on your knife and theirs on their pistol, and neither of you lets go of either. On Friday you are the only two people on the Constance who know exactly where the other one is the whole time, and both of you check.*
 
 - ▸ “go on, then. declare it”
 
@@ -734,11 +733,11 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 *You wake up in his bed at eleven, face down, shirtless, with the black hound across your feet, and for a full second you think you have broken in.*
 
-*You wake at half past five, as always, and do not get up, because she is face down across most of your bed, shirtless, with the black hound across her feet, and you would like to go on looking.*
+*You wake at half past five, as always, and do not get up, because they are face down across most of your bed, shirtless, with the black hound across their feet, and you would like to go on looking.*
 
 *You wake up on the couch in his study at eleven, still in last night’s black with your boots on, under his coat, with the black hound across your feet. He is in the armchair opposite with a cup of tea gone cold, and he has clearly been watching you for some time.*
 
-*You did not sleep. She is asleep on the couch in your study in last night’s black, boots on, under your coat, with the black hound across her feet, and you have been in the armchair opposite since half past five with a cup of tea going cold, watching her, because now you are allowed to.*
+*You did not sleep. They are asleep on the couch in your study in last night’s black, boots on, under your coat, with the black hound across their feet, and you have been in the armchair opposite since half past five with a cup of tea going cold, watching them, because now you are allowed to.*
 
 **Misaki:** This doesn’t mean you won. I want that clear before anybody makes coffee.
 
@@ -748,7 +747,7 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 *His arm is across your back. The hook of the scar is right by your face, and you kiss it, because it is yours.*
 
-*(or)* *Your arm is across her back. She finds the hook of the scar with her mouth without opening her eyes, as if checking it is still there.*
+*(or)* *Your arm is across their back. They find the hook of the scar with their mouth without opening their eyes, as if checking it is still there.*
 
 *Both phones go off at once, and keep going.*
 
@@ -767,7 +766,7 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 *A year on, the anniversary of the bowling alley. The server has a recurring event for it, made by Angel, called WAR DAY 💌.*
 
-*They still go after the same marks. They race, and the loser cooks. V has cooked eleven dinners this year and Misaki has cooked forty, and Misaki says that is because she lets him win.*
+*They still go after the same marks. They race, and the loser cooks. V has cooked eleven dinners this year and Misaki has cooked forty, and Misaki says that is because they let him win.*
 
 *Tonight they arrive on the same car park roof from opposite stairwells at the same moment, both with rifle cases.*
 
@@ -775,9 +774,9 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 **V:** I called it in February.
 
-*He still has the IOU in his wallet. He collects a little of the eye every morning, which means she has to look at him first thing, before the coffee, and she complains about it daily.*
+*He still has the IOU in his wallet. He collects a little of the eye every morning, which means they have to look at him first thing, before the coffee, and they complain about it daily.*
 
-*The scope lives on her rifle again. His reading glasses live on her face about half the time.*
+*The scope lives on their rifle again. His reading glasses live on their face about half the time.*
 
 *He rolls his sleeves up in board meetings now. The directors have stopped asking about the M.*
 
@@ -789,7 +788,7 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 *A year on, the anniversary of the bowling alley. The war has not stopped. It has only stopped being fought.*
 
-*They have not tried to kill each other since the Constance. They still could, and both of them know the exact distance at which they could, all the time. Her name is still in his ledger in fountain pen. His is still in her head.*
+*They have not tried to kill each other since the Constance. They still could, and both of them know the exact distance at which they could, all the time. Their name is still in his ledger in fountain pen. His is still in their head.*
 
 *They work the same city under the truce. When they want the same mark they meet on a roof and settle it with a coin, and neither of them turns their back to the other to walk away, so they leave down the stairwell side by side, which Angel says is the most romantic thing she has ever seen and Ronin says is the most frightening.*
 
@@ -797,7 +796,7 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 *The IOU is still in V’s wallet. He has never collected.*
 
-*He has a scar on his left forearm with a hook at the end of it. She looks at it every time they meet, quickly, before she looks at his hands.*
+*He has a scar on his left forearm with a hook at the end of it. They look at it every time they meet, quickly, before they look at his hands.*
 
 **Misaki:** You still owe me nine hundred dollars from the carpet. I’m going to collect it off your body one day.
 
@@ -908,7 +907,7 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 *There is one crêpe left at the stand in the square, and you and V reach the counter at the same moment from opposite sides. A family is queueing behind you. Your hand goes to the small of your back, and his goes inside his coat, and neither of you finishes the movement.*
 
-*(or)* *There is one crêpe left at the stand in the square, and Misaki reaches the counter at the same moment you do. A family is queueing behind her. Her hand goes to the small of her back and yours goes inside your coat, and neither of you finishes the movement.*
+*(or)* *There is one crêpe left at the stand in the square, and Misaki reaches the counter at the same moment you do. A family is queueing behind them. Their hand goes to the small of their back and yours goes inside your coat, and neither of you finishes the movement.*
 
 **V:** There are children here.
 
@@ -918,7 +917,7 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 *You buy the crêpe and eat it at the counter, looking at him the entire time, with your other hand still behind your back. He waits until the family has gone. Then he leaves, walking backwards for the first ten steps.*
 
-*(or)* *She buys the crêpe and eats it at the counter, looking at you the entire time, with her other hand still behind her back. You wait until the family has gone, and leave, walking backwards for the first ten steps.*
+*(or)* *They buy the crêpe and eat it at the counter, looking at you the entire time, with their other hand still behind their back. You wait until the family has gone, and leave, walking backwards for the first ten steps.*
 
 
 ### l73\_base
@@ -935,18 +934,18 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 *You come home from a meeting and go up to bed, and there is a single bullet standing on its end in the middle of your pillow.*
 
-**V:** (She was in my house. She stood where I sleep, and did nothing, so that I would know she could.)
+**V:** (They were in my house. They stood where I sleep, and did nothing, so that I would know they could.)
 
-*The old hound is on the stairs, where it has been all afternoon. It let her in and let her out.*
+*The old hound is on the stairs, where it has been all afternoon. It let them in and let them out.*
 
-*You put the bullet in the ledger, taped under her name, and sleep in the chair facing the door.*
+*You put the bullet in the ledger, taped under their name, and sleep in the chair facing the door.*
 
 
 ### l73\_board
 
 *Ronin’s fridge has a whiteboard on it now. Across the top, in red marker: THE WAR. Under it are two columns, MISAKI and VEE, and a third headed ANGEL’S ENVELOPE with nothing in it but a heart.*
 
-**Ronin:** You go for her, Vee, or she goes for you, I’m in it. I told you both. Devil don’t pick sides but I fuckin’ do, and I ain’t picked yet.
+**Ronin:** You go for them, Vee, or they go for you, I’m in it. I told you both. Devil don’t pick sides but I fuckin’ do, and I ain’t picked yet.
 
 **Ronin:** Good. Now eat somethin’. You look like shit.
 
@@ -972,7 +971,7 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 *He says it slower, looking at you, and you miss the next shot by a foot.*
 
-*(or)* *You say it slower, looking at her, and she misses the next shot by a foot.*
+*(or)* *You say it slower, looking at them, and they miss the next shot by a foot.*
 
 
 ### e2l\_eye

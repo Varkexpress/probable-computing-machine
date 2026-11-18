@@ -1,5 +1,8 @@
 # Enemies to lovers: V × Misaki (kc73)
 
+**Revamped by kc76** (`docs/notes_kc76.md`): chapters, the war page, two new beats (`e2l_show`, `e2l_pair`), and the
+foundation dinner's cake replaced by the glass in V's hand.
+
 All in `src/kc73.js`; tested by `tools/k73_test.js`; reading copy in `docs/kc73_text.md`. This is an optional route
 layer on the main V/Misaki route. They start the run sworn to kill each other. The kidnapping, the infirmary and the
 Mimic force them together, and on the boat they either declare it (lovers) or shake on a truce with knives under the
@@ -55,7 +58,7 @@ absent.
 |---|---|---|---|
 | normal | `e2l_mark` (entry) | the card man; “You were next”; the file on her; “says the billionaire who launders murder through a charity”; Angel and Ronin step in | swear it / let it go → `e2l` |
 | normal | `e2l_eye` | She shot the shelter landlord to show him she could. V comes to her trailer at 4am with plastic sheeting to kill her, and she wakes with a pistol at his temple. Lex talionis: he came for all of her, and takes an eye on account. | the scope (she stands a bullet on his desk where his four pairs of reading glasses were) / the IOU on her electricity bill, “OWED: ONE EYE, AND THE REST” → `e2lEye` `scope`/`note` |
-| normal | `e2l_sab` | V's foundation dinner. She has two names tonight: the mark, and the man giving the speech. She puts rounds through the place cards to show him how close she is. He has two hounds waiting at the foot of her stairwell. He stands in the window and puts his own head in her scope, to find out what she is. | the round past his ear / the cake (a dead billionaire at his own dinner is a martyr: “i want u to die somewhere stupid”); the hounds let her past, and he did not tell them to → `e2lSab` `m`/`v` |
+| normal | `e2l_sab` | V's foundation dinner. She has two names tonight: the mark, and the man giving the speech. She puts rounds through the place cards to show him how close she is. He has two hounds waiting at the foot of her stairwell. He stands in the window and puts his own head in her scope, to find out what she is. | the round past his ear / the glass shot out of his hand, nine stitches (a dead billionaire at his own dinner is a martyr: “i want u to bleed first … and die later somewhere stupid”); the hounds let her past, and he did not tell them to → `e2lSab` `m`/`v` |
 | normal | `e2l_truce` | Angel: “you are scaring people. ronin hasn't slept.” The bowling alley accords: nobody kills anybody for seven days, nobody enters anybody's home, and each says one true thing about the other by Sunday. | she breaks it on Tuesday (the car-wash dogfight; “the accords are about us”) / he puts a camera in her smoke alarm and Ronin finds it → `e2lTruce` `m`/`v`. Sunday: “waiting for it to do something i can shoot him for”, “That is why her name is first in my ledger.” |
 | taken (V) | `e2l_come` | the river; “thought u swore to kill her. it's in ur fuckin' book” | “She is mine to kill. Nobody else does it.” / say nothing → `e2lPride` `debt`/`true` |
 | taken→after (both) | `e2l_door` | escaped: why his door; rescued: “the only one who wanted you dead badly enough to come and check”; V: the door, or the speed limit | – |
@@ -180,7 +183,7 @@ every tier and variant, come to about 11,000 words.
 - V's file on her: a driver at a gala, a doorman, a man shot in front of his daughter because the contract said
   Tuesday.
 - The shelter landlord; the man from the hospital fund at the foundation dinner, taken out by Hale's officers in
-  buttercream; the man who runs a dogfight in a car wash.
+  handcuffs; the man who runs a dogfight in a car wash.
 - V keeps a ledger of people he has sworn to kill, with an entry for Misaki. He brings plastic sheeting to a kill so as
   not to leave a mess.
 - V owns the water tower near his house.
