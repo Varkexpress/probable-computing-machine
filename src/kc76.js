@@ -21,21 +21,21 @@
 const K76=()=>{try{return typeof E2L==='function'&&E2L()&&typeof K73B!=='undefined'}catch(e){return false}};
 const k76M=()=>S.pov!=='v';
 const k76H=(m,v)=>k76M()?m:v;
-const k76Has=id=>{try{if(id==='e2l_yard')return typeof k75Loose==='function';if(id==='e2l_come')return !k76M();if(id==='e2l_morn')return S.f.e2lEnd==='lovers';if(id==='e2l_book')return S.f.e2lEnd==='rivals'&&K73B.some(b=>b.id===id);if(id==='e2l_fork')return S.f.e2lAfter!=='soft'&&K73B.some(b=>b.id===id);
+const k76Has=id=>{try{if(id==='e2l_yard')return typeof k75Loose==='function';if(id==='e2l_come')return !k76M();if(id==='e2l_gone')return !k76M()&&typeof k79Gone==='function';if(id==='e2l_morn')return S.f.e2lEnd==='lovers';if(id==='e2l_book')return S.f.e2lEnd==='rivals'&&K73B.some(b=>b.id===id);if(id==='e2l_fork')return S.f.e2lAfter!=='soft'&&K73B.some(b=>b.id===id);
  if(['e2l_mark','e2l_door','e2l_med'].includes(id))return true;return K73B.some(b=>b.id===id)}catch(e){return false}};
 const k76Did=id=>{try{const f=S.f;if(id==='e2l_yard')return !!f.e2lLoose;if(id==='e2l_med')return k76M()?!!(f.e2lMM||f.e2lMC):!!f.e2lVM;if(id==='e2l_morn')return !!S.seen.e2l_morn;return k73Done(id)}catch(e){return false}};
 
 /* ===================================== THE CHAPTERS ===================================== */
 const K76CH=[
  {n:'I',t:'THE OATH',ph:['normal'],ids:['e2l_mark','e2l_eye','e2l_show','e2l_lift','e2l_kennel','e2l_yard','e2l_sab','e2l_dinner','e2l_truce']},
- {n:'II',t:'THE DEBT',ph:['taken','after'],ids:['e2l_come','e2l_door','e2l_med','e2l_after','e2l_rifle','e2l_fork']},
+ {n:'II',t:'THE DEBT',ph:['taken','after'],ids:['e2l_gone','e2l_come','e2l_door','e2l_med','e2l_after','e2l_rifle','e2l_fork']},
  {n:'III',t:'THE CASE',ph:['act2'],ids:['e2l_car','e2l_list','e2l_stitch','e2l_pair','e2l_spar','e2l_know','e2l_test']},
- {n:'IV',t:'THE TERMS',ph:['act3'],ids:['e2l_row','e2l_guard','e2l_will','e2l_boat','e2l_book']},
- {n:'V',t:'A YEAR ON',ph:['epilogue'],ids:['e2l_morn','e2l_epi','e2l_page']}];
+ {n:'IV',t:'THE TERMS',ph:['act3'],ids:['e2l_row','e2l_cant','e2l_guard','e2l_night','e2l_dress','e2l_will','e2l_boat','e2l_book']},
+ {n:'V',t:'A YEAR ON',ph:['epilogue'],ids:['e2l_morn','e2l_epi','e2l_page','e2l_last']}];
 const K76NAME={e2l_mark:'The card man',e2l_eye:'The trailer, at four',e2l_show:'The cold room',e2l_lift:'The customs-house lift',e2l_kennel:'The kennel, at three',
  e2l_yard:'The warehouse yard',e2l_sab:'The foundation dinner',e2l_dinner:'Angel’s table',e2l_truce:'The bowling alley accords',e2l_come:'The river',e2l_door:'The door',
  e2l_med:'The room marked LAUNDRY',e2l_after:'The kitchen, at noon',e2l_car:'Eight hours in a car',e2l_stitch:'The garage, with a needle',e2l_pair:'The first one together',
- e2l_spar:'The training hall',e2l_boat:'The Constance',e2l_morn:'The morning after',e2l_epi:'The anniversary',e2l_rifle:'The rifle',e2l_fork:'The fork',e2l_list:'The fourth body',e2l_will:'The wills',e2l_book:'The book closes',e2l_page:'The page',e2l_know:'Nine minutes',e2l_test:'The parapet',e2l_row:'The corridor',e2l_guard:'Pier Six'};
+ e2l_spar:'The training hall',e2l_boat:'The Constance',e2l_morn:'The morning after',e2l_epi:'The anniversary',e2l_rifle:'The rifle',e2l_fork:'The fork',e2l_list:'The fourth body',e2l_will:'The wills',e2l_book:'The book closes',e2l_page:'The page',e2l_know:'Nine minutes',e2l_test:'The parapet',e2l_row:'The corridor',e2l_guard:'Pier Six',e2l_gone:'The empty trailer',e2l_cant:'What you cannot do',e2l_night:'Three in the morning',e2l_dress:'Two garment bags',e2l_last:'The pillow'};
 const k76Ids=c=>c.ids.filter(k76Has);
 const k76ChOf=id=>K76CH.find(c=>c.ids.includes(id))||null;
 const k76ChNow=()=>K76CH.find(c=>c.ph.includes(S.phase))||K76CH[0];
@@ -56,6 +56,7 @@ function k76Stand(){const f=S.f,m=k76M(),t=k76Tal(),p=S.phase;
  return m?'A year on, and the oath was never settled on the Constance.':'A year on, and the oath was never settled on the Constance.'}
 /* what unlocks the next move */
 function k76Next(){const f=S.f,m=k76M(),p=S.phase;
+ if(p==='taken'&&typeof k79GoneOk==='function'&&k79GoneOk())return 'Next move, today: their trailer. The door is open.';
  if(p==='taken')return m?'Nothing moves until you are out of that building.':'Nothing moves until they are out of that building.';
  if(S.kd&&S.kd.med)return m?'While you are in the room marked LAUNDRY, it comes to you in the evenings.':'While they are in the room marked LAUNDRY, it comes to you after noon, twice a day at most.';
  let b=null;try{b=k73Due()}catch(e){}
@@ -67,7 +68,7 @@ function k76Next(){const f=S.f,m=k76M(),p=S.phase;
  const fresh=(()=>{try{return k73Fresh()}catch(e){return true}})(),tom='The next move is tomorrow. One a day.';
  if(p==='after')return left(K76CH[1])?(k73Done('e2l_after')?(fresh?'The next move is not ready yet.':tom):(m?'The next move comes a few days after you are out of the infirmary.':'The next move comes a few days after they are out of the infirmary.')):'Nothing more until the case opens.';
  if(p==='act2')return left(K76CH[1])+left(K76CH[2])?'The next move is tomorrow. One a day, while the case runs.':'Every move of the case is made. Nothing more until Pier Nine.';
- if(p==='act3'&&!k73Done('e2l_boat')&&!fresh&&K73B.some(b=>!k73Done(b.id)&&['e2l_know','e2l_test','e2l_row','e2l_guard'].includes(b.id)&&k73Done('e2l_car')))return tom;
+ if(p==='act3'&&!k73Done('e2l_boat')&&!fresh&&K73B.some(b=>!k73Done(b.id)&&['e2l_know','e2l_test','e2l_row','e2l_guard','e2l_cant','e2l_night','e2l_dress'].includes(b.id)&&k73Done('e2l_car')))return tom;
  if(p==='act3')return !k73Done('e2l_boat')?(k76Did('e2l_will')||!k76Has('e2l_will')?'The next move is at Pier Nine, two nights before the auction.':'The next move comes once the auction is a day nearer.'):(left(K76CH[3])?tom:(f.e2lEnd==='lovers'&&!S.seen.e2l_morn?'The morning after comes on its own.':'It is settled until the anniversary.'));
  return left(K76CH[4])?(fresh?'The anniversary comes on its own.':tom):'That is all of it.'}
 const k76Short=()=>{const c=k76ChNow(),n=k76Count(c);return 'The war · '+c.n+' · '+c.t.charAt(0)+c.t.slice(1).toLowerCase()+' · '+n.done+' of '+n.of};
@@ -201,6 +202,15 @@ function k76Line(id){const f=S.f,m=k76M(),self=!!f.selfEscape;switch(id){
  case 'e2l_row':return f.e2lRow==='said'?(m?'Two in the morning, both armed. You told him you would not. He said it was what he would say. He will not cross the name out, and you will not hand over the rifle.':'Two in the morning, both armed. I told them I would not. They said it was what they would say. They will not give up the rifle, and I do not cross things out.')
   :(m?'Two in the morning, both armed. You let him think you would, and he nodded. You went back to the trailer.':'Two in the morning, both armed. I let them think I would. They went back to the trailer.');
  case 'e2l_guard':return m?'Pier Six. You were watching him and not the gantry, and a watchman put a boat hook through his shoulder. Your shot was a second late.':'Pier Six. I was watching the crane and not the gantry. A boat hook, left shoulder. Their shot was a second late.';
+ case 'e2l_gone':return 'Their trailer, empty. Watered the cactus. Wrote: TAKEN BY OTHERS.'+(f.e2lGone==='recover'?' TO BE RECOVERED. AND THEN KILLED.':' Took the cactus home.');
+ case 'e2l_cant':return m?(f.e2lCant==='angel'?'You typed “i wouldn’t” to him eleven times, and sent it to Angel.':'You typed “i wouldn’t” to him eleven times, and deleted it eleven times.')
+  :(f.e2lCant==='pencil'?'Held the pen over their name and could not strike it. Wrote beside it, in pencil: NOT BY ME.':'Held the pen over their name and could not strike it. Capped the pen.');
+ case 'e2l_night':return f.e2lNight==='opened'?(m?'You woke in the other building and your hand rang him. He stood four steps back in the rain. You opened the door, and he opened your fingers.':'They rang at three and could not speak. Stood four steps back from their door. They opened it. Opened the left hand, one finger at a time.')
+  :(m?'You woke in the other building and your hand rang him. He sat on the step in the rain until it was light, and told the door what day it was.':'They rang at three and could not speak. Sat on their step until five. Did not ask for the door.');
+ case 'e2l_dress':return f.e2lDress==='said'?(m?'Angel showed you the two black garment bags. You told Angel the money was wasted. You could not say it to him.':'Angel has a black dress for each of us. I told Angel that the money was wasted. I could not say it to them.')
+  :(m?'Angel showed you the two black garment bags. Neither of you would tell Angel the money was wasted.':'Angel has a black dress for each of us. Neither of us told Angel that the money was wasted.');
+ case 'e2l_last':return f.e2lPillow==='down'||f.e2lPillow==='held'?(m?'You woke in his bed with the pistol at his temple. He said “It happens”, and did not reach for it.':'Woke with their pistol at my temple. Did not reach for it. I will not.')
+  :(m?'The anniversary. You typed “come up here” and deleted it. '+(f.e2lPillow==='nothing'?'No bullet this year. “Are you alive.” “yes.”':'You stood the bullet on his pillow as always.'):'The anniversary. Typed “Come down.” Did not send it. '+(f.e2lPillow==='nothing'?'No bullet. They are alive.':'A bullet on the pillow. Slept.'));
  case 'e2l_morn':return m?'The morning after. Angel opened the envelope.':'The morning after. Angel opened her envelope.';
  case 'e2l_epi':return f.e2lEnd==='lovers'?'A year on. You still race for the same marks, and the loser cooks.':'A year on. Nobody is dead. Both of you still could.'}
  return ''}

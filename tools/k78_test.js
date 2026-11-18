@@ -33,7 +33,7 @@ let runs=0,fails=0;const ok=(c,m)=>{runs++;if(!c){fails++;console.log('FAIL',m)}
  const PRE2=['e2l_after','e2l_rifle','e2l_fork','e2l_car','e2l_list','e2l_stitch','e2l_pair','e2l_spar'];
  /* (a) the four beats */
  const B={e2l_know:{ph:'act2',done:PRE2,fl:'e2lKnow',v:['hide','watch'],free:1,ch:'III'},e2l_test:{ph:'act2',done:PRE2.concat('e2l_know'),fl:'e2lTest',v:['fought','laughed'],free:0,ch:'III'},
-  e2l_row:{ph:'act3',done:PRE2.concat('e2l_know','e2l_test'),fl:'e2lRow',v:['said','silent'],free:0,ch:'IV'},e2l_guard:{ph:'act3',done:PRE2.concat('e2l_know','e2l_test','e2l_row'),fl:'e2lGuard',v:['own','blame'],free:0,ch:'IV'}};
+  e2l_row:{ph:'act3',done:PRE2.concat('e2l_know','e2l_test'),fl:'e2lRow',v:['said','silent'],free:0,ch:'IV'},e2l_guard:{ph:'act3',done:PRE2.concat('e2l_know','e2l_test','e2l_row','e2l_cant'),fl:'e2lGuard',v:['own','blame'],free:0,ch:'IV'}};
  for(const id of Object.keys(B))for(const pov of ['m','v'])for(const o of [0,1])for(const extra of (id==='e2l_know'?[{},{e2lSpar:'kiss'}]:[{}])){const w=B[id];
   await ev(([pov,w,extra])=>__set(pov,w.ph,{done:w.done,f:Object.assign({e2lAfter:'war',e2lKnow:'hide',e2lTest:'fought',e2lRow:null},extra)}),[pov,w,extra]);
   await ev(([id,fl])=>{delete S.f[fl];if(id!=='e2l_guard')delete S.f.e2lRow;if(id==='e2l_guard')S.f.e2lRow='said';S.aff=40;save()},[id,w.fl]);
