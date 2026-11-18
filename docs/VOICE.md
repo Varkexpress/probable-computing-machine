@@ -1,0 +1,115 @@
+# Voice guide
+
+Source of truth: the author's own sample in `docs/voice_sample.md` (four short pieces, one per killer). Read it before
+writing or revising any line. Ignore the second-person "you"/lover in the sample; the reader is not a character in the game.
+
+The game is a serial killer simulator. These four enjoy the work, are good at it, and believe their victims had it
+coming. They are funny because they are dangerous and at ease with it, never because they are quirky or wholesome.
+
+## Ronin (ronin.beaufort) — the Devil's Butcher
+- Cocky, crude, loud, mean-funny. A shit-eating grin. He needles the people he likes and taunts the people he kills.
+- Swears freely: fuck, fuckin', shit, asshole. Clipped drawl: d'you, don't cha, need'ta, t'be, s'posed, 'round, kinda,
+  y'know, nah, "Also nah."
+- Mock-polite to victims: "Purgatory, please and thank you." "Aw, too choked up to do it? You're fucking boring."
+- Possessive about kills and people: "This one's mine to kill."
+- Affection comes out as a jab: "Sucks t'be you." "You got yourself in this fuckin' mess, the devil's gonna relish it."
+- Crowbar, silver skull rings, graveyards. Laughs "like a lion in feast."
+- NOT a gentle Southern uncle. Cut most "darlin'". No homespun wisdom, no comforting speeches. If he is kind, he is
+  rude about it and changes the subject.
+
+## Angel (Angelic) — Maria de la Rosa on camera, the Heartsick Angel off it
+- Maria: soft, practised, sweet; full sentences; a smile she has to try for. "I'd appreciate it if you could give me
+  any leads."
+- The Angel: ravenous, righteous, possessive. Hunts for sport and calls it catharsis. Shotgun. "None of them can say
+  they didn't have it coming." "No one who values their life should fuck with her."
+- Lore: she plays Ninefold Chapel, an original phone gacha game about saints (a ten-pull is a tithe, the money is
+  candles), and spent $2,860 in one night on Saint Ottilie of the Shears. She hides it from Maria's followers ("my
+  assistant's phone") and threatens anyone who calls her saint mid. (kc64)
+- In texts she can stay lowercase, but give her teeth: fewer "LMAO babe 💕" fillers, more appetite and threat under
+  the sweetness. She enjoys being a little exposed.
+
+## Misaki (hitmeuppp)
+- Pronouns: they/them only, in narration and in every other character's lines.
+  Never feminize: no she/her, girl, woman, wife. Use their name, "the kid", "spouse"/"partner"/"other half", or whatever neutral word the speaker would pick.
+- Loud, profane, hyperbolic, fast. "Oh, fuck." "seriously!" "totally" "et cetera, whatever." "Hey, don't come at her."
+- Ridiculous pet names said with a straight face: "babe", "sugar honey dumpling".
+- Talks themself through fear in numbered steps (One: ... Two: ... Three: ...), bravado on top, terror underneath.
+- An assassin with clients and debtors. Chainsaw, rifle, machine gun, bazooka. "A double-tap never hurts!"
+- Life is unfair and they say so. They do not do quiet, wistful one-liners; when they are sincere it comes out blunt or
+  sideways, then they make a joke.
+- Keep the game's tier system (`MV`/`byT`): lowercase text-speak at low tiers, fuller sentences as the relationship
+  deepens. All four tiers must stay; later tiers are longer and more articulate, still theirs.
+
+- Lore: shirtless most of the time in V's house. They don't care about gender standards and nobody on the server cares either.
+  Flat and unusually lanky from childhood malnutrition (fine growth-arrest lines on the films, “like tree rings”). They count it as
+  luck: a chest that developed would have meant dysphoria. Ronin's only comment is a jab (“flat as a fuckin' ironing board”).
+- Lore: assigned female at birth, and has no reproductive organs. They joke that they don't know whether they were born that
+  way or had their uterus sold before nine, and mean both: it could be either, and no check has ever been done (they decline
+  V's offer of one; they would rather keep the joke). They say it simplifies things: no cramps, no scares, nothing to bind.
+
+- Lore: in school from nine (the enrolment form) to about thirteen. Clever; no homework (no table, no lamp, no evening of
+  their own) and no clubs, but very good at timed competition maths: third at regionals at eleven, trophy pawned for
+  dinner. They say a lot of talents were wasted on them; most of it went into wind, distance and drop.
+
+- Lore: from about thirteen to sixteen, after school stopped, they scalped lolita dresses: queued all night outside an uptown
+  boutique for the limited drops (two per customer), bought their two, and had them listed online by breakfast at three times
+  the price. The old seller page has four hundred reviews, a frog sock in the corner of every photo, and packing notes that said
+  “THANK YOU FOR FUNDING AVIATION.” They wanted to be a pilot and were saving for flight school: $4,112 in a biscuit tin. The
+  school needed a birth certificate; all they had was the enrolment form with “March” written in by themselves. The money went
+  on rent and then a scope. They kept one dress, bought the day the school said no and never listed; it no longer fits (they got
+  tall late, once they were eating). It belongs with the other wasted talents (competition maths, the architect): a pilot does
+  the same sums as a sniper, and a cockpit is a room with one door that locks from your side. Ronin calls them a scalper. (kc60)
+- Lore: their will, as Angel keeps it in “list (final) (2)”: rifle to Angel, truck and chainsaw to Ronin, Prickles to V, the
+  star clips in the bin. V has left them the hounds. (kc60)
+- Lore: they like calculus and cannot say why. The competitions were tricks and counting; calculus they found at fifteen
+  in a textbook thrown in a skip, and did all of it in a truck cab by torchlight. Integrals are how they unwind after a
+  job; the notebooks say FOR FUN at the top; the coverless book is in the go-bag. Another wasted talent. (kc64)
+
+
+## V (K9)
+- His name appears nowhere public: the foundation is anonymous by his insistence. No name on doors, plaques or donor
+  lists; no speeches, interviews or press photographs. He sits at the back of the gala or does not go; the chair speaks.
+  Private uses are fine (K9 on the server, friends, the ledger, Hale's file).
+- Formal, exact, no contractions. "merely", "serviceable", "I find that your kind say that about me, often."
+- Dry menace. "Now, shall we get to work?" One-word answers with a twitch of a smile: "Justice."
+- Convictions: lex talionis; a quick death is mercy and some do not deserve it; victims are "things", "aberrations".
+  He butchers them and feeds the meat to his animals, and thinks of this as not wasting.
+- Tender only about his people and his animals, and he states it as fact, without softness in the phrasing.
+- He does not swear. He is not a sweet awkward dad. Cut cute stiffness for its own sake.
+
+## Narration
+- Plain, physical, a little gleeful about gore. Short declaratives, then one long run-on when the feeling spills.
+- Parenthetical asides carry the true thought: "(Her lover's alive. They have to be.)"
+- Colons and semicolons are fine. Repetition for effect is fine ("Of course... Of course.").
+
+## What reads as machine-written (remove on sight)
+- "X. Not Y." / "It's not X, it's Y" contrast reveals, and "not because X but because Y".
+- A tidy aphorism or callback closing the scene. End on an action, an insult, or mid-thought.
+- Lists of three; matching sentence shapes in a row.
+- Every character being quirky-wholesome in the same register; killers reassuring each other like a support group.
+- Feelings explained in full. Let them be rude, evasive, wrong, or interrupted.
+- "...That helps more than it ought to." style gentle understatement on every beat.
+- Banned words: delve, testament, tapestry, robust, landscape, journey, navigate, profound.
+
+## The author's tic list (fix every instance)
+| Tic | Example of what to remove |
+|---|---|
+| Negation-first reveal | It is not a wrong answer. It is a non-answer. |
+| Significance designation | It is the leg that answers the actual question. |
+| Abstraction agency | Median hides it. / The table shows it. (an abstraction doing a person's verb) |
+| Deferred noun | Five of those six rows are one cluster. The sixth is not. |
+| Coy or thesis-shaped header | What "exhausted" means / The one gap that does clear the bar |
+| Aphoristic closer | It is the kind of number that looks like evidence and is not. |
+| Straw-man knockdown | "It thinks twice as long" is the obvious reading, and it is wrong. |
+| Fragment cadence | Six legs. One GPU, one server build, one sampler, one question set. |
+| Dressed metaphor | That is information loss wearing the costume of a style fix. |
+| Label-first framing | The fucking left column of this table. |
+
+Rewrite the sentence plainly instead: say the thing directly, with a person as the subject, in a full sentence, and stop
+when the information stops. Fragments are fine in speech when a character is genuinely cut off or swearing; they are not
+fine as a rhythm device (three or more clipped fragments in a row for effect).
+
+## Hard constraints
+- Scenes stay short. Never add lines to a scene; prefer cutting.
+- No original side characters. V's reading glasses exist in text only. The B5 library is a futuristic circular tower.
+- In phone threads, `reply`/`in` lines are the contact speaking; option `t` text is the player.
