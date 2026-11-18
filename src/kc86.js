@@ -1,12 +1,13 @@
 /* ===KC86-BEGIN=== */
 /* ===================== THE WAR: THE ROOM, EITHER SETTING (kc86) =====================
-   Twenty-eight more infirmary scenes for the enemies-to-lovers route that read the same under both aftermath settings
+   Twenty more infirmary scenes for the enemies-to-lovers route that read the same under both aftermath settings
    (nothing here touches the hours, and the doctor does not appear). They join kc85's player-opened pool (K85S):
    ⚔ The room / ⚔ Outside the room, while kdMed(). kc86 also raises the pool's limit to three a slot and shows six
    at a time, since the pool is now large. Needs kc73, kc76–kc85.
-     Misaki, cell (the tall one is a captor):  g_north g_spoon g_shoe g_number g_handle g_steps g_voice g_eye
-     Misaki, clear:                            g_sign g_ronin g_nails g_book g_grandpa g_tab g_hands g_notsorry
-     V:   g_kneel g_soles g_hale g_soup g_meat g_server g_shoeV g_aloud g_shotgun g_asked g_count g_cactus
+     Misaki, cell (the tall one is a captor):  g_north g_spoon g_shoe g_number g_handle g_voice g_eye
+     Misaki, clear:                            g_sign g_ronin g_nails g_book g_grandpa
+     V:   g_kneel g_soles g_hale g_meat g_shoeV g_aloud g_shotgun g_asked
+   (kc90's pass cut eight filler scenes from this module and made the cell scenes warier.)
    Helpers used by kc87 and kc88 as well: k86 (register a scene), N (narration), M2 (Misaki, text-speak / fuller),
    Ms (the same, with what the hands do when the voice is gone).
    Rules: unnamed city, hounds unnamed, no new named characters, V never contracts, Misaki via MV and they/them.
@@ -25,37 +26,30 @@ k86('g_north','m',null,'cell','Work out which way is north',[
  Ms('(don’t ask. u wouldn’t get it. u’ve got windows)','(don’t ask. you wouldn’t get it. you’ve got windows)','You stop smiling. You are not supposed to have things in here.')]);
 k86('g_spoon','m',null,'cell','There is a spoon on the tray',[
  N('The spoon on the tray is metal. In the other building they were plastic, and counted.'),
- M2('(he left me a METAL SPOON. is he stupid. is he new)','(he left me a metal spoon. is he stupid? is he new?)'),
+ M2('(metal. he’s left me metal. that’s not a mistake. they don’t make mistakes)','(metal. he’s left me metal. that’s not a mistake. they don’t make mistakes)'),
  N('You could do a great deal with a metal spoon and a week. You put it down the side of the mattress and wait for him to count the tray.'),
  N('He does not count the tray. The next one comes with a spoon, and a fork, and a knife with a proper edge on it.'),
  M2('(ok. it’s a test. nobody’s this dumb. it’s a test and i don’t know what passing looks like)','(okay. it’s a test. nobody’s this dumb. it’s a test, and i don’t know what passing looks like)'),
- N('You eat with the knife and fork, very correctly, and put all three back on the tray in a row. You leave the first spoon where it is. You want to see how long it takes him.')]);
+ N('You eat with the knife and fork, very correctly, and put all three back on the tray in a row. You leave the first spoon where it is. You have decided that it is there to be found on you.')]);
 k86('g_shoe','m',null,'cell','Your shoe',[
  N('One of your shoes is on the floor by the bed. The left one. Somebody has cleaned it; the lace has been washed.'),
  N('You do not know where the right one is. You think about that for a while. A person with one shoe is not going anywhere, and whoever put it there knows it.'),
- M2('(nice. really nice. here’s half ur stuff. good luck hopping)','(nice. really nice. here’s half your stuff. good luck hopping)'),
+ M2('(one shoe. so i know i’m not walking out. got it)','(one shoe. so that i know i’m not walking out. got it)'),
  N('That evening the tall one comes in with a shoe box. There is a pair in it, new, your size, the same make. He puts the box under the bed, next to the single shoe, and says nothing about either.'),
  Ms('(…so now i’ve got three. what’s three shoes mean)','(…so now i’ve got three. what do three shoes mean?)','You look at the box until he has gone. You do not touch it.')]);
-k86('g_number','m',null,'cell','What he calls you',[
- N('He has not called you anything. Not a name, not a number, not “you”. In the other building you were “it” to one of them and “sweetheart” to another, and you preferred “it”.'),
- N('So you give him something to use. People are easier to manage when they have a word for you.'),
- Ms('u can call me nine. if u want. it’s easy to remember','you can call me nine, if you want. it’s easy to remember','You hold up nine fingers. It takes both hands, and the left one will only give you four.'),
- N('He stands quite still with the tray.'),
- K76V('I know what you are called.'),
- M2('(shit. shit. he’s got my file. who gave him my file)','(shit. he’s got my file. who gave him my file?)'),
- N('He goes out. He did not use it, whatever he knows. You lie there trying to work out which is worse.')]);
+k86('g_number','m',null,'cell','He says your name',[
+ N('He has not called you anything. Then, on the second day, he says your name.'),
+ N('Nobody in the other building had it. You were careful. You were “it” to one of them and “sweetheart” to another, and you kept the name back the whole time, behind your teeth, like the round in the shoe.'),
+ N('So he has had it from somewhere else. There is a file. Somebody has sold him the one thing you got out of there with.'),
+ M2('(don’t answer to it. if u answer to it, it’s his)','(don’t answer to it. if you answer to it, it’s his)'),
+ N('You look at his hands and say nothing. He says it again, lower. It is worse, lower.'),
+ N('He does not try a third time. For the rest of the day he calls you nothing, and your own name stays in the room, like something he has put down on the counter and may pick up again.')]);
 k86('g_handle','m',null,'cell','The door handle',[
  N('You have not tried the door. You do not try doors in here. Trying a door tells them that you still think about doors.'),
  N('But you watch it. When the tall one goes out, he pulls it shut, and there is no second sound after the latch. No bolt. No key.'),
  M2('(so it’s electric. or there’s a guy outside. or it’s open)','(so it’s electric. or there’s a guy outside. or it’s just open)'),
  M2('(it’s not open. don’t be stupid. nobody leaves it open)','(it’s not open. don’t be stupid. nobody leaves it open)'),
  N('You lie on your right side and look at the handle for an hour. It is an ordinary brushed steel handle. You are more afraid of it than you were of the men.')]);
-k86('g_steps','m',null,'cell','Count his steps',[
- N('He takes four steps from the door to the bed. Always four. He is tall enough to do it in three.'),
- N('You have counted every time. Four in, and he stops a full arm’s length short, and puts the tray down by stretching.'),
- M2('(he’s making himself slow. on purpose. why would u do that)','(he’s making himself slow, on purpose. why would you do that?)'),
- N('The only reason you can think of is the reason you walk slowly up to a mark: so that they do not bolt before you are close enough.'),
- M2('(joke’s on him. i can’t bolt. i’ve got one shoe)','(joke’s on him. i can’t bolt. i’ve got one shoe)')]);
 k86('g_voice','m',null,'cell','Practise the good voice',[
  N('You practise it when nobody is in the room. It has to be ready.'),
  Ms('thank u. yes please. no trouble. whatever’s easiest','thank you. yes, please. no trouble. whatever’s easiest','You move your mouth through it without the sound: thank you, yes please, no trouble.'),
@@ -113,27 +107,6 @@ k86('g_grandpa','m',null,'clear','Call him grandpa',[
  K76V('The cow was unwilling. You have a foul mouth, and you will eat this before it is cold.'),
  M2('(he heard it. he heard it was weak. and he took the hit anyway)','(he heard it. he heard that it was weak, and he took the hit anyway)'),
  M2('(don’t be nice to me. u’re SO bad at it)','(don’t be nice to me. you’re so bad at it)')]);
-k86('g_tab','m',null,'clear','Work out what you owe him',[
- N('You keep a tab. You always have. You do not like to owe.'),
- M2('(one carry, out of a building. 9 trays. a week of electric. one pair shoes)','(one carry, out of a building. nine trays. a week of electricity. one pair of shoes)'),
- M2('(minus: he swore to kill me. minus: the plastic. minus: he still owes me 900 for the carpet)','(minus: he swore to kill me. minus: the plastic sheet. minus: he still owes me nine hundred for the carpet)'),
- N('You do it three times, on the back of the chart, with the stub of pencil. It does not come out in your favour. It does not come out anywhere near it.'),
- M2('(i owe a billionaire. a billionaire who wants me dead. life is so fucking unfair)','(i owe a billionaire. a billionaire who wants me dead. life is so fucking unfair)'),
- N('You tear the sum off the chart and eat it, so that he will not find it.')]);
-k86('g_hands','m',null,'clear','His hands',[
- N('For three days you watched his hands, because in a cell you watch the hands. You know them better than your own.'),
- N('A scar across the left knuckles, old. A callus on the second finger, from the pen. They are very clean, and the nails are cut straight across. He holds them slightly away from his body when he is in the room, turned so that you can see the palms.'),
- N('You know all of that, and you know now whose they are. You cannot make the two things one. The hands that brought the water, and the hands that had your rifle across his knees in the dark.'),
- M2('(stop looking at his hands. ur clear now. u’re allowed to look at his stupid face)','(stop looking at his hands. you’re clear now. you’re allowed to look at his stupid face)'),
- N('You try the face. You last about a second, and go back to the hands.')]);
-k86('g_notsorry','m',null,'clear','Rehearse not apologising',[
- N('You were polite to him for three days. You were good. You said sorry to that man.'),
- N('You will not be apologising for it. You run the lines.'),
- M2('“i wasn’t being nice. i thought u were someone else.” no. sounds like i’d be nice to someone else','“i wasn’t being nice. i thought you were someone else.” no. that sounds like i’d be nice to someone else'),
- M2('“forget everything i said.” no. then he knows i remember','“forget everything i said.” no. then he knows that i remember'),
- M2('“fuck u.” …yeah. that one. keep it simple','“fuck you.” …yeah. that one. keep it simple'),
- N('He comes in at noon. You say it. He says “Good morning”, and puts the tray down, and you could swear that his shoulders come down an inch.')]);
-
 /* ===================================== V ===================================== */
 k86('g_kneel','v',null,null,'The tray',[
  N('You are a tall man. In that room, with them flat on the bed, you are the height of the door.'),
@@ -156,12 +129,6 @@ k86('g_hale','v',null,null,'Inspector Hale rings',[
  K76V('If I had seen them, they would be in a bed, and in no state to be questioned. I would say the same of anybody.'),
  N('He thanks you and rings off. In eleven years you have not told that man one lie. You have now told him the truth in such a way that it will do the work of one.'),
  K76V('(I had a letter to him, with their thumbprint in it. I have just stood between them and him. I will take the letter out of the safe tonight.)')]);
-k86('g_soup','v',null,null,'Soup',[
- N('They can keep soup down. So you make soup.'),
- N('The first is too salt. You are a good cook, and you have not over-salted a thing since you were a boy. The second you forget on the stove. The third is right, and you carry it down, and bring it back up untouched, because they were asleep.'),
- N('You pour all three away. The old hound watches the third go down the sink with an expression that you have earned.'),
- K76V('(I have cooked for nobody but animals in eleven years. I find that I do not know how much salt a person takes.)'),
- N('You make a fourth.')]);
 k86('g_meat','v',null,null,'Feeding time',[
  N('You bring the steel bucket down to the kennel at six, as you do every evening.'),
  N('The hounds do not come to it. They stand in the passage, all four, with their heads turned towards the door at the far end, the one marked LAUNDRY.'),
@@ -169,16 +136,6 @@ k86('g_meat','v',null,null,'Feeding time',[
  N('The black hound looks at the bucket and then at you. It has never in its life had to be told twice.'),
  K76V('(They can smell them. Blood, and that particular fear. They have every one of them smelled like that, once, on my table.)'),
  N('You put the bucket down and leave it. In the morning it is empty, and all four are asleep against the infirmary door in a heap, and you step over them to take in the tray.')]);
-k86('g_server','v',null,null,'The server',[
- N('The server has been asking since the river. Angel has asked nine times. Ronin has asked once, which is worse.'),
- N('You type: “I have them.” You look at it. It is how one reports the taking of a mark. You delete it.'),
- N('You type: “They are in my keeping.” You delete that as well.'),
- N('You type: “They are alive. They are in my house. The door opens from both sides.”'),
- [AN,'(server) oh thank GOD. can i come'],
- [RN,'(server) vee. your house. the book still say what it says'],
- K76V('(server) Yes.'),
- [RN,'(server) then i’m bringin’ a chair'],
- K76V('(server) I had hoped that you would.')]);
 k86('g_shoeV','v',null,null,'The shoe from the gravel',[
  N('You have their shoe. You picked it out of the gravel at the trailer, and it has been on the ops table since.'),
  N('Tonight you clean it. You take the lace out and wash it. You get the gravel out of the tread with a pick. It is a size five. It is very nearly a child’s shoe.'),
@@ -217,16 +174,4 @@ k86('g_asked','v',null,null,'What they asked Ronin',[
  K76V('(I know. I have known since I could not write the total. I cannot say it to him before I have said it to them, and I cannot say it to them at all.)'),
  K76V('Tell them that it is not this week. It is true, and it is all that I can stand behind.'),
  [RN,'Fuck’s sake. “Not this week.” I’ll put it on a card.']]);
-k86('g_count','v',null,null,'Four in the morning',[
- N('Four in the morning. You stand in the corridor, four steps from the door, and count their breathing.'),
- N('Fourteen to the minute, asleep. Twenty-two, when they are awake and pretending. You have learned to tell the two apart. Tonight it is twenty-two.'),
- K76V('(They are lying in the dark performing sleep for a man who is standing in the dark counting it. Neither of us is at rest. It is the most honest exchange that we have had.)'),
- N('You could say something. “I know that you are awake.” It would be true, and it would tell them that even their sleep is watched.'),
- N('You go upstairs. You make a noise on every stair. By the time you reach the top it is fourteen.')]);
-k86('g_cactus','v',null,null,'The cactus',[
- N('Every afternoon you drive to lot fourteen and water their cactus. A thimbleful. You have read up on it.'),
- N('You wrote that plant into your plan, in the first week, as a way to bring them back into a fire. Now you stand in their trailer with a thimble, like a man feeding a bird.'),
- K76V('(If it dies while they are in my house, they will come home to that. I will not be the cause of one more thing.)'),
- N('Today there is a flower on it. One, yellow, the size of a button. You did not know that they did that.'),
- N('You photograph it. You have nobody to send the photograph to who would not ask what you were doing in that trailer. You keep it. It is the only photograph on your telephone that is not evidence.')]);
 /* ===KC86-END=== */

@@ -120,35 +120,37 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 **V:** (The hounds have never been so clean. They do not know what they are being washed for.)
 
-*The tall one has a bowl and a bottle and a pair of tweezers. He is going to do the wrists, where the ties went through.*
+*The tall one has a bowl, a bottle and a pair of tweezers. He is going to do the wrists, where the ties went through.*
 
-*He starts at the top. That is wrong. If you leave the edge, it seals over dirty and goes bad in a week. You have had that; you were about eleven.*
+*He starts at the top. That is wrong. If the edge is left, it seals over dirty and goes bad inside a week. You had that at eleven. You remember the smell.*
 
-**Misaki:** (Don’t tell the guard how to do his job. …He’s doing it wrong, though.)
+**Misaki:** (Don’t. You don’t correct them. You never, ever correct them.)
 
-*You take the tweezers out of his hand with your good one, without a word, and show him: under the edge, lift, then flush.*
+*He is going to do it wrong, and in a week it will be your arm. You weigh the two. It takes most of a minute to decide that the arm is worth being hit for.*
 
-**Misaki:** You have to go under the edge. Lift it, then flush. Otherwise it seals dirty, and you’re back here in a week.
+*You touch the edge of the wound with one finger. Then you pull the hand back and wait for it.*
 
-*He stops with the tweezers in the air. He looks at your wrists, and then at your face, and for a moment you think he is going to be sick in the bowl.*
+**Misaki:** Under the edge. Sorry. It goes bad if you don’t go under. Sorry.
 
-**Misaki:** (What? It’s only wrists. They aren’t even the worst I’ve had.)
+*You shut your eyes for what comes next. Nothing comes. When you open them he is holding the tweezers in the air, and he looks as if he is going to be sick into the bowl.*
 
-*He does it your way. He is good with his hands, once he has been told.*
+*He does it your way, and does not speak. You have never met a guard who could be told. You like him less for it; the ones you can predict are the safe ones.*
 
-*He looks at your ribs today. He has to cut the old strapping off to do it, and when it comes away he makes a small sound through his nose.*
+*He cuts the old strapping off the ribs. When it comes away he makes a small sound through his nose.*
 
-*You know what is under there. A boot, three or four times, from the left, by somebody right-footed. It is every colour. You have seen it, and you were not interested.*
+*You know what is under there. A boot, three or four times, from the left. It has gone every colour, and in one place the skin has the print of a tread in it.*
 
-**Misaki:** (He’s annoyed; look at his face. He’s annoyed at the state of it.)
+**Misaki:** (He’s angry. Look at his jaw; he’s properly angry.)
 
-*Of course he is. He is the careful one. The other shift did it sloppily and left him the mess, and a careful man hates a botched job.*
+*You go back over it. You kept still. You did not bleed on his sheet. You ate all of it. There is nothing left for him to be angry at except the damage, and you cannot take the damage back.*
 
-*You would tell him so, if the voice would come.*
+*You pull the blanket up over the ribs, to get them out of his sight.*
 
-**Misaki:** Yes. They were messy about it. That’s not your fault.
+**Misaki:** I can’t fix it. I would if I could. Sorry.
 
-*He puts both hands flat on the edge of the bed and keeps them there for a while. Then he straps you up again, so evenly that you could rule a line along it.*
+*He puts both hands flat on the edge of the bed and leaves them there. The knuckles are white. You watch the hands. They do not come towards you, and that is all you can get out of them.*
+
+*Then he straps you again, so evenly that you could rule a line along it. He is angry the whole time and none of it lands. You lie awake afterwards, waiting for it to land.*
 
 *You know him now. So when he does the hand this morning and his face does that thing again, you say so.*
 

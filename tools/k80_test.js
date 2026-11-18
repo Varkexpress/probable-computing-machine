@@ -26,7 +26,7 @@ let runs=0,fails=0;const ok=(c,m)=>{runs++;if(!c){fails++;console.log('FAIL',m)}
    if(ph==='act2'){S.day=Math.max(S.day,(S.act2Start||0)+2);KD();S.kd.t0=S.day-9;S.kd.med=0}
    if(ph==='act3'&&S.a3)S.day=S.a3.start+3;
    if(o.day)S.day=o.day;S.slot=1;S.aff=Math.min(S.aff,40);
-   if(o.e2l!==0){S.f.e2l=1;S.f.e2lAsk=1;S.f.e2ld={e2l_mark:1};(o.done||[]).forEach(x=>S.f.e2ld[x]=1);if((o.done||[]).includes('e2l_after')&&!o.raw){S.f.e2ld.e2l_room=1;S.f.e2ld.e2l_thurs=1;S.f.e2ld.e2l_marks=1}if((o.done||[]).includes('e2l_boat')&&!o.raw)S.f.e2ld.e2l_eve=1;S.f.e2lLast=0;S.f.e2l74={}}Object.assign(S.f,o.f||{});save();window.__hubbed=0}});
+   if(o.e2l!==0){S.f.e2l=1;S.f.e2lAsk=1;S.f.e2ld={e2l_mark:1};(o.done||[]).forEach(x=>S.f.e2ld[x]=1);if(!o.raw90){if((o.done||[]).includes('e2l_kennel'))S.f.e2ld.e2l_bucket=1;if((o.done||[]).includes('e2l_pair'))S.f.e2ld.e2l_table=1}if((o.done||[]).includes('e2l_after')&&!o.raw){S.f.e2ld.e2l_room=1;S.f.e2ld.e2l_thurs=1;S.f.e2ld.e2l_marks=1}if((o.done||[]).includes('e2l_boat')&&!o.raw)S.f.e2ld.e2l_eve=1;S.f.e2lLast=0;S.f.e2l74={}}Object.assign(S.f,o.f||{});save();window.__hubbed=0}});
  const ev=(f,a)=>p.evaluate(f,a);
  const drive=async picks=>{let i=0;for(let k=0;k<300;k++){const r=await ev(pk=>{for(let j=0;j<400&&dlg;j++)adv();if(window.__hubbed)return 'hub';
    if(ctrl&&ctrl.box){const os=[...ctrl.box.querySelectorAll('.opt:not(.dis)')];if(os.length){os[Math.min(pk,os.length-1)].click();return 'clicked'}}return dlg?'dlg':'idle'},picks[i]||0);
@@ -40,8 +40,8 @@ let runs=0,fails=0;const ok=(c,m)=>{runs++;if(!c){fails++;console.log('FAIL',m)}
   for(let k=0,i=0;k<200;k++){const r=await ev(pk=>{for(let j=0;j<300&&dlg;j++)adv();if(window.__cb)return 'done';if(ctrl&&ctrl.box){const os=[...ctrl.box.querySelectorAll('.opt:not(.dis)')];if(os.length){os[Math.min(pk,os.length-1)].click();return 'c'}}return 'x'},(picks||[])[i]||0);if(r==='done')return 'done';if(r==='c')i++;await p.waitForTimeout(4)}
   return (await ev(()=>window.__got))?'timeout':'none'};
  /* (a) the infirmary: kc84's scheduler, by setting (full story / injuries only) */
- const ORD={sa:{mc:['rules','s_clothes','ask','hound','s_asks','hand'],mx:['s_book','said','thanks','doctor'],v:['message','s_table','file','form','s_voice','vhand','ronin','s_vent','laugh']},
-  inj:{mc:['rules','i_wrists','ask','hound','i_careful','hand'],mx:['i_snob','said','thanks'],v:['message','i_manner','file','i_third','vhand','ronin','i_scale','laugh']}};
+ const ORD={sa:{mc:['ask','rules','s_clothes','hound','s_asks','hand'],mx:['s_book','said','thanks','doctor'],v:['message','s_table','file','form','s_voice','vhand','ronin','s_vent','laugh']},
+  inj:{mc:['ask','rules','i_wrists','hound','i_careful','hand'],mx:['i_snob','said','thanks'],v:['message','i_manner','file','i_third','vhand','ronin','i_scale','laugh']}};
  for(const mode of ['sa','inj'])for(const comp of [50,0]){await ev(mode=>{META.kdFull=mode==='sa'?1:0},mode);
   await med('m',{comp});const seq=[],slots=[];for(let d=0;d<3;d++)for(const slot of [0,1,2,3]){await ev(([d,slot])=>{S.slot=slot;if(slot===0&&d)S.day++;save()},[d,slot]);const r=await play([1]);if(r==='done')slots.push(slot);seq.push(r)}
   const got=await ev(()=>Object.keys(S.f.e2l84||{}));ok(JSON.stringify(got)===JSON.stringify(ORD[mode].mc)&&!slots.includes(2),`${mode} Misaki cell scenes in order, never in kc73's slot (comp ${comp}): ${got} / slots ${slots}`);ok(await ev(()=>S.f.e2lMedAsk===1),'the message sets its flag');
@@ -56,7 +56,7 @@ let runs=0,fails=0;const ok=(c,m)=>{runs++;if(!c){fails++;console.log('FAIL',m)}
  await ev(()=>__set('v','after',{done:['e2l_door']}));ok(await play([0])==='none','nothing outside the infirmary');
  await med('m',{e2l:0});ok(await play([0])==='none','nothing off the route');
  /* the greyed honest option, the denial count, and the two versions of the beat */
- {await med('m');const d0=await ev(()=>(S.kd.deny||0));await ev(()=>{S.f.e2l84={rules:1};S.slot=0;save()});await ev(()=>{window.__cb=0;k80MedScene()(()=>{window.__cb=1})});
+ {await med('m');const d0=await ev(()=>(S.kd.deny||0));await ev(()=>{S.f.e2l84={ask:1,rules:1};S.slot=0;save()});await ev(()=>{window.__cb=0;k80MedScene()(()=>{window.__cb=1})});
   const o=await ev(()=>{for(let j=0;j<300&&dlg;j++)adv();return [...ctrl.box.querySelectorAll('.opt')].map(x=>(x.classList.contains('dis')?'[dis] ':'')+x.textContent)});ok(/^\[dis\] Finish the sum/.test(o[0])&&o.length===2,'the honest option is there, and greyed: '+o.join(' | '));
   await ev(()=>{ctrl.box.querySelector('.opt:not(.dis)').click();for(let j=0;j<300&&dlg;j++)adv()});ok(await ev(d0=>(S.kd.deny||0)===d0+1&&window.__cb===1,d0),'a pretence counts as a denial')}
  for(const mode of ['sa','inj'])for(const pov of ['m','v'])for(const o of [0,1]){await ev(([mode,pov])=>{META.kdFull=mode==='sa'?1:0;__set(pov,'after',{done:['e2l_door','e2l_after','e2l_room'],raw:1})},[mode,pov]);

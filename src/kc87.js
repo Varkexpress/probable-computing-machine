@@ -79,14 +79,6 @@ k86('x2_soap','m','sa','clear','The soap',[
   K76V('It will be changed within the hour.'),
   N('It is changed within the quarter-hour. A white bar with no name on it. He takes the cedar one away himself, wrapped in a towel, and you never smell it in that house again, not on him and not on anything.'),
   M2('(he changed his own soap. upstairs too. over an insult. what a pushover)','(he changed his own soap. upstairs, too. over an insult. what a pushover)')]));
-k86('x2_mirror','m','sa','clear','The mirror',[
- N('There is a small mirror over the basin. You have been avoiding it, which is stupid; it is a mirror.'),
- N('You look. Face first. A split lip, healing. One eye going from black to yellow. You look terrible, and you look like yourself, and that is fine.'),
- N('The mirror goes down as far as your collar. You could step back and see more. The T-shirt is his, and it comes to your knees.'),
- M2('(nope. face is fine. face is all i need. i’m not a full-length-mirror person)','(nope. the face is fine. the face is all i need. i’m not a full-length-mirror person)')],
- k87Pick('hitmeuppp','(One step back would do it.)','Step back. Look at the rest.','they are not going to','Pull a face at yourself and get back into bed',[
-  N('You cross your eyes and stick your tongue out through the split lip. It hurts. The person in the mirror looks like an idiot.'),
-  M2('(there u are. hi, stupid. still got it)','(there you are. hi, stupid. still got it)')]));
 k86('x2_floor','m','sa','clear','Angel sits on the floor',[
  N('Angel comes to hug you. She comes in fast, the way she does, from the side you are not looking at, with her arms already out.'),
  N('You do not decide anything. You are simply against the wall, on the far side of the bed, with the drip stand between you, and your good hand is a fist.'),
@@ -182,12 +174,6 @@ k86('x2_noone','v','sa',null,'Angel wants to ask them',[
  K76V('If they wish it said, they will say it, to whom they choose. It will not be me. I should think that it may well be you. And if it is never said, then it is never said, and you will go on doing their nails.'),
  [AN,'…When did you get like this?'],
  K76V('I have not got like anything. I have read a leaflet.')]);
-k86('x2_pockets','v','sa',null,'Your hands',[
- N('You noticed on the first day that they watch your hands. Not your face. A person watches the part that they expect the harm from.'),
- N('So your hands are to be where they can be seen. You have made a rule of it. Out from the sides, palms forward. Both on the tray. No pockets.'),
- N('It is harder than it sounds. You have put your hands in your pockets in thought for thirty years. Twice today you have caught one on its way there and brought it back.'),
- K76V('(These hands have been in my book as an instrument. I have never before had to carry them about as a thing somebody was afraid of. I had thought that I wanted that.)'),
- N('In the evening you find that you are holding them like that in the kitchen, alone, with nobody to see. The old hound is looking at you as if you had learned a trick.')]);
 k86('x2_names','v','sa',null,'Three names',[
  N('You have three names from the building on the river. Ronin has one more. Each of them has an address, and at each address there is, tonight, a living man.'),
  N('It would take you one night to begin. You have the car, and the sheeting, and the table.'),
@@ -210,12 +196,6 @@ k86('x2_dream','v','sa',null,'Three and a half hours',[
  N('You are on the floor of your own bedroom, with your back against the bed, and the black hound has its whole weight across your legs and is holding you there.'),
  K76V('(They woke. On the night itself, they woke. That is all that stood between me and it: a light sleeper.)'),
  N('You do not go back to bed. You go down and sit on the floor of the corridor, four steps from the door, where Ronin is. He looks at your face and moves his chair up without a word.')]);
-k86('x2_tall','v','sa',null,'A tall man with keys',[
- N('There is a glass panel in the infirmary door. At night, with the corridor lit and the room dim, it shows you yourself.'),
- N('A tall man in a dark coat, with a ring of keys, standing outside a door behind which somebody cannot get up.'),
- K76V('(That is what they see. It is not a mistake on their part. It is an accurate description.)'),
- N('You take your coat off and leave it upstairs. You take the keys off your belt and hang them on a nail at the far end of the corridor, in plain sight. You come to the door in your shirtsleeves, with nothing in your hands.'),
- K76V('(I cannot be shorter. I have been into that.)')]);
 k86('x2_soapV','v','sa',null,'The soap',[
  N('They have asked for the soap to be changed. They said that it was a soap for old men.'),
  N('It is the soap that you have used for twenty years. It is cedar. You saw how they held their hands after they had washed with it: away from the body, with the fingers spread, as one holds something that has been in the wrong place.'),

@@ -16,15 +16,6 @@ k86('g_late','m',null,'cell','The tray is late',[
  K76V('I am late. A pan caught. It was my doing, and nothing of yours.'),
  M2('(he’s explaining. to ME. guards don’t explain)','(he’s explaining. to me. guards don’t explain)'),
  N('He looks at you, and at the way you are sitting, and you watch him understand what the forty minutes were. After that the tray is never late again, not by a minute, for as long as you are in that room.')]);
-k86('g_cards','m',null,'clear','Cards with Ronin',[
- N('Ronin teaches you a card game for one hand. He says that he learned it from a priest. He cheats from the first deal.'),
- M2('that’s a card from ur SLEEVE','that’s a card from your sleeve'),
- [RN,'That’s the Lord providin’.'],
- N('You play for the grapes. You lose all of them, and then you win them back by cheating better, with a card held in the cast.'),
- [RN,'Look at that. Broke hand and still a fuckin’ thief. You’re gonna be fine.'],
- M2('i’m always fine','i’m always fine'),
- [RN,'Yeah. That’s the bit that scares the shit outta Vee. Deal.'],
- N('You deal. You do not ask what he means. You have a feeling that you would not win that one.')]);
 k86('g_walk','m',null,'clear','Walk to the door',[
  N('You get up. Nobody has said that you can. You put your feet on the tile and stand, with the good hand on the drip stand, and the room goes round once and stops.'),
  N('It is four steps to the door. He always took four. You take nine.'),

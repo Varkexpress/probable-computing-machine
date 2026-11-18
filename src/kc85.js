@@ -26,10 +26,10 @@ const K85S=[
    ['','The tall one opens the door a hand’s width, without coming in. He says that there will be no radio in this corridor again.']],
    ()=>ask('hitmeuppp','(He is waiting in the gap of the door.)',[
     k84No('Remember what comes after the radio gets turned up.'),
-    {t:'“u can put it back on. i’m fine. i like choirs”',fn:()=>{k84Deny();say([
-     k80Gone()?['','You get as far as a thumbs-up. It is the wrong hand, and it does not open.']:K76MV('put it back on. i’m fine. i love a choir','you can put it back on. i’m fine. i love a choir','You can put it back on. I’m fine. I love a choir.','You can put it back on, honestly. I’m fine. Big choir fan. Huge.'),
+    {t:'“it’s fine. leave it on”',fn:()=>{k84Deny();say([
+     k80Gone()?['','You get as far as a thumbs-up. It is the wrong hand, and it does not open.']:K76MV('it’s fine. leave it on','it’s fine. leave it on. doesn’t bother me','It’s fine. Leave it on. Doesn’t bother me.','It’s fine. Leave it on. It doesn’t bother me.'),
      ['','He looks at your hands, which are both fists, and says that the radio has been taken out to a truck. He shuts the door so that the latch makes no noise.'],
-     K76MV('(he didn’t believe me. rude. i’d believe me)','(he didn’t believe me. rude. i would’ve believed me)','(He didn’t believe me. Rude. I’d’ve believed me.)','(He didn’t believe me. Rude. I’d have totally believed me.)')],cb)}}]))},
+     K76MV('(he didn’t believe me. nobody in here’s supposed to be able to tell)','(he didn’t believe me. nobody in here is supposed to be able to tell)','(He didn’t believe me. Nobody in here is supposed to be able to tell.)','(He didn’t believe me. Nobody in here is supposed to be able to tell.)')],cb)}}]))},
  {id:'x_ceiling',pov:'m',mode:'sa',st:'clear',t:'The ceiling',run:cb=>say([
    ['','You can’t sleep, so you invent a game. You rate ceilings.'],
    ['','This one is V’s. White, one smoke detector, a crack like a river in the corner. The detector blinks green every nine seconds. Solid. A six.'],
@@ -80,12 +80,15 @@ const K85S=[
      ['','You write the hand, and the ribs, and the four days. You leave one line empty above them. You have never left a line empty.'],
      K76V('(It is the truest line on the page.)')],cb)}}]))},
  /* ---------------- injuries only: Misaki ---------------- */
- {id:'y_report',pov:'m',mode:'inj',st:'cell',t:'Tell him what’s broken',run:cb=>say([
-   ['','He will want to know what he has got. The careful ones always do. So when he comes in, you give it to him like a job report for a client.'],
-   k80Gone()?['','You hold up fingers. Three, for the hand. Three, for the ribs. You point at the wrists, and open your mouth to show him the gap.']:K76MV('left hand, 3 bones, maybe 4. ribs, 3, left side. wrists. one tooth, back left. that’s it. i’ve had worse off a ladder','left hand, three bones, maybe four. ribs, three, left side. both wrists. one tooth, back left. that’s it. i’ve had worse off a ladder','Left hand, three bones, maybe four. Ribs, three, left side. Both wrists. One tooth, back left. That’s it. I’ve had worse off a ladder.','Left hand, three bones, maybe four. Ribs, three, on the left. Both wrists. One tooth, back left, and I liked that tooth. That’s the lot. Honestly, I’ve had worse off a ladder.'),
-   ['','He writes it down. He presses so hard that the pen goes through the paper on “ladder”.'],
-   K76MV('(he’s going to wreck that nib. it’s a nice pen, too)','(he’s going to wreck that nib. and it’s a nice pen)','(He’s going to wreck that nib. And it’s a nice pen.)','(He’s going to wreck that nib, pressing like that. It’s a really nice pen, too.)'),
-   ['','He asks you, in a voice like a drawer shutting, what happened on the ladder. You tell him you were ten and it was somebody else’s roof. He writes that down as well.']],cb)},
+ {id:'y_report',pov:'m',mode:'inj',st:'cell',t:'He asks what is broken',run:cb=>say([
+   ['','The tall one has a clipboard. He asks you what is broken.'],
+   ['','They asked that in the other building as well. They asked so as to know what was left.'],
+   k80Gone()?['','You point. Hand. Side. Both wrists. You open your mouth and show him the gap.']:K76MV('left hand. ribs, left. wrists. a tooth','left hand. ribs, on the left. both wrists. a tooth','Left hand. Ribs, on the left. Both wrists. A tooth.','Left hand. Ribs, on the left. Both wrists. One tooth, at the back.'),
+   ['','You give it in the order it happened, and you leave nothing out. A thing they find later that you did not declare is a thing you hid.'],
+   ['','He writes it down. He presses so hard that the pen goes through the paper.'],
+   K76MV('(he’s making a list. lists are for working down)','(he’s making a list. lists are for working down)','(He’s making a list. Lists are for working down.)','(He’s making a list. You make a list to work down it.)'),
+   ['','He asks how the hand was done. You tell him: a heel, twice. He writes “heel” and underlines it. The line goes through to the next sheet.'],
+   K76MV('(why’s he want HOW. what’s he going to do with how)','(why does he want how? what’s he going to do with how?)','(Why does he want how? What’s he going to do with how?)','(Why does he want to know how? What’s he going to do with how?)')],cb)},
  {id:'y_floss',pov:'m',mode:'inj',st:'clear',t:'The old stitches',run:cb=>say([
    ['','He is doing the dressing on your side when he stops, with his thumb on something that is not new.'],
    K76V('This was stitched before. Years ago. Who did it?'),

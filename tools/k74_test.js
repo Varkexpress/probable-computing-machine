@@ -114,7 +114,7 @@ for(const pov of ['m','v']){await ev(pov=>{__set(pov,3,{e2l:1});window.__hubbed=
 const SP=[['k74Lift','e2lLift',{m:['m','held'],v:['v','held']}],['k74Kennel','e2lKennel',{m:['fed','rifle'],v:['stay','set']}],['k74Dinner','e2lDinner',{m:['glass','clean'],v:['drank','fern']}]];
 for(const pov of ['m','v'])for(const [fn,flag,vals] of SP)for(const o of [0,1]){const r=await play(pov,null,fn+'()',o);const v=await ev(f=>S.f[f],flag);mark(`${pov} ${fn} #${o}`,r==='hub'&&v===vals[pov][o])}
 {const order=await ev(()=>{__set('m',2,{e2l:1});const out=[];for(let i=0;i<8;i++){const b=k73Due();if(!b)break;out.push(b.id);S.f.e2ld[b.id]=1;S.f.e2lLast=S.day-1}return out.join(' ')});
- mark('kc73 order with the set pieces: '+order,order==='e2l_eye e2l_show e2l_lift e2l_kennel e2l_sab e2l_dinner e2l_truce')}
+ mark('kc73 order with the set pieces: '+order,order==='e2l_eye e2l_show e2l_lift e2l_kennel e2l_bucket e2l_sab e2l_dinner e2l_truce')}
 /* mornings: every beat, every option, through the real scheduler and the shared cap */
 for(const pov of ['m','v']){const ids=await ev(pov=>K74MORN.filter(b=>b.pov===pov).map(b=>b.id),pov);
  for(const id of ids)for(const o of [0,1]){await ev(([pov,id])=>{__set(pov,4,{e2l:1});S.f.e2ld.e2l_eye=1;K74MORN.filter(b=>b.id!==id).forEach(b=>S.seen[b.id]=1);S.f.mbDay=0;S.f.w59={st:{},g:{},rec:{},day:4};S.f.k56={k56_file:1,k56_grey:1};window.__hubbed=0;__seed(5);morningEvent(()=>{window.__hubbed=1})},[pov,id]);

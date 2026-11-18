@@ -18,24 +18,6 @@ Reading copy. Misaki's lines show the fuller tier; ▸ marks a choice, struck th
 
 *He looks at you, and at the way you are sitting, and you watch him understand what the forty minutes were. After that the tray is never late again, not by a minute, for as long as you are in that room.*
 
-### Cards with Ronin  (g_cards · Misaki · either setting · clear)
-
-*Ronin teaches you a card game for one hand. He says that he learned it from a priest. He cheats from the first deal.*
-
-**Misaki:** that’s a card from your sleeve
-
-**Ronin:** That’s the Lord providin’.
-
-*You play for the grapes. You lose all of them, and then you win them back by cheating better, with a card held in the cast.*
-
-**Ronin:** Look at that. Broke hand and still a fuckin’ thief. You’re gonna be fine.
-
-**Misaki:** i’m always fine
-
-**Ronin:** Yeah. That’s the bit that scares the shit outta Vee. Deal.
-
-*You deal. You do not ask what he means. You have a feeling that you would not win that one.*
-
 ### Walk to the door  (g_walk · Misaki · either setting · clear)
 
 *You get up. Nobody has said that you can. You put your feet on the tile and stand, with the good hand on the drip stand, and the room goes round once and stops.*

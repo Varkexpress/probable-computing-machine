@@ -2,36 +2,6 @@
 
 Reading copy. Misaki's lines show the fuller tier; ▸ marks a choice, struck through where it is greyed. Design notes: docs/notes_kc86_88.md.
 
-### Do your own fingers  (y2_splint · Misaki · injuries only · cell)
-
-*Nobody has done the fingers yet, and they will set crooked if they are left. So you do them.*
-
-*The spoon off the first tray, down the side of the mattress. A strip torn off the hem of the sheet with your teeth. Two fingers bound to the handle, straight, firm, with the knot on the back where it will not press.*
-
-**Misaki:** (not bad. a bit loose at the top. i’ve done better one-handed in a truck)
-
-*The tall one comes in and sees it. He stops with the tray. He looks at the spoon, and at the hem of the sheet, and at your teeth.*
-
-**Misaki:** sorry about the sheet. i’ll pay for the sheet
-
-*He puts the tray down and goes out. He is gone for some time. When he comes back he has a proper splint, and his face is the colour of the tile.*
-
-### He asks how bad it is  (y2_two · Misaki · injuries only · cell)
-
-*The tall one asks you to give the pain a number, out of ten.*
-
-*You think about it honestly. It is a fair question, and you like a fair question.*
-
-**Misaki:** two. maybe a three when i cough
-
-*He looks at the hand, which is three bones, and the ribs, which are three more.*
-
-**V:** Two.
-
-**Misaki:** yeah. it’s fine. save the good stuff for somebody who needs it
-
-*He leaves the tablets on the counter anyway, where you can reach them. You do not take them. You have never been in a place where it paid to be slow.*
-
 ### Breathe properly  (y2_breathe · Misaki · injuries only · cell)
 
 *Broken ribs, you breathe deep, ten times, every hour, however much it hurts. If you breathe shallow to spare them, the lung fills, and then you have a real problem.*
@@ -60,50 +30,6 @@ Reading copy. Misaki's lines show the fuller tier; ▸ marks a choice, struck th
 
 *He wraps it in his handkerchief. A real one, linen, with a letter in the corner. You have never seen anybody keep a tooth that was not their own.*
 
-### Tell him about the kidney  (y2_water · Misaki · injuries only · cell)
-
-*There is blood when you go. Pink, not red. You are not worried, but the careful one ought to know what he has got.*
-
-**Misaki:** the kidney took a boot. it’s pink, not red, so it’s bruised and not split. it clears in three days if you keep the water coming
-
-*He asks you how you know that.*
-
-**Misaki:** i’ve had it before. twice. the first time i thought i was dying. i was eleven. i wrote a will. i left my shoes to a cat
-
-*He brings water. A jug of it, and a glass, and he fills the glass himself. His hand is not quite steady on the jug, and you wonder what you said.*
-
-### Eat slowly  (y2_slow · Misaki · injuries only · cell)
-
-*Four days on nothing, you do not eat fast. You eat a spoon, and wait, and another spoon. If you fill up quick, it all comes back, and worse.*
-
-*You learned that somewhere. You cannot remember not knowing it.*
-
-*The tall one has brought broth, and watches you from the door. You take a spoon and put the spoon down and count sixty.*
-
-**Misaki:** (he thinks i don’t like it. i like it. it’s good. i’m just not stupid)
-
-**Misaki:** it’s good. i’m going slowly on purpose. you have to, after
-
-**V:** I know that one must. I had not expected that you would.
-
-*He says it as if you had told him something terrible. You only told him how to eat soup.*
-
-### The state of you  (y2_sorrymess · Misaki · injuries only · cell)
-
-*He has to cut the hoodie off to get at the ribs. It is stiff with what is on it. He does it with the blunt scissors, up the front, as carefully as if it were skin.*
-
-*You see his face when the cloth comes away. You know that face. It is the one a careful man makes at a filthy tool.*
-
-**Misaki:** yeah, sorry. i know it’s a mess. they didn’t have a shower
-
-*His scissors stop.*
-
-**V:** You are apologising to me for the condition in which you were left.
-
-**Misaki:** well, you’re the one who’s got to touch it
-
-*He finishes the cut. He washes what is under it with warm water and a cloth, in long straight strokes, the way you would wash an animal that had been found in a ditch. He does not say one word, and he does not make the face again.*
-
 ### Give him the tour of your films  (y2_tour · Misaki · injuries only · clear)
 
 *He has your films up on the lightbox, and he is standing in front of them with his arms folded, like a man in a gallery who does not care for the picture.*
@@ -121,44 +47,6 @@ Reading copy. Misaki's lines show the fuller tier; ▸ marks a choice, struck th
 **Misaki:** pfft. i don’t know. a door. who remembers doors?
 
 *He turns the lightbox off. It is the first time you have seen him stop looking at something before he had finished with it.*
-
-### When can you work  (y2_work · Misaki · injuries only · clear)
-
-*Rent is still four hundred. Nobody has cancelled rent on account of your hand.*
-
-**Misaki:** so when can i shoot? ballpark
-
-**V:** Six weeks for the hand. Longer, for a rifle.
-
-**Misaki:** i can do it one-handed off a bipod in two. i did the maths. a bit more hold-over, that’s all
-
-*You show him the maths. It is on the back of the chart: the angle, the weight, what the right hand has to take.*
-
-*He reads it twice. It is correct. You can see that it is correct, because he cannot find anything to say against it.*
-
-**V:** You have calculated how to go back to work with a broken hand before the swelling is down.
-
-**Misaki:** well, yeah. what else was i going to do in here, lie around?
-
-### Ronin’s basket  (y2_basket · Misaki · injuries only · clear)
-
-*Ronin has brought a get-well basket. It is a hubcap with things in it.*
-
-**Ronin:** Got you a pack of smokes you don’t smoke. Got you a scratch card, already scratched, it lost. Got you a rib.
-
-**Misaki:** a what?
-
-**Ronin:** A rib. Pork. You’re down three, figured you’d want one in the bank.
-
-*You laugh so hard that you have to hold your side with the good hand.*
-
-**Ronin:** Don’t, you’ll pop a stitch and Vee’ll take it out on me. He’s been a real fuckin’ treat this week.
-
-**Misaki:** why? what’s wrong with him?
-
-**Ronin:** Dunno. He looked at your hand and went and threw up in a flower bed. I ain’t never seen that man gag at nothin’, and I seen him do a spleen.
-
-**Misaki:** (over a hand? it’s just a hand)
 
 ### Angel asks who did the eye  (y2_eye · Misaki · injuries only · clear)
 
@@ -179,42 +67,6 @@ Reading copy. Misaki's lines show the fuller tier; ▸ marks a choice, struck th
 *Angel writes both descriptions down in the notes on her phone, under a heading you cannot see. She is smiling the smile she does on camera.*
 
 **Angel:** asking for a friend. the friend is a shotgun
-
-### Bet him on the ribs  (y2_bet · Misaki · injuries only · clear)
-
-**Misaki:** bet you fifty the ribs are done in five weeks
-
-**V:** The text gives six to eight.
-
-**Misaki:** the text didn’t have my ribs. i’ve done these two before. they know the drill
-
-*He does not take the bet. He looks at you instead, with his whole attention.*
-
-**V:** You have a recovery time for your own ribs, from experience.
-
-**Misaki:** doesn’t everybody?
-
-**V:** No.
-
-**Misaki:** huh. weird
-
-*You mean it. You had honestly thought that everybody did.*
-
-### Integrals  (y2_wall · Misaki · injuries only · clear)
-
-*You are so bored that you could eat the drip. So you find a marker in the counter drawer and do integrals on the wall.*
-
-*It is a good wall for it, white and smooth. You get from the bed to the basin before you run out of reach, and you put FOR FUN across the top, in case anybody thinks it was for something.*
-
-*V comes in and reads the wall from left to right. It takes him a while.*
-
-**Misaki:** i’ll paint over it. don’t put it in the book
-
-**V:** There is an error in the fourth line. A sign.
-
-**Misaki:** there is not. …oh. fuck. there is
-
-*He takes the marker out of your hand, corrects the sign, and gives the marker back. The wall is never painted. Years on, it is still there, with your working, and one minus in a different hand.*
 
 ### The face he makes  (y2_face · Misaki · injuries only · clear)
 
@@ -401,22 +253,4 @@ Reading copy. Misaki's lines show the fuller tier; ▸ marks a choice, struck th
 **V:** (Sleeps well: sleeps sitting up, in a corner, in my house, and does not wake when a rib is strapped.)
 
 *The list is still true. Every word. You fold it and put it back. It used to be the page that settled things, and now it is only a page.*
-
-### The good ham  (y2_ham · V · injuries only)
-
-*They ask whether there is any ham. They have had broth and egg and rice for three days, and they have noticed that there is a ham in your kitchen, because they cased the house in the first week.*
-
-*It is the good one. It hangs in the cold larder. You cut it for the hounds on a Sunday, and for nobody else.*
-
-**V:** (It is not for a person in my book.)
-
-*You cut four slices, thin, across the grain, and lay them on a warmed plate. You carry it down yourself.*
-
-*They eat it with their fingers, slowly, a piece at a time, with their eyes shut. It is the first thing that you have seen them take any pleasure in. Then they open their eyes and catch you watching.*
-
-**Misaki:** What? Stop looking at me like I’m a rescue.
-
-**V:** You have ham on your chin.
-
-*They have not. You needed to have said something.*
 

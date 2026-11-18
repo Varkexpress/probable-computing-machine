@@ -140,26 +140,6 @@ Reading copy. Misaki's lines show the fuller tier; ▸ marks a choice, struck th
 
 **Misaki:** (he changed his own soap. upstairs, too. over an insult. what a pushover)
 
-### The mirror  (x2_mirror · Misaki · full story · clear)
-
-*There is a small mirror over the basin. You have been avoiding it, which is stupid; it is a mirror.*
-
-*You look. Face first. A split lip, healing. One eye going from black to yellow. You look terrible, and you look like yourself, and that is fine.*
-
-*The mirror goes down as far as your collar. You could step back and see more. The T-shirt is his, and it comes to your knees.*
-
-**Misaki:** (nope. the face is fine. the face is all i need. i’m not a full-length-mirror person)
-
-(One step back would do it.)
-
-- ▸ ~~Step back. Look at the rest.~~ (greyed: they are not going to)
-
-- ▸ Pull a face at yourself and get back into bed
-
-*You cross your eyes and stick your tongue out through the split lip. It hurts. The person in the mirror looks like an idiot.*
-
-**Misaki:** (there you are. hi, stupid. still got it)
-
 ### Angel sits on the floor  (x2_floor · Misaki · full story · clear)
 
 *Angel comes to hug you. She comes in fast, the way she does, from the side you are not looking at, with her arms already out.*
@@ -362,18 +342,6 @@ Reading copy. Misaki's lines show the fuller tier; ▸ marks a choice, struck th
 
 **V:** I have not got like anything. I have read a leaflet.
 
-### Your hands  (x2_pockets · V · full story)
-
-*You noticed on the first day that they watch your hands. Not your face. A person watches the part that they expect the harm from.*
-
-*So your hands are to be where they can be seen. You have made a rule of it. Out from the sides, palms forward. Both on the tray. No pockets.*
-
-*It is harder than it sounds. You have put your hands in your pockets in thought for thirty years. Twice today you have caught one on its way there and brought it back.*
-
-**V:** (These hands have been in my book as an instrument. I have never before had to carry them about as a thing somebody was afraid of. I had thought that I wanted that.)
-
-*In the evening you find that you are holding them like that in the kitchen, alone, with nobody to see. The old hound is looking at you as if you had learned a trick.*
-
 ### Three names  (x2_names · V · full story)
 
 *You have three names from the building on the river. Ronin has one more. Each of them has an address, and at each address there is, tonight, a living man.*
@@ -417,18 +385,6 @@ Reading copy. Misaki's lines show the fuller tier; ▸ marks a choice, struck th
 **V:** (They woke. On the night itself, they woke. That is all that stood between me and it: a light sleeper.)
 
 *You do not go back to bed. You go down and sit on the floor of the corridor, four steps from the door, where Ronin is. He looks at your face and moves his chair up without a word.*
-
-### A tall man with keys  (x2_tall · V · full story)
-
-*There is a glass panel in the infirmary door. At night, with the corridor lit and the room dim, it shows you yourself.*
-
-*A tall man in a dark coat, with a ring of keys, standing outside a door behind which somebody cannot get up.*
-
-**V:** (That is what they see. It is not a mistake on their part. It is an accurate description.)
-
-*You take your coat off and leave it upstairs. You take the keys off your belt and hang them on a nail at the far end of the corridor, in plain sight. You come to the door in your shirtsleeves, with nothing in your hands.*
-
-**V:** (I cannot be shorter. I have been into that.)
 
 ### The soap  (x2_soapV · V · full story)
 

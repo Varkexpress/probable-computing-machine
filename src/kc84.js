@@ -18,7 +18,7 @@
 
    Delivery: this module replaces kc80's scheduler (k80MedScene) with one that orders scenes by id and by setting, and
    gives Misaki the late-night slot as well, so that the stay has room: S.f.e2l84 {id:1}.
-     Misaki, cell:  rules · [s_clothes | i_wrists] · ask · hound · [s_asks | i_careful] · hand
+     Misaki, cell:  ask (first: it must precede kc73's evening scene) · rules · [s_clothes | i_wrists] · hound · [s_asks | i_careful] · hand
      Misaki, clear: [s_book | i_snob] · said · thanks · doctor (full story only)
      V:             message · [s_table | i_manner] · file · form (full story only) · [s_voice | i_third] · hand · ronin ·
                     [s_vent | i_scale] · laugh
@@ -109,20 +109,21 @@ const k84_s_vent=cb=>say([
 
 /* ===================================== INJURIES ONLY: MISAKI ===================================== */
 const k84_i_wrists=cb=>say([
-  ['','The tall one has a bowl and a bottle and a pair of tweezers. He is going to do the wrists, where the ties went through.'],
-  ['','He starts at the top. That is wrong. If you leave the edge, it seals over dirty and goes bad in a week. You have had that; you were about eleven.'],
-  K76MV('(don’t tell the guard how to do his job. …he’s doing it WRONG though)','(don’t tell the guard how to do his job. …he’s doing it wrong, though)','(Don’t tell the guard how to do his job. …He’s doing it wrong, though.)','(Don’t tell the guard how to do his job. …He’s doing it wrong, though.)'),
-  k80Gone()?['','You take the tweezers out of his hand with your good one, without a word, and show him: under the edge, lift, then flush.']:K76MV('u have to go under the edge. lift it, then flush. or it seals dirty','you have to go under the edge. lift it, then flush, or it seals dirty','You have to go under the edge. Lift it, then flush, or it seals dirty.','You have to go under the edge. Lift it, then flush. Otherwise it seals dirty, and you’re back here in a week.'),
-  ['','He stops with the tweezers in the air. He looks at your wrists, and then at your face, and for a moment you think he is going to be sick in the bowl.'],
-  K76MV('(what? it’s only wrists)','(what? it’s only wrists. they’re not even bad)','(What? It’s only wrists. They’re not even bad.)','(What? It’s only wrists. They aren’t even the worst I’ve had.)'),
-  ['','He does it your way. He is good with his hands, once he has been told.']],cb);
+  ['','The tall one has a bowl, a bottle and a pair of tweezers. He is going to do the wrists, where the ties went through.'],
+  ['','He starts at the top. That is wrong. If the edge is left, it seals over dirty and goes bad inside a week. You had that at eleven. You remember the smell.'],
+  K76MV('(don’t. u don’t correct them. u NEVER correct them)','(don’t. you don’t correct them. you never correct them)','(Don’t. You don’t correct them. You never correct them.)','(Don’t. You don’t correct them. You never, ever correct them.)'),
+  ['','He is going to do it wrong, and in a week it will be your arm. You weigh the two. It takes most of a minute to decide that the arm is worth being hit for.'],
+  k80Gone()?['','You touch the edge of the wound with one finger. Then you pull the hand back and wait for it.']:K76MV('under the edge. sorry. it goes bad if u don’t. sorry','under the edge. sorry. it goes bad if you don’t. sorry','Under the edge. Sorry. It goes bad if you don’t. Sorry.','Under the edge. Sorry. It goes bad if you don’t go under. Sorry.'),
+  ['','You shut your eyes for what comes next. Nothing comes. When you open them he is holding the tweezers in the air, and he looks as if he is going to be sick into the bowl.'],
+  ['','He does it your way, and does not speak. You have never met a guard who could be told. You like him less for it; the ones you can predict are the safe ones.']],cb);
 const k84_i_careful=cb=>say([
-  ['','He looks at your ribs today. He has to cut the old strapping off to do it, and when it comes away he makes a small sound through his nose.'],
-  ['','You know what is under there. A boot, three or four times, from the left, by somebody right-footed. It is every colour. You have seen it, and you were not interested.'],
-  K76MV('(he’s annoyed. look at his face. he’s annoyed at the STATE of it)','(he’s annoyed. look at his face. he’s annoyed at the state of it)','(He’s annoyed. Look at his face. He’s annoyed at the state of it.)','(He’s annoyed; look at his face. He’s annoyed at the state of it.)'),
-  ['','Of course he is. He is the careful one. The other shift did it sloppily and left him the mess, and a careful man hates a botched job.'],
-  k80Gone()?['','You would tell him so, if the voice would come.']:K76MV('they were messy. sorry. not ur fault','yeah. they were messy about it. not your fault','Yeah. They were messy about it. Not your fault.','Yes. They were messy about it. That’s not your fault.'),
-  ['','He puts both hands flat on the edge of the bed and keeps them there for a while. Then he straps you up again, so evenly that you could rule a line along it.']],cb);
+  ['','He cuts the old strapping off the ribs. When it comes away he makes a small sound through his nose.'],
+  ['','You know what is under there. A boot, three or four times, from the left. It has gone every colour, and in one place the skin has the print of a tread in it.'],
+  K76MV('(he’s angry. look at his jaw. he’s ANGRY)','(he’s angry. look at his jaw. he’s angry)','(He’s angry. Look at his jaw. He’s angry.)','(He’s angry. Look at his jaw; he’s properly angry.)'),
+  ['','You go back over it. You kept still. You did not bleed on his sheet. You ate all of it. There is nothing left for him to be angry at except the damage, and you cannot take the damage back.'],
+  k80Gone()?['','You pull the blanket up over the ribs, to get them out of his sight.']:K76MV('i can’t fix it. sorry','i can’t fix it. i would. sorry','I can’t fix it. I would. Sorry.','I can’t fix it. I would if I could. Sorry.'),
+  ['','He puts both hands flat on the edge of the bed and leaves them there. The knuckles are white. You watch the hands. They do not come towards you, and that is all you can get out of them.'],
+  ['','Then he straps you again, so evenly that you could rule a line along it. He is angry the whole time and none of it lands. You lie awake afterwards, waiting for it to land.']],cb);
 const k84_i_snob=cb=>say([
   ['','You know him now. So when he does the hand this morning and his face does that thing again, you say so.'],
   K76MV('what. WHAT. u’ve done worse. u did eight fingers','what? you’ve done worse. you did eight fingers','What? You’ve done worse. You did eight fingers.','What? You’ve done worse than this, V. You took eight fingers off a man.'),
@@ -165,7 +166,7 @@ const k84_i_scale=cb=>say([
 
 /* ===================================== THE SCHEDULER (replaces kc80's) ===================================== */
 const K84_POOLS=(()=>{try{const mc=typeof K80_MC!=='undefined'?K80_MC:[],mx=typeof K80_MX!=='undefined'?K80_MX:[],v=typeof K80_V!=='undefined'?K80_V:[];const E=(id,fn,mode)=>fn?{id,fn,mode:mode||null}:null;
- return {mc:[E('rules',mc[0]),E('s_clothes',k84_s_clothes,'sa'),E('i_wrists',k84_i_wrists,'inj'),E('ask',mc[1]),E('hound',mc[2]),E('s_asks',k84_s_asks,'sa'),E('i_careful',k84_i_careful,'inj'),E('hand',mc[3])].filter(Boolean),
+ return {mc:[E('ask',mc[1]),E('rules',mc[0]),E('s_clothes',k84_s_clothes,'sa'),E('i_wrists',k84_i_wrists,'inj'),E('hound',mc[2]),E('s_asks',k84_s_asks,'sa'),E('i_careful',k84_i_careful,'inj'),E('hand',mc[3])].filter(Boolean),
   mx:[E('s_book',k84_s_book,'sa'),E('i_snob',k84_i_snob,'inj'),E('said',mx[0]),E('thanks',mx[1]),E('doctor',mx[2],'sa')].filter(Boolean),
   v:[E('message',v[0]),E('s_table',k84_s_table,'sa'),E('i_manner',k84_i_manner,'inj'),E('file',v[1]),E('form',v[2],'sa'),E('s_voice',k84_s_voice,'sa'),E('i_third',k84_i_third,'inj'),E('vhand',v[3]),E('ronin',v[4]),E('s_vent',k84_s_vent,'sa'),E('i_scale',k84_i_scale,'inj'),E('laugh',v[5])].filter(Boolean)}}catch(e){return {mc:[],mx:[],v:[]}}})();
 const k84Pool=k=>{const sa=k84SA();return K84_POOLS[k].filter(e=>!e.mode||(e.mode==='sa')===sa)};

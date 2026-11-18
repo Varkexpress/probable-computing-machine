@@ -18,7 +18,7 @@ Reading copy. Misaki's lines show the fuller tier; ▸ marks a choice, struck th
 
 *The spoon on the tray is metal. In the other building they were plastic, and counted.*
 
-**Misaki:** (he left me a metal spoon. is he stupid? is he new?)
+**Misaki:** (metal. he’s left me metal. that’s not a mistake. they don’t make mistakes)
 
 *You could do a great deal with a metal spoon and a week. You put it down the side of the mattress and wait for him to count the tray.*
 
@@ -26,7 +26,7 @@ Reading copy. Misaki's lines show the fuller tier; ▸ marks a choice, struck th
 
 **Misaki:** (okay. it’s a test. nobody’s this dumb. it’s a test, and i don’t know what passing looks like)
 
-*You eat with the knife and fork, very correctly, and put all three back on the tray in a row. You leave the first spoon where it is. You want to see how long it takes him.*
+*You eat with the knife and fork, very correctly, and put all three back on the tray in a row. You leave the first spoon where it is. You have decided that it is there to be found on you.*
 
 ### Your shoe  (g_shoe · Misaki · either setting · cell)
 
@@ -34,27 +34,25 @@ Reading copy. Misaki's lines show the fuller tier; ▸ marks a choice, struck th
 
 *You do not know where the right one is. You think about that for a while. A person with one shoe is not going anywhere, and whoever put it there knows it.*
 
-**Misaki:** (nice. really nice. here’s half your stuff. good luck hopping)
+**Misaki:** (one shoe. so that i know i’m not walking out. got it)
 
 *That evening the tall one comes in with a shoe box. There is a pair in it, new, your size, the same make. He puts the box under the bed, next to the single shoe, and says nothing about either.*
 
 **Misaki:** (…so now i’ve got three. what do three shoes mean?)
 
-### What he calls you  (g_number · Misaki · either setting · cell)
+### He says your name  (g_number · Misaki · either setting · cell)
 
-*He has not called you anything. Not a name, not a number, not “you”. In the other building you were “it” to one of them and “sweetheart” to another, and you preferred “it”.*
+*He has not called you anything. Then, on the second day, he says your name.*
 
-*So you give him something to use. People are easier to manage when they have a word for you.*
+*Nobody in the other building had it. You were careful. You were “it” to one of them and “sweetheart” to another, and you kept the name back the whole time, behind your teeth, like the round in the shoe.*
 
-**Misaki:** you can call me nine, if you want. it’s easy to remember
+*So he has had it from somewhere else. There is a file. Somebody has sold him the one thing you got out of there with.*
 
-*He stands quite still with the tray.*
+**Misaki:** (don’t answer to it. if you answer to it, it’s his)
 
-**V:** I know what you are called.
+*You look at his hands and say nothing. He says it again, lower. It is worse, lower.*
 
-**Misaki:** (shit. he’s got my file. who gave him my file?)
-
-*He goes out. He did not use it, whatever he knows. You lie there trying to work out which is worse.*
+*He does not try a third time. For the rest of the day he calls you nothing, and your own name stays in the room, like something he has put down on the counter and may pick up again.*
 
 ### The door handle  (g_handle · Misaki · either setting · cell)
 
@@ -67,18 +65,6 @@ Reading copy. Misaki's lines show the fuller tier; ▸ marks a choice, struck th
 **Misaki:** (it’s not open. don’t be stupid. nobody leaves it open)
 
 *You lie on your right side and look at the handle for an hour. It is an ordinary brushed steel handle. You are more afraid of it than you were of the men.*
-
-### Count his steps  (g_steps · Misaki · either setting · cell)
-
-*He takes four steps from the door to the bed. Always four. He is tall enough to do it in three.*
-
-*You have counted every time. Four in, and he stops a full arm’s length short, and puts the tray down by stretching.*
-
-**Misaki:** (he’s making himself slow, on purpose. why would you do that?)
-
-*The only reason you can think of is the reason you walk slowly up to a mark: so that they do not bolt before you are close enough.*
-
-**Misaki:** (joke’s on him. i can’t bolt. i’ve got one shoe)
 
 ### Practise the good voice  (g_voice · Misaki · either setting · cell)
 
@@ -190,46 +176,6 @@ Reading copy. Misaki's lines show the fuller tier; ▸ marks a choice, struck th
 
 **Misaki:** (don’t be nice to me. you’re so bad at it)
 
-### Work out what you owe him  (g_tab · Misaki · either setting · clear)
-
-*You keep a tab. You always have. You do not like to owe.*
-
-**Misaki:** (one carry, out of a building. nine trays. a week of electricity. one pair of shoes)
-
-**Misaki:** (minus: he swore to kill me. minus: the plastic sheet. minus: he still owes me nine hundred for the carpet)
-
-*You do it three times, on the back of the chart, with the stub of pencil. It does not come out in your favour. It does not come out anywhere near it.*
-
-**Misaki:** (i owe a billionaire. a billionaire who wants me dead. life is so fucking unfair)
-
-*You tear the sum off the chart and eat it, so that he will not find it.*
-
-### His hands  (g_hands · Misaki · either setting · clear)
-
-*For three days you watched his hands, because in a cell you watch the hands. You know them better than your own.*
-
-*A scar across the left knuckles, old. A callus on the second finger, from the pen. They are very clean, and the nails are cut straight across. He holds them slightly away from his body when he is in the room, turned so that you can see the palms.*
-
-*You know all of that, and you know now whose they are. You cannot make the two things one. The hands that brought the water, and the hands that had your rifle across his knees in the dark.*
-
-**Misaki:** (stop looking at his hands. you’re clear now. you’re allowed to look at his stupid face)
-
-*You try the face. You last about a second, and go back to the hands.*
-
-### Rehearse not apologising  (g_notsorry · Misaki · either setting · clear)
-
-*You were polite to him for three days. You were good. You said sorry to that man.*
-
-*You will not be apologising for it. You run the lines.*
-
-**Misaki:** “i wasn’t being nice. i thought you were someone else.” no. that sounds like i’d be nice to someone else
-
-**Misaki:** “forget everything i said.” no. then he knows that i remember
-
-**Misaki:** “fuck you.” …yeah. that one. keep it simple
-
-*He comes in at noon. You say it. He says “Good morning”, and puts the tray down, and you could swear that his shoulders come down an inch.*
-
 ### The tray  (g_kneel · V · either setting)
 
 *You are a tall man. In that room, with them flat on the bed, you are the height of the door.*
@@ -272,18 +218,6 @@ Reading copy. Misaki's lines show the fuller tier; ▸ marks a choice, struck th
 
 **V:** (I had a letter to him, with their thumbprint in it. I have just stood between them and him. I will take the letter out of the safe tonight.)
 
-### Soup  (g_soup · V · either setting)
-
-*They can keep soup down. So you make soup.*
-
-*The first is too salt. You are a good cook, and you have not over-salted a thing since you were a boy. The second you forget on the stove. The third is right, and you carry it down, and bring it back up untouched, because they were asleep.*
-
-*You pour all three away. The old hound watches the third go down the sink with an expression that you have earned.*
-
-**V:** (I have cooked for nobody but animals in eleven years. I find that I do not know how much salt a person takes.)
-
-*You make a fourth.*
-
 ### Feeding time  (g_meat · V · either setting)
 
 *You bring the steel bucket down to the kennel at six, as you do every evening.*
@@ -297,26 +231,6 @@ Reading copy. Misaki's lines show the fuller tier; ▸ marks a choice, struck th
 **V:** (They can smell them. Blood, and that particular fear. They have every one of them smelled like that, once, on my table.)
 
 *You put the bucket down and leave it. In the morning it is empty, and all four are asleep against the infirmary door in a heap, and you step over them to take in the tray.*
-
-### The server  (g_server · V · either setting)
-
-*The server has been asking since the river. Angel has asked nine times. Ronin has asked once, which is worse.*
-
-*You type: “I have them.” You look at it. It is how one reports the taking of a mark. You delete it.*
-
-*You type: “They are in my keeping.” You delete that as well.*
-
-*You type: “They are alive. They are in my house. The door opens from both sides.”*
-
-**Angel:** (server) oh thank GOD. can i come
-
-**Ronin:** (server) vee. your house. the book still say what it says
-
-**V:** (server) Yes.
-
-**Ronin:** (server) then i’m bringin’ a chair
-
-**V:** (server) I had hoped that you would.
 
 ### The shoe from the gravel  (g_shoeV · V · either setting)
 
@@ -393,28 +307,4 @@ Reading copy. Misaki's lines show the fuller tier; ▸ marks a choice, struck th
 **V:** Tell them that it is not this week. It is true, and it is all that I can stand behind.
 
 **Ronin:** Fuck’s sake. “Not this week.” I’ll put it on a card.
-
-### Four in the morning  (g_count · V · either setting)
-
-*Four in the morning. You stand in the corridor, four steps from the door, and count their breathing.*
-
-*Fourteen to the minute, asleep. Twenty-two, when they are awake and pretending. You have learned to tell the two apart. Tonight it is twenty-two.*
-
-**V:** (They are lying in the dark performing sleep for a man who is standing in the dark counting it. Neither of us is at rest. It is the most honest exchange that we have had.)
-
-*You could say something. “I know that you are awake.” It would be true, and it would tell them that even their sleep is watched.*
-
-*You go upstairs. You make a noise on every stair. By the time you reach the top it is fourteen.*
-
-### The cactus  (g_cactus · V · either setting)
-
-*Every afternoon you drive to lot fourteen and water their cactus. A thimbleful. You have read up on it.*
-
-*You wrote that plant into your plan, in the first week, as a way to bring them back into a fire. Now you stand in their trailer with a thimble, like a man feeding a bird.*
-
-**V:** (If it dies while they are in my house, they will come home to that. I will not be the cause of one more thing.)
-
-*Today there is a flower on it. One, yellow, the size of a button. You did not know that they did that.*
-
-*You photograph it. You have nobody to send the photograph to who would not ask what you were doing in that trailer. You keep it. It is the only photograph on your telephone that is not evidence.*
 

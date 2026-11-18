@@ -17,15 +17,15 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *The tall one opens the door a hand’s width, without coming in. He says that there will be no radio in this corridor again.*
 
-- ▸ “u can put it back on. i’m fine. i like choirs”
+- ▸ “it’s fine. leave it on”
 
 *You get as far as a thumbs-up. It is the wrong hand, and it does not open.*
 
-**Misaki:** You can put it back on, honestly. I’m fine. Big choir fan. Huge.
+**Misaki:** It’s fine. Leave it on. It doesn’t bother me.
 
 *He looks at your hands, which are both fists, and says that the radio has been taken out to a truck. He shuts the door so that the latch makes no noise.*
 
-**Misaki:** (He didn’t believe me. Rude. I’d have totally believed me.)
+**Misaki:** (He didn’t believe me. Nobody in here is supposed to be able to tell.)
 
 
 ### x\_ceiling
@@ -117,17 +117,23 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 ### y\_report
 
-*He will want to know what he has got. The careful ones always do. So when he comes in, you give it to him like a job report for a client.*
+*The tall one has a clipboard. He asks you what is broken.*
 
-*You hold up fingers. Three, for the hand. Three, for the ribs. You point at the wrists, and open your mouth to show him the gap.*
+*They asked that in the other building as well. They asked so as to know what was left.*
 
-**Misaki:** Left hand, three bones, maybe four. Ribs, three, on the left. Both wrists. One tooth, back left, and I liked that tooth. That’s the lot. Honestly, I’ve had worse off a ladder.
+*You point. Hand. Side. Both wrists. You open your mouth and show him the gap.*
 
-*He writes it down. He presses so hard that the pen goes through the paper on “ladder”.*
+**Misaki:** Left hand. Ribs, on the left. Both wrists. One tooth, at the back.
 
-**Misaki:** (He’s going to wreck that nib, pressing like that. It’s a really nice pen, too.)
+*You give it in the order it happened, and you leave nothing out. A thing they find later that you did not declare is a thing you hid.*
 
-*He asks you, in a voice like a drawer shutting, what happened on the ladder. You tell him you were ten and it was somebody else’s roof. He writes that down as well.*
+*He writes it down. He presses so hard that the pen goes through the paper.*
+
+**Misaki:** (He’s making a list. You make a list to work down it.)
+
+*He asks how the hand was done. You tell him: a heel, twice. He writes “heel” and underlines it. The line goes through to the next sheet.*
+
+**Misaki:** (Why does he want to know how? What’s he going to do with how?)
 
 
 ### y\_floss

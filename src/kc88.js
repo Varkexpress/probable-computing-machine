@@ -13,21 +13,6 @@
    Notes: docs/notes_kc86_88.md. Tested in tools/k86_test.js. */
 
 /* ===================================== MISAKI: THE ROOM IS A CELL ===================================== */
-k86('y2_splint','m','inj','cell','Do your own fingers',[
- N('Nobody has done the fingers yet, and they will set crooked if they are left. So you do them.'),
- N('The spoon off the first tray, down the side of the mattress. A strip torn off the hem of the sheet with your teeth. Two fingers bound to the handle, straight, firm, with the knot on the back where it will not press.'),
- M2('(not bad. bit loose at the top. i’ve done better one-handed in a truck)','(not bad. a bit loose at the top. i’ve done better one-handed in a truck)'),
- N('The tall one comes in and sees it. He stops with the tray. He looks at the spoon, and at the hem of the sheet, and at your teeth.'),
- Ms('sorry abt the sheet. i’ll pay for the sheet','sorry about the sheet. i’ll pay for the sheet','You point at the torn hem, and then at yourself, and rub your fingers together: you will pay.'),
- N('He puts the tray down and goes out. He is gone for some time. When he comes back he has a proper splint, and his face is the colour of the tile.')]);
-k86('y2_two','m','inj','cell','He asks how bad it is',[
- N('The tall one asks you to give the pain a number, out of ten.'),
- N('You think about it honestly. It is a fair question, and you like a fair question.'),
- Ms('2. maybe a 3 when i cough','two. maybe a three when i cough','You hold up two fingers. Then you cough, and wince, and hold up three.'),
- N('He looks at the hand, which is three bones, and the ribs, which are three more.'),
- K76V('Two.'),
- Ms('yeah. it’s fine. save the good stuff for someone who needs it','yeah. it’s fine. save the good stuff for somebody who needs it','You shrug, on the good side.'),
- N('He leaves the tablets on the counter anyway, where you can reach them. You do not take them. You have never been in a place where it paid to be slow.')]);
 k86('y2_breathe','m','inj','cell','Breathe properly',[
  N('Broken ribs, you breathe deep, ten times, every hour, however much it hurts. If you breathe shallow to spare them, the lung fills, and then you have a real problem.'),
  N('Nobody told you that in here. You have known it since you were about eight.'),
@@ -42,29 +27,6 @@ k86('y2_tooth','m','inj','cell','A bit of tooth',[
  N('The tall one sees it when he comes for the tray. He picks it up between finger and thumb and holds it under the light.'),
  Ms('it’s mine. it’s clean. didn’t want it going in the sink','it’s mine. it’s clean. i didn’t want it going down the sink','You open your mouth and point to the gap, helpfully.'),
  N('He wraps it in his handkerchief. A real one, linen, with a letter in the corner. You have never seen anybody keep a tooth that was not their own.')]);
-k86('y2_water','m','inj','cell','Tell him about the kidney',[
- N('There is blood when you go. Pink, not red. You are not worried, but the careful one ought to know what he has got.'),
- Ms('kidney took a boot. it’s pink not red, so it’s bruised not split. clears in 3 days if u keep the water coming','the kidney took a boot. it’s pink, not red, so it’s bruised and not split. it clears in three days if you keep the water coming','You point at your back, low, on the left. You hold up three fingers. You mime drinking.'),
- N('He asks you how you know that.'),
- Ms('had it before. twice. first time i thought i was dying. i was 11, i wrote a will. left my shoes to a cat','i’ve had it before. twice. the first time i thought i was dying. i was eleven. i wrote a will. i left my shoes to a cat','You hold up two fingers, and shrug.'),
- N('He brings water. A jug of it, and a glass, and he fills the glass himself. His hand is not quite steady on the jug, and you wonder what you said.')]);
-k86('y2_slow','m','inj','cell','Eat slowly',[
- N('Four days on nothing, you do not eat fast. You eat a spoon, and wait, and another spoon. If you fill up quick, it all comes back, and worse.'),
- N('You learned that somewhere. You cannot remember not knowing it.'),
- N('The tall one has brought broth, and watches you from the door. You take a spoon and put the spoon down and count sixty.'),
- M2('(he thinks i don’t like it. i like it. it’s good. i’m just not stupid)','(he thinks i don’t like it. i like it. it’s good. i’m just not stupid)'),
- Ms('it’s good. i’m going slow on purpose. u have to, after','it’s good. i’m going slowly on purpose. you have to, after','You pat your stomach, and hold up one finger: slowly.'),
- K76V('I know that one must. I had not expected that you would.'),
- N('He says it as if you had told him something terrible. You only told him how to eat soup.')]);
-k86('y2_sorrymess','m','inj','cell','The state of you',[
- N('He has to cut the hoodie off to get at the ribs. It is stiff with what is on it. He does it with the blunt scissors, up the front, as carefully as if it were skin.'),
- N('You see his face when the cloth comes away. You know that face. It is the one a careful man makes at a filthy tool.'),
- Ms('yeah, sorry. i know it’s a mess. they didn’t have a shower','yeah, sorry. i know it’s a mess. they didn’t have a shower','You make a face back at him: yes, you know, it is disgusting.'),
- N('His scissors stop.'),
- K76V('You are apologising to me for the condition in which you were left.'),
- Ms('well u’ve got to touch it','well, you’re the one who’s got to touch it','You point at him, and at yourself, and wrinkle your nose.'),
- N('He finishes the cut. He washes what is under it with warm water and a cloth, in long straight strokes, the way you would wash an animal that had been found in a ditch. He does not say one word, and he does not make the face again.')]);
-
 /* ===================================== MISAKI: CLEAR ===================================== */
 k86('y2_tour','m','inj','clear','Give him the tour of your films',[
  N('He has your films up on the lightbox, and he is standing in front of them with his arms folded, like a man in a gallery who does not care for the picture.'),
@@ -75,25 +37,6 @@ k86('y2_tour','m','inj','clear','Give him the tour of your films',[
  K76V('Whose door?'),
  M2('pfft. i don’t know. a door. who remembers doors','pfft. i don’t know. a door. who remembers doors?'),
  N('He turns the lightbox off. It is the first time you have seen him stop looking at something before he had finished with it.')]);
-k86('y2_work','m','inj','clear','When can you work',[
- N('Rent is still four hundred. Nobody has cancelled rent on account of your hand.'),
- M2('so when can i shoot. ballpark','so when can i shoot? ballpark'),
- K76V('Six weeks for the hand. Longer, for a rifle.'),
- M2('i can do it one-handed off a bipod in two. i did the maths. bit more hold-over, that’s all','i can do it one-handed off a bipod in two. i did the maths. a bit more hold-over, that’s all'),
- N('You show him the maths. It is on the back of the chart: the angle, the weight, what the right hand has to take.'),
- N('He reads it twice. It is correct. You can see that it is correct, because he cannot find anything to say against it.'),
- K76V('You have calculated how to go back to work with a broken hand before the swelling is down.'),
- M2('well yeah. what else was i going to do in here. lie around?','well, yeah. what else was i going to do in here, lie around?')]);
-k86('y2_basket','m','inj','clear','Ronin’s basket',[
- N('Ronin has brought a get-well basket. It is a hubcap with things in it.'),
- [RN,'Got you a pack of smokes you don’t smoke. Got you a scratch card, already scratched, it lost. Got you a rib.'],
- M2('a what','a what?'),
- [RN,'A rib. Pork. You’re down three, figured you’d want one in the bank.'],
- N('You laugh so hard that you have to hold your side with the good hand.'),
- [RN,'Don’t, you’ll pop a stitch and Vee’ll take it out on me. He’s been a real fuckin’ treat this week.'],
- M2('why. what’s wrong with him','why? what’s wrong with him?'),
- [RN,'Dunno. He looked at your hand and went and threw up in a flower bed. I ain’t never seen that man gag at nothin’, and I seen him do a spleen.'],
- M2('(over a HAND? it’s just a hand)','(over a hand? it’s just a hand)')]);
 k86('y2_eye','m','inj','clear','Angel asks who did the eye',[
  N('Angel sits on the end of the bed and looks at you for a long time: the eye, the lip, the wrists.'),
  [AN,'who did the eye'],
@@ -104,24 +47,6 @@ k86('y2_eye','m','inj','clear','Angel asks who did the eye',[
  M2('yeah. it’s kind of insulting','yeah. it’s kind of insulting, actually'),
  N('Angel writes both descriptions down in the notes on her phone, under a heading you cannot see. She is smiling the smile she does on camera.'),
  [AN,'asking for a friend. the friend is a shotgun']]);
-k86('y2_bet','m','inj','clear','Bet him on the ribs',[
- M2('bet u 50 the ribs are done in 5 weeks','bet you fifty the ribs are done in five weeks'),
- K76V('The text gives six to eight.'),
- M2('the text didn’t have my ribs. i’ve done these two before. they know the drill','the text didn’t have my ribs. i’ve done these two before. they know the drill'),
- N('He does not take the bet. He looks at you instead, with his whole attention.'),
- K76V('You have a recovery time for your own ribs, from experience.'),
- M2('doesn’t everyone','doesn’t everybody?'),
- K76V('No.'),
- M2('huh','huh. weird'),
- N('You mean it. You had honestly thought that everybody did.')]);
-k86('y2_wall','m','inj','clear','Integrals',[
- N('You are so bored that you could eat the drip. So you find a marker in the counter drawer and do integrals on the wall.'),
- N('It is a good wall for it, white and smooth. You get from the bed to the basin before you run out of reach, and you put FOR FUN across the top, in case anybody thinks it was for something.'),
- N('V comes in and reads the wall from left to right. It takes him a while.'),
- M2('i’ll paint over it. don’t write it in the book','i’ll paint over it. don’t put it in the book'),
- K76V('There is an error in the fourth line. A sign.'),
- M2('there is NOT','there is not. …oh. fuck. there is'),
- N('He takes the marker out of your hand, corrects the sign, and gives the marker back. The wall is never painted. Years on, it is still there, with your working, and one minus in a different hand.')]);
 k86('y2_face','m','inj','clear','The face he makes',[
  N('He is doing the wrists, and he is doing the face.'),
  M2('ur doing the face','you’re doing the face'),
@@ -217,13 +142,4 @@ k86('y2_list','v','inj',null,'The reasons',[
  K76V('(Kills for rent: has never had an evening that was not owed to somebody. Has no law: was never once on the right side of one. Did not ask: was never asked.)'),
  K76V('(Sleeps well: sleeps sitting up, in a corner, in my house, and does not wake when a rib is strapped.)'),
  N('The list is still true. Every word. You fold it and put it back. It used to be the page that settled things, and now it is only a page.')]);
-k86('y2_ham','v','inj',null,'The good ham',[
- N('They ask whether there is any ham. They have had broth and egg and rice for three days, and they have noticed that there is a ham in your kitchen, because they cased the house in the first week.'),
- N('It is the good one. It hangs in the cold larder. You cut it for the hounds on a Sunday, and for nobody else.'),
- K76V('(It is not for a person in my book.)'),
- N('You cut four slices, thin, across the grain, and lay them on a warmed plate. You carry it down yourself.'),
- N('They eat it with their fingers, slowly, a piece at a time, with their eyes shut. It is the first thing that you have seen them take any pleasure in. Then they open their eyes and catch you watching.'),
- K76MV('what','what. WHAT','What?','What? Stop looking at me like I’m a rescue.'),
- K76V('You have ham on your chin.'),
- N('They have not. You needed to have said something.')]);
 /* ===KC88-END=== */
