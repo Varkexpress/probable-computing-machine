@@ -94,7 +94,7 @@ k86('y2_sneeze','m','inj','cell','You are going to sneeze',[
  N('You sneeze. It is the worst thing that has ever happened to anybody. The other building did not come close.'),
  Ms('FUCK. fuck. ow. fuck','FUCK. fuck. ow. fuck','You make a sound like a kettle, and then no sound at all.'),
  N('The door opens at once. The tall one is there, with one hand out, as if you had fallen.'),
- Ms('sneezed. sorry. i’ll keep it down','i sneezed. sorry. i’ll keep it down','You point at your nose, and then put a finger to your lips: you will be quieter.'),
+ Ms('sneezed. fuck off','I sneezed. Fuck off.','You point at your nose. Then you give him the finger.'),
  N('He stays in the doorway. You have taken a boot to the kidney without a sound, and he heard you swear at a sneeze, and he looks as if he does not know whether he is allowed to be relieved.')]);
 k86('y2_stitches','m','inj','clear','Take your own stitches out',[
  N('The stitches in your side are ready. You can tell; they itch, and the skin has closed. He will get to them on Thursday. It is Tuesday.'),

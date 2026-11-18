@@ -19,23 +19,23 @@ const k80Gone=()=>{try{return typeof k73Gone==='function'&&k73Gone()}catch(e){re
 const K80_MC=[
  cb=>say([
   ['','You have worked out the rules of this room, the way you worked out the rules of the other one.'],
-  K76MV('(one: the light stays on if u ask nicely. two: the tall one doesn’t like being looked at in the face, so look at his hands. three: eat all of it)','(one: the light stays on if you ask nicely. two: the tall one doesn’t like being looked at in the face, so look at his hands. three: eat all of it)','(One: the light stays on if you ask nicely. Two: the tall one doesn’t like being looked at in the face, so look at his hands. Three: eat all of it.)','(One: the light stays on if you ask nicely. Two: the tall one doesn’t like being looked at in the face, so look at his hands. Three: eat all of it.)'),
-  ['','Nobody told you any of these. You made them up, because a room with rules is a room you can get right.'],
-  ['','He comes in at noon with the tray. You get every one of them right: you ask about the light, you look at his hands, you finish the soup while he is still standing there. He stays by the door with his jaw set, like a man who has been insulted, and you cannot work out which rule you broke.']],
-  ()=>ask('hitmeuppp','(What did you get wrong?)',[
-   {t:'Ask him what you did wrong',sub:'you do not ask the ones with the keys',dis:true,fn:()=>{}},
-   {t:'Say sorry',fn:()=>say([K76MV('sorry','sorry. sorry','Sorry.','Sorry. I’m sorry.'),
+  K76MV('(one: he comes at eight, noon and six. two: four steps, door to bed. three: he never turns his back)','(one: he comes at eight, noon and six. two: four steps, door to bed. three: he never turns his back)','(One: he comes at eight, noon and six. Two: four steps, door to bed. Three: he never turns his back.)','(One: he comes at eight, noon and six. Two: four steps, from the door to the bed. Three: he never turns his back.)'),
+  ['','Nobody told you any of these. You got them by watching, as you would on a roof. A man with a routine is a man you can do.'],
+  ['','He comes in at noon with the tray. You watch him do all three, and you do not look away, and you let him see you counting. He stays by the door with his jaw set, like a man who has been insulted.']],
+  ()=>ask('hitmeuppp','(He is not looking away either.)',[
+   {t:'Ask him what he is waiting for',sub:'you do not ask the ones with the keys',dis:true,fn:()=>{}},
+   {t:'Stare him out',fn:()=>say([K76MV('what','what?','What?','What? See something you like?'),
     ['','His hand closes on the door frame until the wood makes a sound. He goes out without a word, and shuts the door with so little noise that you have to listen for the latch.'],
-    K76MV('(ok. so sorry’s wrong too. rule four: don’t say sorry)','(ok. so sorry is wrong too. rule four: don’t say sorry)','(Okay. So sorry is wrong too. Rule four: don’t say sorry.)','(Okay. So sorry is wrong as well. Rule four: don’t say sorry to the tall one.)')],cb)}])),
+    K76MV('(ok. he doesn’t like being watched back. good. rule four: do it more)','(ok. he doesn’t like being watched back. good. rule four: do it more)','(Ok. He doesn’t like being watched back. Good. Rule four: do it more.)','(Ok. He doesn’t like being watched back. Good. Rule four: do it more.)')],cb)}])),
  cb=>{S.f.e2lMedAsk=1;save();say([
-  ['','In the afternoon you have an idea, and it is the first good one you have had in this room.'],
-  K76MV('(k9 swore to kill me. k9 wants to know where i am. k9 pays for things)','(k9 swore to kill me. so k9 wants to know where i am. and k9 pays for things)','(K9 swore to kill me. So K9 wants to know where I am. And K9 pays for things.)','(K9 swore to kill me. So K9 will want to know where I am, and K9 pays for what he wants.)'),
+  ['','In the afternoon the bag gives you two of him. One is the tall man with the tray. The other is K9, who is somewhere upstairs with a book, and has not been told that somebody else got to you first. It seems perfectly clear, and it gives you an idea.'],
+  K76MV('(k9 swore to kill me. k9 hates it when people touch his stuff. k9 pays for things)','(k9 swore to kill me. k9 hates it when people touch his stuff. k9 pays for things)','(K9 swore to kill me. K9 hates it when people touch his stuff. K9 pays for things.)','(K9 swore to kill me. K9 hates it when people touch his things. K9 pays for things.)'),
   ['','He would be slow. Everybody knows he is slow. But he would tell you why, with dates, and it would be for something you actually did. You find that you would give a great deal to be killed for something you actually did.'],
-  ['','When the tall one comes for the tray, you keep your eyes on his hands and say it in the good voice.'],
-  k80Gone()?['','You cannot get the voice to come. You write it with your finger on the blanket instead, K, 9, and point at the door, and at yourself.']:K76MV('can u get a message to k9. tell him he can have me. tell him it’s owed','can you get a message to k9? tell him he can have me. tell him it’s owed','Can you get a message to K9? Tell him he can have me. Tell him it’s owed.','Could you get a message to somebody called K9? Tell him he can have me. Tell him it’s owed, he’ll know. He’ll pay you for it.'),
+  ['','When the tall one comes for the tray, you keep your eyes on his hands and put it to him as a job.'],
+  k80Gone()?['','You cannot get the voice to come. You write it with your finger on the blanket instead, K, 9, and point at the door, and at yourself.']:K76MV('get a message to k9. tell him he’s late. some river assholes got there first. he can have what’s left. tell him it’s OWED','get a message to k9. tell him he’s late. some river assholes got there first. he can have what’s left. tell him it’s owed','Get a message to K9. Tell him he’s late. Some river assholes got there first. He can have what’s left. Tell him it’s owed.','Get a message to K9. Tell him he’s late, and some river assholes got there first. He can have what’s left. Tell him it’s owed.'),
   ['','The tall one puts the tray down very slowly, as if it had become heavy.'],
   K76V('I will tell him.'),
-  K76MV('(good. that’s good. that’s a plan)','(good. ok. that’s a plan. i’ve got a plan)','(Good. Okay. That’s a plan. I’ve got a plan.)','(Good. Okay. That’s a plan. I have a plan, and it ends with somebody telling me why.)')],cb)},
+  K76MV('(good. that’s a plan. at least HE’LL give reasons)','(good. that’s a plan. at least he’ll give reasons)','(Good. That’s a plan. At least he’ll give reasons.)','(Good. That’s a plan. At least he will give reasons.)')],cb)},
  cb=>say([
   ['','There is a hound outside the door. You can see the grey of it in the gap at the bottom, and hear it breathe.'],
   ['','Everybody in the city knows what the hounds are for. So this is how it is done here: they send the animal first and let you listen to it.'],
@@ -45,11 +45,11 @@ const K80_MC=[
  cb=>say([
   ['','The tall one stands at the foot of the bed with a sheet of paper and tells you to open your left hand.'],
   ['','You try. You look at it and tell it, and it lies there on the blanket, shut, like something that belongs to somebody else.'],
-  K76MV('(he said open. it didn’t open. that’s a no. u don’t say no in here)','(he said open and it didn’t open. that’s a no. you don’t say no in here)','(He said open and it didn’t open. That’s a no. You don’t say no in here.)','(He said open, and it didn’t open. That counts as a no, and you don’t say no in here.)'),
-  k80Gone()?['','You hold your right hand out to him instead, palm up.']:K76MV('this one works. use this one','this one works. you can use this one','This one works. You can use this one.','This one works. You can use this one instead. It does what it’s told.'),
-  ['','You hold the right hand out to him, palm up. He looks at it, and something goes out of his face, as if a lamp had been carried out of a room.'],
+  K76MV('(he wants to know if the rifle hand’s done. he wants to know if i can still shoot)','(he wants to know whether the rifle hand is done. he wants to know whether i can still shoot)','(He wants to know whether the rifle hand is done. He wants to know whether I can still shoot.)','(He wants to know whether the rifle hand is done. He wants to know whether I can still shoot.)'),
+  k80Gone()?['','You lift the cast an inch and let it drop, and look at him: there you are.']:K76MV('it’s fucked. happy? that’s half ur job done','it’s fucked. happy? that’s half your job done','It’s fucked. Happy? That’s half your job done.','It’s fucked. Happy? That’s half your job done for you.'),
+  ['','He looks at the hand, and something goes out of his face, as if a lamp had been carried out of a room.'],
   K76V((typeof kdSA==='function'&&!kdSA())?'It was for an exercise, for the hand. There is no penalty.':'It was for an exercise. The doctor left it. There is no penalty.'),
-  ['','You do not know that word in here. You keep the hand out until he has gone, to be safe.']],cb)];
+  ['','An exercise. He wants it working. You file that with the soup and the pillows: he is putting you back together, and he has a use in mind for the finished article.']],cb)];
 
 /* ===================================== MISAKI: CLEAR ===================================== */
 const K80_MX=[

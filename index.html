@@ -20303,8 +20303,8 @@ const k73WorstOf=()=>{try{return typeof kdWorstOf==='function'&&kdWorstOf()}catc
 const K73_VM=[
  cb=>{const eye=S.f.e2lEye;say([
   ['','They have been downstairs in the room marked LAUNDRY for a day. You stand at the door with your hand on the frame and do not go in.'],
-  ['','A week ago you sat in their trailer with sheeting at your feet. You have wanted them exactly like this, unable to lift their left hand, in a room you control. They say thank you now, to everything, to the soup and to the doctor and to you, in the same flat, pleasant voice, the way people speak to whoever holds the keys. Their eyes stay on your hands.'],
-  ['','To them you are the tall one, who brings the tray. In their head the man who brings the tray is also the man who kept them in the other building, and they are being good for him.'],
+  ['','A week ago you sat in their trailer with sheeting at your feet. You have wanted them exactly like this, unable to lift their left hand, in a room you control. They do not say a word to you that is not a test. They watch your hands, and the door, and the distance between, as you have watched a great many men from a roof.'],
+  ['','To them you are the tall one, who brings the tray. In their head the man who brings the tray is also the man who kept them in the other building, and they are working out how to kill him.'],
   ['','Upstairs, in the study, you open the ledger. Their page opens with the line you wrote on the first night: MISAKI. WANTON. COLLATERAL: SEVERAL. TO BE KILLED. Under it, a week of what they owe: the landlord, the man from the car wash, eleven place cards, your reading glasses'+(eye==='note'?', and one eye and the rest, outstanding.':'.')+' You write the date under the last line.'],
   ['K9','(Nothing I wrote there is untrue. They are everything I said. I could go down those stairs tonight and close the account, and my own law would sign it.)']],
   ()=>ask('K9','(The total.)',[
@@ -20320,30 +20320,30 @@ const K73_VM=[
   ['','You rinse the sink and scrape the plate into the hounds’ bowl. The old hound eats it and then stands looking at you for a long time, the way it looks at you when you have been ill.']],cb),
  cb=>say([
   ['','After midnight they talk through the wall.'],
-  ['','The infirmary is under the study and the vent carries. They are being polite to the door, in a low reasonable voice: telling it that they have been good today and ate all of it, and that they would like to keep the light on, please, if that is all right with whoever decides.'],
-  ['','In their head, whoever decides is you.'],
+  ['','The infirmary is under the study and the vent carries. They are talking to the door, in a low reasonable voice: quoting for it. What they would pay to walk. What they will do to the man with the tray, with a spoon, in a car park, if the door will only look the other way.'],
+  ['','In their head, the man with the tray is you.'],
   ['','You put on your coat and take all four hounds out into the grounds in the rain at a quarter to one, as far as the far wall, where the vent is only a vent. The black hound keeps stopping to look back at the house. You keep calling it on, and it keeps coming, slower each time.'],
-  ['K9','(I do not want to hear it. I would like that written down somewhere. I do not want to hear them ask me for the light.)'],
+  ['K9','(I do not want to hear it. I would like that written down somewhere. I do not want to hear them haggle with my own door for their life.)'],
   ['','You stay out until three. When you come in, the light under their door is on, and you leave it on.'],
   k73WorstOf()?['','The next night you take them out again, and the night after that. The black hound starts waiting by the back door at a quarter to one without being called.']:null],cb),
  cb=>{const gone=k73Gone();say([
   ['','On the third day you change the dressing on their hand yourself, because the doctor is late and you will not wait for them.'],
-  ['','You do it the way you do everything on a table: exactly, in order, without speaking. They hold the hand out before you ask. '+(gone?'They do not speak at all. They hold it very still and look at the floor beside your shoe.':'They keep their face empty and watch your fingers the whole time. The hand in yours is cold, and it is braced.')],
+  ['','You do it the way you do everything on a table: exactly, in order, without speaking. They give you the hand as one gives up a weapon at a door: slowly, and looking at you. '+(gone?'They do not speak at all. They hold it very still and look at the floor beside your shoe.':'They keep their face empty and watch your fingers the whole time. The hand in yours is cold, and it is braced.')],
   gone?null:K73MV('the other one wasn’t careful','the other one wasn’t careful like this','The other one wasn’t careful like this.','The other one wasn’t careful like this. Is it you from now on?'),
   gone?null:K73V('Hold still.'),
-  gone?null:K73MV('i know what the careful one’s for. i’ll talk. u don’t have to do the rest','i know what the careful one is for. i’ll talk. you don’t have to do the rest','I know what the careful one is for. I’ll talk. You don’t have to do the rest.','I know what the careful one is for. I’ll talk. You don’t have to do the rest of it.'),
+  gone?null:K73MV('i know what ur doing. u want me fixed first','i know what you’re doing. you want me fixed first','I know what you’re doing. You want me fixed first.','I know what you’re doing. You want me fixed first, so that it counts.'),
   ['','You tie it off. Your hands are perfectly steady. You put the old dressing in the bin and wash your hands at the little sink, and go on washing them for some time after they are clean.'],
   ['K9','(I am keeping their well so that the debt can still be collected. I said that to the mirror this morning and it sounded fine.)'],
-  ['',gone?'When you go they say nothing. You leave the door the way they like it, with the light on.':'When you go they say thank you. You say nothing at all, and leave the door the way they like it, with the light on.']],cb)}];
+  ['',gone?'When you go they say nothing. You leave the door the way they like it, with the light on.':'When you go they say nothing. You can feel them counting your steps to the door. You leave it the way they like it, with the light on.']],cb)}];
 const K73_MM=[
  cb=>{const gone=k73Gone();say([
   ['','The tall one brings the tray. You know who he is now. You worked it out at about four this morning, lying on your side doing sums so you would not sleep, and once you saw it everything went together like a rifle.'],
   K73MV('(1: he swore to kill me. 2: he wrote it down. 3: he’s the most patient man in the city)','(one: he swore to kill me. two: he wrote it down. three: he’s the most patient man in the city)','(One: he swore to kill me. Two: he wrote it down. Three: he is the most patient man in this city, and he has the money.)','(One: he swore to kill me, in front of everybody. Two: he wrote it down, in fountain pen. Three: he is the most patient man in this city, and he has more money than God.)'),
   ['','Of course he bought the van. Who else in this city feeds people to dogs and calls it law? He sat in your trailer with a roll of sheeting and decided you deserved worse than quick. That is his whole religion, the long ones for the ones who earned it, and here it is: a room with one door, and soup at eight.'],
-  ['','It makes sense. It makes so much sense that it is almost restful.'],
-  ['','He kneels to put the tray down, and you thank him, because the careful one is the one you thank.']],()=>ask('hitmeuppp','(The tray.)',[
-  {t:'Throw it at him',sub:'your hand will not let go of it',dis:true,fn:()=>{}},
-  {t:'Say thank you',fn:()=>say([K73MV('thank u','thank you','Thank you.','Thank you.'),
+  ['','It makes sense. It makes so much sense that it is almost restful. You were never going to be done by amateurs. It was always going to be him.'],
+  ['','He kneels to put the tray down, with his neck level with your good hand. You look at the place under his ear. You have a spoon.']],()=>ask('hitmeuppp','(The tray.)',[
+  {t:'Go for his neck',sub:'your hand will not close',dis:true,fn:()=>{}},
+  {t:'Eat, and watch him',fn:()=>say([K73MV('(not today. today i eat. u need to eat to do a guy that size)','(not today. today i eat. you need to eat to do a man that size)','(Not today. Today I eat. You need to eat to do a man that size.)','(Not today. Today I eat. You need to eat, to do a man that size.)'),
    ['','He goes out. He stands outside the door for a long time; you can see the shadow of his feet under it. '+(gone?'You do not count. You lie still until it goes.':'You count how long. Four hundred and eleven.')]],cb)}]))},
  cb=>say([
   ['','In the night you hear the hounds go out.'],
@@ -22485,23 +22485,23 @@ const k80Gone=()=>{try{return typeof k73Gone==='function'&&k73Gone()}catch(e){re
 const K80_MC=[
  cb=>say([
   ['','You have worked out the rules of this room, the way you worked out the rules of the other one.'],
-  K76MV('(one: the light stays on if u ask nicely. two: the tall one doesn’t like being looked at in the face, so look at his hands. three: eat all of it)','(one: the light stays on if you ask nicely. two: the tall one doesn’t like being looked at in the face, so look at his hands. three: eat all of it)','(One: the light stays on if you ask nicely. Two: the tall one doesn’t like being looked at in the face, so look at his hands. Three: eat all of it.)','(One: the light stays on if you ask nicely. Two: the tall one doesn’t like being looked at in the face, so look at his hands. Three: eat all of it.)'),
-  ['','Nobody told you any of these. You made them up, because a room with rules is a room you can get right.'],
-  ['','He comes in at noon with the tray. You get every one of them right: you ask about the light, you look at his hands, you finish the soup while he is still standing there. He stays by the door with his jaw set, like a man who has been insulted, and you cannot work out which rule you broke.']],
-  ()=>ask('hitmeuppp','(What did you get wrong?)',[
-   {t:'Ask him what you did wrong',sub:'you do not ask the ones with the keys',dis:true,fn:()=>{}},
-   {t:'Say sorry',fn:()=>say([K76MV('sorry','sorry. sorry','Sorry.','Sorry. I’m sorry.'),
+  K76MV('(one: he comes at eight, noon and six. two: four steps, door to bed. three: he never turns his back)','(one: he comes at eight, noon and six. two: four steps, door to bed. three: he never turns his back)','(One: he comes at eight, noon and six. Two: four steps, door to bed. Three: he never turns his back.)','(One: he comes at eight, noon and six. Two: four steps, from the door to the bed. Three: he never turns his back.)'),
+  ['','Nobody told you any of these. You got them by watching, as you would on a roof. A man with a routine is a man you can do.'],
+  ['','He comes in at noon with the tray. You watch him do all three, and you do not look away, and you let him see you counting. He stays by the door with his jaw set, like a man who has been insulted.']],
+  ()=>ask('hitmeuppp','(He is not looking away either.)',[
+   {t:'Ask him what he is waiting for',sub:'you do not ask the ones with the keys',dis:true,fn:()=>{}},
+   {t:'Stare him out',fn:()=>say([K76MV('what','what?','What?','What? See something you like?'),
     ['','His hand closes on the door frame until the wood makes a sound. He goes out without a word, and shuts the door with so little noise that you have to listen for the latch.'],
-    K76MV('(ok. so sorry’s wrong too. rule four: don’t say sorry)','(ok. so sorry is wrong too. rule four: don’t say sorry)','(Okay. So sorry is wrong too. Rule four: don’t say sorry.)','(Okay. So sorry is wrong as well. Rule four: don’t say sorry to the tall one.)')],cb)}])),
+    K76MV('(ok. he doesn’t like being watched back. good. rule four: do it more)','(ok. he doesn’t like being watched back. good. rule four: do it more)','(Ok. He doesn’t like being watched back. Good. Rule four: do it more.)','(Ok. He doesn’t like being watched back. Good. Rule four: do it more.)')],cb)}])),
  cb=>{S.f.e2lMedAsk=1;save();say([
-  ['','In the afternoon you have an idea, and it is the first good one you have had in this room.'],
-  K76MV('(k9 swore to kill me. k9 wants to know where i am. k9 pays for things)','(k9 swore to kill me. so k9 wants to know where i am. and k9 pays for things)','(K9 swore to kill me. So K9 wants to know where I am. And K9 pays for things.)','(K9 swore to kill me. So K9 will want to know where I am, and K9 pays for what he wants.)'),
+  ['','In the afternoon the bag gives you two of him. One is the tall man with the tray. The other is K9, who is somewhere upstairs with a book, and has not been told that somebody else got to you first. It seems perfectly clear, and it gives you an idea.'],
+  K76MV('(k9 swore to kill me. k9 hates it when people touch his stuff. k9 pays for things)','(k9 swore to kill me. k9 hates it when people touch his stuff. k9 pays for things)','(K9 swore to kill me. K9 hates it when people touch his stuff. K9 pays for things.)','(K9 swore to kill me. K9 hates it when people touch his things. K9 pays for things.)'),
   ['','He would be slow. Everybody knows he is slow. But he would tell you why, with dates, and it would be for something you actually did. You find that you would give a great deal to be killed for something you actually did.'],
-  ['','When the tall one comes for the tray, you keep your eyes on his hands and say it in the good voice.'],
-  k80Gone()?['','You cannot get the voice to come. You write it with your finger on the blanket instead, K, 9, and point at the door, and at yourself.']:K76MV('can u get a message to k9. tell him he can have me. tell him it’s owed','can you get a message to k9? tell him he can have me. tell him it’s owed','Can you get a message to K9? Tell him he can have me. Tell him it’s owed.','Could you get a message to somebody called K9? Tell him he can have me. Tell him it’s owed, he’ll know. He’ll pay you for it.'),
+  ['','When the tall one comes for the tray, you keep your eyes on his hands and put it to him as a job.'],
+  k80Gone()?['','You cannot get the voice to come. You write it with your finger on the blanket instead, K, 9, and point at the door, and at yourself.']:K76MV('get a message to k9. tell him he’s late. some river assholes got there first. he can have what’s left. tell him it’s OWED','get a message to k9. tell him he’s late. some river assholes got there first. he can have what’s left. tell him it’s owed','Get a message to K9. Tell him he’s late. Some river assholes got there first. He can have what’s left. Tell him it’s owed.','Get a message to K9. Tell him he’s late, and some river assholes got there first. He can have what’s left. Tell him it’s owed.'),
   ['','The tall one puts the tray down very slowly, as if it had become heavy.'],
   K76V('I will tell him.'),
-  K76MV('(good. that’s good. that’s a plan)','(good. ok. that’s a plan. i’ve got a plan)','(Good. Okay. That’s a plan. I’ve got a plan.)','(Good. Okay. That’s a plan. I have a plan, and it ends with somebody telling me why.)')],cb)},
+  K76MV('(good. that’s a plan. at least HE’LL give reasons)','(good. that’s a plan. at least he’ll give reasons)','(Good. That’s a plan. At least he’ll give reasons.)','(Good. That’s a plan. At least he will give reasons.)')],cb)},
  cb=>say([
   ['','There is a hound outside the door. You can see the grey of it in the gap at the bottom, and hear it breathe.'],
   ['','Everybody in the city knows what the hounds are for. So this is how it is done here: they send the animal first and let you listen to it.'],
@@ -22511,11 +22511,11 @@ const K80_MC=[
  cb=>say([
   ['','The tall one stands at the foot of the bed with a sheet of paper and tells you to open your left hand.'],
   ['','You try. You look at it and tell it, and it lies there on the blanket, shut, like something that belongs to somebody else.'],
-  K76MV('(he said open. it didn’t open. that’s a no. u don’t say no in here)','(he said open and it didn’t open. that’s a no. you don’t say no in here)','(He said open and it didn’t open. That’s a no. You don’t say no in here.)','(He said open, and it didn’t open. That counts as a no, and you don’t say no in here.)'),
-  k80Gone()?['','You hold your right hand out to him instead, palm up.']:K76MV('this one works. use this one','this one works. you can use this one','This one works. You can use this one.','This one works. You can use this one instead. It does what it’s told.'),
-  ['','You hold the right hand out to him, palm up. He looks at it, and something goes out of his face, as if a lamp had been carried out of a room.'],
+  K76MV('(he wants to know if the rifle hand’s done. he wants to know if i can still shoot)','(he wants to know whether the rifle hand is done. he wants to know whether i can still shoot)','(He wants to know whether the rifle hand is done. He wants to know whether I can still shoot.)','(He wants to know whether the rifle hand is done. He wants to know whether I can still shoot.)'),
+  k80Gone()?['','You lift the cast an inch and let it drop, and look at him: there you are.']:K76MV('it’s fucked. happy? that’s half ur job done','it’s fucked. happy? that’s half your job done','It’s fucked. Happy? That’s half your job done.','It’s fucked. Happy? That’s half your job done for you.'),
+  ['','He looks at the hand, and something goes out of his face, as if a lamp had been carried out of a room.'],
   K76V((typeof kdSA==='function'&&!kdSA())?'It was for an exercise, for the hand. There is no penalty.':'It was for an exercise. The doctor left it. There is no penalty.'),
-  ['','You do not know that word in here. You keep the hand out until he has gone, to be safe.']],cb)];
+  ['','An exercise. He wants it working. You file that with the soup and the pillows: he is putting you back together, and he has a use in mind for the finished article.']],cb)];
 
 /* ===================================== MISAKI: CLEAR ===================================== */
 const K80_MX=[
@@ -23358,19 +23358,19 @@ const k84_s_vent=cb=>say([
 const k84_i_wrists=cb=>say([
   ['','The tall one has a bowl, a bottle and a pair of tweezers. He is going to do the wrists, where the ties went through.'],
   ['','He starts at the top. That is wrong. If the edge is left, it seals over dirty and goes bad inside a week. You had that at eleven. You remember the smell.'],
-  K76MV('(don’t. u don’t correct them. u NEVER correct them)','(don’t. you don’t correct them. you never correct them)','(Don’t. You don’t correct them. You never correct them.)','(Don’t. You don’t correct them. You never, ever correct them.)'),
-  ['','He is going to do it wrong, and in a week it will be your arm. You weigh the two. It takes most of a minute to decide that the arm is worth being hit for.'],
-  k80Gone()?['','You touch the edge of the wound with one finger. Then you pull the hand back and wait for it.']:K76MV('under the edge. sorry. it goes bad if u don’t. sorry','under the edge. sorry. it goes bad if you don’t. sorry','Under the edge. Sorry. It goes bad if you don’t. Sorry.','Under the edge. Sorry. It goes bad if you don’t go under. Sorry.'),
-  ['','You shut your eyes for what comes next. Nothing comes. When you open them he is holding the tweezers in the air, and he looks as if he is going to be sick into the bowl.'],
-  ['','He does it your way, and does not speak. You have never met a guard who could be told. You like him less for it; the ones you can predict are the safe ones.']],cb);
+  K76MV('(he’s doing it WRONG. the great k9. forty-one people and he can’t clean a wound)','(he’s doing it wrong. the great k9. forty-one people, and he can’t clean a wound)','(He’s doing it wrong. The great K9. Forty-one people, and he can’t clean a wound.)','(He’s doing it wrong. The great K9. Forty-one people, and he can’t clean a wound.)'),
+  ['','He is going to do it wrong, and in a week it will be your arm. You do not help the man who has you in a book. You weigh that against the arm, and the arm wins; you need it to kill him with.'],
+  k80Gone()?['','You jab one finger at the edge of the wound, and look at him as you would at an apprentice.']:K76MV('under the edge, genius. it goes bad if u don’t','under the edge, genius. it goes bad if you don’t','Under the edge, genius. It goes bad if you don’t.','Under the edge, genius. It goes bad if you don’t.'),
+  ['','You wait for what that costs. Nothing comes. He is holding the tweezers in the air, and he looks as if he is going to be sick into the bowl.'],
+  ['','He does it your way, and does not speak. It will not fit. That man has never been wrong in his life; he said so, in a bowling alley, at length. And he has just taken instruction from the help.']],cb);
 const k84_i_careful=cb=>say([
   ['','He cuts the old strapping off the ribs. When it comes away he makes a small sound through his nose.'],
   ['','You know what is under there. A boot, three or four times, from the left. It has gone every colour, and in one place the skin has the print of a tread in it.'],
   K76MV('(he’s angry. look at his jaw. he’s ANGRY)','(he’s angry. look at his jaw. he’s angry)','(He’s angry. Look at his jaw. He’s angry.)','(He’s angry. Look at his jaw; he’s properly angry.)'),
-  ['','You go back over it. You kept still. You did not bleed on his sheet. You ate all of it. There is nothing left for him to be angry at except the damage, and you cannot take the damage back.'],
-  k80Gone()?['','You pull the blanket up over the ribs, to get them out of his sight.']:K76MV('i can’t fix it. sorry','i can’t fix it. i would. sorry','I can’t fix it. I would. Sorry.','I can’t fix it. I would if I could. Sorry.'),
+  ['','You go over it. They are your ribs. You are the one who was under the boot. He was not there, and it was not done to him.'],
+  k80Gone()?['','You raise your eyebrows at him: what is it to you?']:K76MV('what. they’re MY ribs','what. they’re my ribs','What. They’re my ribs.','What. They’re my ribs, not yours.'),
   ['','He puts both hands flat on the edge of the bed and leaves them there. The knuckles are white. You watch the hands. They do not come towards you, and that is all you can get out of them.'],
-  ['','Then he straps you again, so evenly that you could rule a line along it. He is angry the whole time and none of it lands. You lie awake afterwards, waiting for it to land.']],cb);
+  ['','Then he straps you again, so evenly that you could rule a line along it. He is angry the whole time and none of it lands on you. You lie awake afterwards working out whom it is for. You get as far as: somebody scuffed his goose.']],cb);
 const k84_i_snob=cb=>say([
   ['','You know him now. So when he does the hand this morning and his face does that thing again, you say so.'],
   K76MV('what. WHAT. u’ve done worse. u did eight fingers','what? you’ve done worse. you did eight fingers','What? You’ve done worse. You did eight fingers.','What? You’ve done worse than this, V. You took eight fingers off a man.'),
@@ -23579,12 +23579,12 @@ const K85S=[
  {id:'y_report',pov:'m',mode:'inj',st:'cell',t:'He asks what is broken',run:cb=>say([
    ['','The tall one has a clipboard. He asks you what is broken.'],
    ['','They asked that in the other building as well. They asked so as to know what was left.'],
-   k80Gone()?['','You point. Hand. Side. Both wrists. You open your mouth and show him the gap.']:K76MV('left hand. ribs, left. wrists. a tooth','left hand. ribs, on the left. both wrists. a tooth','Left hand. Ribs, on the left. Both wrists. A tooth.','Left hand. Ribs, on the left. Both wrists. One tooth, at the back.'),
-   ['','You give it in the order it happened, and you leave nothing out. A thing they find later that you did not declare is a thing you hid.'],
+   k80Gone()?['','You point. Hand. Side. You stop there.']:K76MV('left hand. ribs. that’s it','left hand. ribs. that’s it','Left hand. Ribs. That’s it.','Left hand. Ribs. That’s it.'),
+   ['','You give him half. You never tell the other side the whole of the damage. You leave out the wrists, which he can see for himself, and the tooth, which he cannot.'],
    ['','He writes it down. He presses so hard that the pen goes through the paper.'],
-   K76MV('(he’s making a list. lists are for working down)','(he’s making a list. lists are for working down)','(He’s making a list. Lists are for working down.)','(He’s making a list. You make a list to work down it.)'),
+   K76MV('(he’s making a list. he LOVES a list. this one’s going in the book)','(he’s making a list. he loves a list. this one is going in the book)','(He’s making a list. He loves a list. This one is going in the book.)','(He’s making a list. He loves a list. This one is going in the book.)'),
    ['','He asks how the hand was done. You tell him: a heel, twice. He writes “heel” and underlines it. The line goes through to the next sheet.'],
-   K76MV('(why’s he want HOW. what’s he going to do with how)','(why does he want how? what’s he going to do with how?)','(Why does he want how? What’s he going to do with how?)','(Why does he want to know how? What’s he going to do with how?)')],cb)},
+   K76MV('(why’s he want HOW. …he’s marking their work. he’s giving it a GRADE)','(why does he want how? …he’s marking their work. he’s giving it a grade)','(Why does he want how? …He’s marking their work. He’s giving it a grade.)','(Why does he want how? …He’s marking their work. He’s giving it a grade.)')],cb)},
  {id:'y_floss',pov:'m',mode:'inj',st:'clear',t:'The old stitches',run:cb=>say([
    ['','He is doing the dressing on your side when he stops, with his thumb on something that is not new.'],
    K76V('This was stitched before. Years ago. Who did it?'),
@@ -23648,12 +23648,12 @@ K85S.push(
      ['','It was only water. It will be three days before you can drink one without watching the door.']],cb)}}]))},
  {id:'y_ties',pov:'m',mode:'inj',st:'cell',t:'He has scissors',run:cb=>say([
    ['','The tall one comes in with a pair of scissors. Blunt-ended ones, the kind for dressings.'],
-   ['','You hold your wrists out to him, together, one crossed over the other. You do it before you have thought about it. It is how you hold them for the ties, and for the ties coming off, and the second is the better of the two.'],
-   k80Gone()?['','You keep them there, crossed, and look at the floor beside his shoe.']:K76MV('i’ll hold still','i’ll hold still','I’ll hold still.','I’ll hold still. I won’t make it hard.'),
-   ['','He looks at the crossed wrists. He puts the scissors down on the counter, very carefully, as if they had turned into something else in his hand.'],
+   ['','You go for them. It is a bad lunge, one-handed, off a mattress, and it gets about as far as his cuff. He lifts the scissors out of your reach as you would lift a glass away from a child.'],
+   k80Gone()?['','You fall back on the pillow and glare at him.']:K76MV('worth a try','worth a try','Worth a try.','Worth a try.'),
+   ['','He looks at your hand, and at the scissors. He puts them down on the counter, very carefully, at the far end.'],
    K76V('They were for the tape on your drip. I ought to have said so first.'),
-   ['','He takes one wrist in each of his hands and moves them apart, and lays them on the blanket, a foot from each other. Then he does the tape.'],
-   K76MV('(he said what they were for. they never say what it’s for. why’s he want me to know)','(he said what they were for. they never say what it’s for. why does he want me to know?)','(He said what they were for. They never say what it’s for. Why does he want me to know?)','(He said what they were for. They never say what a thing is for. Why does he want me to know?)')],cb)},
+   ['','He does the tape with his fingers, and leaves the scissors where they are, two metres off, in plain sight.'],
+   K76MV('(two metres. he’s left them two metres away. he WANTS me to count the metres)','(two metres. he has left them two metres away. he wants me to count the metres)','(Two metres. He has left them two metres away. He wants me to count the metres.)','(Two metres. He has left them two metres away. He wants me to count the metres.)')],cb)},
  {id:'z_name',pov:'m',mode:null,st:'clear',t:'Your name, in the corridor',run:cb=>say([
    ['','You hear him in the corridor, talking to somebody about the dressings. He says your name.'],
    ['','You have heard him say it before. In the server, in the lift, across a kitchen: he says it like an item, the way he would say “the doorman”. That is not how he has just said it.'],
@@ -23891,24 +23891,28 @@ k86('x2_corner','m','sa','cell','Where you sleep',[
  N('You do not sleep lying down. You sleep sitting up, in the corner where the bed meets the wall, with the blanket round you and your knees up, so that there is wall on two sides and nothing behind you.'),
  N('It is bad for the ribs. You know that. You have done the sum, and the ribs lost.'),
  N('The tall one comes in at six and finds you like that. He stands there for a while. Then he goes away, and comes back with three more pillows, and puts them on the foot of the bed where you can reach them, and goes out again.'),
- M2('(he wants me comfy. why’s he want me comfy. what’s comfy FOR)','(he wants me comfortable. why does he want me comfortable? what’s comfortable for?)'),
- N('You build the corner up with them. It is much better. You hate that it is better.')]);
+ M2('(pillows. for the goose. …no. hang on. three pillows is COVER. he’s just handed me cover)','(pillows. for the goose. …no. hang on. three pillows is cover. he has just handed me cover)'),
+ N('You build the corner up with them, as you would build a hide. From behind three pillows, with the spoon, you could make him pay for the last metre.'),
+ M2('(either he’s never been in a fight or he doesn’t think i’m one. i’ll show him which)','(either he has never been in a fight, or he doesn’t think that i am one. i’ll show him which)'),
+ N('It is also much more comfortable. You hate that.')]);
 k86('x2_dark','m','sa','cell','The light',[
- N('You ask about the light every evening. Politely. It is the one thing you ask for.'),
- Ms('can the light stay on. if that’s ok. i’ll be good','could the light stay on, please? if that’s okay. i’ll be good','You point at the light, and put your hands together.'),
+ N('You do not ask for things in here. This one you tell him, every evening.'),
+ Ms('light stays on','The light stays on.','You point at the light, and at him, and you shake your head: it stays.'),
  N('He says that it will stay on. He says it every evening in exactly the same words, and it does.'),
+ N('You tell yourself that it is the sight line. You cannot hit what you cannot see, and you would like to see him coming.'),
  N('In the dark you could not see the door. In the dark, in the other building, you only knew that the door had opened when the dark changed.'),
  M2('(don’t. don’t finish that. light’s on. look at the light)','(don’t. don’t finish that. the light’s on. look at the light)')],
  k87Pick('hitmeuppp','(The light is on.)','Finish it. Say what the dark was for.','they are not going to','Look at the light until it hurts',[
   N('You look at it until there are green holes in everything. It is still on when you stop. It is on all night.'),
-  M2('(see. fine. it’s just a light. i just like light. lots of people like light)','(see? fine. it’s just a light. i just like light. lots of people like light)')]));
+  M2('(see. it’s tactical. i need the sight line. lots of people need a sight line)','(see. it’s tactical. i need the sight line. lots of people need a sight line)')]));
 k86('x2_palms','m','sa','cell','Where he keeps his hands',[
  N('This one keeps his hands where you can see them. Always. Out from his sides, palms forward, like a man walking up to a dog that bites.'),
+ M2('(damn right i bite)','(damn right i bite)'),
  N('When he carries the tray, both hands are on the tray. When he has nothing to carry, he holds his own wrist, in front of him. He has never once put a hand in a pocket in this room.'),
- M2('(new rule. this one shows u his hands. write it down)','(new rule: this one shows you his hands. write it down)'),
- N('You try to work out what it is for. In the other building nobody showed you anything first.'),
- M2('(…so he knows. he knows what the other ones did with theirs. and he’s showing me he’s not)','(…so he knows. he knows what the other ones did with theirs, and he’s showing me that he’s not)'),
- M2('(or he’s showing me he’s not YET. that’s the same hands either way)','(or he’s showing me that he’s not yet. it’s the same hands either way)')]);
+ M2('(he’s showing me he’s unarmed. he’s got a blade in his COLLAR. liar)','(he’s showing me that he’s unarmed. he has a blade in his collar. liar)'),
+ N('You try to work out what it is really for. In the other building nobody showed you anything first.'),
+ M2('(…so he knows. he knows what the other ones did with theirs. and he’s showing me he’s not)','(…so he knows. he knows what the others did with theirs. and he’s showing me that he isn’t)'),
+ M2('(or he’s not YET. same hands either way. i’ve read what those hands do)','(or he isn’t yet. the same hands either way. i’ve read what those hands do)')]);
 k86('x2_look','m','sa','cell','The woman in the cardigan',[
  N('A woman comes. Grey cardigan, reading glasses on a cord, hands that smell of soap. She says that she would like to have a look at you, if you will let her, and that you can say no to any part of it.'),
  N('She says “any part of it” twice.'),
@@ -23916,7 +23920,7 @@ k86('x2_look','m','sa','cell','The woman in the cardigan',[
  N('She says that that is fine. She does the hand and the ribs. She does not ask again, and she does not write for very long.')],
  k87Pick('hitmeuppp','(She has put her pen down.)','Let her look.','they are not going to','Keep the blanket where it is',[
   N('She leaves a card on the counter with a telephone number on it and no name. She says that it is good for any hour.'),
-  M2('(a number. in a CELL. who am i going to call, the front desk)','(a number, in a cell. who am i going to call, the front desk?)'),
+  M2('(a number. who am i gonna call. “hi, a billionaire’s got me in his basement, he’s hired a nurse”)','(a number. who am i going to call? “hi, a billionaire has me in his basement, he’s hired a nurse”)'),
   N('You put the card down the side of the mattress, with the spoon.')]));
 k86('x2_bag','m','sa','cell','The paper bag',[
  N('The clothes you came in are in a brown paper bag on the counter, folded over at the top. You did not put them there.'),
@@ -23929,17 +23933,17 @@ k86('x2_bag','m','sa','cell','The paper bag',[
   N('He carries it out at arm’s length. Later there is a smell in the corridor, faint, of a furnace burning something that is not wood. You decide that you cannot smell it.')]));
 k86('x2_back','m','sa','cell','Which way you lie',[
  N('When you do lie down, it is on your right side, facing the door, with your back to the wall. You have not been on your back since the river.'),
- N('The drip is on the wrong side for that. The line pulls. Twice it has come out, and there has been blood on the sheet, and you have waited to be punished for the sheet.'),
+ N('The drip is on the wrong side for that. The line pulls. Twice it has come out, and there has been blood on the sheet, and you have waited for him to make something of it.'),
  N('The second time, the tall one looks at the line, and at the way you are lying, and at the wall. He does not tell you to turn over. He goes and fetches a second stand, and moves the whole drip round to the other side of the bed, where it will reach.'),
- M2('(he moved the furniture. so i wouldn’t have to turn round. who DOES that)','(he moved the furniture, so that i wouldn’t have to turn round. who does that?)'),
- M2('(somebody who wants me relaxed. don’t relax)','(somebody who wants me relaxed. don’t relax)')]);
+ M2('(he moved the furniture. so i wouldn’t have to turn my back on the door. that’s what u do for a SHOOTER)','(he moved the furniture, so that i wouldn’t have to turn my back on the door. that’s what you do for a shooter)'),
+ N('He knows what you are. He has it in a file. He has just set up your position for you, facing his own entrance, and walked out through it.'),
+ M2('(somebody who wants me relaxed. don’t relax. and don’t tell him it’s a good position)','(somebody who wants me relaxed. don’t relax. and don’t tell him that it’s a good position)')]);
 k86('x2_gap','m','sa','cell','The door, when he is in the room',[
  N('When he is in the room, the door stays open. He props it with his heel, or with the tray trolley, and he stands in the doorway, half in the corridor.'),
  N('He has never once shut himself in with you. In the other building, the first thing was always the door.'),
- M2('(he leaves it open so someone can hear. so there’s a witness. …no. so i’ve got a way out past him)','(he leaves it open so someone can hear. so there’s a witness. …no. so that i’ve got a way out past him)'),
- M2('(nobody gives u a way out. it’s so he can leave fast. that’s all. it’s for HIM)','(nobody gives you a way out. it’s so that he can leave fast. that’s all. it’s for him)'),
- N('You settle on that one. It is the only version in which he is an ordinary guard, and you need him to be an ordinary guard.')]);
-
+ M2('(he leaves it open so someone can hear. so there’s a witness. …no. so i’ve got a way out past him)','(he leaves it open so that somebody can hear. so that there’s a witness. …no. so that i have a way out past him)'),
+ M2('(nobody gives u a way out. it’s for the dogs. so they can hear HIM, if i try it)','(nobody gives you a way out. it’s for the dogs. so that they can hear him, if i try it)'),
+ N('You settle on that one. It is the version in which he is frightened of you, a little, and has brought four animals in case. You can live with that version. You nearly like it.')]);
 /* ===================================== MISAKI: CLEAR ===================================== */
 k86('x2_soap','m','sa','clear','The soap',[
  N('There is a bar of soap on the little basin. It is a good one. It smells of something: cedar, or a man’s shaving things.'),
@@ -24104,16 +24108,16 @@ k86('y2_breathe','m','inj','cell','Breathe properly',[
  N('So every hour, by the blinks of the green light, you sit up and do ten. It is like being stabbed, slowly, by someone polite.'),
  M2('(7… 8… fuck… 9… fuck fuck… 10. gold star)','(seven… eight… fuck… nine… fuck, fuck… ten. gold star)'),
  N('On the third round the tall one is in the doorway, with a sheet of paper in his hand. It has a drawing of a pair of lungs on it. He has come to teach you something, and he has found you doing it already.'),
- N('He folds the paper in half, and then in half again, and puts it in his pocket.')]);
+ N('He folds the paper in half, and then in half again, and puts it in his pocket. You give him the look that you give clients who explain rifles to you.')]);
 k86('y2_tooth','m','inj','cell','A bit of tooth',[
  N('A piece of the back tooth comes away in the soup. You find it with your tongue. It is about the size of a grain of rice.'),
- N('You do not spit it out. A thing with a piece missing is worth less, and they knock that off somewhere. You have seen what happens to goods that arrive short.'),
- M2('(keep it. if he doesn’t know it’s gone, it’s not gone)','(keep it. if he doesn’t know that it’s gone, it’s not gone)'),
+ N('You do not spit it out. He has a file on you with a page for what you eat. He is not getting a page for your teeth.'),
+ M2('(keep it. if he doesn’t know it’s gone, he can’t write it down)','(keep it. if he doesn’t know that it’s gone, he can’t write it down)'),
  N('You hold it under your tongue through the rest of the bowl. When he comes for the tray you have it in your fist, under the blanket.'),
  N('He looks at the fist. He looks at your jaw, where you are holding it wrong. He says that he would like to see what is in your hand, and that nothing will follow from it.'),
- N('You open the hand. You keep your eyes on his. This is the part where you learn what short goods cost.'),
- N('He takes the piece of tooth between finger and thumb, and holds it under the light. Then he wraps it in his handkerchief, a linen one with a letter in the corner, and puts it in his breast pocket, and goes out.'),
- M2('(he took it. he’s keeping it. what’s he keeping a tooth FOR)','(he took it. he’s keeping it. what’s he keeping a tooth for?)')]);
+ N('You open the hand. You keep your eyes on his. You have decided that if he reaches for your mouth, he loses a finger.'),
+ N('He does not reach. He takes the piece of tooth between finger and thumb, and holds it under the light. Then he wraps it in his handkerchief, a linen one with a letter in the corner, and puts it in his breast pocket, and goes out.'),
+ M2('(he took it. he’s KEEPING it. …trophies. he’s a trophy guy. i knew it. all that “justice” and he’s got a drawer)','(he took it. he’s keeping it. …trophies. he’s a trophy guy. i knew it. all that “justice,” and he has a drawer)')]);
 /* ===================================== MISAKI: CLEAR ===================================== */
 k86('y2_tour','m','inj','clear','Give him the tour of your films',[
  N('He has your films up on the lightbox, and he is standing in front of them with his arms folded, like a man in a gallery who does not care for the picture.'),
@@ -24327,7 +24331,7 @@ k86('y2_sneeze','m','inj','cell','You are going to sneeze',[
  N('You sneeze. It is the worst thing that has ever happened to anybody. The other building did not come close.'),
  Ms('FUCK. fuck. ow. fuck','FUCK. fuck. ow. fuck','You make a sound like a kettle, and then no sound at all.'),
  N('The door opens at once. The tall one is there, with one hand out, as if you had fallen.'),
- Ms('sneezed. sorry. i’ll keep it down','i sneezed. sorry. i’ll keep it down','You point at your nose, and then put a finger to your lips: you will be quieter.'),
+ Ms('sneezed. fuck off','I sneezed. Fuck off.','You point at your nose. Then you give him the finger.'),
  N('He stays in the doorway. You have taken a boot to the kidney without a sound, and he heard you swear at a sneeze, and he looks as if he does not know whether he is allowed to be relieved.')]);
 k86('y2_stitches','m','inj','clear','Take your own stitches out',[
  N('The stitches in your side are ready. You can tell; they itch, and the skin has closed. He will get to them on Thursday. It is Tuesday.'),
@@ -24397,14 +24401,14 @@ function k90N1m(cb){say([
   N('You listen to them eat. It is slow. Nobody is fighting over it; there is plenty. Something wet is pulled apart, patiently, and after a while a bone goes, with a noise like a green branch.'),
   N('Everybody in the city knows what he feeds them.'),
   M2('(one: that’s meat. two: he’s got people on a table somewhere under here. three: i had meat. an hour ago. in the bowl)','(one: that’s meat. two: he’s got people on a table somewhere under this floor. three: i had meat, an hour ago, in the bowl)'),
-  N('You had all of it. Rule three: eat everything. There were small pale cubes in the broth, very tender. You remember thinking that it was the best thing you had tasted in a week.'),
+  N('You had all of it. You were hungry. There were small pale cubes in the broth, very tender. You remember thinking that it was the first decent thing to come out of his kitchen.'),
   N('Through the wall, a hound sighs and lies down against the skirting, full.')],
  ()=>ask('hitmeuppp','(The bowl is on the counter. It is clean; you cleaned it with your finger.)',[
   {t:'Bring it up. Quietly, into the bowl',fn:()=>{S.f.e2lN1='up';save();say([
    N('You get two fingers down your throat and bring it up into the bowl, bent double over the broken ribs, with the sheet in your mouth so that the passage will not hear.'),
    N('Then you sit and look at what is in the bowl. You look for a long time. You are an assassin. You have seen the inside of a great many people, and you find that you cannot tell.'),
    M2('(can’t tell. it’s just meat. it all looks like meat. that’s the whole fucking problem with meat)','(i can’t tell. it’s just meat. it all looks like meat. that’s the whole fucking problem with meat)'),
-   N('You pour it down the drain in the floor and wash the bowl with the water from your cup. In the morning there is a tray, and you eat everything on it, because it is rule three, and because the alternative is to let him see that you know.')],cb)}},
+   N('You pour it down the drain in the floor and wash the bowl with the water from your cup. In the morning there is a tray, and you eat everything on it, looking straight at him, so that he shall not have the satisfaction of knowing that you worked it out.')],cb)}},
   {t:'Keep it down',fn:()=>{S.f.e2lN1='down';save();say([
    N('You keep it down. You lie on your right side with your knees up and your jaw shut and you keep it down, a minute at a time, for most of the night.'),
    M2('(u’ve eaten worse. u ate out of a skip for a year. it’s protein. it’s only protein)','(you’ve eaten worse. you ate out of a skip for a year. it’s protein. it’s only protein)'),
@@ -24432,22 +24436,22 @@ function k90N1v(cb){say([
 
 /* ---------- II · full story: the camera ---------- */
 function k90N2mSA(cb){say([
-  N('The woman in the cardigan comes late, with a camera. It is a plain black one, with a flash. She has a short steel ruler, and a white card with a date written on it.'),
-  N('She says that she would like to make a record of the hand and the wrists. Only those, unless you say otherwise. She says that the pictures will be sealed and numbered, and that they are yours.'),
-  N('You look at the camera. There was a camera in the other building.'),
-  N('You do not decide to do it. Your left hand comes out from under the blanket and lies down on the tray table, flat, palm to the steel, with the fingers spread as far as the breaks will let them, and the wrist turned so that the light falls across it.'),
-  N('That is how the hand goes for a photograph. Somebody arranged it like that, once, finger by finger, and told it to stay. It has remembered. It is lying there now waiting for the flash, and you are looking at it from a long way up.'),
-  N('The woman has stopped. She has the ruler in one hand and the card in the other and she is not moving at all.'),
-  K76MV('(ok. she wants the wrists. give her the wrists. turn it over)','(okay. she wants the wrists. give her the wrists. turn it over)','(Okay. She wants the wrists. Give her the wrists. Turn it over.)','(Okay. She wants the wrists, so give her the wrists. Turn the hand over.)'),
-  N('It will not turn over. It was told to stay.'),
-  N('She puts the ruler down. She asks, very evenly, whether there is anything else that ought to be in the record. She says that you may say no.')],
+  ['','The woman in the cardigan comes late, with a camera. It is a plain black one, with a flash. She has a short steel ruler, and a white card with a date written on it.'],
+  ['','She says that she would like to make a record of the hand and the wrists. Only those, unless you say otherwise. She says that the pictures will be sealed and numbered, and that they are yours.'],
+  K76MV('(a record. for who. for HIM. he’s building a file. “condition of goods on arrival”)','(a record. for whom? for him. he’s building a file. “condition of goods on arrival”)','(A record. For whom? For him. He’s building a file. “Condition of goods on arrival.”)','(A record. For whom? For him. He’s building a file. “Condition of goods on arrival.”)'),
+  ['','You know about proof. You have laid a hand on a table beside the day’s paper for a client, more than once. So you put the left one out for her, on the tray table, under the light, and you tell her to get your good side.'],
+  ['','Then you look at the camera. There was a camera in the other building.'],
+  ['','The joke goes out of your mouth like a tooth. The hand is lying on the steel where you put it, and you find that you cannot take it back. You are looking at it from a long way up.'],
+  ['','The woman has stopped. She has the ruler in one hand and the card in the other, and she is not moving at all.'],
+  K76MV('(move. it’s a nurse with a camera. MOVE)','(move. it’s a nurse with a camera. move)','(Move. It’s a nurse with a camera. Move.)','(Move. It’s a nurse with a camera. Move.)'),
+  ['','She puts the ruler down. She asks, very evenly, whether there is anything else that ought to be in the record. She says that you may say no.']],
  ()=>ask('hitmeuppp','(The hand is still lying where it was put.)',[
   k84No('Tell her what else the camera was for.'),
   {t:'“no. just the hand. take ur picture”',fn:()=>{S.f.e2lN2=1;k84Deny();save();say([
    k80Gone()?N('You shake your head. You point at the hand, once, and then you look at the wall.'):K76MV('no. just the hand. take ur picture','no. just the hand. take your picture','No. Just the hand. Take your picture.','No. Just the hand. Go on, take your picture.'),
    N('She takes four. The flash goes four times, and each time the whole room is there and then not there. In between, in the dark behind your eyes, it is a different ceiling.'),
    N('She lays the ruler beside your wrist for each one, and the card with the date. She tells you the date out loud, every time, as if the card were for you.'),
-   N('When she has gone, the hand is still flat on the table. You have to pick it up with the other one, by the cast, and put it back under the blanket, like something you had borrowed.')],cb)}}]))}
+   N('When she has gone, the hand is still flat on the table. You have to pick it up with the other one, by the cast, and put it back under the blanket. You tell the ceiling that if those pictures turn up in a ledger you will make him eat them.')],cb)}}]))}
 function k90N2vSA(cb){say([
   N('The doctor goes in at ten with the camera. You are not to be in the corridor for it. You are at the far end, by the nail where the keys hang, and the glass panel in the door is a small lit square forty feet away.'),
   N('You see the hand come out from under the blanket. It lays itself on the tray table: flat, the fingers spread, the wrist turned to the light.'),
@@ -24479,8 +24483,8 @@ function k90N2mINJ(cb){say([
   M2('(he only took the dead bit. …why’d he only take the dead bit)','(he only took the dead bit. …why did he only take the dead bit?)'),
   N('He is at the basin with his back to you, and his shoulders are going up and down. It takes you a moment to understand that he is trying not to be sick.')],
  ()=>{S.f.e2lN2=1;save();say([
-  M2('(it made him sick. i’m making him sick. that’s not good. u don’t want to be the thing that turns his stomach)','(it made him sick. i’m making him sick. that’s not good. you don’t want to be the thing that turns his stomach)'),
-  N('You pull the wrist back under the blanket, quickly, to get it out of his sight. Goods that disgust the buyer do not get kept.')],cb)})}
+  M2('(it made him SICK. the guy with the cold room. the guy who sent me forty minutes of it. he’s got a weak stomach?)','(it made him sick. the man with the cold room. the man who sent me forty minutes of it. he has a weak stomach?)'),
+  N('You look at the grey in the dish, and at his back. It does not add up. He does this for a hobby. Either it is different when the thing is alive and looking at him, or it is different when it is you, and you do not care for either answer.')],cb)})}
 function k90N2vINJ(cb){say([
   N('You take the dressing off the left wrist and the smell comes up at you. It is sweet. It is the smell of the cold room in summer, on the fourth day of a man, when the ice has not been kept up.'),
   N('It is coming from somebody who is alive, and who is watching your hands.'),
@@ -24570,8 +24574,8 @@ k86('y3_splint','m','inj','cell','Nobody has done the fingers',[
  N('It takes an hour. You stop every time there is a step in the corridor and hide the hand under your thigh.'),
  M2('(if he finds it he’ll take the spoon. if he takes the spoon they set bent. so he doesn’t find it)','(if he finds it he’ll take the spoon. if he takes the spoon they set bent. so he doesn’t find it)'),
  N('He finds it at six. He lifts the blanket to see to the drip, and there it is, and he stands looking down at a spoon tied to a hand.'),
- N('You wait for him to take it. You have the sentence ready, in the good voice: that you will not do it again.'),
- N('He lays the blanket back over the hand, exactly as it was, and goes out. When he comes back he has a proper splint, padded, and he puts it on the counter where you can reach it, and leaves you to change them over yourself. He does not touch the spoon. His face is the colour of the tile.')]);
+ N('You wait for him to take it. You have the fist ready, such as it is. That is your trigger finger, and he is not having it set bent.'),
+ N('He lays the blanket back over the hand, exactly as it was, and goes out. When he comes back he has a proper splint, padded, and he puts it on the counter where you can reach it, and leaves you to change them over yourself. He does not touch the spoon. His face is the colour of the tile. He has just splinted the finger that you mean to shoot him with, and you cannot tell whether he has worked that out.')]);
 k86('y3_number','m','inj','cell','Out of ten',[
  N('He asks you to put a number to the pain, out of ten.'),
  N('It is a trap, and an old one. Say high and they know where to press. Say low and they think you have something left.'),
@@ -24586,7 +24590,7 @@ k86('y3_blood','m','inj','cell','There is blood when you go',[
  N('You know what that is. A kidney took a boot. Pink is a bruise; red is a split. It clears in three days if you drink. You have had it twice, and the first time, at eleven, you thought that you were dying and told nobody, because whoever you told would have had to pay for a doctor.'),
  N('He will see the pan. He sees everything. So either he sees it and you said nothing, or you say.'),
  Ms('there’s blood. it’s the kidney. it stops if i get water','there’s blood. it’s the kidney. it stops if i get water','You tilt the pan towards him, and look at the floor.'),
- N('You say it to his shoes. You are asking a man who means to kill you for a glass of water so that you will be in better condition when he does it. You are aware of how that sounds.'),
+ N('You say it flat, as you would report damage on a truck. You are asking the man who means to kill you for a glass of water, so that you will be in better condition when he does it. You are aware of how that sounds.'),
  N('He brings a jug. He fills the glass himself, and his hand shakes on the jug, and some of it goes on the counter.'),
  M2('(he’s shaking. he’s angry about the pan. he wanted me whole)','(he’s shaking. he’s angry about the pan. he wanted me whole)')]);
 /* ---------- Misaki, clear ---------- */
@@ -25645,7 +25649,7 @@ const K94_M=[
  cb=>say([
   N('You want it over. You are tired. You have been ready for nine days, counting the other building, and nobody can stay ready for that long.'),
   N('He wrote slow. He showed you. So it is coming, and every hour that it does not come is an hour of lying here with your jaw set. You have begun to think that the waiting is the first part of it. That it has already started, and this is what it is.'),
-  M2('(just DO it. come in and do it. i’ll hold still. i’ve got a place to go, i’ve got the roof)','(just do it. come in and do it. i’ll hold still. i’ve got a place to go; i’ve got the roof)'),
+  M2('(just DO it. come in and do it. get it over. i’ve got a place to go, i’ve got the roof)','(just do it. come in and do it. get it over. i’ve got a place to go; i’ve got the roof)'),
   N('You mean it. You lie there meaning it for an hour. It would be a relief; you would know where you were.'),
   N('Then there are steps in the corridor. Hard soles, coming on, not hurrying.'),
   N('Everything in you gets up at once. Your heart is going like something in a trap. You do not want it. You do not want it today. You have rent due, and a cactus, and you never saw the coast.'),
@@ -25659,7 +25663,7 @@ const K94_M=[
   N('It is thin. You can find the words. “Ur honour.” “A car park.” You can remember saying them. But the heat that was under them has gone somewhere, and what is left is like the outline of a thing on a wall after it has been taken down.'),
   M2('(he’s a rich hypocrite who cuts people up and calls it law. come on. COME ON. u know this one)','(he’s a rich hypocrite who cuts people up and calls it law. come on. come on. you know this one)'),
   N('You do know it. It is all true. It will not catch. It is hard to hate a man properly when you are lying down, and he is the one with the water.'),
-  N('That frightens you more than the table. If the hatred goes, then he has had that as well. Then there is nobody left in here but the one who says thank you, and that one would walk down to the cold room on its own feet and ask where to lie.'),
+  N('That frightens you more than the table. If the hatred goes, then he has had that as well. Then there is nobody left in here but a person in a bed, and a person in a bed is only meat that has not been cubed yet.'),
   M2('(keep it. i don’t care if it’s fake. say it till it’s real. ur honour. ur honour. i’m going to kill u somewhere stupid)','(keep it. i don’t care if it’s fake. say it until it’s real. your honour. your honour. i’m going to kill you somewhere stupid)'),
   N('You say it, under your breath, to the green light, forty times. It is the nearest thing that you have to a prayer. You are asking to be allowed to go on wanting him dead.')],cb)];
 const K94_X=[
@@ -26472,6 +26476,76 @@ const _xe96=extraEnding;extraEnding=function(){const L=_xe96();try{if(!S||!S.f||
  if(F.q_asleep)L.push('Drugged, with a fever, Misaki read the case against V out to the ceiling. He wrote it at the back of the chart and initialled it as received.');
  if(F.q_cactus)L.push('V had the run of Misaki’s trailer, the rifle and the client list. He took the cereal and watered the cactus.')}catch(e){}return L};
 /* ===KC96-END=== */
+
+/* ===KC97-BEGIN=== */
+/* ===================== THE WAR: THE WORST OF IT (kc97) =====================
+   The worst route (kc49–kc52: infirmary severity 8+, Misaki's POV, the delusion does not clear by itself) shows a
+   short scene from inside Misaki's head each morning, chosen by composure band (KD_MIND). Those were written for the
+   normal route, where the person they are losing hold of is somebody they love. On the enemies route the tall one
+   is K9, who swore to kill them, and what they are losing hold of is the war. This module gives the route its own
+   set, in kc95's characterization: twelve scenes, three a band.
+     hold  (composure 22+)  the kit and the list; a dog guy's basement; the case against him, all of it
+     fray  (14+)            the list is a line short; the insults are getting fewer; whose soup
+     thin  (7+)             somebody else's grudge; the rent receipt; his step, and nothing gets up
+     gone                   facing the wall; the kid on the bench; “somewhere stupid”
+   Delivery: an outer wrap of hub that plays the route's scene and marks the day, so that kc51's does not.
+   NOT changed, on purpose: the spiral, the bright turn and what follows (kc50–kc52). Those scenes are about a death
+   and were written with great care; they should be redone by the author, or with the author, and not re-voiced
+   into bravado. On the enemies route they still play as written.
+   Rules: unnamed city, hounds unnamed, no new named characters, Misaki via MV and they/them. No method, ever.
+   Notes: docs/notes_kc96.md. Test: node tools/k97_test.js */
+const K97=()=>{try{return typeof K96==='function'&&K96()}catch(e){return false}};
+const K97_MIND={
+ hold:[
+  [N('You wake up and do your inventory before you open your eyes. Hands: one and a half. Feet. Name. The spoon, down the side of the mattress. The list.'),
+   M2('(one: four steps, door to bed. two: the lamp arm. three: collar, left side. still got it. that’s a good morning, in here)','(one: four steps, door to bed. two: the lamp arm. three: the collar, left side. still got it. that’s a good morning, in here)'),
+   N('He has not done it yet. He is slow. It is the one thing that everybody in the city knows about him, and you are going to use every day of it.')],
+  [N('You make yourself do the exercise you did at fourteen, in the first room you were ever in with a lock on the outside. Five things you can see. Bulb. Door. Tray. Your own knees. A crack in the ceiling shaped like a hound.'),
+   M2('(a hound. why’s everything in here look like a hound. …bc it’s a dog guy’s basement, dumbass)','(a hound. why does everything in here look like a hound? …because it’s a dog guy’s basement, dumbass)'),
+   N('Four of them, and they eat what he gives them. You have decided that you will not be given. If it comes to that, you will make such a mess of the room that there is nothing fit for a bucket.')],
+  [N('You go through the case against him, to keep it sharp. You do it every morning, as you would strip a rifle.'),
+   M2('(rich. smug. nobody asked him. cuts up broke psychos in a basement and calls it law. put a camera in my smoke alarm. his soup)','(rich. smug. nobody asked him. cuts up broke psychos in a basement and calls it law. put a camera in my smoke alarm. his soup)'),
+   N('It is all there. You could say it in your sleep. You are fairly sure that you do, because some mornings he comes in looking as if he had been called something.')]],
+ fray:[
+  [N('You lose time in the afternoon. One minute the light is bright, the next it is dark, and the soup on the tray has a skin on it.'),
+   N('You go straight to the list. Four steps. The lamp arm. Then there is a third one, and you had it this morning, and it has a place on him in it.'),
+   M2('(four steps. lamp. …four steps. lamp. come ON. it’s where he keeps the — it’s on the LEFT)','(four steps. the lamp. …four steps. the lamp. come on. it’s where he keeps the — it’s on the left)'),
+   N('You get it back after an hour. The collar. You are so relieved that you nearly cry, and then you are frightened, because you have just spent an hour unable to remember how you meant to kill a man.')],
+  [N('You catch yourself saying it out loud, to nobody. The case. “Rich. Smug.”'),
+   N('That is as far as it goes. There were six. You had six this morning; you count them every morning. You stand at the edge of “smug” and there is nothing after it.'),
+   M2('(nobody asked him. NOBODY ASKED HIM. there. three. …what’s four)','(nobody asked him. nobody asked him. there. three. …what’s four?)'),
+   N('On the other side of the door, somebody has stopped walking. He is listening to you run out of reasons to hate him. You would give your good hand for him not to have heard that.')],
+  [N('You eat the soup, and it is fine.'),
+   N('You put the spoon down. It has never been fine. It is the worst soup in the city; you have said so; it is on the list of things that you were going to tell him at the end.'),
+   M2('(either he’s got better or i’ve got worse. he hasn’t got better)','(either he has got better or i’ve got worse. he hasn’t got better)'),
+   N('You cannot taste what was wrong with it. The burned onion is gone. You sit and look at the bowl, and understand that the room is taking things off you in order of size, and has got down to the onion.')]],
+ thin:[
+  [N('You cannot remember why you hate him.'),
+   N('You know the facts. A card man, behind a bowling alley. A file. A book with your name in it. You can say them. They are like a grudge that somebody else told you about, a long time ago, at a party.'),
+   M2('(u need it. u NEED it. it’s the only thing holding the roof up)','(you need it. you need it. it’s the only thing holding the roof up)'),
+   N('You try being angry about the camera in the smoke alarm. It was a good one; it used to work every time. You get a small, tired flicker, like a pilot light, and you sit round it with both hands.')],
+  [N('You do not eat. It is not to make a point. You cannot remember the reason that people do it.'),
+   N('You think about the trailer. The rent receipt, in your back pocket: PAID. You were so pleased with that receipt. You were going to walk into a bowling alley and slap it down in front of a billionaire and say: see? Somebody like me. On time.'),
+   N('You cannot now see why it mattered what he thought. That frightens you more than the bulb does. You have spent since April caring very much what that man thought, and it was the best fun you ever had.')],
+  [N('There are his shoes in the passage. Hard soles, coming on, not hurrying.'),
+   N('Nothing gets up. That is new. Every time until now your whole body has stood to: the spoon, the list, the count of his steps. You wait for it.'),
+   M2('(four steps. …so? four steps. and?)','(four steps. …so? four steps. and?)'),
+   N('He comes in with the tray. He looks at you, and at your hands, which are lying open on the blanket with nothing in them. You have had some bad looks from him. You have never had that one. He looks like a man who has come to a fight and found the other side gone home.')]],
+ gone:[
+  [N('You do not do the inventory. There is no point counting things.'),
+   N('You lie on your side facing the wall. You have never done that in your life, in any room. You have always faced the door. A person faces the door so as to see it coming, and you find that you do not much want to see it.'),
+   N('On the other side of the door the shoes stop. He stands there for a long time. He has noticed which way you are facing. You think, without any heat, that it must be annoying for him: all that law, and nobody left to read it to.')],
+  [N('You think about the kid who did the sums on a station bench at sixteen and gave themself five years.'),
+   N('You think that they would be disappointed. Then you think that they would not; they would nod. They had every way it could go worked out, and done in a basement by a rich man, for free, was about halfway down the page.'),
+   M2('(u were right. five years and some extra. …i got a truck, tho. and a cactus. u didn’t have those on the sheet)','(you were right. five years and some extra. …i got a truck, though. and a cactus. you didn’t have those on the sheet)')],
+  [N('You swore it in front of everybody. Somewhere stupid. A car park.'),
+   N('It is the only thing that you are still sorry about. You are not sorry about the doorman, or the driver, or any of it; you have looked, and it is too late to start. But you gave your word on that one, loudly, with your whole chest, and you are not going to keep it.'),
+   M2('(sorry, ur honour. looks like u get to live. don’t let it go to ur head)','(sorry, your honour. it looks as if you get to live. don’t let it go to your head)'),
+   N('You say it to the wall. It is the last joke that you have, and nobody is in the room, and you find that you would have liked him to hear it.')]]};
+const k97Mind=()=>{try{if(!K97()||typeof kdWR!=='function'||!kdWR()||kdClar()>=2||dlg||S.f.kdMindDay===S.day)return null;
+ const b=typeof kdBand==='function'?kdBand():'hold',A=K97_MIND[b]||K97_MIND.hold;return A[(S.kd.med.d||0)%A.length]}catch(e){return null}};
+const _hub97=hub;hub=function(){const a=arguments,self=this;try{const L=k97Mind();if(L){S.f.kdMindDay=S.day;S.f.e2l97=(S.f.e2l97||0)+1;save();go(cutBg('#0c0a08'));return say(L,()=>_hub97.apply(self,a))}}catch(e){}return _hub97.apply(self,a)};
+/* ===KC97-END=== */
 
 /* ===================== kc99: last module — topic sync =====================
    Several modules push talk topics onto TDTOP_V/TDTOP_M only; the talk menu reads TOPICS_V/TOPICS_M.

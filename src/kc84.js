@@ -111,19 +111,19 @@ const k84_s_vent=cb=>say([
 const k84_i_wrists=cb=>say([
   ['','The tall one has a bowl, a bottle and a pair of tweezers. He is going to do the wrists, where the ties went through.'],
   ['','He starts at the top. That is wrong. If the edge is left, it seals over dirty and goes bad inside a week. You had that at eleven. You remember the smell.'],
-  K76MV('(don’t. u don’t correct them. u NEVER correct them)','(don’t. you don’t correct them. you never correct them)','(Don’t. You don’t correct them. You never correct them.)','(Don’t. You don’t correct them. You never, ever correct them.)'),
-  ['','He is going to do it wrong, and in a week it will be your arm. You weigh the two. It takes most of a minute to decide that the arm is worth being hit for.'],
-  k80Gone()?['','You touch the edge of the wound with one finger. Then you pull the hand back and wait for it.']:K76MV('under the edge. sorry. it goes bad if u don’t. sorry','under the edge. sorry. it goes bad if you don’t. sorry','Under the edge. Sorry. It goes bad if you don’t. Sorry.','Under the edge. Sorry. It goes bad if you don’t go under. Sorry.'),
-  ['','You shut your eyes for what comes next. Nothing comes. When you open them he is holding the tweezers in the air, and he looks as if he is going to be sick into the bowl.'],
-  ['','He does it your way, and does not speak. You have never met a guard who could be told. You like him less for it; the ones you can predict are the safe ones.']],cb);
+  K76MV('(he’s doing it WRONG. the great k9. forty-one people and he can’t clean a wound)','(he’s doing it wrong. the great k9. forty-one people, and he can’t clean a wound)','(He’s doing it wrong. The great K9. Forty-one people, and he can’t clean a wound.)','(He’s doing it wrong. The great K9. Forty-one people, and he can’t clean a wound.)'),
+  ['','He is going to do it wrong, and in a week it will be your arm. You do not help the man who has you in a book. You weigh that against the arm, and the arm wins; you need it to kill him with.'],
+  k80Gone()?['','You jab one finger at the edge of the wound, and look at him as you would at an apprentice.']:K76MV('under the edge, genius. it goes bad if u don’t','under the edge, genius. it goes bad if you don’t','Under the edge, genius. It goes bad if you don’t.','Under the edge, genius. It goes bad if you don’t.'),
+  ['','You wait for what that costs. Nothing comes. He is holding the tweezers in the air, and he looks as if he is going to be sick into the bowl.'],
+  ['','He does it your way, and does not speak. It will not fit. That man has never been wrong in his life; he said so, in a bowling alley, at length. And he has just taken instruction from the help.']],cb);
 const k84_i_careful=cb=>say([
   ['','He cuts the old strapping off the ribs. When it comes away he makes a small sound through his nose.'],
   ['','You know what is under there. A boot, three or four times, from the left. It has gone every colour, and in one place the skin has the print of a tread in it.'],
   K76MV('(he’s angry. look at his jaw. he’s ANGRY)','(he’s angry. look at his jaw. he’s angry)','(He’s angry. Look at his jaw. He’s angry.)','(He’s angry. Look at his jaw; he’s properly angry.)'),
-  ['','You go back over it. You kept still. You did not bleed on his sheet. You ate all of it. There is nothing left for him to be angry at except the damage, and you cannot take the damage back.'],
-  k80Gone()?['','You pull the blanket up over the ribs, to get them out of his sight.']:K76MV('i can’t fix it. sorry','i can’t fix it. i would. sorry','I can’t fix it. I would. Sorry.','I can’t fix it. I would if I could. Sorry.'),
+  ['','You go over it. They are your ribs. You are the one who was under the boot. He was not there, and it was not done to him.'],
+  k80Gone()?['','You raise your eyebrows at him: what is it to you?']:K76MV('what. they’re MY ribs','what. they’re my ribs','What. They’re my ribs.','What. They’re my ribs, not yours.'),
   ['','He puts both hands flat on the edge of the bed and leaves them there. The knuckles are white. You watch the hands. They do not come towards you, and that is all you can get out of them.'],
-  ['','Then he straps you again, so evenly that you could rule a line along it. He is angry the whole time and none of it lands. You lie awake afterwards, waiting for it to land.']],cb);
+  ['','Then he straps you again, so evenly that you could rule a line along it. He is angry the whole time and none of it lands on you. You lie awake afterwards working out whom it is for. You get as far as: somebody scuffed his goose.']],cb);
 const k84_i_snob=cb=>say([
   ['','You know him now. So when he does the hand this morning and his face does that thing again, you say so.'],
   K76MV('what. WHAT. u’ve done worse. u did eight fingers','what? you’ve done worse. you did eight fingers','What? You’ve done worse. You did eight fingers.','What? You’ve done worse than this, V. You took eight fingers off a man.'),

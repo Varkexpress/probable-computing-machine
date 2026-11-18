@@ -20,24 +20,28 @@ k86('x2_corner','m','sa','cell','Where you sleep',[
  N('You do not sleep lying down. You sleep sitting up, in the corner where the bed meets the wall, with the blanket round you and your knees up, so that there is wall on two sides and nothing behind you.'),
  N('It is bad for the ribs. You know that. You have done the sum, and the ribs lost.'),
  N('The tall one comes in at six and finds you like that. He stands there for a while. Then he goes away, and comes back with three more pillows, and puts them on the foot of the bed where you can reach them, and goes out again.'),
- M2('(he wants me comfy. why’s he want me comfy. what’s comfy FOR)','(he wants me comfortable. why does he want me comfortable? what’s comfortable for?)'),
- N('You build the corner up with them. It is much better. You hate that it is better.')]);
+ M2('(pillows. for the goose. …no. hang on. three pillows is COVER. he’s just handed me cover)','(pillows. for the goose. …no. hang on. three pillows is cover. he has just handed me cover)'),
+ N('You build the corner up with them, as you would build a hide. From behind three pillows, with the spoon, you could make him pay for the last metre.'),
+ M2('(either he’s never been in a fight or he doesn’t think i’m one. i’ll show him which)','(either he has never been in a fight, or he doesn’t think that i am one. i’ll show him which)'),
+ N('It is also much more comfortable. You hate that.')]);
 k86('x2_dark','m','sa','cell','The light',[
- N('You ask about the light every evening. Politely. It is the one thing you ask for.'),
- Ms('can the light stay on. if that’s ok. i’ll be good','could the light stay on, please? if that’s okay. i’ll be good','You point at the light, and put your hands together.'),
+ N('You do not ask for things in here. This one you tell him, every evening.'),
+ Ms('light stays on','The light stays on.','You point at the light, and at him, and you shake your head: it stays.'),
  N('He says that it will stay on. He says it every evening in exactly the same words, and it does.'),
+ N('You tell yourself that it is the sight line. You cannot hit what you cannot see, and you would like to see him coming.'),
  N('In the dark you could not see the door. In the dark, in the other building, you only knew that the door had opened when the dark changed.'),
  M2('(don’t. don’t finish that. light’s on. look at the light)','(don’t. don’t finish that. the light’s on. look at the light)')],
  k87Pick('hitmeuppp','(The light is on.)','Finish it. Say what the dark was for.','they are not going to','Look at the light until it hurts',[
   N('You look at it until there are green holes in everything. It is still on when you stop. It is on all night.'),
-  M2('(see. fine. it’s just a light. i just like light. lots of people like light)','(see? fine. it’s just a light. i just like light. lots of people like light)')]));
+  M2('(see. it’s tactical. i need the sight line. lots of people need a sight line)','(see. it’s tactical. i need the sight line. lots of people need a sight line)')]));
 k86('x2_palms','m','sa','cell','Where he keeps his hands',[
  N('This one keeps his hands where you can see them. Always. Out from his sides, palms forward, like a man walking up to a dog that bites.'),
+ M2('(damn right i bite)','(damn right i bite)'),
  N('When he carries the tray, both hands are on the tray. When he has nothing to carry, he holds his own wrist, in front of him. He has never once put a hand in a pocket in this room.'),
- M2('(new rule. this one shows u his hands. write it down)','(new rule: this one shows you his hands. write it down)'),
- N('You try to work out what it is for. In the other building nobody showed you anything first.'),
- M2('(…so he knows. he knows what the other ones did with theirs. and he’s showing me he’s not)','(…so he knows. he knows what the other ones did with theirs, and he’s showing me that he’s not)'),
- M2('(or he’s showing me he’s not YET. that’s the same hands either way)','(or he’s showing me that he’s not yet. it’s the same hands either way)')]);
+ M2('(he’s showing me he’s unarmed. he’s got a blade in his COLLAR. liar)','(he’s showing me that he’s unarmed. he has a blade in his collar. liar)'),
+ N('You try to work out what it is really for. In the other building nobody showed you anything first.'),
+ M2('(…so he knows. he knows what the other ones did with theirs. and he’s showing me he’s not)','(…so he knows. he knows what the others did with theirs. and he’s showing me that he isn’t)'),
+ M2('(or he’s not YET. same hands either way. i’ve read what those hands do)','(or he isn’t yet. the same hands either way. i’ve read what those hands do)')]);
 k86('x2_look','m','sa','cell','The woman in the cardigan',[
  N('A woman comes. Grey cardigan, reading glasses on a cord, hands that smell of soap. She says that she would like to have a look at you, if you will let her, and that you can say no to any part of it.'),
  N('She says “any part of it” twice.'),
@@ -45,7 +49,7 @@ k86('x2_look','m','sa','cell','The woman in the cardigan',[
  N('She says that that is fine. She does the hand and the ribs. She does not ask again, and she does not write for very long.')],
  k87Pick('hitmeuppp','(She has put her pen down.)','Let her look.','they are not going to','Keep the blanket where it is',[
   N('She leaves a card on the counter with a telephone number on it and no name. She says that it is good for any hour.'),
-  M2('(a number. in a CELL. who am i going to call, the front desk)','(a number, in a cell. who am i going to call, the front desk?)'),
+  M2('(a number. who am i gonna call. “hi, a billionaire’s got me in his basement, he’s hired a nurse”)','(a number. who am i going to call? “hi, a billionaire has me in his basement, he’s hired a nurse”)'),
   N('You put the card down the side of the mattress, with the spoon.')]));
 k86('x2_bag','m','sa','cell','The paper bag',[
  N('The clothes you came in are in a brown paper bag on the counter, folded over at the top. You did not put them there.'),
@@ -58,17 +62,17 @@ k86('x2_bag','m','sa','cell','The paper bag',[
   N('He carries it out at arm’s length. Later there is a smell in the corridor, faint, of a furnace burning something that is not wood. You decide that you cannot smell it.')]));
 k86('x2_back','m','sa','cell','Which way you lie',[
  N('When you do lie down, it is on your right side, facing the door, with your back to the wall. You have not been on your back since the river.'),
- N('The drip is on the wrong side for that. The line pulls. Twice it has come out, and there has been blood on the sheet, and you have waited to be punished for the sheet.'),
+ N('The drip is on the wrong side for that. The line pulls. Twice it has come out, and there has been blood on the sheet, and you have waited for him to make something of it.'),
  N('The second time, the tall one looks at the line, and at the way you are lying, and at the wall. He does not tell you to turn over. He goes and fetches a second stand, and moves the whole drip round to the other side of the bed, where it will reach.'),
- M2('(he moved the furniture. so i wouldn’t have to turn round. who DOES that)','(he moved the furniture, so that i wouldn’t have to turn round. who does that?)'),
- M2('(somebody who wants me relaxed. don’t relax)','(somebody who wants me relaxed. don’t relax)')]);
+ M2('(he moved the furniture. so i wouldn’t have to turn my back on the door. that’s what u do for a SHOOTER)','(he moved the furniture, so that i wouldn’t have to turn my back on the door. that’s what you do for a shooter)'),
+ N('He knows what you are. He has it in a file. He has just set up your position for you, facing his own entrance, and walked out through it.'),
+ M2('(somebody who wants me relaxed. don’t relax. and don’t tell him it’s a good position)','(somebody who wants me relaxed. don’t relax. and don’t tell him that it’s a good position)')]);
 k86('x2_gap','m','sa','cell','The door, when he is in the room',[
  N('When he is in the room, the door stays open. He props it with his heel, or with the tray trolley, and he stands in the doorway, half in the corridor.'),
  N('He has never once shut himself in with you. In the other building, the first thing was always the door.'),
- M2('(he leaves it open so someone can hear. so there’s a witness. …no. so i’ve got a way out past him)','(he leaves it open so someone can hear. so there’s a witness. …no. so that i’ve got a way out past him)'),
- M2('(nobody gives u a way out. it’s so he can leave fast. that’s all. it’s for HIM)','(nobody gives you a way out. it’s so that he can leave fast. that’s all. it’s for him)'),
- N('You settle on that one. It is the only version in which he is an ordinary guard, and you need him to be an ordinary guard.')]);
-
+ M2('(he leaves it open so someone can hear. so there’s a witness. …no. so i’ve got a way out past him)','(he leaves it open so that somebody can hear. so that there’s a witness. …no. so that i have a way out past him)'),
+ M2('(nobody gives u a way out. it’s for the dogs. so they can hear HIM, if i try it)','(nobody gives you a way out. it’s for the dogs. so that they can hear him, if i try it)'),
+ N('You settle on that one. It is the version in which he is frightened of you, a little, and has brought four animals in case. You can live with that version. You nearly like it.')]);
 /* ===================================== MISAKI: CLEAR ===================================== */
 k86('x2_soap','m','sa','clear','The soap',[
  N('There is a bar of soap on the little basin. It is a good one. It smells of something: cedar, or a man’s shaving things.'),

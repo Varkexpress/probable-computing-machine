@@ -19,16 +19,16 @@ k86('y2_breathe','m','inj','cell','Breathe properly',[
  N('So every hour, by the blinks of the green light, you sit up and do ten. It is like being stabbed, slowly, by someone polite.'),
  M2('(7… 8… fuck… 9… fuck fuck… 10. gold star)','(seven… eight… fuck… nine… fuck, fuck… ten. gold star)'),
  N('On the third round the tall one is in the doorway, with a sheet of paper in his hand. It has a drawing of a pair of lungs on it. He has come to teach you something, and he has found you doing it already.'),
- N('He folds the paper in half, and then in half again, and puts it in his pocket.')]);
+ N('He folds the paper in half, and then in half again, and puts it in his pocket. You give him the look that you give clients who explain rifles to you.')]);
 k86('y2_tooth','m','inj','cell','A bit of tooth',[
  N('A piece of the back tooth comes away in the soup. You find it with your tongue. It is about the size of a grain of rice.'),
- N('You do not spit it out. A thing with a piece missing is worth less, and they knock that off somewhere. You have seen what happens to goods that arrive short.'),
- M2('(keep it. if he doesn’t know it’s gone, it’s not gone)','(keep it. if he doesn’t know that it’s gone, it’s not gone)'),
+ N('You do not spit it out. He has a file on you with a page for what you eat. He is not getting a page for your teeth.'),
+ M2('(keep it. if he doesn’t know it’s gone, he can’t write it down)','(keep it. if he doesn’t know that it’s gone, he can’t write it down)'),
  N('You hold it under your tongue through the rest of the bowl. When he comes for the tray you have it in your fist, under the blanket.'),
  N('He looks at the fist. He looks at your jaw, where you are holding it wrong. He says that he would like to see what is in your hand, and that nothing will follow from it.'),
- N('You open the hand. You keep your eyes on his. This is the part where you learn what short goods cost.'),
- N('He takes the piece of tooth between finger and thumb, and holds it under the light. Then he wraps it in his handkerchief, a linen one with a letter in the corner, and puts it in his breast pocket, and goes out.'),
- M2('(he took it. he’s keeping it. what’s he keeping a tooth FOR)','(he took it. he’s keeping it. what’s he keeping a tooth for?)')]);
+ N('You open the hand. You keep your eyes on his. You have decided that if he reaches for your mouth, he loses a finger.'),
+ N('He does not reach. He takes the piece of tooth between finger and thumb, and holds it under the light. Then he wraps it in his handkerchief, a linen one with a letter in the corner, and puts it in his breast pocket, and goes out.'),
+ M2('(he took it. he’s KEEPING it. …trophies. he’s a trophy guy. i knew it. all that “justice” and he’s got a drawer)','(he took it. he’s keeping it. …trophies. he’s a trophy guy. i knew it. all that “justice,” and he has a drawer)')]);
 /* ===================================== MISAKI: CLEAR ===================================== */
 k86('y2_tour','m','inj','clear','Give him the tour of your films',[
  N('He has your films up on the lightbox, and he is standing in front of them with his arms folded, like a man in a gallery who does not care for the picture.'),

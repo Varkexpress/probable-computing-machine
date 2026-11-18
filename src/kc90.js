@@ -34,14 +34,14 @@ function k90N1m(cb){say([
   N('You listen to them eat. It is slow. Nobody is fighting over it; there is plenty. Something wet is pulled apart, patiently, and after a while a bone goes, with a noise like a green branch.'),
   N('Everybody in the city knows what he feeds them.'),
   M2('(one: that’s meat. two: he’s got people on a table somewhere under here. three: i had meat. an hour ago. in the bowl)','(one: that’s meat. two: he’s got people on a table somewhere under this floor. three: i had meat, an hour ago, in the bowl)'),
-  N('You had all of it. Rule three: eat everything. There were small pale cubes in the broth, very tender. You remember thinking that it was the best thing you had tasted in a week.'),
+  N('You had all of it. You were hungry. There were small pale cubes in the broth, very tender. You remember thinking that it was the first decent thing to come out of his kitchen.'),
   N('Through the wall, a hound sighs and lies down against the skirting, full.')],
  ()=>ask('hitmeuppp','(The bowl is on the counter. It is clean; you cleaned it with your finger.)',[
   {t:'Bring it up. Quietly, into the bowl',fn:()=>{S.f.e2lN1='up';save();say([
    N('You get two fingers down your throat and bring it up into the bowl, bent double over the broken ribs, with the sheet in your mouth so that the passage will not hear.'),
    N('Then you sit and look at what is in the bowl. You look for a long time. You are an assassin. You have seen the inside of a great many people, and you find that you cannot tell.'),
    M2('(can’t tell. it’s just meat. it all looks like meat. that’s the whole fucking problem with meat)','(i can’t tell. it’s just meat. it all looks like meat. that’s the whole fucking problem with meat)'),
-   N('You pour it down the drain in the floor and wash the bowl with the water from your cup. In the morning there is a tray, and you eat everything on it, because it is rule three, and because the alternative is to let him see that you know.')],cb)}},
+   N('You pour it down the drain in the floor and wash the bowl with the water from your cup. In the morning there is a tray, and you eat everything on it, looking straight at him, so that he shall not have the satisfaction of knowing that you worked it out.')],cb)}},
   {t:'Keep it down',fn:()=>{S.f.e2lN1='down';save();say([
    N('You keep it down. You lie on your right side with your knees up and your jaw shut and you keep it down, a minute at a time, for most of the night.'),
    M2('(u’ve eaten worse. u ate out of a skip for a year. it’s protein. it’s only protein)','(you’ve eaten worse. you ate out of a skip for a year. it’s protein. it’s only protein)'),
@@ -69,22 +69,22 @@ function k90N1v(cb){say([
 
 /* ---------- II · full story: the camera ---------- */
 function k90N2mSA(cb){say([
-  N('The woman in the cardigan comes late, with a camera. It is a plain black one, with a flash. She has a short steel ruler, and a white card with a date written on it.'),
-  N('She says that she would like to make a record of the hand and the wrists. Only those, unless you say otherwise. She says that the pictures will be sealed and numbered, and that they are yours.'),
-  N('You look at the camera. There was a camera in the other building.'),
-  N('You do not decide to do it. Your left hand comes out from under the blanket and lies down on the tray table, flat, palm to the steel, with the fingers spread as far as the breaks will let them, and the wrist turned so that the light falls across it.'),
-  N('That is how the hand goes for a photograph. Somebody arranged it like that, once, finger by finger, and told it to stay. It has remembered. It is lying there now waiting for the flash, and you are looking at it from a long way up.'),
-  N('The woman has stopped. She has the ruler in one hand and the card in the other and she is not moving at all.'),
-  K76MV('(ok. she wants the wrists. give her the wrists. turn it over)','(okay. she wants the wrists. give her the wrists. turn it over)','(Okay. She wants the wrists. Give her the wrists. Turn it over.)','(Okay. She wants the wrists, so give her the wrists. Turn the hand over.)'),
-  N('It will not turn over. It was told to stay.'),
-  N('She puts the ruler down. She asks, very evenly, whether there is anything else that ought to be in the record. She says that you may say no.')],
+  ['','The woman in the cardigan comes late, with a camera. It is a plain black one, with a flash. She has a short steel ruler, and a white card with a date written on it.'],
+  ['','She says that she would like to make a record of the hand and the wrists. Only those, unless you say otherwise. She says that the pictures will be sealed and numbered, and that they are yours.'],
+  K76MV('(a record. for who. for HIM. he’s building a file. “condition of goods on arrival”)','(a record. for whom? for him. he’s building a file. “condition of goods on arrival”)','(A record. For whom? For him. He’s building a file. “Condition of goods on arrival.”)','(A record. For whom? For him. He’s building a file. “Condition of goods on arrival.”)'),
+  ['','You know about proof. You have laid a hand on a table beside the day’s paper for a client, more than once. So you put the left one out for her, on the tray table, under the light, and you tell her to get your good side.'],
+  ['','Then you look at the camera. There was a camera in the other building.'],
+  ['','The joke goes out of your mouth like a tooth. The hand is lying on the steel where you put it, and you find that you cannot take it back. You are looking at it from a long way up.'],
+  ['','The woman has stopped. She has the ruler in one hand and the card in the other, and she is not moving at all.'],
+  K76MV('(move. it’s a nurse with a camera. MOVE)','(move. it’s a nurse with a camera. move)','(Move. It’s a nurse with a camera. Move.)','(Move. It’s a nurse with a camera. Move.)'),
+  ['','She puts the ruler down. She asks, very evenly, whether there is anything else that ought to be in the record. She says that you may say no.']],
  ()=>ask('hitmeuppp','(The hand is still lying where it was put.)',[
   k84No('Tell her what else the camera was for.'),
   {t:'“no. just the hand. take ur picture”',fn:()=>{S.f.e2lN2=1;k84Deny();save();say([
    k80Gone()?N('You shake your head. You point at the hand, once, and then you look at the wall.'):K76MV('no. just the hand. take ur picture','no. just the hand. take your picture','No. Just the hand. Take your picture.','No. Just the hand. Go on, take your picture.'),
    N('She takes four. The flash goes four times, and each time the whole room is there and then not there. In between, in the dark behind your eyes, it is a different ceiling.'),
    N('She lays the ruler beside your wrist for each one, and the card with the date. She tells you the date out loud, every time, as if the card were for you.'),
-   N('When she has gone, the hand is still flat on the table. You have to pick it up with the other one, by the cast, and put it back under the blanket, like something you had borrowed.')],cb)}}]))}
+   N('When she has gone, the hand is still flat on the table. You have to pick it up with the other one, by the cast, and put it back under the blanket. You tell the ceiling that if those pictures turn up in a ledger you will make him eat them.')],cb)}}]))}
 function k90N2vSA(cb){say([
   N('The doctor goes in at ten with the camera. You are not to be in the corridor for it. You are at the far end, by the nail where the keys hang, and the glass panel in the door is a small lit square forty feet away.'),
   N('You see the hand come out from under the blanket. It lays itself on the tray table: flat, the fingers spread, the wrist turned to the light.'),
@@ -116,8 +116,8 @@ function k90N2mINJ(cb){say([
   M2('(he only took the dead bit. …why’d he only take the dead bit)','(he only took the dead bit. …why did he only take the dead bit?)'),
   N('He is at the basin with his back to you, and his shoulders are going up and down. It takes you a moment to understand that he is trying not to be sick.')],
  ()=>{S.f.e2lN2=1;save();say([
-  M2('(it made him sick. i’m making him sick. that’s not good. u don’t want to be the thing that turns his stomach)','(it made him sick. i’m making him sick. that’s not good. you don’t want to be the thing that turns his stomach)'),
-  N('You pull the wrist back under the blanket, quickly, to get it out of his sight. Goods that disgust the buyer do not get kept.')],cb)})}
+  M2('(it made him SICK. the guy with the cold room. the guy who sent me forty minutes of it. he’s got a weak stomach?)','(it made him sick. the man with the cold room. the man who sent me forty minutes of it. he has a weak stomach?)'),
+  N('You look at the grey in the dish, and at his back. It does not add up. He does this for a hobby. Either it is different when the thing is alive and looking at him, or it is different when it is you, and you do not care for either answer.')],cb)})}
 function k90N2vINJ(cb){say([
   N('You take the dressing off the left wrist and the smell comes up at you. It is sweet. It is the smell of the cold room in summer, on the fourth day of a man, when the ice has not been kept up.'),
   N('It is coming from somebody who is alive, and who is watching your hands.'),
@@ -207,8 +207,8 @@ k86('y3_splint','m','inj','cell','Nobody has done the fingers',[
  N('It takes an hour. You stop every time there is a step in the corridor and hide the hand under your thigh.'),
  M2('(if he finds it he’ll take the spoon. if he takes the spoon they set bent. so he doesn’t find it)','(if he finds it he’ll take the spoon. if he takes the spoon they set bent. so he doesn’t find it)'),
  N('He finds it at six. He lifts the blanket to see to the drip, and there it is, and he stands looking down at a spoon tied to a hand.'),
- N('You wait for him to take it. You have the sentence ready, in the good voice: that you will not do it again.'),
- N('He lays the blanket back over the hand, exactly as it was, and goes out. When he comes back he has a proper splint, padded, and he puts it on the counter where you can reach it, and leaves you to change them over yourself. He does not touch the spoon. His face is the colour of the tile.')]);
+ N('You wait for him to take it. You have the fist ready, such as it is. That is your trigger finger, and he is not having it set bent.'),
+ N('He lays the blanket back over the hand, exactly as it was, and goes out. When he comes back he has a proper splint, padded, and he puts it on the counter where you can reach it, and leaves you to change them over yourself. He does not touch the spoon. His face is the colour of the tile. He has just splinted the finger that you mean to shoot him with, and you cannot tell whether he has worked that out.')]);
 k86('y3_number','m','inj','cell','Out of ten',[
  N('He asks you to put a number to the pain, out of ten.'),
  N('It is a trap, and an old one. Say high and they know where to press. Say low and they think you have something left.'),
@@ -223,7 +223,7 @@ k86('y3_blood','m','inj','cell','There is blood when you go',[
  N('You know what that is. A kidney took a boot. Pink is a bruise; red is a split. It clears in three days if you drink. You have had it twice, and the first time, at eleven, you thought that you were dying and told nobody, because whoever you told would have had to pay for a doctor.'),
  N('He will see the pan. He sees everything. So either he sees it and you said nothing, or you say.'),
  Ms('there’s blood. it’s the kidney. it stops if i get water','there’s blood. it’s the kidney. it stops if i get water','You tilt the pan towards him, and look at the floor.'),
- N('You say it to his shoes. You are asking a man who means to kill you for a glass of water so that you will be in better condition when he does it. You are aware of how that sounds.'),
+ N('You say it flat, as you would report damage on a truck. You are asking the man who means to kill you for a glass of water, so that you will be in better condition when he does it. You are aware of how that sounds.'),
  N('He brings a jug. He fills the glass himself, and his hand shakes on the jug, and some of it goes on the counter.'),
  M2('(he’s shaking. he’s angry about the pan. he wanted me whole)','(he’s shaking. he’s angry about the pan. he wanted me whole)')]);
 /* ---------- Misaki, clear ---------- */

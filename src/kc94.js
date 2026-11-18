@@ -129,7 +129,7 @@ const K94_M=[
  cb=>say([
   N('You want it over. You are tired. You have been ready for nine days, counting the other building, and nobody can stay ready for that long.'),
   N('He wrote slow. He showed you. So it is coming, and every hour that it does not come is an hour of lying here with your jaw set. You have begun to think that the waiting is the first part of it. That it has already started, and this is what it is.'),
-  M2('(just DO it. come in and do it. i’ll hold still. i’ve got a place to go, i’ve got the roof)','(just do it. come in and do it. i’ll hold still. i’ve got a place to go; i’ve got the roof)'),
+  M2('(just DO it. come in and do it. get it over. i’ve got a place to go, i’ve got the roof)','(just do it. come in and do it. get it over. i’ve got a place to go; i’ve got the roof)'),
   N('You mean it. You lie there meaning it for an hour. It would be a relief; you would know where you were.'),
   N('Then there are steps in the corridor. Hard soles, coming on, not hurrying.'),
   N('Everything in you gets up at once. Your heart is going like something in a trap. You do not want it. You do not want it today. You have rent due, and a cactus, and you never saw the coast.'),
@@ -143,7 +143,7 @@ const K94_M=[
   N('It is thin. You can find the words. “Ur honour.” “A car park.” You can remember saying them. But the heat that was under them has gone somewhere, and what is left is like the outline of a thing on a wall after it has been taken down.'),
   M2('(he’s a rich hypocrite who cuts people up and calls it law. come on. COME ON. u know this one)','(he’s a rich hypocrite who cuts people up and calls it law. come on. come on. you know this one)'),
   N('You do know it. It is all true. It will not catch. It is hard to hate a man properly when you are lying down, and he is the one with the water.'),
-  N('That frightens you more than the table. If the hatred goes, then he has had that as well. Then there is nobody left in here but the one who says thank you, and that one would walk down to the cold room on its own feet and ask where to lie.'),
+  N('That frightens you more than the table. If the hatred goes, then he has had that as well. Then there is nobody left in here but a person in a bed, and a person in a bed is only meat that has not been cubed yet.'),
   M2('(keep it. i don’t care if it’s fake. say it till it’s real. ur honour. ur honour. i’m going to kill u somewhere stupid)','(keep it. i don’t care if it’s fake. say it until it’s real. your honour. your honour. i’m going to kill you somewhere stupid)'),
   N('You say it, under your breath, to the green light, forty times. It is the nearest thing that you have to a prayer. You are asking to be allowed to go on wanting him dead.')],cb)];
 const K94_X=[

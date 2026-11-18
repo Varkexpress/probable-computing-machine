@@ -82,11 +82,47 @@ every line addressed to him is a test or an offer.
 V's two counterparts were changed to match: `h_fast` (they came up at his eyes, and he is glad of it) and `h_carry`
 (“They are attempting, while I carry them, to cut my throat with my own knife”).
 
-**Not redone**, and why:
-- The sixteen cell scenes that exist only under one aftermath setting (`x2_*`, `x_*`, `y2_*`, `y3_*`, `y_*`). Those
-  follow kc29's and kc36's rules line by line (never named; the honest option greyed; a denial counted), and a
-  change of tone there risks breaking them. They want a separate, careful pass.
-- `k_knife`, `k_ran`, `k_wash`, `p_under` (choices, flags and a per-setting version), `k_hound`, `d_two`, `d_late`,
-  `p_name`, `g_shoe`: already in this register, or tied to V scenes that read correctly as they stand.
-- The base infirmary scenes in kc73, kc80 and kc84, the three nights (kc90), the drip's opening (kc91) and “What you
-  want” (kc94).
+## The rest of the delusion, redone; and the worst route (kc97)
+
+The author asked for the remaining delusion scenes too, “including the worst route”. Reading copy for the pool
+scenes and kc97: `docs/delusion_redo2_text.md`.
+
+**By setting (pool).** The rules of each setting are untouched: under full story nothing is named, the honest
+option stays greyed and the pretence still counts as a denial; injuries only has no denial and no doctor.
+- Full story: `x2_corner` (three pillows are cover), `x2_dark` (they tell him the light stays on; “it’s tactical”),
+  `x2_palms` (“damn right i bite”; he has a blade in his collar), `x2_look` (the card), `x2_back` (he has set up a
+  shooter's position for them), `x2_gap` (the open door is for the hounds; he is a little afraid of them).
+  `x2_bag`, `x_radio`, `x_water` and `s_clothes` / `s_asks` (kc84) are unchanged: every line in them is a rule.
+- Injuries only: `y2_tooth` (he is a trophy man), `y2_sneeze` (“sneezed. fuck off”), `y2_breathe`, `y3_splint` (he
+  has splinted their trigger finger), `y3_blood`, `y_report` (they give him half the damage; he is grading the
+  work), `y_ties` (they go for the scissors), `i_wrists` (“under the edge, genius”), `i_careful` (“somebody scuffed
+  his goose”).
+
+**Base scenes.**
+- kc73, Misaki: they look at the place under his ear with a spoon in their hand; the greyed option is now “Go for
+  his neck” (your hand will not close) and the other is “Eat, and watch him”. kc73, V: they watch him as he has
+  watched men from a roof; through the vent they are quoting for their life to his door; “I know what you’re
+  doing. You want me fixed first.”
+- kc80: the rules of the room are a professional's observations and they stare him out; the message to K9 (“tell
+  him he’s late. some river assholes got there first”), with a line to say that the bag gives them two of him;
+  the hand exercise (“that’s half ur job done”).
+- kc90, the nights: the meat (they eat the next tray looking straight at him); under full story, the camera (they
+  take it for his file, make a joke of it, and the joke goes out of their mouth); under injuries only, the wrist
+  (“the guy with the cold room has a weak stomach?”).
+- kc94, “What you want”: two lines.
+
+**The worst route (kc97).** At severity 8+ the base game plays a scene from inside Misaki's head each morning
+(kc51's `KD_MIND`). Those are about losing hold of somebody they love. On the enemies route they are now about
+losing hold of the war, twelve scenes, three a composure band: the kit and the list; then the list a line short and
+the insults fewer; then somebody else's grudge, and his step in the passage with nothing getting up; then the wall,
+the kid on the bench, and “somewhere stupid”, the one promise they are sorry not to keep. `k97Mind`, an outer wrap
+of `hub`; test `tools/k97_test.js`.
+
+**Still as written, on purpose.** The spiral, the bright turn and what follows (kc50–kc52). They are about a death,
+they never show a method, and they were written with great care for the normal route. Re-voicing them into bravado
+would be the wrong thing to do to them. On the enemies route they play as they are, which means that the last
+scenes of the worst route still speak of V as somebody Misaki loves. That needs the author's decision: write an
+enemies-route version of the ending, or keep the worst route off this route.
+
+Also unchanged: `k_knife`, `k_ran`, `k_wash`, `p_under`, `k_hound`, `d_two`, `d_late`, `p_name`, `g_shoe` (already in
+this register), the drip's opening scene (kc91), and the third night, which is after Misaki is clear.

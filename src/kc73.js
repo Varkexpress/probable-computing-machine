@@ -212,8 +212,8 @@ const k73WorstOf=()=>{try{return typeof kdWorstOf==='function'&&kdWorstOf()}catc
 const K73_VM=[
  cb=>{const eye=S.f.e2lEye;say([
   ['','They have been downstairs in the room marked LAUNDRY for a day. You stand at the door with your hand on the frame and do not go in.'],
-  ['','A week ago you sat in their trailer with sheeting at your feet. You have wanted them exactly like this, unable to lift their left hand, in a room you control. They say thank you now, to everything, to the soup and to the doctor and to you, in the same flat, pleasant voice, the way people speak to whoever holds the keys. Their eyes stay on your hands.'],
-  ['','To them you are the tall one, who brings the tray. In their head the man who brings the tray is also the man who kept them in the other building, and they are being good for him.'],
+  ['','A week ago you sat in their trailer with sheeting at your feet. You have wanted them exactly like this, unable to lift their left hand, in a room you control. They do not say a word to you that is not a test. They watch your hands, and the door, and the distance between, as you have watched a great many men from a roof.'],
+  ['','To them you are the tall one, who brings the tray. In their head the man who brings the tray is also the man who kept them in the other building, and they are working out how to kill him.'],
   ['','Upstairs, in the study, you open the ledger. Their page opens with the line you wrote on the first night: MISAKI. WANTON. COLLATERAL: SEVERAL. TO BE KILLED. Under it, a week of what they owe: the landlord, the man from the car wash, eleven place cards, your reading glasses'+(eye==='note'?', and one eye and the rest, outstanding.':'.')+' You write the date under the last line.'],
   ['K9','(Nothing I wrote there is untrue. They are everything I said. I could go down those stairs tonight and close the account, and my own law would sign it.)']],
   ()=>ask('K9','(The total.)',[
@@ -229,30 +229,30 @@ const K73_VM=[
   ['','You rinse the sink and scrape the plate into the hounds’ bowl. The old hound eats it and then stands looking at you for a long time, the way it looks at you when you have been ill.']],cb),
  cb=>say([
   ['','After midnight they talk through the wall.'],
-  ['','The infirmary is under the study and the vent carries. They are being polite to the door, in a low reasonable voice: telling it that they have been good today and ate all of it, and that they would like to keep the light on, please, if that is all right with whoever decides.'],
-  ['','In their head, whoever decides is you.'],
+  ['','The infirmary is under the study and the vent carries. They are talking to the door, in a low reasonable voice: quoting for it. What they would pay to walk. What they will do to the man with the tray, with a spoon, in a car park, if the door will only look the other way.'],
+  ['','In their head, the man with the tray is you.'],
   ['','You put on your coat and take all four hounds out into the grounds in the rain at a quarter to one, as far as the far wall, where the vent is only a vent. The black hound keeps stopping to look back at the house. You keep calling it on, and it keeps coming, slower each time.'],
-  ['K9','(I do not want to hear it. I would like that written down somewhere. I do not want to hear them ask me for the light.)'],
+  ['K9','(I do not want to hear it. I would like that written down somewhere. I do not want to hear them haggle with my own door for their life.)'],
   ['','You stay out until three. When you come in, the light under their door is on, and you leave it on.'],
   k73WorstOf()?['','The next night you take them out again, and the night after that. The black hound starts waiting by the back door at a quarter to one without being called.']:null],cb),
  cb=>{const gone=k73Gone();say([
   ['','On the third day you change the dressing on their hand yourself, because the doctor is late and you will not wait for them.'],
-  ['','You do it the way you do everything on a table: exactly, in order, without speaking. They hold the hand out before you ask. '+(gone?'They do not speak at all. They hold it very still and look at the floor beside your shoe.':'They keep their face empty and watch your fingers the whole time. The hand in yours is cold, and it is braced.')],
+  ['','You do it the way you do everything on a table: exactly, in order, without speaking. They give you the hand as one gives up a weapon at a door: slowly, and looking at you. '+(gone?'They do not speak at all. They hold it very still and look at the floor beside your shoe.':'They keep their face empty and watch your fingers the whole time. The hand in yours is cold, and it is braced.')],
   gone?null:K73MV('the other one wasn’t careful','the other one wasn’t careful like this','The other one wasn’t careful like this.','The other one wasn’t careful like this. Is it you from now on?'),
   gone?null:K73V('Hold still.'),
-  gone?null:K73MV('i know what the careful one’s for. i’ll talk. u don’t have to do the rest','i know what the careful one is for. i’ll talk. you don’t have to do the rest','I know what the careful one is for. I’ll talk. You don’t have to do the rest.','I know what the careful one is for. I’ll talk. You don’t have to do the rest of it.'),
+  gone?null:K73MV('i know what ur doing. u want me fixed first','i know what you’re doing. you want me fixed first','I know what you’re doing. You want me fixed first.','I know what you’re doing. You want me fixed first, so that it counts.'),
   ['','You tie it off. Your hands are perfectly steady. You put the old dressing in the bin and wash your hands at the little sink, and go on washing them for some time after they are clean.'],
   ['K9','(I am keeping their well so that the debt can still be collected. I said that to the mirror this morning and it sounded fine.)'],
-  ['',gone?'When you go they say nothing. You leave the door the way they like it, with the light on.':'When you go they say thank you. You say nothing at all, and leave the door the way they like it, with the light on.']],cb)}];
+  ['',gone?'When you go they say nothing. You leave the door the way they like it, with the light on.':'When you go they say nothing. You can feel them counting your steps to the door. You leave it the way they like it, with the light on.']],cb)}];
 const K73_MM=[
  cb=>{const gone=k73Gone();say([
   ['','The tall one brings the tray. You know who he is now. You worked it out at about four this morning, lying on your side doing sums so you would not sleep, and once you saw it everything went together like a rifle.'],
   K73MV('(1: he swore to kill me. 2: he wrote it down. 3: he’s the most patient man in the city)','(one: he swore to kill me. two: he wrote it down. three: he’s the most patient man in the city)','(One: he swore to kill me. Two: he wrote it down. Three: he is the most patient man in this city, and he has the money.)','(One: he swore to kill me, in front of everybody. Two: he wrote it down, in fountain pen. Three: he is the most patient man in this city, and he has more money than God.)'),
   ['','Of course he bought the van. Who else in this city feeds people to dogs and calls it law? He sat in your trailer with a roll of sheeting and decided you deserved worse than quick. That is his whole religion, the long ones for the ones who earned it, and here it is: a room with one door, and soup at eight.'],
-  ['','It makes sense. It makes so much sense that it is almost restful.'],
-  ['','He kneels to put the tray down, and you thank him, because the careful one is the one you thank.']],()=>ask('hitmeuppp','(The tray.)',[
-  {t:'Throw it at him',sub:'your hand will not let go of it',dis:true,fn:()=>{}},
-  {t:'Say thank you',fn:()=>say([K73MV('thank u','thank you','Thank you.','Thank you.'),
+  ['','It makes sense. It makes so much sense that it is almost restful. You were never going to be done by amateurs. It was always going to be him.'],
+  ['','He kneels to put the tray down, with his neck level with your good hand. You look at the place under his ear. You have a spoon.']],()=>ask('hitmeuppp','(The tray.)',[
+  {t:'Go for his neck',sub:'your hand will not close',dis:true,fn:()=>{}},
+  {t:'Eat, and watch him',fn:()=>say([K73MV('(not today. today i eat. u need to eat to do a guy that size)','(not today. today i eat. you need to eat to do a man that size)','(Not today. Today I eat. You need to eat to do a man that size.)','(Not today. Today I eat. You need to eat, to do a man that size.)'),
    ['','He goes out. He stands outside the door for a long time; you can see the shadow of his feet under it. '+(gone?'You do not count. You lie still until it goes.':'You count how long. Four hundred and eleven.')]],cb)}]))},
  cb=>say([
   ['','In the night you hear the hounds go out.'],
