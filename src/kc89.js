@@ -10,12 +10,13 @@
 /* ===================================== EITHER SETTING ===================================== */
 k86('g_late','m',null,'cell','The tray is late',[
  N('The tray comes at noon. You have the day worked out by it. Today noon goes by, by the blinks of the green light, and there is no tray.'),
- M2('(ok. what did i do. think. what did i DO)','(okay. what did i do? think. what did i do?)'),
- N('You go back over the morning. You asked for the light. You looked at his hands. You said thank you. You cannot find it. You look for forty minutes, and the longer you look the more things it could have been.'),
- N('The door opens. The tall one has the tray. There is a burn across the back of his hand, new, and his sleeve is wet to the elbow.'),
+ M2('(ok. so that’s it. he’s made up his mind. it’s today)','(ok. so that’s it. he has made up his mind. it’s today)'),
+ N('A change in the routine is the job starting. You know that from the other end. You get ready. The spoon comes out from the mattress and goes up your sleeve. You get your back against the wall and your feet under you, as far as the ribs allow, and you go through it.'),
+ M2('(one: he comes four steps. two: i go for the collar, not the hands. three: i lose. but he’s gonna need stitches)','(one: he comes four steps. two: i go for the collar, not the hands. three: i lose. but he’s going to need stitches)'),
+ N('You hold that for forty minutes. Your legs shake. Then the door opens, and the tall one has the tray. There is a burn across the back of his hand, new, and his sleeve is wet to the elbow.'),
  K76V('I am late. A pan caught. It was my doing, and nothing of yours.'),
- M2('(he’s explaining. to ME. guards don’t explain)','(he’s explaining. to me. guards don’t explain)'),
- N('He looks at you, and at the way you are sitting, and you watch him understand what the forty minutes were. After that the tray is never late again, not by a minute, for as long as you are in that room.')]);
+ M2('(a pan. the guy who’s gonna cut me up burnt the SOUP. …nobody’d make that up. it’s too stupid)','(a pan. the man who is going to cut me up burned the soup. …nobody would make that up. it’s too stupid)'),
+ N('He looks at how you are sitting, and at your sleeve. He puts the tray down a step further off than usual. After that it is never late again, not by a minute. You note it. You can plan around a man who keeps time like that.')]);
 k86('g_walk','m',null,'clear','Walk to the door',[
  N('You get up. Nobody has said that you can. You put your feet on the tile and stand, with the good hand on the drip stand, and the room goes round once and stops.'),
  N('It is four steps to the door. He always took four. You take nine.'),

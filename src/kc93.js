@@ -17,51 +17,51 @@
 const K93=()=>{try{return typeof K92==='function'&&K92()}catch(e){return false}};
 
 /* ===================================== MISAKI: THE ROOM IS A CELL ===================================== */
-k86('p_grateful','m',null,'cell','You are glad to see him',[
- N('The door opens, and it is the tall one with the water, and something in your chest lets go.'),
- N('It takes you a second to know what it is. You were glad. For the length of a breath you were pleased to see him, as you would be pleased to see anybody who was bringing what you needed.'),
- M2('(no. NO. that’s how it works. that’s exactly how it works)','(no. no. that’s how it works. that’s exactly how it works)'),
- N('You know how it works. You have seen it from the other side. You keep a mark frightened for long enough, and then you are the one who brings the water, and in a week they will hand you their own front door key and thank you for taking it.'),
- N('You have done it to people. A debtor’s wife, once, for a client. She made you tea.'),
- M2('(he’s doing it to me. and it’s WORKING. i can feel it working)','(he’s doing it to me, and it’s working. i can feel it working)'),
- N('You try to hate him. You reach for it, where it has always been, and it is there, but it has gone soft at the edges, like a thing left in water. Under it there is the other feeling, small and warm and disgusting, turning its face up to the cup.'),
- N('You drink the water. You do not thank him. It costs you more than the knife would have.')]);
-k86('p_spoon','m',null,'cell','Try not to finish the soup',[
- N('You decide to test it. Something small. You will leave a third of the soup.'),
- N('No one in this room has told you to finish it. That is rule three, and you made rule three yourself. So it should be yours to break.'),
- N('You eat two thirds. You put the spoon down in the bowl. You look at what is left, and you sit on your good hand.'),
- N('The hand comes out from under you. You watch it. It picks up the spoon. It is quite calm about it. It finishes the soup, and scrapes the bowl, and lays the spoon straight.'),
- M2('(i didn’t do that)','(i didn’t do that)'),
- M2('(i said leave it. i SAID. it didn’t listen. it listens to someone else now)','(i said leave it. i said. it didn’t listen. it listens to somebody else now)'),
- N('You have had a rifle obey you at four hundred metres in a crosswind. You have never asked your body for a thing and been refused. You look at the hand on the blanket, the good one, the one you shoot with.'),
- N('It is not that you were made to. Nobody is in the room. That is what you keep coming back to. There is nobody here but you, and you were overruled.')]);
+k86('p_grateful','m',null,'cell','It is only him',[
+ N('The door opens. You have the spoon in your fist before you know who it is. It is the tall one, with the water, and something in your chest lets go.'),
+ N('It takes you a second to place it. You were braced for the others. Any of the four. And it was only him.'),
+ M2('(“only.” it’s only the guy who swore in front of everyone to kill me. hi. what a relief)','(“only.” it’s only the man who swore in front of everybody to kill me. hi. what a relief)'),
+ N('You go over it, because it is disgusting and you want to know how it got in. The four never said what they were going to do. They never said why. One of them called you sweetheart.'),
+ N('This one stood up in a bowling alley and said it to your face. He gave reasons. He wrote it down and showed you the page. He has never once pretended to be anything but the man who is going to do it.'),
+ M2('(he’s the only one in this who’s been STRAIGHT with me. that’s so fucked. that’s the most honest relationship i’ve got)','(he’s the only one in this who has been straight with me. that’s so fucked. that’s the most honest relationship i have)'),
+ N('You drink the water, with the spoon still in your other hand. You do not thank him. He looks at the spoon, and at you, and he nods, once, as one professional to another, and that makes you so angry that you nearly throw the cup.')]);
+k86('p_spoon','m',null,'cell','The soup',[
+ N('You have been eating it for two days before it occurs to you to wonder what is in it.'),
+ N('He would not need to cut you. He is a man with a counter full of bottles. You hold a mouthful on your tongue, as you were taught at fifteen by a woman who did restaurants, and you go through it: salt, something green, far too much pepper, an onion that has been burned and put in anyway.'),
+ M2('(it’s not drugged. nobody drugs soup and ALSO makes it taste like that)','(it isn’t drugged. nobody drugs soup and also makes it taste like that)'),
+ N('Then you see what follows. Nobody bought this. There is no cook in the world who would put his name to it. He made it. The billionaire went and stood at a stove, in person, and made you soup, and it is the worst soup that you have ever had, and you have eaten out of bins.'),
+ M2('(three out of ten. and the three’s for it being hot. he’s got a HOSPITAL and he can’t do an onion)','(three out of ten. and the three is for its being hot. he has a hospital, and he can’t do an onion)'),
+ N('You finish it. You are hungry, and you have finished worse. You put the spoon down in the empty bowl with a click.'),
+ N('It bothers you for the rest of the day. A man who meant to do it soon would not be learning to cook for you. He is settling in. He thinks that he has weeks.')]);
 k86('p_days','m',null,'cell','How long',[
  N('You count by trays. Three a day. You have a scratch for each one, on the wall behind the bed frame, done with the handle of the spoon.'),
  N('There are fourteen scratches.'),
- N('That is nearly five days. It does not feel like five days. It feels like two, or like a month. You lie there and try to walk back through them, one tray at a time, and you get four trays back and then there is a place where the trays simply are not.'),
- M2('(so u lost some. the drip took some. fine. how many)','(so you lost some. the drip took some. fine. how many?)'),
- N('You cannot know how many. That is the thing. If there is a gap that you did not notice, there may be others. Fourteen scratches is the number of trays that you were present for.'),
- M2('(could be a week. could be a month. could be i’ve been here since the spring and i just keep waking up on day 5)','(it could be a week. it could be a month. it could be that i’ve been here since the spring, and i just keep waking up on day five)'),
- N('You look at your fingernails, to see how long they have grown. Two of them are missing. The rest have been cut, neatly, straight across, by somebody else, at a time when you were not there.')]);
-k86('p_table','m',null,'cell','Decide how you will behave',[
- N('He wrote SLOW. He showed you what it means; you watched forty minutes of it. So it is coming, and the only thing left to you is how you take it.'),
+ N('That is nearly five days. It does not feel like five days. You try to walk back through them, one tray at a time, and you get four trays back, and then there is a place where the trays simply are not.'),
+ M2('(so u lost some. the bag took some. fine. how many)','(so you lost some. the bag took some. fine. how many?)'),
+ N('You cannot know. Fourteen is the number of trays that you were present for. It matters, because of the others: Ronin gives a person three days before he starts breaking doors, and Angel gives two. If it has been five, then they are not coming, or they have come.'),
+ M2('(or he’s told them something. he’s good at that. he’s got that voice. “they are not here.” and ronin goes “ok”)','(or he has told them something. he’s good at that. he has that voice. “they are not here.” and ronin says “ok”)'),
+ N('You look at your fingernails, to see how far they have grown. Two are missing. The rest have been cut, neatly, straight across, by somebody else, at a time when you were not there.'),
+ M2('(he did my NAILS. what kind of psycho — no. i know what kind. the kind that keeps things tidy for later)','(he did my nails. what kind of psycho — no. i know what kind. the kind that keeps things tidy for later)')]);
+k86('p_table','m',null,'cell','Plan it like a job',[
+ N('He wrote SLOW. He showed you what it means; you watched forty minutes of it. So it is coming, and the only part left to you is how you take it.'),
  N('You plan it as you would plan a job.'),
- M2('(one: don’t beg. the card man begged. it didn’t buy him a minute and the p fell off)','(one: don’t beg. the card man begged. it didn’t buy him a minute, and the p fell off)'),
- M2('(two: pick a place to go. the roof. take the rifle. do wind)','(two: pick a place to go. the roof. take the rifle. do the wind)'),
- M2('(three: he’ll start with the left hand, bc of the trigger. so that’s first. u already can’t feel most of it. that’s a head start)','(three: he’ll start with the left hand, because of the trigger finger. so that’s first. you already can’t feel most of it. that’s a head start)'),
+ M2('(one: don’t beg. the card man begged. didn’t buy him a minute)','(one: don’t beg. the card man begged. it didn’t buy him a minute)'),
+ M2('(two: he’ll want me to say i did it and i’m sorry. i did it. i’m not sorry. i was paid)','(two: he’ll want me to say that i did it and that i’m sorry. i did it. i’m not sorry. i was paid)'),
+ M2('(three: he’ll start with the left hand, bc of the rifle. joke’s on him, i can’t feel most of it)','(three: he’ll start with the left hand, because of the rifle. the joke’s on him, i can’t feel most of it)'),
  N('You got to three. It is the first time in days that you have got to three, and it was for this.'),
- N('It is a good plan. It is thorough. You have allowed for the lamp, and for his voice, and for the hounds afterwards. You find that you are a little proud of it, and then you hear yourself: lying in a bed, on a drip, arranging to be a credit to yourself on a steel table.'),
- M2('(four: when he asks if i’ve got anything to say, say “somewhere stupid.” so he knows i remember)','(four: when he asks whether i’ve got anything to say, say “somewhere stupid.” so that he knows i remember)')]);
+ N('It is a good plan. It is thorough. You have allowed for the lamp, and for his voice, and for the hounds afterwards. You find that you are rather proud of it.'),
+ M2('(four: when he does the speech, yawn. he’ll hate that)','(four: when he does the speech, yawn. he’ll hate that)'),
+ M2('(five: last words. “somewhere stupid.” so he knows i remembered. and “ur soup’s shit.” so he’s got to live with it)','(five: last words. “somewhere stupid.” so that he knows i remembered. and “your soup’s shit.” so that he has to live with it)')]);
 k86('p_error','m',null,'cell','Find the mistake',[
- N('There was a mistake. There must have been. You are the best in the city; people like you do not get taken unless they get something wrong.'),
- N('You go back over the night, the way you go over a job that went bad. The lot. The gravel. The time. You were coming back from the corner store with a bag in each hand.'),
- M2('(both hands. there. that’s it. u had both hands full)','(both hands. there. that’s it. you had both hands full)'),
- N('It is a relief to find it. A thing that was your fault is a thing you can not do again. You go over it twice more, to fix it.'),
- N('The second time through, you notice the van. It had been in the lot for three days. You saw it every one of them. You are a person who counts exits in every room, and you walked past a parked van with no plates for three days.'),
- M2('(so that’s two. both hands AND the van)','(so that’s two. both hands, and the van)'),
- N('The third time, you find a third. By the morning you have eleven. Each one is true. Each one is a thing that you, of all people, should have seen. You line them up and look at them, and it comes to you that with eleven mistakes it was not bad luck at all.'),
- M2('(u basically handed urself over. u might as well have got in the van and shut the door)','(you basically handed yourself over. you might as well have got in the van and shut the door)'),
- N('It is the most comfortable thought that you have had in that room. If it was your doing, then nobody did it to you.')]);
+ N('There was a mistake. There must have been. You are the best in the city, and people like you do not get taken unless they get something wrong.'),
+ N('You go back over the night, as you go over a job that went bad. The lot. The gravel. The time. You were coming back from the corner store with a bag in each hand.'),
+ M2('(both hands. there. u had both hands full)','(both hands. there. you had both hands full)'),
+ N('The second time through, you notice the van. It had been in the lot for three days. You are a person who counts the exits in every room, and you walked past a parked van with no plates three days running.'),
+ N('The third time, you stop looking at yourself and look at them. They knew the lot. They knew the hour. They knew that on a Thursday you go to the corner store and come back with both hands full of tins.'),
+ M2('(who knows that. who’s got my THURSDAYS)','(who knows that? who has my thursdays?)'),
+ N('Four idiots from a river do not have your Thursdays. You have seen their work; they could not find their own van. Somebody gave it to them. Somebody with a file: rent, hours, tins. Somebody who sat outside your lot for a month with a flask.'),
+ M2('(page twelve. he handed them page twelve. it wasn’t my mistake. i got DOSSIERED)','(page twelve. he handed them page twelve. it wasn’t my mistake. i got dossiered)'),
+ N('It is the best that you have felt in that room. You were not sloppy. You were beaten by research. You can respect that, and you are going to kill him for it.')]);
 k86('p_under','m',null,'cell','Under the bed',[
  N('Things happen on a bed. You have known that for some time, and at about three in the morning you act on it.'),
  N('It takes a while, with the drip. You get the stand over to the edge. You go down onto the tile on your good side and work yourself under the frame, on your back, until there is steel mesh a hand above your face and the wall against one shoulder.'),

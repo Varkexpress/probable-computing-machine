@@ -70,24 +70,26 @@ k86('d_skip','m',null,'cell','The tray is there',[
  N('The tray is on the counter. It was not there. You were looking at the counter, and then it was there, with steam on it.'),
  N('You did not hear the door. You did not see him cross the room. There is a piece gone out of the afternoon, the size of a man walking four steps and back.'),
  M2('(he can come in without the door)','(he can come in without the door)'),
- M2('(no. it’s the stuff. it’s taking bits out. u blinked and it was ten minutes)','(no. it’s the stuff. it’s taking bits out. you blinked and it was ten minutes)'),
- N('That is worse. If he could walk through a wall, he would at least be somewhere. If the stuff is taking pieces out, then things can be done in the pieces, and you would be the last to know.'),
- N('You check. Your hand under the blanket goes over yourself, quickly, in order: the drip, the cast, the strapping, the drawstring. Everything is as you left it. You do it again an hour later, and again, every time you come back from a gap.')]);
+ M2('(no. it’s the stuff. it’s taking bits out. u blinked and it was ten minutes)','(no. it’s the stuff. it’s taking pieces out. you blinked and it was ten minutes)'),
+ N('That is worse. You have spent your working life on the fact that people do not see you coming. If the bag is taking pieces out, then he can be at the bed and gone again, and you would be the last to hear of it.'),
+ N('You check your kit. The spoon, down the mattress: there. The list: four steps, the lamp arm, the collar, left side. You still have the list. You say it over, every time you come back from a gap, and one day you are going to come back and find it a line short.')]);
 k86('d_three','m',null,'cell','One, two',[
- N('You do it the way you always do it. On a roof, in a stairwell, in a cell: you count your way through.'),
- M2('(one: find out whose room this is)','(one: find out whose room this is)'),
- M2('(two: find the way out of it)','(two: find the way out of it)'),
+ N('You do it as you always do it. On a roof, in a stairwell, in a cell: you count your way through.'),
+ M2('(one: he’s K9. u know what he is)','(one: he’s K9. you know what he is)'),
+ M2('(two: he hasn’t done it yet)','(two: he hasn’t done it yet)'),
  M2('(three: —)','(three: —)'),
- N('There is no three. You had it. It was a good one; it had a verb in it. You go back for it and one has gone as well, and you are lying on a bed with the number two and nothing either side of it.'),
- N('You have done this on four hours’ sleep with a man shooting at you. It is the only tool you have ever owned outright. The bag on the stand has taken it out of your hand as easily as he took the scope off your rifle.'),
- M2('(ok. ok. just the one, then. one: don’t let him see u can’t count)','(okay. okay. just the one, then. one: don’t let him see that you can’t count)')]);
+ N('There is no three. You had it. It was a good one; it had a verb in it, and the verb was something that you were going to do to him. You go back for it and one has gone as well, and you are lying on a bed with the number two and nothing on either side of it.'),
+ N('You have done this on four hours’ sleep with a man shooting at you. It is the only tool that you have ever owned outright. The bag on the stand has had it out of your hand as easily as he had the scope off your rifle.'),
+ M2('(ok. just the one, then. one: don’t let him see u can’t count. third at regionals. he’d LOVE that)','(ok. just the one, then. one: don’t let him see that you can’t count. third at regionals. he would love that)')]);
 k86('d_taste','m',null,'cell','The taste',[
  N('It is at the back of your throat when you swallow. A coin, held on the tongue. A battery.'),
- N('You know it. You have had it nine times, in the other building, and you can count them, because each one was the last thing before a gap.'),
- N('The tall one comes in and changes the bag. He hangs the new one, and turns the little wheel, and holds the tube up to the light to see that it runs. He is very careful about it. They were careful, too; they did not want to lose you.'),
- M2('(same taste. same bag. so it’s the same outfit. he’s not a new guy. he’s the one they answer to)','(same taste. same bag. so it’s the same outfit. he’s not a new guy. he’s the one they answer to)'),
- N('It comes together in your head with a click, all of it, like a magazine going home. He swore it. He wrote it down. He has the money. He bought the van, and the building, and now he has moved the goods to the house.'),
- N('It is the most sense that anything has made in a week. You are almost grateful to the bag for it.')]);
+ N('You know it. You had it nine times in the other building, and you can count them, because each was the last thing before a gap.'),
+ N('The tall one comes in and changes the bag. He hangs the new one, and turns the little wheel, and holds the tube up to the light to see that it runs. He is careful. They were careful too.'),
+ M2('(same taste. same bag. so it’s the same outfit. those four weren’t freelancers. they were STAFF)','(the same taste. the same bag. so it’s the same outfit. those four weren’t freelancers. they were staff)'),
+ N('It goes together in your head with a click, like a magazine going home. He swore it. He wrote it down. He has the money. A man like that does not do his own lifting; he has people for the van.'),
+ M2('(he HIRED it. mr “u kill for whoever pays.” mr “no inquiry made.” he paid four guys to grab me off my own step)','(he hired it. mister “you kill for whoever pays.” mister “no inquiry made.” he paid four guys to grab me off my own step)'),
+ N('You are so angry that for a minute you are not frightened at all. The hypocrisy of it. You could have told him what those four were worth; he was robbed.'),
+ M2('(i’d have done it for nine hundred. and i’d have done it CLEAN)','(i would have done it for nine hundred. and i’d have done it clean)')]);
 k86('d_two','m',null,'cell','There are two of him',[
  N('The tall one is at the door. He is also at the foot of the bed.'),
  N('They are the same height, in the same shirt. The one at the door has a tray. The one at the foot of the bed has nothing in his hands, and he is looking at you, and he does not have the careful face on.'),
@@ -106,11 +108,11 @@ k86('d_late','m',null,'cell','His voice comes late',[
 k86('d_light','m',null,'cell','The green light',[
  N('The green light on the ceiling goes on and off. Every time it goes off, it leaves a thread of itself hanging in the dark, and the threads do not fade.'),
  N('By the middle of the night the ceiling is hung with them. They move when you breathe. Some of them have begun to join up.'),
- M2('(it’s the stuff. there’s NOTHING on the ceiling. it’s the stuff)','(it’s the stuff. there’s nothing on the ceiling. it’s only the stuff)'),
- N('You know that. You are an assassin; you have spent a hundred nights looking at one window, and you know what eyes do when they are tired. You tell yourself so, in a firm voice.'),
+ M2('(it’s the stuff. there’s NOTHING on the ceiling. it’s the stuff)','(it’s the stuff. there’s nothing on the ceiling. it’s the stuff)'),
+ N('You know that. You have spent a hundred nights looking at one window, and you know what eyes do when they are tired. You tell yourself so, in a firm voice.'),
  N('The threads have made a shape. It is long, and it has shoulders. It is exactly as tall as the door.'),
- N('You pull the sheet over your face. You have not done that since you were small enough for it to work.')]);
-
+ M2('(oh, fuck off. ur not even here and ur looming)','(oh, fuck off. you’re not even here and you’re looming)'),
+ N('You give it the finger. You hold it up there, with the good hand, at a thing made of light, until the arm goes dead and falls on your face. It does not go away. You do not pull the sheet up, either. You lie there and look at it, and call it every name you have.')]);
 /* ===================================== THE POOL: MISAKI, CLEAR ===================================== */
 k86('d_bag','m',null,'clear','The bag is smaller',[
  N('The bag on the stand is a small one today. Yesterday’s came down to your elbow. This one is the size of a fist.'),

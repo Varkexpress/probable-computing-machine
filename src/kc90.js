@@ -182,23 +182,25 @@ const _hub90=hub;hub=function(){const a=arguments,self=this;try{const s=k90Night
 
 /* ===================================== THE POOL ===================================== */
 /* ---------- Misaki, cell ---------- */
-k86('h_mouth','m',null,'cell','Your mouth says it without you',[
- N('The tall one sets the cup down. Your mouth says thank you.'),
- N('You were not there for it. You were thinking about the drain. The words came out by themselves, in the good voice, with the little lift at the end, the way a hand comes off a hot ring before you have felt the heat.'),
- M2('(i didn’t say that. my MOUTH said that. who’s driving)','(i didn’t say that. my mouth said that. who’s driving?)'),
- N('You bite the inside of your cheek, hard, to make it yours again. It works. There is a taste of coins, and something warm runs out of the corner of your mouth.'),
+k86('h_mouth','m',null,'cell','He comes at you fast',[
+ N('The bag wants you asleep, and you are not going to sleep with him in the room. So you bite the inside of your cheek, hard, and hold it.'),
+ N('It works. There is a taste of coins, and something warm runs out of the corner of your mouth.'),
  N('He sees the blood. He comes across the room in two strides, fast, with his hand out towards your face.'),
- N('You have never seen him move fast. Everything in you goes flat. You are on your back with your hands open beside your head and your chin up, and you did not choose that either.'),
- N('He stops as if he had walked into glass. His hand is in the air a foot from your jaw. He takes it back, slowly, and holds it against his own chest with the other one, and backs away until he reaches the door.'),
- M2('(he was going for my throat. then he changed his mind. don’t give him a reason to change it back)','(he was going for my throat, and then he changed his mind. don’t give him a reason to change it back)')]);
+ N('You have never seen him move fast. You do not think. Your good arm comes up off the blanket with the fingers stiff, and you go for his eyes.'),
+ N('You miss by the width of his glasses. You are slow, and one-handed, and full of whatever is in the bag. But you went, and he saw you go.'),
+ N('He stops as if he had walked into glass. His hand is in the air a foot from your jaw. He takes it back, slowly, and holds it against his own chest, and backs off until he reaches the door.'),
+ M2('(he was going for my throat. and he STOPPED. bc i went for his face? no. bc he’s not ready. he does it when HE says)','(he was going for my throat. and he stopped. because i went for his face? no. because he isn’t ready. he does it when he says)'),
+ M2('(still. made u blink, ur honour)','(still. made you blink, your honour)')]);
 k86('h_limp','m',null,'cell','He has to lift you',[
  N('The sheet has to be changed. He says so, from the door, and says that he will have to lift you to do it, and waits.'),
- N('You know about being lifted. In the other building you were moved, between rooms, by whoever was on. You learned that it goes quicker limp. If you go limp there is nothing for them to get a grip on in you, and they put you down sooner.'),
- N('He gets one arm under your knees and one behind your shoulders. You go limp.'),
- N('Your head drops back over his arm. Your good hand hangs. You are looking at the ceiling upside down, the green light, the crack, and you have gone a long way off behind your eyes and left him the weight.'),
- N('He makes a sound. It is low, and not a word, and it comes from somewhere under his ribs. You feel it through his arm more than you hear it.'),
- M2('(what. i’m making it easy. this is me making it EASY)','(what? i’m making it easy. this is me making it easy)'),
- N('He puts you down in the chair as though you were hot. He strips the bed with his back to you, and it takes him three tries to get the corner of the clean sheet on, because his hands will not do it.')]);
+ N('You know about being carried. You have done the carrying. A body that helps is light, and a body that has gone dead is the heaviest thing in the world; you have sworn at a few on stairs.'),
+ N('He gets one arm under your knees and one behind your shoulders. You go dead.'),
+ N('Your head drops back over his arm. Your good hand hangs. It hangs, as it happens, against his chest, and when he turns for the chair it swings up under his collar on the left side.'),
+ M2('(there u are. flat handle. steel. it’s RIGHT there)','(there you are. flat handle. steel. it’s right there)'),
+ N('Your fingers will not close. You tell them to, and they flap against his shirt like something on a line. You get the second swing in, and you have two knuckles on the handle, and that is all that the hand has in it.'),
+ N('He makes a sound. It is low, and it comes from under his ribs, and for a second you would swear that it was a laugh.'),
+ M2('(don’t u LAUGH at me. i’m armed. i’m nearly armed)','(don’t you laugh at me. i’m armed. i’m nearly armed)'),
+ N('He puts you down in the chair. He strips the bed with his back to you, which he has never done before, and it takes him three tries to get the corner of the clean sheet on.')]);
 k86('y3_splint','m','inj','cell','Nobody has done the fingers',[
  N('Nobody has done the fingers. If they are left, they will set bent, and a bent trigger finger is the end of rent.'),
  N('So you do them, in the night, by the green light, with your back to the door. The spoon off the first tray. A strip off the hem of the sheet, torn with your teeth. Two fingers bound to the handle, straight, with the knot on the back.'),
@@ -277,12 +279,12 @@ k86('h_cast','v',null,null,'Under the cast',[
 k86('h_fast','v',null,null,'You moved too quickly',[
  N('There was blood at the corner of their mouth. You thought of the ribs, and of a lung, and you crossed the room.'),
  N('You crossed it quickly. You had not moved quickly in that room before. You had made a rule of it.'),
- N('They went flat. You have never seen a thing done so fast. On the back, the hands open on the pillow either side of the head, the chin lifted, the throat given. Every part of them arranged, in less than a second, so as to be no trouble.'),
- N('Nobody is born knowing how to lie like that. It is taught. It is taught by repetition, by somebody who wants a thing made easy.'),
- K76V('(I have had forty-one on the table. Not one of them offered me the throat. They fought the straps to the last.)'),
- N('Your hand was a foot from their jaw. You took it back and held it against your own chest, and it was some time before you could trust it at your side.'),
- N('The blood was from the cheek. They had bitten it. You learned that afterwards, from a stain on the pillow. They would not open the mouth for you, and you did not ask twice.'),
- K76V('(I went at them like a man with a claim. For one second I was exactly what they took me for. I should like to be sick, and I have not earned it.)')]);
+ N('They came up at you. One arm, off the blanket, with the fingers stiff, straight for the eyes. It was slow, and it was a hand’s width wide, and it was done on a quantity of opiate that would have stopped a horse.'),
+ N('Your hand was a foot from their jaw. You took it back and held it against your own chest, and you went away to the door.'),
+ K76V('(I have had forty-one on the table. Every one of them fought the straps. I had thought that the four by the river might have taken that out of this one.)'),
+ N('They did not. You find that you are glad of it, standing at the door with your glasses crooked. It is exactly what you should have expected of them in April: no strength, no chance, and a thumb in your eye regardless.'),
+ N('The blood was from the cheek. They had bitten it, to keep awake while you were in the room. You learned that afterwards, from the pillow.'),
+ K76V('(I went at them like a man with a claim. For one second I was precisely what they take me for. They were quite right to go for the eyes.)')]);
 k86('h_ronin','v',null,null,'Ronin cannot look',[
  N('Ronin comes down while you are doing the wrists. He stops in the door. He looks at what is under the lamp for about as long as it takes to read a line, and then he is gone.'),
  N('You find him in the kennel passage with his forehead against the brick.'),
@@ -309,11 +311,12 @@ k86('h_eleven','v',null,null,'Their temperature is up',[
 k86('h_carry','v',null,null,'How they go, when you lift them',[
  N('The sheet must be changed. You tell them, from the door, that you will have to lift them. You wait for a count of ten, so that they may refuse.'),
  N('They do not refuse. You get an arm under the knees and an arm behind the shoulders, and you take the weight.'),
- N('They go slack. All at once, like a line let go. The head drops back over your arm; the good hand swings. The eyes are open and nobody is using them.'),
- N('You have carried that. Down the cellar stair, to the table, more than once, when a man had fainted or the sedative had him. A thing weighs like that when it has stopped objecting.'),
- K76V('(They are not unconscious. They have done it on purpose. It is what one does in order to be put down quickly.)'),
- N('A noise comes out of you. You do not have a name for it. You have not made it before.'),
- N('You set them in the chair. You cannot get the sheet onto the bed; your hands have gone stupid, and the corner comes off three times. Behind you there is no sound at all. They are sitting exactly as you left them, waiting to be collected.')]);
+ N('They go dead. All at once, like a line let go. The head drops back over your arm; the good hand swings.'),
+ N('You know the trick. You have carried that down the cellar stair, more than once, from men who meant to be as much trouble as they could. A body that helps is light. This one has decided that you shall work for it.'),
+ N('Then the hand comes up under your collar, on the left. You feel the knuckles on the steel. It is the swing of the arm, you think; and then it comes a second time, and it is no such thing. They are trying for the scalpel. The fingers cannot close upon it. They are trying all the same.'),
+ N('A noise comes out of you. It is very nearly a laugh. You have not made that noise in that room.'),
+ K76V('(They weigh nothing. They cannot make a fist. And they are attempting, while I carry them, to cut my throat with my own knife.)'),
+ N('You set them in the chair. You turn your back to strip the bed, which is either an insult or a courtesy, and you are not certain which you intend. Your hands have gone stupid, and the corner of the sheet comes off three times. You can feel them looking at your collar like a cat at a bird.')]);
 k86('h_glass','v',null,null,'Your reflection in the door',[
  N('At night the glass in the infirmary door shows you yourself, laid over the room.'),
  N('A tall man in a dark coat, with keys at his belt. Behind him, through him, a bed, and something small in the corner of it, sitting up, with its knees drawn in.'),

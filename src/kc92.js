@@ -47,16 +47,17 @@ k86('k_knife','m',null,'cell','The knife on the tray',[
    N('He stays on his knee a moment longer than he needs to. It is as if he were giving you the two seconds again. Then he gets up, and takes his four steps back, and at the door he says what day it is.'),
    M2('(he saw. he SAW my hand on it. and he left it there)','(he saw. he saw my hand on it, and he left it there)'),
    M2('(so it’s a test and i failed it. or it’s a test and that was passing. i don’t know which. i don’t know what he WANTS)','(so it’s a test and i failed it. or it’s a test, and that was passing. i don’t know which. i don’t know what he wants)')],cb)}}]));
-k86('k_offer','m',null,'cell','Offer him the only thing you have',[
- N('You have nothing in here to bargain with. You have gone over it. Ninety dollars, in a trailer he has certainly been through. A truck. A cactus.'),
- N('There is one thing. It is the thing you have sold since you were sixteen, and it has always found a buyer.'),
- N('When he comes for the tray, you keep your eyes on his hands and say it in the good voice, evenly, as you would quote for a job.'),
- Ms('i shoot. i’m the best there is. u know that, it’s in ur file. whoever u want. no fee. as many as u want. for as long as u want','i shoot. i’m the best there is. you know that; it’s in your file. whoever you want, no fee. as many as you want, for as long as you want','You lift your good hand, sight along the first finger at the wall, and let the thumb fall. Then you turn the hand over, open, and hold it out to him.'),
- N('It is a good offer. He is a man with a list. You would be worth a great deal to a man with a list.'),
- N('He does not answer. He has stopped with the tray half lifted. Something is happening in his face that you have not seen before, and you find that you are looking at it, in place of his hands, because you cannot work out what you have set off.'),
+k86('k_offer','m',null,'cell','Make him an offer',[
+ N('You have nothing in here to bargain with. You have been through it. Ninety dollars, in a trailer that he has certainly searched. A truck. A cactus.'),
+ N('There is one thing. It is what you have sold since you were sixteen, and it has always found a buyer.'),
+ N('When he comes for the tray, you keep your eyes on his hands and you quote for it, as you would for any client.'),
+ Ms('ur list’s too long. ur one guy. u do, what, four a year? i do four a MONTH. give me the list. no fee. u want them explained to, i’ll read them a card','Your list’s too long. You’re one guy. You do, what, four a year? I do four a month. Give me the list. No fee. If you want them explained to, I’ll read them a card.','You point at him, and hold up four fingers, and make a face. You point at yourself and hold up four, four, four. Then you rub finger and thumb together and shake your head: no charge.'),
+ N('It is a good offer. It is a great offer. A man with a list and no time ought to bite your hand off.'),
+ N('He has stopped with the tray half lifted. Something is going on in his face that you have not seen before, and you find that you are looking at it, in place of his hands.'),
  K76V('No.'),
- M2('(no. he said no. he doesn’t want it. then what’s he WANT me for)','(no. he said no. he doesn’t want it. then what does he want me for?)'),
- N('There is only one thing left that a man keeps you for, when he has turned down your work. You pull the blanket up to your chin and do not look at him again.')]);
+ M2('(no?? i offered him free LABOUR. he could clear the backlog by christmas)','(no? i offered him free labour. he could clear the backlog by christmas)'),
+ N('Then you have it. He does not want them dead. He wants to do it. It was never about the list getting shorter; you said so in the bowling alley, and he looked at you as if you had spat.'),
+ M2('(i KNEW it. it’s not a law. it’s a hobby. …so that’s what i’m here for)','(i knew it. it’s not a law. it’s a hobby. …so that’s what i’m here for)')]);
 k86('k_hound','m',null,'cell','The door opens, and it is not him',[
  N('The door opens in the night. There are no footsteps before it. The handle goes down by itself, and something pushes the door with its head.'),
  N('It is the grey one. It is the size of a calf. It stands in the doorway with the corridor light behind it, looking at you, and its eyes give the light back green.'),
@@ -229,7 +230,7 @@ k86('k_empty','v',null,null,'Say it to the kennel',[
 /* ===================================== ENDINGS ===================================== */
 const _xe92=extraEnding;extraEnding=function(){const L=_xe92();try{if(!S||!S.f||S.f.e2l!==1||S.rom||S.vrom||S.f.k28pair)return L;const f=S.f,F=f.e2l85||{};
  if(f.e2lKnife==='tried'||f.e2lKnifeV)L.push('In the infirmary, drugged, Misaki put the tray knife to V’s neck. He kept still, said “It happens”, and laid it back on the tray with the handle towards them.');
- if(F.k_offer||F.k_offerV)L.push('Misaki offered to kill for V, for nothing, for as long as he liked, if he would let them live. He said no, and could find nothing to put after it.');
+ if(F.k_offer||F.k_offerV)L.push('In the infirmary Misaki offered to clear V’s list for him, four a month, for nothing. He said no, and could find nothing to put after it.');
  if(f.e2lPistol)L.push('V gave Misaki their pistol back in the infirmary, loaded, with nobody else in the house. They slept on their back that night.');
  if(F.k_pray)L.push('Ronin offered the Devil two men off his list, and himself on account, to leave Misaki alone. He ended the prayer by telling him to go fuck himself.');
  if(F.k_miss)L.push('Angel missed eleven shots in a row on the range under V’s house the week Misaki was in the infirmary. She has not missed one since.')}catch(e){}return L};
