@@ -265,6 +265,7 @@ function k76Page(back){const f=S.f,m=k76M(),now=k76ChNow(),t=k76Tal(),esc=s=>Str
  const sl=f.e2lSlept||{};if((sl.m||0)+(sl.v||0))h+='<p><b style="color:var(--teal)">Nights slept beside the other, armed:</b> Misaki '+(sl.m||0)+' · V '+(sl.v||0)+'</p>';
  if(B.length)h+='<p><b style="color:var(--teal)">Blood drawn:</b> '+B.map(esc).join(' ')+'</p>';
  if(D.length)h+='<p><b style="color:var(--teal)">Dead of it so far ('+D.length+'):</b> '+D.map(esc).join(' ')+'</p>';
+ if(!m&&(f.e2l94V||0))h+='<p><b style="color:var(--teal)">Times you have set out to do it:</b> '+f.e2l94V+'. Times you reached the door: none.</p>';
  if(!m&&!f.e2lEnd)h+='<p><b style="color:var(--teal)">Total:</b> '+(f.e2lLedger?'none. You could not write one.':'not yet written.')+'</p>';
  panel(h,[{t:'Close',fn:back||hub}]);const el=document.querySelector('.panel');if(el){el.scrollTop=0;setTimeout(()=>{try{el.scrollTop=0}catch(e){}},0)}}
 
