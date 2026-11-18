@@ -65,14 +65,15 @@ for(const pov of ['m','v'])for(const o of [0,1]){await load('n',pov,{},0);await 
 /* 2. the side menu offers the right beat per phase, plays it once */
 /* kc76 adds e2l_show after the trailer (it leaves the day's move free) and e2l_pair before the mat */
 const SEQ=[['n','e2l_eye',[]],['n','e2l_show',['e2l_eye']],['n','e2l_lift',['e2l_eye','e2l_show']],['n','e2l_kennel',['e2l_eye','e2l_show','e2l_lift']],['n','e2l_sab',['e2l_eye','e2l_show','e2l_lift','e2l_kennel']],['n','e2l_dinner',['e2l_eye','e2l_show','e2l_lift','e2l_kennel','e2l_sab']],['n','e2l_truce',['e2l_eye','e2l_show','e2l_lift','e2l_kennel','e2l_sab','e2l_dinner']],['f','e2l_after',[]],['2','e2l_after',[]],
- ['2','e2l_car',['e2l_after']],['2','e2l_stitch',['e2l_after','e2l_car']],['2','e2l_pair',['e2l_after','e2l_car','e2l_stitch']],['2','e2l_spar',['e2l_after','e2l_car','e2l_stitch','e2l_pair']],['3','e2l_boat',[]],['e','e2l_epi',[]]];
+ ['2','e2l_rifle',['e2l_after']],['2','e2l_fork',['e2l_after','e2l_rifle']],['2','e2l_car',['e2l_after','e2l_rifle','e2l_fork']],['2','e2l_list',['e2l_after','e2l_rifle','e2l_fork','e2l_car']],['2','e2l_stitch',['e2l_after','e2l_rifle','e2l_fork','e2l_car','e2l_list']],['2','e2l_pair',['e2l_after','e2l_rifle','e2l_fork','e2l_car','e2l_list','e2l_stitch']],['2','e2l_spar',['e2l_after','e2l_rifle','e2l_fork','e2l_car','e2l_list','e2l_stitch','e2l_pair']],['3','e2l_will',[]],['3','e2l_boat',['e2l_will']],['e','e2l_epi',[]]];
+const FREE=['e2l_show','e2l_fork','e2l_list','e2l_will']; /* kc76/kc77 beats that leave the day's move free */
 for(const pov of ['m','v'])for(const [ph,id,pre] of SEQ){await load(ph,pov,{});await ev(pre=>{pre.forEach(x=>S.f.e2ld[x]=1);if(S.phase==='act2'&&!pre.includes('e2l_after')){S.f.e2ld.e2l_after=0;KD();S.kd.t0=S.day-6;S.kd.med=0}},pre);
- if(id!=='e2l_after'&&ph==='2')await ev(()=>{S.f.e2ld.e2l_after=1});
+ if(id!=='e2l_after'&&ph==='2')await ev(()=>{S.f.e2ld.e2l_after=1;S.f.e2lAfter='war'});
  const d=await ev(()=>{const b=k73Due();return b&&b.id});if(d!==id)errs.push(`side ${pov} ${ph} expected ${id} got ${d}`);
  const r2=await ev(()=>{const b=k73Due();const o=b&&sideHub(false).find(o=>o.t==='⚔ '+b.t());if(!o)return 'none';window.__hubbed=0;o.fn();return 'ok'});const r3=await drive(0);
  if(r2!=='ok'||r3!=='hub')errs.push('side option '+pov+' '+id+' '+r2+' '+r3);
  const again=await ev(id=>{const b=k73Due();return b&&b.id===id},id);if(again)errs.push('beat repeats '+id);
- const same=await ev(()=>{const b=k73Due();return b?b.id:null});if(['n','2'].includes(ph)&&same&&same!=='e2l_epi'&&id!=='e2l_show')errs.push('second beat same day '+pov+' '+same)}
+ const same=await ev(()=>{const b=k73Due();return b?b.id:null});if(['n','2'].includes(ph)&&same&&same!=='e2l_epi'&&!FREE.includes(id))errs.push('second beat same day '+pov+' '+same)}
 /* gates */
 for(const [ph,name,patch] of [['n','rom',s=>{S.rom='r'}],['n','vrom',s=>{S.vrom='a'}],['2','lone',s=>{S.lone='v'}],['f','infirmary',s=>{S.kd.med={d:1}}],['f','too soon',s=>{S.kd.t0=S.day-1}],['t','taken',s=>{}],['n','pair',s=>{S.f.k28pair={lead:'v',with:'a'}}]]){
  await load(ph,'m',{});const d=await ev(src=>{(eval('('+src+')'))(S);const b=k73Due();return b?b.id:null},patch.toString());if(d)errs.push('gate leak '+name+' '+d)}

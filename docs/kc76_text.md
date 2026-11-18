@@ -5,6 +5,18 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 # kc76.js
 
 
+### e2l\_after
+
+
+### e2l\_boat
+
+
+### e2l\_will
+
+
+### e2l\_will
+
+
 ### e2l\_eye
 
 

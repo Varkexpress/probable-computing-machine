@@ -21,21 +21,21 @@
 const K76=()=>{try{return typeof E2L==='function'&&E2L()&&typeof K73B!=='undefined'}catch(e){return false}};
 const k76M=()=>S.pov!=='v';
 const k76H=(m,v)=>k76M()?m:v;
-const k76Has=id=>{try{if(id==='e2l_yard')return typeof k75Loose==='function';if(id==='e2l_come')return !k76M();if(id==='e2l_morn')return S.f.e2lEnd==='lovers';
+const k76Has=id=>{try{if(id==='e2l_yard')return typeof k75Loose==='function';if(id==='e2l_come')return !k76M();if(id==='e2l_morn')return S.f.e2lEnd==='lovers';if(id==='e2l_book')return S.f.e2lEnd==='rivals'&&K73B.some(b=>b.id===id);if(id==='e2l_fork')return S.f.e2lAfter!=='soft'&&K73B.some(b=>b.id===id);
  if(['e2l_mark','e2l_door','e2l_med'].includes(id))return true;return K73B.some(b=>b.id===id)}catch(e){return false}};
 const k76Did=id=>{try{const f=S.f;if(id==='e2l_yard')return !!f.e2lLoose;if(id==='e2l_med')return k76M()?!!(f.e2lMM||f.e2lMC):!!f.e2lVM;if(id==='e2l_morn')return !!S.seen.e2l_morn;return k73Done(id)}catch(e){return false}};
 
 /* ===================================== THE CHAPTERS ===================================== */
 const K76CH=[
  {n:'I',t:'THE OATH',ph:['normal'],ids:['e2l_mark','e2l_eye','e2l_show','e2l_lift','e2l_kennel','e2l_yard','e2l_sab','e2l_dinner','e2l_truce']},
- {n:'II',t:'THE DEBT',ph:['taken','after'],ids:['e2l_come','e2l_door','e2l_med','e2l_after']},
- {n:'III',t:'THE CASE',ph:['act2'],ids:['e2l_car','e2l_stitch','e2l_pair','e2l_spar']},
- {n:'IV',t:'THE TERMS',ph:['act3'],ids:['e2l_boat']},
- {n:'V',t:'A YEAR ON',ph:['epilogue'],ids:['e2l_morn','e2l_epi']}];
+ {n:'II',t:'THE DEBT',ph:['taken','after'],ids:['e2l_come','e2l_door','e2l_med','e2l_after','e2l_rifle','e2l_fork']},
+ {n:'III',t:'THE CASE',ph:['act2'],ids:['e2l_car','e2l_list','e2l_stitch','e2l_pair','e2l_spar']},
+ {n:'IV',t:'THE TERMS',ph:['act3'],ids:['e2l_will','e2l_boat','e2l_book']},
+ {n:'V',t:'A YEAR ON',ph:['epilogue'],ids:['e2l_morn','e2l_epi','e2l_page']}];
 const K76NAME={e2l_mark:'The card man',e2l_eye:'The trailer, at four',e2l_show:'The cold room',e2l_lift:'The customs-house lift',e2l_kennel:'The kennel, at three',
  e2l_yard:'The warehouse yard',e2l_sab:'The foundation dinner',e2l_dinner:'Angel’s table',e2l_truce:'The bowling alley accords',e2l_come:'The river',e2l_door:'The door',
  e2l_med:'The room marked LAUNDRY',e2l_after:'The kitchen, at noon',e2l_car:'Eight hours in a car',e2l_stitch:'The garage, with a needle',e2l_pair:'The first one together',
- e2l_spar:'The training hall',e2l_boat:'The Constance',e2l_morn:'The morning after',e2l_epi:'The anniversary'};
+ e2l_spar:'The training hall',e2l_boat:'The Constance',e2l_morn:'The morning after',e2l_epi:'The anniversary',e2l_rifle:'The rifle',e2l_fork:'The fork',e2l_list:'The fourth body',e2l_will:'The wills',e2l_book:'The book closes',e2l_page:'The page'};
 const k76Ids=c=>c.ids.filter(k76Has);
 const k76ChOf=id=>K76CH.find(c=>c.ids.includes(id))||null;
 const k76ChNow=()=>K76CH.find(c=>c.ph.includes(S.phase))||K76CH[0];
@@ -62,10 +62,11 @@ function k76Next(){const f=S.f,m=k76M(),p=S.phase;
  if(yard)return 'Next move, today: '+(m?'his yard by the river, at two.':'the warehouse yard, at two.');
  const left=c=>k76Ids(c).filter(id=>!k76Did(id)&&id!=='e2l_yard'&&id!=='e2l_morn').length;
  if(p==='normal')return left(K76CH[0])?'The next move is tomorrow. One a day. This chapter closes when the second rent is paid, and moves not made by then are lost.':'Every move of this chapter is made. It closes when the second rent is paid.';
- if(p==='after')return left(K76CH[1])?(m?'The next move comes a few days after you are out of the infirmary.':'The next move comes a few days after they are out of the infirmary.'):'Nothing more until the case opens.';
- if(p==='act2')return left(K76CH[2])?'The next move is tomorrow. One a day, while the case runs.':'Nothing more until Pier Nine.';
- if(p==='act3')return left(K76CH[3])?'The next move is at Pier Nine, two nights before the auction.':(f.e2lEnd==='lovers'&&!S.seen.e2l_morn?'The morning after comes on its own.':'It is settled until the anniversary.');
- return left(K76CH[4])?'The anniversary comes on its own.':'That is all of it.'}
+ const fresh=(()=>{try{return k73Fresh()}catch(e){return true}})(),tom='The next move is tomorrow. One a day.';
+ if(p==='after')return left(K76CH[1])?(k73Done('e2l_after')?(fresh?'The next move is not ready yet.':tom):(m?'The next move comes a few days after you are out of the infirmary.':'The next move comes a few days after they are out of the infirmary.')):'Nothing more until the case opens.';
+ if(p==='act2')return left(K76CH[1])+left(K76CH[2])?'The next move is tomorrow. One a day, while the case runs.':'Every move of the case is made. Nothing more until Pier Nine.';
+ if(p==='act3')return !k73Done('e2l_boat')?(k76Did('e2l_will')||!k76Has('e2l_will')?'The next move is at Pier Nine, two nights before the auction.':'The next move comes once the auction is a day nearer.'):(left(K76CH[3])?tom:(f.e2lEnd==='lovers'&&!S.seen.e2l_morn?'The morning after comes on its own.':'It is settled until the anniversary.'));
+ return left(K76CH[4])?(fresh?'The anniversary comes on its own.':tom):'That is all of it.'}
 const k76Short=()=>{const c=k76ChNow(),n=k76Count(c);return 'The war · '+c.n+' · '+c.t.charAt(0)+c.t.slice(1).toLowerCase()+' · '+n.done+' of '+n.of};
 
 /* ===================================== THE CHAPTER CARD ===================================== */
@@ -177,6 +178,19 @@ function k76Line(id){const f=S.f,m=k76M(),self=!!f.selfEscape;switch(id){
   :(m?'First to three on the mat. You had the blade under his chin. He tapped out, and you walked.':'Three to one, theirs. I tapped the mat.');
  case 'e2l_boat':return f.e2lEnd==='lovers'?(m?'Under the tarp on the Constance he declared war on you for the rest of his life. You accepted, and won.':'Declared it, under the tarp on the Constance. Accepted.')
   :(m?'Under the tarp on the Constance you shook on it, with your other hand on your pistol. The war stands.':'Shook on it under the tarp, armed. The oath stands. I will not act on it unless they do.');
+ case 'e2l_rifle':return f.e2lRifle==='aimed'?(m?'He gave the rifle back clean, with one round. You put it on his chest. Your left hand could not hold it still, and he said he would stand there again in a month.':'Returned their rifle, cleaned, with one round. Stood in front of it. Their left hand could not hold it still.')
+  :(m?'He gave the rifle back clean, with one round. You put the round in your pocket.':'Returned their rifle, cleaned, with one round. They kept the round.');
+ case 'e2l_fork':return f.e2lFork==='potato'?(m?'You held a fork in both hands at dinner, and took the last potato off his plate with it. He did not come round the table.':'They held a fork in both hands at dinner, and took a potato off my plate with it. I did not go round the table.')
+  :(m?'You held a fork in both hands at dinner and waited for him to say when. He could not name a date.':'They held a fork in both hands at dinner. I could not fix a date.');
+ case 'e2l_list':return f.e2lList==='cut'?(m?'The Mimic’s fourth: your shot, and V’s cutting done badly. Somebody has described his work to the man.':'The fourth body: their shot, and my cutting, across the grain. Somebody has described my work to him.')
+  :(m?'The Mimic’s fourth: your shot, and V’s cutting done badly. He has watched you work. V did not like that.':'The fourth body: their shot, copied well. He has watched them work for longer than I have.');
+ case 'e2l_will':return m?(f.e2lWill==='nothing'?'You left him nothing. He left you your own page.':'You left him the bullet you were saving. He left you the hounds.')
+  :(f.e2lWill==='page'?'Will amended: their page is to go to them, unread. They left me nothing.':'Will amended: they are to have the hounds. They left me a bullet.');
+ case 'e2l_book':return 'Ronin closed the book and gave the pot to the old priest. Nobody won.';
+ case 'e2l_page':return f.e2lPage==='burned'?(m?'He gave you the page with a date where the total goes. You burned it in his sink.':'Gave them the page, dated where the total goes. Burned, in the sink.')
+  :f.e2lPage==='kept'?(m?'He gave you the page with a date where the total goes. It is in the go-bag.':'Gave them the page, dated where the total goes. They kept it.')
+  :f.e2lPage==='wrote'?(m?'This year’s line on your page said NOTHING. You wrote STILL COULD under it.':'This year’s line: NOTHING. They wrote under it, in their hand: STILL COULD.')
+  :(m?'This year’s line on your page said NOTHING. You handed it back.':'This year’s line: NOTHING. The ledger was closed.');
  case 'e2l_morn':return m?'The morning after. Angel opened the envelope.':'The morning after. Angel opened her envelope.';
  case 'e2l_epi':return f.e2lEnd==='lovers'?'A year on. You still race for the same marks, and the loser cooks.':'A year on. Nobody is dead. Both of you still could.'}
  return ''}
@@ -209,6 +223,7 @@ function k76Page(back){const f=S.f,m=k76M(),now=k76ChNow(),t=k76Tal(),esc=s=>Str
   if(i===cur){const left=n.of-n.done;if(left>0)h+='<p style="margin-left:1.2em;opacity:.6">'+left+' more to come in this chapter.</p>'}});
  const B=k76Blood(),D=k76Dead();
  h+='<p style="margin-top:8px"><b style="color:var(--teal)">Attempts on each other:</b> Misaki '+t.m+' · V '+t.v+'</p>';
+ const sl=f.e2lSlept||{};if((sl.m||0)+(sl.v||0))h+='<p><b style="color:var(--teal)">Nights slept beside the other, armed:</b> Misaki '+(sl.m||0)+' · V '+(sl.v||0)+'</p>';
  if(B.length)h+='<p><b style="color:var(--teal)">Blood drawn:</b> '+B.map(esc).join(' ')+'</p>';
  if(D.length)h+='<p><b style="color:var(--teal)">Dead of it so far ('+D.length+'):</b> '+D.map(esc).join(' ')+'</p>';
  if(!m&&!f.e2lEnd)h+='<p><b style="color:var(--teal)">Total:</b> '+(f.e2lLedger?'none. You could not write one.':'not yet written.')+'</p>';

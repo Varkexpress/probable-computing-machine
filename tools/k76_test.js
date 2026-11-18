@@ -26,16 +26,16 @@ let runs=0,fails=0;const ok=(c,m)=>{runs++;if(!c){fails++;console.log('FAIL',m)}
   if(r==='hub')return 'hub';if(r==='clicked')i++;if(r==='idle')await p.waitForTimeout(15);await p.waitForTimeout(3)}return 'timeout'};
  /* (a) */
  const order=await ev(()=>K73B.map(b=>b.id).join(' '));
- ok(order==='e2l_eye e2l_show e2l_lift e2l_kennel e2l_sab e2l_dinner e2l_truce e2l_after e2l_car e2l_stitch e2l_pair e2l_spar e2l_boat e2l_epi','order: '+order);
+ ok(order==='e2l_eye e2l_show e2l_lift e2l_kennel e2l_sab e2l_dinner e2l_truce e2l_after e2l_rifle e2l_fork e2l_car e2l_list e2l_stitch e2l_pair e2l_spar e2l_will e2l_boat e2l_book e2l_epi e2l_page','order: '+order);
  const ch=await ev(()=>K73B.map(b=>K76CH.filter(c=>c.ids.includes(b.id)).length).join(''));ok(/^1+$/.test(ch),'every beat in exactly one chapter: '+ch);
  const names=await ev(()=>K76CH.reduce((a,c)=>a.concat(c.ids),[]).filter(id=>!K76NAME[id]));ok(!names.length,'beat names: '+names);
  for(const pov of ['m','v']){
   await ev(pov=>__set(pov,'normal',{done:['e2l_eye']}),pov);ok(await ev(()=>(k73Due()||{}).id)==='e2l_show',pov+' show is due after the trailer');
   await ev(()=>{S.f.e2lLast=S.day});ok(await ev(()=>k73Due())===null,pov+' show waits for the next day');
-  await ev(pov=>__set(pov,'act2',{done:['e2l_after','e2l_car','e2l_stitch']}),pov);ok(await ev(()=>(k73Due()||{}).id)==='e2l_pair',pov+' pair is due after the stitches');
-  await ev(pov=>__set(pov,'act2',{done:['e2l_after','e2l_car','e2l_stitch','e2l_pair']}),pov);ok(await ev(()=>(k73Due()||{}).id)==='e2l_spar',pov+' the mat follows the pair')}
+  await ev(pov=>__set(pov,'act2',{done:['e2l_after','e2l_rifle','e2l_fork','e2l_car','e2l_list','e2l_stitch']}),pov);ok(await ev(()=>(k73Due()||{}).id)==='e2l_pair',pov+' pair is due after the stitches');
+  await ev(pov=>__set(pov,'act2',{done:['e2l_after','e2l_rifle','e2l_fork','e2l_car','e2l_list','e2l_stitch','e2l_pair']}),pov);ok(await ev(()=>(k73Due()||{}).id)==='e2l_spar',pov+' the mat follows the pair')}
  /* (b) */
- const W={e2l_show:{m:['watched','answered'],v:['all','minute'],fl:'e2lShow',ph:'normal',done:['e2l_eye']},e2l_pair:{m:['quick','slow'],v:['quick','slow'],fl:'e2lPair',ph:'act2',done:['e2l_after','e2l_car','e2l_stitch']}};
+ const W={e2l_show:{m:['watched','answered'],v:['all','minute'],fl:'e2lShow',ph:'normal',done:['e2l_eye']},e2l_pair:{m:['quick','slow'],v:['quick','slow'],fl:'e2lPair',ph:'act2',done:['e2l_after','e2l_rifle','e2l_fork','e2l_car','e2l_list','e2l_stitch']}};
  for(const id of Object.keys(W))for(const pov of ['m','v'])for(const o of [0,1]){const w=W[id];await ev(([pov,ph,done])=>__set(pov,ph,{done}),[pov,w.ph,w.done]);
   await ev(()=>{window.__n0=window.__all.length});
   const r0=await ev(()=>{const b=k73Due();const x=b&&sideHub(false).find(x=>x.t==='⚔ '+b.t());if(!x)return 'none';window.__sub=x.sub;x.fn();return b.id});const r=await drive([o]);
@@ -63,7 +63,7 @@ let runs=0,fails=0;const ok=(c,m)=>{runs++;if(!c){fails++;console.log('FAIL',m)}
   ok(/I · THE OATH · 3 of/.test(pg.t)&&/II · THE DEBT · not yet/.test(pg.t)&&/The cold room\./.test(pg.t)&&/one eye, and the rest/.test(pg.t)&&/Dead of it so far \(2\)/.test(pg.t)&&pg.closed===1,pov+' page: '+pg.t.slice(0,300))}
  /* the page across phases and flags */
  const FL={e2lOath:['loud','quiet','ledger','file'],e2lEye:['scope','note'],e2lShow:['watched','answered','all','minute'],e2lLift:['m','v','held'],e2lKennel:['fed','rifle','stay','set'],e2lLoose:['word','hand','again','called',null],
-  e2lSab:['m','v'],e2lDinner:['glass','clean','drank','fern'],e2lTruce:['m','v'],e2lPride:['debt','true'],e2lLedger:['kept','torn',null],e2lAfter:['war','soft'],e2lCar:['bet','watch'],e2lScar:['neat','crooked'],e2lPair:['quick','slow'],e2lSpar:['kiss','pin']};
+  e2lSab:['m','v'],e2lDinner:['glass','clean','drank','fern'],e2lTruce:['m','v'],e2lPride:['debt','true'],e2lLedger:['kept','torn',null],e2lAfter:['war','soft'],e2lCar:['bet','watch'],e2lScar:['neat','crooked'],e2lPair:['quick','slow'],e2lSpar:['kiss','pin'],e2lRifle:['aimed','kept'],e2lFork:['waited','potato'],e2lList:['shot','cut'],e2lWill:['bullet','nothing','hounds','page'],e2lPage:['burned','kept','wrote','unread'],e2lSlept:[{m:1,v:2},null]};
  const ALL=await ev(()=>K76CH.reduce((a,c)=>a.concat(c.ids),[]).filter(id=>!['e2l_yard','e2l_med','e2l_morn'].includes(id)));
  let pages=0;const bad=[];
  for(const pov of ['m','v'])for(const [ph,end] of [['normal',null],['taken',null],['after',null],['act2',null],['act3',null],['act3','lovers'],['act3','rivals'],['epilogue','lovers'],['epilogue','rivals']])for(let k=0;k<4;k++){
