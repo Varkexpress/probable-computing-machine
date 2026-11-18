@@ -2,7 +2,7 @@
 /* ===================== THE WAR: MORE OF THE ROOM (kc85) =====================
    More infirmary on the enemies-to-lovers route, for both aftermath settings. kc84's scheduler fills every slot of the
    stay already, so these are opened by the player: while kdMed(), the side menu has one free ⚔ entry (The room /
-   Outside the room). Each scene plays once; two a day at most (S.f.e2l85 {id:1}, S.f.e2l85Day, S.f.e2l85N).
+   Outside the room). Each scene plays once; three a slot at most, six listed at a time (S.f.e2l85 {id:1}, S.f.e2l85Day, S.f.e2l85N).
    Needs kc73, kc76–kc84.
    FULL STORY (kc29's rules: never named; the honest option greyed with KD_NO; each pretence a kdDeny(); nobody tells
    Ronin or Angel; V never shown knowing what Misaki has said to the doctor):
@@ -124,14 +124,15 @@ const K85S=[
    ['','You do not touch the hand. You pull the blanket up over it, so that it will be warm, and so that you will not have to see it lying open like that.'],
    K76V('(The body was taught not to report. Somebody found that convenient, long before the river. Of everything on the films, that is what I find hardest to stomach, and there is no film of it.)')],cb)}];
 
-const k85Day=()=>S.f.e2l85Day===S.day?(S.f.e2l85N||0):0;
+const k85Key=()=>S.day+'/'+(S.slot||0);
+const k85Day=()=>S.f.e2l85Day===k85Key()?(S.f.e2l85N||0):0;
 const k85List=()=>{try{const sa=k84SA(),m=S.pov!=='v',st=m?(kdClar()<2?'cell':'clear'):null,F=S.f.e2l85||{};
  return K85S.filter(e=>(e.pov==='m')===m&&(!e.mode||(e.mode==='sa')===sa)&&(!e.st||e.st===st)&&!F[e.id])}catch(e){return []}};
 const k85Ok=()=>{try{return K85()&&typeof kdMed==='function'&&kdMed()&&k85List().length>0}catch(e){return false}};
-function k85Room(){const m=S.pov!=='v',L=k85List(),full=k85Day()>=2;
- ask(K73Who(),m?(kdClar()<2?'(the room.)':'(the room marked laundry.)'):'(The corridor outside the door marked LAUNDRY.)',L.map(e=>({t:e.t,sub:full?'enough for today':'',dis:full,fn:()=>{const f=S.f;f.e2l85=f.e2l85||{};f.e2l85[e.id]=1;f.e2l85N=k85Day()+1;f.e2l85Day=S.day;save();
-   go(cutBg(m?(kdClar()<2?'#0c0a08':'#1c2422'):'#06060c'));e.run(hub)}})).concat([{t:'Not now',fn:hub}]))}
-const _sh85=sideHub;sideHub=function(late){const o=_sh85(late);try{if(S&&k85Ok())o.push({t:'⚔ '+(S.pov!=='v'?'The room':'Outside the room'),sub:'free · '+k85List().length+' left'+(k85Day()>=2?' · enough for today':''),fn:k85Room})}catch(e){}return o};
+function k85Room(){const m=S.pov!=='v',all=k85List(),L=all.slice(0,6),full=k85Day()>=3;
+ ask(K73Who(),m?(kdClar()<2?'(the room.)':'(the room marked laundry.)'):'(The corridor outside the door marked LAUNDRY.)',L.map(e=>({t:e.t,sub:full?'enough for now':'',dis:full,fn:()=>{const f=S.f;f.e2l85=f.e2l85||{};f.e2l85[e.id]=1;f.e2l85N=k85Day()+1;f.e2l85Day=k85Key();save();
+   go(cutBg(m?(kdClar()<2?'#0c0a08':'#1c2422'):'#06060c'));e.run(hub)}})).concat([{t:all.length>6?'Not now ('+(all.length-6)+' more after these)':'Not now',fn:hub}]))}
+const _sh85=sideHub;sideHub=function(late){const o=_sh85(late);try{if(S&&k85Ok())o.push({t:'⚔ '+(S.pov!=='v'?'The room':'Outside the room'),sub:'free · '+k85List().length+' left'+(k85Day()>=3?' · enough for now':''),fn:k85Room})}catch(e){}return o};
 
  /* ---------------- more: either setting ---------------- */
 K85S.push(

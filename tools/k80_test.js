@@ -66,20 +66,7 @@ let runs=0,fails=0;const ok=(c,m)=>{runs++;if(!c){fails++;console.log('FAIL',m)}
  for(const [mode,f,rx] of [['sa',{e2l84:{s_table:1}},/burned his plan/],['sa',{e2lVent:'shut'},/boarded shut/],['sa',{e2l84:{s_book:1}},/recovered alive/],['inj',{e2l84:{i_manner:1}},/snob about it/],['inj',{e2l84:{i_third:1}},/never set/],['inj',{e2lMarks:'same'},/did not argue/]]){
   const L=await ev(([mode,f])=>{META.kdFull=mode==='sa'?1:0;__set('m','epilogue',{f});return extraEnding().join(' | ')},[mode,f]);ok(rx.test(L),'ending '+mode+' '+JSON.stringify(f));
   const L1=await ev(([mode,f])=>{META.kdFull=mode==='sa'?0:1;__set('m','epilogue',{f});return extraEnding().join(' | ')},[mode,f]);ok(!rx.test(L1),'ending not in the other setting '+JSON.stringify(f))}
- /* kc85: the player-opened infirmary scenes, by setting, clarity and POV; two a day */
- const ROOM='^⚔ (The room|Outside the room)$';const X={sa:{mcell:['x_radio','x_water'],mclear:['x_ceiling','x_fridge','z_name'],v:['x_radioV','x_owed','z_line']},inj:{mcell:['y_report','y_ties'],mclear:['y_floss','y_stars','z_name'],v:['y_boot','y_sleep','z_line']}};
- for(const mode of ['sa','inj'])for(const [who,pov,clar] of [['mcell','m',0],['mclear','m',2],['v','v',0]])for(const comp of (pov==='m'?[50,0]:[50]))for(const pick of [1,2]){
-  await ev(mode=>{META.kdFull=mode==='sa'?1:0},mode);await med(pov,{clar,comp});
-  const ids=await ev(()=>k85List().map(e=>e.id));ok(JSON.stringify(ids)===JSON.stringify(X[mode][who]),`${mode} ${who} list: ${ids}`);
-  ok(await ev(rx=>sideHub(false).filter(o=>new RegExp(rx).test(o.t||'')).length,ROOM)===1,`${mode} ${who} entry offered`);
-  const slot=await ev(()=>S.slot);
-  for(let i=0;i<ids.length;i++){await ev(rx=>{window.__hubbed=0;S.f.e2l85N=0;sideHub(false).find(o=>new RegExp(rx).test(o.t||'')).fn()},ROOM);ok(await drive([0,pick])==='hub',`${mode} ${who} scene ${i} pick ${pick}`)}
-  const st=await ev(()=>({left:k85List().length,slot:S.slot,n:S.f.e2l85N,entry:sideHub(false).filter(o=>/^⚔ (The room|Outside the room)$/.test(o.t||'')).length}));
-  ok(st.left===0&&st.slot===slot&&st.entry===0,`${mode} ${who} all played, free, entry gone: ${JSON.stringify(st)}`)}
- {await ev(()=>{META.kdFull=1});await med('v');await ev(()=>{S.f.e2l85N=2;S.f.e2l85Day=S.day;k85Room()});const o=await ev(()=>[...ctrl.box.querySelectorAll('.opt')].map(x=>x.classList.contains('dis')));ok(o[0]&&o[1]&&o[2]&&!o[3],'two a day: '+o);await ev(()=>{ctrl=null;ui.innerHTML=''});
-  await ev(()=>{__set('v','after',{done:['e2l_door']})});ok(await ev(()=>!k85Ok()),'not outside the infirmary');await med('v',{e2l:0});ok(await ev(()=>!k85Ok()),'not off the route')}
- for(const [mode,f,rx] of [['sa',{e2l85:{x_radio:1}},/No radio has played/],['sa',{e2lOwed:'word'},/AT THEIR WORD/],['inj',{e2l85:{y_floss:1}},/mint dental floss/],['inj',{e2l85:{y_stars:1}},/two, one and nought/]]){
-  const L=await ev(([mode,f])=>{META.kdFull=mode==='sa'?1:0;__set('m','epilogue',{f});return extraEnding().join(' | ')},[mode,f]);ok(rx.test(L),'kc85 ending '+mode+' '+JSON.stringify(f))}
+ /* kc85–kc89's player-opened pool is covered by tools/k86_test.js */
  /* Misaki's fuller tiers keep their contractions (tools/mv_loosen.py) */
  {const fs=require('fs');const bad=[];for(const n of [76,77,78,79,80,81,82,83,84,85]){const src=fs.readFileSync(path.join(ROOT,'src/kc'+n+'.js'),'utf8');const re=/K7\dMV\('[^']*','[^']*','[^']*','([^']*)'\)/g;let m;while((m=re.exec(src)))if(/\b(I am not|do not|does not|did not|cannot|will not|is not|are not)\b/.test(m[1]))bad.push('kc'+n+': '+m[1].slice(0,70))}
   ok(!bad.length,'Misaki top tier keeps its contractions: '+bad.slice(0,5).join(' || '))}

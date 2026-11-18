@@ -205,8 +205,6 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 **V:** (The body was taught not to report. Somebody found that convenient, long before the river. Of everything on the films, that is what I find hardest to stomach, and there is no film of it.)
 
-- ▸ Not now
-
 - ▸ ⚔ 
 
 
