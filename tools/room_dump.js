@@ -6,7 +6,7 @@ const out=[];const who={'':null,K9:'V',hitmeuppp:'Misaki',RN:'Ronin',AN:'Angel'}
 const line=l=>{if(!l)return;const w=who[l[0]];out.push(w?`**${w}:** ${l[1]}`:`*${l[1]}*`);out.push('')};
 const ctx={RN:'RN',AN:'AN',K76V:t=>['K9',t],K76MV:(...a)=>['hitmeuppp',a[a.length-1]],k80Gone:()=>false,S:{f:{}},K85S:[],
  k84No:(t,why)=>({t,dis:1,why}),k84Deny:()=>{},K85:()=>true,
- hub:()=>{},extraEnding:()=>[],save:()=>{},apply:()=>{},k77Go:()=>{},k73Mark:()=>{},go:()=>{},cutBg:()=>({}),K73Who:()=>'',__m:true,k76M:()=>ctx.__m,k76H:(a,b)=>ctx.__m?a:b,k84SA:()=>true,K86:()=>true,K84_POOLS:{mc:[],v:[]},K90:()=>true,K91:()=>true,K92:()=>true,K93:()=>true,sideHub:()=>[],kdClar:()=>0,k85Room:undefined,
+ hub:()=>{},extraEnding:()=>[],morningEvent:()=>{},K100:()=>true,mbOk:()=>false,mbUse:()=>{},save:()=>{},apply:()=>{},k77Go:()=>{},k73Mark:()=>{},go:()=>{},cutBg:()=>({}),K73Who:()=>'',__m:true,k76M:()=>ctx.__m,k76H:(a,b)=>ctx.__m?a:b,k84SA:()=>true,K86:()=>true,K84_POOLS:{mc:[],v:[]},K90:()=>true,K91:()=>true,K92:()=>true,K93:()=>true,sideHub:()=>[],kdClar:()=>0,k85Room:undefined,
  ask:(w,hint,opts)=>{out.push(hint);out.push('');opts.forEach(o=>{out.push(o.dis?`- ▸ ~~${o.t}~~ (greyed: ${o.why||'they are not going to'})`:`- ▸ ${o.t}`);out.push('');if(!o.dis&&o.fn)o.fn()})},
  say:(L,cb)=>{L.filter(Boolean).forEach(line);if(cb)cb()}};
 vm.createContext(ctx);
