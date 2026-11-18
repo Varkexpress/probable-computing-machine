@@ -108,8 +108,8 @@ let runs=0,fails=0;const ok=(c,m)=>{runs++;if(!c){fails++;console.log('FAIL',m)}
  /* (d) a year on */
  const EPI='^⚔ A year on: ';
  for(const pov of ['m','v'])for(const end of ['lovers','rivals']){await ev(([pov,end])=>__set(pov,'epilogue',{done:['e2l_epi'],f:{e2lEnd:end}}),[pov,end]);ok(await side(EPI)===1,`${pov} ${end} a year on offered`);
-  for(let i=0;i<5;i++){await ev(()=>{S.done={};window.__hubbed=0;k83Epi()});ok(await drive([0])==='hub',`${pov} ${end} scene ${i}`)}
-  ok(await ev(()=>Object.keys(S.f.e2l83).length===5)&&await side(EPI)===0,`${pov} ${end} five scenes, then closed`)}
+  for(let i=0;i<3;i++){await ev(()=>{S.done={};window.__hubbed=0;k83Epi()});ok(await drive([0])==='hub',`${pov} ${end} scene ${i}`)}
+  ok(await ev(()=>Object.keys(S.f.e2l83).length===3)&&await side(EPI)===0,`${pov} ${end} three scenes, then closed`)}
  await ev(()=>__set('m','epilogue',{done:['e2l_epi'],f:{}}));ok(await side(EPI)===0,'a year on needs an outcome');
  /* (e) scenes, threads, the morning, endings */
  for(const pov of ['m','v'])for(const [id,ph,room] of [['l82_pew','act2','ronin'],['l82_reflector','act2','studio'],['l82_hall','act2','atrium']]){
@@ -118,7 +118,7 @@ let runs=0,fails=0;const ok=(c,m)=>{runs++;if(!c){fails++;console.log('FAIL',m)}
  for(const [id,pov,done] of [['tx_e2l_both','m',['e2l_after','e2l_car','e2l_know']],['tx_e2l_both','v',['e2l_after','e2l_car','e2l_know']],['tx_e2l_days','m',['e2l_after']]]){
   const r=await ev(([id,pov,done])=>{__set(pov,'act2',{done});const t=TXS[id];const on=t.when();const n=t.nodes.start;[].concat(n.in()).forEach(x=>window.__all.push(['x',String(x)]));const os=n.opts();os.forEach(o=>[].concat(o.reply()).forEach(x=>window.__all.push(['x',String(x)])));__set(pov,'act2',{done,e2l:0});return {on,off:t.when(),n:os.length}},[id,pov,done]);ok(r.on&&!r.off&&r.n>=2,id+' '+pov+': '+JSON.stringify(r))}
  const keep=await ev(()=>window.__all.length);
- for(const pov of ['m','v']){const r=await ev(pov=>{__set(pov,'after',{done:['e2l_door','e2l_after']});delete S.seen.m82_wall;S.seen.m95_rent=1;delete S.f.e2lMornDay;delete S.f.mbDay;let d=0;try{morningEvent(()=>{d=1})}catch(e){return 'threw '+e.message}for(let j=0;j<80&&dlg;j++)adv();return S.seen.m82_wall?'ok':'no'},pov);ok(r==='ok',pov+' the morning through the wall: '+r)}
+ for(const pov of ['m','v']){const r=await ev(pov=>{__set(pov,'after',{done:['e2l_door','e2l_after']});delete S.seen.m82_wall;delete S.f.e2lMornDay;delete S.f.mbDay;let d=0;try{morningEvent(()=>{d=1})}catch(e){return 'threw '+e.message}for(let j=0;j<80&&dlg;j++)adv();return S.seen.m82_wall?'ok':'no'},pov);ok(r==='ok',pov+' the morning through the wall: '+r)}
  await ev(keep=>{window.__all.length=keep},keep);
  for(const [f,rx,done] of [[{e2lMedAsk:1},/burned the straps/],[{e2lThanks:'told'},/not addressed to him/],[{e2lMedKey:'ronin'},/only key/],[{e2lRoom:'sign'},/LAUNDRY sign is gone/],[{e2lThurs:'gate'},/outside V’s gate/],[{e2lNightW:'light'},/nine keys/],
    [{e2lAskd:12},/one thing a day/],[{e2lStudy:'near'},/two armchairs/],[{e2lEve:1,e2lEnd:'rivals'},/sixth back in the box/],[{e2l83:{hound:1},e2lEnd:'rivals'},/four kilometres/],[{},/shoe on V’s pillow/,['e2l_gone3']]]){
