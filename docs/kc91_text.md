@@ -4,10 +4,76 @@ Reading copy. Misaki's lines show the fuller tier; ▸ marks a choice, struck th
 
 ### The drip · Misaki (opens the stay)
 
-(dump failed: fn is not a function)
+*There is a needle in the back of your right hand, taped down, and a tube that goes up from it to a bag on a steel stand. The bag is clear. Something comes down the tube a drop at a time, and you can feel each one arrive: cold, at the wrist, and then nowhere.*
+
+*The room will not stay still. The corners are further off than they should be. When you turn your head, the wall takes a moment to come with you.*
+
+**Misaki:** (one: you’re dosed. two: you know this. you know exactly this)
+
+*In the other building it came in a cup, or in the arm. There was a taste afterwards at the back of the throat, like a coin, and then the floor went soft, and things were done in the gap. You have that taste now.*
+
+**Misaki:** (same stuff. same people. they’ve just moved me somewhere with a nicer ceiling)
+
+*You try to do the sum on that, and the sum will not hold. You get the first number and reach for the second, and the first has gone.*
+
+(The tube lies across your forearm. It would fit under your elbow.)
+
+- ▸ Bend your arm on the tube, and keep it bent
+
+*You fold your arm over the tube and lie on it. The drops stop. Nobody comes; they do not check as often as they think.*
+
+*In an hour the pain arrives, all of it together, like a door opening on a furnace. The hand. The ribs, every breath. You had not known how much the bag was holding back.*
+
+**Misaki:** (good. good. it’s mine. i can think round pain. i can’t think round that)
+
+*You keep the arm bent all night, with the sheet in your teeth. Towards morning the corners of the room come in to where corners belong. It is a small white room. You still do not know whose. You can at least count it.*
+
+- ▸ Leave it. You cannot fight what is already in
+
+*You leave it. You have fought a dose before; you lost an hour and a fingernail.*
+
+*It comes down the tube and you go where it sends you. The ceiling lifts and settles, like a chest. The green light leaves a thread behind it each time it goes out.*
+
+**Misaki:** (it’s not real. the ceiling’s not breathing. it’s the stuff. …say it again)
+
+*You say it again. You go on saying it for as long as you can remember what you were saying it about.*
+
 ### The drip · V (opens the stay)
 
-(dump failed: fn is not a function)
+*The chart is in your hand, and so is the first line on it: NO SEDATIVES. You underlined it twice. They were kept under in that building, and you will not have it done to them again in yours.*
+
+*The doctor has read the line. She has not disputed it. She has shown you the films instead, and told you what three ribs, a pinned hand and two wrists open to the tendon will require if the patient is to breathe at all.*
+
+*It is not a sedative. It is only relief. It goes in by the arm, a drop at a time, and at the quantity needed it does to a mind very much what the other would have done.*
+
+*There is also what the men in that building gave them, which is still leaving the blood, and which nobody can name.*
+
+**V:** (So they are not sedated, and they cannot tell the ceiling from the floor. I have kept to the letter of my own instruction.)
+
+*You watch them through the glass. The eyes are open. They follow something across the wall that is not there, and then they find you in the doorway, and you see what they make of a tall shape with a bag of something on a stand.*
+
+**V:** (While it runs, they do not hurt. While it runs, I am whatever that building left in their head. I may have one or the other.)
+
+(The doctor is waiting for your word on the rate.)
+
+- ▸ Bring it down by half
+
+*You tell her to halve it. She looks at you for a moment, and does it, and writes the hour.*
+
+*By ten they are grey, and sweating, and breathing in sips. They do not make a sound. They lie with the sheet between their teeth and look at the ceiling, which has, you suppose, stopped moving.*
+
+**V:** (I have chosen that they should be in pain, so that they may know me sooner. I have dressed it as their interest. I am not certain whose it was.)
+
+*You sit in the corridor until it is light, and count every breath that catches.*
+
+- ▸ Leave it where it is
+
+*You tell her to leave it. She nods, and writes the hour.*
+
+*They sleep, or near enough. The breath is even. The hand lies open. For some hours they are not in pain, and you stand at the glass and take that in, a tall shape in a doorway.*
+
+**V:** (They will say thank you to me tomorrow, in that voice, and look at my hands. I have bought their comfort with it. I would make the same purchase again, and I should like it noted that I dislike the price.)
+
 ### The green book (e2l_green) · Misaki
 
 *There are things from the room that you cannot place. Him at the foot of the bed, with nothing in his hands. A coat. A hand coming at your face. You were full of the drip, and you do not know which of them happened.*
