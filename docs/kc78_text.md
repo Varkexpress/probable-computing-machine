@@ -14,13 +14,13 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *Then you notice what your hands are doing. You are reading the windows above him, the parked van, the far corner. You have not put the crosshair on him once. You have spent nine minutes keeping him alive, and it did not cross your mind to do anything else.*
 
-**Misaki:** (One: I am not going to kill him. Two: I don’t think I have wanted to since the river. Three: oh, fuck.)
+**Misaki:** (One: I’m not going to kill him. Two: I don’t think I have wanted to since the river. Three: oh, fuck.)
 
 *He comes out. He looks up at your roof before he looks anywhere else, the way he did on the night of the carpet, and you remember what is in his book in fountain pen.*
 
-**Misaki:** (He doesn’t cross things out; he told me so himself. He will do it on the day the book says, between the tea and the hounds, and feel nothing at all.)
+**Misaki:** (He doesn’t cross things out; he told me so himself. He’ll do it on the day the book says, between the tea and the hounds, and feel nothing at all.)
 
-**Misaki:** (He kissed me back on the mat as if he was trying to win. That is all it was. He told me so: three to one.)
+**Misaki:** (He kissed me back on the mat as if he was trying to win. That’s all it was. He told me so: three to one.)
 
 *A job for the case. You go into a stairwell to talk to a man who knew the Mimic, and Misaki lies on the roof opposite with the rifle. For nine minutes your back is to a marksman who has sworn in front of witnesses to kill you, and you do not think of it once.*
 
@@ -40,7 +40,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *That night you put the pistol back under the pillow, where it has not been since the infirmary, and balance a glass on the door handle of the spare room.*
 
-**Misaki:** (I’ll hear him. That is all I need, to hear him first. I do not know what I do after that.)
+**Misaki:** (I’ll hear him. That’s all I need, to hear him first. I don’t know what I do after that.)
 
 *That night, for the first time since they came into the house, you turn the key in your bedroom door. The black hound, outside it, looks at the lock and then at you.*
 
@@ -65,7 +65,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 **V:** Do not do that again.
 
-**Misaki:** (So that is the answer. Not like that: not quick, and not when I choose. His way, on his day, as written.)
+**Misaki:** (So that’s the answer. Not like that: not quick, and not when I choose. His way, on his day, as written.)
 
 *A roof on the east side, six floors up, waiting on one of the old names. Misaki sits down on the parapet with their back to you and their legs over the drop, and leaves the pistol in its holster.*
 
@@ -97,7 +97,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 **V:** I was not.
 
-**Misaki:** (He was, though. Scared that I would go over the edge before he was ready for me to. That is all that is.)
+**Misaki:** (He was, though. Scared that I’d go over the edge before he was ready for me to. That’s all that is.)
 
 *You do not let go of the hoodie. They lie on the gravel and laugh at you, and you stand over them with your fist closed in the cloth.*
 
@@ -130,7 +130,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 **V:** There is a glass balanced on your door handle. I heard it from the stair.
 
-**Misaki:** Because you are going to do it. It is in your book, in ink, and you do not cross things out. You told me that yourself, the first night.
+**Misaki:** Because you’re going to do it. It’s in your book, in ink, and you don’t cross things out. You told me that yourself, the first night.
 
 **V:** And you promised me a car park in front of witnesses, and have never withdrawn it. You kill for whoever pays. I assume that sooner or later somebody will.
 
@@ -150,7 +150,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *Neither of you can go first. Going first means standing unarmed in front of somebody you believe would do it, and neither of you has lived this long by doing that.*
 
-**Misaki:** That is exactly what I would say, V, if I was going to.
+**Misaki:** That’s exactly what I’d say, V, if I was going to.
 
 **V:** Then give me the rifle, and I will prove it.
 
@@ -168,7 +168,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *You watch him take that in and put it away somewhere, tidily. You wanted him to argue. He nods, as if you had confirmed a delivery.*
 
-**Misaki:** (Say that you won’t. I would know if you were lying. I think that I would know.)
+**Misaki:** (Say that you won’t. I’d know if you were lying. I think that I’d know.)
 
 **V:** Goodnight, Misaki.
 
@@ -243,7 +243,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 **V:** Then stop giving me cause.
 
-**Misaki:** (I have not given him any cause. That is the whole fucking problem.)
+**Misaki:** (I haven’t given him any cause. That’s the whole fucking problem.)
 
 **V:** You were late because you were aiming at me.
 

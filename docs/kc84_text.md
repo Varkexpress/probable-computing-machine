@@ -10,7 +10,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *He goes out, and he shuts the door. You hear him walk away from it, down the corridor, loudly, all the way to the end.*
 
-**Misaki:** (One: he left. Two: he shut the door. Three: they do not do that. They do not leave when you—)
+**Misaki:** (One: he left. Two: he shut the door. Three: they don’t do that. They don’t leave when you—)
 
 *You stop the sum there. It was going to come out to something, and you do not need it to.*
 
@@ -18,7 +18,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *You change in about nine seconds, facing the door, with the good hand. The T-shirt comes to your knees. It smells of soap, and of nothing else, and you notice yourself checking.*
 
-**Misaki:** (It is only a rule: this one leaves the room. Fine. It does not mean anything.)
+**Misaki:** (It’s only a rule: this one leaves the room. Fine. It doesn’t mean anything.)
 
 *The tall one does your hand. He will not do anything else. A woman in a grey cardigan does the rest, and he waits in the corridor while she does it, with the door shut.*
 
@@ -42,7 +42,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *He carried you out of that building. He saw what you had on. He is a man with forty pages on you, who writes everything down, in ink, with the date.*
 
-**Misaki:** (He has it. It is in the book. He has a line for it in fountain pen, under my name, with the date.)
+**Misaki:** (He has it. It’s in the book. He has a line for it in fountain pen, under my name, with the date.)
 
 *Of everybody in this city, the one who knows is the one who swore to kill you. You can think of nothing he could do to you on a steel table that is worse than him having that written down.*
 
@@ -52,7 +52,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 **V:** The date. The address. That you were recovered alive.
 
-**Misaki:** That is all?
+**Misaki:** That’s all?
 
 **V:** That is all that I will ever write of it. The rest does not belong to my book. It is yours, and I have no claim on it.
 
@@ -62,7 +62,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *He says it without any weight on it at all. You have heard him lie to a board of directors, in Angel’s videos, and he was much better at it then.*
 
-**Misaki:** (He knows. He knows, and he is not going to use it. Why is he not going to use it?)
+**Misaki:** (He knows. He knows, and he’s not going to use it. Why is he not going to use it?)
 
 - ▸ “cool. whatever. soup’s cold”
 
@@ -124,7 +124,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *He starts at the top. That is wrong. If you leave the edge, it seals over dirty and goes bad in a week. You have had that; you were about eleven.*
 
-**Misaki:** (Do not tell the guard how to do his job. …He is doing it wrong, though.)
+**Misaki:** (Don’t tell the guard how to do his job. …He’s doing it wrong, though.)
 
 *You take the tweezers out of his hand with your good one, without a word, and show him: under the edge, lift, then flush.*
 
@@ -132,7 +132,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *He stops with the tweezers in the air. He looks at your wrists, and then at your face, and for a moment you think he is going to be sick in the bowl.*
 
-**Misaki:** (What? It is only wrists. They are not even the worst I have had.)
+**Misaki:** (What? It’s only wrists. They aren’t even the worst I’ve had.)
 
 *He does it your way. He is good with his hands, once he has been told.*
 
@@ -140,33 +140,33 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *You know what is under there. A boot, three or four times, from the left, by somebody right-footed. It is every colour. You have seen it, and you were not interested.*
 
-**Misaki:** (He is annoyed; look at his face. He is annoyed at the state of it.)
+**Misaki:** (He’s annoyed; look at his face. He’s annoyed at the state of it.)
 
 *Of course he is. He is the careful one. The other shift did it sloppily and left him the mess, and a careful man hates a botched job.*
 
 *You would tell him so, if the voice would come.*
 
-**Misaki:** Yes. They were messy about it. That is not your fault.
+**Misaki:** Yes. They were messy about it. That’s not your fault.
 
 *He puts both hands flat on the edge of the bed and keeps them there for a while. Then he straps you up again, so evenly that you could rule a line along it.*
 
 *You know him now. So when he does the hand this morning and his face does that thing again, you say so.*
 
-**Misaki:** What? You have done worse than this, V. You took eight fingers off a man.
+**Misaki:** What? You’ve done worse than this, V. You took eight fingers off a man.
 
 **V:** I did. In order, and for cause.
 
-**Misaki:** So why does this bother you? It is a hand. That is the third time for that one, and it sets fine.
+**Misaki:** So why does this bother you? It’s a hand. That’s the third time for that one, and it sets fine.
 
 **V:** Because it was done badly, to no purpose, by men who were bored.
 
-**Misaki:** So you are a snob about it. About torture.
+**Misaki:** So you’re a snob about it. About torture.
 
 **V:** Yes. It appears that I am.
 
 *It is the funniest thing you have heard in a fortnight. The man with the cold room is put off his breakfast by your ribs.*
 
-**Misaki:** (…Nobody has been disgusted on my account before. Is that what that is?)
+**Misaki:** (…Nobody’s been disgusted on my account before. Is that what that is?)
 
 *You do the treatment yourself. You trust nobody else with a hand.*
 
@@ -188,7 +188,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *They do not speak. They turn the wrist for you before you ask, to the exact angle, and hold it there. They have been through this before, and they know where it goes.*
 
-**Misaki:** That is the third time for that one. It sets fine. Do the thumb first, or the rest won’t sit.
+**Misaki:** That’s the third time for that one. It sets fine. Do the thumb first, or the rest won’t sit.
 
 *They are right about the thumb.*
 
@@ -279,7 +279,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *You take the towels in and shut the door. The noise with the bowls goes on for another twenty minutes, steadily, and you find that you are timing your breathing to it.*
 
-**Misaki:** (He does not know anything. He is merely loud: a loud old man with dogs.)
+**Misaki:** (He doesn’t know anything. He’s merely loud: a loud old man with dogs.)
 
 - ▸ Have a second boiler put in
 
@@ -329,7 +329,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *(or)* *You take the last pin out more gently than you took the first. They pretend that they have not noticed.*
 
-**Misaki:** Fine. It is a completely different trade. Are you happy?
+**Misaki:** Fine. It’s a completely different trade. Are you happy?
 
 **V:** It is a different trade.
 

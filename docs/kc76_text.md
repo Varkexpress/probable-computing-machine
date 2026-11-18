@@ -161,7 +161,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *(or)* *They hold the man’s head against the desk with their good hand and a knee while you work on him with the scalpel from your collar. It takes eleven minutes to get a name. They do not look away at any point; you check.*
 
-**Misaki:** (I’m not sick. I thought I would be. I’m holding a man down for him and my hands are steady.)
+**Misaki:** (I’m not sick. I thought I’d be. I’m holding a man down for him and my hands are steady.)
 
 **V:** (Their hands are steady. I had expected to despise them less for it, and I do, and I dislike that a great deal.)
 

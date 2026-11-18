@@ -17,7 +17,7 @@ const K82=()=>{try{return typeof K81==='function'&&K81()}catch(e){return false}}
 const K82_QM=[
  {q:'“why hounds”',a:()=>[
   K76V('They were to be destroyed. Each of them had been used, by somebody, for something. I do not destroy what has been used. I destroy what uses.'),
-  K76MV('that’s ur whole thing, isn’t it','that’s your whole thing, isn’t it','That’s your whole thing, isn’t it?','That is your whole thing, isn’t it? Used, and uses. Two columns.'),
+  K76MV('that’s ur whole thing, isn’t it','that’s your whole thing, isn’t it','That’s your whole thing, isn’t it?','That’s your whole thing, isn’t it? Used, and uses. Two columns.'),
   K76V('It is the whole of it. You will have noticed which column I put you in.'),
   K76MV('…yeah','…yeah. i noticed','…Yeah. I noticed.','…Yes. I noticed.'),
   K76V('I wrote that page before I had seen the films of your bones. I have not known since what to do with the page.')]},
@@ -25,7 +25,7 @@ const K82_QM=[
   K76V('It is like accounts. I take no pleasure in the length of it. I take it in the sum coming out even.'),
   K76MV('and mine? what’s my sum','and mine? what does my sum come out to','And mine? What does my sum come out to?','And mine? What does my sum come out to, when you do the accounts?'),
   K76V('I have not been able to make it come out. I have told you that the page has no total.'),
-  K76MV('(he keeps saying that like it’s a confession. it’s arithmetic. it’s only arithmetic)','(he keeps saying that like it’s a confession. it’s just arithmetic)','(He keeps saying that like it’s a confession. It’s just arithmetic.)','(He keeps saying that as if it were a confession. It is only arithmetic.)')]},
+  K76MV('(he keeps saying that like it’s a confession. it’s arithmetic. it’s only arithmetic)','(he keeps saying that like it’s a confession. it’s just arithmetic)','(He keeps saying that like it’s a confession. It’s just arithmetic.)','(He keeps saying that as if it were a confession. It’s only arithmetic.)')]},
  {q:'“why isn’t ur name on anything”',a:()=>[
   K76V('A name on a shelter door is a man buying a good opinion of himself. I want the roof to be there. I do not want to be thanked by people who had no choice but to come in under it.'),
   ['','You think of forty-one thank-yous, in the good voice, for soup.'],
@@ -34,7 +34,7 @@ const K82_QM=[
   K76V('Three and a half hours.'),
   K76MV('and the rest of the night','and the rest of the night?','And the rest of the night?','And what do you do with the rest of the night?'),
   K76V('I read. I walk them. Lately I listen to a house with a second person in it. It is louder than I had expected.'),
-  K76MV('i’m not loud','i am not loud','I am not loud.','I am not loud. I’m practically furniture.'),
+  K76MV('i’m not loud','i am not loud','I am not loud.','I’m not loud. I’m practically furniture.'),
   K76V('You count, under your breath. Exits. I can hear it from the stair.')]},
  {q:'“who taught u to cut”',a:()=>[
   K76V('A veterinary text, and eleven animals that did not live. I am better now. You have had the benefit of it.'),
@@ -45,8 +45,8 @@ const K82_QM=[
   K76V('Yes.'),
   K76MV('just yes','just “yes”','Just “yes”.','Just “yes”. No speech.'),
   K76V('You asked, and you watch hands; you would know if I lied. Yes. I would have done it that night. I would have been wrong, and I would never have found it out.'),
-  K76MV('(he said wrong. he said he’d have been WRONG)','(he said wrong. he said he would have been wrong)','(He said wrong. He said he would have been wrong.)','(He said wrong. He said that he would have been wrong.)'),
-  K76MV('(…that’s about that night. not about tomorrow. don’t)','(…that’s about that night. it’s not about tomorrow. don’t)','(…That’s about that night. It’s not about tomorrow. Don’t.)','(…That is about that night. It says nothing about tomorrow. Don’t.)')]},
+  K76MV('(he said wrong. he said he’d have been WRONG)','(he said wrong. he said he would have been wrong)','(He said wrong. He said he would have been wrong.)','(He said wrong. He said that he’d have been wrong.)'),
+  K76MV('(…that’s about that night. not about tomorrow. don’t)','(…that’s about that night. it’s not about tomorrow. don’t)','(…That’s about that night. It’s not about tomorrow. Don’t.)','(…That’s about that night. It says nothing about tomorrow. Don’t.)')]},
  {q:'“what happens to the book when u die”',a:()=>[
   K76V('It goes into the furnace, unread. Angel has the instruction.'),
   K76MV('all of it? all those names','all of it? all those names?','All of it? All those names?','All of it? All those names, and not one person reads them?'),
@@ -58,11 +58,11 @@ const K82_QM=[
   K76V('Nobody has asked me that in this house.'),
   K76MV('well i’m asking. don’t make it weird','well, i’m asking. don’t make it weird','Well, I’m asking. Don’t make it weird.','Well, I’m asking, V. Don’t make it weird.'),
   K76V('Whatever does not need cutting.'),
-  K76MV('(he’s STILL on about the chop)','(he is still on about the chop)','(He is still on about the chop.)','(He is still on about the chop. He will be on about the chop at my funeral.)')]}];
+  K76MV('(he’s STILL on about the chop)','(he is still on about the chop)','(He is still on about the chop.)','(He’s still on about the chop. He’ll be on about the chop at my funeral.)')]}];
 /* V asks Misaki */
 const K82_QV=[
  {q:'“Why did you never ask what they had done?”',a:()=>[
-  K76MV('bc then i’d have to decide. u get to decide. u’ve got a house and a book. i’ve got four hundred a month','because then i’d have to decide. you get to decide, you’ve got a house and a book. i’ve got four hundred a month','Because then I’d have to decide. You get to decide; you’ve got a house and a book. I’ve got four hundred a month.','Because then I would have to decide. You get to decide, V; you have a house and a book. I have four hundred a month.'),
+  K76MV('bc then i’d have to decide. u get to decide. u’ve got a house and a book. i’ve got four hundred a month','because then i’d have to decide. you get to decide, you’ve got a house and a book. i’ve got four hundred a month','Because then I’d have to decide. You get to decide; you’ve got a house and a book. I’ve got four hundred a month.','Because then I’d have to decide. You get to decide, V; you have a house and a book. I have four hundred a month.'),
   K76MV('deciding’s for people who can afford to be wrong','deciding is for people who can afford to be wrong','Deciding is for people who can afford to be wrong.','Deciding is for people who can afford to be wrong about it.'),
   K76V('(That is an answer. I had forty pages on them, and I did not have that.)')]},
  {q:'“What is March?”',a:()=>[
@@ -71,7 +71,7 @@ const K82_QV=[
   K76V('I have it in the file as a question mark.'),
   K76MV('yeah. so do i','yeah. so have i','Yeah. So have I.','Yes. So have I.')]},
  {q:'“What do you count, under your breath?”',a:()=>[
-  K76MV('exits. always. if there’s less than two i don’t sit down','exits. always. if there are fewer than two i don’t sit down','Exits. Always. If there are fewer than two, I don’t sit down.','Exits. Always. If a room has fewer than two, I do not sit down in it.'),
+  K76MV('exits. always. if there’s less than two i don’t sit down','exits. always. if there are fewer than two i don’t sit down','Exits. Always. If there are fewer than two, I don’t sit down.','Exits. Always. If a room has fewer than two, I don’t sit down in it.'),
   K76V('There are three from the spare room.'),
   K76MV('i know. i counted. u put me in the one with three','i know. i counted. you put me in the one with three','I know. I counted. You put me in the one with three.','I know; I counted. You put me in the one room up there with three.'),
   K76V('Yes.'),
@@ -84,14 +84,14 @@ const K82_QV=[
   K76V('(I let him the office.)')]},
  {q:'“Does the doorman trouble you?”',a:()=>[
   K76MV('no','no','No.','No.'),
-  K76MV('…it didn’t. it does a bit now. that’s UR fault. u keep SAYING him','…it didn’t. it does a bit, now. that’s your fault. you keep saying him','…It didn’t. It does a bit, now. That’s your fault. You keep saying him.','…It did not. It does a little, now, and that is your fault. You keep saying him.'),
-  K76MV('he was a guy in the way. now he’s a guy with a wife with teeth','he was a guy in the way. now he’s a guy whose wife needed teeth','He was a guy in the way. Now he’s a guy whose wife needed teeth.','He was a man in the way. Now he is a man whose wife needed teeth, and I know about the teeth.'),
+  K76MV('…it didn’t. it does a bit now. that’s UR fault. u keep SAYING him','…it didn’t. it does a bit, now. that’s your fault. you keep saying him','…It didn’t. It does a bit, now. That’s your fault. You keep saying him.','…It didn’t. It does a little, now, and that’s your fault. You keep saying him.'),
+  K76MV('he was a guy in the way. now he’s a guy with a wife with teeth','he was a guy in the way. now he’s a guy whose wife needed teeth','He was a guy in the way. Now he’s a guy whose wife needed teeth.','He was a man in the way. Now he’s a man whose wife needed teeth, and I know about the teeth.'),
   K76V('Good.'),K76MV('fuck off, “good”','fuck off, “good”','Fuck off, “good”.','Fuck off with your “good”.'),
   K76V('I did not say that I enjoyed it. I said good.')]},
  {q:'“What did you take me for, in the first week?”',a:()=>[
   K76MV('a rich guy with a hobby. never been hungry and thought that made him clean','a rich guy with a hobby, who’d never been hungry and thought that made him clean','A rich guy with a hobby, who’d never been hungry and thought that made him clean.','A rich man with a hobby, who had never once been hungry and thought that made him clean.'),
   K76V('And now?'),
-  K76MV('a rich guy with a hobby who cuts up my dinner. don’t push it','a rich guy with a hobby who cuts up my dinner. don’t push it','A rich guy with a hobby who cuts up my dinner. Don’t push it.','A rich man with a hobby who cuts up my dinner. Do not push it.')]},
+  K76MV('a rich guy with a hobby who cuts up my dinner. don’t push it','a rich guy with a hobby who cuts up my dinner. don’t push it','A rich guy with a hobby who cuts up my dinner. Don’t push it.','A rich man with a hobby who cuts up my dinner. Don’t push it.')]},
  {q:'“Would you have taken the shot, at the dinner? If I had not been worth more alive.”',a:()=>[
   K76MV('yeah','yes','Yes.','Yes.'),
   K76MV('that week, yeah. i had it. two pounds on a three pound trigger','that week, yes. i had it. two pounds on a three-pound trigger','That week, yes. I had it. Two pounds on a three-pound trigger.','That week, yes. I had it: two pounds on a three-pound trigger, and your ear in the glass.'),
@@ -121,7 +121,7 @@ if(typeof l73==='function'){
   K76MV('asked who','asked WHO','Asked who?','Asked who, Ronin? Be specific.'),
   [RN,'Who d’you fuckin’ think. Asked the Devil which one of you he’s gettin’ first.'],
   [RN,'Says he don’t want either. Says you’re both too busy torturin’ each other to be any fun for him.'],
-  K76MV('that’s not funny','that’s not funny','That’s not funny.','That is not funny.'),
+  K76MV('that’s not funny','that’s not funny','That’s not funny.','That’s not funny.'),
   [RN,'Wasn’t jokin’. Eat somethin’.']]:[
   ['','Ronin is cleaning the crowbar at his kitchen table with a toothbrush and something out of a gold bottle.'],
   [RN,'Went to church Sunday. Back pew. Asked about you two.'],
@@ -133,7 +133,7 @@ if(typeof l73==='function'){
  l73('l82_reflector',['studio'],.6,()=>S.phase==='act2'&&k73Done('e2l_car')&&!S.f.e2lEnd,done=>say(k76M()?[
   ['','Angel has you hold the reflector for a shoot, in the left hand, because she says it is good for it. Her camera face is on. It goes off between takes like a light.'],
   [AN,'you flinch when he’s behind you, and you lean when he’s next to you. i’ve watched you do both in one minute'],
-  K76MV('i don’t lean','i do not lean','I do not lean.','I do not lean. I have never leaned.'),
+  K76MV('i don’t lean','i do not lean','I do not lean.','I don’t lean. I’ve never leaned.'),
   [AN,'you lean, baby. about two degrees. i shoot for a living'],
   [AN,'pick one. flinch or lean. you’ll pull something doing both'],
   ['','The reflector shakes, and it is not the hand.']]:[
@@ -147,7 +147,7 @@ if(typeof l73==='function'){
   ['',k76M()?'You come into the hall from the stairs as he comes in from the yard. The four hounds, who were following him, stop and lie down in a line across the floor, exactly halfway between you.':'You come in from the yard as they come down the stairs. The four hounds, who were at your heel, stop and lie down in a line across the floor, exactly halfway between you.'],
   ['','The old hound looks at one of you and then at the other. He puts his chin on his paws.'],
   K76V('They have never done that.'),
-  K76MV('they don’t know who to follow','they don’t know which one of us to follow','They don’t know which one of us to follow.','They do not know which one of us to follow.'),
+  K76MV('they don’t know who to follow','they don’t know which one of us to follow','They don’t know which one of us to follow.','They don’t know which one of us to follow.'),
   K76V('They know. They are declining to choose.'),
   ['',k76M()?'You both stand there. Neither of you is going to be the one who walks across.':'You both stand there. Neither of you is going to be the one who walks across.']],()=>{done()}))}
 
@@ -167,7 +167,7 @@ if(typeof txDef==='function'){
 const _me82=morningEvent;morningEvent=function(done){try{if(S&&K82()&&S.phase==='after'&&typeof kdPost==='function'&&kdPost()&&!S.seen.m82_wall&&k73Done('e2l_after')&&S.f.e2lMornDay!==S.day&&mbOk()){
   S.seen.m82_wall=1;S.f.e2lMornDay=S.day;mbUse();save();k77Go('#08080a');return say(k76M()?[
    ['','You wake yourself up, at five, saying thank you. Out loud, in the good voice, to nobody, in a room that has three exits.'],
-   K76MV('(stop. STOP. there’s nobody here to thank)','(stop it. stop. there’s nobody in here to thank)','(Stop it. Stop. There’s nobody in here to thank.)','(Stop it. Stop. There is nobody in this room to thank.)'),
+   K76MV('(stop. STOP. there’s nobody here to thank)','(stop it. stop. there’s nobody in here to thank)','(Stop it. Stop. There’s nobody in here to thank.)','(Stop it. Stop. There’s nobody in this room to thank.)'),
    ['','Through the wall, the kettle goes on. He is up; he is always up. He must have heard. He makes exactly as much noise as a man making tea, for exactly as long, and you lie there and hate him for the tact of it.']]:[
    ['','At five, through the wall of the spare room, they say thank you. They are asleep. It is the pleasant voice, from the infirmary, addressed to whoever is holding the keys in the dream.'],
    K76V('(I am in the dream, then. I have a fair idea in which capacity.)'),

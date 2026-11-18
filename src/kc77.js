@@ -36,7 +36,7 @@ function k77Rifle(){k77Go('#0c0b0a');k73Mark('e2l_rifle');const m=k76M(),eye=S.f
  const aimed=()=>{S.f.e2lRifle='aimed';apply({aff:2});save();say([
    ['',m?'You load it with one hand, which takes a while, and he waits. You get the stock into your shoulder and the crosshair onto the second button of his shirt. Your left hand will not take the weight. The muzzle draws a slow circle on his chest.':'You stay where you are. They load it with one hand, which takes a while, and get the stock into their shoulder and the muzzle onto your chest. Their left hand will not take the weight. The muzzle draws a slow circle over your shirt buttons.'],
    K76V('In a month it will hold still. I will stand here again then, if you ask me to.'),
-   m?K76MV('(he would. he’d stand there)','(he would. he’d stand right there and let me)','(He would. He’d stand right there.)','(He would. He would stand right there in his own kitchen and let me line it up.)'):K76V('(I meant it. I have checked, twice, and I meant it.)'),
+   m?K76MV('(he would. he’d stand there)','(he would. he’d stand right there and let me)','(He would. He’d stand right there.)','(He would. He’d stand right there in his own kitchen and let me line it up.)'):K76V('(I meant it. I have checked, twice, and I meant it.)'),
    ['',m?'You take the round back out, which is harder than putting it in, and stand it on the towel where he put it.':'They take the round back out, which is harder than putting it in, and stand it on the towel exactly where you put it.']],hub)};
  const kept=()=>{S.f.e2lRifle='kept';apply({aff:2});save();say([
    ['',m?'You put the round in your pocket and the rifle over your good shoulder.':'You go out to the kennels and leave them with it. Through the window you see them hang the rifle over their good shoulder, turn the round over in their fingers for some time, and put it in a pocket.'],
@@ -106,7 +106,7 @@ function k77Will(){k77Go('#0a0a10');k73Mark('e2l_will',1);const m=k76M(),torn=S.
    K76MV('(…fuck)','(…oh, fuck)','(Oh, fuck.)','(Oh, fuck. He put it in writing. He puts everything in writing.)')],hub)}},
   {t:'“nothing. he’s got everything already”',fn:()=>{S.f.e2lWill='nothing';apply({aff:2});save();say([
    [AN,'ok. nothing for the billionaire'],[AN,'he left you something. he rang it in this afternoon. it’s a page. he said you’d know which'],
-   K76MV('(the page)','(the page. my page)','(The page. My page.)','(The page. He is leaving me my own page, with everything on it.)'),
+   K76MV('(the page)','(the page. my page)','(The page. My page.)','(The page. He’s leaving me my own page, with everything on it.)'),
    [AN,torn?'it’s inside his jacket, by the way. it has been for weeks. i’ve seen him check it':'it’s still in the book, by the way. he hasn’t written at the bottom of it. i looked']],hub)}}]));
  say([
   ['','Before Pier Nine, Angel requires a current will from each of you. Yours has been with the foundation’s lawyers for eleven years. It disposes of forty-one shelters and four hounds, and it has never named a person.'],

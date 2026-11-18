@@ -6,7 +6,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 **V:** They were to be destroyed. Each of them had been used, by somebody, for something. I do not destroy what has been used. I destroy what uses.
 
-**Misaki:** That is your whole thing, isn’t it? Used, and uses. Two columns.
+**Misaki:** That’s your whole thing, isn’t it? Used, and uses. Two columns.
 
 **V:** It is the whole of it. You will have noticed which column I put you in.
 
@@ -20,7 +20,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 **V:** I have not been able to make it come out. I have told you that the page has no total.
 
-**Misaki:** (He keeps saying that as if it were a confession. It is only arithmetic.)
+**Misaki:** (He keeps saying that as if it were a confession. It’s only arithmetic.)
 
 **V:** A name on a shelter door is a man buying a good opinion of himself. I want the roof to be there. I do not want to be thanked by people who had no choice but to come in under it.
 
@@ -34,7 +34,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 **V:** I read. I walk them. Lately I listen to a house with a second person in it. It is louder than I had expected.
 
-**Misaki:** I am not loud. I’m practically furniture.
+**Misaki:** I’m not loud. I’m practically furniture.
 
 **V:** You count, under your breath. Exits. I can hear it from the stair.
 
@@ -52,9 +52,9 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 **V:** You asked, and you watch hands; you would know if I lied. Yes. I would have done it that night. I would have been wrong, and I would never have found it out.
 
-**Misaki:** (He said wrong. He said that he would have been wrong.)
+**Misaki:** (He said wrong. He said that he’d have been wrong.)
 
-**Misaki:** (…That is about that night. It says nothing about tomorrow. Don’t.)
+**Misaki:** (…That’s about that night. It says nothing about tomorrow. Don’t.)
 
 **V:** It goes into the furnace, unread. Angel has the instruction.
 
@@ -74,9 +74,9 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 **V:** Whatever does not need cutting.
 
-**Misaki:** (He is still on about the chop. He will be on about the chop at my funeral.)
+**Misaki:** (He’s still on about the chop. He’ll be on about the chop at my funeral.)
 
-**Misaki:** Because then I would have to decide. You get to decide, V; you have a house and a book. I have four hundred a month.
+**Misaki:** Because then I’d have to decide. You get to decide, V; you have a house and a book. I have four hundred a month.
 
 **Misaki:** Deciding is for people who can afford to be wrong about it.
 
@@ -90,7 +90,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 **Misaki:** Yes. So have I.
 
-**Misaki:** Exits. Always. If a room has fewer than two, I do not sit down in it.
+**Misaki:** Exits. Always. If a room has fewer than two, I don’t sit down in it.
 
 **V:** There are three from the spare room.
 
@@ -112,9 +112,9 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 **Misaki:** No.
 
-**Misaki:** …It did not. It does a little, now, and that is your fault. You keep saying him.
+**Misaki:** …It didn’t. It does a little, now, and that’s your fault. You keep saying him.
 
-**Misaki:** He was a man in the way. Now he is a man whose wife needed teeth, and I know about the teeth.
+**Misaki:** He was a man in the way. Now he’s a man whose wife needed teeth, and I know about the teeth.
 
 **V:** Good.
 
@@ -126,7 +126,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 **V:** And now?
 
-**Misaki:** A rich man with a hobby who cuts up my dinner. Do not push it.
+**Misaki:** A rich man with a hobby who cuts up my dinner. Don’t push it.
 
 **Misaki:** Yes.
 
@@ -166,7 +166,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 **Ronin:** Says he don’t want either. Says you’re both too busy torturin’ each other to be any fun for him.
 
-**Misaki:** That is not funny.
+**Misaki:** That’s not funny.
 
 **Ronin:** Wasn’t jokin’. Eat somethin’.
 
@@ -194,7 +194,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 **Angel:** you flinch when he’s behind you, and you lean when he’s next to you. i’ve watched you do both in one minute
 
-**Misaki:** I do not lean. I have never leaned.
+**Misaki:** I don’t lean. I’ve never leaned.
 
 **Angel:** you lean, baby. about two degrees. i shoot for a living
 
@@ -225,7 +225,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 **V:** They have never done that.
 
-**Misaki:** They do not know which one of us to follow.
+**Misaki:** They don’t know which one of us to follow.
 
 **V:** They know. They are declining to choose.
 
@@ -250,7 +250,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *You wake yourself up, at five, saying thank you. Out loud, in the good voice, to nobody, in a room that has three exits.*
 
-**Misaki:** (Stop it. Stop. There is nobody in this room to thank.)
+**Misaki:** (Stop it. Stop. There’s nobody in this room to thank.)
 
 *Through the wall, the kettle goes on. He is up; he is always up. He must have heard. He makes exactly as much noise as a man making tea, for exactly as long, and you lie there and hate him for the tact of it.*
 

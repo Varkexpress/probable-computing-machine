@@ -21,7 +21,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *(or)* *You lay a second place at the long table, as you have every night since they came upstairs: knife on the right, fork on the left. They eat at the island with a spoon.*
 
-**Misaki:** (He is not being nice. He is keeping count, with the fork on the left where I can see it.)
+**Misaki:** (He’s not being nice. He’s keeping count, with the fork on the left where I can see it.)
 
 **V:** (I told them what the fork was for. I lay it out regardless. I do not know which of us I am doing it to.)
 
@@ -45,13 +45,13 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *(or)* *They cannot cut a chop with one hand. They look at it. You had not thought of that, and you think of everything.*
 
-**Misaki:** (Don’t. Do not dare. If that man cuts up my food for me I am going to bite him.)
+**Misaki:** (Don’t. Don’t dare. If that man cuts up my food for me I’m going to bite him.)
 
 - ▸ Let him cut it
 
 *He cuts it in eleven pieces, all the same size, without looking at you, the way he would do it for one of the hounds. Then he puts the knife down on your side of the plate, handle towards you.*
 
-**Misaki:** If you tell Ronin about this, I will end you. I mean with the knife you just gave me.
+**Misaki:** If you tell Ronin about this, I’ll end you. I mean with the knife you just gave me.
 
 **V:** I gave it to you for that purpose. Eat.
 
@@ -69,7 +69,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *You cut it in eleven pieces, all the same size, without looking at them. It is how you do it for the hounds, and you realise that halfway through, and finish regardless. You put the knife down on their side of the plate, handle towards them.*
 
-**Misaki:** If you tell Ronin about this, I will end you. I mean with the knife you just gave me.
+**Misaki:** If you tell Ronin about this, I’ll end you. I mean with the knife you just gave me.
 
 **V:** I gave it to you for that purpose. Eat.
 
@@ -111,7 +111,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 **V:** A man who insured people’s houses and then set fire to them.
 
-**Misaki:** Huh. I would have done that one for free. Write that down.
+**Misaki:** Huh. I’d have done that one for free. Write that down.
 
 **V:** I have not got a column for it.
 
@@ -119,7 +119,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *(or)* *They go up one at a time and smell the cast. The black hound gets its nose under the left hand and lifts it, very carefully, as it would with something broken that it had found in the grass.*
 
-**Misaki:** (They know that it is hurt. How do they know?)
+**Misaki:** (They know that it’s hurt. How do they know?)
 
 **V:** (They know a hurt thing. Every one of them has been one, on my table.)
 
@@ -139,7 +139,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 **V:** They are not guarding you from leaving. They are guarding the gate from whatever is behind you.
 
-**Misaki:** You are what’s behind me, V.
+**Misaki:** You’re what’s behind me, V.
 
 **V:** Yes. I had noticed that.
 
@@ -159,7 +159,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 **V:** They are not guarding you from leaving. They are guarding the gate from whatever is behind you.
 
-**Misaki:** You are what’s behind me, V.
+**Misaki:** You’re what’s behind me, V.
 
 **V:** Yes. I had noticed that.
 
@@ -171,7 +171,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 **V:** Six is two more than Tuesday.
 
-**Misaki:** That is not smug, V. That is just counting.
+**Misaki:** That’s not smug, V. That’s just counting.
 
 **V:** I am better at counting.
 
@@ -191,7 +191,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *(or)* *Ten out of ten. They hold the hand up to you, open, all five fingers, and for one second their whole face is in it.*
 
-**Misaki:** (Do not smile at him. He said a fork in both hands. This is the very thing he is waiting for.)
+**Misaki:** (Don’t smile at him. He said a fork in both hands. This is the very thing he’s waiting for.)
 
 **V:** (I told them what I would do when that hand worked. I watched their face remember it. I would give a great deal to have said anything else in that kitchen.)
 
@@ -217,7 +217,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 **V:** Six. The same hour tomorrow.
 
-**Misaki:** You are enjoying this. Don’t lie.
+**Misaki:** You’re enjoying this. Don’t lie.
 
 **V:** No. I find that I am not, and I expected to.
 
@@ -233,7 +233,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 **V:** Six. The same hour tomorrow.
 
-**Misaki:** You are enjoying this. Don’t lie.
+**Misaki:** You’re enjoying this. Don’t lie.
 
 **V:** No. I find that I am not, and I expected to.
 
@@ -255,7 +255,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *(or)* *In the morning the ledger is exactly where you left it on the desk, shut, and not locked. There is a mug ring beside it that is not yours. They stood here for some time and did not open it.*
 
-**Misaki:** (If I read it, I will know. And I do not want to know. Since when do I not want to know?)
+**Misaki:** (If I read it, I’ll know. And I don’t want to know. Since when do I not want to know?)
 
 **V:** (I left it unlocked on purpose. I do not know what I wanted them to find.)
 
@@ -287,7 +287,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *You leave it. You go back up by the lamps, and for the first time since the river you sleep until it is light.*
 
-**Misaki:** (He wants me to know that I can leave, so that he can say I chose to stay. It is a trick, and it is a good one.)
+**Misaki:** (He wants me to know that I can leave, so that he can say I chose to stay. It’s a trick, and it’s a good one.)
 
 - ▸ Take the key up to bed with you
 
@@ -318,7 +318,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *Inside it is a small white room with a bed, a drip stand and a smoke detector. It is about the size of your trailer. You thought it was the other building for two days, and you can see each thing you built that out of: the drain, the one light, the tray slot that is only a shelf.*
 
-**Misaki:** (One: it is a room. Two: it is only a room. Three: I was so fucking polite in here.)
+**Misaki:** (One: it’s a room. Two: it’s only a room. Three: I was so fucking polite in here.)
 
 *When you turn round, he is in the corridor, four steps back from the door, with a bag of the hounds’ feed on his shoulder. He has stopped dead.*
 
@@ -348,7 +348,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *(or)* *They come out, reach up with the good hand, and tear the old LAUNDRY sign off the door. It comes away with four screws and some paint.*
 
-**Misaki:** “Nobody opens a laundry.” That is what you told me. I opened it, V. From the inside.
+**Misaki:** “Nobody opens a laundry.” That’s what you told me. I opened it, V. From the inside.
 
 **V:** You did.
 
@@ -389,7 +389,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 **Misaki:** (text) didn’t ask, grandpa
 
-**Misaki:** (I am back there by Sunday. I tell everybody that it is for the case.)
+**Misaki:** (I’m back there by Sunday. I tell everybody that it’s for the case.)
 
 *You do not go to the gate. You go to bed at the usual time and lie awake for three and a half hours, which is the whole of your allowance.*
 

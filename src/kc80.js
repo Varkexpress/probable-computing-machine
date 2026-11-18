@@ -19,14 +19,14 @@ const k80Gone=()=>{try{return typeof k73Gone==='function'&&k73Gone()}catch(e){re
 const K80_MC=[
  cb=>say([
   ['','You have worked out the rules of this room, the way you worked out the rules of the other one.'],
-  K76MV('(one: the light stays on if u ask nicely. two: the tall one doesn’t like being looked at in the face, so look at his hands. three: eat all of it)','(one: the light stays on if you ask nicely. two: the tall one doesn’t like being looked at in the face, so look at his hands. three: eat all of it)','(One: the light stays on if you ask nicely. Two: the tall one doesn’t like being looked at in the face, so look at his hands. Three: eat all of it.)','(One: the light stays on if you ask nicely. Two: the tall one does not like being looked at in the face, so look at his hands. Three: eat all of it.)'),
+  K76MV('(one: the light stays on if u ask nicely. two: the tall one doesn’t like being looked at in the face, so look at his hands. three: eat all of it)','(one: the light stays on if you ask nicely. two: the tall one doesn’t like being looked at in the face, so look at his hands. three: eat all of it)','(One: the light stays on if you ask nicely. Two: the tall one doesn’t like being looked at in the face, so look at his hands. Three: eat all of it.)','(One: the light stays on if you ask nicely. Two: the tall one doesn’t like being looked at in the face, so look at his hands. Three: eat all of it.)'),
   ['','Nobody told you any of these. You made them up, because a room with rules is a room you can get right.'],
   ['','He comes in at noon with the tray. You get every one of them right: you ask about the light, you look at his hands, you finish the soup while he is still standing there. He stays by the door with his jaw set, like a man who has been insulted, and you cannot work out which rule you broke.']],
   ()=>ask('hitmeuppp','(What did you get wrong?)',[
    {t:'Ask him what you did wrong',sub:'you do not ask the ones with the keys',dis:true,fn:()=>{}},
    {t:'Say sorry',fn:()=>say([K76MV('sorry','sorry. sorry','Sorry.','Sorry. I’m sorry.'),
     ['','His hand closes on the door frame until the wood makes a sound. He goes out without a word, and shuts the door with so little noise that you have to listen for the latch.'],
-    K76MV('(ok. so sorry’s wrong too. rule four: don’t say sorry)','(ok. so sorry is wrong too. rule four: don’t say sorry)','(Okay. So sorry is wrong too. Rule four: don’t say sorry.)','(Okay. So sorry is wrong as well. Rule four: do not say sorry to the tall one.)')],cb)}])),
+    K76MV('(ok. so sorry’s wrong too. rule four: don’t say sorry)','(ok. so sorry is wrong too. rule four: don’t say sorry)','(Okay. So sorry is wrong too. Rule four: don’t say sorry.)','(Okay. So sorry is wrong as well. Rule four: don’t say sorry to the tall one.)')],cb)}])),
  cb=>{S.f.e2lMedAsk=1;save();say([
   ['','In the afternoon you have an idea, and it is the first good one you have had in this room.'],
   K76MV('(k9 swore to kill me. k9 wants to know where i am. k9 pays for things)','(k9 swore to kill me. so k9 wants to know where i am. and k9 pays for things)','(K9 swore to kill me. So K9 wants to know where I am. And K9 pays for things.)','(K9 swore to kill me. So K9 will want to know where I am, and K9 pays for what he wants.)'),
@@ -35,17 +35,17 @@ const K80_MC=[
   k80Gone()?['','You cannot get the voice to come. You write it with your finger on the blanket instead, K, 9, and point at the door, and at yourself.']:K76MV('can u get a message to k9. tell him he can have me. tell him it’s owed','can you get a message to k9? tell him he can have me. tell him it’s owed','Can you get a message to K9? Tell him he can have me. Tell him it’s owed.','Could you get a message to somebody called K9? Tell him he can have me. Tell him it’s owed, he’ll know. He’ll pay you for it.'),
   ['','The tall one puts the tray down very slowly, as if it had become heavy.'],
   K76V('I will tell him.'),
-  K76MV('(good. that’s good. that’s a plan)','(good. ok. that’s a plan. i’ve got a plan)','(Good. Okay. That’s a plan. I’ve got a plan.)','(Good. Okay. That is a plan. I have a plan, and it ends with somebody telling me why.)')],cb)},
+  K76MV('(good. that’s good. that’s a plan)','(good. ok. that’s a plan. i’ve got a plan)','(Good. Okay. That’s a plan. I’ve got a plan.)','(Good. Okay. That’s a plan. I have a plan, and it ends with somebody telling me why.)')],cb)},
  cb=>say([
   ['','There is a hound outside the door. You can see the grey of it in the gap at the bottom, and hear it breathe.'],
   ['','Everybody in the city knows what the hounds are for. So this is how it is done here: they send the animal first and let you listen to it.'],
-  K76MV('(stay awake. if i’m awake i can at least see it. i want to see it)','(stay awake. if i’m awake i can at least see it coming. i want to see it)','(Stay awake. If I’m awake I can at least see it coming. I want to see it.)','(Stay awake. If I am awake I can at least see it coming, and I want to see it.)'),
+  K76MV('(stay awake. if i’m awake i can at least see it. i want to see it)','(stay awake. if i’m awake i can at least see it coming. i want to see it)','(Stay awake. If I’m awake I can at least see it coming. I want to see it.)','(Stay awake. If I’m awake I can at least see it coming, and I want to see it.)'),
   ['','It does not come in. It lies down across the door with a sigh, the way a big animal does when it means to stay. You count the sighs until morning. There are sixty-two.'],
   ['','At some point in the night you notice that the gap under the door is warm, and that you have put your good hand flat on the floor beside it. You take it back.']],cb),
  cb=>say([
   ['','The tall one stands at the foot of the bed with a sheet of paper and tells you to open your left hand.'],
   ['','You try. You look at it and tell it, and it lies there on the blanket, shut, like something that belongs to somebody else.'],
-  K76MV('(he said open. it didn’t open. that’s a no. u don’t say no in here)','(he said open and it didn’t open. that’s a no. you don’t say no in here)','(He said open and it didn’t open. That’s a no. You don’t say no in here.)','(He said open, and it did not open. That counts as a no, and you do not say no in here.)'),
+  K76MV('(he said open. it didn’t open. that’s a no. u don’t say no in here)','(he said open and it didn’t open. that’s a no. you don’t say no in here)','(He said open and it didn’t open. That’s a no. You don’t say no in here.)','(He said open, and it didn’t open. That counts as a no, and you don’t say no in here.)'),
   k80Gone()?['','You hold your right hand out to him instead, palm up.']:K76MV('this one works. use this one','this one works. you can use this one','This one works. You can use this one.','This one works. You can use this one instead. It does what it’s told.'),
   ['','You hold the right hand out to him, palm up. He looks at it, and something goes out of his face, as if a lamp had been carried out of a room.'],
   K76V((typeof kdSA==='function'&&!kdSA())?'It was for an exercise, for the hand. There is no penalty.':'It was for an exercise. The doctor left it. There is no penalty.'),
@@ -58,7 +58,7 @@ const K80_MX=[
   K76MV('(oh my GOD. i asked him to tell k9 he could have me. i asked V to hand me over to V)','(oh my god. i asked him to tell k9 he could have me. i asked v to hand me over to v)','(Oh my God. I asked him to tell K9 he could have me. I asked V to hand me over to V.)','(Oh my God. I asked him to tell K9 that he could have me. I asked V, to his face, to hand me over to V.)'),
   ['','You try laughing at it. It is funny; it is the funniest thing that has ever happened to anybody. The laugh gets as far as your ribs and stops.'],
   ['','He said “I will tell him.” You have gone over the three words a hundred times. He hates you. It is in his book. A man who hates you should have enjoyed that, and his voice did something else, and you do not have a word for what it did.'],
-  K76MV('(don’t. don’t make it into something. he’s got a table downstairs with straps on it)','(don’t. don’t make it into something. he’s got a table downstairs with straps on)','(Don’t. Don’t make it into something. He’s got a table downstairs with straps on it.)','(Don’t. Do not make it into something. He has a table downstairs with straps on it, and my name in a book.)')],cb),
+  K76MV('(don’t. don’t make it into something. he’s got a table downstairs with straps on it)','(don’t. don’t make it into something. he’s got a table downstairs with straps on)','(Don’t. Don’t make it into something. He’s got a table downstairs with straps on it.)','(Don’t. Don’t make it into something. He has a table downstairs with straps on it, and my name in a book.)')],cb),
  cb=>say([
   ['','You count the thank-yous. The trays, the dressing, the light, the water, the door. You get to forty-one.'],
   ['','You have never thanked that man for anything in your life. You did it forty-one times for soup, in the good voice, and he took every one of them standing up. You would give a year of rent to have them back.'],

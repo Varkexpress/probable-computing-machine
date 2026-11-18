@@ -96,7 +96,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *She says that in eleven years it is the only instruction he has ever given her twice.*
 
-**Misaki:** (One: he hates me. Two: he has locked himself out of a room in his own house so that I would not have to look at him. Three—)
+**Misaki:** (One: he hates me. Two: he’s locked himself out of a room in his own house so that I’d not have to look at him. Three—)
 
 *There is no three. You look at the door, which opens from both sides, until she has finished with the hand.*
 
@@ -128,7 +128,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 **V:** What is that for?
 
-**Misaki:** Nothing. It is not for anything at all. That is why I like it.
+**Misaki:** Nothing. It’s not for anything at all. That’s why I like it.
 
 **V:** (I own nothing that is not for something. I had thought that a virtue.)
 
@@ -136,7 +136,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *(or)* *The fire has burned down. Neither of you has turned a page in an hour. Neither of you has left.*
 
-**Misaki:** (If I get up, it is over. If he gets up, it is over. So nobody is getting up.)
+**Misaki:** (If I get up, it’s over. If he gets up, it’s over. So nobody is getting up.)
 
 **V:** (If either of us stands, the evening is finished. I have a great deal to do. I remain in the chair.)
 
@@ -197,7 +197,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 **V:** It is efficient. Each of us is the better judge of the other’s work.
 
-**Misaki:** (One: he could die tomorrow. Two: I have only just got him. Three: life is so fucking—)
+**Misaki:** (One: he could die tomorrow. Two: I’ve only just got him. Three: life is so fucking—)
 
 **V:** I can hear you counting. Stop at two.
 
@@ -215,7 +215,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *(or)* *You hear every round go into the magazine. They must hear every blade go across the stone. You count theirs. They are certainly counting yours.*
 
-**Misaki:** (Five rounds; he heard five. If I fire six tomorrow, he will know that one was meant for him.)
+**Misaki:** (Five rounds; he heard five. If I fire six tomorrow, he’ll know that one was meant for him.)
 
 *You load five. Then you hold the sixth in your fist for a long time, and put it back in the box, loudly, so that he hears that too.*
 
@@ -251,7 +251,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *(or)* *A man who sells flats with no fire doors. They reach the roof first. You are in the stairwell below, and you do not hurry.*
 
-**Misaki:** Mine. Clean, one round, two hundred metres. You are cooking tonight.
+**Misaki:** Mine. Clean, one round, two hundred metres. You’re cooking tonight.
 
 **V:** He did not know why he died.
 
@@ -267,7 +267,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *(or)* *Your coin. Their call. They lose. They stand a metre from you and watch you go down to do it your way.*
 
-**Misaki:** (A year ago I would have taken the shot anyway, purely to annoy him.)
+**Misaki:** (A year ago I’d have taken the shot anyway, purely to annoy him.)
 
 *At the stair door he stops, with his back to you. It is the first time he has had his back to you since the Constance. It lasts about a second, and then he remembers, and turns.*
 
@@ -301,7 +301,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *(or)* *The salt is at your end. They look at it. You look at it. Ronin gets up, swearing, walks the length of the table, and puts it down in front of them.*
 
-**Misaki:** (I would have passed it if he had asked. He would have passed it if I had asked. Nobody asked.)
+**Misaki:** (I’d have passed it if he had asked. He’d have passed it if I had asked. Nobody asked.)
 
 **V:** (I would have passed it, had they asked. It did not occur to either of us that we were permitted to ask.)
 
@@ -337,7 +337,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 **V:** (text) Keep him as long as he likes. I will bring his food to the gate and leave it.
 
-**Misaki:** (He could have come in. I would have let him. It is the hound; he could have come in for the hound.)
+**Misaki:** (He could have come in. I’d have let him. It’s the hound; he could have come in for the hound.)
 
 **V:** (I could have gone to the door. They would have opened it, for him. I have gone over the terms, and there is nothing in them that forbids it, and I stayed in the car.)
 
@@ -345,7 +345,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 **V:** You know it. You have it in the server.
 
-**Misaki:** That is a letter, V. It is not a name.
+**Misaki:** That’s a letter, V. It’s not a name.
 
 **V:** It is what is left when one takes everything off that was not mine. I kept the first letter. It seemed enough.
 
@@ -375,15 +375,15 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 **V:** Not yet. I thought that I would enjoy you. I have been very much relieved.
 
-**Misaki:** That is the worst compliment anybody has ever paid me, and I’ve been called a scalper.
+**Misaki:** That’s the worst compliment anybody has ever paid me, and I’ve been called a scalper.
 
 **Misaki:** I don’t know.
 
-**Misaki:** …Because nobody gets through it. I had tried all week. If I could not get in, nobody could.
+**Misaki:** …Because nobody gets through it. I had tried all week. If I couldn’t get in, nobody could.
 
 **V:** You came to the one house in the city that you had found impregnable, because I had made it so against you.
 
-**Misaki:** Yes. Do not make it into a thing.
+**Misaki:** Yes. Don’t make it into a thing.
 
 **V:** (It is the only use that anybody has ever had for what I am.)
 
@@ -411,7 +411,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 **Misaki:** In the first week? No. You were a rich man with large dogs.
 
-**Misaki:** In the room downstairs, yes. But that was not you; that was somebody with your face on.
+**Misaki:** In the room downstairs, yes. But that wasn’t you; that was somebody with your face on.
 
 **V:** And now?
 

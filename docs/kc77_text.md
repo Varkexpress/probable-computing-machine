@@ -31,7 +31,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 **V:** In a month it will hold still. I will stand here again then, if you ask me to.
 
-**Misaki:** (He would. He would stand right there in his own kitchen and let me line it up.)
+**Misaki:** (He would. He’d stand right there in his own kitchen and let me line it up.)
 
 **V:** (I meant it. I have checked, twice, and I meant it.)
 
@@ -192,7 +192,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 **Angel:** he left you something. he rang it in this afternoon. it’s a page. he said you’d know which
 
-**Misaki:** (The page. He is leaving me my own page, with everything on it.)
+**Misaki:** (The page. He’s leaving me my own page, with everything on it.)
 
 *Before Pier Nine, Angel requires a current will from each of you. Yours has been with the foundation’s lawyers for eleven years. It disposes of forty-one shelters and four hounds, and it has never named a person.*
 

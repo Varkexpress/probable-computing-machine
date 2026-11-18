@@ -25,10 +25,10 @@ function k78Know(){k77Go('#07080b');k73Mark('e2l_know',1);const m=k76M(),f=S.f;
  const L=m?[
   ['','A job for the case. V goes into a stairwell to talk to a man who knew the Mimic, and you lie on the roof opposite to cover the door. For nine minutes his back is in your scope at ninety metres, with no wind.'],
   ['','Then you notice what your hands are doing. You are reading the windows above him, the parked van, the far corner. You have not put the crosshair on him once. You have spent nine minutes keeping him alive, and it did not cross your mind to do anything else.'],
-  K76MV('(one: i’m not going to kill him. two: i haven’t wanted to since the river. three: oh, fuck)','(one: i’m not going to kill him. two: i don’t think i’ve wanted to since the river. three: oh, fuck)','(One: I’m not going to kill him. Two: I don’t think I’ve wanted to since the river. Three: oh, fuck.)','(One: I am not going to kill him. Two: I don’t think I have wanted to since the river. Three: oh, fuck.)'),
+  K76MV('(one: i’m not going to kill him. two: i haven’t wanted to since the river. three: oh, fuck)','(one: i’m not going to kill him. two: i don’t think i’ve wanted to since the river. three: oh, fuck)','(One: I’m not going to kill him. Two: I don’t think I’ve wanted to since the river. Three: oh, fuck.)','(One: I’m not going to kill him. Two: I don’t think I have wanted to since the river. Three: oh, fuck.)'),
   ['','He comes out. He looks up at your roof before he looks anywhere else, the way he did on the night of the carpet, and you remember what is in his book in fountain pen.'],
-  K76MV('(he doesn’t cross things out. he TOLD me. he’ll do it the day it says to, between the tea and the hounds, and not feel a thing)','(he doesn’t cross things out. he told me so. he’ll do it on the day it says, between the tea and the hounds, and not feel a thing)','(He doesn’t cross things out. He told me so. He’ll do it on the day it says, between the tea and the hounds, and feel nothing.)','(He doesn’t cross things out; he told me so himself. He will do it on the day the book says, between the tea and the hounds, and feel nothing at all.)'),
-  f.e2lSpar==='kiss'?K76MV('(he kissed me back like he was trying to win. that’s all that was)','(he kissed me back like he was trying to win. that’s all it was. winning)','(He kissed me back like he was trying to win. That’s all it was.)','(He kissed me back on the mat as if he was trying to win. That is all it was. He told me so: three to one.)'):null]:[
+  K76MV('(he doesn’t cross things out. he TOLD me. he’ll do it the day it says to, between the tea and the hounds, and not feel a thing)','(he doesn’t cross things out. he told me so. he’ll do it on the day it says, between the tea and the hounds, and not feel a thing)','(He doesn’t cross things out. He told me so. He’ll do it on the day it says, between the tea and the hounds, and feel nothing.)','(He doesn’t cross things out; he told me so himself. He’ll do it on the day the book says, between the tea and the hounds, and feel nothing at all.)'),
+  f.e2lSpar==='kiss'?K76MV('(he kissed me back like he was trying to win. that’s all that was)','(he kissed me back like he was trying to win. that’s all it was. winning)','(He kissed me back like he was trying to win. That’s all it was.)','(He kissed me back on the mat as if he was trying to win. That’s all it was. He told me so: three to one.)'):null]:[
   ['','A job for the case. You go into a stairwell to talk to a man who knew the Mimic, and Misaki lies on the roof opposite with the rifle. For nine minutes your back is to a marksman who has sworn in front of witnesses to kill you, and you do not think of it once.'],
   ['','You think of it on the way out. You stood with your back to that roof and felt covered. You have never in your life let anybody stand behind you.'],
   K76V('(I am not going to kill them. I have known it since I could not write the total. I have declined to look at it until today.)'),
@@ -40,7 +40,7 @@ function k78Know(){k77Go('#07080b');k73Mark('e2l_know',1);const m=k76M(),f=S.f;
    ['','In the car you tell them their position was sloppy and their sling is frayed. They tell you where you may put the sling. It is exactly as it has always been, and you sit in it as if in somebody else’s coat.']],hub)};
  const watch=()=>{f.e2lKnow='watch';save();say(m?[
    ['','That night you put the pistol back under the pillow, where it has not been since the infirmary, and balance a glass on the door handle of the spare room.'],
-   K76MV('(i’ll hear him. that’s all i need. to hear him)','(i’ll hear him. that’s all i need, to hear him first)','(I’ll hear him. That’s all I need: to hear him first.)','(I’ll hear him. That is all I need, to hear him first. I do not know what I do after that.)')]:[
+   K76MV('(i’ll hear him. that’s all i need. to hear him)','(i’ll hear him. that’s all i need, to hear him first)','(I’ll hear him. That’s all I need: to hear him first.)','(I’ll hear him. That’s all I need, to hear him first. I don’t know what I do after that.)')]:[
    ['','That night, for the first time since they came into the house, you turn the key in your bedroom door. The black hound, outside it, looks at the lock and then at you.'],
    K76V('(It is a precaution. I take them against everybody. I have not, until now, taken them against anybody I would miss.)')],hub)};
  say(L,()=>ask(K73Who(),m?'(He’s waiting at the car, holding the door.)':'(They are coming down the fire escape.)',m?[
@@ -54,7 +54,7 @@ function k78Test(){k77Go('#06070a');k73Mark('e2l_test');const m=k76M(),f=S.f;
   ['','You sit down on the parapet with your back to him and your legs over the drop, and leave the pistol in its holster, and count. It would take him one hand. He would not even have to hurry.'],
   ['','At forty his hand closes in the back of your hoodie and you are on the gravel, pulled off the edge so hard that your teeth click.'],
   K76V('Do not do that again.'),
-  K76MV('(so that’s the answer. not like that. not quick, not when i pick. his way, on his day)','(so that’s the answer. not like that. not quick and not when i pick. his way, on his day)','(So that’s the answer. Not like that. Not quick, and not when I pick. His way, on his day.)','(So that is the answer. Not like that: not quick, and not when I choose. His way, on his day, as written.)')]:[
+  K76MV('(so that’s the answer. not like that. not quick, not when i pick. his way, on his day)','(so that’s the answer. not like that. not quick and not when i pick. his way, on his day)','(So that’s the answer. Not like that. Not quick, and not when I pick. His way, on his day.)','(So that’s the answer. Not like that: not quick, and not when I choose. His way, on his day, as written.)')]:[
   ['','A roof on the east side, six floors up, waiting on one of the old names. Misaki sits down on the parapet with their back to you and their legs over the drop, and leaves the pistol in its holster.'],
   ['','You understand at once that it is a test. They are offering you the easiest kill of your life, to see whether you take it.'],
   K76V('(If I take it, I am what they say I am. If I do not, they learn that I cannot. A person who kills for rent will know what to do with a man who cannot.)'),
@@ -70,7 +70,7 @@ function k78Test(){k77Go('#06070a');k73Mark('e2l_test');const m=k76M(),f=S.f;
  const laughed=()=>{f.e2lTest='laughed';save();say(m?[
    ['','You lie on the gravel and laugh at him, because the other thing you could do is ask. He stands over you with his hand still closed on nothing.'],
    K76V('I fail to see what is amusing.'),K76MV('ur face. u looked scared','your face. you looked scared','Your face. You looked scared.','Your face, V. For a second there you looked scared.'),K76V('I was not.'),
-   K76MV('(he was. scared i’d go over before he’s ready. that’s all)','(he was, though. scared i’d go over before he’s ready for it. that’s all that is)','(He was, though. Scared I’d go over before he was ready. That’s all that is.)','(He was, though. Scared that I would go over the edge before he was ready for me to. That is all that is.)')]:[
+   K76MV('(he was. scared i’d go over before he’s ready. that’s all)','(he was, though. scared i’d go over before he’s ready for it. that’s all that is)','(He was, though. Scared I’d go over before he was ready. That’s all that is.)','(He was, though. Scared that I’d go over the edge before he was ready for me to. That’s all that is.)')]:[
    ['','You do not let go of the hoodie. They lie on the gravel and laugh at you, and you stand over them with your fist closed in the cloth.'],
    K76V('I fail to see what is amusing.'),K76MV('ur face. u looked scared','your face. you looked scared','Your face. You looked scared.','Your face, V. For a second there you looked scared.'),K76V('I was not.'),
    K76V('(I was. They saw it, and they will file it under weaknesses, as I would.)')],hub)};
@@ -85,7 +85,7 @@ function k78Row(){k77Go('#050508');k73Mark('e2l_row');const m=k76M(),f=S.f;
   ['','Neither of you asks what the other is doing up. You have each lain awake listening for the other one for a week.'],
   K76MV('u lock ur door now','you lock your door now. you never used to','You lock your door now. You never used to.','You lock your door now, V. You never used to. I can hear the key from my room.'),
   K76V('There is a glass balanced on your door handle. I heard it from the stair.'),
-  K76MV('bc ur going to do it. it’s in ur book in INK and u don’t cross things out. u TOLD me','because you’re going to do it. it’s in your book in ink and you don’t cross things out. you told me','Because you’re going to do it. It’s in your book in ink, and you don’t cross things out. You told me that.','Because you are going to do it. It is in your book, in ink, and you do not cross things out. You told me that yourself, the first night.'),
+  K76MV('bc ur going to do it. it’s in ur book in INK and u don’t cross things out. u TOLD me','because you’re going to do it. it’s in your book in ink and you don’t cross things out. you told me','Because you’re going to do it. It’s in your book in ink, and you don’t cross things out. You told me that.','Because you’re going to do it. It’s in your book, in ink, and you don’t cross things out. You told me that yourself, the first night.'),
   K76V('And you promised me a car park in front of witnesses, and have never withdrawn it. You kill for whoever pays. I assume that sooner or later somebody will.')];
  const tail=[['',m?'He goes in, and you hear the key turn. Before it is light you carry your things out to the truck and go back to the trailer, and shoot both bolts.':'You go in and turn the key. In the morning the spare room is empty and the bed is stripped. The black hound lies across that doorway all day and will not be called off it.']];
  const fin=(k,M)=>()=>{f.e2lRow=k;S.aff=Math.max(0,S.aff-6);save();drawHud();say(M.concat(tail),hub)};
@@ -96,7 +96,7 @@ function k78Row(){k77Go('#050508');k73Mark('e2l_row');const m=k76M(),f=S.f;
    K76V('Give me the rifle, and I will believe you.'),
    K76MV('and stand in ur house with nothing. no','and stand in your house with nothing in my hands. no','And stand in your house with nothing in my hands. No.','And stand in your house, at night, with nothing in my hands? No.'),
    ['','Neither of you can go first. Going first means standing unarmed in front of somebody you believe would do it, and neither of you has lived this long by doing that.']]:[
-   K76MV('that’s what i’d say if i was going to','that’s exactly what i’d say if i was going to','That’s exactly what I’d say if I was going to.','That is exactly what I would say, V, if I was going to.'),
+   K76MV('that’s what i’d say if i was going to','that’s exactly what i’d say if i was going to','That’s exactly what I’d say if I was going to.','That’s exactly what I’d say, V, if I was going to.'),
    K76V('Then give me the rifle, and I will prove it.'),
    K76MV('cross the name out first. get the pen','cross the name out first. go and get the pen','Cross the name out first. Go and get the pen.','Cross the name out first. Go and get the fountain pen and do it where I can see.'),
    K76V('I do not cross things out. If I strike one name, every other name in that book is worth nothing.'),
@@ -106,7 +106,7 @@ function k78Row(){k77Go('#050508');k73Mark('e2l_row');const m=k76M(),f=S.f;
    K76MV('yeah. u should lock it','yeah. you should lock it','Yeah. You should lock it.','Yeah. You should lock it, then.'),
    K76V('I see.'),
    ['','You watch him take that in and put it away somewhere, tidily. You wanted him to argue. He nods, as if you had confirmed a delivery.'],
-   K76MV('(say u won’t. i’d know if u were lying. i think i’d know)','(say you won’t. i’d know if you were lying. i think i’d know)','(Say you won’t. I’d know if you were lying. I think I’d know.)','(Say that you won’t. I would know if you were lying. I think that I would know.)'),
+   K76MV('(say u won’t. i’d know if u were lying. i think i’d know)','(say you won’t. i’d know if you were lying. i think i’d know)','(Say you won’t. I’d know if you were lying. I think I’d know.)','(Say that you won’t. I’d know if you were lying. I think that I’d know.)'),
    K76V('Goodnight, Misaki.')]:[
    K76V('You are right to take precautions.'),
    K76MV('cool. great. good talk','cool. great. good talk, v','Cool. Great. Good talk.','Cool. Great. Good talk, V. Really cleared things up.'),
@@ -143,7 +143,7 @@ function k78Guard(){k77Go('#04060a');k73Mark('e2l_guard');const m=k76M(),f=S.f;
    K76MV('u were watching me too. don’t put this on me','you were watching me too. don’t put this on me','You were watching me too. Don’t put this on me.','You were watching me too, in the glass. Don’t you dare put this on me.'),
    K76V('I am not putting it anywhere. I am telling you that I cannot work Friday like this.'),
    K76MV('then stop watching me','then stop watching me','Then stop watching me.','Then stop watching me, V.'),K76V('Then stop giving me cause.'),
-   K76MV('(i haven’t given him any. that’s the whole fucking problem)','(i haven’t given him any. that’s the whole fucking problem)','(I haven’t given him any. That’s the whole fucking problem.)','(I have not given him any cause. That is the whole fucking problem.)')]:[
+   K76MV('(i haven’t given him any. that’s the whole fucking problem)','(i haven’t given him any. that’s the whole fucking problem)','(I haven’t given him any. That’s the whole fucking problem.)','(I haven’t given him any cause. That’s the whole fucking problem.)')]:[
    K76V('You were late because you were aiming at me.'),
    K76MV('i was LOOKING at u. it’s different','i was looking at you. it’s different','I was looking at you. It’s different.','I was looking at you, V. It’s different. You of all people know it’s different.'),
    K76V('It is not different through a scope.'),

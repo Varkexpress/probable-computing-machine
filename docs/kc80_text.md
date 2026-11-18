@@ -6,7 +6,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *You have worked out the rules of this room, the way you worked out the rules of the other one.*
 
-**Misaki:** (One: the light stays on if you ask nicely. Two: the tall one does not like being looked at in the face, so look at his hands. Three: eat all of it.)
+**Misaki:** (One: the light stays on if you ask nicely. Two: the tall one doesn’t like being looked at in the face, so look at his hands. Three: eat all of it.)
 
 *Nobody told you any of these. You made them up, because a room with rules is a room you can get right.*
 
@@ -20,7 +20,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *His hand closes on the door frame until the wood makes a sound. He goes out without a word, and shuts the door with so little noise that you have to listen for the latch.*
 
-**Misaki:** (Okay. So sorry is wrong as well. Rule four: do not say sorry to the tall one.)
+**Misaki:** (Okay. So sorry is wrong as well. Rule four: don’t say sorry to the tall one.)
 
 *In the afternoon you have an idea, and it is the first good one you have had in this room.*
 
@@ -38,13 +38,13 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 **V:** I will tell him.
 
-**Misaki:** (Good. Okay. That is a plan. I have a plan, and it ends with somebody telling me why.)
+**Misaki:** (Good. Okay. That’s a plan. I have a plan, and it ends with somebody telling me why.)
 
 *There is a hound outside the door. You can see the grey of it in the gap at the bottom, and hear it breathe.*
 
 *Everybody in the city knows what the hounds are for. So this is how it is done here: they send the animal first and let you listen to it.*
 
-**Misaki:** (Stay awake. If I am awake I can at least see it coming, and I want to see it.)
+**Misaki:** (Stay awake. If I’m awake I can at least see it coming, and I want to see it.)
 
 *It does not come in. It lies down across the door with a sigh, the way a big animal does when it means to stay. You count the sighs until morning. There are sixty-two.*
 
@@ -54,7 +54,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *You try. You look at it and tell it, and it lies there on the blanket, shut, like something that belongs to somebody else.*
 
-**Misaki:** (He said open, and it did not open. That counts as a no, and you do not say no in here.)
+**Misaki:** (He said open, and it didn’t open. That counts as a no, and you don’t say no in here.)
 
 *You hold your right hand out to him instead, palm up.*
 
@@ -72,7 +72,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *He said “I will tell him.” You have gone over the three words a hundred times. He hates you. It is in his book. A man who hates you should have enjoyed that, and his voice did something else, and you do not have a word for what it did.*
 
-**Misaki:** (Don’t. Do not make it into something. He has a table downstairs with straps on it, and my name in a book.)
+**Misaki:** (Don’t. Don’t make it into something. He has a table downstairs with straps on it, and my name in a book.)
 
 *You count the thank-yous. The trays, the dressing, the light, the water, the door. You get to forty-one.*
 

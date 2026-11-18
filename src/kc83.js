@@ -56,7 +56,7 @@ if(typeof K80_MX!=='undefined')K80_MX.push(cb=>say([
   ['','She says that he asked her to take it over. She says he told her that he was not to come into this room again while you were in it, and that she was to tell him if he tried.'],
   K76MV('he said that. about himself','he said that about HIMSELF','He said that about himself.','He said that about himself? He told you to keep him out?'),
   ['','She says that in eleven years it is the only instruction he has ever given her twice.'],
-  K76MV('(one: he hates me. two: he locked himself out of a room in his own house so i wouldn’t have to look at him. three—)','(one: he hates me. two: he locked himself out of a room in his own house so i wouldn’t have to look at him. three—)','(One: he hates me. Two: he locked himself out of a room in his own house so I wouldn’t have to look at him. Three—)','(One: he hates me. Two: he has locked himself out of a room in his own house so that I would not have to look at him. Three—)'),
+  K76MV('(one: he hates me. two: he locked himself out of a room in his own house so i wouldn’t have to look at him. three—)','(one: he hates me. two: he locked himself out of a room in his own house so i wouldn’t have to look at him. three—)','(One: he hates me. Two: he locked himself out of a room in his own house so I wouldn’t have to look at him. Three—)','(One: he hates me. Two: he’s locked himself out of a room in his own house so that I’d not have to look at him. Three—)'),
   ['','There is no three. You look at the door, which opens from both sides, until she has finished with the hand.']],cb));
 if(typeof K80_V!=='undefined')K80_V.push(cb=>say([
   ['','On the last night, through the vent in the study, somebody laughs.'],
@@ -72,10 +72,10 @@ function k83Study(){const n=k81Inc('study'),m=k76M();
    K76MV('new glasses','those are new','Those are new.','Those are new. Did you have to buy more?'),K76V('I had to. Somebody robbed me.'),
    ['',m?'You nearly offer to bring them back. You get as far as opening your mouth.':'They open their mouth, and shut it again. You go back to the page, and read the same line four times.']],
   [['',m?'You do integrals on the back of his foundation’s annual report, with his pencil. He watches the pencil for some time.':'They do integrals on the back of the foundation’s annual report, with your pencil. You watch the pencil for some time. It is fast, and it does not cross out.'],
-   K76V('What is that for?'),K76MV('nothing. it’s not for anything. that’s why i like it','nothing. it isn’t for anything. that’s why i like it','Nothing. It isn’t for anything. That’s why I like it.','Nothing. It is not for anything at all. That is why I like it.'),
+   K76V('What is that for?'),K76MV('nothing. it’s not for anything. that’s why i like it','nothing. it isn’t for anything. that’s why i like it','Nothing. It isn’t for anything. That’s why I like it.','Nothing. It’s not for anything at all. That’s why I like it.'),
    K76V('(I own nothing that is not for something. I had thought that a virtue.)')],
   [['',m?'The fire has burned down. You have both been pretending to read for an hour, and neither of you has turned a page, and neither of you has left.':'The fire has burned down. Neither of you has turned a page in an hour. Neither of you has left.'],
-   m?K76MV('(if i get up, it’s over. if he gets up, it’s over. so nobody gets up)','(if i get up it’s over. if he gets up it’s over. so nobody’s getting up)','(If I get up it’s over. If he gets up it’s over. So nobody’s getting up.)','(If I get up, it is over. If he gets up, it is over. So nobody is getting up.)'):K76V('(If either of us stands, the evening is finished. I have a great deal to do. I remain in the chair.)')]]),hub);
+   m?K76MV('(if i get up, it’s over. if he gets up, it’s over. so nobody gets up)','(if i get up it’s over. if he gets up it’s over. so nobody’s getting up)','(If I get up it’s over. If he gets up it’s over. So nobody’s getting up.)','(If I get up, it’s over. If he gets up, it’s over. So nobody is getting up.)'):K76V('(If either of us stands, the evening is finished. I have a great deal to do. I remain in the chair.)')]]),hub);
  say([
   ['',m?'His study, after dinner. There is a fire, and two armchairs, and he is in one of them with a book. The other one has never had anybody in it; you can tell from the cushion.':'The study, after dinner. You are in your chair with a book. They come in without knocking and stand looking at the second armchair, which nobody has sat in since you bought it.'],
   K76V('You may sit. It is only a chair.'),
@@ -103,13 +103,13 @@ function k83Eve(){k77Go('#05060a');k73Mark('e2l_eve',1);const m=k76M(),f=S.f,lov
   ['',m?'You notice it at the same time he does. You have been cleaning his pistol. He has been checking the zero on your scope.':'You notice it at the same moment they do. They have been cleaning your pistol. You have been checking the zero on their scope.'],
   K76MV('this is so embarrassing','this is so embarrassing','This is so embarrassing.','This is so embarrassing. Two days, V. It’s been two days.'),
   K76V('It is efficient. Each of us is the better judge of the other’s work.'),
-  K76MV('(one: he could die tomorrow. two: i just got him. three: life is so fucking—)','(one: he could die tomorrow. two: i only just got him. three: life is so fucking—)','(One: he could die tomorrow. Two: I only just got him. Three: life is so fucking—)','(One: he could die tomorrow. Two: I have only just got him. Three: life is so fucking—)'),
+  K76MV('(one: he could die tomorrow. two: i just got him. three: life is so fucking—)','(one: he could die tomorrow. two: i only just got him. three: life is so fucking—)','(One: he could die tomorrow. Two: I only just got him. Three: life is so fucking—)','(One: he could die tomorrow. Two: I’ve only just got him. Three: life is so fucking—)'),
   m?K76V('I can hear you counting. Stop at two.'):K76V('(They are counting. I can hear it. I do not have a number system for this; I have only the one fact, and I have had it for two days, and I would like longer.)'),
   ['',m?'You stop at two. He hands you the scope. You hand him the pistol. You do not say be careful, and he does not. Neither of you has ever been.':'You hand them the scope. They hand you the pistol. You do not say be careful, and they do not. Neither of you has ever been.']],hub);
  say([
   ['',m?'The night before the auction. Under the terms you prepare in separate rooms: you in the spare room with the rifle, him in the study with the knives, and the door between left open, so that each of you can hear what the other is doing.':'The night before the auction. Under the terms you prepare in separate rooms: they in the spare room with the rifle, you in the study with the knives, and the door between left open, so that each of you can hear the other.'],
   ['',m?'You hear every blade go across the stone. He must hear every round go into the magazine. You count his; he is certainly counting yours.':'You hear every round go into the magazine. They must hear every blade go across the stone. You count theirs. They are certainly counting yours.'],
-  K76MV('(five rounds. he heard five. tomorrow if i fire six he’ll know one was for him)','(five rounds. he heard five. tomorrow, if i fire six, he’ll know one was for him)','(Five rounds. He heard five. Tomorrow, if I fire six, he’ll know one was for him.)','(Five rounds; he heard five. If I fire six tomorrow, he will know that one was meant for him.)'),
+  K76MV('(five rounds. he heard five. tomorrow if i fire six he’ll know one was for him)','(five rounds. he heard five. tomorrow, if i fire six, he’ll know one was for him)','(Five rounds. He heard five. Tomorrow, if I fire six, he’ll know one was for him.)','(Five rounds; he heard five. If I fire six tomorrow, he’ll know that one was meant for him.)'),
   m?['','You load five. Then you hold the sixth in your fist for a long time, and put it back in the box, loudly, so that he hears that too.']:K76V('(Five. I heard a sixth taken up, and then put back in the box, with some noise. They wished me to hear it.)'),
   K76V('(through the door) Thank you.'),
   K76MV('(through the door) for what','(through the door) for what','(through the door) For what?','(through the door) For what? I didn’t do anything.'),
@@ -124,14 +124,14 @@ const k83EpiOk=()=>{try{return K83()&&S.phase==='epilogue'&&!!S.f.e2lEnd&&k73Don
 const K83E={
  race:{t:()=>k76H('Race him for a mark','Race them for a mark'),lov:m=>[
    ['',m?'A man who sells flats with no fire doors. You get to the roof first. He is already in the stairwell below, and you can hear him not hurrying.':'A man who sells flats with no fire doors. They reach the roof first. You are in the stairwell below, and you do not hurry.'],
-   K76MV('mine. clean. one round. ur cooking','mine. clean, one round. you’re cooking','Mine. Clean, one round. You’re cooking.','Mine. Clean, one round, two hundred metres. You are cooking tonight.'),
+   K76MV('mine. clean. one round. ur cooking','mine. clean, one round. you’re cooking','Mine. Clean, one round. You’re cooking.','Mine. Clean, one round, two hundred metres. You’re cooking tonight.'),
    K76V('He did not know why he died.'),
    K76MV('i told him. i shouted it across the street first. happy?','i told him. i shouted it across the street first. happy?','I told him. I shouted it across the street first. Happy?','I told him, V. I shouted it across the street before I fired. Are you happy?'),
    ['',m?'He is. You can tell, because he says nothing at all, and takes your rifle case off your shoulder to carry it down.':'You are. You say nothing at all, and take the rifle case off their shoulder to carry it down. A year ago they would not have shouted, and you would not have carried.']],
   riv:m=>[
    ['','A man who sells flats with no fire doors. You both want him. Under the terms you meet on the roof and toss for it.'],
    ['',m?'His coin. Your call. You lose. You stand a metre from him and watch him go down to do it his way, and you do not put a round in the man first to spare him the week.':'Your coin. Their call. They lose. They stand a metre from you and watch you go down to do it your way.'],
-   K76MV('(a year ago i’d have taken it anyway. to piss him off)','(a year ago i’d have taken the shot anyway, just to piss him off)','(A year ago I’d have taken the shot anyway, just to piss him off.)','(A year ago I would have taken the shot anyway, purely to annoy him.)'),
+   K76MV('(a year ago i’d have taken it anyway. to piss him off)','(a year ago i’d have taken the shot anyway, just to piss him off)','(A year ago I’d have taken the shot anyway, just to piss him off.)','(A year ago I’d have taken the shot anyway, purely to annoy him.)'),
    m?['','At the stair door he stops, with his back to you. It is the first time he has had his back to you since the Constance. It lasts about a second, and then he remembers, and turns.']:K76V('(At the stair door I found that I had my back to them. I corrected it. I noted that for one second I had not thought to.)')]},
  table:{t:()=>'Sunday, the long table',lov:m=>[
    ['','Sunday, the long table, all four. There are two forks at your end now, and nobody remarks on it.'],
@@ -145,7 +145,7 @@ const K83E={
    [RN,'It’s like eatin’ at a fuckin’ peace conference.'],
    [AN,'it’s been a year. one of you could pass the other one the salt'],
    ['',m?'The salt is at his end. You look at it. He looks at it. Ronin gets up, swearing, walks the length of the table, and puts it down in front of you.':'The salt is at your end. They look at it. You look at it. Ronin gets up, swearing, walks the length of the table, and puts it down in front of them.'],
-   m?K76MV('(i’d have passed it. if he’d asked. he’d have passed it if i’d asked. nobody asked)','(i’d have passed it if he’d asked. he’d have passed it if i’d asked. nobody asked)','(I’d have passed it if he’d asked. He’d have passed it if I’d asked. Nobody asked.)','(I would have passed it if he had asked. He would have passed it if I had asked. Nobody asked.)'):K76V('(I would have passed it, had they asked. It did not occur to either of us that we were permitted to ask.)')]},
+   m?K76MV('(i’d have passed it. if he’d asked. he’d have passed it if i’d asked. nobody asked)','(i’d have passed it if he’d asked. he’d have passed it if i’d asked. nobody asked)','(I’d have passed it if he’d asked. He’d have passed it if I’d asked. Nobody asked.)','(I’d have passed it if he had asked. He’d have passed it if I had asked. Nobody asked.)'):K76V('(I would have passed it, had they asked. It did not occur to either of us that we were permitted to ask.)')]},
  hound:{t:()=>'The old hound',lov:m=>[
    ['',m?'The old hound cannot manage the back stair any longer. V carries him up at night, all of him, like a calf, and puts him down on your side of the bed.':'The old hound cannot manage the back stair any longer. You carry him up at night and put him down on their side of the bed, where he has decided that he sleeps.'],
    K76MV('he’s fifteen','he’s fifteen now','He’s fifteen now.','He’s fifteen now. That’s old, for one that size.'),K76V('I know how old he is.'),
@@ -158,7 +158,7 @@ const K83E={
    m?K76V('(text) He is with you.'):K76V('(text) He is with you.'),
    K76MV('(text) yeah. he walked','(text) yeah. he walked the whole way'),
    K76V('(text) Keep him as long as he likes. I will bring his food to the gate and leave it.'),
-   m?K76MV('(he could’ve come in. i’d have let him in. it’s the HOUND, he could’ve come in for the hound)','(he could have come in. i’d have let him. it’s the hound, he could have come in for the hound)','(He could have come in. I’d have let him. It’s the hound; he could have come in for the hound.)','(He could have come in. I would have let him. It is the hound; he could have come in for the hound.)'):K76V('(I could have gone to the door. They would have opened it, for him. I have gone over the terms, and there is nothing in them that forbids it, and I stayed in the car.)')]}};
+   m?K76MV('(he could’ve come in. i’d have let him in. it’s the HOUND, he could’ve come in for the hound)','(he could have come in. i’d have let him. it’s the hound, he could have come in for the hound)','(He could have come in. I’d have let him. It’s the hound; he could have come in for the hound.)','(He could have come in. I’d have let him. It’s the hound; he could have come in for the hound.)'):K76V('(I could have gone to the door. They would have opened it, for him. I have gone over the terms, and there is nothing in them that forbids it, and I stayed in the car.)')]}};
 function k83Epi(){const m=k76M(),F=(S.f.e2l83=S.f.e2l83||{}),lov=S.f.e2lEnd==='lovers';
  const o=Object.keys(K83E).filter(k=>!F[k]).map(k=>({t:K83E[k].t(),fn:()=>{spend();S.done.k83act=1;F[k]=1;save();k77Go('#09080b');say((lov?K83E[k].lov:K83E[k].riv)(m),hub)}}));
  ask(K73Who(),m?'(a year on.)':'(A year on.)',o.concat([{t:'Not today',fn:hub}]))}
@@ -167,7 +167,7 @@ function k83Epi(){const m=k76M(),F=(S.f.e2l83=S.f.e2l83||{}),lov=S.f.e2lEnd==='l
 if(typeof K82_QM!=='undefined')K82_QM.push(
  {q:'“what’s ur actual name”',a:()=>[
   K76V('You know it. You have it in the server.'),
-  K76MV('that’s a letter','that’s a letter, not a name','That’s a letter, not a name.','That is a letter, V. It is not a name.'),
+  K76MV('that’s a letter','that’s a letter, not a name','That’s a letter, not a name.','That’s a letter, V. It’s not a name.'),
   K76V('It is what is left when one takes everything off that was not mine. I kept the first letter. It seemed enough.'),
   K76MV('(i wrote in “march”. he kept one letter. we’re both about four characters long)')]},
  {q:'“have u ever been wrong. in the book”',a:()=>[
@@ -185,13 +185,13 @@ if(typeof K82_QM!=='undefined')K82_QM.push(
   K76V('Of being a man who does it for pleasure. I check, each time.'),
   K76MV('and?','and? are u','And? Are you?','And? What do you find?'),
   K76V('Not yet. I thought that I would enjoy you. I have been very much relieved.'),
-  K76MV('that’s the worst compliment anyone’s ever given me','that is the worst compliment i’ve ever had','That is the worst compliment I’ve ever had.','That is the worst compliment anybody has ever paid me, and I’ve been called a scalper.')]});
+  K76MV('that’s the worst compliment anyone’s ever given me','that is the worst compliment i’ve ever had','That is the worst compliment I’ve ever had.','That’s the worst compliment anybody has ever paid me, and I’ve been called a scalper.')]});
 if(typeof K82_QV!=='undefined')K82_QV.push(
  {q:'“Why did you come to my door? Of every door.”',a:()=>[
   K76MV('idk','i don’t know','I don’t know.','I don’t know.'),
-  K76MV('…bc nobody gets through it. i tried all week. if i couldn’t get in, they couldn’t','…because nobody gets through it. i tried all week. if i couldn’t, they couldn’t','…Because nobody gets through it. I tried all week. If I couldn’t, they couldn’t.','…Because nobody gets through it. I had tried all week. If I could not get in, nobody could.'),
+  K76MV('…bc nobody gets through it. i tried all week. if i couldn’t get in, they couldn’t','…because nobody gets through it. i tried all week. if i couldn’t, they couldn’t','…Because nobody gets through it. I tried all week. If I couldn’t, they couldn’t.','…Because nobody gets through it. I had tried all week. If I couldn’t get in, nobody could.'),
   K76V('You came to the one house in the city that you had found impregnable, because I had made it so against you.'),
-  K76MV('yeah. don’t make it a thing','yeah. don’t make it a thing','Yeah. Don’t make it a thing.','Yes. Do not make it into a thing.'),
+  K76MV('yeah. don’t make it a thing','yeah. don’t make it a thing','Yeah. Don’t make it a thing.','Yes. Don’t make it into a thing.'),
   K76V('(It is the only use that anybody has ever had for what I am.)')]},
  {q:'“Do you remember saying thank you?”',a:()=>[
   ['','You should not have asked it. You watch them go somewhere else behind the eyes, and then come back.'],
@@ -208,7 +208,7 @@ if(typeof K82_QV!=='undefined')K82_QV.push(
   ['','They do not have anything to say to that. You have not seen it happen before.']]},
  {q:'“Have you ever been afraid of me?”',a:()=>[
   K76MV('first week? no. u were a rich guy with dogs','the first week? no. you were a rich guy with dogs','The first week? No. You were a rich guy with dogs.','In the first week? No. You were a rich man with large dogs.'),
-  K76MV('in the room downstairs. yeah. but that wasn’t u. that was a guy with ur face','in the room downstairs, yes. but that wasn’t you. that was a guy with your face','In the room downstairs, yes. But that wasn’t you. That was a guy with your face.','In the room downstairs, yes. But that was not you; that was somebody with your face on.'),
+  K76MV('in the room downstairs. yeah. but that wasn’t u. that was a guy with ur face','in the room downstairs, yes. but that wasn’t you. that was a guy with your face','In the room downstairs, yes. But that wasn’t you. That was a guy with your face.','In the room downstairs, yes. But that wasn’t you; that was somebody with your face on.'),
   K76V('And now?'),
   K76MV('…next question','…ask me another one','…Ask me another one.','…Ask me a different one.'),
   K76V('(That was an answer. I am not certain which.)')]});

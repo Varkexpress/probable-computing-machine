@@ -50,7 +50,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *You have typed it eleven times tonight and deleted it eleven times.*
 
-**Misaki:** (One: he reads it and believes me. Two: he reads it and knows that I am soft now, and a man with a book and a cold room knows what to do with soft. Three: he reads it and does not answer. What if it is three, what if he simply does not—)
+**Misaki:** (One: he reads it and believes me. Two: he reads it and knows that I’m soft now, and a man with a book and a cold room knows what to do with soft. Three: he reads it and doesn’t answer. What if it’s three, what if he simply doesn’t—)
 
 *In the bed under his house you said thank you to whoever held the keys. You swore afterwards that you would never again be nice to somebody because they could hurt you. You cannot tell, tonight, whether this is that.*
 
@@ -105,7 +105,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *You wake at three in the trailer, and it is not the trailer. It is the room with the one bulb. The bolts are on the wrong side of the door, and your left hand has shut and will not open.*
 
-**Misaki:** (One: this is the trailer. Two: this is the trailer; look, there is the cactus, the stupid cactus. Three—)
+**Misaki:** (One: this is the trailer. Two: this is the trailer; look, there’s the cactus, the stupid cactus. Three—)
 
 *You do not get to three. Your right hand has the phone, and it has rung the only number it knows without asking you.*
 
@@ -123,7 +123,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *You stand four steps back from the door, in the rain, and do not touch the handle.*
 
-**Misaki:** (He is who I am scared of, and he is who I called. What the fuck is wrong with me?)
+**Misaki:** (He’s who I’m scared of, and he’s who I called. What the fuck is wrong with me?)
 
 *Inside, something small falls over. Then nothing, for a long time, except their breathing, which you can hear through the door.*
 
@@ -267,7 +267,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *The anniversary. You are on the water tower with his window in the scope, as the terms allow. He is at his desk with the lamp on. On your phone there is a message, typed and not sent, that says “come up here”.*
 
-**Misaki:** (One: I send it and he comes. Two: he comes and I put the rifle down. Three: then I am the one who went first, and he never has to, and what if that is what he has waited a whole year for, what if—)
+**Misaki:** (One: I send it and he comes. Two: he comes and I put the rifle down. Three: then I’m the one who went first, and he never has to, and what if that’s what he’s waited a whole year for, what if—)
 
 *You delete it. In the scope he picks up his own phone, looks at it for a long time, and lays it face down on the blotter. You will never know what he had typed.*
 
