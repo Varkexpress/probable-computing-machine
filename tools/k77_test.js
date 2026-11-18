@@ -24,7 +24,7 @@ let runs=0,fails=0;const ok=(c,m)=>{runs++;if(!c){fails++;console.log('FAIL',m)}
    if(ph==='act2'){S.day=Math.max(S.day,(S.act2Start||0)+2);KD();S.kd.t0=S.day-9;S.kd.med=0}
    if(ph==='act3'&&S.a3)S.day=S.a3.start+3;
    if(o.day)S.day=o.day;S.slot=1;S.aff=Math.min(S.aff,40);
-   if(o.e2l!==0){S.f.e2l=1;S.f.e2lAsk=1;S.f.e2ld={e2l_mark:1};(o.done||[]).forEach(x=>S.f.e2ld[x]=1);S.f.e2lLast=0;S.f.e2l74={}}Object.assign(S.f,o.f||{});save();window.__hubbed=0}});
+   if(o.e2l!==0){S.f.e2l=1;S.f.e2lAsk=1;S.f.e2ld={e2l_mark:1};(o.done||[]).forEach(x=>S.f.e2ld[x]=1);if((o.done||[]).includes('e2l_after')&&!o.raw){S.f.e2ld.e2l_room=1;S.f.e2ld.e2l_thurs=1}if((o.done||[]).includes('e2l_boat')&&!o.raw)S.f.e2ld.e2l_eve=1;S.f.e2lLast=0;S.f.e2l74={}}Object.assign(S.f,o.f||{});save();window.__hubbed=0}});
  const ev=(f,a)=>p.evaluate(f,a);
  const drive=async picks=>{let i=0;for(let k=0;k<300;k++){const r=await ev(pk=>{for(let j=0;j<400&&dlg;j++)adv();if(window.__hubbed)return 'hub';
    if(ctrl&&ctrl.box){const os=[...ctrl.box.querySelectorAll('.opt:not(.dis)')];if(os.length){os[Math.min(pk,os.length-1)].click();return 'clicked'}}return dlg?'dlg':'idle'},picks[i]||0);
@@ -43,7 +43,7 @@ let runs=0,fails=0;const ok=(c,m)=>{runs++;if(!c){fails++;console.log('FAIL',m)}
   const r0=await ev(()=>{const b=k73Due();const x=b&&sideHub(false).find(x=>x.t==='⚔ '+b.t());if(!x)return 'none:'+(b&&b.id);window.__sub=x.sub;x.fn();return b.id});const r=await drive([o]);
   const st=await ev(([fl,id])=>({f:fl?S.f[fl]:1,done:!!S.f.e2ld[id],last:S.f.e2lLast===S.day,again:(k73Due()||{}).id===id,sub:window.__sub,ch:Object.keys(S.f.e2lCh||{}).join('')}),[w.fl,id]);
   ok(r0===id&&r==='hub'&&st.f===w[pov][o]&&st.done&&!st.again,`${key} ${pov} #${o}: ${r0} ${r} ${JSON.stringify(st)}`);
-  ok(st.last===!w.free,`${key} ${pov} day's move ${w.free?'left free':'used'}: ${st.last}`);ok(new RegExp('the war · '+w.ch+' · \\d of \\d').test(st.sub||'')&&st.ch===w.ch,`${key} ${pov} chapter ${w.ch}: ${st.sub} ${st.ch}`)}
+  ok(st.last===!w.free,`${key} ${pov} day's move ${w.free?'left free':'used'}: ${st.last}`);ok(new RegExp('the war · '+w.ch+' · \\d+ of \\d+').test(st.sub||'')&&st.ch===w.ch,`${key} ${pov} chapter ${w.ch}: ${st.sub} ${st.ch}`)}
  for(const pov of ['m','v']){
   await ev(pov=>__set(pov,'act2',{done:['e2l_after','e2l_rifle'],f:{e2lAfter:'soft'}}),pov);ok(await ev(()=>(k73Due()||{}).id)==='e2l_car',pov+' no fork after the kind answer');
   await ev(pov=>__set(pov,'after',{done:['e2l_after'],f:{e2lAfter:'war'}}),pov);ok(await ev(()=>(k73Due()||{}).id)==='e2l_rifle',pov+' rifle is offered in the after phase too');

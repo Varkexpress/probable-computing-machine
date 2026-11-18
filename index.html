@@ -21441,21 +21441,21 @@ const _xe75=extraEnding;extraEnding=function(){const L=_xe75();try{if(!S||!S.f)r
 const K76=()=>{try{return typeof E2L==='function'&&E2L()&&typeof K73B!=='undefined'}catch(e){return false}};
 const k76M=()=>S.pov!=='v';
 const k76H=(m,v)=>k76M()?m:v;
-const k76Has=id=>{try{if(id==='e2l_yard')return typeof k75Loose==='function';if(id==='e2l_come')return !k76M();if(id==='e2l_gone')return !k76M()&&typeof k79Gone==='function';if(id==='e2l_morn')return S.f.e2lEnd==='lovers';if(id==='e2l_book')return S.f.e2lEnd==='rivals'&&K73B.some(b=>b.id===id);if(id==='e2l_fork')return S.f.e2lAfter!=='soft'&&K73B.some(b=>b.id===id);
+const k76Has=id=>{try{if(id==='e2l_yard')return typeof k75Loose==='function';if(id==='e2l_come')return !k76M();if(id==='e2l_gone')return !k76M()&&typeof k79Gone==='function';if(id==='e2l_gone2'||id==='e2l_gone3')return !k76M()&&typeof k83Gone2==='function';if(id==='e2l_morn')return S.f.e2lEnd==='lovers';if(id==='e2l_book')return S.f.e2lEnd==='rivals'&&K73B.some(b=>b.id===id);if(id==='e2l_fork')return S.f.e2lAfter!=='soft'&&K73B.some(b=>b.id===id);
  if(['e2l_mark','e2l_door','e2l_med'].includes(id))return true;return K73B.some(b=>b.id===id)}catch(e){return false}};
 const k76Did=id=>{try{const f=S.f;if(id==='e2l_yard')return !!f.e2lLoose;if(id==='e2l_med')return k76M()?!!(f.e2lMM||f.e2lMC):!!f.e2lVM;if(id==='e2l_morn')return !!S.seen.e2l_morn;return k73Done(id)}catch(e){return false}};
 
 /* ===================================== THE CHAPTERS ===================================== */
 const K76CH=[
  {n:'I',t:'THE OATH',ph:['normal'],ids:['e2l_mark','e2l_eye','e2l_show','e2l_lift','e2l_kennel','e2l_yard','e2l_sab','e2l_dinner','e2l_truce']},
- {n:'II',t:'THE DEBT',ph:['taken','after'],ids:['e2l_gone','e2l_come','e2l_door','e2l_med','e2l_after','e2l_rifle','e2l_fork']},
+ {n:'II',t:'THE DEBT',ph:['taken','after'],ids:['e2l_gone','e2l_gone2','e2l_gone3','e2l_come','e2l_door','e2l_med','e2l_after','e2l_room','e2l_rifle','e2l_fork','e2l_thurs']},
  {n:'III',t:'THE CASE',ph:['act2'],ids:['e2l_car','e2l_list','e2l_stitch','e2l_pair','e2l_spar','e2l_know','e2l_test']},
- {n:'IV',t:'THE TERMS',ph:['act3'],ids:['e2l_row','e2l_cant','e2l_guard','e2l_night','e2l_dress','e2l_will','e2l_boat','e2l_book']},
+ {n:'IV',t:'THE TERMS',ph:['act3'],ids:['e2l_row','e2l_cant','e2l_guard','e2l_night','e2l_dress','e2l_will','e2l_boat','e2l_book','e2l_eve']},
  {n:'V',t:'A YEAR ON',ph:['epilogue'],ids:['e2l_morn','e2l_epi','e2l_page','e2l_last']}];
 const K76NAME={e2l_mark:'The card man',e2l_eye:'The trailer, at four',e2l_show:'The cold room',e2l_lift:'The customs-house lift',e2l_kennel:'The kennel, at three',
  e2l_yard:'The warehouse yard',e2l_sab:'The foundation dinner',e2l_dinner:'Angel’s table',e2l_truce:'The bowling alley accords',e2l_come:'The river',e2l_door:'The door',
  e2l_med:'The room marked LAUNDRY',e2l_after:'The kitchen, at noon',e2l_car:'Eight hours in a car',e2l_stitch:'The garage, with a needle',e2l_pair:'The first one together',
- e2l_spar:'The training hall',e2l_boat:'The Constance',e2l_morn:'The morning after',e2l_epi:'The anniversary',e2l_rifle:'The rifle',e2l_fork:'The fork',e2l_list:'The fourth body',e2l_will:'The wills',e2l_book:'The book closes',e2l_page:'The page',e2l_know:'Nine minutes',e2l_test:'The parapet',e2l_row:'The corridor',e2l_guard:'Pier Six',e2l_gone:'The empty trailer',e2l_cant:'What you cannot do',e2l_night:'Three in the morning',e2l_dress:'Two garment bags',e2l_last:'The pillow'};
+ e2l_spar:'The training hall',e2l_boat:'The Constance',e2l_morn:'The morning after',e2l_epi:'The anniversary',e2l_rifle:'The rifle',e2l_fork:'The fork',e2l_list:'The fourth body',e2l_will:'The wills',e2l_book:'The book closes',e2l_page:'The page',e2l_know:'Nine minutes',e2l_test:'The parapet',e2l_row:'The corridor',e2l_guard:'Pier Six',e2l_gone:'The empty trailer',e2l_cant:'What you cannot do',e2l_night:'Three in the morning',e2l_dress:'Two garment bags',e2l_last:'The pillow',e2l_room:'Back down the stairs',e2l_thurs:'Thursday',e2l_gone2:'Midnight, on the step',e2l_gone3:'The shoe',e2l_eve:'The night before'};
 const k76Ids=c=>c.ids.filter(k76Has);
 const k76ChOf=id=>K76CH.find(c=>c.ids.includes(id))||null;
 const k76ChNow=()=>K76CH.find(c=>c.ph.includes(S.phase))||K76CH[0];
@@ -21476,6 +21476,7 @@ function k76Stand(){const f=S.f,m=k76M(),t=k76Tal(),p=S.phase;
  return m?'A year on, and the oath was never settled on the Constance.':'A year on, and the oath was never settled on the Constance.'}
 /* what unlocks the next move */
 function k76Next(){const f=S.f,m=k76M(),p=S.phase;
+ if(p==='taken'&&typeof k83TakenOk==='function'&&((k73Done('e2l_gone')&&k83TakenOk('e2l_gone2'))||(k73Done('e2l_gone2')&&k83TakenOk('e2l_gone3'))))return 'Next move, today: at the house, after midnight.';
  if(p==='taken'&&typeof k79GoneOk==='function'&&k79GoneOk())return 'Next move, today: their trailer. The door is open.';
  if(p==='taken')return m?'Nothing moves until you are out of that building.':'Nothing moves until they are out of that building.';
  if(S.kd&&S.kd.med)return m?'While you are in the room marked LAUNDRY, it comes to you in the evenings.':'While they are in the room marked LAUNDRY, it comes to you after noon, twice a day at most.';
@@ -21631,6 +21632,13 @@ function k76Line(id){const f=S.f,m=k76M(),self=!!f.selfEscape;switch(id){
   :(m?'Angel showed you the two black garment bags. Neither of you would tell Angel the money was wasted.':'Angel has a black dress for each of us. Neither of us told Angel that the money was wasted.');
  case 'e2l_last':return f.e2lPillow==='down'||f.e2lPillow==='held'?(m?'You woke in his bed with the pistol at his temple. He said “It happens”, and did not reach for it.':'Woke with their pistol at my temple. Did not reach for it. I will not.')
   :(m?'The anniversary. You typed “come up here” and deleted it. '+(f.e2lPillow==='nothing'?'No bullet this year. “Are you alive.” “yes.”':'You stood the bullet on his pillow as always.'):'The anniversary. Typed “Come down.” Did not send it. '+(f.e2lPillow==='nothing'?'No bullet. They are alive.':'A bullet on the pillow. Slept.'));
+ case 'e2l_room':return f.e2lRoom==='sign'?(m?'You went back down to the infirmary in daylight and tore the LAUNDRY sign off the door. He burned it.':'They went back down to the infirmary by themselves, and took the sign off the door. Burned it.')
+  :(m?'You went back down to the infirmary in daylight and sat on the bed. He sat outside the door and would not come in.':'They went back down to the infirmary by themselves and sat on the bed. I could not go in.');
+ case 'e2l_thurs':return f.e2lThurs==='gate'?(m?'The doctor let you go home. You drove back at one in the morning and slept in the truck at his gate.':'They were let go home. At one they were asleep in the truck at my gate. Left a flask.')
+  :(m?'The doctor let you go home. You lay in the trailer listening for four hounds and a hall clock. You were back by Sunday, for the case.':'They were let go home. Laid their place at table regardless. They were back by Sunday, for the case.');
+ case 'e2l_gone2':return f.e2lGone2==='door'?'Angel and Ronin at the door, armed, asking whether I was looking or waiting. Told them. Let Ronin drive.':'Angel and Ronin at the door, armed, asking whether I was looking or waiting. Showed them the table.';
+ case 'e2l_gone3':return 'The black hound put their shoe on my pillow. Slept in the chair.';
+ case 'e2l_eve':return f.e2lEnd==='lovers'?(m?'The night before the auction you cleaned his pistol and he zeroed your scope.':'The night before the auction: cleaned each other’s weapons. Did not say be careful.'):(m?'The night before the auction you loaded five rounds and put the sixth back in the box, loudly. He said thank you through the door.':'The night before the auction: they loaded five, and returned the sixth to the box where I could hear it.');
  case 'e2l_morn':return m?'The morning after. Angel opened the envelope.':'The morning after. Angel opened her envelope.';
  case 'e2l_epi':return f.e2lEnd==='lovers'?'A year on. You still race for the same marks, and the loser cooks.':'A year on. Nobody is dead. Both of you still could.'}
  return ''}
@@ -22445,6 +22453,787 @@ const _xe79=extraEnding;extraEnding=function(){const L=_xe79();try{if(!S||!S.f||
  else if(f.e2lPillow==='bullet')L.push('On the anniversary each of them typed a message asking the other to come, and neither sent it. The bullet stood on his pillow as usual.');
  else if(f.e2lPillow==='nothing')L.push('On the anniversary each of them typed a message asking the other to come, and neither sent it. “Are you alive.” “yes.”')}catch(e){}return L};
 /* ===KC79-END=== */
+
+/* ===KC80-BEGIN=== */
+/* ===================== THE WAR: THE ROOM MARKED LAUNDRY (kc80) =====================
+   More of the infirmary on the enemies-to-lovers route. kc73 gave V four scenes and Misaki three; this adds eleven,
+   in the same register: never romantic, nothing resolved, V despising them and unable to act, Misaki taking the tall
+   one with the tray for a captor and being good for him. Nothing names or hints at what happened in the hours; the
+   text touches only the hand and the ribs, so it reads the same with kdSA() on or off.
+   Delivery: through hub(), only while kdMed(), only when kc73 (and kc61–63) have nothing for the slot, one a slot.
+     Misaki, while the room is a cell (kdClar()<2), mornings and afternoons:  the rules · the message for K9 ·
+       the hound at the door · the other hand                                   S.f.e2l80MC (index), S.f.e2lMedAsk
+     Misaki, once clear:  what you said · forty-one thank-yous                  S.f.e2l80MX, S.f.e2lThanks told|soup
+     V, any slot kc73 leaves free:  the message · the file · the form · the other hand · Ronin in the corridor
+                                                                                S.f.e2l80V, S.f.e2lMedKey ronin|kept
+   Rules: unnamed city, hounds unnamed, no new named characters (the doctor has no name), V never contracts,
+   Misaki via MV and they/them. Notes: docs/notes_kc80.md. Test: node tools/k80_test.js */
+const K80=()=>{try{return typeof K79==='function'&&K79()}catch(e){return false}};
+const k80Gone=()=>{try{return typeof k73Gone==='function'&&k73Gone()}catch(e){return false}};
+
+/* ===================================== MISAKI: THE ROOM IS A CELL ===================================== */
+const K80_MC=[
+ cb=>say([
+  ['','You have worked out the rules of this room, the way you worked out the rules of the other one.'],
+  K76MV('(one: the light stays on if u ask nicely. two: the tall one doesn’t like being looked at in the face, so look at his hands. three: eat all of it)','(one: the light stays on if you ask nicely. two: the tall one doesn’t like being looked at in the face, so look at his hands. three: eat all of it)','(One: the light stays on if you ask nicely. Two: the tall one doesn’t like being looked at in the face, so look at his hands. Three: eat all of it.)','(One: the light stays on if you ask nicely. Two: the tall one does not like being looked at in the face, so look at his hands. Three: eat all of it.)'),
+  ['','Nobody told you any of these. You made them up, because a room with rules is a room you can get right.'],
+  ['','He comes in at noon with the tray. You get every one of them right: you ask about the light, you look at his hands, you finish the soup while he is still standing there. He stays by the door with his jaw set, like a man who has been insulted, and you cannot work out which rule you broke.']],
+  ()=>ask('hitmeuppp','(What did you get wrong?)',[
+   {t:'Ask him what you did wrong',sub:'you do not ask the ones with the keys',dis:true,fn:()=>{}},
+   {t:'Say sorry',fn:()=>say([K76MV('sorry','sorry. sorry','Sorry.','Sorry. I’m sorry.'),
+    ['','His hand closes on the door frame until the wood makes a sound. He goes out without a word, and shuts the door with so little noise that you have to listen for the latch.'],
+    K76MV('(ok. so sorry’s wrong too. rule four: don’t say sorry)','(ok. so sorry is wrong too. rule four: don’t say sorry)','(Okay. So sorry is wrong too. Rule four: don’t say sorry.)','(Okay. So sorry is wrong as well. Rule four: do not say sorry to the tall one.)')],cb)}])),
+ cb=>{S.f.e2lMedAsk=1;save();say([
+  ['','In the afternoon you have an idea, and it is the first good one you have had in this room.'],
+  K76MV('(k9 swore to kill me. k9 wants to know where i am. k9 pays for things)','(k9 swore to kill me. so k9 wants to know where i am. and k9 pays for things)','(K9 swore to kill me. So K9 wants to know where I am. And K9 pays for things.)','(K9 swore to kill me. So K9 will want to know where I am, and K9 pays for what he wants.)'),
+  ['','He would be slow. Everybody knows he is slow. But he would tell you why, with dates, and it would be for something you actually did. You find that you would give a great deal to be killed for something you actually did.'],
+  ['','When the tall one comes for the tray, you keep your eyes on his hands and say it in the good voice.'],
+  k80Gone()?['','You cannot get the voice to come. You write it with your finger on the blanket instead, K, 9, and point at the door, and at yourself.']:K76MV('can u get a message to k9. tell him he can have me. tell him it’s owed','can you get a message to k9? tell him he can have me. tell him it’s owed','Can you get a message to K9? Tell him he can have me. Tell him it’s owed.','Could you get a message to somebody called K9? Tell him he can have me. Tell him it’s owed, he’ll know. He’ll pay you for it.'),
+  ['','The tall one puts the tray down very slowly, as if it had become heavy.'],
+  K76V('I will tell him.'),
+  K76MV('(good. that’s good. that’s a plan)','(good. ok. that’s a plan. i’ve got a plan)','(Good. Okay. That’s a plan. I’ve got a plan.)','(Good. Okay. That is a plan. I have a plan, and it ends with somebody telling me why.)')],cb)},
+ cb=>say([
+  ['','There is a hound outside the door. You can see the grey of it in the gap at the bottom, and hear it breathe.'],
+  ['','Everybody in the city knows what the hounds are for. So this is how it is done here: they send the animal first and let you listen to it.'],
+  K76MV('(stay awake. if i’m awake i can at least see it. i want to see it)','(stay awake. if i’m awake i can at least see it coming. i want to see it)','(Stay awake. If I’m awake I can at least see it coming. I want to see it.)','(Stay awake. If I am awake I can at least see it coming, and I want to see it.)'),
+  ['','It does not come in. It lies down across the door with a sigh, the way a big animal does when it means to stay. You count the sighs until morning. There are sixty-two.'],
+  ['','At some point in the night you notice that the gap under the door is warm, and that you have put your good hand flat on the floor beside it. You take it back.']],cb),
+ cb=>say([
+  ['','The tall one stands at the foot of the bed with a sheet of paper and tells you to open your left hand.'],
+  ['','You try. You look at it and tell it, and it lies there on the blanket, shut, like something that belongs to somebody else.'],
+  K76MV('(he said open. it didn’t open. that’s a no. u don’t say no in here)','(he said open and it didn’t open. that’s a no. you don’t say no in here)','(He said open and it didn’t open. That’s a no. You don’t say no in here.)','(He said open, and it did not open. That counts as a no, and you do not say no in here.)'),
+  k80Gone()?['','You hold your right hand out to him instead, palm up.']:K76MV('this one works. use this one','this one works. you can use this one','This one works. You can use this one.','This one works. You can use this one instead. It does what it’s told.'),
+  ['','You hold the right hand out to him, palm up. He looks at it, and something goes out of his face, as if a lamp had been carried out of a room.'],
+  K76V('It was for an exercise. The doctor left it. There is no penalty.'),
+  ['','You do not know that word in here. You keep the hand out until he has gone, to be safe.']],cb)];
+
+/* ===================================== MISAKI: CLEAR ===================================== */
+const K80_MX=[
+ cb=>say([
+  ['','It comes back in pieces while you are eating toast, and you put the toast down.'],
+  K76MV('(oh my GOD. i asked him to tell k9 he could have me. i asked V to hand me over to V)','(oh my god. i asked him to tell k9 he could have me. i asked v to hand me over to v)','(Oh my God. I asked him to tell K9 he could have me. I asked V to hand me over to V.)','(Oh my God. I asked him to tell K9 that he could have me. I asked V, to his face, to hand me over to V.)'),
+  ['','You try laughing at it. It is funny; it is the funniest thing that has ever happened to anybody. The laugh gets as far as your ribs and stops.'],
+  ['','He said “I will tell him.” You have gone over the three words a hundred times. He hates you. It is in his book. A man who hates you should have enjoyed that, and his voice did something else, and you do not have a word for what it did.'],
+  K76MV('(don’t. don’t make it into something. he’s got a table downstairs with straps on it)','(don’t. don’t make it into something. he’s got a table downstairs with straps on)','(Don’t. Don’t make it into something. He’s got a table downstairs with straps on it.)','(Don’t. Do not make it into something. He has a table downstairs with straps on it, and my name in a book.)')],cb),
+ cb=>say([
+  ['','You count the thank-yous. The trays, the dressing, the light, the water, the door. You get to forty-one.'],
+  ['','You have never thanked that man for anything in your life. You did it forty-one times for soup, in the good voice, and he took every one of them standing up. You would give a year of rent to have them back.'],
+  ['','He comes in with the tray at one. He puts it down and waits, with his eyes on the wall, and you understand that he is waiting for the forty-second.']],
+  ()=>ask('hitmeuppp','(He is waiting.)',[
+   {t:'“none of those count. the thank yous. that wasn’t me”',fn:()=>{S.f.e2lThanks='told';save();say([
+    K76V('I know. I did not keep them.'),
+    K76MV('u keep everything','you keep everything. you’ve got a BOOK','You keep everything. You’ve got a book.','You keep everything, V. You have a whole book for keeping things.'),
+    K76V('I did not keep those. They were not addressed to me.'),
+    ['','He goes out. You eat the soup, and you do not say anything to the door, and it is the best thing you have done in a week.']],cb)}},
+   {t:'“ur soup’s shit, by the way”',fn:()=>{S.f.e2lThanks='soup';save();say([
+    K76V('It is the doctor’s soup.'),
+    K76MV('then hers is shit','then the doctor’s soup is shit','Then the doctor’s soup is shit.','Then the doctor’s soup is shit, and you can tell her I said so.'),
+    ['','For about a second he looks like a man who has been set down somewhere safe. Then he has his own face again.'],
+    K76V('I will convey it to her in those words.')],cb)}}]))];
+
+/* ===================================== V ===================================== */
+const K80_V=[
+ cb=>{const asked=!!S.f.e2lMedAsk;say([
+  ['',asked?'They asked the tall one with the tray to carry a message to K9. He can have them. It is owed. He will pay you for it.':'This morning they asked the doctor, in the pleasant voice, whether anybody had told K9 where they were, because he would want to know, and he pays.'],
+  ['','You take it upstairs and sit down with it.'],
+  K76V('(They would sooner be given to me. To the man with the sheeting, who wrote SLOW. They have weighed me against whatever had them in that building, and I am the better death.)'),
+  K76V('(I intended to be the worst thing that ever happened to them. I have been outbid.)'),
+  ['','You go down to the cold room and stand beside the steel table for a long time. Then you take the straps off it, all six, and put them in the furnace.'],
+  ['','You will need them again; there is always somebody. You watch them burn anyway, until the buckles drop through the grate.']],cb)},
+ cb=>say([
+  ['','You take your file on them down to the corridor and read it in the chair outside the door marked LAUNDRY. Forty pages. You read them the way a man re-reads a contract he has begun to doubt.'],
+  ['','The driver at the gala. The doorman who swapped a shift. The man on a Tuesday, in front of his daughter. All of it is still true. It does not do what it did.'],
+  ['','The doctor has left the films on the light-box. The hand, the ribs. Further up the long bones there are fine pale lines, one above another, where a child stopped growing for want of food and started again, several times.'],
+  K76V('(I have forty pages of what they have done. Nobody in this city kept one page of what was done to them.)'),
+  ['','You find that you have begun one, on the back of page forty, in pencil. You have written a date and the word “nine”. You stop, and put the cap on, and sit with the file shut on your knee until the tray is due.']],cb),
+ cb=>say([
+  ['','The doctor has a form. She needs a name on it for whoever consents, if they cannot.'],
+  ['','They have no papers. They have never had papers. On the line for date of birth the doctor has written “March?”, because that is what they told her, in the pleasant voice.'],
+  K76V('I am the nearest thing that they have to anybody in this house. I have also sworn, in writing, to kill them. Which of those do you require on the form?'),
+  ['','The doctor has worked for you for eleven years. She holds out the pen and says nothing at all.'],
+  ['','You write: K9. Under “relationship” you write CREDITOR, and look at it, and it is exact, and you sign.']],cb),
+ cb=>say([
+  ['','You asked them to open the left hand. It was for the doctor’s sheet: ten times, on the hour.'],
+  ['','They heard an order. When the hand would not obey it, they held the other one out to you instead, palm up, '+(k80Gone()?'without a word, and kept it there.':'and said, most courteously, that this one worked and you could use this one.')],
+  K76V('(They offered me the working hand, to be done with as I saw fit.)'),
+  K76V('(I have wanted them afraid of me. I wrote it down as an aim. I did not know what it would look like, and I had not thought that it would be polite.)'),
+  ['','You go out to the kennel and sit on the upturned bucket. The old hound comes and leans the whole of his weight against your knee.'],
+  ['','You tell him what day it is, and that there is no penalty. He is a hound. He knew both of those already.']],cb),
+ cb=>say([
+  ['','At two in the morning Ronin is asleep in a kitchen chair in the kennel corridor, tipped back against the door marked LAUNDRY, with the crowbar across his knees.'],
+  [RN,'(not opening his eyes) No offence, Vee. Your book says what it says.'],
+  K76V('None is taken. I would have posted you there myself.'),
+  [RN,'You gonna?'],K76V('No.'),
+  [RN,'You know that, or you hopin’ it?'],
+  ['','You do not answer. He opens one eye, and looks at you for some time with it, and shuts it again.'],
+  [RN,'Yeah. Me too. Go get me a fuckin’ blanket.']],
+  ()=>ask('K9','(The infirmary key is on your ring.)',[
+   {t:'Give Ronin the key',sub:'so that it is not yours to use',fn:()=>{S.f.e2lMedKey='ronin';save();say([
+    ['','You bring the blanket. You take the infirmary key off your ring and put it in his hand, and close his fingers on it.'],
+    [RN,'You’re lockin’ yourself out your own basement.'],K76V('I am aware of what I am doing.'),
+    [RN,'Yeah. I know you are. That’s what’s freakin’ me out.']],()=>{fr('r',2);cb()})}},
+   {t:'Bring the blanket, and keep the key',fn:()=>{S.f.e2lMedKey='kept';save();say([
+    ['','You bring the blanket and put it over him. The key stays on your ring. You are aware of it in your pocket for the rest of the night, the way you are aware of a tooth.'],
+    [RN,'Night, Vee. I sleep light.'],K76V('I know that you do. It is why I can sleep at all.')],()=>{fr('r',1);cb()})}}]))];
+
+/* ===================================== DELIVERY ===================================== */
+function k80MedScene(){try{if(!S||!S.f||!K80()||dlg||typeof kdMed!=='function'||!kdMed())return null;
+ if(typeof k73MedScene==='function'&&k73MedScene())return null;
+ if((typeof k61Scene==='function'&&k61Scene())||(typeof k62Scene==='function'&&k62Scene())||(typeof k63Scene==='function'&&k63Scene()))return null;
+ const cur=S.day+'/'+(S.slot||0),f=S.f;if(f.e2l80Slot===cur||f.e2lMedSlot===cur)return null;
+ const run=(fn,bg,key,i)=>cb=>{f[key]=i+1;f.e2l80Slot=cur;save();go(cutBg(bg));fn(cb)};
+ if(S.pov!=='v'){if((S.slot||0)>=2)return null;
+  if(kdClar()<2){const i=f.e2l80MC||0;return i<K80_MC.length?run(K80_MC[i],'#0c0a08','e2l80MC',i):null}
+  const i=f.e2l80MX||0;return i<K80_MX.length?run(K80_MX[i],'#1c2422','e2l80MX',i):null}
+ const i=f.e2l80V||0;return i<K80_V.length?run(K80_V[i],'#06060c','e2l80V',i):null}catch(e){return null}}
+const _hub80=hub;hub=function(){const a=arguments,self=this;try{const s=k80MedScene();if(s)return s(()=>_hub80.apply(self,a))}catch(e){}return _hub80.apply(self,a)};
+
+/* ===================================== ENDINGS ===================================== */
+const _xe80=extraEnding;extraEnding=function(){const L=_xe80();try{if(!S||!S.f||S.f.e2l!==1||S.rom||S.vrom||S.f.k28pair)return L;const f=S.f;
+ if(f.e2lMedAsk)L.push('In the infirmary Misaki asked the tall one with the tray to tell K9 he could have them. V said that he would tell him. He burned the straps off his table that night.');
+ if(f.e2lThanks==='told')L.push('Misaki thanked V forty-one times for soup while they took him for a captor. He says he did not keep them. They were not addressed to him.');
+ if(f.e2lMedKey==='ronin')L.push('For the week Misaki was in the infirmary, Ronin held the only key. V put it in his hand himself.')}catch(e){}return L};
+/* ===KC80-END=== */
+
+/* ===KC81-BEGIN=== */
+/* ===================== THE WAR: UNDER HIS ROOF (kc81) =====================
+   After the infirmary Misaki is in V's spare room until the corridor (kc78's row). kc77 gave Act II a case menu; this
+   gives the convalescence its own daily menu and two beats. Needs kc73, kc76–kc80.
+   The house menu (⚔ His house / ⚔ Your house: them; after the infirmary and through Act II, until the corridor; one
+   action a day, costs time; counts in S.f.e2l81):
+     the table · the kennel · the hand · the house at night      each: a first scene with a choice, then rotating scenes
+     flags: e2lMeat cut|whole, e2lKennel2 in|gate, e2lHandT timed|alone, e2lNightW light|dark
+   Beats (kc73's order, kc76's cards), chapter II:
+     e2l_room    Misaki goes back down to the infirmary in daylight, on purpose        S.f.e2lRoom sat|sign   (free)
+     e2l_thurs   Thursday: the doctor says they may go; the trailer, and the gate      S.f.e2lThurs stayed|gate
+   Rules: unnamed city, hounds unnamed, no new named characters, V never contracts, Misaki via MV and they/them.
+   Notes: docs/notes_kc81.md. Test: node tools/k81_test.js */
+const K81=()=>{try{return typeof K80==='function'&&K80()}catch(e){return false}};
+const k81F=()=>{S.f.e2l81=S.f.e2l81||{};return S.f.e2l81};
+const k81N=k=>k81F()[k]||0;
+const k81Inc=k=>{const F=k81F();F[k]=(F[k]||0)+1;save();return F[k]};
+const k81Var=(k,arr)=>arr[(k81N(k)-2)%arr.length];
+const k81Ok=()=>{try{return K81()&&!S.f.e2lEnd&&!S.f.e2lRow&&k73Done('e2l_door')&&((S.phase==='after'&&typeof kdPost==='function'&&kdPost())||S.phase==='act2')}catch(e){return false}};
+
+function k81House(){const m=k76M();const A=(id,t,sub,fn)=>({t,sub:(k81N(id)?'×'+k81N(id)+' · ':'')+sub,fn:()=>{spend();S.done.k81act=1;save();k77Go('#0b0a09');fn()}});
+ ask(K73Who(),m?'(his house. u live in it now, apparently. today:)':'(They are in the spare room. Today:)',[
+  A('table',k76H('Eat at his table','Cook for the table'),k76H('he cooks; you have one working hand','they have one working hand'),k81Table),
+  A('kennel',k76H('Go out to his kennel','Find them in the kennel'),'four hounds',k81Kennel),
+  A('hand','The hand: ten times, on the hour','the doctor’s sheet',k81Hand),
+  A('night',k76H('Walk his house at night','The house at night'),k76H('count the doors','they are counting the doors'),k81Night),
+  ...(typeof k83Study==='function'?[A('study','The study, in the evening','two armchairs',k83Study)]:[]),
+  ...((typeof k82Ask==='function'&&k82Left())?[A('ask',k76H('Ask him one thing','Ask them one thing'),'you will get a straight answer',k82Ask)]:[]),
+  {t:'Not today',fn:hub}])}
+
+/* ---------- the table ---------- */
+function k81Table(){const n=k81Inc('table'),m=k76M();
+ if(n>1)return say(k81Var('table',[
+  [['',m?'He eats standing at the counter, with the paper. You eat at the island. For twenty minutes the only sound is two people chewing who have each sworn to kill the other, and then he turns a page.':'You eat standing at the counter, with the paper. They eat at the island. For twenty minutes the only sound is two people chewing, and then you turn a page.'],
+   K76MV('this is the worst restaurant i’ve ever been to','this is the worst restaurant i’ve ever been to','This is the worst restaurant I’ve ever been to.','This is the worst restaurant I have ever been to. The waiter wants me dead.'),K76V('The waiter is also the cook. I would not complain.')],
+  [['',m?'There is a second place laid at the long table. It has been laid every night since you came upstairs: knife on the right, fork on the left. You have eaten every meal at the island with a spoon.':'You lay a second place at the long table, as you have every night since they came upstairs: knife on the right, fork on the left. They eat at the island with a spoon.'],
+   m?K76MV('(he’s not being nice. he’s keeping count. fork on the left)','(he’s not being nice. he’s keeping count. the fork’s on the left)','(He’s not being nice. He’s keeping count. The fork’s on the left.)','(He is not being nice. He is keeping count, with the fork on the left where I can see it.)'):K76V('(I told them what the fork was for. I lay it out regardless. I do not know which of us I am doing it to.)')],
+  [['',m?'He has made the thing with the peaches. You did not ask for it. You have never told him you like peaches. It is in his file; you would bet the truck on it.':'You have made the thing with the peaches. It is in the file that they like them: page twelve, a receipt from the corner store, three tins.'],
+   K76MV('did u get this out of my FILE','did you get this out of my file','Did you get this out of my file?','Did you get this out of my file, V? Is there a page on what I eat?'),K76V('Page twelve.'),
+   ['',m?'You eat it anyway, all of it, furious.':'They eat all of it, in a fury. You wash the dish yourself.']]]),hub);
+ say([
+  ['',m?'He cooks. You did not know that about him, and you would rather not have found out. It is a chop, with something green, on a warmed plate, set down in front of your right hand.':'You cook. It is a chop, with greens, on a warmed plate, and you set it down by their right hand.'],
+  ['',m?'You cannot cut a chop with one hand. You look at it. He looks at you looking at it.':'They cannot cut a chop with one hand. They look at it. You had not thought of that, and you think of everything.'],
+  K76MV('(don’t. don’t u dare. if he cuts up my food i’m going to bite him)','(don’t. don’t you dare. if he cuts up my food i am going to bite him)','(Don’t. Don’t you dare. If he cuts up my food I am going to bite him.)','(Don’t. Do not dare. If that man cuts up my food for me I am going to bite him.)')],
+ ()=>ask(K73Who(),m?'(He has picked up a knife.)':'(The knife is by your hand.)',m?[
+  {t:'Let him cut it',sub:'you are hungry',fn:()=>{S.f.e2lMeat='cut';save();say([
+   ['','He cuts it in eleven pieces, all the same size, without looking at you, the way he would do it for one of the hounds. Then he puts the knife down on your side of the plate, handle towards you.'],
+   K76MV('if u tell ronin i’ll end u','if you tell ronin about this i will end you','If you tell Ronin about this, I will end you.','If you tell Ronin about this, I will end you. I mean with the knife you just gave me.'),
+   K76V('I gave it to you for that purpose. Eat.')],hub)}},
+  {t:'Pick the chop up and eat it with your hand',sub:'like an animal, at his table',fn:()=>{S.f.e2lMeat='whole';save();say([
+   ['','You pick it up by the bone and eat it with your teeth, looking at him over it. Grease runs down your wrist onto his tablecloth.'],
+   K76V('That is linen.'),K76MV('bill me','bill me. put it in the book','Bill me. Put it in the book.','Bill me. Put it in the book with the rest.'),
+   ['','He does not put it in the book. He puts a second chop on your plate.']],hub)}}]:[
+  {t:'Cut it for them',sub:'they will hate it',fn:()=>{S.f.e2lMeat='cut';save();say([
+   ['','You cut it in eleven pieces, all the same size, without looking at them. It is how you do it for the hounds, and you realise that halfway through, and finish regardless. You put the knife down on their side of the plate, handle towards them.'],
+   K76MV('if u tell ronin i’ll end u','if you tell ronin about this i will end you','If you tell Ronin about this, I will end you.','If you tell Ronin about this, I will end you. I mean with the knife you just gave me.'),
+   K76V('I gave it to you for that purpose. Eat.')],hub)}},
+  {t:'Do nothing. See what they do',fn:()=>{S.f.e2lMeat='whole';save();say([
+   ['','They pick it up by the bone and eat it with their teeth, looking at you over it. Grease runs down their wrist onto the cloth.'],
+   K76V('That is linen.'),K76MV('bill me','bill me. put it in the book','Bill me. Put it in the book.','Bill me. Put it in the book with the rest.'),
+   ['','You do not put it in the book. You put a second chop on their plate, and stand over the pan for a while with your back to them.']],hub)}}]))}
+
+/* ---------- the kennel ---------- */
+function k81Kennel(){const n=k81Inc('kennel'),m=k76M(),loose=!!S.f.e2lLoose;
+ if(n>1)return say(k81Var('kennel',[
+  [['',m?'The pale hound has a shaved patch on her flank, and a scar across it, sewn so finely that you have to look twice. You know that needlework. It is on your own hand.':'They are looking at the shaved patch on the pale hound’s flank, and the scar across it. Then they look at the stitching on their own hand, and then at you.'],
+   K76MV('u do all of them urself','you do all of them yourself','You do all of them yourself.','You do all of them yourself. The hounds. And me.'),K76V('I do not trust anybody else with what is mine.'),
+   m?K76MV('(mine. he means the hounds. he means the hounds)','(mine. he means the hounds. he definitely means the hounds)','(Mine. He means the hounds. He definitely means the hounds.)','(Mine. He means the hounds; he definitely means the hounds.)'):K76V('(I meant the hounds. I have gone over the sentence, and I meant the hounds.)')],
+  [['',m?'You fall asleep in the straw, by accident, with the old hound along your back. When you wake there is a horse blanket over both of you, and the kennel door has been propped open with a brick, so that it cannot shut on you.':'They have fallen asleep in the straw with the old hound along their back. You put a horse blanket over both of them, and prop the kennel door open with a brick. It locks from the outside. They should not wake behind a door that does.'],
+   m?K76MV('(he thought about the door. why did he think about the door)'):K76V('(I thought of the door. I am noting that I thought of it.)')],
+  [['',m?'Feeding time. He comes down with the steel bucket, and you watch what he gives them, cubed and cold, and you know exactly what it is, and the black hound eats it out of your hand.':'Feeding time. You bring the steel bucket down, and they watch what is in it, cubed and cold. They know what it is. They take a piece and hold it out to the black hound, flat on the palm.'],
+   K76MV('who was it','who was this one','Who was this one?','Who was this one? Go on. You’ve got a name for all of them.'),K76V('A man who insured people’s houses and then set fire to them.'),
+   K76MV('huh. i’d have done that one for free','huh. i would have done that one for free','Huh. I would have done that one for free.','Huh. I would have done that one for free. Write that down.'),K76V('I have not got a column for it.')]]),hub);
+ say([
+  ['',m?'The kennel is warm, and it smells of straw and disinfectant and big animals. All four of them get up when you come in.'+(loose?' The last time you saw them come at you like that, you were on your back on concrete.':''):'They are in the kennel. You find them standing just inside the gate with all four hounds on their feet around them.'+(loose?' The last time those four went at them, it was on your word.':'')],
+  ['',m?'They come up one at a time and smell the cast. The black hound gets its nose under your left hand and lifts it, very carefully, as though it had found something broken in the grass.':'They go up one at a time and smell the cast. The black hound gets its nose under the left hand and lifts it, very carefully, as it would with something broken that it had found in the grass.'],
+  m?K76MV('(they know. how do they know)','(they know it’s hurt. how do they know)','(They know it’s hurt. How do they know?)','(They know that it is hurt. How do they know?)'):K76V('(They know a hurt thing. Every one of them has been one, on my table.)')],
+ ()=>ask(K73Who(),m?'(He is in the doorway, watching.)':'(They have not seen you yet.)',m?[
+  {t:'Sit down in the straw with them',fn:()=>{S.f.e2lKennel2='in';save();say([
+   ['','You sit down. The old hound lowers himself beside you a joint at a time and puts his chin on your knee, and the other three fold up around you, and you are in the middle of four animals that eat people.'],
+   K76V('They will not let me in there when they are like that.'),K76MV('ur problem','sounds like a you problem','Sounds like a you problem.','That sounds like a you problem, V.'),
+   ['','He stays in the doorway for an hour. You do not tell him to go.']],hub)}},
+  {t:'Stay at the gate',fn:()=>{S.f.e2lKennel2='gate';save();say([
+   ['','You stay at the gate, with your good hand on the latch. They lie down facing you, in a row, and wait. They are prepared to wait all day.'],
+   K76V('They are not guarding you from leaving. They are guarding the gate from whatever is behind you.'),
+   K76MV('ur behind me','you’re what’s behind me','You’re what’s behind me.','You are what’s behind me, V.'),K76V('Yes. I had noticed that.')],hub)}}]:[
+  {t:'Leave them to it',fn:()=>{S.f.e2lKennel2='in';save();say([
+   ['','You stay in the doorway. They sit down in the straw, and the old hound lowers himself beside them a joint at a time, and the other three fold up around them. In eleven years those hounds have never let anybody else sit there.'],
+   K76V('They will not let me in there when they are like that.'),K76MV('ur problem','sounds like a you problem','Sounds like a you problem.','That sounds like a you problem, V.'),
+   ['','You stand in the doorway for an hour. They do not tell you to go.']],hub)}},
+  {t:'Say something',fn:()=>{S.f.e2lKennel2='gate';save();say([
+   ['','They turn round at once, with the good hand on the latch. The hounds lie down in a row, facing the gate, facing you.'],
+   K76V('They are not guarding you from leaving. They are guarding the gate from whatever is behind you.'),
+   K76MV('ur behind me','you’re what’s behind me','You’re what’s behind me.','You are what’s behind me, V.'),K76V('Yes. I had noticed that.')],hub)}}]))}
+
+/* ---------- the hand ---------- */
+function k81Hand(){const n=k81Inc('hand'),m=k76M();
+ if(n>1)return say(k81Var('hand',[
+  [['',m?'Six times out of ten today. On the seventh the fingers stop halfway and shake, and you sit and watch your own hand fail, with him watching it too.':'Six times out of ten today. On the seventh the fingers stop halfway and shake. They sit and watch it. You have seen that look on men at the table, and you never once minded it there.'],
+   K76MV('say something smug','go on. say something smug','Go on. Say something smug.','Go on. Say something smug. You’ve been saving it up.'),K76V('Six is two more than Tuesday.'),
+   K76MV('that’s not smug that’s just counting','that’s not smug. that’s just counting','That’s not smug. That’s just counting.','That is not smug, V. That is just counting.'),K76V('I am better at counting.')],
+  [['',m?'He has brought a tennis ball. You are to squeeze it. It has teeth marks in it.':'You bring them a tennis ball to squeeze. It has teeth marks in it; it is the grey hound’s.'],
+   K76MV('is this the DOG’S','is this the hound’s ball','Is this the hound’s ball?','Is this the hound’s ball? You’ve given me a used ball.'),K76V('She has lent it. She expects it back.'),
+   ['',m?'The grey hound sits and watches you squeeze her ball for a quarter of an hour, with her whole attention.':'The grey hound sits and watches them squeeze her ball for a quarter of an hour, with her whole attention. You have never seen her lend anything.']],
+  [['',m?'Ten out of ten. You hold the hand up, open, all five fingers, and for one second you forget who you are showing it to.':'Ten out of ten. They hold the hand up to you, open, all five fingers, and for one second their whole face is in it.'],
+   m?K76MV('(don’t smile at him. he said a fork. he said both hands. this is the thing he’s waiting for)','(don’t smile at him. he said a fork in both hands. this is the thing he’s waiting for)','(Don’t smile at him. He said a fork in both hands. This is the thing he is waiting for.)','(Do not smile at him. He said a fork in both hands. This is the very thing he is waiting for.)'):K76V('(I told them what I would do when that hand worked. I watched their face remember it. I would give a great deal to have said anything else in that kitchen.)'),
+   ['',m?'You put the hand down under the blanket.':'They put the hand away under the blanket, where you cannot see it.']]]),hub);
+ say([
+  ['',m?'The doctor’s sheet says: open and close, ten times, on the hour. The hand does it four times and then lies down.':'The doctor’s sheet says: open and close, ten times, on the hour. Their hand does it four times and then lies still.'],
+  ['',m?'He is in the doorway with his pocket watch out. He has been there for all four.':'You are in the doorway with your watch out. You have been there for all four.'],
+  K76MV('are u TIMING me','are you timing me','Are you timing me?','Are you timing me? With an actual watch?'),
+  K76V('The sheet says on the hour. Somebody must know when the hour is.')],
+ ()=>ask(K73Who(),m?'(The watch is still open.)':'(They are glaring at the watch.)',m?[
+  {t:'“fine. time me. count out loud”',fn:()=>{S.f.e2lHandT='timed';save();say([
+   ['','He counts. He has a voice for it, level, with no praise in it and no pity, and the hand gets to six before it stops. It is easier with the numbers. You will not be telling him that.'],
+   K76V('Six. The same hour tomorrow.'),K76MV('ur enjoying this','you’re enjoying this','You’re enjoying this.','You are enjoying this. Don’t lie.'),
+   K76V('No. I find that I am not, and I expected to.')],hub)}},
+  {t:'“get out. i’ll do it myself”',fn:()=>{S.f.e2lHandT='alone';save();say([
+   ['','He goes. You do it alone, four, and four again, and then you lose count, because there is nobody to keep it.'],
+   ['','On the hour, every hour after that, the clock in the hall strikes. It has never struck before. Somebody has wound it.']],hub)}}]:[
+  {t:'Count for them',fn:()=>{S.f.e2lHandT='timed';save();say([
+   ['','You count. You keep the voice level, with no praise in it and no pity, because either would be an insult. The hand gets to six.'],
+   K76V('Six. The same hour tomorrow.'),K76MV('ur enjoying this','you’re enjoying this','You’re enjoying this.','You are enjoying this. Don’t lie.'),
+   K76V('No. I find that I am not, and I expected to.')],hub)}},
+  {t:'Leave them to it',fn:()=>{S.f.e2lHandT='alone';save();say([
+   ['','You go. From the corridor you hear them lose count twice.'],
+   ['','You wind the clock in the hall, which has not run in eleven years, and set it to strike. They need not know who is keeping the hour.']],hub)}}]))}
+
+/* ---------- the house at night ---------- */
+function k81Night(){const n=k81Inc('night'),m=k76M();
+ if(n>1)return say(k81Var('night',[
+  [['',m?'The cellar stair, the bottom door, steel, cold to the hand. You know what is behind it; he sent you forty minutes of it. You stand with your palm flat on it for a long while.':'The camera on the cellar stair shows them at the cold-room door, with one palm flat on the steel. They stand like that for a long while. They do not try the handle.'],
+   m?K76MV('(he could’ve put me in there. he had a week. he put me in a bed and it said laundry on the door)','(he could have put me in there. he had a whole week. he put me in a bed)','(He could have put me in there. He had a whole week. He put me in a bed.)','(He could have put me in there. He had a whole week, and he put me in a bed.)'):K76V('(They are working out that I had a week and did not use it. I would give something to know what they conclude.)')],
+  [['',m?'His study. The ledger is on the desk, shut, and not locked. He must know that you walk at night. You look at it for ten minutes and do not open it.':'In the morning the ledger is exactly where you left it on the desk, shut, and not locked. There is a mug ring beside it that is not yours. They stood here for some time and did not open it.'],
+   m?K76MV('(if i read it i’ll know. i don’t want to know. since when do i not want to know)','(if i read it i’ll know. and i don’t want to know. since when do i not want to know)','(If I read it I’ll know. And I don’t want to know. Since when do I not want to know?)','(If I read it, I will know. And I do not want to know. Since when do I not want to know?)'):K76V('(I left it unlocked on purpose. I do not know what I wanted them to find.)')],
+  [['',m?'At four you meet him on the back stair. He is in his shirtsleeves with a cup of something. He stops four steps below you and stands to one side, against the wall, so that you can pass.':'At four you meet them on the back stair. You stop four steps below, and stand to one side, against the wall, so that they have the whole width to pass.'],
+   K76MV('can’t sleep?','can’t sleep either?','Can’t sleep either?','Can’t sleep either? Guilty conscience?'),K76V('Three and a half hours. I have had them.'),
+   ['',m?'You go past him. He does not turn his head to watch you go. You notice that, and you notice yourself noticing.':'They go past. You keep your eyes on the wall until they are down. It costs more than it should.']]]),hub);
+ say([
+  ['',m?'You cannot sleep in a house you have not counted. At two you get up and walk it: every door, every stair, every window that opens.':'On the cameras, at two, they get up and walk the house: every door, every stair, every window that opens. They are counting. They did it in the first week, from outside, to kill you.'],
+  ['',m?'Three ways out of the east wing. Two off the kitchen. The back stair groans on the left. You knew all of it from the ivy; it is different from inside, barefoot, with a cast.':'Three ways out of the east wing. Two off the kitchen. They step over the left side of the back stair, where it groans. They remembered that.'],
+  ['',m?'Every door you come to is already unlocked. Every one. In the hall the lamps are lit, low, all the way to the side door, and the side door has the key standing in it.':'You went round at midnight and unlocked every door in the house, and lit the hall lamps, low, as far as the side door. You left the key standing in it.']],
+ ()=>ask(K73Who(),m?'(The key is in the side door. On your side.)':'(They have reached the side door.)',m?[
+  {t:'Leave the key where it is',fn:()=>{S.f.e2lNightW='light';save();say([
+   ['','You leave it. You go back up by the lamps, and for the first time since the river you sleep until it is light.'],
+   K76MV('(he wants me to know i can leave. so he can say i stayed. it’s a trick. it’s a really good trick)','(he wants me to know i can leave, so he can say i chose to stay. it’s a trick. it’s a good trick)','(He wants me to know I can leave, so he can say I chose to stay. It’s a trick. It’s a good trick.)','(He wants me to know that I can leave, so that he can say I chose to stay. It is a trick, and it is a good one.)')],hub)}},
+  {t:'Take the key up to bed with you',fn:()=>{S.f.e2lNightW='dark';save();say([
+   ['','You take it. You sleep with it in your good fist. In the morning nobody mentions the side door, and there is a second key standing in it, exactly where the first one was.'],
+   K76MV('(how many keys has he GOT)')],hub)}}]:[
+  {t:'Stay away from the cameras tonight',fn:()=>{S.f.e2lNightW='light';save();say([
+   ['','You turn the screen off and go to bed. In the morning the key is still in the side door, and the lamps have burned down, and they are asleep in the spare room with the door open a hand’s width.'],
+   K76V('(They think it is a trick. I would think so. I do not know how to leave a door open so that it is not one.)')],hub)}},
+  {t:'Watch what they do with the key',fn:()=>{S.f.e2lNightW='dark';save();say([
+   ['','They take it out of the lock, look at it, and carry it upstairs in the good fist. You go down and put the spare in its place.'],
+   K76V('(There are nine. They may have all of them.)')],hub)}}]))}
+const _sh81=sideHub;sideHub=function(late){const o=_sh81(late);try{if(!S||!k81Ok())return o;
+ const i=o.findIndex(x=>x&&x.t==='⚔ The war so far');const e={t:'⚔ '+k76H('His house','Your house: them'),sub:S.done.k81act?'done today':'costs time · the table, the kennel, the hand, the house at night',dis:!!late||!!S.done.k81act,fn:k81House};
+ if(i<0)o.push(e);else o.splice(i,0,e)}catch(e){}return o};
+
+/* ===================================== II · BACK DOWN THE STAIRS ===================================== */
+function k81Room(){k77Go('#10100e');k73Mark('e2l_room',1);const m=k76M(),f=S.f;
+ const L=m?[
+  ['','In the afternoon, with the house empty, you go back down to it on purpose.'],
+  ['','The kennel corridor. The door. There is a poster on it now, in his writing, in capitals: THIS IS THE INFIRMARY. YOU ARE IN V’S HOUSE. THE DOOR OPENS FROM BOTH SIDES. Under it the old sign still says LAUNDRY.'],
+  ['','Inside it is a small white room with a bed, a drip stand and a smoke detector. It is about the size of your trailer. You thought it was the other building for two days, and you can see each thing you built that out of: the drain, the one light, the tray slot that is only a shelf.'],
+  K76MV('(one: it’s a room. two: it’s just a room. three: i was so fucking polite in here)','(one: it’s a room. two: it’s just a room. three: i was so fucking polite in here)','(One: it’s a room. Two: it’s just a room. Three: I was so fucking polite in here.)','(One: it is a room. Two: it is only a room. Three: I was so fucking polite in here.)'),
+  ['','When you turn round, he is in the corridor, four steps back from the door, with a bag of the hounds’ feed on his shoulder. He has stopped dead.']]:[
+  ['','You come in by the kennel corridor with a bag of feed on your shoulder, and the door marked LAUNDRY is open.'],
+  ['','They are inside, standing in the middle of the floor in a T-shirt, looking at the room: the drain, the one light, the shelf by the door that they took for a slot. They are going over it the way they go over a roof.'],
+  K76V('(They have come back down to it by themselves. I would not have. I have not been through that door since I carried them out of it.)'),
+  ['','They turn round and see you. You are four steps back from the door. You find that you cannot make yourself any nearer.']];
+ const sat=()=>{f.e2lRoom='sat';apply({aff:2});save();say([
+   ['',m?'You sit down on the bed. It takes some doing. You pat the blanket beside you, once, like calling a hound, to see what he will do.':'They sit down on the bed. It plainly costs them. Then they pat the blanket beside them, once, as one calls a hound.'],
+   K76V('No. I will not come into that room while you are in it. I have been in it enough.'),
+   K76MV('scared?','what, are u scared of it','What, are you scared of it?','What, are you scared of a laundry room, V?'),
+   K76V('Of what I was in it. Yes.'),
+   ['',m?'He puts the feed down in the corridor and sits on the bag, outside the door, where you can see his shoes. You stay on the bed until your heart has stopped being stupid. It takes forty minutes. His shoes do not move.':'You put the feed down in the corridor and sit on the bag, outside the door, where they can see your shoes. They stay on the bed for forty minutes. You do not move your feet.']],hub)};
+ const sign=()=>{f.e2lRoom='sign';apply({aff:2});save();say([
+   ['',m?'You come out, reach up with the good hand, and tear the old LAUNDRY sign off the door. It comes away with four screws and some paint.':'They come out, reach up with the good hand, and tear the old LAUNDRY sign off the door. It comes away with four screws and some paint.'],
+   K76MV('nobody opens a laundry, huh','“nobody opens a laundry.” that’s what u said','“Nobody opens a laundry.” That’s what you said.','“Nobody opens a laundry.” That is what you told me. I opened it, V. From the inside.'),
+   K76V('You did.'),
+   ['',m?'You hold the sign out to him. He takes it, and looks at it, and you watch him work out that there is nowhere in his house he can bear to put it. He carries it out to the furnace himself.':'They hold the sign out to you. You take it. There is nowhere in this house that you can bear to put it. You carry it out to the furnace yourself.']],hub)};
+ say(L,()=>ask(K73Who(),m?'(He hasn’t come any closer.)':'(Four steps. You cannot do the fifth.)',m?[
+  {t:'Sit down on the bed',sub:'on purpose',fn:sat},{t:'Tear the LAUNDRY sign off the door',fn:sign}]:[
+  {t:'Stay in the corridor',fn:sat},{t:'Tell them the sign can come down',fn:sign}]))}
+
+/* ===================================== II · THURSDAY ===================================== */
+function k81Thurs(){k77Go('#0b0c0e');k73Mark('e2l_thurs',1);const m=k76M(),f=S.f;
+ const L=m?[
+  ['','Thursday. The doctor says you can go. Ronin brings your truck round to the gate, and you drive it to the lot yourself, one-handed, in second gear the whole way.'],
+  ['','The trailer has a new lock. Inside it is exactly as you left it, except that somebody has washed the bowl and watered the cactus.'],
+  ['','You lie down on your own bed in your own trailer with the pistol under the pillow. It is what you have wanted for a fortnight. It takes you about an hour to understand that you are listening for four hounds and a clock in a hall.'],
+  K76MV('(no. absolutely not. i live HERE. i’ve got a cactus)','(no. absolutely not. i live here. i have a cactus)','(No. Absolutely not. I live here. I have a cactus.)','(No. Absolutely not. I live here; I have a cactus and a lock that takes him four minutes.)')]:[
+  ['','Thursday. The doctor says that they may go. Ronin brings their truck round to the gate, and they drive it out themselves, one-handed, in second gear, without looking back at the house.'],
+  ['','You strip the bed in the spare room yourself. You have staff for that.'],
+  ['','At nine you eat at the long table, at your own place, opposite one that is laid and empty. The hounds will not settle. The black hound goes to the side door every quarter of an hour and stands at it.'],
+  K76V('(The house is as it was a month ago. I kept it like this for eleven years, and I found no fault with it.)')];
+ const stayed=()=>{f.e2lThurs='stayed';save();say(m?[
+   ['','You stay. You lie on your right side and count the bolts, and at about three you fall asleep, and you do not dream of the other building. You dream of a hall clock striking, in a house you have sworn to burn down.'],
+   K76V('(text, at six) The spare room is as you left it. That is information, and not an invitation.'),
+   K76MV('(text) didn’t ask','(text) didn’t ask, grandpa'),
+   K76MV('(i’m back there by sunday. i tell everyone it’s for the case)','(i’m back there by sunday. i tell everybody it’s for the case)','(I’m back there by Sunday. I tell everybody it’s for the case.)','(I am back there by Sunday. I tell everybody that it is for the case.)')]:[
+   ['','You do not go to the gate. You go to bed at the usual time and lie awake for three and a half hours, which is the whole of your allowance.'],
+   K76V('(text, at six) The spare room is as you left it. That is information, and not an invitation.'),
+   K76MV('(text) didn’t ask','(text) didn’t ask, grandpa'),
+   ['','On Sunday their truck is at the gate. They say that it is for the case. You say that naturally it is, and you carry the bag up yourself.']],hub)};
+ const gate=()=>{f.e2lThurs='gate';apply({aff:2});save();say(m?[
+   ['','At one in the morning you get in the truck and drive back, and park outside his gate with the lights off, and get the blanket out from behind the seat. Ronin did this once, to stop a killing. You do not look at why you are doing it.'],
+   ['','At about two the side door opens. He does not come out. The black hound does; it walks down the drive, gets its front paws up on your running board, and looks in at you through the glass.'],
+   K76MV('go home','go home. go on','Go home. Go on.','Go home. Go on. I’m not here.'),
+   ['','It lies down under the truck. In the morning there is a flask on the bonnet, and Ronin has texted you a single photograph of yourself asleep in the cab with your mouth open.']]:[
+   ['','At one in the morning the gate camera shows a truck with its lights off. They are in the cab with a blanket round them. Ronin slept out there once, to stop you killing them. You do not know what they are there to stop.'],
+   ['','You open the side door and stand in it. You do not go down the drive. The black hound goes for you; it walks down, gets its front paws on their running board, and then lies down under the truck.'],
+   K76V('(I will not go out to them. If I go out, it is a thing that I have done, and they will have to answer it.)'),
+   ['','At five you leave a flask on the bonnet. Ronin, who has apparently been watching the same camera, sends the server a photograph. You delete it from the server and keep the copy.']],hub)};
+ say(L,()=>ask(K73Who(),m?'(It is very quiet in here.)':'(The side door is unlocked. It has been all evening.)',m?[
+  {t:'Stay in the trailer',sub:'you live here',fn:stayed},{t:'Drive back, and sleep in the truck at his gate',sub:'do not ask yourself why',fn:gate}]:[
+  {t:'Go to bed',fn:stayed},{t:'Look at the gate camera',fn:gate}]))}
+
+(function(){try{if(typeof K73B==='undefined'||typeof k76Card!=='function')return;const at=id=>K73B.findIndex(b=>b.id===id);
+ const add=(before,b)=>{const r=b.run;b.run=function(){return k76Card(b.id,()=>r())};const i=at(before);K73B.splice(i<0?K73B.length:i,0,b)};
+ const late=()=>['after','act2'].includes(S.phase);
+ add('e2l_rifle',{id:'e2l_room',t:()=>k76H('Go back down to the room, in daylight','The door marked LAUNDRY is open'),sub:()=>'costs time · on purpose',when:()=>late()&&k73Done('e2l_after')&&k73Fresh(),run:k81Room});
+ add('e2l_car',{id:'e2l_thurs',t:()=>'Thursday: the doctor says they can go',sub:()=>'costs time · the truck, the trailer',when:()=>late()&&k73Done('e2l_rifle')&&(k73Done('e2l_fork')||S.f.e2lAfter!=='war')&&k73Fresh(),run:k81Thurs})}catch(e){}})();
+
+/* ===================================== ENDINGS ===================================== */
+const _xe81=extraEnding;extraEnding=function(){const L=_xe81();try{if(!S||!S.f||S.f.e2l!==1||S.rom||S.vrom||S.f.k28pair)return L;const f=S.f;
+ if(f.e2lRoom==='sign')L.push('The LAUNDRY sign is gone from the infirmary door. Misaki tore it off, and V burned it.');
+ else if(f.e2lRoom==='sat')L.push('Misaki went back down to the infirmary once, on purpose, and sat on the bed. V sat outside the door for forty minutes and would not come in.');
+ if(f.e2lThurs==='gate')L.push('The first night Misaki was allowed home, they drove back and slept in the truck outside V’s gate. The black hound slept under it.');
+ if(f.e2lNightW)L.push('There are nine keys to V’s side door. One has stood in the lock, on the inside, since the week Misaki came upstairs.');
+ if(f.e2lHandT==='alone')L.push('The clock in V’s hall had not run for eleven years. It strikes the hour now.')}catch(e){}return L};
+/* ===KC81-END=== */
+
+/* ===KC82-BEGIN=== */
+/* ===================== THE WAR: ONE QUESTION A DAY (kc82) =====================
+   More of the enemies-to-lovers route between the infirmary and the corridor. Needs kc73, kc76–kc81.
+   1. The house menu (kc81) gains "Ask him one thing" / "Ask them one thing": eight questions each way, asked in order,
+      one a day (S.f.e2l81.ask counts them; S.f.e2lAskd). Each is answered straight. Neither of them lies in these;
+      that is the point, and it is why the corridor (kc78) hurts: they have had the truth out of each other for weeks
+      on everything except the one question.
+   2. Ronin, Angel and the hounds: three location scenes in kc73's pool (the back pew; the reflector; the hall).
+   3. Threads: Angel ("in love or scared"), Ronin (the other book: days nobody died).
+   4. A morning in the after phase: "thank you", said asleep, through the wall.
+   Rules: unnamed city, hounds unnamed, no new named characters, V never contracts, Misaki via MV and they/them.
+   Notes: docs/notes_kc82.md. Test: node tools/k82_test.js */
+const K82=()=>{try{return typeof K81==='function'&&K81()}catch(e){return false}};
+
+/* ===================================== ONE QUESTION ===================================== */
+/* Misaki asks V */
+const K82_QM=[
+ {q:'“why hounds”',a:()=>[
+  K76V('They were to be destroyed. Each of them had been used, by somebody, for something. I do not destroy what has been used. I destroy what uses.'),
+  K76MV('that’s ur whole thing, isn’t it','that’s your whole thing, isn’t it','That’s your whole thing, isn’t it?','That is your whole thing, isn’t it? Used, and uses. Two columns.'),
+  K76V('It is the whole of it. You will have noticed which column I put you in.'),
+  K76MV('…yeah','…yeah. i noticed','…Yeah. I noticed.','…Yes. I noticed.'),
+  K76V('I wrote that page before I had seen the films of your bones. I have not known since what to do with the page.')]},
+ {q:'“what’s slow like. for u. when ur doing it”',a:()=>[
+  K76V('It is like accounts. I take no pleasure in the length of it. I take it in the sum coming out even.'),
+  K76MV('and mine? what’s my sum','and mine? what does my sum come out to','And mine? What does my sum come out to?','And mine? What does my sum come out to, when you do the accounts?'),
+  K76V('I have not been able to make it come out. I have told you that the page has no total.'),
+  K76MV('(he keeps saying that like it’s a confession. it’s arithmetic. it’s only arithmetic)','(he keeps saying that like it’s a confession. it’s just arithmetic)','(He keeps saying that like it’s a confession. It’s just arithmetic.)','(He keeps saying that as if it were a confession. It is only arithmetic.)')]},
+ {q:'“why isn’t ur name on anything”',a:()=>[
+  K76V('A name on a shelter door is a man buying a good opinion of himself. I want the roof to be there. I do not want to be thanked by people who had no choice but to come in under it.'),
+  ['','You think of forty-one thank-yous, in the good voice, for soup.'],
+  K76MV('yeah. ok. i get that one','yeah. okay. i get that one','Yeah. Okay. I get that one.','Yes. Okay. That one I understand.')]},
+ {q:'“do u ever actually sleep”',a:()=>[
+  K76V('Three and a half hours.'),
+  K76MV('and the rest of the night','and the rest of the night?','And the rest of the night?','And what do you do with the rest of the night?'),
+  K76V('I read. I walk them. Lately I listen to a house with a second person in it. It is louder than I had expected.'),
+  K76MV('i’m not loud','i am not loud','I am not loud.','I am not loud. I’m practically furniture.'),
+  K76V('You count, under your breath. Exits. I can hear it from the stair.')]},
+ {q:'“who taught u to cut”',a:()=>[
+  K76V('A veterinary text, and eleven animals that did not live. I am better now. You have had the benefit of it.'),
+  K76MV('u practised on DOGS','you practised on dogs','You practised on dogs.','You practised on dogs. To get good enough for people.'),
+  K76V('I practised in order to save them. It is the only reason I have ever learned to do anything.'),
+  ['','He looks at your hand when he says it, and then, very deliberately, at the wall.']]},
+ {q:'“would u have done it. in the trailer. if i hadn’t woken up”',a:()=>[
+  K76V('Yes.'),
+  K76MV('just yes','just “yes”','Just “yes”.','Just “yes”. No speech.'),
+  K76V('You asked, and you watch hands; you would know if I lied. Yes. I would have done it that night. I would have been wrong, and I would never have found it out.'),
+  K76MV('(he said wrong. he said he’d have been WRONG)','(he said wrong. he said he would have been wrong)','(He said wrong. He said he would have been wrong.)','(He said wrong. He said that he would have been wrong.)'),
+  K76MV('(…that’s about that night. not about tomorrow. don’t)','(…that’s about that night. it’s not about tomorrow. don’t)','(…That’s about that night. It’s not about tomorrow. Don’t.)','(…That is about that night. It says nothing about tomorrow. Don’t.)')]},
+ {q:'“what happens to the book when u die”',a:()=>[
+  K76V('It goes into the furnace, unread. Angel has the instruction.'),
+  K76MV('all of it? all those names','all of it? all those names?','All of it? All those names?','All of it? All those names, and not one person reads them?'),
+  K76V('It is not a record for anybody. It is how I know that I did not do any of it for nothing.'),
+  K76MV('and my page','and my page goes in with them','And my page goes in with them.','And my page goes into the furnace with the card man.'),
+  K76V('I am making other arrangements for your page.')]},
+ {q:'“what do u want for dinner”',a:()=>[
+  ['','He stops with the kettle in his hand.'],
+  K76V('Nobody has asked me that in this house.'),
+  K76MV('well i’m asking. don’t make it weird','well, i’m asking. don’t make it weird','Well, I’m asking. Don’t make it weird.','Well, I’m asking, V. Don’t make it weird.'),
+  K76V('Whatever does not need cutting.'),
+  K76MV('(he’s STILL on about the chop)','(he is still on about the chop)','(He is still on about the chop.)','(He is still on about the chop. He will be on about the chop at my funeral.)')]}];
+/* V asks Misaki */
+const K82_QV=[
+ {q:'“Why did you never ask what they had done?”',a:()=>[
+  K76MV('bc then i’d have to decide. u get to decide. u’ve got a house and a book. i’ve got four hundred a month','because then i’d have to decide. you get to decide, you’ve got a house and a book. i’ve got four hundred a month','Because then I’d have to decide. You get to decide; you’ve got a house and a book. I’ve got four hundred a month.','Because then I would have to decide. You get to decide, V; you have a house and a book. I have four hundred a month.'),
+  K76MV('deciding’s for people who can afford to be wrong','deciding is for people who can afford to be wrong','Deciding is for people who can afford to be wrong.','Deciding is for people who can afford to be wrong about it.'),
+  K76V('(That is an answer. I had forty pages on them, and I did not have that.)')]},
+ {q:'“What is March?”',a:()=>[
+  K76MV('my birthday. probably. i wrote it on a form myself bc it was the next month','my birthday. probably. i wrote it on a form myself because it was the next month','My birthday. Probably. I wrote it on a form myself, because it was the next month.','My birthday, probably. I wrote it on an enrolment form myself, because March was the next month.'),
+  K76MV('nobody wrote the real one down','nobody wrote the real one down','Nobody wrote the real one down.','Nobody wrote the real one down anywhere.'),
+  K76V('I have it in the file as a question mark.'),
+  K76MV('yeah. so do i','yeah. so have i','Yeah. So have I.','Yes. So have I.')]},
+ {q:'“What do you count, under your breath?”',a:()=>[
+  K76MV('exits. always. if there’s less than two i don’t sit down','exits. always. if there are fewer than two i don’t sit down','Exits. Always. If there are fewer than two, I don’t sit down.','Exits. Always. If a room has fewer than two, I do not sit down in it.'),
+  K76V('There are three from the spare room.'),
+  K76MV('i know. i counted. u put me in the one with three','i know. i counted. you put me in the one with three','I know. I counted. You put me in the one with three.','I know; I counted. You put me in the one room up there with three.'),
+  K76V('Yes.'),
+  ['','They wait for you to say why. You find that you cannot do it without saying something else as well, and you say nothing.']]},
+ {q:'“What would you have been?”',a:()=>[
+  K76MV('a pilot. don’t laugh','a pilot. don’t laugh','A pilot. Don’t laugh.','A pilot. Don’t you dare laugh.'),
+  K76V('I do not laugh.'),
+  K76MV('had four grand in a biscuit tin. school wanted a birth certificate. so. this','i had four grand in a biscuit tin. the school wanted a birth certificate. so. this','I had four grand in a biscuit tin. The school wanted a birth certificate. So. This.','I had four thousand dollars in a biscuit tin, and the flight school wanted a birth certificate. So: this.'),
+  K76V('(On the ninth floor of a building that I own, a man sold birth certificates at three thousand apiece.)'),
+  K76V('(I let him the office.)')]},
+ {q:'“Does the doorman trouble you?”',a:()=>[
+  K76MV('no','no','No.','No.'),
+  K76MV('…it didn’t. it does a bit now. that’s UR fault. u keep SAYING him','…it didn’t. it does a bit, now. that’s your fault. you keep saying him','…It didn’t. It does a bit, now. That’s your fault. You keep saying him.','…It did not. It does a little, now, and that is your fault. You keep saying him.'),
+  K76MV('he was a guy in the way. now he’s a guy with a wife with teeth','he was a guy in the way. now he’s a guy whose wife needed teeth','He was a guy in the way. Now he’s a guy whose wife needed teeth.','He was a man in the way. Now he is a man whose wife needed teeth, and I know about the teeth.'),
+  K76V('Good.'),K76MV('fuck off, “good”','fuck off, “good”','Fuck off, “good”.','Fuck off with your “good”.'),
+  K76V('I did not say that I enjoyed it. I said good.')]},
+ {q:'“What did you take me for, in the first week?”',a:()=>[
+  K76MV('a rich guy with a hobby. never been hungry and thought that made him clean','a rich guy with a hobby, who’d never been hungry and thought that made him clean','A rich guy with a hobby, who’d never been hungry and thought that made him clean.','A rich man with a hobby, who had never once been hungry and thought that made him clean.'),
+  K76V('And now?'),
+  K76MV('a rich guy with a hobby who cuts up my dinner. don’t push it','a rich guy with a hobby who cuts up my dinner. don’t push it','A rich guy with a hobby who cuts up my dinner. Don’t push it.','A rich man with a hobby who cuts up my dinner. Do not push it.')]},
+ {q:'“Would you have taken the shot, at the dinner? If I had not been worth more alive.”',a:()=>[
+  K76MV('yeah','yes','Yes.','Yes.'),
+  K76MV('that week, yeah. i had it. two pounds on a three pound trigger','that week, yes. i had it. two pounds on a three-pound trigger','That week, yes. I had it. Two pounds on a three-pound trigger.','That week, yes. I had it: two pounds on a three-pound trigger, and your ear in the glass.'),
+  K76V('Thank you.'),
+  K76MV('for WHAT','for what','For what?','For what, exactly?'),
+  K76V('For not saying otherwise. I would have known, and then I could not have believed the next thing that you told me.')]},
+ {q:'“Is there anything that you want?”',a:()=>[
+  K76MV('like in general, or for dinner','in general, or like, for dinner','In general, or, like, for dinner?','In general, or do you mean for dinner?'),
+  K76V('Either.'),
+  K76MV('nobody’s asked me the first one. noodles','nobody’s asked me the first one before. noodles','Nobody’s asked me the first one before. Noodles.','Nobody has asked me the first one before. For dinner: noodles.'),
+  K76V('And the first?'),
+  K76MV('…ask me when i’ve got two hands','…ask me again when i’ve got two hands','…Ask me again when I’ve got two hands.','…Ask me again when I have two working hands.'),
+  K76V('(I told them once what I would do when they had two hands. I do not think that they have forgotten it. I think that is why they said it.)')]}];
+const k82Left=()=>{try{const m=k76M(),P=m?K82_QM:K82_QV;return (S.f.e2lAskd||0)<P.length}catch(e){return false}};
+function k82Ask(){const m=k76M(),P=m?K82_QM:K82_QV,i=S.f.e2lAskd||0;k81Inc('ask');if(i>=P.length)return hub();const Q=P[i];S.f.e2lAskd=i+1;save();
+ const where=[m?'The kitchen, late. He is drying the same cup he has been drying for some minutes.':'The kitchen, late. They are sitting on the counter, which you have asked them not to do.',
+  m?'The kennel. He is checking the old hound’s hip, and cannot leave until he has finished.':'The kennel. They are in the straw with the old hound, and cannot get up without disturbing him.',
+  m?'The back stair, at four. He has stood aside for you, against the wall.':'The back stair, at four. You have stood aside, against the wall.',
+  m?'His car, outside an address, with the engine off.':'Your car, outside an address, with the engine off.'][i%4];
+ say([['',where],m?K76MV(Q.q.slice(1,-1)):K76V(Q.q.slice(1,-1))].concat(Q.a()),()=>{apply({aff:1});hub()})}
+
+/* ===================================== RONIN, ANGEL, THE HOUNDS ===================================== */
+if(typeof l73==='function'){
+ l73('l82_pew',['ronin'],.6,()=>S.phase==='act2'&&k73Done('e2l_car'),done=>say(k76M()?[
+  ['','Ronin is cleaning the crowbar at his kitchen table with a toothbrush and something out of a gold bottle.'],
+  [RN,'Went to church Sunday. Back pew. Asked about you two.'],
+  K76MV('asked who','asked WHO','Asked who?','Asked who, Ronin? Be specific.'),
+  [RN,'Who d’you fuckin’ think. Asked the Devil which one of you he’s gettin’ first.'],
+  [RN,'Says he don’t want either. Says you’re both too busy torturin’ each other to be any fun for him.'],
+  K76MV('that’s not funny','that’s not funny','That’s not funny.','That is not funny.'),
+  [RN,'Wasn’t jokin’. Eat somethin’.']]:[
+  ['','Ronin is cleaning the crowbar at his kitchen table with a toothbrush and something out of a gold bottle.'],
+  [RN,'Went to church Sunday. Back pew. Asked about you two.'],
+  K76V('Of whom did you ask?'),
+  [RN,'Who d’you fuckin’ think. Asked the Devil which one of you he’s gettin’ first.'],
+  [RN,'Says he don’t want either. Says you’re both too busy torturin’ each other to be any fun for him.'],
+  K76V('I do not find that amusing.'),
+  [RN,'Wasn’t jokin’, Vee. Sit down. You look like a fuckin’ coat rack.']],()=>{fr('r',1);done()}));
+ l73('l82_reflector',['studio'],.6,()=>S.phase==='act2'&&k73Done('e2l_car')&&!S.f.e2lEnd,done=>say(k76M()?[
+  ['','Angel has you hold the reflector for a shoot, in the left hand, because she says it is good for it. Her camera face is on. It goes off between takes like a light.'],
+  [AN,'you flinch when he’s behind you, and you lean when he’s next to you. i’ve watched you do both in one minute'],
+  K76MV('i don’t lean','i do not lean','I do not lean.','I do not lean. I have never leaned.'),
+  [AN,'you lean, baby. about two degrees. i shoot for a living'],
+  [AN,'pick one. flinch or lean. you’ll pull something doing both'],
+  ['','The reflector shakes, and it is not the hand.']]:[
+  ['','Angel has you hold the reflector for a shoot, because you are tall. Her camera face is on. It goes off between takes like a light.'],
+  [AN,'you stand four steps away from them. always four. i counted. in the kitchen, on the stairs, at my table'],
+  K76V('It is a courtesy.'),
+  [AN,'it’s a leash, V. you’ve put yourself on a four-step leash and you’re holding the other end'],
+  [AN,'what happens at three'],
+  K76V('I do not know. I have not permitted it to arise.')],()=>{fr('a',1);done()}));
+ l73('l82_hall',['atrium'],.6,()=>['after','act2'].includes(S.phase)&&typeof kdPost==='function'&&kdPost()&&!S.f.e2lRow,done=>say([
+  ['',k76M()?'You come into the hall from the stairs as he comes in from the yard. The four hounds, who were following him, stop and lie down in a line across the floor, exactly halfway between you.':'You come in from the yard as they come down the stairs. The four hounds, who were at your heel, stop and lie down in a line across the floor, exactly halfway between you.'],
+  ['','The old hound looks at one of you and then at the other. He puts his chin on his paws.'],
+  K76V('They have never done that.'),
+  K76MV('they don’t know who to follow','they don’t know which one of us to follow','They don’t know which one of us to follow.','They do not know which one of us to follow.'),
+  K76V('They know. They are declining to choose.'),
+  ['',k76M()?'You both stand there. Neither of you is going to be the one who walks across.':'You both stand there. Neither of you is going to be the one who walks across.']],()=>{done()}))}
+
+/* ===================================== THREADS ===================================== */
+if(typeof txDef==='function'){
+ txDef('tx_e2l_both',{with:'a',prio:2,when:()=>K82()&&S.phase==='act2'&&k73Done('e2l_know')&&!S.f.e2lEnd,nodes:{
+  start:{in:()=>[k76M()?'ok. are you in love with him or are you scared of him':'ok. are you in love with them or are you scared of them','one word. i’m timing you'],expire:3,
+   opts:()=>[{t:k76M()?'“both”':'“Both.”',reply:()=>['yeah','that’s what i wrote down','it’s not in the envelope. the envelope’s something else. this is just on a napkin']},
+    {t:k76M()?'“neither”':'“Neither.”',reply:()=>['liar ❤️','you took four seconds. neither takes one']},
+    {t:k76M()?'“is there a difference”':'“Is there a difference?”',reply:()=>['for us? no','for normal people i think there’s supposed to be','i’ll ask one']}]}}});
+ txDef('tx_e2l_days',{with:'r',prio:2,when:()=>K82()&&['after','act2'].includes(S.phase)&&k73Done('e2l_after')&&!S.f.e2lEnd,nodes:{
+  start:{in:()=>['book’s closed. i’m keepin’ a different one now','just a number on the fridge. days nobody in this server’s tried to kill nobody else in it','we’re at '+Math.max(3,(S.day-(S.kd&&S.kd.t0||S.day))+3)],expire:3,
+   opts:()=>[{t:k76M()?'“what’s the record”':'“What is the record?”',reply:()=>['this is the record','it was four before','don’t fuck it up']},
+    {t:k76M()?'“don’t jinx it”':'“You will tempt it.”',reply:()=>['i’m a religious man','i’ve tempted worse','eat somethin’']}]}}})}
+
+/* ===================================== A MORNING ===================================== */
+const _me82=morningEvent;morningEvent=function(done){try{if(S&&K82()&&S.phase==='after'&&typeof kdPost==='function'&&kdPost()&&!S.seen.m82_wall&&k73Done('e2l_after')&&S.f.e2lMornDay!==S.day&&mbOk()){
+  S.seen.m82_wall=1;S.f.e2lMornDay=S.day;mbUse();save();k77Go('#08080a');return say(k76M()?[
+   ['','You wake yourself up, at five, saying thank you. Out loud, in the good voice, to nobody, in a room that has three exits.'],
+   K76MV('(stop. STOP. there’s nobody here to thank)','(stop it. stop. there’s nobody in here to thank)','(Stop it. Stop. There’s nobody in here to thank.)','(Stop it. Stop. There is nobody in this room to thank.)'),
+   ['','Through the wall, the kettle goes on. He is up; he is always up. He must have heard. He makes exactly as much noise as a man making tea, for exactly as long, and you lie there and hate him for the tact of it.']]:[
+   ['','At five, through the wall of the spare room, they say thank you. They are asleep. It is the pleasant voice, from the infirmary, addressed to whoever is holding the keys in the dream.'],
+   K76V('(I am in the dream, then. I have a fair idea in which capacity.)'),
+   ['','You put the kettle on, so that there will be an ordinary noise in the house when they wake. You make exactly as much of it as a man making tea. It is the only thing you can think of to do for them that they will not have to answer.']],()=>_me82(done))}}catch(e){}return _me82(done)};
+
+/* ===================================== ENDINGS ===================================== */
+const _xe82=extraEnding;extraEnding=function(){const L=_xe82();try{if(!S||!S.f||S.f.e2l!==1||S.rom||S.vrom||S.f.k28pair)return L;const n=S.f.e2lAskd||0;
+ if(n>=8)L.push('In V’s house they asked each other one thing a day, and got the truth every time. The one question neither of them asked was the one they both needed.');
+ else if(n>=3)L.push('In V’s house they asked each other one thing a day, and got the truth every time. They got through '+n+' before the corridor.')}catch(e){}return L};
+/* ===KC82-END=== */
+
+/* ===KC83-BEGIN=== */
+/* ===================== THE WAR: THE EDGES OF IT (kc83) =====================
+   The remaining thin places on the enemies-to-lovers route. Needs kc73, kc76–kc82.
+   1. While Misaki is held (V only; ⚔ side entries after kc79's trailer, one a day):
+        e2l_gone2  Angel and Ronin at his door: "are you looking, or waiting"      S.f.e2lGone2 table|door
+        e2l_gone3  the black hound and the shoe from the gravel
+   2. The infirmary (kc80's delivery): one more scene each. Misaki, clear: what the doctor says about who was not in
+      the room. V: the first laugh, through the vent.
+   3. The house menu (kc81): "The study, in the evening" (the same room, two chairs).   S.f.e2lStudy near|far
+   4. Act III, after the boat: e2l_eve, the night before the auction (lovers / rivals).  S.f.e2lEve
+   5. The epilogue: ⚔ A year on (three scenes, once each, lovers and rivals versions; S.f.e2l83).
+   6. Four more questions each way for kc82's "one thing a day".
+   Rules: unnamed city, hounds unnamed, no new named characters, V never contracts, Misaki via MV and they/them.
+   Notes: docs/notes_kc83.md. Test: node tools/k83_test.js */
+const K83=()=>{try{return typeof K82==='function'&&K82()}catch(e){return false}};
+
+/* ===================================== 1 · WHILE THEY ARE HELD (V) ===================================== */
+const k83TakenOk=id=>{try{return K83()&&S.phase==='taken'&&S.pov==='v'&&!k73Done(id)&&S.f.e2lGoneDay!==S.day&&S.day>(S.takenDay||0)}catch(e){return false}};
+function k83Gone2(){k77Go('#07070a');k73Mark('e2l_gone2',1);S.f.e2lGoneDay=S.day;save();
+ say([
+  ['','Angel and Ronin are on your step at midnight. She has the shotgun, broken over her arm. He has the crowbar. Neither of them has come to visit.'],
+  [AN,'Their name is in your book, V. So I’m asking you once. Are you looking for them, or are you waiting for somebody else to finish it?'],
+  [RN,'She means it. I mean it more.'],
+  K76V('Come in.')],
+ ()=>ask('K9','(They are not going to take your word.)',[
+  {t:'Show them the ops table',fn:()=>{S.f.e2lGone2='table';save();say([
+   ['','You take them down to the ops deck. The table is covered: the van, three plates, eleven addresses with eight of them struck through, a map of the river with pins in it. You have not been to bed since the trailer.'],
+   ['','Angel looks at it for a long time. She looks at the dates on the sheets, and at the cup rings, and at your hands.'],
+   [AN,'You crossed out eight addresses.'],K76V('Those are not names. I may cross out an address.'),
+   [RN,'Vee. When’d you last eat?'],K76V('I do not recall. It is not material.'),
+   [AN,'Okay. Okay. If you find them first, and you do what the book says, I will know. I’ll see it on you.'],
+   K76V('If I find them first, they will be alive when you next see them. I have not thought further than that. I find that I am unable to.')],()=>{fr('a',2);fr('r',2);hub()})}},
+  {t:'Tell them at the door',fn:()=>{S.f.e2lGone2='door';save();say([
+   K76V('I am looking. I have eleven addresses and I have been to eight. When I have them back, the page stands as it was written, and I will deal with it then.'),
+   [AN,'“Deal with it.”'],K76V('I have no better word. I have looked for one.'),
+   [RN,'That’s the most fucked-up thing you ever said to me, and you once told me how to joint a man.'],
+   [RN,'Fine. I’m drivin’. You ain’t slept, and you’ll put that car in the river, and then she’ll shoot me.'],
+   ['','You let him drive. You have not let anybody drive that car in eleven years.']],()=>{fr('r',2);fr('a',1);hub()})}}]))}
+function k83Gone3(){k77Go('#060608');k73Mark('e2l_gone3',1);S.f.e2lGoneDay=S.day;save();
+ say([
+  ['','You come up from the ops deck at four, to lie down for the hours you are owed. The black hound is on your bed. It is not allowed on the bed, and it knows that.'],
+  ['','It has brought something up from the car and put it in the middle of the pillow, where a bullet once stood. It is the shoe from the gravel, a size five, with the lace still tied.'],
+  K76V('Off.'),
+  ['','It does not get off. It lays its chin beside the shoe and looks at you, as it looks at a door that somebody ought to have come through by now.'],
+  K76V('I know. I am aware. I am doing it as quickly as it can be done.'),
+  ['','You do not move the shoe. You sleep in the chair, facing the door, as you did the night they left the bullet. The hound keeps the bed.'],
+  K76V('(I swore to kill what wears that shoe. The animal has not been told, and I cannot think how I would put it to him.)')],hub)}
+const _sh83=sideHub;sideHub=function(late){const o=_sh83(late);try{if(!S)return o;
+ if(k73Done('e2l_gone')&&k83TakenOk('e2l_gone2'))o.push({t:'⚔ Midnight: Angel and Ronin are on your step',sub:'costs time · the war · II · she has the shotgun',dis:!!late,fn:()=>{spend();k76Card('e2l_gone2',()=>k83Gone2())}});
+ else if(k73Done('e2l_gone2')&&k83TakenOk('e2l_gone3'))o.push({t:'⚔ Four in the morning: the black hound is on your bed',sub:'costs time · the war · II · it has brought something',dis:!!late,fn:()=>{spend();k76Card('e2l_gone3',()=>k83Gone3())}});
+ if(k83EpiOk()){const i=o.findIndex(x=>x&&x.t==='⚔ The war so far');const e={t:'⚔ A year on: '+k76H('him','them'),sub:S.done.k83act?'done today':'costs time · '+(S.f.e2lEnd==='lovers'?'what it is like now':'the terms'),dis:!!late||!!S.done.k83act,fn:k83Epi};if(i<0)o.push(e);else o.splice(i,0,e)}}catch(e){}return o};
+
+/* ===================================== 2 · THE INFIRMARY: ONE MORE EACH ===================================== */
+if(typeof K80_MX!=='undefined')K80_MX.push(cb=>say([
+  ['','The doctor does your dressing herself on the last day. You ask her, as if it did not matter, where the tall one has got to.'],
+  ['','She says that he asked her to take it over. She says he told her that he was not to come into this room again while you were in it, and that she was to tell him if he tried.'],
+  K76MV('he said that. about himself','he said that about HIMSELF','He said that about himself.','He said that about himself? He told you to keep him out?'),
+  ['','She says that in eleven years it is the only instruction he has ever given her twice.'],
+  K76MV('(one: he hates me. two: he locked himself out of a room in his own house so i wouldn’t have to look at him. three—)','(one: he hates me. two: he locked himself out of a room in his own house so i wouldn’t have to look at him. three—)','(One: he hates me. Two: he locked himself out of a room in his own house so I wouldn’t have to look at him. Three—)','(One: he hates me. Two: he has locked himself out of a room in his own house so that I would not have to look at him. Three—)'),
+  ['','There is no three. You look at the door, which opens from both sides, until she has finished with the hand.']],cb));
+if(typeof K80_V!=='undefined')K80_V.push(cb=>say([
+  ['','On the last night, through the vent in the study, somebody laughs.'],
+  ['','It is Misaki. Ronin is down there with them, telling them something filthy about a priest, and they are laughing at it: a short, rude, ugly laugh, with a cough at the end where the ribs object.'],
+  ['','You have heard them ask a door for the light, in that room. You have heard them thank you. You had not known, until this moment, that you were waiting to hear whether that laugh had survived.'],
+  K76V('(It is theirs. Nothing in that building got it.)'),
+  ['','You open the ledger to write the date. You hold the pen over the page for a while. Then you close the book with nothing added, which you have not done before, and sit in the dark and listen until Ronin runs out of priests.']],cb));
+
+/* ===================================== 3 · THE HOUSE MENU: THE STUDY ===================================== */
+function k83Study(){const n=k81Inc('study'),m=k76M();
+ if(n>1)return say(k81Var('study',[
+  [['',m?'He reads with a pair of glasses you have not seen before. The other four pairs are still in your trailer, in the cutlery drawer, where you put them in the first week.':'You read with the fifth pair. The other four are in their trailer; you saw them in the cutlery drawer when you fitted the lock, and left them there.'],
+   K76MV('new glasses','those are new','Those are new.','Those are new. Did you have to buy more?'),K76V('I had to. Somebody robbed me.'),
+   ['',m?'You nearly offer to bring them back. You get as far as opening your mouth.':'They open their mouth, and shut it again. You go back to the page, and read the same line four times.']],
+  [['',m?'You do integrals on the back of his foundation’s annual report, with his pencil. He watches the pencil for some time.':'They do integrals on the back of the foundation’s annual report, with your pencil. You watch the pencil for some time. It is fast, and it does not cross out.'],
+   K76V('What is that for?'),K76MV('nothing. it’s not for anything. that’s why i like it','nothing. it isn’t for anything. that’s why i like it','Nothing. It isn’t for anything. That’s why I like it.','Nothing. It is not for anything at all. That is why I like it.'),
+   K76V('(I own nothing that is not for something. I had thought that a virtue.)')],
+  [['',m?'The fire has burned down. You have both been pretending to read for an hour, and neither of you has turned a page, and neither of you has left.':'The fire has burned down. Neither of you has turned a page in an hour. Neither of you has left.'],
+   m?K76MV('(if i get up, it’s over. if he gets up, it’s over. so nobody gets up)','(if i get up it’s over. if he gets up it’s over. so nobody’s getting up)','(If I get up it’s over. If he gets up it’s over. So nobody’s getting up.)','(If I get up, it is over. If he gets up, it is over. So nobody is getting up.)'):K76V('(If either of us stands, the evening is finished. I have a great deal to do. I remain in the chair.)')]]),hub);
+ say([
+  ['',m?'His study, after dinner. There is a fire, and two armchairs, and he is in one of them with a book. The other one has never had anybody in it; you can tell from the cushion.':'The study, after dinner. You are in your chair with a book. They come in without knocking and stand looking at the second armchair, which nobody has sat in since you bought it.'],
+  K76V('You may sit. It is only a chair.'),
+  ['',m?'It is four steps from his. You count them.':'It is four steps from yours. You placed it there last week, with a rule.']],
+ ()=>ask(K73Who(),m?'(Four steps.)':'(They are counting the distance.)',m?[
+  {t:'Drag the chair a step nearer the fire',sub:'which is also a step nearer him',fn:()=>{S.f.e2lStudy='near';save();say([
+   ['','You drag it a step nearer the fire. It makes a terrible noise on the boards. He does not look up, and the hand holding his book goes white at the knuckle.'],
+   K76MV('it was cold over there','what. it was cold over there','What? It was cold over there.','What? It was cold over there. Don’t read into it.'),K76V('I have read nothing into it. I am reading my book.'),
+   ['','His book is upside down. You decide to let him have that one.']],hub)}},
+  {t:'Sit where it is',fn:()=>{S.f.e2lStudy='far';save();say([
+   ['','You sit where it is. Four steps. You take the pistol out of your waistband and lay it on the arm of the chair, because sitting on it hurts the ribs, and he takes the scalpel out of his collar and lays it on the arm of his.'],
+   ['','You read like that for two hours, armed, by a fire. It is the most peaceful evening you have had since you were about nine, and you would rather be shot than tell him.']],hub)}}]:[
+  {t:'Say nothing when they move the chair',fn:()=>{S.f.e2lStudy='near';save();say([
+   ['','They drag it a step nearer the fire. It makes a terrible noise on the boards. You do not look up. You find that your hand has gone white on the book.'],
+   K76MV('it was cold over there','what. it was cold over there','What? It was cold over there.','What? It was cold over there. Don’t read into it.'),K76V('I have read nothing into it. I am reading my book.'),
+   ['','It is some minutes before you observe that the book is upside down. They have observed it already, and said nothing, and you are not certain what you owe them for that.']],hub)}},
+  {t:'Put the scalpel on the arm of your chair',sub:'where they can see it',fn:()=>{S.f.e2lStudy='far';save();say([
+   ['','They sit where it is. They lay the pistol on the arm of the chair, because sitting on it hurts the ribs. You take the scalpel from your collar and lay it on the arm of yours.'],
+   ['','You read like that for two hours, armed, by a fire. You have had this room for eleven years. It is the first evening that it has been used as a room.']],hub)}}]))}
+
+/* ===================================== 4 · THE NIGHT BEFORE THE AUCTION ===================================== */
+function k83Eve(){k77Go('#05060a');k73Mark('e2l_eve',1);const m=k76M(),f=S.f,lov=f.e2lEnd==='lovers';f.e2lEve=1;save();
+ if(lov)return say([
+  ['',m?'The night before the auction. Neither of you is asleep. You are on the floor of his study with the rifle in pieces on a towel, and he is at the desk with his knives laid out in order of size.':'The night before the auction. Neither of you is asleep. They are on the floor of your study with the rifle in pieces on a towel, and you are at the desk with the knives laid out in order of size.'],
+  ['',m?'You notice it at the same time he does. You have been cleaning his pistol. He has been checking the zero on your scope.':'You notice it at the same moment they do. They have been cleaning your pistol. You have been checking the zero on their scope.'],
+  K76MV('this is so embarrassing','this is so embarrassing','This is so embarrassing.','This is so embarrassing. Two days, V. It’s been two days.'),
+  K76V('It is efficient. Each of us is the better judge of the other’s work.'),
+  K76MV('(one: he could die tomorrow. two: i just got him. three: life is so fucking—)','(one: he could die tomorrow. two: i only just got him. three: life is so fucking—)','(One: he could die tomorrow. Two: I only just got him. Three: life is so fucking—)','(One: he could die tomorrow. Two: I have only just got him. Three: life is so fucking—)'),
+  m?K76V('I can hear you counting. Stop at two.'):K76V('(They are counting. I can hear it. I do not have a number system for this; I have only the one fact, and I have had it for two days, and I would like longer.)'),
+  ['',m?'You stop at two. He hands you the scope. You hand him the pistol. You do not say be careful, and he does not. Neither of you has ever been.':'You hand them the scope. They hand you the pistol. You do not say be careful, and they do not. Neither of you has ever been.']],hub);
+ say([
+  ['',m?'The night before the auction. Under the terms you prepare in separate rooms: you in the spare room with the rifle, him in the study with the knives, and the door between left open, so that each of you can hear what the other is doing.':'The night before the auction. Under the terms you prepare in separate rooms: they in the spare room with the rifle, you in the study with the knives, and the door between left open, so that each of you can hear the other.'],
+  ['',m?'You hear every blade go across the stone. He must hear every round go into the magazine. You count his; he is certainly counting yours.':'You hear every round go into the magazine. They must hear every blade go across the stone. You count theirs. They are certainly counting yours.'],
+  K76MV('(five rounds. he heard five. tomorrow if i fire six he’ll know one was for him)','(five rounds. he heard five. tomorrow, if i fire six, he’ll know one was for him)','(Five rounds. He heard five. Tomorrow, if I fire six, he’ll know one was for him.)','(Five rounds; he heard five. If I fire six tomorrow, he will know that one was meant for him.)'),
+  m?['','You load five. Then you hold the sixth in your fist for a long time, and put it back in the box, loudly, so that he hears that too.']:K76V('(Five. I heard a sixth taken up, and then put back in the box, with some noise. They wished me to hear it.)'),
+  K76V('(through the door) Thank you.'),
+  K76MV('(through the door) for what','(through the door) for what','(through the door) For what?','(through the door) For what? I didn’t do anything.'),
+  K76V('(through the door) For that.'),
+  ['','That is the whole of what is said. Under the terms it is a great deal.']],hub)}
+(function(){try{if(typeof K73B==='undefined'||typeof k76Card!=='function')return;const at=id=>K73B.findIndex(b=>b.id===id);
+ const b={id:'e2l_eve',t:()=>'The night before the auction',sub:()=>'costs time · neither of you is asleep',when:()=>S.phase==='act3'&&!!S.f.e2lEnd&&k73Done('e2l_boat')&&k73Fresh()&&(S.f.e2lEnd!=='rivals'||k73Done('e2l_book')),run:function(){return k76Card('e2l_eve',()=>k83Eve())}};
+ const i=at('e2l_epi');K73B.splice(i<0?K73B.length:i,0,b)}catch(e){}})();
+
+/* ===================================== 5 · A YEAR ON ===================================== */
+const k83EpiOk=()=>{try{return K83()&&S.phase==='epilogue'&&!!S.f.e2lEnd&&k73Done('e2l_epi')&&Object.keys(K83E).some(k=>!(S.f.e2l83||{})[k])}catch(e){return false}};
+const K83E={
+ race:{t:()=>k76H('Race him for a mark','Race them for a mark'),lov:m=>[
+   ['',m?'A man who sells flats with no fire doors. You get to the roof first. He is already in the stairwell below, and you can hear him not hurrying.':'A man who sells flats with no fire doors. They reach the roof first. You are in the stairwell below, and you do not hurry.'],
+   K76MV('mine. clean. one round. ur cooking','mine. clean, one round. you’re cooking','Mine. Clean, one round. You’re cooking.','Mine. Clean, one round, two hundred metres. You are cooking tonight.'),
+   K76V('He did not know why he died.'),
+   K76MV('i told him. i shouted it across the street first. happy?','i told him. i shouted it across the street first. happy?','I told him. I shouted it across the street first. Happy?','I told him, V. I shouted it across the street before I fired. Are you happy?'),
+   ['',m?'He is. You can tell, because he says nothing at all, and takes your rifle case off your shoulder to carry it down.':'You are. You say nothing at all, and take the rifle case off their shoulder to carry it down. A year ago they would not have shouted, and you would not have carried.']],
+  riv:m=>[
+   ['','A man who sells flats with no fire doors. You both want him. Under the terms you meet on the roof and toss for it.'],
+   ['',m?'His coin. Your call. You lose. You stand a metre from him and watch him go down to do it his way, and you do not put a round in the man first to spare him the week.':'Your coin. Their call. They lose. They stand a metre from you and watch you go down to do it your way.'],
+   K76MV('(a year ago i’d have taken it anyway. to piss him off)','(a year ago i’d have taken the shot anyway, just to piss him off)','(A year ago I’d have taken the shot anyway, just to piss him off.)','(A year ago I would have taken the shot anyway, purely to annoy him.)'),
+   m?['','At the stair door he stops, with his back to you. It is the first time he has had his back to you since the Constance. It lasts about a second, and then he remembers, and turns.']:K76V('(At the stair door I found that I had my back to them. I corrected it. I noted that for one second I had not thought to.)')]},
+ table:{t:()=>'Sunday, the long table',lov:m=>[
+   ['','Sunday, the long table, all four. There are two forks at your end now, and nobody remarks on it.'],
+   [RN,'So who won the war. I had money on it.'],
+   K76MV('me','me. obviously','Me. Obviously.','Me, obviously. Ask him.'),K76V('They did.'),
+   [AN,'you’re both still armed at my — at this table. i can see the pistol. i can see the collar'],
+   K76V('It is habit.'),K76MV('it’s foreplay','it’s a hobby','It’s a hobby.','It’s a hobby, Angel. Couples have hobbies.'),
+   ['',m?'Under the table his knee is against yours. It has been there since the soup. You are going to have to think about that later, when you can afford to.':'Under the table your knee is against theirs. It has been there since the soup. You have left it there as one leaves a door unlocked.']],
+  riv:m=>[
+   ['','Sunday, the long table, all four. Under the terms you sit at opposite ends, and the weapons go in the middle of the cloth, where Angel can see them.'],
+   [RN,'It’s like eatin’ at a fuckin’ peace conference.'],
+   [AN,'it’s been a year. one of you could pass the other one the salt'],
+   ['',m?'The salt is at his end. You look at it. He looks at it. Ronin gets up, swearing, walks the length of the table, and puts it down in front of you.':'The salt is at your end. They look at it. You look at it. Ronin gets up, swearing, walks the length of the table, and puts it down in front of them.'],
+   m?K76MV('(i’d have passed it. if he’d asked. he’d have passed it if i’d asked. nobody asked)','(i’d have passed it if he’d asked. he’d have passed it if i’d asked. nobody asked)','(I’d have passed it if he’d asked. He’d have passed it if I’d asked. Nobody asked.)','(I would have passed it if he had asked. He would have passed it if I had asked. Nobody asked.)'):K76V('(I would have passed it, had they asked. It did not occur to either of us that we were permitted to ask.)')]},
+ hound:{t:()=>'The old hound',lov:m=>[
+   ['',m?'The old hound cannot manage the back stair any longer. V carries him up at night, all of him, like a calf, and puts him down on your side of the bed.':'The old hound cannot manage the back stair any longer. You carry him up at night and put him down on their side of the bed, where he has decided that he sleeps.'],
+   K76MV('he’s fifteen','he’s fifteen now','He’s fifteen now.','He’s fifteen now. That’s old, for one that size.'),K76V('I know how old he is.'),
+   K76MV('u going to be ok','are you going to be ok. when','Are you going to be okay? When.','Are you going to be okay, when it happens?'),
+   K76V('No.'),
+   ['',m?'He says it like a weather report. Then he sits down on the floor by the bed, in his good trousers, with one hand on the hound’s ribs, and you get down there with him. There is nothing else in his whole house that you can shoot for him.':'You sit down on the floor by the bed, with one hand on the hound’s ribs. They get down beside you. Neither of you is any use to the other with this, and they stay regardless.']],
+  riv:m=>[
+   ['',m?'The old hound is at your trailer door at six in the morning. He has walked it, on that hip, from the house. It is four kilometres.':'The old hound is not in the kennel at six. On the gate camera he is going down the drive, alone, on that hip, in the direction of the trailer lot. It is four kilometres.'],
+   ['',m?'You let him in. He gets up on your bed, which takes three tries, and lies down with a sigh you have counted before, through a door.':'You do not go after him. You sit in the car at the end of their lane for the whole morning, where the terms allow, and watch the trailer door, which stays shut with him behind it.'],
+   m?K76V('(text) He is with you.'):K76V('(text) He is with you.'),
+   K76MV('(text) yeah. he walked','(text) yeah. he walked the whole way'),
+   K76V('(text) Keep him as long as he likes. I will bring his food to the gate and leave it.'),
+   m?K76MV('(he could’ve come in. i’d have let him in. it’s the HOUND, he could’ve come in for the hound)','(he could have come in. i’d have let him. it’s the hound, he could have come in for the hound)','(He could have come in. I’d have let him. It’s the hound; he could have come in for the hound.)','(He could have come in. I would have let him. It is the hound; he could have come in for the hound.)'):K76V('(I could have gone to the door. They would have opened it, for him. I have gone over the terms, and there is nothing in them that forbids it, and I stayed in the car.)')]}};
+function k83Epi(){const m=k76M(),F=(S.f.e2l83=S.f.e2l83||{}),lov=S.f.e2lEnd==='lovers';
+ const o=Object.keys(K83E).filter(k=>!F[k]).map(k=>({t:K83E[k].t(),fn:()=>{spend();S.done.k83act=1;F[k]=1;save();k77Go('#09080b');say((lov?K83E[k].lov:K83E[k].riv)(m),hub)}}));
+ ask(K73Who(),m?'(a year on.)':'(A year on.)',o.concat([{t:'Not today',fn:hub}]))}
+
+/* ===================================== 6 · MORE QUESTIONS ===================================== */
+if(typeof K82_QM!=='undefined')K82_QM.push(
+ {q:'“what’s ur actual name”',a:()=>[
+  K76V('You know it. You have it in the server.'),
+  K76MV('that’s a letter','that’s a letter, not a name','That’s a letter, not a name.','That is a letter, V. It is not a name.'),
+  K76V('It is what is left when one takes everything off that was not mine. I kept the first letter. It seemed enough.'),
+  K76MV('(i wrote in “march”. he kept one letter. we’re both about four characters long)')]},
+ {q:'“have u ever been wrong. in the book”',a:()=>[
+  K76V('Once. I crossed him out. It is the only crossing-out, and it is on your page.'),
+  K76MV('on MINE','on my page?','On my page?','On my page? Who was he?'),
+  K76V('A man I had charged to you, on poor evidence. I was not sure. So I struck him, and I do not strike things, and I have looked at the line every day since.'),
+  K76MV('(he was fair. to me. in the book where he was going to kill me. what am i supposed to DO with that)','(he was fair to me. in the book where he was going to kill me. what am i supposed to do with that)','(He was fair to me. In the book where he was going to kill me. What am I supposed to do with that?)','(He was fair to me, in the very book in which he meant to kill me. What am I supposed to do with that?)')]},
+ {q:'“why’d u really come in. at the river”',a:()=>[
+  ['','He takes a long time. You have never seen him take a long time over an answer.'],
+  K76V('I have given Ronin one reason and myself another. Neither of them was true.'),
+  K76V('I do not have the true one in a form that I can say. If I find it, you will be told. I would ask you not to guess at it.'),
+  K76MV('ok','ok. i won’t','Okay. I won’t.','Okay. I won’t guess.'),
+  K76MV('(i’m guessing. i can’t stop guessing)')]},
+ {q:'“are u scared of anything”',a:()=>[
+  K76V('Of being a man who does it for pleasure. I check, each time.'),
+  K76MV('and?','and? are u','And? Are you?','And? What do you find?'),
+  K76V('Not yet. I thought that I would enjoy you. I have been very much relieved.'),
+  K76MV('that’s the worst compliment anyone’s ever given me','that is the worst compliment i’ve ever had','That is the worst compliment I’ve ever had.','That is the worst compliment anybody has ever paid me, and I’ve been called a scalper.')]});
+if(typeof K82_QV!=='undefined')K82_QV.push(
+ {q:'“Why did you come to my door? Of every door.”',a:()=>[
+  K76MV('idk','i don’t know','I don’t know.','I don’t know.'),
+  K76MV('…bc nobody gets through it. i tried all week. if i couldn’t get in, they couldn’t','…because nobody gets through it. i tried all week. if i couldn’t, they couldn’t','…Because nobody gets through it. I tried all week. If I couldn’t, they couldn’t.','…Because nobody gets through it. I had tried all week. If I could not get in, nobody could.'),
+  K76V('You came to the one house in the city that you had found impregnable, because I had made it so against you.'),
+  K76MV('yeah. don’t make it a thing','yeah. don’t make it a thing','Yeah. Don’t make it a thing.','Yes. Do not make it into a thing.'),
+  K76V('(It is the only use that anybody has ever had for what I am.)')]},
+ {q:'“Do you remember saying thank you?”',a:()=>[
+  ['','You should not have asked it. You watch them go somewhere else behind the eyes, and then come back.'],
+  K76MV('every one','every fucking one','Every fucking one.','Every one of them. Forty-one.'),
+  K76MV('do u','do you','Do you?','Do you?'),
+  K76V('Yes.'),
+  K76MV('then we’re even. we’ve both got to carry it','then we’re even. we both have to carry it','Then we’re even. We both have to carry it.','Then we are even. We both have to carry it about.'),
+  K76V('(It is the first debt between us that either of us has called even.)')]},
+ {q:'“What will you do, after the case?”',a:()=>[
+  K76MV('work. rent’s still four hundred','work. rent’s still four hundred','Work. Rent’s still four hundred.','Work. The rent is still four hundred a month.'),
+  K76V('I could—'),
+  K76MV('don’t','don’t. don’t u dare offer','Don’t. Don’t you dare offer.','Don’t. Don’t you dare offer me money, V.'),
+  K76V('I was going to say that I could tell you what each of them had done, beforehand. So that you might decide.'),
+  ['','They do not have anything to say to that. You have not seen it happen before.']]},
+ {q:'“Have you ever been afraid of me?”',a:()=>[
+  K76MV('first week? no. u were a rich guy with dogs','the first week? no. you were a rich guy with dogs','The first week? No. You were a rich guy with dogs.','In the first week? No. You were a rich man with large dogs.'),
+  K76MV('in the room downstairs. yeah. but that wasn’t u. that was a guy with ur face','in the room downstairs, yes. but that wasn’t you. that was a guy with your face','In the room downstairs, yes. But that wasn’t you. That was a guy with your face.','In the room downstairs, yes. But that was not you; that was somebody with your face on.'),
+  K76V('And now?'),
+  K76MV('…next question','…ask me another one','…Ask me another one.','…Ask me a different one.'),
+  K76V('(That was an answer. I am not certain which.)')]});
+
+/* ===================================== ENDINGS ===================================== */
+const _xe83=extraEnding;extraEnding=function(){const L=_xe83();try{if(!S||!S.f||S.f.e2l!==1||S.rom||S.vrom||S.f.k28pair)return L;const f=S.f,E=f.e2l83||{};
+ if(k73Done('e2l_gone3'))L.push('While Misaki was held, the black hound put their shoe on V’s pillow and would not get off the bed. V slept in the chair.');
+ if(f.e2lGone2==='door')L.push('The night V let Ronin drive his car was the night he was looking for Misaki.');
+ if(f.e2lStudy)L.push('There are two armchairs in V’s study. For eleven years one of them had never been sat in.');
+ if(f.e2lEve&&f.e2lEnd==='rivals')L.push('The night before the auction Misaki loaded five rounds, and put the sixth back in the box loudly enough for V to hear.');
+ if(E.hound)L.push(f.e2lEnd==='lovers'?'V carries the old hound up the back stair every night, and puts him down on Misaki’s side.':'The old hound walked four kilometres to Misaki’s trailer on his bad hip. V brings his food to the gate.');
+ if(E.table&&f.e2lEnd==='rivals')L.push('At Sunday dinner Ronin still has to carry the salt from one end of the table to the other.')}catch(e){}return L};
+/* ===KC83-END=== */
 
 /* ===================== kc99: last module — topic sync =====================
    Several modules push talk topics onto TDTOP_V/TDTOP_M only; the talk menu reads TOPICS_V/TOPICS_M.
