@@ -26,7 +26,7 @@ let runs=0,fails=0;const ok=(c,m)=>{runs++;if(!c){fails++;console.log('FAIL',m)}
    if(ph==='act2'){S.day=Math.max(S.day,(S.act2Start||0)+2);KD();S.kd.t0=S.day-9;S.kd.med=0}
    if(ph==='act3'&&S.a3)S.day=S.a3.start+3;
    if(o.day)S.day=o.day;S.slot=1;S.aff=Math.min(S.aff,40);
-   if(o.e2l!==0){S.f.e2l=1;S.f.e2lAsk=1;S.f.e2ld={e2l_mark:1};(o.done||[]).forEach(x=>S.f.e2ld[x]=1);if(!o.raw90){if((o.done||[]).includes('e2l_kennel'))S.f.e2ld.e2l_bucket=1;if((o.done||[]).includes('e2l_pair'))S.f.e2ld.e2l_table=1}if((o.done||[]).includes('e2l_after')&&!o.raw){S.f.e2ld.e2l_room=1;S.f.e2ld.e2l_thurs=1;S.f.e2ld.e2l_marks=1}if((o.done||[]).includes('e2l_boat')&&!o.raw)S.f.e2ld.e2l_eve=1;S.f.e2lLast=0;S.f.e2l74={}}Object.assign(S.f,o.f||{});save();window.__hubbed=0}});
+   if(o.e2l!==0){S.f.e2l=1;S.f.e2lAsk=1;S.f.e2ld={e2l_mark:1};(o.done||[]).forEach(x=>S.f.e2ld[x]=1);if(!o.raw90){if((o.done||[]).includes('e2l_kennel'))S.f.e2ld.e2l_bucket=1;if((o.done||[]).includes('e2l_pair'))S.f.e2ld.e2l_table=1}if((o.done||[]).includes('e2l_after')&&!o.raw){S.f.e2ld.e2l_room=1;S.f.e2ld.e2l_thurs=1;S.f.e2ld.e2l_marks=1;S.f.e2ld.e2l_green=1}if((o.done||[]).includes('e2l_boat')&&!o.raw)S.f.e2ld.e2l_eve=1;S.f.e2lLast=0;S.f.e2l74={}}Object.assign(S.f,o.f||{});save();window.__hubbed=0}});
  const ev=(f,a)=>p.evaluate(f,a);
  const drive=async picks=>{let i=0;for(let k=0;k<300;k++){const r=await ev(pk=>{for(let j=0;j<400&&dlg;j++)adv();if(window.__hubbed)return 'hub';
    if(ctrl&&ctrl.box){const os=[...ctrl.box.querySelectorAll('.opt:not(.dis)')];if(os.length){os[Math.min(pk,os.length-1)].click();return 'clicked'}}return dlg?'dlg':'idle'},picks[i]||0);
@@ -40,26 +40,26 @@ let runs=0,fails=0;const ok=(c,m)=>{runs++;if(!c){fails++;console.log('FAIL',m)}
   for(let k=0,i=0;k<200;k++){const r=await ev(pk=>{for(let j=0;j<300&&dlg;j++)adv();if(window.__cb)return 'done';if(ctrl&&ctrl.box){const os=[...ctrl.box.querySelectorAll('.opt:not(.dis)')];if(os.length){os[Math.min(pk,os.length-1)].click();return 'c'}}return 'x'},(picks||[])[i]||0);if(r==='done')return 'done';if(r==='c')i++;await p.waitForTimeout(4)}
   return (await ev(()=>window.__got))?'timeout':'none'};
  /* (a) the infirmary: kc84's scheduler, by setting (full story / injuries only) */
- const ORD={sa:{mc:['ask','rules','s_clothes','hound','s_asks','hand'],mx:['s_book','said','thanks','doctor'],v:['message','s_table','file','form','s_voice','vhand','ronin','s_vent','laugh']},
-  inj:{mc:['ask','rules','i_wrists','hound','i_careful','hand'],mx:['i_snob','said','thanks'],v:['message','i_manner','file','i_third','vhand','ronin','i_scale','laugh']}};
+ const ORD={sa:{mc:['d_line','ask','rules','s_clothes','hound','s_asks'],mx:['s_book','said','thanks','doctor'],v:['d_dose','message','s_table','file','form','s_voice','vhand','ronin','s_vent','laugh']},
+  inj:{mc:['d_line','ask','rules','i_wrists','hound','i_careful'],mx:['i_snob','said','thanks'],v:['d_dose','message','i_manner','file','i_third','vhand','ronin','i_scale','laugh']}};
  for(const mode of ['sa','inj'])for(const comp of [50,0]){await ev(mode=>{META.kdFull=mode==='sa'?1:0},mode);
   await med('m',{comp});const seq=[],slots=[];for(let d=0;d<3;d++)for(const slot of [0,1,2,3]){await ev(([d,slot])=>{S.slot=slot;if(slot===0&&d)S.day++;save()},[d,slot]);const r=await play([1]);if(r==='done')slots.push(slot);seq.push(r)}
   const got=await ev(()=>Object.keys(S.f.e2l84||{}));ok(JSON.stringify(got)===JSON.stringify(ORD[mode].mc)&&!slots.includes(2),`${mode} Misaki cell scenes in order, never in kc73's slot (comp ${comp}): ${got} / slots ${slots}`);ok(await ev(()=>S.f.e2lMedAsk===1),'the message sets its flag');
   for(const o of [1,2]){await med('m',{clar:2,comp});const s2=[];for(let i=0;i<6;i++){await ev(i=>{S.slot=[0,1,3][i%3];if(i===3)S.day++;save()},i);s2.push(await play([o]))}
    const g2=await ev(()=>Object.keys(S.f.e2l84||{}));ok(JSON.stringify(g2)===JSON.stringify(ORD[mode].mx),`${mode} Misaki clear scenes #${o}: ${g2}`)}
-  for(const o of [1,2]){await med('v',{f:o===2?{e2lMedAsk:1}:{}});await ev(()=>{S.f.e2lVM=4;save();window.__k6=[k61Scene,k62Scene,k63Scene];k61Scene=k62Scene=k63Scene=()=>null});for(let i=0;i<12;i++){await ev(i=>{S.slot=i%4;if(i&&i%4===0)S.day++;save()},i);await play([o])}
+  for(const o of [1,2]){await med('v',{f:o===2?{e2lMedAsk:1}:{}});await ev(()=>{S.f.e2lVM=4;save();window.__k6=[k61Scene,k62Scene,k63Scene];k61Scene=k62Scene=k63Scene=()=>null});for(let i=0;i<16;i++){await ev(i=>{S.slot=i%4;if(i&&i%4===0)S.day++;save()},i);await play([o])}
    const g3=await ev(()=>Object.keys(S.f.e2l84||{}));ok(JSON.stringify(g3)===JSON.stringify(ORD[mode].v),`${mode} V scenes #${o}: ${g3}`);await ev(()=>{[k61Scene,k62Scene,k63Scene]=window.__k6})}}
- ok(await ev(()=>{const all=new Set();['mc','mx','v'].forEach(k=>K84_POOLS[k].forEach(e=>all.add(e.id)));return all.size})===25,'twenty-five infirmary scenes in the pools');
+ ok(await ev(()=>{const all=new Set();['mc','mx','v'].forEach(k=>K84_POOLS[k].forEach(e=>all.add(e.id)));return all.size})===27,'twenty-seven infirmary scenes in the pools');
  await ev(()=>{META.kdFull=1});
  await med('v',{slot:1});ok(await play([0])==='none','kc73 goes first in a slot it wants');
  await med('v');await ev(()=>{S.f.e2lVM=4;save();window.__k6=[k61Scene,k62Scene,k63Scene];k61Scene=k62Scene=k63Scene=()=>null});ok(await play([0])==='done'&&await play([0])==='none','one a slot');await ev(()=>{[k61Scene,k62Scene,k63Scene]=window.__k6});
  await ev(()=>__set('v','after',{done:['e2l_door']}));ok(await play([0])==='none','nothing outside the infirmary');
  await med('m',{e2l:0});ok(await play([0])==='none','nothing off the route');
  /* the greyed honest option, the denial count, and the two versions of the beat */
- {await med('m');const d0=await ev(()=>(S.kd.deny||0));await ev(()=>{S.f.e2l84={ask:1,rules:1};S.slot=0;save()});await ev(()=>{window.__cb=0;k80MedScene()(()=>{window.__cb=1})});
+ {await med('m');const d0=await ev(()=>(S.kd.deny||0));await ev(()=>{S.f.e2l84={d_line:1,ask:1,rules:1};S.slot=0;save()});await ev(()=>{window.__cb=0;k80MedScene()(()=>{window.__cb=1})});
   const o=await ev(()=>{for(let j=0;j<300&&dlg;j++)adv();return [...ctrl.box.querySelectorAll('.opt')].map(x=>(x.classList.contains('dis')?'[dis] ':'')+x.textContent)});ok(/^\[dis\] Finish the sum/.test(o[0])&&o.length===2,'the honest option is there, and greyed: '+o.join(' | '));
   await ev(()=>{ctrl.box.querySelector('.opt:not(.dis)').click();for(let j=0;j<300&&dlg;j++)adv()});ok(await ev(d0=>(S.kd.deny||0)===d0+1&&window.__cb===1,d0),'a pretence counts as a denial')}
- for(const mode of ['sa','inj'])for(const pov of ['m','v'])for(const o of [0,1]){await ev(([mode,pov])=>{META.kdFull=mode==='sa'?1:0;__set(pov,'after',{done:['e2l_door','e2l_after','e2l_room'],raw:1})},[mode,pov]);
+ for(const mode of ['sa','inj'])for(const pov of ['m','v'])for(const o of [0,1]){await ev(([mode,pov])=>{META.kdFull=mode==='sa'?1:0;__set(pov,'after',{done:['e2l_door','e2l_after','e2l_room','e2l_green'],raw:1})},[mode,pov]);
   const r0=await ev(()=>{const b=k73Due();const x=b&&sideHub(false).find(x=>x.t==='⚔ '+b.t());if(!x)return 'none:'+(b&&b.id);x.fn();return b.id});const r=await drive([o]);
   const st=await ev(()=>({f:S.f.e2lMarks,last:S.f.e2lLast===S.day,pg:k76Line('e2l_marks')}));
   ok(r0==='e2l_marks'&&r==='hub'&&st.f===(mode==='sa'?['boiler','towels']:['same','differ'])[o]&&!st.last&&st.pg.length>20,`marks ${mode} ${pov} #${o}: ${r0} ${r} ${JSON.stringify(st).slice(0,140)}`)}
@@ -88,14 +88,14 @@ let runs=0,fails=0;const ok=(c,m)=>{runs++;if(!c){fails++;console.log('FAIL',m)}
   await ev(pov=>__set(pov,'act2',{done:['e2l_door','e2l_after','e2l_car']}),pov);let q=0;for(let i=0;i<13;i++){await ev(()=>{S.done={};window.__hubbed=0;k81House()});const has=await ev(()=>[...ctrl.box.querySelectorAll('.opt')].some(o=>/^Ask (him|them) one thing/.test(o.textContent)));if(!has){await ev(()=>{ctrl=null;ui.innerHTML=''});break}ok(await drive([5])==='hub',pov+' question '+i);q++}
   ok(q===12&&await ev(()=>S.f.e2lAskd===12),pov+' twelve questions, then the option goes: '+q)}
  /* (c) beats */
- const B={e2l_room:{ph:'after',done:A,fl:'e2lRoom',v:['sat','sign'],raw:1},e2l_thurs:{ph:'act2',done:A.concat('e2l_room','e2l_marks','e2l_rifle','e2l_fork'),fl:'e2lThurs',v:['stayed','gate'],raw:1,f:{e2lAfter:'war'}},
+ const B={e2l_room:{ph:'after',done:A,fl:'e2lRoom',v:['sat','sign'],raw:1},e2l_thurs:{ph:'act2',done:A.concat('e2l_room','e2l_green','e2l_marks','e2l_rifle','e2l_fork'),fl:'e2lThurs',v:['stayed','gate'],raw:1,f:{e2lAfter:'war'}},
   e2l_eve:{ph:'act3',done:['e2l_will','e2l_boat'],fl:'e2lEve',v:[1,1],raw:1,f:{e2lEnd:'lovers'}},e2l_eve_r:{id:'e2l_eve',ph:'act3',done:['e2l_will','e2l_boat','e2l_book'],fl:'e2lEve',v:[1,1],raw:1,f:{e2lEnd:'rivals'}}};
  for(const key of Object.keys(B))for(const pov of ['m','v'])for(const o of [0,1]){const w=B[key],id=w.id||key;await ev(([pov,w])=>__set(pov,w.ph,{done:w.done,f:w.f,raw:1}),[pov,w]);
   const r0=await ev(()=>{const b=k73Due();const x=b&&sideHub(false).find(x=>x.t==='⚔ '+b.t());if(!x)return 'none:'+(b&&b.id);x.fn();return b.id});const r=await drive([o]);
   const st=await ev(([fl,id])=>({f:S.f[fl],done:!!S.f.e2ld[id],last:S.f.e2lLast===S.day,pg:k76Line(id)}),[w.fl,id]);
   ok(r0===id&&r==='hub'&&st.f===w.v[o]&&st.done&&!st.last&&st.pg.length>20,`${key} ${pov} #${o}: ${r0} ${r} ${JSON.stringify(st).slice(0,160)}`)}
  for(const pov of ['m','v']){await ev(pov=>__set(pov,'act3',{done:['e2l_will','e2l_boat'],f:{e2lEnd:'rivals'},raw:1}),pov);ok(await ev(()=>(k73Due()||{}).id)==='e2l_book',pov+' rivals: the book before the eve');
-  await ev(([pov,d])=>__set(pov,'act2',{done:d,f:{e2lAfter:'soft'},raw:1}),[pov,A.concat('e2l_room','e2l_marks','e2l_rifle')]);ok(await ev(()=>(k73Due()||{}).id)==='e2l_thurs',pov+' Thursday does not need the fork after the kind answer')}
+  await ev(([pov,d])=>__set(pov,'act2',{done:d,f:{e2lAfter:'soft'},raw:1}),[pov,A.concat('e2l_room','e2l_green','e2l_marks','e2l_rifle')]);ok(await ev(()=>(k73Due()||{}).id)==='e2l_thurs',pov+' Thursday does not need the fork after the kind answer')}
  /* while they are held */
  const taken=(pov,o)=>ev(([pov,o])=>{__set(pov,'normal',o||{});S.phase='taken';S.dark=1;S.captor=S.captor||captorOrg();S.takenDay=S.day-1;save()},[pov,o]);
  const G2='^⚔ Midnight: Angel and Ronin',G3='^⚔ Four in the morning: the black hound';
@@ -129,7 +129,7 @@ let runs=0,fails=0;const ok=(c,m)=>{runs++;if(!c){fails++;console.log('FAIL',m)}
  const contr=/\b(?:can|won|don|isn|aren|wasn|weren|doesn|didn|couldn|wouldn|shouldn|hasn|haven|hadn)’t\b|\b(?:I|you|we|they|he|she|it|that|there|what|who|here|let)’(?:s|re|ve|ll|d|m)\b/i;
  const vbad=all.filter(x=>x[0]==='K9'&&contr.test(x[1].replace(/“[^”]*”/g,'')));ok(!vbad.length,'V contractions: '+vbad.slice(0,3).map(x=>x[1]).join(' || '));
  const hb=all.filter(x=>hounds.some(h=>new RegExp('\\b'+h+'\\b').test(x[1])));ok(!hb.length,'hound names: '+hb.slice(0,3).map(x=>x[1]).join(' || '));
- const SHE=/doctor|She says that|She has asked you|cardigan|told her so|the grey hound|She says|She holds out|Angel|she will shoot me|then she’ll shoot|She has the shotgun|She looks at|she is to tell|she was to tell|pale hound|grey hound|She expects|She has lent|her ball|her whole attention|her flank|seen her lend|She means it|she’s gettin|she has finished/;const sb=all.filter(x=>/\b(she|herself)\b/i.test(x[1])&&!SHE.test(x[1])&&!/pawnshop|Tonight’s name|She has been waiting|She buys|She is on my list|she hunts|She keeps them|on my list for two years|what she did|she’s exactly as alive|she is exactly as alive|She is alive|while she |She knew your face|while she hunts|She stays on the line|She has no make-up|she made me|she says it is about/.test(x[1]));ok(!sb.length,'she/herself: '+sb.slice(0,3).map(x=>x[1]).join(' || '));
+ const SHE=/doctor|You tell her|She nods|She looks at you for a moment|She says that|She has asked you|cardigan|told her so|the grey hound|She says|She holds out|Angel|she will shoot me|then she’ll shoot|She has the shotgun|She looks at|she is to tell|she was to tell|pale hound|grey hound|She expects|She has lent|her ball|her whole attention|her flank|seen her lend|She means it|she’s gettin|she has finished/;const sb=all.filter(x=>/\b(she|herself)\b/i.test(x[1])&&!SHE.test(x[1])&&!/pawnshop|Tonight’s name|She has been waiting|She buys|She is on my list|she hunts|She keeps them|on my list for two years|what she did|she’s exactly as alive|she is exactly as alive|She is alive|while she |She knew your face|while she hunts|She stays on the line|She has no make-up|she made me|she says it is about/.test(x[1]));ok(!sb.length,'she/herself: '+sb.slice(0,3).map(x=>x[1]).join(' || '));
  const ub=all.filter(x=>/undefined|NaN|\[object/.test(x[1]));ok(!ub.length,'undefined in text: '+ub.slice(0,3).map(x=>x[1]).join(' || '));
  ok(!pe.length,'page errors: '+pe.slice(0,5).join(' | '));
  console.log(`${all.length} lines checked · page errors: ${pe.length}`);console.log(`${runs-fails}/${runs} checks passed`);await b.close();process.exit(fails?1:0)})();
