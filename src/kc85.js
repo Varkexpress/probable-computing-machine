@@ -130,7 +130,7 @@ const K85S=[
 const k85Key=()=>S.day+'/'+(S.slot||0);
 const k85Day=()=>S.f.e2l85Day===k85Key()?(S.f.e2l85N||0):0;
 const k85List=()=>{try{const sa=k84SA(),m=S.pov!=='v',st=m?(kdClar()<2?'cell':'clear'):null,F=S.f.e2l85||{};
- return K85S.filter(e=>(e.pov==='m')===m&&(!e.mode||(e.mode==='sa')===sa)&&(!e.st||e.st===st)&&!F[e.id])}catch(e){return []}};
+ return K85S.filter(e=>(e.pov==='m')===m&&(!e.mode||(e.mode==='sa')===sa)&&(!e.st||e.st===st)&&(!e.when||e.when())&&!F[e.id])}catch(e){return []}};
 const k85Ok=()=>{try{return K85()&&typeof kdMed==='function'&&kdMed()&&k85List().length>0}catch(e){return false}};
 function k85Room(){const m=S.pov!=='v',all=k85List(),L=all.slice(0,6),full=k85Day()>=3;
  ask(K73Who(),m?(kdClar()<2?'(the room.)':'(the room marked laundry.)'):'(The corridor outside the door marked LAUNDRY.)',L.map(e=>({t:e.t,sub:full?'enough for now':'',dis:full,fn:()=>{const f=S.f;f.e2l85=f.e2l85||{};f.e2l85[e.id]=1;f.e2l85N=k85Day()+1;f.e2l85Day=k85Key();save();
