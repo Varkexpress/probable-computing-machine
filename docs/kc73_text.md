@@ -372,11 +372,11 @@ Reading copy. Misaki's tiered lines show the top tier; "Misaki / V" marks lines 
 
 *You do it the way you do everything on a table: exactly, in order, without speaking. They hold the hand out before you ask. *
 
-**Misaki:** You’re good at this. Better than the other one. Do they rotate you, or is it just you now?
+**Misaki:** The other one wasn’t careful like this. Is it you from now on?
 
 **V:** Hold still.
 
-**Misaki:** I get it. You’re the careful one, so I talk to you. It’s a good system, honestly. I’d have set it up that way myself.
+**Misaki:** I know what the careful one is for. I’ll talk. You don’t have to do the rest of it.
 
 *You tie it off. Your hands are perfectly steady. You put the old dressing in the bin and wash your hands at the little sink, and go on washing them for some time after they are clean.*
 

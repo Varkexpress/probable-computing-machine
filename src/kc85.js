@@ -153,11 +153,11 @@ K85S.push(
  {id:'y_ties',pov:'m',mode:'inj',st:'cell',t:'He has scissors',run:cb=>say([
    ['','The tall one comes in with a pair of scissors. Blunt-ended ones, the kind for dressings.'],
    ['','You hold your wrists out to him, together, one crossed over the other. You do it before you have thought about it. It is how you hold them for the ties, and for the ties coming off, and the second is the better of the two.'],
-   k80Gone()?['','You keep them there, crossed, and look at the floor beside his shoe.']:K76MV('go on. i’ll hold still. i’m good at it','go on. i’ll hold still. i’m really good at it','Go on. I’ll hold still. I’m really good at it.','Go on, then. I’ll hold still. I’m really good at holding still, ask anybody.'),
+   k80Gone()?['','You keep them there, crossed, and look at the floor beside his shoe.']:K76MV('i’ll hold still','i’ll hold still','I’ll hold still.','I’ll hold still. I won’t make it hard.'),
    ['','He looks at the crossed wrists. He puts the scissors down on the counter, very carefully, as if they had turned into something else in his hand.'],
    K76V('They were for the tape on your drip. I ought to have said so first.'),
    ['','He takes one wrist in each of his hands and moves them apart, and lays them on the blanket, a foot from each other. Then he does the tape.'],
-   K76MV('(weird guy. who says what the scissors are for)','(weird guy. who tells you what the scissors are for)','(Weird guy. Who tells you what the scissors are for?)','(Weird guy. Who actually tells you what the scissors are for?)')],cb)},
+   K76MV('(he said what they were for. they never say what it’s for. why’s he want me to know)','(he said what they were for. they never say what it’s for. why does he want me to know?)','(He said what they were for. They never say what it’s for. Why does he want me to know?)','(He said what they were for. They never say what a thing is for. Why does he want me to know?)')],cb)},
  {id:'z_name',pov:'m',mode:null,st:'clear',t:'Your name, in the corridor',run:cb=>say([
    ['','You hear him in the corridor, talking to somebody about the dressings. He says your name.'],
    ['','You have heard him say it before. In the server, in the lift, across a kitchen: he says it like an item, the way he would say “the doorman”. That is not how he has just said it.'],

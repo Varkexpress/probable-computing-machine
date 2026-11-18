@@ -116,8 +116,8 @@ function k90N2mINJ(cb){say([
   M2('(he only took the dead bit. …why’d he only take the dead bit)','(he only took the dead bit. …why did he only take the dead bit?)'),
   N('He is at the basin with his back to you, and his shoulders are going up and down. It takes you a moment to understand that he is trying not to be sick.')],
  ()=>{S.f.e2lN2=1;save();say([
-  M2('(over THAT? he feeds people to dogs. what’s wrong with him)','(over that? he feeds people to dogs. what’s wrong with him?)'),
-  N('You pull the wrist back under the blanket, where he will not have to look at it. It is the first thing you have done in that room that was not for your own sake, and you do not notice that you have done it.')],cb)})}
+  M2('(it made him sick. i’m making him sick. that’s not good. u don’t want to be the thing that turns his stomach)','(it made him sick. i’m making him sick. that’s not good. you don’t want to be the thing that turns his stomach)'),
+  N('You pull the wrist back under the blanket, quickly, to get it out of his sight. Goods that disgust the buyer do not get kept.')],cb)})}
 function k90N2vINJ(cb){say([
   N('You take the dressing off the left wrist and the smell comes up at you. It is sweet. It is the smell of the cold room in summer, on the fourth day of a man, when the ice has not been kept up.'),
   N('It is coming from somebody who is alive, and who is watching your hands.'),
@@ -132,7 +132,8 @@ function k90N2vINJ(cb){say([
   N('When it is clean you irrigate it and dress it, and turn off the lamp. You get as far as the basin.')],
  ()=>{S.f.e2lN2=1;save();say([
   N('Behind you, the blanket moves. When you turn round they are back, and looking at you, and they have drawn the wrist in under the covers, out of your sight.'),
-  K76V('(They have hidden it from me. To spare me. They believe that I mean to kill them an inch at a time, and they have covered the wound so that I need not look at it.)'),
+  K76V('(They have hidden it. They saw me at the basin, and they have concluded that the sight of them offends me, and that it will be counted against them.)'),
+  K76V('(I was sick at what was done. They have taken it for disgust at what they are.)'),
   N('You empty the dish into the furnace yourself. You do not give it to the hounds. That is the first thing of that kind which you have ever burned.')],cb)})}
 /* ---------- III · the drain ---------- */
 function k90N3m(cb){say([

@@ -90,8 +90,8 @@ shown in what he does:
 3. **The hounds at night.** Through the vent she asks the door, politely, to keep the light on; in her head the door
    is him. He takes all four hounds out in the rain to the far wall until three. On the worst route he does it every
    night after.
-4. **The dressing.** He changes it coldly and exactly. She reads his care as technique (“you're the careful one, so I
-   talk to you; it's a good system”). He washes his hands long after they are clean and tells himself it keeps the
+4. **The dressing.** He changes it coldly and exactly. She reads his care as technique (“I know what the careful one is
+   for. I'll talk. You don't have to do the rest.”). He washes his hands long after they are clean and tells himself it keeps the
    debt collectable. In the `gone` band she does not speak at all.
 
 Misaki, while the room is a cell:

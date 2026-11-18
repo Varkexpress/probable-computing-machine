@@ -170,9 +170,9 @@ Reading copy. Misaki's lines show the fuller tier; ▸ marks a choice, struck th
 
 *He is at the basin with his back to you, and his shoulders are going up and down. It takes you a moment to understand that he is trying not to be sick.*
 
-**Misaki:** (over that? he feeds people to dogs. what’s wrong with him?)
+**Misaki:** (it made him sick. i’m making him sick. that’s not good. you don’t want to be the thing that turns his stomach)
 
-*You pull the wrist back under the blanket, where he will not have to look at it. It is the first thing you have done in that room that was not for your own sake, and you do not notice that you have done it.*
+*You pull the wrist back under the blanket, quickly, to get it out of his sight. Goods that disgust the buyer do not get kept.*
 
 ### Night II · injuries only · V
 
@@ -200,7 +200,9 @@ Reading copy. Misaki's lines show the fuller tier; ▸ marks a choice, struck th
 
 *Behind you, the blanket moves. When you turn round they are back, and looking at you, and they have drawn the wrist in under the covers, out of your sight.*
 
-**V:** (They have hidden it from me. To spare me. They believe that I mean to kill them an inch at a time, and they have covered the wound so that I need not look at it.)
+**V:** (They have hidden it. They saw me at the basin, and they have concluded that the sight of them offends me, and that it will be counted against them.)
+
+**V:** (I was sick at what was done. They have taken it for disgust at what they are.)
 
 *You empty the dish into the furnace yourself. You do not give it to the hounds. That is the first thing of that kind which you have ever burned.*
 

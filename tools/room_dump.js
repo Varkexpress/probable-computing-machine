@@ -6,11 +6,11 @@ const out=[];const who={'':null,K9:'V',hitmeuppp:'Misaki',RN:'Ronin',AN:'Angel'}
 const line=l=>{if(!l)return;const w=who[l[0]];out.push(w?`**${w}:** ${l[1]}`:`*${l[1]}*`);out.push('')};
 const ctx={RN:'RN',AN:'AN',K76V:t=>['K9',t],K76MV:(...a)=>['hitmeuppp',a[a.length-1]],k80Gone:()=>false,S:{f:{}},K85S:[],
  k84No:(t,why)=>({t,dis:1,why}),k84Deny:()=>{},K85:()=>true,
- hub:()=>{},extraEnding:()=>[],save:()=>{},apply:()=>{},k77Go:()=>{},k73Mark:()=>{},go:()=>{},cutBg:()=>({}),K73Who:()=>'',__m:true,k76M:()=>ctx.__m,k76H:(a,b)=>ctx.__m?a:b,k84SA:()=>true,K86:()=>true,K84_POOLS:{mc:[],v:[]},K90:()=>true,K91:()=>true,
+ hub:()=>{},extraEnding:()=>[],save:()=>{},apply:()=>{},k77Go:()=>{},k73Mark:()=>{},go:()=>{},cutBg:()=>({}),K73Who:()=>'',__m:true,k76M:()=>ctx.__m,k76H:(a,b)=>ctx.__m?a:b,k84SA:()=>true,K86:()=>true,K84_POOLS:{mc:[],v:[]},K90:()=>true,K91:()=>true,K92:()=>true,k85Room:undefined,
  ask:(w,hint,opts)=>{out.push(hint);out.push('');opts.forEach(o=>{out.push(o.dis?`- ▸ ~~${o.t}~~ (greyed: ${o.why||'they are not going to'})`:`- ▸ ${o.t}`);out.push('');if(!o.dis&&o.fn)o.fn()})},
  say:(L,cb)=>{L.filter(Boolean).forEach(line);if(cb)cb()}};
 vm.createContext(ctx);
-const helpers=n==='86'?'':fs.readFileSync(path.join(__dirname,'..','src','kc86.js'),'utf8').split('/* ===================================== MISAKI')[0]+(n==='89'||n==='88'||n==='90'||n==='91'||n==='92'?'\nconst k87Pick=(who,hint,no,why,yes,after)=>cb=>ask(who,hint,[k84No(no,why),{t:yes,fn:()=>{k84Deny();say(after.filter(Boolean),cb)}}]);':'');
+const helpers=n==='86'?'':fs.readFileSync(path.join(__dirname,'..','src','kc86.js'),'utf8').split('/* ===================================== MISAKI')[0]+(n==='89'||n==='88'||n==='90'||n==='91'||n==='92'||n==='93'?'\nconst k87Pick=(who,hint,no,why,yes,after)=>cb=>ask(who,hint,[k84No(no,why),{t:yes,fn:()=>{k84Deny();say(after.filter(Boolean),cb)}}]);':'');
 vm.runInContext(helpers+'\n'+src+'\n;globalThis.__P=K85S;'+(n==='91'?'globalThis.__line=k91_line;globalThis.__dose=k91_dose;':''),ctx);
 const lab={m:'Misaki',v:'V'},md={sa:'full story',inj:'injuries only',null:'either setting'};
 console.log(`# New text (kc${n})\n\nReading copy. Misaki's lines show the fuller tier; ▸ marks a choice, struck through where it is greyed. Design notes: docs/notes_kc86_88.md.\n`);

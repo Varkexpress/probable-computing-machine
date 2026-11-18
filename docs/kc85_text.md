@@ -241,7 +241,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *You keep them there, crossed, and look at the floor beside his shoe.*
 
-**Misaki:** Go on, then. I’ll hold still. I’m really good at holding still, ask anybody.
+**Misaki:** I’ll hold still. I won’t make it hard.
 
 *He looks at the crossed wrists. He puts the scissors down on the counter, very carefully, as if they had turned into something else in his hand.*
 
@@ -249,7 +249,7 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 *He takes one wrist in each of his hands and moves them apart, and lays them on the blanket, a foot from each other. Then he does the tape.*
 
-**Misaki:** (Weird guy. Who actually tells you what the scissors are for?)
+**Misaki:** (He said what they were for. They never say what a thing is for. Why does he want me to know?)
 
 
 ### z\_name
