@@ -10,9 +10,7 @@
      thin  (7+)             somebody else's grudge; the rent receipt; his step, and nothing gets up
      gone                   facing the wall; the kid on the bench; “somewhere stupid”
    Delivery: an outer wrap of hub that plays the route's scene and marks the day, so that kc51's does not.
-   NOT changed, on purpose: the spiral, the bright turn and what follows (kc50–kc52). Those scenes are about a death
-   and were written with great care; they should be redone by the author, or with the author, and not re-voiced
-   into bravado. On the enemies route they still play as written.
+   The ending itself (the last night, the interrupted version, and V afterwards) is kc98.
    Rules: unnamed city, hounds unnamed, no new named characters, Misaki via MV and they/them. No method, ever.
    Notes: docs/notes_kc96.md. Test: node tools/k97_test.js */
 const K97=()=>{try{return typeof K96==='function'&&K96()}catch(e){return false}};

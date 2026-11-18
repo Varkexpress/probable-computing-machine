@@ -118,11 +118,7 @@ the insults fewer; then somebody else's grudge, and his step in the passage with
 the kid on the bench, and “somewhere stupid”, the one promise they are sorry not to keep. `k97Mind`, an outer wrap
 of `hub`; test `tools/k97_test.js`.
 
-**Still as written, on purpose.** The spiral, the bright turn and what follows (kc50–kc52). They are about a death,
-they never show a method, and they were written with great care for the normal route. Re-voicing them into bravado
-would be the wrong thing to do to them. On the enemies route they play as they are, which means that the last
-scenes of the worst route still speak of V as somebody Misaki loves. That needs the author's decision: write an
-enemies-route version of the ending, or keep the worst route off this route.
+**The ending.** The author chose to have an enemies-route version written: see `docs/notes_kc98.md`.
 
 Also unchanged: `k_knife`, `k_ran`, `k_wash`, `p_under`, `k_hound`, `d_two`, `d_late`, `p_name`, `g_shoe` (already in
 this register), the drip's opening scene (kc91), and the third night, which is after Misaki is clear.
