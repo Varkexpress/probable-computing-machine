@@ -29,13 +29,13 @@ const k76Did=id=>{try{const f=S.f;if(id==='e2l_yard')return !!f.e2lLoose;if(id==
 const K76CH=[
  {n:'I',t:'THE OATH',ph:['normal'],ids:['e2l_mark','e2l_eye','e2l_show','e2l_lift','e2l_kennel','e2l_yard','e2l_sab','e2l_dinner','e2l_truce']},
  {n:'II',t:'THE DEBT',ph:['taken','after'],ids:['e2l_come','e2l_door','e2l_med','e2l_after','e2l_rifle','e2l_fork']},
- {n:'III',t:'THE CASE',ph:['act2'],ids:['e2l_car','e2l_list','e2l_stitch','e2l_pair','e2l_spar']},
- {n:'IV',t:'THE TERMS',ph:['act3'],ids:['e2l_will','e2l_boat','e2l_book']},
+ {n:'III',t:'THE CASE',ph:['act2'],ids:['e2l_car','e2l_list','e2l_stitch','e2l_pair','e2l_spar','e2l_know','e2l_test']},
+ {n:'IV',t:'THE TERMS',ph:['act3'],ids:['e2l_row','e2l_guard','e2l_will','e2l_boat','e2l_book']},
  {n:'V',t:'A YEAR ON',ph:['epilogue'],ids:['e2l_morn','e2l_epi','e2l_page']}];
 const K76NAME={e2l_mark:'The card man',e2l_eye:'The trailer, at four',e2l_show:'The cold room',e2l_lift:'The customs-house lift',e2l_kennel:'The kennel, at three',
  e2l_yard:'The warehouse yard',e2l_sab:'The foundation dinner',e2l_dinner:'Angel’s table',e2l_truce:'The bowling alley accords',e2l_come:'The river',e2l_door:'The door',
  e2l_med:'The room marked LAUNDRY',e2l_after:'The kitchen, at noon',e2l_car:'Eight hours in a car',e2l_stitch:'The garage, with a needle',e2l_pair:'The first one together',
- e2l_spar:'The training hall',e2l_boat:'The Constance',e2l_morn:'The morning after',e2l_epi:'The anniversary',e2l_rifle:'The rifle',e2l_fork:'The fork',e2l_list:'The fourth body',e2l_will:'The wills',e2l_book:'The book closes',e2l_page:'The page'};
+ e2l_spar:'The training hall',e2l_boat:'The Constance',e2l_morn:'The morning after',e2l_epi:'The anniversary',e2l_rifle:'The rifle',e2l_fork:'The fork',e2l_list:'The fourth body',e2l_will:'The wills',e2l_book:'The book closes',e2l_page:'The page',e2l_know:'Nine minutes',e2l_test:'The parapet',e2l_row:'The corridor',e2l_guard:'Pier Six'};
 const k76Ids=c=>c.ids.filter(k76Has);
 const k76ChOf=id=>K76CH.find(c=>c.ids.includes(id))||null;
 const k76ChNow=()=>K76CH.find(c=>c.ph.includes(S.phase))||K76CH[0];
@@ -45,6 +45,8 @@ const k76Tal=()=>{const t=S.f.e2lTally||{};return {m:t.m||0,v:t.v||0}};
 function k76Stand(){const f=S.f,m=k76M(),t=k76Tal(),p=S.phase;
  if(f.e2lEnd==='lovers')return m?'He declared it on the Constance and you accepted. His page on you is still in the ledger, and he has stopped trying to total it.':'You declared it on the Constance and they accepted. Their page is still in your ledger. You have stopped trying to total it.';
  if(f.e2lEnd==='rivals')return m?'The oath stands, under truce. Neither of you acts on it unless the other moves first, and both of you watch for it.':'The oath stands, under truce. Neither of you acts on it unless the other moves first. You watch for it daily.';
+ if(f.e2lRow&&p!=='epilogue')return m?'You are not going to kill him. You are certain he would still kill you, on the day his book says. You sleep in the trailer with both bolts on, and he sleeps behind a locked door.':'You are not going to kill them. You are certain they would still kill you, on the day somebody pays. Your door is locked, and they are back in the trailer behind two bolts.';
+ if(f.e2lKnow&&p!=='epilogue')return m?'You are not going to kill him. You are certain he would still kill you without a second thought; it is in his book in ink. He must not find out the first part.':'You are not going to kill them. You are certain they would still kill you without a second thought, for a price. They must not find out the first part.';
  if(p==='normal')return (m?'He has sworn in his ledger to kill you, slowly, and you have sworn it back. Both of you mean it. ':'You have sworn in your ledger to kill them, and they have sworn it back. Both of you mean it. ')+(t.m+t.v?'Attempts so far: Misaki '+t.m+', V '+t.v+'.':'Nobody has drawn blood yet.');
  if(p==='taken')return m?'Somebody else has you. The man who swore to kill you is the one looking.':'Somebody else has them. Their name is in your ledger, and you are the one looking.';
  if(S.kd&&S.kd.med)return m?'You are in his house and cannot close your left hand. By his law he could finish it tonight.':'They are under your roof and cannot close their left hand. By your own law you could close the account tonight.';
@@ -65,6 +67,7 @@ function k76Next(){const f=S.f,m=k76M(),p=S.phase;
  const fresh=(()=>{try{return k73Fresh()}catch(e){return true}})(),tom='The next move is tomorrow. One a day.';
  if(p==='after')return left(K76CH[1])?(k73Done('e2l_after')?(fresh?'The next move is not ready yet.':tom):(m?'The next move comes a few days after you are out of the infirmary.':'The next move comes a few days after they are out of the infirmary.')):'Nothing more until the case opens.';
  if(p==='act2')return left(K76CH[1])+left(K76CH[2])?'The next move is tomorrow. One a day, while the case runs.':'Every move of the case is made. Nothing more until Pier Nine.';
+ if(p==='act3'&&!k73Done('e2l_boat')&&!fresh&&K73B.some(b=>!k73Done(b.id)&&['e2l_know','e2l_test','e2l_row','e2l_guard'].includes(b.id)&&k73Done('e2l_car')))return tom;
  if(p==='act3')return !k73Done('e2l_boat')?(k76Did('e2l_will')||!k76Has('e2l_will')?'The next move is at Pier Nine, two nights before the auction.':'The next move comes once the auction is a day nearer.'):(left(K76CH[3])?tom:(f.e2lEnd==='lovers'&&!S.seen.e2l_morn?'The morning after comes on its own.':'It is settled until the anniversary.'));
  return left(K76CH[4])?(fresh?'The anniversary comes on its own.':tom):'That is all of it.'}
 const k76Short=()=>{const c=k76ChNow(),n=k76Count(c);return 'The war · '+c.n+' · '+c.t.charAt(0)+c.t.slice(1).toLowerCase()+' · '+n.done+' of '+n.of};
@@ -191,6 +194,13 @@ function k76Line(id){const f=S.f,m=k76M(),self=!!f.selfEscape;switch(id){
   :f.e2lPage==='kept'?(m?'He gave you the page with a date where the total goes. It is in the go-bag.':'Gave them the page, dated where the total goes. They kept it.')
   :f.e2lPage==='wrote'?(m?'This year’s line on your page said NOTHING. You wrote STILL COULD under it.':'This year’s line: NOTHING. They wrote under it, in their hand: STILL COULD.')
   :(m?'This year’s line on your page said NOTHING. You handed it back.':'This year’s line: NOTHING. The ledger was closed.');
+ case 'e2l_know':return m?'You had his back in your scope for nine minutes and spent them keeping him alive. '+(f.e2lKnow==='watch'?'The pistol went back under your pillow that night.':'You were as horrible to him as ever, so that he would not know.')
+  :'Stood nine minutes with my back to their rifle, and felt covered. '+(f.e2lKnow==='watch'?'Locked my bedroom door that night.':'Changed nothing that they could notice.');
+ case 'e2l_test':return m?'You sat on a parapet with your back to him to find out. He pulled you off it. '+(f.e2lTest==='laughed'?'You laughed at him, so as not to ask.':'You came up with the pistol out, and he sounded relieved.')
+  :'They sat on a parapet with their back to me, as a test. I pulled them off it. '+(f.e2lTest==='laughed'?'They saw that I was frightened.':'They drew on me. It was simpler.');
+ case 'e2l_row':return f.e2lRow==='said'?(m?'Two in the morning, both armed. You told him you would not. He said it was what he would say. He will not cross the name out, and you will not hand over the rifle.':'Two in the morning, both armed. I told them I would not. They said it was what they would say. They will not give up the rifle, and I do not cross things out.')
+  :(m?'Two in the morning, both armed. You let him think you would, and he nodded. You went back to the trailer.':'Two in the morning, both armed. I let them think I would. They went back to the trailer.');
+ case 'e2l_guard':return m?'Pier Six. You were watching him and not the gantry, and a watchman put a boat hook through his shoulder. Your shot was a second late.':'Pier Six. I was watching the crane and not the gantry. A boat hook, left shoulder. Their shot was a second late.';
  case 'e2l_morn':return m?'The morning after. Angel opened the envelope.':'The morning after. Angel opened her envelope.';
  case 'e2l_epi':return f.e2lEnd==='lovers'?'A year on. You still race for the same marks, and the loser cooks.':'A year on. Nobody is dead. Both of you still could.'}
  return ''}
@@ -202,6 +212,7 @@ function k76Blood(){const f=S.f,L=[],d=id=>k76Did(id);
  if(f.e2lDinner==='glass')L.push('Ronin: poisoned at Angel’s table, with what was meant for V.');
  if(d('e2l_door'))L.push('Misaki: the left hand and the ribs, in the building on the river. Neither of them did that.');
  if(d('e2l_stitch'))L.push('V: left forearm, a box cutter.');
+ if(d('e2l_guard'))L.push('V: left shoulder, a boat hook, while each of them was watching the other.');
  return L}
 function k76Dead(){const f=S.f,L=[],d=id=>k76Did(id),n=k=>{try{return (f.e2l74||{})[k]||0}catch(e){return 0}};
  if(d('e2l_show'))L.push('The card man, in the cold room, one finger at a time.');else if(d('e2l_mark'))L.push('The card man, who went under V’s house in a carpet and is still alive there.');
@@ -210,6 +221,7 @@ function k76Dead(){const f=S.f,L=[],d=id=>k76Did(id),n=k=>{try{return (f.e2l74||
  if(n('intercept')>=2)L.push('A councilman’s nephew, through his own windscreen at a red light.');
  if(d('e2l_sab')&&f.e2lSab==='m')L.push('The man from the hospital fund, shot dead at dinner a thumb’s width from V’s ear.');
  if(f.e2lTruce==='m')L.push('The man with the dogfight in the car wash, on the third day of the truce.');
+ if(d('e2l_guard'))L.push('A watchman on Pier Six, shot a second late.');
  if(d('e2l_pair'))L.push(f.e2lPair==='slow'?'The man who hired the boy, on his own desk, with a scalpel.':'The man who hired the boy, through the ear, once he had said the name.');
  return L}
 function k76Page(back){const f=S.f,m=k76M(),now=k76ChNow(),t=k76Tal(),esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');

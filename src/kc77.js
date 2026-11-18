@@ -180,7 +180,8 @@ function k77Case(){const m=k76M();const A=(id,t,sub,fn)=>({t,sub:(k77N(id)?'×'+
  ask(K73Who(),m?'(the case. with him. tonight:)':'(The case, with them. Tonight:)',[
   A('list',k76H('Walk your old list with him','Walk their old list with them'),'eleven names nobody collected on',k77Walk),
   A('file','The ops table, two in the morning','his file on the Mimic, and on '+k76H('you','them'),k77Ops),
-  A('watch','Sleep in shifts','a metre apart, both armed',k77Shifts),
+  k73Done('e2l_row')?{t:'Sleep in shifts',sub:'neither of you will, since the corridor',dis:true,fn:()=>{}}:A('watch','Sleep in shifts','a metre apart, both armed',k77Shifts),
+  ...((typeof k78TellsOk==='function'&&k78TellsOk())?[A('tells',k76H('Watch him','Study them'),k76H('for the day he decides','for the day somebody pays them'),k78Tells)]:[]),
   {t:'Not tonight',fn:hub}])}
 function k77Walk(){const n=k77Inc('list'),m=k76M();
  if(n>1)return say(k77Var('list',[

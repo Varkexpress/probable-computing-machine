@@ -11,6 +11,12 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 ### e2l\_boat
 
 
+### e2l\_car
+
+
+### e2l\_boat
+
+
 ### e2l\_will
 
 
@@ -171,6 +177,9 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 ### e2l\_stitch
 
 
+### e2l\_guard
+
+
 ### e2l\_show
 
 
@@ -181,6 +190,9 @@ Reading copy. Misaki's tiered lines show the top tier; ▸ marks a choice. Desig
 
 
 ### e2l\_sab
+
+
+### e2l\_guard
 
 
 ### e2l\_pair
