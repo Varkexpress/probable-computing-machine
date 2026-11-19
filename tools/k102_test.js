@@ -41,12 +41,13 @@ let runs=0,fails=0;const ok=(c,m)=>{runs++;if(!c){fails++;console.log('FAIL',m)}
   await ev(pov=>__set(pov,'act3',{done:['e2l_door','e2l_car','e2l_know','e2l_row']}),pov);await clean();await ev(()=>{S.seen.m102_range=1;S.seen.m102_job=1});await morn();ok(await ev(()=>!!S.seen.m102_sorry),pov+' sorry, after the corridor')}
  await med('m',{clar:2});await clean();await morn();ok(await ev(()=>!Object.keys(S.seen).some(k=>/^m102_/.test(k))),'not in the infirmary');
  ok(await ev(()=>K97_MIND.fray.length===4&&K97_MIND.thin.length===4),'two more for the worst route');
- {const L=await ev(()=>{__set('m','epilogue',{f:{e2l85:{s_wreck:1,s_debt:1,s_figure:1,s_letter:1,s_bitten:1},e2lEnd:'lovers'}});S.seen.m102_sorry=1;S.seen.m102_range=1;return extraEnding().join(' | ')});
-  for(const rx of [/glass replaced/,/fucking LINE/,/gave them a figure/,/He burned it/,/Bit me/,/carved stone ball/,/fifth box/])ok(rx.test(L),'ending '+rx)}
+ {const L=await ev(()=>{__set('m','epilogue',{f:{e2l85:{s_wreck:1,s_debt:1,s_figure:1,s_letter:1,s_bite:1},e2lEnd:'lovers'}});S.seen.m102_sorry=1;S.seen.m102_range=1;return extraEnding().join(' | ')});
+  for(const rx of [/thanked V by name/,/nothing else for six days/,/gave them a figure/,/He burned it/,/in pencil, in a neat hand/,/carved stone ball/,/one round an hour/])ok(rx.test(L),'ending '+rx)}
  const SRC=require('fs').readFileSync(path.join(ROOT,'src/kc102.js'),'utf8');const all=(await ev(()=>window.__all)).filter(x=>SRC.includes(x[1].slice(0,40)));ok(all.length>60,'own lines checked: '+all.length);
  const contr=/\b(?:can|won|don|isn|aren|wasn|weren|doesn|didn|couldn|wouldn|shouldn|hasn|haven|hadn)’t\b|\b(?:I|you|we|they|he|she|it|that|there|what|who|here|let)’(?:s|re|ve|ll|d|m)\b/i;
  const vb=all.filter(x=>(x[0]==='K9'||x[0]==='')&&!/sticker that says/.test(x[1])&&contr.test(x[1].replace(/“[^”]*”/g,'')));ok(!vb.length,'V and narration contractions: '+vb.slice(0,3).map(x=>x[1]).join(' || '));
  ok(!all.some(x=>/grandpa/i.test(x[1])&&/kc101/.test('')),'no “grandpa”');
  const ub=all.filter(x=>/undefined|NaN|\[object/.test(x[1]));ok(!ub.length,'undefined: '+ub.slice(0,2).map(x=>x[1]).join(' || '));
+ {const src=require('fs').readFileSync(path.join(ROOT,'src/kc102.js'),'utf8').replace(/\/\*[\s\S]*?\*\//g,'');ok(!/\b(throw|threw|thrown|smash|scream(ed|ing)?|shout(ed|ing)?|wreck(ed)?|kick(ed)?|bit(e|es)? (him|his|you))\b/i.test(src.replace(/thrown|threw things|do not (shout|throw)/g,'')),'no physical outbursts in the text: '+(src.match(/\b(throw|threw|smash|scream\w*|shout\w*|wreck\w*|kick\w*)\b/i)||[''])[0])}
  ok(!pe.length,'page errors: '+pe.slice(0,5).join(' | '));
  console.log(`${all.length} lines checked · page errors: ${pe.length}`);console.log(`${runs-fails}/${runs} checks passed`);await b.close();process.exit(fails?1:0)})();
