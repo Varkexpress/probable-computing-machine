@@ -153,7 +153,7 @@ const K95_M={war:[
   M2('he’s done something to SOMEONE. someone’s paying four grand','he’s done something to somebody. somebody is paying four grand'),
   K76V('That is not the same.'),
   M2('it’s the same to my landlord. oh wait. that’s u','it’s the same to my landlord. oh, wait. that’s you'),
-  N('He gives the phone back. He does not block the number, or break it, or put it in his pocket. He stands with his hands behind him and waits to see what you do, which is worse.'),
+  N('He gives the phone back. He does not block the number, or break it, or put it in his pocket. He stands with his hands behind him and waits to see what you do.'),
   N('You try to make a fist with the left. It gets halfway. You could not hold a rifle on a dentist at twenty metres.'),
   X95('can’t. hand’s fucked. ask me in a month','can’t. the hand’s fucked. ask me in a month'),
   M2('that’s bc of the HAND. not bc of u. write that down','that’s because of the hand. not because of you. write that down'),
@@ -329,7 +329,7 @@ const K95_V={war:[
   N('You have the file. Seven that can be proved. A cartridge case from the revolving door, with a thumb upon it. A photograph of a scooter. You draft the letter to Inspector Hale at your desk, in fair copy: the dates, the roofs, where the rifle is kept. It would hang anybody.'),
   N('You read it through. It is complete. You have only to put it in the post, and a wanton killer is off the streets of this city by the end of the week, and nobody need lie on your table.'),
   K76V('(Fifteen years. Out in nine. They would do well in there; they have been in worse rooms. And they would come out owing nothing, having paid a debt to the wrong creditor.)'),
-  N('A prison is not justice. It is storage. The doorman is not paid by it, nor the driver, nor a child of nine. You have always held so, and it is why there is a room under your house.'),
+  N('A prison is storage. The doorman is not paid by it, nor the driver, nor a child of nine. You have always held so, and it is why there is a room under your house.'),
   N('There is also the other matter, and you are honest enough to set it down. You swore it. Before witnesses, in a bowling alley. You do not want Hale to have them. You do not want anybody to have them.'),
   K76V('(They are mine to kill. I find that I should take it very ill if somebody else were to do it, even the State.)'),
   N('You do not post the letter. You put it in the desk, sealed, with the cartridge case. You tell yourself that it is held in reserve. You are aware that a man keeps a thing in reserve when he does not mean to use it.'),
@@ -387,7 +387,7 @@ const K95_V={war:[
   K76MV('no i just don’t like those guys. that’s not a LAW. that’s just having eyes','no, i just don’t like those guys. that’s not a law. that’s just having eyes','No, I just don’t like those guys. That’s not a law. That’s just having eyes.','No, I just don’t like those guys. That’s not a law, that’s just having eyes.'),
   K76V('It is precisely a law. You have one. You decline to use it when there is money on the table.'),
   K76MV('yeah bc i need the MONEY. u don’t get to have principles for me. principles are for people with a fridge that works','yeah, because i need the money. you don’t get to have principles for me. principles are for people with a fridge that works','Yeah, because I need the money. You don’t get to have principles for me. Principles are for people with a fridge that works.','Yeah, because I need the money. You don’t get to have principles for me. Principles are for people with a fridge that works.'),
-  N('It is a remark about refrigerators. You find that you have no reply ready, and you have had forty-one occasions on which to prepare one.'),
+  N('It is a remark about refrigerators. You have no reply ready, and you have had forty-one occasions on which to prepare one.'),
   K76MV('do me. my page. i wanna hear what i score','do me. my page. i want to hear what i score','Do me. My page. I want to hear what I score.','Now do me. My page. I want to hear what I score.'),
   K76V('A driver. A doorman. A man upon his own step, on a Tuesday.'),
   N('They do not award it a mark. They look at the ceiling. After a while they inform you that your ceiling is a six.')],cb)],
@@ -400,7 +400,7 @@ const K95_V={war:[
   N('He dealt in used cars. He was shot at his desk, through a window, from a multi-storey car park. There is no file on him. You have never heard the name.'),
   N('You open one. You have a clerk at the registry and a man at the bank, and by Saturday night the whole of a dead car dealer is on your desk: his accounts, his three convictions, a matter of an odometer and a family of five.'),
   K76V('(He sold a car without brakes to a man with four children. Two of them are in the cemetery. It would have sufficed. I should have had him myself in a year or two.)'),
-  N('You sit back. You find that you have let out a breath.'),
+  N('You sit back and let out a breath.'),
   N('Then you see what you have done with your Saturday. Nobody asked you to try a dead man. They shot him for three thousand dollars and knew nothing of the brakes. You have been through his whole life with a lamp, hoping to find that he deserved it, in order that you need not add a line to their page.'),
   K76V('(I was looking for an acquittal. For them. In eleven years I have never gone looking for one.)'),
   N('You add the line. “A car dealer. Guilty, as it happens. Not known to the contractor.” You look for some time at “as it happens.” It is the nearest thing to a kind word in the ledger. You are ashamed of it, and you leave it in.')],cb),
@@ -475,8 +475,8 @@ const K95_V={war:[
   N('“and ur a rich guy who kills broke psychos in a basement.” You hear it as plainly as if they were sitting on the counter with their boots on the steel, eating your cereal out of the box.'),
   N('The smile does not arrive. The thing on the table sees that it has not, and for a moment it hopes.'),
   K76V('(Nobody elected me. Nobody asked. I had the money for a table with drains.)'),
-  N('You do it regardless. It lent at forty percent and took the houses; you have the deeds. The work is sound. The cuts are clean. There is a fine platter for Thursday.'),
-  N('But you did not enjoy it, and you have always enjoyed it. They told you so across your own table: that they had seen your face. You wash your hands for a long while. Then you go up to write the entry, and under REASON your pen stops, and you look at the word as if somebody else had ruled the column.')],cb)]};
+  N('You do it regardless. It lent at forty percent and took the houses; you have the deeds. The work is sound and the cuts are clean, and there is a fine platter for Thursday.'),
+  N('But you did not enjoy it, and you have always enjoyed it. They told you so across your own table: that they had seen your face. You wash your hands. Then you go up to write the entry, and under REASON your pen stops, and you look at the word as if somebody else had ruled the column.')],cb)]};
 
 /* ===================================== DELIVERY ===================================== */
 const k95St=()=>{try{if(!K95()||S.f.e2lEnd)return null;if(S.phase==='normal')return 'war';
@@ -501,7 +501,7 @@ if(typeof K83E!=='undefined'){
    K76MV('i KNOW what i said. it’s a figure of speech. i call everyone that','i know what i said. it’s a figure of speech. i call everybody that','I know what I said. It’s a figure of speech. I call everybody that.','I know what I said! It’s a figure of speech. I call everybody that.'),
    K76V('You have never called Ronin that.'),
    K76MV('…no. shut up','…no. shut up','…No. Shut up.','…No, I haven’t. Shut up.'),
-   N(m?'He passes the jam. He is very careful with it. He does not smile; he is not a man who does. But he has to look out of the window for a while, and that evening you catch him writing it in the ledger, on your page, under the doorman, with the date.':'You pass the jam. You find that you must look out of the window for some time. That evening you enter it in the ledger, upon their page, beneath the doorman, with the date. It is not a charge. You have no other book.')],
+   N(m?'He passes the jam. He is very careful with it. He does not smile; he is not a man who does. But he has to look out of the window, and that evening you catch him writing it in the ledger, on your page, under the doorman, with the date.':'You pass the jam. You have to look out of the window. That evening you enter it in the ledger, upon their page, beneath the doorman, with the date. It is not a charge. You have no other book.')],
   riv:m=>[
    N('War Day, at the bowling alley. Four lanes between you, as the terms require.'),
    K76MV('nice shoes, ur honour','nice shoes, your honour','Nice shoes, your honour.','Nice shoes, your honour. Very you.'),

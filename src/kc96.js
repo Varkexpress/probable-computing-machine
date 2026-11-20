@@ -23,7 +23,7 @@ k86('q_case','m',null,'cell','Case the room',[
  N('And a drain. It is in the middle of the floor, with a brass cover, and the tiles all run down to it.'),
  M2('(there’s a DRAIN. u know what kind of room has a drain)','(there’s a drain. you know what kind of room has a drain)'),
  N('You do know. You have used one. A man hires a unit with a drain when he means to be some time about it and wants to hose down after.'),
- N('It is good work. That is what you cannot get round. Everything is where a careful person would put it. Nothing in reach of the bed would go through a shirt. He walks loudly, so you never have the half-second of hearing him late. Whoever set this room up has done it before, often, and has thought about you in particular.'),
+ N('It is good work, and you cannot get round it. Everything is where a careful person would put it. Nothing in reach of the bed would go through a shirt. He walks loudly, so you never have the half-second of hearing him late. Whoever set this room up has done it before, often, and has thought about you in particular.'),
  M2('(ok. he’s good. i HATE that he’s good. i had him down as a rich guy with a hobby)','(ok. he’s good. i hate that he’s good. i had him down as a rich guy with a hobby)'),
  N('You give it marks, as you would a rival’s job. Eight out of ten. You take off two for the toothbrush on the counter, which has a frog on it. That is just sick.')]);
 k86('q_alive','m',null,'cell','Why you are not dead',[
@@ -32,7 +32,7 @@ k86('q_alive','m',null,'cell','Why you are not dead',[
  N('You have read about him. Everybody has. Some of his go quickly, and some of them he keeps a while, and the papers say that the difference is what they did. You go through what you did. It is not a short list. It has a doorman on it.'),
  M2('(three: …oh. oh, fuck. three)','(three: …oh. oh, fuck. three)'),
  N('He said it once, in the server, as if it were something to be proud of. He has never killed a thing that was not well.'),
- N('So that is the soup. That is the thread, and the lamp, and the bag on the stand. He is not keeping you alive. He is getting you ready. He wants you on your feet, with both hands, able to know exactly what is happening and why, and then he will do it properly.'),
+ N('So that is what the soup is for, and the thread, and the lamp, and the bag on the stand. He is getting you ready. He wants you on your feet, with both hands, able to know what is happening and why, and then he will do it properly.'),
  M2('(he’s FATTENING me. i’m a goose. i’m a goose in a basement)','(he’s fattening me. i’m a goose. i’m a goose in a basement)'),
  N('It is nearly funny. You would laugh, if the ribs allowed. You decide to be a bad goose. When he looks at the hand you let it lie there like a dead fish. When he asks about the pain you give him a nine. You can stay sick for as long as it takes to think of something.'),
  N('He writes down nine. He looks at you over his glasses for a second longer than he needs to. You have a bad feeling that he has had a goose try this before.')]);
@@ -44,7 +44,7 @@ k86('q_collar','m',null,'cell','Where he keeps it',[
  N('You file it. You have a list now: four steps from the door to the bed; the lamp arm, which would come off its bolts with enough weight; the collar. It is a plan with no hands in it yet, but you have been in worse shape with less.'),
  N('He straightens up. He does up the collar button, without hurry, looking at the bag and not at you.'),
  M2('(he saw me look. he SAW me. and he just did up the button. like u’d shut a drawer)','(he saw me look. he saw me. and he just did up the button, like you’d shut a drawer)'),
- N('It is the most frightening thing that he has done. A man who is afraid of you moves the knife. He left it where it was.')]);
+ N('A man who is afraid of you moves the knife. He left it where it was.')]);
 k86('q_charge','m',null,'cell','Make him say what it is for',[
  N('He does not gloat. That is wrong. You have known men who had somebody in a room, and you have been one, and there is always a speech.'),
  N('You want the speech. You know where you stand with a speech. So when he comes with the tray, you ask for it.'),
@@ -93,7 +93,7 @@ k86('q_book','m',null,'clear','Ronin has brought the book',[
  [RN,'Ninety at elevens. That’s a thousand bucks if you kill my friend.'],
  M2('nine ninety. plus the stake back. don’t rob me','nine ninety. plus the stake back. don’t rob me'),
  [RN,'Fuck me, the hand’s broke an’ the math ain’t.'],
- N('He writes it in. He is grinning with all of his teeth. He has just taken your last ninety dollars against the life of the man upstairs, and it is the kindest thing that anybody has done for you since the river.')]);
+ N('He writes it in. He is grinning with all of his teeth. He has just taken your last ninety dollars against the life of the man upstairs, and you are grinning back.')]);
 k86('q_four','m',null,'clear','Who gets the four',[
  N('Angel has not sat down. She has a list on her phone, and her other hand is on the strap of a long bag that you know the shape of.'),
  [AN,'four of them. i’ve got names for three. i’m not asking, babe. i’ve got a shotgun and a free afternoon.'],
@@ -136,13 +136,13 @@ k86('q_thread','v',null,null,'Eleven o’clock, and one o’clock',[
  N('You tie off. It is neat. The person in the bed opens one eye, and looks at your hands, and at the apron, and you see them recognise the hour at which a man changes his apron.'),
  N('You finish the dressing. Upstairs the hounds have begun to ask for their dinner. It was a good clean platter tonight, and you are sorry that you cannot take the credit for both pieces of work in the same breath.')]);
 k86('q_botched','v',null,null,'Bad work',[
- N('You go over the injuries again, with the films on the box. You have done it each night. You are not looking for anything to treat. You are assessing the work.'),
+ N('You go over the injuries again, with the films on the box. You have done it each night, and there is nothing left in them to treat. You are assessing the work.'),
  N('It is very poor. There is no method in it. A rib here, a finger there, the same place gone over twice out of what can only have been boredom. Nothing was asked that needed asking. Nothing was matched to anything that the subject had done. They had four days and they learned nothing, and they proved nothing, and they left a living witness.'),
  K76V('(Amateurs. They hurt a thing because it was in front of them. It is what the worst of mine say of themselves, on the table, when they have run out of other reasons.)'),
  N('You know how it ought to be done. One does not lay a hand upon a creature except in answer to something, and in proportion to it, and having told it why. Otherwise it is merely appetite. You have spent eleven years on that distinction.'),
  N('And they did it to yours. That is the part which you turn over longest. The name was in your ledger. The debt was to you. Four men from a river took it upon themselves to collect on your account, in the wrong coin, for no reason, and to do it badly.'),
  K76V('(I am angry on behalf of the doorman. I should like that understood. They have beaten a person for nothing who ought to have been killed for something.)'),
- N('You rule four pages in the book. You do not yet have all the names. You head each one with what you do have: the boot, the books, the driver, a bald man. You find that there is a small smile on your face. You have not looked forward to a piece of work so much in years.')]);
+ N('You rule four pages in the book. You do not yet have all the names. You head each one with what you do have: the boot, the books, the driver, a bald man. There is a small smile on your face. You have not looked forward to a piece of work so much in years.')]);
 k86('q_asleep','v',null,null,'What they call you, asleep',[
  N('They talk when the bag has been changed. It is not addressed to anybody. You sit at the counter with the chart, and you take it down, since you take everything down.'),
  N('“rich.” That is the first. “smug.” Then something about a foundation, and a word that you will have to ask Ronin about. “nobody asked him.” “kills poor people in a basement.”'),
@@ -174,7 +174,7 @@ k86('q_cactus','v',null,null,'Fetch their things',[
  N('You have been in the trailer once before, at four in the morning, with a roll of sheeting. You had not then the leisure to look.'),
  N('It is all here. The rifle, on its pegs. A list on the refrigerator, held by a magnet shaped like a frog, of every client they have: names, sums, what was wanted. Three notebooks. A go-bag. You are standing in the whole of your enemy’s business, with the door shut and the owner in your basement on a drip.'),
  K76V('(I could end it this afternoon. The list to Hale. The rifle in the river. They would come out of that room with nothing.)'),
- N('You do not touch the list. It is no scruple; it is that you intend to beat them, and this would not be that. One does not win a war by going through the other side’s pockets while it is unconscious.'),
+ N('You do not touch the list. You intend to beat them, and this would not be that. One does not win a war by going through the other side’s pockets while it is unconscious.'),
  N('You take the cereal, of which there are four boxes. You take the socks with frogs on. You take the cactus from the windowsill, since it is dry, and at home you give it a good half pint.'),
  N('It is the cactus that they notice. They are scarcely able to lift their head, and they see it on the counter, and the soil is dark.'),
  Ms('u WATERED him','You watered him?','They point at the pot, and at you. Then they draw one finger slowly across their throat.'),

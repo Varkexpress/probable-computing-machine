@@ -37,11 +37,11 @@ function k98Spiral(){S.f.kdSpiral=1;save();const full=typeof kdSA!=='function'||
   N('You go through what you still have, as you would go through a bag before a job. The spoon; you have not worked on it in days. The list, which is down to one line, and you could not swear to that one. A paper cup, washed, that you do not know why you kept.'),
   full?N('You do not have the hours. They took the hours, and whatever was in them. You became what you became so that nobody would own any part of you again. You learned the wind and the drop and what a man is worth; you were cheap, and fast, and nobody’s. And for days you were somebody’s, and you were not even there for it.')
       :N('They broke what they wanted to break. Some of it will set crooked. The hand is not going to hold a fore-end again; you have known that for a week and not said it. A contractor who cannot shoot is a person who owes rent.'),
-  N('The worst of it is that the war has gone. You have looked. You had a whole war: a rich man with a hobby, and a car park, and a promise that you made with your whole chest in front of everybody. It was the best thing you ever had, and you cannot find the door to it. You feel like a room that somebody has moved out of.'),
+  N('The war has gone. You have looked. You had a whole war: a rich man with a hobby, and a car park, and a promise that you made with your whole chest in front of everybody. It was the best thing you ever had, and you cannot find the door to it. You feel like a room that somebody has moved out of.'),
   N('You think about Ronin, running a book on the two of you so that he would not have to drive over and look. Angel, and her list. You hold it up, and it is somebody else’s: a photograph of a town where you used to live.'),
   M2('(they’ll be ok. ronin’ll break something. angel’ll cry on main and then go find out who. his honour’ll have to rule me off. no total. he’ll HATE that)','(they’ll be ok. ronin will break something. angel will cry on main, and then go and find out who. his honour will have to rule me off. no total. he’ll hate that)'),
   M2('(i was gonna do him somewhere stupid. i said. i’m sorry about that one. i’m so tired)','(i was going to do him somewhere stupid. i said so. i’m sorry about that one. i’m so tired)'),
-  N('You have always decided when. Nobody had that off you before you were nine, or by the river. It is not much of a thing to own. It is what there is.'),
+  N('You have always decided when. Nobody had that off you before you were nine, or by the river. It is not much of a thing to own, but it is what there is.'),
   M2('(not when he says.)','(not when he says.)'),
   N('The light is on. You leave it on.')];
  if(typeof kdSpiralSecret==='function'&&kdSpiralSecret())return cut(L,k98Interrupted,'#000');
@@ -63,7 +63,7 @@ function k98Spiral(){S.f.kdSpiral=1;save();const full=typeof kdSA!=='function'||
   K76V('It was not.'),
   [RN,'I know it wasn’t. I know. I just needed t’hear you say it the once.'],
   N('The grey hound lies down across the threshold and will not move for anybody for two days.'),
-  N('The funeral is small. Angel does the eyeliner one last time, and her hands shake the whole way through, and she does not stop until it is right. Ronin closes the book at the graveside and gives everybody their stake back. Nobody won.'),
+  N('The funeral is small. Angel does the eyeliner one last time, and her hands shake the whole way through, and she does not stop until it is right. Ronin closes the book at the graveside and gives everybody their stake back.'),
   N('Under the mattress he finds a spoon, with the handle worked to an edge. He finds a soup label. The case against him is on the back of it, in biro, in six lines. Five have been crossed through, one a day. The sixth has not. “nobody asked him.” Beneath it, smaller, in a hand that was going: “came anyway.”'),
   K76V('(TO BE KILLED. They believed it to the end. I had ceased to mean it by the second night, and I did not once say so. I am a man who writes everything down.)')],()=>{S.kd.med=null;S.f.lateRoute='self';S.f.e2l98='late';save();startLone('v')},'#000')},'#000')},'#000')}
 
@@ -100,7 +100,7 @@ if(typeof kdEv==='function'){kdEv('kd_interrupted_after_e2l',()=>S.f.kdInterrupt
 const K98_AFTER=[
  [N('He takes the infirmary door off its hinges and leans it against the wall of the passage, so that the room cannot be shut again.'),
   N('Then he goes up to the study and opens the ledger at their page. Every page in that book ends in the same way: a date, and a total. He has done it forty-one times.'),
-  N('He sits with the pen for a long while. He is an honest bookkeeper. He writes the date. Under TOTAL he writes: “Not collected.”'),
+  N('He sits with the pen. He is an honest bookkeeper. He writes the date. Under TOTAL he writes: “Not collected.”'),
   K76V('(It is the only page in the book that I did not finish. I shall leave the book open at it. Let it be the first thing that anybody sees who comes into this room for me.)')],
  [N('Ronin comes on the third day, with the crowbar and the book.'),
   [RN,'Whole city figures you did it. Hale figures you did it. I had a guy in a bar tell me you did it, an’ he’s in the hospital.'],
@@ -121,7 +121,7 @@ const K98_AFTER=[
  [N('He takes the four. It is the longest piece of work of his life, and he does it alone, and he tells each of them what it is for.'),
   N('He is exact. Nothing is done that does not answer to something. Each of them asks what he gets out of it, and to each he gives the one word, and there is no smile with it.'),
   N('It does not help. He had not supposed that it would. A debt paid to the wrong creditor is not discharged, and he was not the one who was owed. He does it thoroughly all the same, and the hounds eat for a month.')],
- [N('He finds that he has made the soup. It is noon. There is a pan of it on the stove and a tray laid, and he has been doing it for nine days at eight and noon and six without once looking at his hands.'),
+ [N('He has made the soup. It is noon. There is a pan of it on the stove and a tray laid, and he has been doing it for nine days at eight and noon and six without once looking at his hands.'),
   N('He tastes it, standing. There is too much pepper. The onion has caught.'),
   K76V('(It is bad. They were quite right. I had put it down to malice.)'),
   N('He does not correct the recipe. He puts the bowl on the floor, and the old hound eats it, and looks up at him afterwards as that hound looks at a man who has been ill.')],

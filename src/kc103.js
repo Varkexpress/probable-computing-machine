@@ -41,11 +41,11 @@ const K103_M=[
  /* 3 · the deed */
  cb=>say([
   N('You read his ledger. You always have; he leaves it on the desk and you read it when his back is turned, the way you would read anybody’s mail.'),
-  N('Your page is longer than it was. You go through it with your jaw set, expecting the charges. They are there. Under them, the dates. “Ate.” “Did not speak.” One night, in the middle, a single word: “Nothing.” And “Day 3. Nothing said.” You did that. It is written down.'),
+  N('Your page is longer than it was. You go through it with your jaw set, expecting the charges. They are there. Under them, the dates. “Ate.” “Did not speak.” One night, in the middle, a single word: “Nothing.” And “Day 3. Nothing said.” It is written down.'),
   N('Folded once, between your page and the next, there is a sheet of thick paper. A deed. A plot at the north wall of the churchyard where Ronin lights his candles, under a yew. Bought by telephone at three in the morning, on the night your fever went past forty. The stone paid for. No words chosen for the stone.'),
   M2('(he bought me a GRAVE. he sat up at three and bought me a grave. the absolute FREAK)','(he bought me a grave. he sat up at three and bought me a grave. the absolute freak)'),
-  N('You hold it for a long time. You know him. He makes arrangements when he is frightened; it is the only thing he knows how to do with it. You have watched him do it all month: the hall lamp, the soup, the plan for the week read out like minutes.'),
-  N('So you know what this is. It is the most frightened that man has ever been. He was so frightened that he went and made a place to put you, under a tree, near the one friend who prays, so that you would not be on your own.'),
+  N('You hold it. You know him. He makes arrangements when he is frightened; it is the only thing he knows how to do with it. You have watched him do it all month: the hall lamp, the soup, the plan for the week read out like minutes.'),
+  N('So you know what this is. He was so frightened that he went and made a place to put you, under a tree, near the one friend who prays, so that you would not be on your own.'),
   M2('(nobody’s ever planned where to put me. nobody ever thought i’d need putting anywhere)','(nobody has ever planned where to put me. nobody ever thought i’d need putting anywhere)'),
   N('You fold it back along the crease, exactly, and put it back between the pages. Then you take it out again, and write on the back of it, in biro, small, and put it back.')],()=>{S.f.e2l103Deed=1;save();cb()}),
  /* 4 · count again */
@@ -58,23 +58,23 @@ const K103_M=[
   N('You run out of fingers on the good hand. You start on the bad one, slowly, because it is slow. Eight: the grey hound, who lay along your back all night when you thought she was going to eat you. Nine: the black hound, who lifted your broken hand out of the straw with his nose.'),
   N('You stop at nine because you have run out of things to hold up. You sit there with nine fingers in the air, on a roof, at night, like a kid at a quiz.'),
   M2('(that’s not four. i was wrong. i’m never wrong about numbers)','(that isn’t four. i was wrong. i am never wrong about numbers)'),
-  N('You were wrong by more than double. You sit with your hands up until they get cold. You were very careful your whole life that the number should stay small, so that nothing could be used against you. It did not stay small. People got in anyway, while you were not looking, through doors you had bolted.')],cb),
+  N('You were wrong by more than double. You sit with your hands up until they get cold. You were careful your whole life that the number should stay small, so that nothing could be used against you. People got in anyway, through doors you had bolted.')],cb),
  /* 5 · oh */
  cb=>say([
   N('It is nothing. It is a Wednesday. You are at the kitchen island, at half past seven, and he puts a cup of coffee by your right hand and goes back to the stove.'),
   N('It is how you take it. You have never told him how you take it. He found out. He found out the way he finds out everything, and then he did it every morning, without saying, for a month, while you thanked him in that voice, and called him V, and said nothing for six days.'),
-  N('And that is where it happens. Not at the river. Not at the grave. At a cup of coffee.'),
+  N('It happens over a cup of coffee.'),
   M2('(oh)','(oh)'),
   M2('(oh, FUCK)','(oh, fuck)'),
   N('It arrives all at once, as the rest arrives: all the numbers together, nineteen days and two hours eleven and a plot under a yew and a pencil mark on a wall and nine fingers on a roof. And they come out to one word, and it is not a word you have a column for.'),
   M2('(they love me. all of them. the whole stupid lot of them. even when i did the voice. even when i was a WALL)','(they love me. all of them. the whole stupid lot of them. even when i did the voice. even when i was a wall)'),
-  N('It is the most frightening thing that has ever happened to you. You have been held for four days by men with a van and it was less frightening than this. That you could plan around. This you cannot do anything with at all. It is just there, in the kitchen, with the coffee, and you cannot give it back.'),
+  N('You have been held for four days by men with a van, and that was less frightening than this. That you could plan around. This you cannot do anything with at all. It is just there, in the kitchen, with the coffee, and you cannot give it back.'),
   N('He turns round from the stove, because you have gone very quiet in a different way.'),
   K76V('Is something the matter with it?'),
   M2('ur coffee’s shit','your coffee’s shit'),
   N('It is perfect coffee. He looks at you. Something goes across his face, very fast, and he turns back to the stove before you can read it.'),
   K76V('So I am told.'),
-  N('You drink it. Your hands are not steady, which they have always been, on every roof you have ever lain on. You let them shake. It is the first thing in a month that you have let happen to you without a fight.')],()=>{S.f.e2l103Oh=1;apply({aff:4});note('e2l103','Misaki worked out, over a cup of coffee, that they are loved. It was the most frightening thing that ever happened to them.');save();cb()})];
+  N('You drink it. Your hands are not steady, which they have always been, on every roof you have ever lain on. You let them shake.')],()=>{S.f.e2l103Oh=1;apply({aff:4});note('e2l103','Misaki worked out, over a cup of coffee, that they are loved. It was the most frightening thing that ever happened to them.');save();cb()})];
 
 const K103_V=[
  /* 1 · Ronin at the door */
@@ -88,10 +88,10 @@ const K103_V=[
   K76V('(Nineteen days. I have been in that room some two hundred times in the same period. I wonder whether they have counted those.)'),
   [RN,'You ever tell ’em? Anythin’?'],
   K76V('I have told them that the stitches come out on the fourteenth.'),
-  N('Ronin looks at you for a long moment, and then he laughs, the big one, and goes down the stair, and the hounds go off all over the house.')],cb),
+  N('Ronin looks at you, and then he laughs, the big one, and goes down the stair, and the hounds go off all over the house.')],cb),
  /* 2 · they call you something */
  cb=>say([
-  N('Six days of nothing. Then a month of “Thank you, V,” in a clean voice, which was worse.'),
+  N('Six days of nothing. Then a month of “Thank you, V,” in a clean voice.'),
   N('This morning you put the coffee down and they say, without looking up from the paper:'),
   K76MV('thanks, ur honour','thanks, your honour','Thanks, your honour.','Thanks, your honour.'),
   N('You go back to the stove. You do it at once, so that they will not see your face, and you stand there turning bacon that does not need turning.'),
@@ -106,7 +106,7 @@ const K103_V=[
   N('You unfold it. On the back, in biro, very small, in the hand that writes FOR FUN at the top of notebooks:'),
   ...(S.f.e2l103Deed?[N('“not yet. —M.” And under it, smaller, as if added after: “north wall’s nice tho. good tree.”')]:[N('Nothing. They opened it, and read it, and put it back without a word, which from them is a word.')]),
   K76V('(They know what it is. They know what I was at three in the morning. There is no figure for it and they have read it anyway.)'),
-  N('You sit with it for a long time. You do not tear it up. You do not put it away. You write on their page, under the last entry, in good ink: “Read the deed.” It is not a charge. It is the first entry in the book that is only a fact about you.')],cb)];
+  N('You do not tear it up, or put it away. You write on their page, under the last entry, in good ink: “Read the deed.” It is the first entry in the book that is only a fact about you.')],cb)];
 
 function k103Next(){try{if(!k103Ok())return null;const f=S.f;if(f.e2l103Day===S.day)return null;const v=S.pov==='v',A=v?K103_V:K103_M,k=v?'e2l103V':'e2l103M',i=f[k]||0;
  if(i>=A.length)return null;if(v&&i===2&&!(f.e2l103M>=3||f.e2l103Deed||(S.f.e2l85||{}).r_plot))return null;return {fn:A[i],k,i,v}}catch(e){return null}}

@@ -52,15 +52,15 @@ const K97_MIND={
    N('He comes in with the tray. He looks at you, and at your hands, which are lying open on the blanket with nothing in them. You have had some bad looks from him. You have never had that one. He looks like a man who has come to a fight and found the other side gone home.')]],
  gone:[
   [N('You do not do the inventory. There is no point counting things.'),
-   N('You lie on your side facing the wall. You have never done that in your life, in any room. You have always faced the door. A person faces the door so as to see it coming, and you find that you do not much want to see it.'),
-   N('On the other side of the door the shoes stop. He stands there for a long time. He has noticed which way you are facing. You think, without any heat, that it must be annoying for him: all that law, and nobody left to read it to.')],
+   N('You lie on your side facing the wall. You have never done that in your life, in any room. You have always faced the door. A person faces the door so as to see it coming, and you do not much want to see it.'),
+   N('On the other side of the door the shoes stop. He stands there. He has noticed which way you are facing. You think, without any heat, that it must be annoying for him: all that law, and nobody left to read it to.')],
   [N('You think about the kid who did the sums on a station bench at sixteen and gave themself five years.'),
    N('You think that they would be disappointed. Then you think that they would not; they would nod. They had every way it could go worked out, and done in a basement by a rich man, for free, was about halfway down the page.'),
    M2('(u were right. five years and some extra. …i got a truck, tho. and a cactus. u didn’t have those on the sheet)','(you were right. five years and some extra. …i got a truck, though. and a cactus. you didn’t have those on the sheet)')],
   [N('You swore it in front of everybody. Somewhere stupid. A car park.'),
    N('It is the only thing that you are still sorry about. You are not sorry about the doorman, or the driver, or any of it; you have looked, and it is too late to start. But you gave your word on that one, loudly, with your whole chest, and you are not going to keep it.'),
    M2('(sorry, ur honour. looks like u get to live. don’t let it go to ur head)','(sorry, your honour. it looks as if you get to live. don’t let it go to your head)'),
-   N('You say it to the wall. It is the last joke that you have, and nobody is in the room, and you find that you would have liked him to hear it.')]]};
+   N('You say it to the wall. It is the last joke that you have, and nobody is in the room, and you would have liked him to hear it.')]]};
 const k97Mind=()=>{try{if(!K97()||typeof kdWR!=='function'||!kdWR()||kdClar()>=2||dlg||S.f.kdMindDay===S.day)return null;
  const b=typeof kdBand==='function'?kdBand():'hold',A=K97_MIND[b]||K97_MIND.hold;return A[(S.kd.med.d||0)%A.length]}catch(e){return null}};
 const _hub97=hub;hub=function(){const a=arguments,self=this;try{const L=k97Mind();if(L){S.f.kdMindDay=S.day;S.f.e2l97=(S.f.e2l97||0)+1;save();go(cutBg('#0c0a08'));return say(L,()=>_hub97.apply(self,a))}}catch(e){}return _hub97.apply(self,a)};
