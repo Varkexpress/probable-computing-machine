@@ -86,7 +86,7 @@ k86('x2_soap','m','sa','clear','The soap',[
 k86('x2_floor','m','sa','clear','Angel sits on the floor',[
  N('Angel comes to hug you. She comes in fast, the way she does, from the side you are not looking at, with her arms already out.'),
  N('You do not decide anything. You are simply against the wall, on the far side of the bed, with the drip stand between you, and your good hand is a fist.'),
- N('Angel stops. Her arms come down very slowly. Her camera face comes on, and goes off, and then she has no face on at all.'),
+ N('Angel stops. Her arms come down slowly. Her camera face comes on, and goes off, and then she has no face on at all.'),
  [AN,'okay. okay. i’m going to sit down. right here. on the floor'],
  N('She sits down on the tile in a white skirt, with her back against the door, and her hands in her lap where you can see them. V does that with his hands.'),
  M2('sorry. u surprised me. i’m jumpy. it’s the meds','sorry. you surprised me. i’m jumpy. it’s the meds')],
@@ -118,7 +118,7 @@ k86('x2_joke','m','sa','clear','Make a joke of it',[
  N('It is a good line. It is exactly the kind of thing you say.'),
  N('Nobody laughs. Ronin looks at his boots. Angel’s smile stays where it is, a second too long, like a picture left up after the people have gone. V, in the doorway, does not move at all.'),
  M2('(tough crowd. what. WHAT. it was funny)','(tough crowd. what? what? it was funny)')],
- k87Pick('hitmeuppp','(They are all very carefully not looking at each other.)','Ask them what they think they know.','you would have to hear the answer','“jeez. tough room. somebody die?”',[
+ k87Pick('hitmeuppp','(They are all being careful not to look at each other.)','Ask them what they think they know.','you would have to hear the answer','“jeez. tough room. somebody die?”',[
   [RN,'Not yet. Workin’ on it.'],
   N('That gets the laugh, a real one, from Angel, and the room starts again. You have done it. You have got them past it. You are so tired that you could sleep on the floor.')]));
 k86('x2_asleep','m','sa','clear','What you said asleep',[
@@ -153,7 +153,7 @@ k86('x2_leaflet','v','sa',null,'The doctor’s leaflet',[
  N('You read it eleven times. You have it by heart on the third.'),
  K76V('(I have been doing the half of this already. I did not need to be told. I have sat in rooms with people it was done to.)'),
  K76V('(I sat in those rooms as the one who would see to the man afterwards. I have not before been the tall thing in the doorway. The leaflet has no page for a reader who had planned worse.)'),
- N('You put it in the ledger, at their page, as a marker. It is the only thing in that book which you did not write.')]);
+ N('You put it in the ledger, at their page, as a marker. Everything else in that book is in your own hand.')]);
 k86('x2_asked','v','sa',null,'Ronin asks you straight',[
  N('Ronin corners you at the kennel sink. He has been looking at the tennis ball in his hand for some time.'),
  [RN,'Vee. I’m gonna ask you a thing, and you’re gonna answer it.'],

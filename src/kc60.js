@@ -259,7 +259,7 @@ const _hub60=hub;hub=function(){const a=arguments,self=this;try{if(typeof kdWR==
  ['','You lie on the cot and work it out, the way you work out a drop, because it is something to do with your head that is not the door.'],
  ['','Day one, they would have noticed. Day two, they would have looked. The rule is forty-eight hours. So by now Angel has greyed your line in the spreadsheet. Ronin has the truck and has already put the seat back. V has taken Prickles off your windowsill and is watering him every two weeks, like you told him a hundred times, and is not looking for you, because that is the rule, and you voted for it.'],
  ['hitmeuppp','(Good. That’s good. That’s what we said. Nobody comes. Nobody does anything stupid.)'],
- ['','It is the most comforting thing you have thought in days. You hold onto it like a rail, and you do not once let yourself wonder about the man outside the door who has been there every night, who reads, and who is the right height.'],
+ ['','It comforts you more than anything has in days. You hold onto it like a rail, and you do not once let yourself wonder about the man outside the door who has been there every night, who reads, and who is the right height.'],
  ['hitmeuppp','(They moved on. Good. I’d have moved on. I’d have—)']],()=>_hub60.apply(self,a))}}catch(e){}return _hub60.apply(self,a)};
 
 /* ---------- the infirmary: V, the kennel corridor at night ---------- */
@@ -278,7 +278,7 @@ const A60COR=[
   ['','The next night it runs for an hour. He turns the boiler up again, and does not write it in the ledger.']]
   :[['','At three he hears tape tear on the other side of the door, one strip and then another. They are changing their own wrist dressings in the dark.'],
   ['','He listens to them do it. They are faster than the doctor, in the right order, and they make no sound at all when the saline goes on.'],
-  ['K9','(Somebody taught them this. Or nobody did, and they learned it alone, which is worse.)'],
+  ['K9','(Somebody taught them this. Or nobody did, and they learned it alone.)'],
   ['','In the morning the old dressings are in the bin, folded very small, the way a person folds them who has always had to hide them.']],
  ()=>(typeof kdWorstOf==='function'&&kdWorstOf())?[['','Two in the morning. Through the door, they start talking to the tall one, which they have never done before.'],
   ['hitmeuppp','You can stop waiting for somebody to come for me. Nobody’s coming. We have a rule.'],

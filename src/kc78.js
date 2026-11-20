@@ -95,13 +95,13 @@ function k78Row(){k77Go('#050508');k73Mark('e2l_row');const m=k76M(),f=S.f;
    K76V('I do not cross things out. If I strike one name, every other name in that book is worth nothing.'),
    K76V('Give me the rifle, and I will believe you.'),
    K76MV('and stand in ur house with nothing. no','and stand in your house with nothing in my hands. no','And stand in your house with nothing in my hands. No.','And stand in your house, at night, with nothing in my hands? No.'),
-   ['','Neither of you can go first. Going first means standing unarmed in front of somebody you believe would do it, and neither of you has lived this long by doing that.']]:[
+   ['','Neither of you can go first. Going first means standing unarmed in front of somebody you believe would do it, and you have both lived this long by not doing it.']]:[
    K76MV('that’s what i’d say if i was going to','that’s exactly what i’d say if i was going to','That’s exactly what I’d say if I was going to.','That’s exactly what I’d say, V, if I was going to.'),
    K76V('Then give me the rifle, and I will prove it.'),
    K76MV('cross the name out first. get the pen','cross the name out first. go and get the pen','Cross the name out first. Go and get the pen.','Cross the name out first. Go and get the fountain pen and do it where I can see.'),
    K76V('I do not cross things out. If I strike one name, every other name in that book is worth nothing.'),
    K76MV('so it stays. and i hand u my gun. no','so it stays, and i hand you my gun. no','So it stays, and I hand you my gun. No.','So the name stays, and I hand you my gun and trust you. No.'),
-   ['','Neither of you can go first. Going first means standing unarmed in front of somebody you believe would do it, and neither of you has lived this long by doing that.']]);
+   ['','Neither of you can go first. Going first means standing unarmed in front of somebody you believe would do it, and you have both lived this long by not doing it.']]);
  const silent=fin('silent',m?[
    K76MV('yeah. u should lock it','yeah. you should lock it','Yeah. You should lock it.','Yeah. You should lock it, then.'),
    K76V('I see.'),
@@ -121,10 +121,10 @@ function k78Row(){k77Go('#050508');k73Mark('e2l_row');const m=k76M(),f=S.f;
 function k78Guard(){k77Go('#04060a');k73Mark('e2l_guard');const m=k76M(),f=S.f;
  const L=(m?[
   ['','The harbour office on Pier Six, where the auction’s manifest is kept. He goes in through the roof light for it. You are on the crane with the rifle, and your job is the gantry behind him.'],
-  ['','You are not watching the gantry. You are watching V, because a man who is going to kill you is easiest to read when he thinks you are busy.'],
+  ['','You are meant to be watching the gantry. You are watching V, because a man who is going to kill you is easiest to read when he thinks you are busy.'],
   ['','So you do not see the watchman come along the gantry until he has a boat hook through V’s coat. Your shot is a full second late. You have never been a second late in your life.']]:[
   ['','The harbour office on Pier Six, where the auction’s manifest is kept. You go in through the roof light for it. Misaki is on the crane with the rifle, covering the gantry behind you.'],
-  ['','You are not listening to the gantry. You are watching the crane in the glass of the roof light, where a rifle has been pointed in your general direction for an hour.'],
+  ['','You should be listening to the gantry. Instead you are watching the crane in the glass of the roof light, where a rifle has been pointed in your general direction for an hour.'],
   ['','The boat hook goes through your coat and a hand’s breadth of your shoulder before you hear the man at all. The shot that kills him comes a full second after it should.']]).concat([
   ['',m?'In the car he drives one-handed and bleeds into his good coat.':'In the car you drive one-handed and bleed into your good coat.'],
   K76V('You were late.'),K76MV('i was watching u','i was watching you','I was watching you.','I was watching you, V. Not the gantry. You.'),K76V('I know. I was watching you.'),
@@ -147,7 +147,7 @@ function k78Guard(){k77Go('#04060a');k73Mark('e2l_guard');const m=k76M(),f=S.f;
    K76V('You were late because you were aiming at me.'),
    K76MV('i was LOOKING at u. it’s different','i was looking at you. it’s different','I was looking at you. It’s different.','I was looking at you, V. It’s different. You of all people know it’s different.'),
    K76V('It is not different through a scope.'),
-   K76V('(It is different. I have looked at them through glass for months, and I know exactly how different it is.)')]).concat(ang),hub)};
+   K76V('(It is different. I have looked at them through glass for months, and I know how different it is.)')]).concat(ang),hub)};
  say(L,()=>ask(K73Who(),m?'(His blood is on the gearstick.)':'(They are holding your scarf against the shoulder, hard.)',m?[
   {t:'“that’s on me”',fn:own},{t:'“u were watching me too”',fn:blame}]:[{t:'“It is on both of us.”',fn:own},{t:'“You were late because you were aiming at me.”',fn:blame}]))}
 

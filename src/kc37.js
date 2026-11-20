@@ -42,7 +42,7 @@ function drinks(){const m=S.pov!=='v',me=m?'hitmeuppp':'K9';go({draw:hubBg});
    [RN,'This is the most fucked-up thing I’ve ever seen, and I’ve seen a guy eat his own ear.'],
    ['','He lies down on the floor next to V, because there is no room on V. The pale hound moves over onto him without being asked. They pass the bottle across the floor in the dark, and Misaki narrates the battle on the Switch in Angel’s vlog voice until Angel takes the Switch off her.']]:[
    [AN,'lovingly. ok.'],
-   ['','Angel shuts the door very gently. Then she re-locks it from outside, with her phone, to show that she can.'],
+   ['','Angel shuts the door without a sound. Then she re-locks it from outside, with her phone, to show that she can.'],
    ['','When she gets back to the atrium Ronin asks where they are.'],[AN,'asleep,'],['','she says, which is not true, and goes and lies down with her head on Ronin’s back, and listens to the house be quiet.']],()=>{hub()})}
  function short(){const L=pk([
    [['','At midnight Angel goes to look for them. The bedroom door is shut, the panel is red, and through it comes a very faint “bwoop.” She leaves them to it.']],

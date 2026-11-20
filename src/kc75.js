@@ -19,12 +19,12 @@ const k75LooseOk=()=>k75E()&&k73Done('e2l_kennel')&&!k73Done('e2l_truce')&&!S.f.
 function k75Loose(){go(cutBg('#07070a'));S.f.e2lLast=S.day;save();const m=k75M(),k=S.f.e2lKennel;
  const L=m?[
   ['','Two in the morning, the long yard behind the foundation’s warehouse on the river, where he runs the hounds when the park is full of joggers. You are here for his car. You have wire cutters in one hand and the rifle across your back.'],
-  ['','The floodlights come on all at once. He is on the loading dock in his coat, with four leads over one arm and nothing on the end of them.'],
+  ['','The floodlights come on. He is on the loading dock in his coat, with four leads over one arm and nothing on the end of them.'],
   K75V('You have cost me a mug, a lock, a wall and a great deal of sleep. I warned you about this yard.'),
   K75MV('u warned me about everything','u warned me about everything. still here','You warned me about everything, V. I’m still here.','You’ve warned me about every room you own. I’m still standing in one of them.'),
   K75V('Yes. This is the last one.'),
   ['',(k==='set'?'At the kennel he said the word and they stopped at the gate. There is no gate here. ':'')+'He says one word, not loudly, and the hounds come out of the dark of the dock.'],
-  ['','They do not bark. That is the worst of it. Four of them across forty metres of concrete, low and silent and far too fast, the black hound in front with its lips back off every tooth it has.'],
+  ['','They do not bark. Four of them across forty metres of concrete, low and silent and far too fast, the black hound in front with its lips back off every tooth it has.'],
   K75MV('(one: the fence. two: the fence. three: u will not make the fence)'),
   ['','You do not make the fence. The black hound takes your boot heel and the leather goes like paper. The grey hound hits your other side, and you are on your back on the concrete with the rifle under you, and everything is teeth.']]:[
   ['','Two in the morning. Camera four, the yard behind the warehouse on the river: a small figure in a hoodie at your car, with wire cutters.'],
@@ -39,7 +39,7 @@ function k75Loose(){go(cutBg('#07070a'));S.f.e2lLast=S.day;save();const m=k75M()
  const end=(L2)=>say(L2.concat(tail),hub);
  const word=()=>{S.f.e2lLoose='word';k75T('m');save();end([
   ['','“Stay.” It comes out in his voice, the exact flat weight of it. You have heard him say it through a kennel wall for a month.'],
-  ['','The black hound stops with your ankle in its mouth. It does not bite down. It looks at you. Then it opens its jaws very carefully, backs off one step, and sits.'],
+  ['','The black hound stops with your ankle in its mouth. It does not bite down. It looks at you. Then it opens its jaws, backs off one step, and sits.'],
   ['','The grey hound sits. The pale hound lies down where it is. The old hound arrives last, blowing hard, and stands over you with a leg on either side of your chest, facing the dock.'],
   K75V('(from the dock) …Again.'),
   ['','He says the word again. Nobody moves. The black hound looks back at him over its shoulder, the way it looks at a door it is not allowed through.']])};
@@ -51,9 +51,9 @@ function k75Loose(){go(cutBg('#07070a'));S.f.e2lLast=S.day;save();const m=k75M()
   K75V('Come.'),
   ['','They go back to him slowly, every one of them looking back, except the old hound, who stays on the concrete beside you until you are over the fence.']])};
  const go2=()=>{say([
-  ['','You say the word. They go out of the dark of the dock all at once, silent and low, the black hound in front with its lips off its teeth, and for two seconds you watch the thing you built do exactly what you built it for.'],
+  ['','You say the word. They go out of the dark of the dock together, silent and low, the black hound in front with its lips off its teeth, and for two seconds you watch the thing you built do exactly what you built it for.'],
   ['','Misaki makes nine metres. The black hound takes their boot heel and they go down on the concrete, and the grey hound is on their other side, and you hear the leather go.'],
-  ['','Then Misaki says something you cannot hear. The black hound stops with their ankle in its mouth, opens its jaws very carefully, and sits.'],
+  ['','Then Misaki says something you cannot hear. The black hound stops with their ankle in its mouth, opens its jaws, and sits.'],
   ['','The grey hound sits. The pale hound lies down. The old hound limps the whole forty metres, last, and stands over Misaki with his back to you.']],()=>ask('K9','(They have never once refused you.)',[
    {t:'Say the word again',sub:'louder',fn:()=>{S.f.e2lLoose='again';k75T('m');save();end([
     ['','You say it again, louder, in the voice you use on the board. Nobody moves. The black hound looks back at you over its shoulder, the way it looks at a door it is not allowed through, and stays where it is.'],
@@ -88,9 +88,9 @@ function k75Walk(){go(cutBg('#06080a'));S.f.k75WalkDay=S.day;save();const m=k75M
    ['',m?'You say it once, not loudly. The black hound stops mid-lunge with his sleeve in its teeth, lets go, and comes back to your side and sits, as though it had never been anywhere.':'Misaki says “off,” once, not loudly. The black hound stops mid-lunge with his sleeve in its teeth, lets go, and goes back to sit at Misaki’s side, as though it had never been anywhere.'],
    K75V('They have never done that for anybody but me.'),
    K75MV('guess they like me','guess they like me better','I guess they like me better.','Guess they like me better. Don’t take it personally. Actually, do.'),
-   ['','The man is gone up the towpath holding his arm. V picks the knife up in a handkerchief and drops it in the canal, and the walk goes on as if nothing has happened, because for the hounds nothing has.']],hub)}},
+   ['','The man is gone up the towpath holding his arm. V picks the knife up in a handkerchief and drops it in the canal, and the walk goes on.']],hub)}},
   {t:m?'Look at V':'Say nothing. Let it go on',fn:()=>{S.f.k75Walk='look';save();say([
-   ['',m?'You look at V. V looks at you. Nobody says anything, and the black hound does not stop.':'You look at Misaki. Misaki looks at you. Nobody says anything, and the black hound does not stop.'],
+   ['',m?'You look at V. V looks at you. The black hound does not stop.':'You look at Misaki. Misaki looks at you. The black hound does not stop.'],
    ['',m?'In the end you say “off,” because he will not. It lets go at once and comes back to you, not to him.':'In the end Misaki says “off.” It lets go at once and goes back to Misaki, not to you.'],
    K75V('I wanted to see whether they would do it for you. I did not want to be the one who asked.'),
    K75MV('creep','u could’ve just asked','You could have just asked.','You could have just asked, V. I’d have said yes. I’d have said it to them, too.')],hub)}}]))}

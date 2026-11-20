@@ -30,10 +30,10 @@ const K80_MC=[
  cb=>{S.f.e2lMedAsk=1;save();say([
   ['','In the afternoon the bag gives you two of him. One is the tall man with the tray. The other is K9, who is somewhere upstairs with a book, and has not been told that somebody else got to you first. It seems perfectly clear, and it gives you an idea.'],
   K76MV('(k9 swore to kill me. k9 hates it when people touch his stuff. k9 pays for things)','(k9 swore to kill me. k9 hates it when people touch his stuff. k9 pays for things)','(K9 swore to kill me. K9 hates it when people touch his stuff. K9 pays for things.)','(K9 swore to kill me. K9 hates it when people touch his things. K9 pays for things.)'),
-  ['','He would be slow. Everybody knows he is slow. But he would tell you why, with dates, and it would be for something you actually did. You find that you would give a great deal to be killed for something you actually did.'],
+  ['','He would be slow. Everybody knows he is slow. But he would tell you why, with dates, and it would be for something you actually did. You would give a great deal to be killed for something you actually did.'],
   ['','When the tall one comes for the tray, you keep your eyes on his hands and put it to him as a job.'],
   k80Gone()?['','You cannot get the voice to come. You write it with your finger on the blanket instead, K, 9, and point at the door, and at yourself.']:K76MV('get a message to k9. tell him he’s late. some river assholes got there first. he can have what’s left. tell him it’s OWED','get a message to k9. tell him he’s late. some river assholes got there first. he can have what’s left. tell him it’s owed','Get a message to K9. Tell him he’s late. Some river assholes got there first. He can have what’s left. Tell him it’s owed.','Get a message to K9. Tell him he’s late, and some river assholes got there first. He can have what’s left. Tell him it’s owed.'),
-  ['','The tall one puts the tray down very slowly, as if it had become heavy.'],
+  ['','The tall one puts the tray down slowly, as if it had got heavy.'],
   K76V('I will tell him.'),
   K76MV('(good. that’s a plan. at least HE’LL give reasons)','(good. that’s a plan. at least he’ll give reasons)','(Good. That’s a plan. At least he’ll give reasons.)','(Good. That’s a plan. At least he will give reasons.)')],cb)},
  cb=>say([
@@ -56,7 +56,7 @@ const K80_MX=[
  cb=>say([
   ['','It comes back in pieces while you are eating toast, and you put the toast down.'],
   K76MV('(oh my GOD. i asked him to tell k9 he could have me. i asked V to hand me over to V)','(oh my god. i asked him to tell k9 he could have me. i asked v to hand me over to v)','(Oh my God. I asked him to tell K9 he could have me. I asked V to hand me over to V.)','(Oh my God. I asked him to tell K9 that he could have me. I asked V, to his face, to hand me over to V.)'),
-  ['','You try laughing at it. It is funny; it is the funniest thing that has ever happened to anybody. The laugh gets as far as your ribs and stops.'],
+  ['','You try laughing at it. It is funny. It is fucking hilarious. The laugh gets as far as your ribs and stops.'],
   ['','He said “I will tell him.” You have gone over the three words a hundred times. He hates you. It is in his book. A man who hates you should have enjoyed that, and his voice did something else, and you do not have a word for what it did.'],
   K76MV('(don’t. don’t make it into something. he’s got a table downstairs with straps on it)','(don’t. don’t make it into something. he’s got a table downstairs with straps on)','(Don’t. Don’t make it into something. He’s got a table downstairs with straps on it.)','(Don’t. Don’t make it into something. He has a table downstairs with straps on it, and my name in a book.)')],cb),
  cb=>say([
@@ -89,7 +89,7 @@ const K80_V=[
   ['','The driver at the gala. The doorman who swapped a shift. The man on a Tuesday, in front of his daughter. All of it is still true. It does not do what it did.'],
   ['',((typeof kdSA==='function'&&!kdSA())?'The films are on the lightbox. The hand, the ribs.':'The doctor has left the films on the light-box. The hand, the ribs.')+' Further up the long bones there are fine pale lines, one above another, where a child stopped growing for want of food and started again, several times.'],
   K76V('(I have forty pages of what they have done. Nobody in this city kept one page of what was done to them.)'),
-  ['','You find that you have begun one, on the back of page forty, in pencil. You have written a date and the word “nine”. You stop, and put the cap on, and sit with the file shut on your knee until the tray is due.']],cb),
+  ['','You have begun one without meaning to, on the back of page forty, in pencil. You have written a date and the word “nine”. You stop, and put the cap on, and sit with the file shut on your knee until the tray is due.']],cb),
  cb=>say([
   ['','The doctor has a form. She needs a name on it for whoever consents, if they cannot.'],
   ['','They have no papers. They have never had papers. On the line for date of birth the doctor has written “March?”, because that is what they told her, in the pleasant voice.'],

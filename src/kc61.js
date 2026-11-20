@@ -68,7 +68,7 @@ ROOMS.medbay.spots.push({at:[56,170],mark:[56,160],label:'A black bag on the cha
  ['','The doctor has left her black bag on the chair by the sink. A folding ruler sticks out of the side pocket, and there is a clip of small white cards, each with the same date written on it in her hand: the night you came in.'],
  ['','You have seen photographs with a ruler and a date in the corner before. They were never of anything good.']],()=>ask('hitmeuppp','(The bag.)',[
   KD_NO('Ask her what the photographs were for.'),
-  {t:'Turn the chair to face the wall.',fn:()=>{S.f.k61Cam='chair';kdDeny();save();say([['','You turn the chair round so the bag faces the wall. Then you lie down facing the other way, and all afternoon you know exactly which way the bag is facing.'],
+  {t:'Turn the chair to face the wall.',fn:()=>{S.f.k61Cam='chair';kdDeny();save();say([['','You turn the chair round so the bag faces the wall. Then you lie down facing the other way, and all afternoon you know which way the bag is facing.'],
    ['hitmeuppp',MV('(clutter.)','(it’s clutter. i hate clutter.)','(It’s clutter. I don’t like clutter where I sleep.)','(It’s the doctor’s stuff, and it’s untidy, and I don’t like clutter in a room I’m sleeping in. That’s all it is.)')]])}},
   {t:'Tell V to move it. It’s untidy.',fn:()=>{S.f.k61Cam='v';kdDeny();save();say([['hitmeuppp',MV('her bag’s in the way.','the doctor left her bag. it’s in the way.','The doctor left her bag. It’s in the way.','The doctor left her bag on the chair. It’s really in the way, V. I can’t sleep with clutter, you know I can’t.')],
    ['K9','I will take it upstairs.'],
@@ -107,7 +107,7 @@ const KD61_MW=[
  cb=>say([['','There is a bread roll with the soup now, still warm. You leave it on the tray with everything else they bring.'],
    ['','At night you have heard a hound in the corridor. They have a hound out there, a big one, and sometimes she whines very low and scratches once at the door, the way a hound does when somebody has told her no. You know what places like this do to animals.'],
    ['','You tear the roll into pieces and push them under the door one at a time, flat on the lino, as far as your fingers reach.'],
-   ['','For a long time nothing comes. Then something does, very gently, a big muzzle so careful that it never touches your fingers.'],
+   ['','For a long time nothing comes. Then something does, a big muzzle so careful that it never touches your fingers.'],
    ['hitmeuppp',MV('(good girl.)','(good girl. good girl. quick.)','(Good girl. Eat it quick, before they see.)','(Good girl. Good girl. Eat it quick, before they see. Somebody in here should get fed.)')],
    ['','You do it with every roll after that. You lie with your fingertips under the door until the hound’s breath comes back to them.']],()=>{calm(-1);cb()}),
  cb=>say([['','There is black polish on the nails of your right hand, chipped down to half-moons. Angel did them on a Sunday, before, with a little pink star on the thumb.'],
@@ -125,7 +125,7 @@ const KD61_VC=[
    ['hitmeuppp',MV('sit.','sit down. have my soup.','Sit down. You can have half my soup.','Then sit down. You can have half of my soup. It’s your soup anyway. Sit.')],
    ['','He sits on the end of the bed. They push the tray at him with their good hand and watch him eat every spoonful, the way he has been watching them not eat for days, and does not say anything about it.']],()=>{apply({aff:3});calm(4);cb()}),
  cb=>{const flat=!!S.f.k61VRcpt;say([['','They ask for the things from their pockets. He has already given them the phone.'],
-   ['',flat?'He brings the bag, and the tax history. The receipt comes out of chapter six flat and dry, and they read it all the way through.':'He brings the bag. The receipt is still in it, a soft grey lump, and they unfold it on their knee one-handed, very slowly, so that it will not tear.'],
+   ['',flat?'He brings the bag, and the tax history. The receipt comes out of chapter six flat and dry, and they read it all the way through.':'He brings the bag. The receipt is still in it, a soft grey lump, and they unfold it on their knee one-handed, slowly, so that it will not tear.'],
    ['hitmeuppp',MV('rent’s due the 1st.','rent’s due on the 1st. what’s the date.','The rent’s due on the first. What’s the date?','The rent’s due on the first. What’s today? Don’t do the careful voice, just tell me the date.')],
    ['','They have a cast to the elbow, two pins through the back of their hand, a boot on their left foot and fourteen stitches in their scalp. They are asking about the rent.']],()=>ask('K9','(The rent.)',[
    {t:'“I have paid it.”',fn:()=>{S.f.k61VPaid=1;save();say([['hitmeuppp',MV('u WHAT.','u WHAT. i pay my rent.','You what? I pay my rent.','You what? V. I pay my rent. I’ve paid it every month since I was sixteen. I’ve never been late once. That’s mine.')],

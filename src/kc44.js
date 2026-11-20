@@ -11,7 +11,7 @@ lvEv('rom_r_ring',()=>S.rom==='r'&&mP44()&&frT('r')>=3,done=>say([
  [RN,'Thumbs are for the Devil. Figured he could share.'],
  ['hitmeuppp',MV('...it’s heavy.','it’s heavy. whose name’s in it.','It’s heavy. Whose name is inside?','It’s heavy. Whose name’s inside it? Actually, don’t tell me. I like wearing somebody I don’t know.')],
  [RN,'First one I ever did. Never took it off before. Don’t lose it, it’s the only thing I own that I’d come back from Hell for.'],
- ['','He goes straight back to the fight on the TV. Out on the street a siren goes past, and neither of you looks up. You turn the ring round and round on your thumb, and it is the most romantic thing that has ever happened to you, and it is a dead man’s ring.']],()=>{fr('r',4);done()}));
+ ['','He goes straight back to the fight on the TV. Out on the street a siren goes past. You turn the ring round and round on your thumb, and it is the most romantic thing that has ever happened to you, and it is a dead man’s ring.']],()=>{fr('r',4);done()}));
 lvEv('rom_r_cemetery',()=>S.rom==='r'&&frT('r')>=3&&S.day>=8,done=>say([
  ['','Their dates are in graveyards. Ronin brings a blanket and a thermos and a crowbar, in case. They lie on the grass between the stones and watch the planes.'],
  [RN,'Everybody here’s dead, and nobody here wants anythin’ from us. Best date spot in the city.'],
@@ -62,7 +62,7 @@ const AP_NOTES=[
  ['','Angel reads out a news comment that says whoever is doing this must be a monster. Ronin says “aw,” the way you would about a puppy.'],
  ['','A man in the queue at the pharmacy is crying on the phone about his brother, who has been missing since Thursday. Misaki holds the door for him on the way out, and does not think about him again.'],
  ['','The four of them are asked, at the same dinner, what they would do if the world ended tomorrow. Nobody can think of a single thing they would change.'],
- ['','The news shows the river being dragged. V turns it off, not because of the river, but because the hounds want walking.']];
+ ['','The news shows the river being dragged. V turns it off because the hounds want walking.']];
 EVENTS.push({id:'ap_note',when:()=>{try{return LV()&&S.day>=4&&S.f.apDay!==S.day}catch(e){return false}},run:done=>{S.seen.ap_note=0;S.f.apDay=S.day;S.f.apN=(S.f.apN||0)+1;save();say([AP_NOTES[(S.f.apN-1)%AP_NOTES.length]],done)}});
 if(typeof EV_REPEAT!=='undefined')EV_REPEAT.add('ap_note');
 const _xeLV=extraEnding;extraEnding=function(){const L=_xeLV();if(!S||!S.seen)return L;

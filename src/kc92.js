@@ -31,7 +31,7 @@ k86('k_knife','m',null,'cell','The knife on the tray',[
  N('He comes in. He crosses the four steps. He goes down on the left knee.')],
  cb=>ask('hitmeuppp','(Two seconds.)',[
   {t:'Do it',fn:()=>{S.f.e2lKnife='tried';save();say([
-   N('You do it. It is not fast. It is the slowest thing you have ever done with a blade, through the drip, like cutting under water. The edge arrives against the side of his neck and stops there, because your arm has nothing left to put behind it.'),
+   N('You do it. It is the slowest thing you have ever done with a blade, through the drip, like cutting under water. The edge arrives against the side of his neck and stops there, because your arm has nothing left to put behind it.'),
    N('He keeps perfectly still. He does not take the tray from under his own hands. You can feel his pulse through the steel. It is slow.'),
    K76V('It happens.'),
    N('You know those words. You cannot think where from. A table, in the dark, and plastic on the floor.'),
@@ -53,7 +53,7 @@ k86('k_offer','m',null,'cell','Make him an offer',[
  N('When he comes for the tray, you keep your eyes on his hands and you quote for it, as you would for any client.'),
  Ms('ur list’s too long. ur one guy. u do, what, four a year? i do four a MONTH. give me the list. no fee. u want them explained to, i’ll read them a card','Your list’s too long. You’re one guy. You do, what, four a year? I do four a month. Give me the list. No fee. If you want them explained to, I’ll read them a card.','You point at him, and hold up four fingers, and make a face. You point at yourself and hold up four, four, four. Then you rub finger and thumb together and shake your head: no charge.'),
  N('It is a good offer. It is a great offer. A man with a list and no time ought to bite your hand off.'),
- N('He has stopped with the tray half lifted. Something is going on in his face that you have not seen before, and you find that you are looking at it, in place of his hands.'),
+ N('He has stopped with the tray half lifted. Something is going on in his face that you have not seen before, and you are looking at it, in place of his hands.'),
  K76V('No.'),
  M2('(no?? i offered him free LABOUR. he could clear the backlog by christmas)','(no? i offered him free labour. he could clear the backlog by christmas)'),
  N('Then you have it. He does not want them dead. He wants to do it. It was never about the list getting shorter; you said so in the bowling alley, and he looked at you as if you had spat.'),
@@ -103,7 +103,7 @@ k86('k_pray','m',null,'clear','Ronin, in the corridor, at night',[
  [RN,'You want one, you take one of them. The skinny one that forgot the ties. I’ll bring him down to you myself, I’ll gift-wrap the fucker. Take two. I got a list.'],
  [RN,'But you keep your hands off the one in there. That one’s ours. I know what they done, I know they ain’t clean, I know they’re yours by rights. So’m I. So’s all of us.'],
  [RN,'I’ll owe you. Put it on my tab. You know I’m good for it; I’m comin’ to you anyway.'],
- N('There is a silence. You think he has finished.'),
+ N('He stops. You think he has finished.'),
  [RN,'…And you can go fuck yourself if that ain’t enough. Amen.'],
  M2('(he’s haggling with the DEVIL. for me. he’s doing a deal)','(he’s haggling with the devil, for me. he’s doing a deal)'),
  N('You do not let him know that you heard. In the morning you tell him that he snores, and he tells you that you smell like a hospital, and it is the nearest that either of you will come.')]);
@@ -138,7 +138,7 @@ k86('k_knifeV','v',null,null,'A knife at your neck',[
  N('It has come slowly. Through the drip, from a hand that will hardly lift. A week ago they could have opened you before you heard it. This has taken them a full second, and it has stopped where it touched, because there is nothing left in the arm to drive it.'),
  K76V('(There they are.)'),
  N('It is the first thing that they have done in this room which was not for a gaoler. It is the person who stood a bullet on your pillow. You had begun to think that the building had kept that one.'),
- N('You could have the knife out of their hand before they blinked. You keep still. You find that you would not disturb it for anything that you own.'),
+ N('You could have the knife out of their hand before they blinked. You keep still. You would not disturb it for anything that you own.'),
  K76V('It happens.')],
  cb=>ask('K9','(The edge is two fingers forward of the vessel.)',[
   {t:'Tell them where to cut',fn:()=>{S.f.e2lKnifeV='told';save();say([
@@ -150,7 +150,7 @@ k86('k_knifeV','v',null,null,'A knife at your neck',[
   {t:'Say nothing more, and wait',fn:()=>{S.f.e2lKnifeV='still';save();say([
    N('You wait. You count your own pulse against the edge. Forty. It is slower than it has been all week.'),
    N('The blade shakes, and falls. They wait, with their chin up, for the consequence. You pick the knife up and lay it on the tray, with the handle towards them.'),
-   N('In the corridor you find that you are smiling. It is a small, ugly thing, and it has no business on your face tonight. You stand with your hand over your mouth until it has gone.'),
+   N('In the corridor you are smiling. It is a small, ugly thing, and it has no business on your face tonight. You stand with your hand over your mouth until it has gone.'),
    K76V('(They tried to kill me. I have not been so relieved since I found the building.)')],cb)}}]));
 k86('k_offerV','v',null,null,'What they offered you',[
  N('They made you an offer this evening. Evenly, with their eyes on your hands, in the pleasant voice.'),
@@ -195,7 +195,7 @@ k86('k_ranV','v',null,null,'They ran',[
 k92When(k92Ran);
 k86('k_miss','v',null,null,'Angel, on the range',[
  N('You find Angel on the range under the house at four in the morning. She has not been to bed. There is a paper target at fifteen metres, and a box of shells open on the bench.'),
- N('Angel does not miss. It is not a thing that she is good at; it is a thing that she is. You have seen her take a playing card out of a man’s fingers, laughing, with her eyes shut for the camera.'),
+ N('Angel does not miss. It is what she is. You have seen her take a playing card out of a man’s fingers, laughing, with her eyes shut for the camera.'),
  N('The target has not got a mark on it.'),
  [AN,'Don’t.'],
  K76V('I had not spoken.'),
@@ -225,7 +225,7 @@ k86('k_empty','v',null,null,'Say it to the kennel',[
  K76V('I do not know what a book is worth with a line in it that will not be carried out. I do not know what I am, if the book is not worth anything.'),
  N('You stand there. It is cold. None of them has an opinion.'),
  K76V('I am not going to kill them. I should like to be able to say so in that room. I cannot find a way to say it, to a person lying drugged in my cellar, that is not exactly what the worst man alive would also say.'),
- N('The old hound gets up, a joint at a time, and comes and leans on your leg. It is not an answer. It is the nearest thing to one that you are going to get, and you stay out there, taking it, until your feet are numb.')]);
+ N('The old hound gets up, a joint at a time, and comes and leans on your leg. It is the nearest thing to an answer that you are going to get, and you stay out there, taking it, until your feet are numb.')]);
 
 /* ===================================== ENDINGS ===================================== */
 const _xe92=extraEnding;extraEnding=function(){const L=_xe92();try{if(!S||!S.f||S.f.e2l!==1||S.rom||S.vrom||S.f.k28pair)return L;const f=S.f,F=f.e2l85||{};

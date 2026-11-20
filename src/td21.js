@@ -51,7 +51,7 @@ PT_EV.push({id:'pt_pulse',when:()=>pt_started()&&S.day>=6,run:done=>{pt_set();pt
   ['','They go still. You watch them count.'],
   ['hitmeuppp','...seventy-two.'],
   ['hitmeuppp','huh. that’s a good fake.'],
-  ['K9','It is not a fake. It is a radial artery. Everybody has two.'],
+  ['K9','That is your radial artery, and it is real. Everybody has two.'],
   ['hitmeuppp','sure. sure. that’s what it would feel like either way though, right'],
   ['','You do not have an answer to that. You eat the toast, so that somebody has.']],()=>{apply({aff:2});done()},'loss')}});
 
@@ -93,7 +93,7 @@ PT_EV.push({id:'pt_food',when:()=>pt_after('door'),run:done=>{pt_set();pt_mark('
   ['','You eat the first spoonful to get it over with.'],
   ['M','salt. hot. ...tuesday.'],
   [P,P==='K9'?'It is Thursday.':P===AN?'it’s thursday. still counts.':'It’s Thursday. Still counts.'],
-  ['','You do it again. And again. By the bottom of the bowl the words are getting less wrong. “Ginger.” “Too much ginger.” Neither of you mentions that you finished it.']]
+  ['','You do it again. And again. By the bottom of the bowl the words are getting less wrong. “Ginger.” “Too much ginger.” You scrape the bowl.']]
  :[
   ['','On the camera wall, the trailer lot, 7:12. Misaki comes out with a sandwich, unwraps it, and breaks it up on the gravel. There are no crows. They stand there as if there are.'],
   ['','They go back inside. The rice stays on the gravel until a cat finds it at noon.'],
@@ -110,18 +110,18 @@ PT_EV.push({id:'pt_food',when:()=>pt_after('door'),run:done=>{pt_set();pt_mark('
 PT_EV.push({id:'pt_obit',when:()=>pt_after('food'),run:done=>{pt_set();pt_mark('obit');S.f.ptObit=1;
  const A=frT('a')>=1;const finder=A?AN:'K9';
  const L=[
-  ['',pt_M()?(A?'Angel borrows your phone to film something and stops scrolling halfway through your notes app.':'You leave your phone unlocked on V’s kitchen counter. When you come back he is not reading it. He is very carefully not reading it, which means he has.'):(A?'Angel calls you, which she never does. She sends a screenshot first.':'Misaki leaves their phone unlocked on your counter. A note is open. You are halfway through it before you understand what it is.')],
-  ['','A note titled “bio (final)”. It is very good. It is the best thing they have ever written. It is in the past tense.'],
+  ['',pt_M()?(A?'Angel borrows your phone to film something and stops scrolling halfway through your notes app.':'You leave your phone unlocked on V’s kitchen counter. When you come back he is not reading it. He is making a show of not reading it, which means he has.'):(A?'Angel calls you, which she never does. She sends a screenshot first.':'Misaki leaves their phone unlocked on your counter. A note is open. You are halfway through it before you understand what it is.')],
+  ['','A note titled “bio (final)”. It is the best thing they have ever written, and it is in the past tense.'],
   ['','<i>“They were fast at sixteen and quiet at twenty. They were good at doors. They were survived by a trailer, a coin jar, a sticker sheet with eleven stickers left, and a man who kept a list of the ways they said no.”</i>'],
   [finder,A?'babe. “was survived by.” that’s not how that works. u can’t be survived in the past tense.':'You cannot be survived in the past tense. It is grammatically impossible.'],
   [pt_M()?'M':'hitmeuppp','watch me.'],
   ['',A?'Angel does not argue. She sits down, opens the note, and starts changing it, one verb at a time, out loud.':'He does not argue. He sits down beside them, opens the note, and changes one verb, slowly, where they can see.'],
   [finder,A?'“they ARE fast.” ...ok fine “they are FASTER than u.” “they ARE good at doors.” “they HAVE a coin jar.”':'“They are good at doors.”'],
-  ['',pt_M()?'You watch each verb change like a card trick you know the secret of. The trick still works on everyone else. It does not work on you. You let them do it anyway.':'They watch each verb change the way people watch a card trick they already know the secret of. They do not stop you.'],
+  ['',pt_M()?'You watch each verb change like a card trick you know the secret of. It works on everyone but you. You let them do it anyway.':'They watch each verb change the way people watch a card trick they already know the secret of. They do not stop you.'],
   [pt_M()?'M':'hitmeuppp','you missed one.'],
   [finder,A?'where':'Where?'],
   [pt_M()?'M':'hitmeuppp','“survived by.” you left it.'],
-  [finder,A?'i left it on purpose. u ARE survived by all that stuff. every day. it’s called living with it. it’s the most boring miracle in the world.':'I left it on purpose. You are survived by all of it, every day. That is what living in a place means. It is very dull. It is extremely difficult to do.']];
+  [finder,A?'i left it on purpose. u ARE survived by all that stuff. every day. it’s called living with it. it’s the most boring miracle in the world.':'I left it on purpose. You are survived by all of it, every day, and you have to live in it. That is very dull and extremely difficult.']];
  pt_say(L,()=>{note('pt_obit','They wrote their own obituary in the notes app, titled “bio (final)”. Someone changed the verbs. They let them.');if(A)fr('a',4);else apply({aff:3});done()},'loss')}});
 
 /* ---------- 5. the count ---------- */
@@ -136,7 +136,7 @@ PT_EV.push({id:'pt_count',when:()=>pt_after('obit'),run:done=>{pt_set();pt_mark(
   ['','You look again. There is a kid in the armchair with a star clip, holding the popcorn, looking at the camera. You counted them. You counted them as furniture.'],
   ['','There were four. There were always four.'],
   ['M','(server) oh. yeah. there i am'],
-  ['','You set the photo as your lock screen, not because you believe it, but so that you will have to look at the evidence every time you check the time.']]
+  ['','You set the photo as your lock screen. You do not believe it, so now you have to look at the evidence every time you check the time.']]
  :[
   ['','Angel posts the photo from movie night. Four people, the hounds in a line behind them, one bowl of popcorn.'],
   ['hitmeuppp','(server) good pic. who took it'],
@@ -226,7 +226,7 @@ const PT_CHORES=[
  [RN,'Come hold the ladder, darlin’. Gutters. If I fall, it’s on your conscience, and ghosts ain’t got one, so you’d better be somethin’ else.','You hold the ladder for an hour while Ronin pulls leaves out of a gutter and sings badly. Twice it wobbles and twice you catch it.'],
  ['K9','Stir the soup. Clockwise. If it sticks to the bottom it will be your fault, which requires a self, which I am told you lack. We will find out.','You stir the soup for forty minutes. It does not stick. When you taste it to check, you say “salt” before you can stop yourself.'],
  [AN,'come help me carry the lighting rig up four flights. the lift is broken and i am a delicate flower','The rig weighs more than Angel. Your shoulder hurts for the rest of the day. Angel says “told u” every time you rub it.'],
- [RN,'Dishes. My place. There’s a stack. I ain’t proud of it. Water’s hot enough to argue with you.','The water is too hot. Your hands go pink. You wash the whole stack and Ronin dries, and neither of you says anything about why you are there.'],
+ [RN,'Dishes. My place. There’s a stack. I ain’t proud of it. Water’s hot enough to argue with you.','The water is too hot. Your hands go pink. You wash the whole stack and Ronin dries. Nobody brings up why you came.'],
  ['K9','Read to me. Chapter nine. My eyes are tired. Ghosts do not do voices for the duke, so if you do the voice, I will draw my own conclusions.','You read chapter nine. You do the voice for the duke. You do not mean to. He turns a page he has not read, so that you will keep going.']];
 function pt_ghostDay(done){pt_set();const avail=PT_CHORES.filter(c=>c[0]==='K9'||(c[0]===AN&&frT('a')>=1)||(c[0]===RN&&frT('r')>=1));const ch=avail[(S.f.ptDays||0)%avail.length];
  const L=pt_M()?[

@@ -90,7 +90,7 @@ const KD63_MW=[
 function k63After(next){S.f.k63Sh=1;save();go(cutBg('#1c2422'));say([
  ['','The room is a room. Your body hasn’t been told.'],
  ['','Your heart is still going at the speed it kept in the cell, and your right hand is still shut. Every few seconds your eyes go to the gap under the door to check it for feet.'],
- ['','Then the days come back, all at once, and they have changed while you weren’t looking. Every time the tall one knelt, it was V kneeling. Every time you thanked the guard for the water in the voice from the slot, you were thanking V, and he said “you are welcome”, and went out, and sat down outside.'],
+ ['','Then the days come back in one go, and they have changed while you weren’t looking. Every time the tall one knelt, it was V kneeling. Every time you thanked the guard for the water in the voice from the slot, you were thanking V, and he said “you are welcome”, and went out, and sat down outside.'],
  ['','You go through them one at a time, sitting on the floor, and each one turns over and has his face on the other side.'],
  k63SA()?['','Under the floor of it there are still the hours from the other building. The break doesn’t reach that far down.']:['','Under the cast the hand goes on throbbing at its own speed, the same as it did in the cell.'],
  ['hitmeuppp',MV('(it was him.)','(it was him. every time. it was him.)','(It was him every time. I thanked him like he was one of them.)','(It was V. Every soup. Every time I said thanks in that voice. He sat there and took it and said “you are welcome”, and I counted his steps.)')]],()=>ask('hitmeuppp','(The floor.)',[
@@ -159,7 +159,7 @@ const KD63_VW=cb=>say([['','From the corridor he hears them say their own name. 
  ['','Twice he says it back, low, through the wood. Both times they stop, and the room goes very still, and then they start again.'],
  ['K9','(My voice is in the wrong place. Anything I give them through this door goes into the cell with them.)'],
  ['','He stops answering. At forty they stop too. He writes “40” on the chart, and does not know why.']],()=>{calm(-2);cb()});
-const KD63_VB=cb=>say([['','They know him again by the afternoon. It comes back to them slowly this time, and they hold it very carefully, as though it could be taken away.'],
+const KD63_VB=cb=>say([['','They know him again by the afternoon. It comes back to them slowly this time, and they hold onto it as though it could be taken away.'],
  ['','They hardly move. They eat his soup, looks at the lamp, and says the date to themself at intervals, like a reading off a gauge.'],
  ['K9','(The last time they knew me, it went in the night. They remember that better than I do.)'],
  ['','He does not go in. He says the date through the door at noon, and again at four, in the same words, so that it will match.']],()=>{calm(1);cb()});
@@ -187,7 +187,7 @@ k63Ev('kd63_alarms',()=>kdD()>=2,done=>{const me=S.pov!=='v';
  if(me)return say([['','You set alarms: one every forty minutes, from midnight to six, on vibrate, under your pillow.'],
   ['','The rule from the other building holds when you are asleep. If you go under for too long, things happen that you don’t get to see. Forty minutes is as long as you think you can afford.'],
   ['',k63SA()?'You don’t think about why forty. It is a number you came up with in the dark, and you leave the reason where it is.':'You picked forty because the radio in the other building did the jingle on the forty, and your body still keeps that time.'],
-  ['','Each time it buzzes you wake all at once, check the door and your hands, and lie back down. By morning you have woken nine times.'],
+  ['','Each time it buzzes you are awake at once, check the door and your hands, and lie back down. By morning you have woken nine times.'],
   ['hitmeuppp',MV('(9. fine.)','(nine alarms. still here each time.)','(Nine alarms. I was still here every time.)','(Nine alarms. Nine checks, and I was in his bed every time, boots on. That’s a good night. That’s data.)')]],()=>ask('hitmeuppp','(The alarms.)',[
   {t:'Keep all of them.',fn:()=>{S.f.k63Alarm='all';calm(-1);apply({energy:-6});save();say([['','You keep them. At breakfast you are bright and quick and make toast for both of you, and you drop the butter knife twice without noticing either time.']],done)}},
   {t:'Turn off the three o’clock.',fn:()=>{S.f.k63Alarm='three';calm(-2);save();say([['','You turn off the three o’clock. At three you wake anyway, on the minute, without it, and lie there with your heart going until the four o’clock comes to tell you that you are allowed to be awake.']],done)}},

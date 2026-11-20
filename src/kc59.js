@@ -171,7 +171,7 @@ w59B('w59_v_hale',()=>S.phase==='normal'&&w59Me()==='v'&&S.day>=3,done=>{const k
   ['Hale','There is a war on in this city, and they’ve stopped reporting their dead. I don’t much mind their dead. What I mind is that when they finish it, '+o.boss+' will walk out of court again, the way they did twice already.'],
   ['Hale','You have files. I’ve seen what your lawyers do with them. I would like one file, on '+o.boss+', with enough in it to hold. One trial with a real judge, before I retire.']],
   ()=>ask('K9','(He is watching your hands again.)',[
-   {t:'Give him the file',sub:'+conscience · Hale owes you',fn:()=>{F.haleFile=1;apply({heart:4,rep:2});save();say([['','V gives him a thick grey folder, already labelled. Hale weighs it in one hand and does not open it in front of him.'],['Hale','You had this ready.'],['K9','I have one ready on everyone. That is not a confession, Inspector. It is filing.']],done)}},
+   {t:'Give him the file',sub:'+conscience · Hale owes you',fn:()=>{F.haleFile=1;apply({heart:4,rep:2});save();say([['','V gives him a thick grey folder, already labelled. Hale weighs it in one hand and does not open it in front of him.'],['Hale','You had this ready.'],['K9','I have one ready on everyone. Call it filing, Inspector.']],done)}},
    {t:'Tell him you have nothing',fn:()=>say([['K9','My foundation exposes fraud, Inspector. I do not keep files on people like that.'],['Hale','Of course you don’t. I’ll be seeing you.']],done)}]))});
 w59B('w59_v_circle',()=>S.phase==='normal'&&w59Me()==='v'&&(S.paid||0)>=1&&w59Seen('w59_v_ledger'),done=>{const k=w59Lead(),o=w59O(k),F=w59F();
  say([['','Every outfit in the city is noisy in the ledgers. '+o.name+' has gone quiet: no new debts, no new hires, no payments, nothing for three days.'],
@@ -179,7 +179,7 @@ w59B('w59_v_circle',()=>S.phase==='normal'&&w59Me()==='v'&&(S.paid||0)>=1&&w59Se
   ()=>ask('K9','(The right night.)',[
    {t:'Sit outside their lot tonight',sub:'−energy',fn:()=>{F.watched=1;apply({energy:-20});save();say([['','He sits in the car with the lights off from ten until four. Nothing comes. At four they open the trailer door to put the rubbish out, see the car, and wave with the bin bag.'],['','Nothing comes the next night either. He has a board meeting the night after that.']],done)}},
    {t:'Ask them to move in now',sub:S.f.movedIn?'they already have':'♥',dis:!!S.f.movedIn,fn:()=>{F.asked=1;apply({aff:2});save();say([['K9','I would like you to stay at the house. Starting tonight. For no reason I am prepared to explain.'],['hitmeuppp',MV('who is this','after rent. i’m paying it MYSELF. one more week','After rent. I want to pay it myself once, V. Then I’ll come and let your hounds sit on me.','After rent. I need to pay it once, myself, with my own money. Then I’m yours. Don’t make the face. I can hear the face.')]],done)}},
-   {t:'Read the accounts again',fn:()=>say([['','He reads them until three in the morning. They are still quiet, and he knows exactly what that means.']],done)}]))});
+   {t:'Read the accounts again',fn:()=>say([['','He reads them until three in the morning. They are still quiet, and he knows what that means.']],done)}]))});
 /* V's hunt among them: the morning after */
 w59B('w59_v_hunted',()=>w59Me()==='v'&&S.phase==='normal'&&!!w59F().got&&!w59F().gotSeen,done=>{const F=w59F(),k=F.got,o=w59O(k);F.gotSeen=1;save();
  say([['','He took the man’s phone, as he always does, and he reads it at the kitchen table with the hounds lying across his feet.'],
@@ -218,7 +218,7 @@ const _jr59=jobResult;jobResult=function(t,ok,info){try{if(W59()&&S.phase==='nor
 const _hub59=hub;hub=function(){try{const F=S&&S.f&&S.f.w59;if(F&&F.pend&&!dlg&&!ctrl&&W59()&&S.phase==='normal'){F.pend=0;const id=w59NextG();if(id){go(cutBg('#0e0a10'));return w59Glimpse(id,'m',()=>_hub59())}}}catch(e){}return _hub59.apply(this,arguments)};
 /* ---------- in the cell: their faces ---------- */
 ROOMS.cell.spots.push({at:[100,150],mark:[100,140],label:'Their faces',show:()=>{try{return w59Me()==='m'&&!w59F().faces&&W59G_ORDER.some(id=>w59G(id,'m'))}catch(e){return false}},act:()=>{const F=w59F();F.faces=1;save();const s=id=>w59G(id,'m');
- say([['','You know them. That is the worst part, and you make yourself look at it.'],
+ say([['','You know them, and you make yourself look at it.'],
   s('driver')?['','The driver sang the whole way here, and you had heard that voice before, by your own fence, when he lifted two fingers off the wheel at you and you waved back.']:null,
   s('radio')?['','The big one with the radio is the man who held the laundromat door with his boot and watched you fold your shirts.']:null,
   s('notes')?['','You read the note-taker’s handwriting once already, upside down, on a bench outside a job. He wrote down your bag.']:null,

@@ -264,7 +264,7 @@ function k67Epi(){go(cutBg('#0c0806'));k67Mark('vr67_epi');const t=S.f.k67Ten;
    [RN,'Foreman owes me money, Vee. He showed me the cheque. You signed it with your fuckin’ initials.'],
    ['K9','I have always signed with my initials.'],
    ['','He takes you down to the boiler room. The crowbar is back on its hook by the hatch.'],
-   t==='end'?['','Somebody has cleaned it very carefully and hung it back straight.']:['','Nobody has touched it since the night the man in grey went up the stair.']];
+   t==='end'?['','Somebody has cleaned it carefully and hung it back straight.']:['','Nobody has touched it since the night the man in grey went up the stair.']];
   if(S.f.k67Row==='kiss')L.push([RN,'Torch is still under the boiler. I ain’t gettin’ it out. It lives there now.']);
   else if(S.f.k67Row==='file')L.push([RN,'Read my file in January. There’s a crowbar with a heart on it in the margin, and you never crossed it out.'],['K9','It was evidence.']);
   return say(L,()=>ask('K9','(He has his back to the warm boiler, and he is waiting for you to say something.)',[
@@ -303,7 +303,7 @@ function k67Epi(){go(cutBg('#0c0806'));k67Mark('vr67_epi');const t=S.f.k67Ten;
 /* ===================================== MORNINGS ===================================== */
 EVENTS.push({id:'k67vr_morn',when:()=>{try{return K67()&&S.phase==='normal'&&k67Did('church')&&(S.vromDates||0)>=2}catch(e){return false}},run:done=>say([
  ['',sugOn()?'You wake at Ronin’s at nine, in his bed above the workshop. Through the floor you can hear the gospel radio and something frying. Downstairs the church clock over the bench still says twenty to eleven.':'You wake at Ronin’s at nine, on top of the covers of his bed above the workshop, still in your shirt and trousers, where you fell asleep at two while he was reading you the wrestling results. Through the floor you can hear the gospel radio and something frying. Downstairs the church clock over the bench still says twenty to eleven.'],
- ['','While he cooks, you take his crowbars off the wall and hang them back up in order of length. It takes eleven minutes and it is the most relaxing thing you have done in a year.'],
+ ['','While he cooks, you take his crowbars off the wall and hang them back up in order of length. It takes eleven minutes and you have not been so relaxed in a year.'],
  [RN,'(on the stairs, holding a spatula) The fuck did you do to my wall.'],
  ['K9','I put them in order.'],
  [RN,'They WERE in order. They were in order of who.'],

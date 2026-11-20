@@ -50,11 +50,11 @@ hdEv('kd_hard_angel',()=>kdD()>=11&&frT('a')>=1,done=>{const m=S.pov!=='v';say([
  [AN,'that’s not light. that’s—'],
  ['','She stops. She looks at Misaki for a while, the way she looks down a scope, and decides not to finish.'],
  [AN,'ok. ok. your call. you know i’d never tell you how to work.'],
- ['',m?'She hugs you on the way out, harder than usual. Over your shoulder, she looks at V, and V looks back, and neither of them says anything, and you notice, and you pretend you didn’t.':'She hugs Misaki on the way out, too hard. Over Misaki’s shoulder she looks at him. He looks back. Misaki notices, and pretends they did not.']],()=>{fr('a',-1);done()})});
+ ['',m?'She hugs you on the way out, harder than usual. Over your shoulder, she looks at V, and V looks back, and you notice, and you pretend you didn’t.':'She hugs Misaki on the way out, too hard. Over Misaki’s shoulder she looks at him. He looks back. Misaki notices, and pretends they did not.']],()=>{fr('a',-1);done()})});
 /* ---------- V sees it ---------- */
 hdEv('kd_v_sees',()=>S.pov==='v'&&kdD()>=10,done=>say([
  ['','They took three contracts this week. They came back from all three without a mark on them and without a word, and ate, and went to bed at nine, and slept, which they have not done since.'],
- ['','He knows exactly what he is looking at. He has looked at it in the mirror. It is what he did after his mother: decided that nothing would ever make him less, and became something nothing could touch, and called it competence, and it was.'],
+ ['','He knows what he is looking at. He has looked at it in the mirror. It is what he did after his mother: decided that nothing would ever make him less, and became something nothing could touch, and called it competence, and it was.'],
  ['K9','(They are turning into me. They are doing it on purpose, and very well, and faster than I did.)']],()=>ask('K9','(He could say something.)',[
   {t:'Say something.',fn:()=>{apply({tension:6});say([['K9','You took the car-seat job.'],['hitmeuppp',MV('so?','so? it was a job.','So? It was a job.','So? It was a job. A good one. Clean. Since when do you care about my rules, V, you don’t even let me pick the music.')],
     ['K9','Since always.'],['hitmeuppp',MV('...','don’t. don’t do the careful thing.','Don’t. Don’t do the careful voice.','Don’t. Don’t do the careful voice at me. Everybody does the careful voice. I’m fine. I’m better than fine. I’m the best I’ve ever been. Look at me.')],
@@ -69,5 +69,5 @@ hdEv('kd_v_cant',()=>S.pov==='v'&&kdD()>=14&&S.f.kd_v_sees,done=>say([
 (function(){if(typeof KD_ORDER==='undefined')return;KD_ORDER.push('kd_v_ledger','kd_v_kitchen','kd_v_nobody','kd_v_tally','kd_hard_first','kd_hard_work','kd_hard_angel','kd_v_sees','kd_hard_rule','kd_v_cant')})();
 const _xeKD55=extraEnding;extraEnding=function(){const L=_xeKD55();if(!S||!S.f)return L;
  if(S.f.kd_hard_first)L.push('They are the best they have ever been. Faster, colder, nothing wasted. They don’t hum on jobs any more, and they wash their hands once.');
- if(S.f.kd_v_sees)L.push('V knows exactly what they are turning into; he turned into it himself. He has never once found the sentence that would stop them without telling them they were broken. He makes two cups every night they work.');
+ if(S.f.kd_v_sees)L.push('V knows what they are turning into; he turned into it himself. He has never once found the sentence that would stop them without telling them they were broken. He makes two cups every night they work.');
  return L};

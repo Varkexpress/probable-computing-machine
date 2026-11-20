@@ -87,7 +87,7 @@ const k84_s_table=cb=>say([
 const k84_s_voice=cb=>say([
   ['','They thank you for the water. It is the pleasant voice, the careful one, with the eyes on your hands.'],
   ['','You have despised that voice for three days. You took it for cowardice, in a killer who never once showed any on a roof.'],
-  K76V('(It is not cowardice. It is a method. It is what one says, and how one holds the face, so that the one with the keys will be finished sooner.)'),
+  K76V('(It is a method: what one says, and how one holds the face, so that the one with the keys will be finished sooner.)'),
   K76V('(They learned it in four days in that building. Or they have had it since before they could write a month on a form, and took it out again when it was needed. I cannot tell which, and I find that I cannot bear either.)'),
   ['','By your law, what is done is owed back to those who did it, in kind. You have names for some of them, and you will have the rest.'],
   K76V('(And that settles one account. There is another, and nothing I take out of those men will go back into them. The book is for eyes and for hands. It has no column for this.)'),
@@ -158,8 +158,8 @@ const k84_i_scale=cb=>say([
   ['','There is no scale in the house for a person. You carry them to the kennel and weigh them on the one for the hounds.'],
   ['','They weigh less than the grey hound. They find this extremely funny, and tell her so.'],
   ['','They had four days on water, and on whatever came through a slot. There is a tooth gone at the back, on the left; they showed you the gap with a finger, quite cheerfully, as proof of something.'],
-  K76V('(They were not even starved for a purpose. Nobody decided upon it. They were forgotten, between one shift and the next.)'),
-  K76V('(I feed what is in my keeping. I fed the card man, and fed him well, to the last night. It is not kindness. A thing that I hold is held properly, or I am no better than a man with a van.)'),
+  K76V('(Nobody even decided to starve them. They were forgotten, between one shift and the next.)'),
+  K76V('(I feed what is in my keeping. I fed the card man, and fed him well, to the last night. Kindness does not come into it. A thing that I hold is held properly, or I am no better than a man with a van.)'),
   ['','You are aware that this is a butcher’s objection. You are disgusted as a tradesman is, at bad work. You had thought that it would stop there, at the workmanship.'],
   K76V('(It has not stopped there. I do not want it. I did not ask to be made sick on behalf of something in my own book.)'),
   ['','You cook. Broth first, then egg, then a little rice, in that order, a spoon at a time, as you would for an animal brought in off a chain. They eat all of it and ask whether there is any ham.']],cb);
@@ -185,7 +185,7 @@ function k84Marks(){k77Go('#0c0b0b');k73Mark('e2l_marks',1);const m=k76M(),f=S.f
  if(k84SA()){const L=m?[
    ['','You are upstairs now, in the spare room, with a bathroom of your own. Tonight you have washed five times.'],
    ['','On the fifth the water goes cold. You stand under it anyway. You have used all the hot water in a billionaire’s house, and you would use it again if there were any.'],
-   ['','When you come out there are towels on the floor outside the bathroom door, a stack of them, warm, and nobody in the corridor. At the far end of the house somebody is making a great deal of noise with the hounds’ bowls, so that you will know exactly where he is.']]:[
+   ['','When you come out there are towels on the floor outside the bathroom door, a stack of them, warm, and nobody in the corridor. At the far end of the house somebody is making a great deal of noise with the hounds’ bowls, so that you will know where he is.']]:[
    ['','At eleven the boiler gives out. It has not done so in eleven years. They have the bathroom off the spare room, and the water has been running in it since nine.'],
    ['','You know what that is. You have sat with people who did it. It is not a thing that one is clean of after one wash, or after five, and nobody can do it for them.'],
    K76V('(I cannot go to that door. I am the last man in this city who may stand outside that door.)')];
@@ -193,9 +193,9 @@ function k84Marks(){k77Go('#0c0b0b');k73Mark('e2l_marks',1);const m=k76M(),f=S.f
    k84No('Tell him why it takes five.'),
    {t:'“ur boiler’s shit, by the way”',sub:'shout it down the corridor',fn:()=>{f.e2lMarks='boiler';k84Deny();save();say([
     K76V('(from the far end) It is forty years old. I will have another put in.'),
-    ['','There is a second boiler by Thursday. The water never runs out again. Neither of you ever mentions why a house with one person in it needed two.']],hub)}},
+    ['','There is a second boiler by Thursday. The water never runs out again. Nobody ever mentions why a house with one person in it needed two.']],hub)}},
    {t:'Take the towels and say nothing',fn:()=>{f.e2lMarks='towels';k84Deny();save();say([
-    ['','You take the towels in and shut the door. The noise with the bowls goes on for another twenty minutes, steadily, and you find that you are timing your breathing to it.'],
+    ['','You take the towels in and shut the door. The noise with the bowls goes on for another twenty minutes, steadily, and you are timing your breathing to it.'],
     K76MV('(he doesn’t know anything. he’s just loud. he’s just a loud old man with dogs)','(he doesn’t know anything. he’s just loud. a loud old man with dogs)','(He doesn’t know anything. He’s just loud. A loud old man with dogs.)','(He doesn’t know anything. He’s merely loud: a loud old man with dogs.)')],hub)}}]:[
    k84No('Ask them whether there is anything that you can do.','it is not yours to ask'),
    {t:'Have a second boiler put in',fn:()=>{f.e2lMarks='boiler';save();say([
@@ -205,10 +205,10 @@ function k84Marks(){k77Go('#0c0b0b');k73Mark('e2l_marks',1);const m=k76M(),f=S.f
     ['','You have it in by Thursday. The plumber asks why a house with one person in it should need two. You tell him that it is no longer a house with one person in it, and hear that after you have said it.']],hub)}},
    {t:'Leave towels, and make a noise at the far end of the house',fn:()=>{f.e2lMarks='towels';save();say([
     ['','You leave towels on the floor outside their door, warm from the rail. Then you go to the kennel passage and rattle the hounds’ bowls for twenty minutes, so that anybody in the house can tell exactly where you are and that you are not coming nearer.'],
-    K76V('(It is the only thing I have found to give them: the knowledge of where I am.)')],hub)}}]))}
+    K76V('(I have found one thing that I can give them, and it is where I am.)')],hub)}}]))}
  const L=[
   ['',m?'The pins come out today, on the kitchen island, under the good lamp. He does it himself, with the small pliers, and you watch, because it is your hand and you like to know how things are done.':'You take the pins out today, on the kitchen island, under the good lamp. They watch every one. They like to know how a thing is done.'],
-  ['',m?'There are a lot of marks, with the cast off. He goes over them as he goes, in the voice of a man marking somebody else’s homework.':'There are a great many marks, with the cast off. You find that you are going over them aloud.'],
+  ['',m?'There are a lot of marks, with the cast off. He goes over them as he goes, in the voice of a man marking somebody else’s homework.':'There are a great many marks, with the cast off. You go over them aloud as you work.'],
   K76V('This was a heel. This is from the cable ties; they were put on wet and left. This one I cannot account for at all. It is merely where somebody leaned.'),
   K76MV('u sound like a food critic','you sound like a food critic','You sound like a food critic.','You sound like a food critic, V. Two stars.'),
   K76V('I intend to find the man with the boot.'),
@@ -217,7 +217,7 @@ function k84Marks(){k77Go('#0c0b0b');k73Mark('e2l_marks',1);const m=k76M(),f=S.f
  const same=()=>{f.e2lMarks='same';apply({aff:1});save();say([
    m?K76MV('they’re the same trade, v','they are the same trade, v','They are the same trade, V.','They are the same trade, V. Ask the guy on the table.'):null,
    ['',m?'He stops with the pliers on the last pin. He does not argue. You have never seen him not argue.':'You stop with the pliers on the last pin. You have an answer to that. You have had it for eleven years, and it does not come.'],
-   K76V('Then I would ask you to let me go on being disgusted by his. It is the only part of it that I am sure of.'),
+   K76V('Then I would ask you to let me go on being disgusted by his. Of that much I am sure.'),
    K76MV('knock urself out','knock yourself out','Knock yourself out.','Knock yourself out. Be disgusted. It’s free.'),
    ['',m?'He takes the last pin out more gently than he took the first. You pretend that you have not noticed.':'You take the last pin out more gently than you took the first. They pretend that they have not noticed.']],hub)};
  const differ=()=>{f.e2lMarks='differ';apply({aff:1});save();say([

@@ -61,7 +61,7 @@ k86('g_voice','m',null,'cell','Get your story straight',[
  Ms('never heard of him. i was at the laundromat. i do deliveries','Never heard of him. I was at the laundromat. I do deliveries.','You run it in your head, since the voice is gone: never heard of him; the laundromat; deliveries. You practise the face that goes with it.'),
  N('The doorman: you were across town. The driver: what driver. The man on his step: you do not work Tuesdays. It is a good story. It got you past an inspector twice.'),
  M2('(he’s got a FILE, dumbass. he’s got the cartridge case. what’s “i do deliveries” gonna do)','(he’s got a file, dumbass. he’s got the cartridge case. what is “i do deliveries” going to do?)'),
- N('It is not for him to believe. It is so that you have something to say that is not the truth. He wants you to stand there and agree with him; that is the whole of his hobby. You would sooner go out lying.'),
+ N('Whether he believes it does not matter. You need something to say that is not the truth. He wants you to stand there and agree with him; that is the whole of his hobby. You would sooner go out lying.'),
  N('Through the wall, something heavy is set down, hard, on stone. Then nothing. You run the story again, from the top.')]);
 k86('g_eye','m',null,'cell','The green light on the ceiling',[
  N('There is a white disc on the ceiling with a green light in it. It blinks every nine seconds.'),
@@ -76,7 +76,7 @@ k86('g_sign','m',null,'clear','The sign on the door',[
  M2('he put me in the LAUNDRY. i thought i was getting murdered and i was in the LAUNDRY','he put me in the laundry. i thought i was being murdered, and i was in the laundry'),
  N('You say it to the ceiling. Then you say it again, because it is the first sentence in a week that has come out in your own voice, and you want to hear what that sounds like.'),
  M2('ur honour. hey. UR HONOUR. ur sign’s stupid','your honour! hey, your honour! your sign’s stupid!'),
- N('Nobody answers. Somewhere a long way up the house a door closes, carefully. You find that you are grinning, and that it hurts your face, as if the muscles had been put away for the season.')]);
+ N('Nobody answers. Somewhere a long way up the house a door closes, carefully. You are grinning, and it hurts your face, as if the muscles had been put away for the season.')]);
 k86('g_ronin','m',null,'clear','Ronin, with a chair',[
  N('Ronin comes in with a kitchen chair and puts it down backwards and sits on it. He has brought the crowbar. He always brings the crowbar.'),
  [RN,'You look like shit. I’ve dug up better.'],
@@ -118,7 +118,7 @@ k86('g_grandpa','m',null,'clear','Call him “ur honour”',[
 k86('g_kneel','v',null,null,'The tray',[
  N('You are a tall man. In that room, with them flat on the bed, you are the height of the door.'),
  N('So you kneel to put the tray down. You have not knelt to anybody in your life. You do it four times a day, on the tile, in a good suit.'),
- K76V('(It is not humility. It is a matter of sight lines. A thing looked at from below is a larger thing.)'),
+ K76V('(It is a matter of sight lines, nothing more. A thing looked at from below is a larger thing.)'),
  N('They thank you. They thank the top of your head, since that is what they have been given.'),
  K76V('(I am on my knees to a person whose name is in my book under TO BE KILLED. I have looked for the contradiction, and I find that I am not interested in it.)')]);
 k86('g_soles','v',null,null,'Your shoes',[

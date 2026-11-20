@@ -68,7 +68,7 @@ K22EV.push({id:'k22_sus2',when:()=>k22Post()&&S.seen.k22_sus1&&frT('r')>=1,run:d
  [RN,'You’ve got a face on you, Vee. The face of a man doin’ arithmetic he don’t like the answer to.'],
  ['K9','Four days. They do not account for them.'],
  [RN,'...Yeah. Yeah, I clocked that too.'],
- ['','He smiles. It is not a nice smile. It is the smile you have seen in crime-scene photographs, reflected in a window behind the body.'],
+ ['','He smiles the smile you have seen in crime-scene photographs, reflected in a window behind the body.'],
  [RN,'Here’s what I’m offerin’, and I want you to hear the whole thing. You find me the men who had them those four days. You give me the names. And then you go home, and you don’t ask, and you don’t read the paper for a week.'],
  [RN,'’Cause what I’ll do to ’em, Vee, the Devil himself’d tap me on the shoulder and ask me to take a break. And I wouldn’t.'],
  ['K9','You know my rules.'],
@@ -106,7 +106,7 @@ K22EV.push({id:'k22_angel',when:()=>S.day>=8&&frT('a')>=1,run:done=>k22Say([
  [AN,'(live, soft, perfect) ok so this is the serum i was telling u about, it’s so gentle, u pat it in, don’t rub—'],
  ['','In the other tab the man sits down at his kitchen table and does not stand up again. She did that from three streets away, an hour ago, before she put her face on. It took one shot. Angel has never needed two.'],
  [AN,'(live) —and that’s it! that’s the routine. drink water. be kind. bye my loves.'],
- ['','The stream ends. She takes her lashes off very slowly, one at a time, and then she cries, hard, for about four minutes. Not for him. For the kid, who is safe now and will still have to grow up remembering.'],
+ ['','The stream ends. She takes her lashes off one at a time, and then she cries for the kid, hard, for about four minutes. The kid is safe now and will still have to grow up remembering.'],
  [AN,'(text) done. the kid’s with the people we talked about. i’m ok. i’m always ok after. it’s the before i hate.'],
  ['','Everyone in the server reads it. Nobody makes a joke.']],()=>{fr('a',2);done()},'dark')});
 
@@ -132,7 +132,7 @@ TDREACT.push({id:'k22_terror',map:'deep',once:true,say:1,when:()=>S.pov!=='v'&&S
  ['hitmeuppp','(if we were anybody else, we’d have killed ourselves out of terror by now. of each other. of this house. of what we do with our evenings.)'],
  ['hitmeuppp','(we’re not anybody else. tonight it’s ronin’s turn to cook.)']]},
  {id:'k22_terrorV',map:'deep',once:true,say:1,when:()=>S.pov==='v'&&S.phase!=='taken',line:()=>[
- ['','B3. You come down here most nights. You know exactly what you have built under your own house, and who you have let into it.'],
+ ['','B3. You come down here most nights. You know what you have built under your own house, and who you have let into it.'],
  ['K9','(A contract killer, a butcher who prays to the wrong side, a sniper with the kindest face in the city. And the hounds. And me, who made the hounds.)'],
  ['K9','(Any one of us, alone, the city would hunt. Together, the city has learned to look away.)']]});
 

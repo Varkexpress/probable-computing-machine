@@ -38,7 +38,7 @@ k86('g_stairs','v',null,null,'The old hound and the stair',[
  K76V('You are fourteen years old. You have no business on a stone floor.'),
  N('He looks at you with the eye that still works well, and puts his chin back down against the gap under the door.'),
  K76V('(He has made up his mind about what is behind it. He did so in the first week, at the kennel gate, and he has not gone back on it.)'),
- N('You sit down on the stone beside him, in your suit, with your back against the wall. It is easier, with him there. You find that you are able to be at that door so long as it is on behalf of a hound.')]);
+ N('You sit down on the stone beside him, in your suit, with your back against the wall. It is easier, with him there. You can stand to be at that door so long as it is on behalf of a hound.')]);
 
 /* ===================================== FULL STORY ===================================== */
 k86('x2_bolt','m','sa','clear','A lock on your side',[
@@ -85,7 +85,7 @@ k86('x2_chair','v','sa',null,'Ronin’s chair, at three',[
  K76V('Yes.'),
  [RN,'Nothin’. Just checkin’ you was still there.'],
  K76V('I am still here.'),
- N('It is the whole conversation. It is as much as the two of you are entitled to, and you have it again the next night, word for word.')]);
+ N('That is all that is said. It is as much as the two of you are entitled to, and you have it again the next night, word for word.')]);
 
 /* ===================================== INJURIES ONLY ===================================== */
 k86('y2_sneeze','m','inj','cell','You are going to sneeze',[
@@ -118,7 +118,7 @@ k86('y2_tally','v','inj',null,'Count the scars',[
  K76V('(Forty. I have forty pages on them. It comes to a scar a page.)'),
  N('You open the file to enter it, as you would enter any finding. The file has headings. COLLATERAL. METHOD. HABITS. WEAKNESSES.'),
  N('There is no heading under which thirty-one old scars may be put. You try each of the four. Under WEAKNESSES the pen will not go down.'),
- K76V('(They are not a weakness. They are the reverse of one. I have built a file that has no place for the most important thing that I know about its subject.)')]);
+ K76V('(They would go under the opposite heading, if I had one. I have built a file that has no place for the most important thing that I know about its subject.)')]);
 k86('y2_cost','v','inj',null,'What a laugh costs',[
  N('Ronin is in there, telling them something unrepeatable. You are in the corridor with the dressings, and you can hear them laugh.'),
  N('You know what that laugh costs. Three ribs, on the left. Every breath of it goes through the breaks. You strapped them yourself; you could draw where.'),

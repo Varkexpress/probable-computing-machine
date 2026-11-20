@@ -101,9 +101,9 @@ k86('y2_door','v','inj',null,'A door',[
 k86('y2_theirs','v','inj',null,'The names',[
  N('You have the names of the men from the building on the river. A bald one, with a ring. A thin one, who forgot.'),
  N('Lex talionis. A hand for a hand. You have done it a dozen times, exactly, each bone in its order.'),
- N('You sit down to plan it, and you find that you do not want to do it in order.'),
+ N('You sit down to plan it, and you do not want to do it in order.'),
  K76V('(I want to stamp on it. I want to do it badly, and at length, and for no reason, and wipe my feet afterwards. I want to do it as they did.)'),
- N('You put the pen down. You have never wanted that. You have despised the men who want that. It is the whole of the distinction on which you have stood for eleven years.'),
+ N('You put the pen down. You have never wanted that. You have despised the men who want that. You have stood on that distinction for eleven years.'),
  K76V('(So it was never a distinction of nature. It was only that nobody had yet done it to something of mine.)'),
  N('You write the plan in order regardless, bone by bone. Your hand is very neat. You do not trust it.')]);
 k86('y2_shears','v','inj',null,'The instruments',[
@@ -134,7 +134,7 @@ k86('y2_once','v','inj',null,'They have not said that it hurts',[
  N('You have set three bones and strapped three ribs and cleaned two wrists to the tendon. In all of it they have not once said that it hurts.'),
  N('They have said “ow, fuck” at a cold stethoscope. They have complained at length about the soup, the pillow, your shoes and your face. They are not a quiet person.'),
  K76V('(They complain about everything that does not matter. About what does, they make a joke, and hold still.)'),
- N('You find that you are pressing a little, on the last strap, more than you need. You stop at once. You know what you were doing. You were trying to get one honest sound out of them.'),
+ N('You are pressing a little, on the last strap, more than you need. You stop at once. You know what you were doing. You were trying to get one honest sound out of them.'),
  K76V('(That is what the men in the building did, for sport. I did it for three seconds because I could not bear how quiet they were. I have washed my hands twice.)'),
  N('You should like, once, to hear them say that it hurts. You would give a wing of the foundation for it. You will not get it by asking, and you have just learned that you must not try any other way.')]);
 k86('y2_list','v','inj',null,'The reasons',[
@@ -143,5 +143,5 @@ k86('y2_list','v','inj',null,'The reasons',[
  N('You read it tonight in the corridor, and each line has acquired a second line under it, which you did not write.'),
  K76V('(Kills for rent: has never had an evening that was not owed to somebody. Has no law: was never once on the right side of one. Did not ask: was never asked.)'),
  K76V('(Sleeps well: sleeps sitting up, in a corner, in my house, and does not wake when a rib is strapped.)'),
- N('The list is still true. Every word. You fold it and put it back. It used to be the page that settled things, and now it is only a page.')]);
+ N('The list is still true. Every word. You fold it and put it back. It used to settle things.')]);
 /* ===KC88-END=== */

@@ -11,7 +11,7 @@ const KD_STILL_M=[
   ['','Your wrist has a new dressing on it that you don’t remember being put on. Somebody had their hands on you while you slept. That is the part that makes you sit up with your back to the wall.'],
   ['hitmeuppp',MV('(they moved me back.)','(they moved me back while i slept. clever.)','(They moved me back while I was asleep. That was clever of them.)','(They let me think I was out. That’s a technique. I’ve read about it. You let them think they’re out and then you take it back. Okay. I know what this is. I can do this one. I did the other one.)')]],
  [['','The tall one comes in with soup. He kneels down so his face is lower than yours, which none of the others ever did, and that is how you know he’s the clever one.'],
-  ['','He says your name. He says the date. He says a word that sounds like “hounds.” He says a name that you know is important and can’t place, and every time he says it something in your chest goes tight, and you hate him for knowing it.'],
+  ['','He says your name. He says the date. He says a word that sounds like “hounds.” He says a name that you know is important and can’t place, and every time he says it your chest goes tight, and you hate him for knowing it.'],
   ['','You count the loops of a jingle that is not playing, and you don’t answer, because that is the rule. Say nothing. They can only take what you say.']],
  [['','Third morning in the cell. You have started making a tally on the wall with the edge of a spoon, the way the girl before you did on the cot frame. Three marks.'],
   ['','The tall one sees it when he brings the water. He looks at it for a long time. Then he sits down on the floor under it and puts his face in his hands, and stays like that, and doesn’t say anything at all.'],
@@ -34,7 +34,7 @@ const _mmKD46=kdMedMorning;kdMedMorning=function(done){const k=S.kd,m=k&&k.med;i
  const L=(me?KD_STILL_M:KD_STILL_V)[Math.min(i+(m.sev>=6&&i===1?1:0),2)];
  if(me)return say(L,()=>ask('hitmeuppp','(The cell.)',[
   {t:'Count the loops. Say nothing.',fn:()=>{calm(-4);say([['','You count to four hundred. Somewhere around three hundred the tall one stops reading and just sits.']],done)}},
-  {t:'Test the door.',fn:()=>{calm(-2);say([['','It opens. That is wrong. Doors don’t open. You shut it again, very carefully, and go back to the corner, because an open door is a trick.']],done)}},
+  {t:'Test the door.',fn:()=>{calm(-2);say([['','It opens. That is wrong. Doors don’t open. You shut it again, without a sound, and go back to the corner, because an open door is a trick.']],done)}},
   {t:'Look at the guard’s face. Properly.',dis:tier()<3,sub:tier()<3?'you can’t make yourself':'',fn:()=>{m.ext=0;m.clar=2;calm(4);apply({aff:3});save();say([['','You make yourself look at him. Properly, the whole face, the way you look down a scope.'],['','The coat. The glasses he’s forgotten are on his head. A dog hair on his collar, grey, from the grey one.'],['hitmeuppp',MV('...V?','...V? it’s u. it’s been u.','V? It’s you. It’s been you the whole time.','V. It’s you. It’s been you. I’ve been calling you the tall one for— how long have I been calling you that?')],['K9','Two days. You may call me anything you like.']],done)}}]));
  say(L,()=>ask('K9','(They are under the bed.)',[
   {t:'Read to them. The same book, the same page.',fn:()=>{calm(2);say([['','He reads. They do not come out. At the end of the chapter their hand comes out from under the bed and stays there, flat on the floor, palm down, where he can see it.']],done)}},

@@ -39,7 +39,7 @@ function k90N1m(cb){say([
  ()=>ask('hitmeuppp','(The bowl is on the counter. It is clean; you cleaned it with your finger.)',[
   {t:'Bring it up. Quietly, into the bowl',fn:()=>{S.f.e2lN1='up';save();say([
    N('You get two fingers down your throat and bring it up into the bowl, bent double over the broken ribs, with the sheet in your mouth so that the passage will not hear.'),
-   N('Then you sit and look at what is in the bowl. You look for a long time. You are an assassin. You have seen the inside of a great many people, and you find that you cannot tell.'),
+   N('Then you sit and look at what is in the bowl. You look for a long time. You are an assassin. You have seen the inside of a great many people, and you cannot tell.'),
    M2('(can’t tell. it’s just meat. it all looks like meat. that’s the whole fucking problem with meat)','(i can’t tell. it’s just meat. it all looks like meat. that’s the whole fucking problem with meat)'),
    N('You pour it down the drain in the floor and wash the bowl with the water from your cup. In the morning there is a tray, and you eat everything on it, looking straight at him, so that he shall not have the satisfaction of knowing that you worked it out.')],cb)}},
   {t:'Keep it down',fn:()=>{S.f.e2lN1='down';save();say([
@@ -60,11 +60,11 @@ function k90N1v(cb){say([
  ()=>ask('K9','(The hounds have stopped eating. They are waiting to be told.)',[
   {t:'Take the bucket out to the far yard, tonight and every night',fn:()=>{S.f.e2lN1='yard';save();say([
    N('You pick the bucket up and carry it out through the rain to the far wall, a hundred metres from the house, and they follow you in a line, puzzled, looking back.'),
-   N('They are fed there from now on. It is cold and it is inconvenient and the old hound’s hip does not like the wet grass. You do it every night for as long as that room is occupied, and you find, when the room is empty again, that you cannot make yourself bring the bucket back in.')],cb)}},
+   N('They are fed there from now on. It is cold and it is inconvenient and the old hound’s hip does not like the wet grass. You do it every night for as long as that room is occupied, and when the room is empty again you cannot make yourself bring the bucket back in.')],cb)}},
   {t:'Fetch a bowl of the same broth, and eat it at the glass',fn:()=>{S.f.e2lN1='bowl';save();say([
    N('You go up to the kitchen and ladle a bowl from the same pot. You carry it down and stand at the infirmary door, where the glass panel is, with the corridor light full on you, and you eat it. Slowly, a spoonful at a time, so that every one can be counted.'),
-   N('You do not look in. You are not there to see them. You are there to be seen eating what they ate.'),
-   K76V('(It proves nothing. A man who fed them that would also be a man who could eat it. I know that. It is the only thing within my reach.)'),
+   N('You do not look in. You are there to be seen eating what they ate.'),
+   K76V('(It proves nothing. A man who fed them that would also be a man who could eat it. I know that. I have nothing else within reach.)'),
    N('When the bowl is empty you hold it up to the glass, tipped, to show the bottom. Behind the door the breathing has gone very quiet. You cannot tell what you have done. You have possibly made it worse.')],cb)}}]))}
 
 /* ---------- II · full story: the camera ---------- */
@@ -74,7 +74,7 @@ function k90N2mSA(cb){say([
   K76MV('(a record. for who. for HIM. he’s building a file. “condition of goods on arrival”)','(a record. for whom? for him. he’s building a file. “condition of goods on arrival”)','(A record. For whom? For him. He’s building a file. “Condition of goods on arrival.”)','(A record. For whom? For him. He’s building a file. “Condition of goods on arrival.”)'),
   ['','You know about proof. You have laid a hand on a table beside the day’s paper for a client, more than once. So you put the left one out for her, on the tray table, under the light, and you tell her to get your good side.'],
   ['','Then you look at the camera. There was a camera in the other building.'],
-  ['','The joke goes out of your mouth like a tooth. The hand is lying on the steel where you put it, and you find that you cannot take it back. You are looking at it from a long way up.'],
+  ['','The joke goes out of your mouth like a tooth. The hand is lying on the steel where you put it, and you cannot take it back. You are looking at it from a long way up.'],
   ['','The woman has stopped. She has the ruler in one hand and the card in the other, and she is not moving at all.'],
   K76MV('(move. it’s a nurse with a camera. MOVE)','(move. it’s a nurse with a camera. move)','(Move. It’s a nurse with a camera. Move.)','(Move. It’s a nurse with a camera. Move.)'),
   ['','She puts the ruler down. She asks, very evenly, whether there is anything else that ought to be in the record. She says that you may say no.']],
@@ -235,7 +235,7 @@ k86('h_hand','m',null,'clear','The cast comes off for cleaning',[
  K76V('It is yours. It has been in the dark for nine days. It will come back.'),
  M2('that’s a dead guy’s hand. u’ve sewn a dead guy’s hand on me. is that what u do down here','that’s a dead guy’s hand. you’ve sewn a dead guy’s hand on me. is that what you do down here?'),
  N('It is a joke. It comes out of you without any air in it.'),
- N('He washes it. Warm water, a cloth, each finger separately, round the pins. Dead skin comes away on the cloth in rolls. He does not hurry and he does not look away, and you find that you are looking at his face and not at the hand, because his face is easier. He is not disgusted by it. You are, and he is not.'),
+ N('He washes it. Warm water, a cloth, each finger separately, round the pins. Dead skin comes away on the cloth in rolls. He does not hurry and he does not look away, and you are looking at his face and not at the hand, because his face is easier. He is not disgusted by it. You are, and he is not.'),
  M2('(he’s seen worse. he’s MADE worse. of course it doesn’t bother him)','(he’s seen worse. he’s made worse. of course it doesn’t bother him)'),
  M2('(…it’s bothering me that it doesn’t bother him. what is WRONG with me)','(…it’s bothering me that it doesn’t bother him. what is wrong with me?)')]);
 k86('h_log','m',null,'clear','The book in the counter drawer',[
@@ -265,7 +265,7 @@ k86('h_smell','v',null,null,'The smell of the room',[
  N('It is fear, four days old, in a shut room. Sweat that has dried and been sweated through again. Something sharp underneath, from the gut. A body keeping itself ready, hour after hour, with nothing to do with it.'),
  N('It is the smell of the cold room on the fourth night of a man. You have worked in it for eleven years. You have eaten your dinner in it.'),
  K76V('(I had thought of it as the smell of the room. A property of the tile, and of the drain.)'),
- N('It is not the tile. It has come upstairs with you. You are standing in a sickroom, with soup on a tray, and the air in it is the air of your workshop, and it is being made by somebody for whom you are fetching a pillow.'),
+ N('It has come upstairs with you, so it was never the tile. You are standing in a sickroom, with soup on a tray, and the air in it is the air of your workshop, and it is being made by somebody for whom you are fetching a pillow.'),
  N('There is no window to open. You had the room built without one, for the animals’ sake; they settle better. You stand in the doorway, breathing it, and you do not let yourself breathe through your mouth.'),
  K76V('(I will not spare myself that. It is the one honest report in the house of what I am to them.)')]);
 k86('h_cast','v',null,null,'Under the cast',[
@@ -282,7 +282,7 @@ k86('h_fast','v',null,null,'You moved too quickly',[
  N('They came up at you. One arm, off the blanket, with the fingers stiff, straight for the eyes. It was slow, and it was a hand’s width wide, and it was done on a quantity of opiate that would have stopped a horse.'),
  N('Your hand was a foot from their jaw. You took it back and held it against your own chest, and you went away to the door.'),
  K76V('(I have had forty-one on the table. Every one of them fought the straps. I had thought that the four by the river might have taken that out of this one.)'),
- N('They did not. You find that you are glad of it, standing at the door with your glasses crooked. It is exactly what you should have expected of them in April: no strength, no chance, and a thumb in your eye regardless.'),
+ N('They did not, and you are glad of it, standing at the door with your glasses crooked. It is what you should have expected of them in April: no strength, no chance, and a thumb in your eye regardless.'),
  N('The blood was from the cheek. They had bitten it, to keep awake while you were in the room. You learned that afterwards, from the pillow.'),
  K76V('(I went at them like a man with a claim. For one second I was precisely what they take me for. They were quite right to go for the eyes.)')]);
 k86('h_ronin','v',null,null,'Ronin cannot look',[
@@ -304,14 +304,14 @@ k86('h_eleven','v',null,null,'Their temperature is up',[
  N('You have a cold room in the lower wing for the eleven that did not live. Each of them was brought to this bed, and each of them ran a fever on the third night, and you sat where you are sitting now and did everything that was in the text.'),
  N('You know the look of the third night. The eyes too bright. The skin dry. They stop taking water, and you tell yourself that it is sleep.'),
  K76V('(If I lose this one, it is twelve. I shall have killed them after all, in the infirmary, by not being good enough. It would satisfy the ledger to the letter.)'),
- N('You find that you cannot bear the neatness of it.'),
+ N('You cannot bear the neatness of it.'),
  N('You sit by the bed with a basin and a cloth, four steps forgotten, and you bring it down by hand, as you have done for the hounds: the wrists, the throat, the backs of the knees. They are too far under to know who is doing it. They turn their face into the cloth.'),
  N('It breaks at five. You take it three times to be certain. Then you go out to the kennel, and sit down in the straw among the four that lived, and put your face in your hands.'),
  K76V('(I have never wanted anything in my book to go on breathing. I do not know what to do with a list that I am afraid of completing.)')]);
 k86('h_carry','v',null,null,'How they go, when you lift them',[
  N('The sheet must be changed. You tell them, from the door, that you will have to lift them. You wait for a count of ten, so that they may refuse.'),
  N('They do not refuse. You get an arm under the knees and an arm behind the shoulders, and you take the weight.'),
- N('They go dead. All at once, like a line let go. The head drops back over your arm; the good hand swings.'),
+ N('They go dead, like a line let go. The head drops back over your arm; the good hand swings.'),
  N('You know the trick. You have carried that down the cellar stair, more than once, from men who meant to be as much trouble as they could. A body that helps is light. This one has decided that you shall work for it.'),
  N('Then the hand comes up under your collar, on the left. You feel the knuckles on the steel. It is the swing of the arm, you think; and then it comes a second time, and it is no such thing. They are trying for the scalpel. The fingers cannot close upon it. They are trying all the same.'),
  N('A noise comes out of you. It is very nearly a laugh. You have not made that noise in that room.'),
@@ -347,9 +347,9 @@ function k90Bucket(){k77Go('#080707');k73Mark('e2l_bucket',1);const m=k76M(),f=S
  say(L,()=>ask(K73Who(),m?'(The old hound has left the bucket. He is coming towards the bins.)':'(The old hound has left the bucket. He is walking to the bins.)',m?[
   {t:'Hold out what is in your pocket',sub:'the meat you took from his kitchen',fn:()=>{f.e2lBucket='fed';save();say([
    N('The old hound comes round the bin and finds you. He does not bark. He looks at you, and then at your pocket, where there is a piece of ham that you lifted from the cold larder on the way in.'),
-   N('You hold it out. He takes it from your palm, very gently, with his lips. His muzzle is wet, and it leaves a mark across your hand, pink.'),
+   N('You hold it out. He takes it from your palm, gently, with his lips. His muzzle is wet, and it leaves a mark across your hand, pink.'),
    M2('(that’s the card man. on my hand. that’s the card man)','(that’s the card man, on my hand. that’s the card man)'),
-   N('You do not wipe it off until you are over the wall. You scrub it on the grass, and then on your jeans, and that night you wash the hand until the water runs cold. In the morning you can still tell exactly where it was.')],hub)}},
+   N('You do not wipe it off until you are over the wall. You scrub it on the grass, and then on your jeans, and that night you wash the hand until the water runs cold. In the morning you can still tell where it was.')],hub)}},
   {t:'Keep still until he loses interest',fn:()=>{f.e2lBucket='left';save();say([
    N('The old hound comes round the bin and stands over you. His breath is on your face. It smells of the bucket.'),
    N('You keep still. You are very good at it. He looks at you for a long time with his one clear eye, and then he sighs and goes back and lies down, and V has not turned his head once.'),
@@ -389,7 +389,7 @@ function k90Table(){k77Go('#050608');k73Mark('e2l_table',1);const m=k76M(),f=S.f
    N(m?'It is cold right through your shirt. Over your face there is a lamp on an arm, and beyond the lamp a round steel plate in the ceiling. You know what is on the other side of that plate. You lay looking down through it, one night, from a bed.':'They look up at the lamp, and past it at the plate in the ceiling. You see them recognise it.'),
    K76MV('huh. u can see the drain from here','huh. you can see the drain from here','Huh. You can see the drain from here.','Huh. You can see my drain from here. I used to listen to you through that.'),
    K76V('Get down. Please.'),
-   N(m?'It is the first time he has ever said please to you. His face is the colour it went over the wrists. You stay where you are for another ten seconds, to have had them, and then you get down.':'It is the first time that you have said please to them. They stay another ten seconds, deliberately, and then they get down, and you find that you have been holding the edge of the door.'),
+   N(m?'It is the first time he has ever said please to you. His face is the colour it went over the wrists. You stay where you are for another ten seconds, to have had them, and then you get down.':'It is the first time that you have said please to them. They stay another ten seconds, deliberately, and then they get down, and only then do you let go of the edge of the door.'),
    K76MV('(i’ve been on his table now. and got off it. nobody else can say that)','(i’ve been on his table now, and got off it. nobody else can say that)','(I’ve been on his table now, and got off it. Nobody else can say that.)','(I’ve been on his table now, and I got off it. Nobody else alive can say that.)')],hub)};
  const stood=()=>{f.e2lTable='stood';apply({aff:2});save();say([
    N(m?'You do not go in. You stand on the sill with your good hand on the frame and look at the bright patch on the steel.':'They do not go in. They stand on the sill with the good hand on the frame, and look at the patch that you wore into the steel.'),

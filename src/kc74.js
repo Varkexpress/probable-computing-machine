@@ -236,11 +236,11 @@ function k74Study(){const n=k74Inc('study');
 function k74File(){const n=k74Inc('file');S.f.e2lFile=n;save();
  if(n>2)return k74Say([['','You add the driver from the gala, who had a wife and a boat he was paying off. You add a man you are not sure of, and then you cross him out, because you are not sure, and you do not cross things out.'],
   K74V('(One crossing-out, on their page. I have looked at it for some time.)')],hub);
- if(n===2)return k74Say([['','The man she shot on a Tuesday had a daughter, who is eleven now. You pay her school fees through a trust with no name on it. Today is the prize-giving, and you sit at the back.'],
+ if(n===2)return k74Say([['','The man they shot on a Tuesday had a daughter, who is eleven now. You pay her school fees through a trust with no name on it. Today is the prize-giving, and you sit at the back.'],
   ['','The girl wins the maths prize. She goes up for it on her own, and comes back, and holds the little cup in both hands for the rest of the afternoon.'],
   K74V('(Misaki came third at eleven, at regionals, and pawned the cup for two dinners. Angel told the server. I do not know why I am thinking about it now, in this hall.)'),
   ['','In the car you write the girl’s prize under the rest. The pen goes through the page.']],hub);
- k74Say([['','The doorman she shot on the hotel steps had a wife. She lives above a launderette on the east side and takes in mending. You climb her stairs with an envelope.'],
+ k74Say([['','The doorman they shot on the hotel steps had a wife. She lives above a launderette on the east side and takes in mending. You climb her stairs with an envelope.'],
   ['','She does not know who you are. She thinks you are from the union, and you let her think it. She makes you tea in a cup with a chip in it and tells you he was only on the steps because the regular man was off sick. He had swapped the shift to pay for her teeth.'],
   K74V('(Collateral is the word the contract uses. It means a man who swapped a shift.)'),
   ['','You leave the envelope under the sugar bowl. In the car you open the ledger to their page and write under the oath, in small capitals: THE DOORMAN SWAPPED A SHIFT.']],hub)}
@@ -266,7 +266,7 @@ function k74Follow(){const n=k74Inc('follow');
   ['','At the gate of the trailer lot they turn round under the light and stand there with their hands in their hoodie pocket, one of them on a pistol, until you go.']],
  ()=>ask('K9','(They are waiting for you to go.)',[
   {t:'Go',fn:()=>{S.f.e2lFollow='went';save();say([['','You go. The black hound looks back at them the whole way to the car.']],hub)}},
-  {t:'Stand there until they go in',fn:()=>{S.f.e2lFollow='waited';save();say([['','You stand there. They stand there. At ten past three the black hound lies down on the pavement out of boredom, and they laugh once, a short ugly sound, and goes inside, and locks the door with both bolts loudly enough for you to hear.']],hub)}}]))}
+  {t:'Stand there until they go in',fn:()=>{S.f.e2lFollow='waited';save();say([['','You stand there. They stand there. At ten past three the black hound lies down on the pavement out of boredom, and they laugh once, a short ugly sound, and go inside, and lock the door with both bolts loudly enough for you to hear.']],hub)}}]))}
 
 /* ===================================== 4 · TALK (forced encounters) ===================================== */
 /* w==='v': Misaki is talking to V (his house). w==='m': V is talking to Misaki (her trailer). Three things to say a day. */
@@ -281,7 +281,7 @@ const K74T_V=[
  {id:'hale',t:'“why don’t u give me to hale”',L:()=>[K74V('Inspector Hale would give you a trial. Trials are quick, and then you would be fed in a cell for thirty years at the city’s expense. The doorman did not get thirty years.'),K74MV('the doorman was in the way'),K74V('He was at work.')]},
  {id:'feed',t:'“what do u feed them. the hounds”',L:()=>[K74V('Whatever I do not waste.'),K74MV('that’s disgusting'),K74V('You are standing in my kitchen eating my ham.'),K74MV('…it’s good ham')]},
  {id:'count',t:'“how many have u killed. ballpark”',L:()=>[K74V('Everyone in my ledger who has a total. I do not keep a ballpark. I keep the names.'),K74MV('i don’t learn names. u learn names and they follow u home'),K74V('Then I will follow you home on their behalf.')]},
- {id:'knife',t:'Put your hand on the knife',L:()=>[['','You put your hand on the knife at the small of your back. He lays his hand flat on the counter, very slowly, next to his teacup, and leaves it there with the fingers spread.'],
+ {id:'knife',t:'Put your hand on the knife',L:()=>[['','You put your hand on the knife at the small of your back. He lays his hand flat on the counter, slowly, next to his teacup, and leaves it there with the fingers spread.'],
   K74V('If you are going to do it in my kitchen, do it before the kettle boils. I would like my tea.'),['','The kettle boils and you still have not done it. He makes one cup and drinks it looking at you.']],after:()=>k74Tally('m')},
  {id:'nice',t:'“say one nice thing about me. i dare u”',show:()=>k74Talked()>=3||k73Done('e2l_lift'),L:()=>[K74V('You are punctual. You have been on time for every attempt on my life.'),K74MV('ur ugly when ur honest'),K74V('I am told I am ugly most of the time.'),K74MV('…not MOST of the time')],after:()=>apply({aff:1})},
  {id:'shelter',t:'“ur shelter on the north side turned me away”',show:()=>!S.f.e2lShelter,L:()=>k74ShelterL(),after:()=>{S.f.e2lShelter=1;save()}}];
@@ -327,7 +327,7 @@ function k74Lift(){go(cutBg('#06060a'));k73Mark('e2l_lift');const m=k74M();
    K74V('That is one.'),K74MV('one what'),K74V('One of mine. I am keeping count.'),
    ['',m?'At the seventh floor he takes the magazine out, and the round from the chamber, and hands you the empty pistol through the gate as it closes.':'At the seventh floor you take the magazine out, and the round from the chamber, and hand them the empty pistol through the gate as it closes.'],
    K74MV('ur dead. ur SO dead')],hub)};
- const hold=()=>{S.f.e2lLift='held';save();say([['','Nobody moves. The gate opens at the seventh floor and you back out of the lift together, very slowly, with your hands where they were, and walk to opposite ends of the corridor.'],
+ const hold=()=>{S.f.e2lLift='held';save();say([['','Nobody moves. The gate opens at the seventh floor and you back out of the lift together, slowly, with your hands where they were, and walk to opposite ends of the corridor.'],
    K74MV('next time i take the stairs'),K74V('The stairs are alarmed.'),K74MV('GOOD')],hub)};
  say(L,()=>ask(K73Who(),'(The light.)',m?[{t:'Cut him when the light comes on',sub:'first blood',fn:cut1},{t:'Hold still until the gate opens',fn:hold}]
   :[{t:'Take their pistol when the light comes on',sub:'first blood is not the only kind',fn:take},{t:'Hold still until the gate opens',fn:hold}]))}
@@ -344,13 +344,13 @@ function k74Kennel(){go(cutBg('#08080a'));k73Mark('e2l_kennel');const m=k74M();
   K74V('(They mean to make me come down for them, and take me in the doorway.)'),
   ['','You come down anyway.']]).concat([
   K74V('Put it on me.'),K74MV('make me'),K74V('They have not done anything to you, Misaki. Put it on me.'),
-  ['',m?'His voice does something on “they”. You have never heard it do anything before.':'Your voice does something on “they”. They hear it. You hear them hear it.']]);
+  ['',m?'His voice does something on “they”. You have never heard it do anything before.':'Your voice does something on “they”, and they hear it.']]);
  const fed=()=>{S.f.e2lKennel='fed';S.f.e2lHound=1;save();say([['','You take your left hand off the rifle, slowly, and push the meat through the bars. The old hound takes it from your fingers without touching your skin.'],
    ['','When you look up, V has lowered the pistol by about an inch. You put the rifle back on him, and he lets you, and you walk backwards out of the run and over the wall with it on him the whole way.'],
    K74V('(text) He liked you.'),K74MV('(text) he has bad taste. he likes u')],hub)};
  const rifle=()=>{S.f.e2lKennel='rifle';k74Tally('m');save();say([['','You keep it on the hounds. He looks at you for a long time. Then he crouches, puts the pistol on the concrete, slides it away with two fingers, and kneels in the straw between your rifle and the hounds.'],
    K74V('Now me.'),
-   ['','You find that you cannot do it, and you have no idea why. You back out of the run with the rifle on him and go over the wall, and you are sick in the alley behind his house, where the hounds will not hear it.']],hub)};
+   ['','You cannot do it, and you have no idea why. You back out of the run with the rifle on him and go over the wall, and you are sick in the alley behind his house, where the hounds will not hear it.']],hub)};
  const stay=()=>{S.f.e2lKennel='stay';S.f.e2lHound=1;save();say([['','You say it once. They stay, except the old hound, who has never in his life done what he was told when he could get away with it. He limps to the gate and puts his chin on the bottom bar a foot from their muzzle.'],
    ['','They look at him for a long time. Then they take something out of their pocket with their left hand and push it through the bars, and he takes it from them without touching their skin.'],
    ['','When they look up you have lowered the pistol by an inch. They put the rifle back on you, and you let them, and they walk backwards out of the run and over the wall.'],
@@ -384,11 +384,11 @@ function k74Dinner(){go(cutBg('#0e0a0c'));k73Mark('e2l_dinner');const m=k74M();
    K74MV('i would never do it at angel’s table. i’d do it somewhere stupid'),K74V('I know. You have told me where. A car park.')].concat(end),hub)};
  const drank=()=>{S.f.e2lDinner='drank';save();say([['','You drink it in one, looking at them over the rim. They go white, and then red, and then they throw their fork at you.'],
    K74MV('u DRANK it. u fucking DRANK it'),K74V('Was there something in it?'),K74MV('…no'),K74V('Then I do not know what you are upset about.'),
-   ['','There was nothing in it. You find that out in the car an hour later, when you are still alive, and the relief makes you so angry that you drive the long way home.']].concat(end),hub)};
+   ['','There was nothing in it. You work that out in the car an hour later, when you are still alive, and the relief makes you so angry that you drive the long way home.']].concat(end),hub)};
  const fern=()=>{S.f.e2lDinner='fern';k74Tally('v');save();say([['','You wait until Angel is laughing at something and tip the glass into the fern on the windowsill behind you. Misaki watches you do it and says nothing at all.'],
    ['','By the morning the fern is brown to the roots. Angel sends a photograph of it to the server without a caption.'],
    [AN,'(server) 🪴'],[RN,'(server) rip'],K74MV('(server) it was a bad fern'),K74V('(server) It was a very good fern.')].concat(end),hub)};
- say(L.concat([['',m?'When Angel gets up for the bread, V turns to answer Ronin. His glass is by your hand. You have a paper fold tucked in your bra that you bought from a man at the station: enough to make a big man very ill for a night and a small one dead.':'When Angel gets up for the bread you turn to answer Ronin, and at the edge of your eye her hand passes over your glass, and is back on her fork when you turn round.']]),
+ say(L.concat([['',m?'When Angel gets up for the bread, V turns to answer Ronin. His glass is by your hand. You have a paper fold tucked in your sock that you bought from a man at the station: enough to make a big man very ill for a night and a small one dead.':'When Angel gets up for the bread you turn to answer Ronin, and at the edge of your eye her hand passes over your glass, and is back on her fork when you turn round.']]),
   ()=>ask(K73Who(),m?'(His glass.)':'(Your glass.)',m?[{t:'Tip it in',sub:'he is a big man',fn:glass},{t:'Leave his glass alone',sub:'not at Angel’s table',fn:clean}]:[{t:'Drink it, looking at them',fn:drank},{t:'Pour it into Angel’s fern',fn:fern}]))}
 
 /* splice into kc73's order: eye → lift → kennel → sab → dinner → truce */
@@ -466,7 +466,7 @@ function k74W59Circle(done){const k=w59Lead(),o=w59O(k),F=w59F();
  ()=>ask('K9','(The right night.)',[
   {t:'Sit outside their lot tonight',sub:'−energy',fn:()=>{F.watched=1;apply({energy:-20});save();say([['','You sit in the car with the lights off from ten until four, with the ledger on the passenger seat. Nothing comes. At four they open the trailer door to put the rubbish out, see the car, and give it the finger with the bin bag.'],
    K74V('(Whoever is buying vans may have anybody in this city but them. They are in my ledger.)')],done)}},
-  {t:'Read the accounts again',fn:()=>say([['','You read them until three in the morning. They are still quiet, and you know exactly what that means.']],done)}]))}
+  {t:'Read the accounts again',fn:()=>say([['','You read them until three in the morning. They are still quiet, and you know what that means.']],done)}]))}
 function k74K56File(done){const o=k56Org();say([['','At eleven at night there is a folder on the trailer step with a stone on it to keep it from blowing away. It is from V. There is no note on the front.'],
  ['','Inside are forty pages on '+o.name+': the shell companies, the cash, and a list of their dead this year, '+k56Hits()+' of them, with your work highlighted in yellow. Some of the yellow has small notes beside it in fountain pen. One says “collateral”.'],
  K74MV('(he’s filing against them on paper. with MY bodies as his evidence)'),
@@ -515,7 +515,7 @@ l74('l74_ron',['ronin'],.6,()=>S.day>=2,done=>{const m=k74M();say(m?[
  ['','Ronin’s flat. He has the crowbar across his knees and he does not get up when you come in.'],
  [RN,'Sit down, Vee. I got a question and you’re gonna answer it.'],
  [RN,'That book of yours. The one with them in it. Show me the page.']],()=>ask(m?'hitmeuppp':'K9',m?K74MV('(he’s scared. ronin. scared)')[1]:'(He has never asked you for anything.)',m?[
- {t:'“…fine. i promise”',fn:()=>{S.f.e2lRon='promise';fr('r',3);save();say([K74MV('fine. on a roof, like a professional. happy?'),[RN,'Good girl. Gremlin, whatever. Good.'],['','He gets the rifle down off the fridge and gives it back to you stock first, and makes you a sandwich you did not ask for, and watches you eat all of it.']],done)}},
+ {t:'“…fine. i promise”',fn:()=>{S.f.e2lRon='promise';fr('r',3);save();say([K74MV('fine. on a roof, like a professional. happy?'),[RN,'Good kid. Gremlin, whatever. Good.'],['','He gets the rifle down off the fridge and gives it back to you stock first, and makes you a sandwich you did not ask for, and watches you eat all of it.']],done)}},
  {t:'“no.”',fn:()=>{S.f.e2lRon='no';save();say([K74MV('no. if he’s asleep that’s his problem'),[RN,'Then I’m sleepin’ in my truck outside his gate till one of you is dead.'],K74MV('u wouldn’t'),[RN,'Watch me, little killer.'],['','He does. From that night on the truck is outside V’s gate every night, with the engine running for the heat.']],done)}}]:[
  {t:'Show him the page',fn:()=>{S.f.e2lRon='page';fr('r',3);save();say([['','You open the ledger on his kitchen table. He reads the oath, and the date, and everything you have written under it since, and the doorman’s shift, and the girl’s maths prize.'],
   [RN,'Vee. This is a fuckin’ diary.'],K74V('It is a ledger.'),[RN,'Sure it is. I’m keepin’ my fifty on them anyway. They’re quicker.']],done)}},
@@ -599,7 +599,7 @@ const K74CHAT=[
 
 /* ===================================== 9 · WHAT IT FEEDS: kc73's beats, the lone routes, the endings ===================================== */
 function k74Echo(){const f=S.f,m=k74M(),L=[];const t=f.e2lTally||{};
- if(f.e2lLift==='m')L.push(['',m?'He still has the line along his jaw from the customs-house lift. You know exactly where it is without looking.':'You still have the line along your jaw from the customs-house lift. They look at it before they look at your hands.']);
+ if(f.e2lLift==='m')L.push(['',m?'He still has the line along his jaw from the customs-house lift. You could find it without looking.':'You still have the line along your jaw from the customs-house lift. They look at it before they look at your hands.']);
  else if(f.e2lLift==='v')L.push(['',m?'He still has your pistol’s round from the customs-house lift in his coat pocket. You have seen him turn it over when he thinks.':'You still have their round from the customs-house lift in your coat pocket. You turn it over when you think.']);
  if(f.e2lKennel==='fed'||f.e2lKennel==='stay')L.push(['','The old hound has slept by the kennel gate every night since they fed him through the bars.']);
  if(f.e2lDinner==='fern')L.push(['','Angel has a new fern. She has put it out of reach of everybody’s glass.']);

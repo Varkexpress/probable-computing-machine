@@ -138,7 +138,7 @@ k62Ev('kd62_truck',()=>kdD()>=11&&(S.pov!=='v'?!!S.f.kd_hard_work:!!S.f.kd_v_see
   ['','Nothing is wrong. You are fine. You were fine on the roof; you were better than fine. Your heart is going like it did in the van and your hands will not come off the wheel, and the house is right there, with the kitchen light on.']],()=>ask('hitmeuppp','(The wheel.)',[
   k62No('Go in and tell him.','not him'),
   {t:'Wait it out.',fn:()=>{S.f.k62Truck='wait';calm(-3);save();say([['','You count the hounds. Then the doors of the van. It takes forty minutes. When your hands come off you check your face in the mirror, wipe it, and go in, and you tell him it went great and you want toast.']],done)}},
-  {t:'Put your head on the wheel until it passes.',fn:()=>{S.f.k62Truck='head';calm(-2);save();say([['','You put your forehead on the wheel, very carefully, so the horn doesn’t go. When it passes you go in. You tell him about the job with voices, like before, and he laughs in the right places.']],done)}}]));
+  {t:'Put your head on the wheel until it passes.',fn:()=>{S.f.k62Truck='head';calm(-2);save();say([['','You put your forehead on the wheel, carefully, so the horn doesn’t go. When it passes you go in. You tell him about the job with voices, like before, and he laughs in the right places.']],done)}}]));
  say([['','He hears their truck come into the garage at two. He hears the engine stop.'],
   ['','The garage door into the house does not open until twenty to three. In between there is no sound at all, and he stands at the kitchen island with his hand on the kettle and does not go down.'],
   ['','When they come in they are cheerful. It went great, and they want toast. Their face has been wiped.'],

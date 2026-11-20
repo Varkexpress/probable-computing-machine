@@ -158,14 +158,14 @@ k58Kd('k58_cups',()=>k58M()&&(S.f.kd_hard_work||kdD()>=12),done=>say([
   {t:'Make one for him, and leave it.',fn:()=>{S.f.k58Cup=1;apply({aff:3});calm(-2);save();say([
    ['','You put the kettle on. It takes four minutes. For the whole four minutes some part of you that keeps the rules stands at your shoulder and tells you to stop, and you don’t.'],
    ['','You make his the way he has it, which you know without thinking about it, and leave it on the island where yours was, with the handle turned toward his stool.'],
-   ['','That night the notebook comes out at dinner again. He writes something down. You didn’t say anything all evening, so you know exactly what he wrote, and it was the cup.']],done)}}])));
+   ['','That night the notebook comes out at dinner again. He writes something down. You didn’t say anything all evening, so you know what he wrote, and it was the cup.']],done)}}])));
 k58Kd('k58_cupv',()=>!k58M()&&!!S.f.kd_v_cant,done=>{const gave=S.f.k58Name==='look'||S.f.k58Rule==='kept'||k58Score()>=5;
  if(gave){S.f.k58Cup=1;save();return say([
   ['','He comes down at six. His own cup from last night is gone from the island, rinsed and upside down on the rack.'],
   ['','In its place there is another one. Tea, the way he has it, still warm, with the handle turned toward his stool.'],
   ['','They have already left for work. He stands at the island and drinks it, slowly, and then he gets out the notebook and writes the date and “Tea.”']],()=>{apply({aff:3});done()})}
  say([['','He comes down at six. His cup from last night is gone from the island, rinsed, upside down on the rack. They have drunk it cold, as they do every time, and said nothing, as they do every time.']],()=>ask('K9','(The rack.)',[
-  {t:'Keep leaving it.',fn:()=>{S.f.k58CupKeep=1;save();say([['','He keeps leaving it. Every night they work, a second cup on the island. It is the only thing he has found that he can give them without them having to thank him for it.']],done)}},
+  {t:'Keep leaving it.',fn:()=>{S.f.k58CupKeep=1;save();say([['','He keeps leaving it, a second cup on the island every night they work, and they never have to thank him for it.']],done)}},
   {t:'Stop. They have noticed, and they would rather he did not.',fn:()=>{S.f.k58CupKeep=0;apply({heart:-1});save();say([['','He stops. The island is clean in the mornings. They do not mention it, which tells him nothing, and he writes nothing down about it.']],done)}}]))});
 
 /* ---------- after: the rule about texting ---------- */

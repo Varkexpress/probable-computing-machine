@@ -210,7 +210,7 @@ kdEv('kd_van',()=>S.phase!=='after'&&S.f.kdKeep!==undefined&&!S.f.kdVan,done=>{S
  if(S.f.kdKeep===0){calm(-6);S.f.kdBody=1;save();return say(a.concat([['','They crouch up there with a carrier bag in their teeth and cannot think why. They reach for the reason and nothing comes. Their hands are shaking as though somebody had told them something and left them out.'],
   ['','It is a florist. He unloads chrysanthemums and doesn’t look up.'],
   ['hitmeuppp',MV('(what the fuck was that.)','(what was THAT. why am i on a roof.)','(Why am I on a roof? I don’t know why I’m on a roof.)','(So my head let it go and my legs kept a copy. Nobody asked the legs.)')]]),done)}
- calm(2);say(a.concat([['','They know exactly why: grey, no front plate, side door on the kerb side. They count loops of a bank jingle that isn’t playing until the driver gets out with a bucket of chrysanthemums.'],
+ calm(2);say(a.concat([['','They know why: grey, no front plate, side door on the kerb side. They count loops of a bank jingle that isn’t playing until the driver gets out with a bucket of chrysanthemums.'],
   ['hitmeuppp',MV('(florist. ok.)','(florist. it’s a florist. get down.)','(Florist. One: get down. Two: buy the noodles.)','(A florist. One: get down. Two: buy the noodles. Three: nobody saw that, and if they did, I was checking the gutter.)')]]),done)});
 
 /* ---------- 5. LOST TIME (repeats until she has three anchors) ---------- */

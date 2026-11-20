@@ -78,7 +78,7 @@ const K85S=[
      K76V('(If they never give the word, it is never collected. I will have to be a man who can leave that page open.)')],cb)}},
     {t:'Leave the line blank, and find the men for the hand',fn:()=>{S.f.e2lOwed='blank';save();say([
      ['','You write the hand, and the ribs, and the four days. You leave one line empty above them. You have never left a line empty.'],
-     K76V('(It is the truest line on the page.)')],cb)}}]))},
+     K76V('(Anything that I wrote there would be a lie.)')],cb)}}]))},
  /* ---------------- injuries only: Misaki ---------------- */
  {id:'y_report',pov:'m',mode:'inj',st:'cell',t:'He asks what is broken',run:cb=>say([
    ['','The tall one has a clipboard. He asks you what is broken.'],
@@ -117,7 +117,7 @@ const K85S=[
    ['','You have fed men to your animals. You have laid their fingers out in a row. You have never in your life wiped your feet on one.'],
    K76V('(I am aware of how that sounds. A butcher, taking offence at a man’s manners.)'),
    K76V('(I take it. I am revolted, and I would rather be revolted than be the man who looks at that scuff and sees nothing wrong with it. Until this week I had thought that I might be that man.)'),
-   ['','You bag the hoodie and label it. Then you wash your hands, and find that you are still at the basin four minutes later.']],cb)},
+   ['','You bag the hoodie and label it. Then you wash your hands, and you are still at the basin four minutes later.']],cb)},
  {id:'y_sleep',pov:'v',mode:'inj',t:'Re-strap the ribs while they sleep',run:cb=>say([
    ['','The strapping has slipped. They are asleep. You mean to wake them first, and you say their name twice, and they do not stir.'],
    ['','You do it as lightly as you can. It is three broken ribs; no hand is light enough. They do not wake. They do not so much as change their breathing.'],
@@ -154,7 +154,7 @@ K85S.push(
    ['','The tall one comes in with a pair of scissors. Blunt-ended ones, the kind for dressings.'],
    ['','You go for them. It is a bad lunge, one-handed, off a mattress, and it gets about as far as his cuff. He lifts the scissors out of your reach as you would lift a glass away from a child.'],
    k80Gone()?['','You fall back on the pillow and glare at him.']:K76MV('worth a try','worth a try','Worth a try.','Worth a try.'),
-   ['','He looks at your hand, and at the scissors. He puts them down on the counter, very carefully, at the far end.'],
+   ['','He looks at your hand, and at the scissors. He puts them down on the counter, carefully, at the far end.'],
    K76V('They were for the tape on your drip. I ought to have said so first.'),
    ['','He does the tape with his fingers, and leaves the scissors where they are, two metres off, in plain sight.'],
    K76MV('(two metres. he’s left them two metres away. he WANTS me to count the metres)','(two metres. he has left them two metres away. he wants me to count the metres)','(Two metres. He has left them two metres away. He wants me to count the metres.)','(Two metres. He has left them two metres away. He wants me to count the metres.)')],cb)},
@@ -173,7 +173,7 @@ K85S.push(
    K76V('(I do not trust my feet. I have never before had occasion to say so of any part of me.)'),
    ['','The black hound comes down the corridor, smells the chalk, and lies down along the line, with its nose pointing at the door.'],
    K76V('You are on the wrong side of it.'),
-   ['','It is on their side of it. It looks at you, and does not move, and you find that you have nothing to say to it that would not also apply to you.']],cb)});
+   ['','It is on their side of it. It looks at you, and does not move, and you have nothing to say to it that would not also apply to you.']],cb)});
 
 /* ===================================== ENDINGS ===================================== */
 const _xe85=extraEnding;extraEnding=function(){const L=_xe85();try{if(!S||!S.f||S.f.e2l!==1||S.rom||S.vrom||S.f.k28pair)return L;const f=S.f,F=f.e2l85||{};

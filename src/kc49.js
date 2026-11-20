@@ -60,7 +60,7 @@ const _friOld=kdFri;
 /* the opening of the worst stay */
 const _msKD49=kdMedStart;kdMedStart=function(self,L){const r=_msKD49.apply(this,arguments);const m=S.kd&&S.kd.med;if(m&&kdWorstOf()&&S.pov!=='v'){S.f.kdWorstOpen=1;save()}return r};
 const _hubKD49b=hub;hub=function(){const a=arguments,self=this;try{if(S&&S.f&&S.f.kdWorstOpen===1&&kdMedM()&&!dlg){S.f.kdWorstOpen=2;save();go(cutBg('#000'));return say([
- ['','Eleven days. That is what it was, in the end. Nobody tells you. You won’t know for a week.'],
+ ['','It was eleven days, in the end. Nobody tells you, and you won’t know for a week.'],
  ['','What you know is the floor, and the bulb, and that you can’t feel two of your fingers, and that the sky you saw for a second when they carried you out must have been a dream, because you are back on a floor under a bulb.'],
  ['hitmeuppp','(it was a nice dream. there was a coat in it.)'],
  ['','You have stopped counting the radio. You lost count somewhere in the second week and you were too tired to start again. That frightens you more than anything else in the room.']],()=>_hubKD49b.apply(self,a))}}catch(e){}return _hubKD49b.apply(self,a)};

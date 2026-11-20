@@ -9,7 +9,7 @@ function k71Below(){return S.phase==='normal'
  ?'the cellar under the cellar, the one with the cold store and the drain in the floor, where he keeps the things that are not for guests'
  :'the lowest floor, past the infirmary door. They walk past it fast and do not look at it'}
 function k71Scene(cb){S.f.k71Peach=1;save();const w=S.phase==='epilogue'||tier()>=3;
- say([['','Three in the morning. They are awake all at once, the way they wake on a job, with their hand already under the pillow.'],
+ say([['','Three in the morning. They come awake the way they do on a job, with their hand already under the pillow.'],
   ['hitmeuppp',MV('(job. i have a job. what time is it.)','(job. i’ve got a job today. what time is it. where are my boots.)','(I have a job today. I’m sure of it. Where are my boots.)','(Job today. I’m certain. I can feel it in my shoulders. Where did I put my boots.)')],
   ['','They have the boots on before they remember that the job was yesterday, and it went fine, and the money is already in the tin. Their shoulders do not believe them.'],
   ['','The house is dark. There is a light on somewhere below, much further down than the kitchen. They follow it down to '+k71Below()+'.'],

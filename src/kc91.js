@@ -48,7 +48,7 @@ const k91_line=cb=>say([
 const k91_dose=cb=>say([
   N('The chart is in your hand, and so is the first line on it: NO SEDATIVES. You underlined it twice. They were kept under in that building, and you will not have it done to them again in yours.'),
   N(k84SA()?'The doctor has read the line. She has not disputed it. She has shown you the films instead, and told you what three ribs, a pinned hand and two wrists open to the tendon will require if the patient is to breathe at all.':'You have read the films. You know what three ribs, a pinned hand and two wrists open to the tendon will require, if the patient is to breathe at all. You have the tables for it; you have dosed a hound of the same weight.'),
-  N('It is not a sedative. It is only relief. It goes in by the arm, a drop at a time, and at the quantity needed it does to a mind very much what the other would have done.'),
+  N('On paper it is relief, and not a sedative. It goes in by the arm, a drop at a time, and at the quantity needed it does to a mind very much what the other would have done.'),
   N('There is also what the men in that building gave them, which is still leaving the blood, and which nobody can name.'),
   K76V('(So they are not sedated, and they cannot tell the ceiling from the floor. I have kept to the letter of my own instruction.)'),
   N('You watch them through the glass. The eyes are open. They follow something across the wall that is not there, and then they find you in the doorway, and you see what they make of a tall shape with a bag of something on a stand.'),
@@ -143,7 +143,7 @@ k86('d_drugged','m',null,'clear','“u drugged me”',[
  K76V('I know. I watched you think it. I could have ended it in a night by turning a wheel, and you would have paid for the night.'),
  M2('so u picked. for me. while i was out of it','so you picked, for me, while i was out of it'),
  K76V('Somebody had to. I would rather that it had not been a man with your name in a book.'),
- N('It is not an apology. He does not make them. But he stands there and lets you look at him for as long as you want, with his hands open, and you find that you want to for some time.')]);
+ N('He does not make apologies, and this is not one. But he stands there and lets you look at him for as long as you want, with his hands open, and you look for some time.')]);
 
 /* ===================================== THE POOL: V ===================================== */
 k86('d_weight','v',null,null,'By weight',()=>[
@@ -157,7 +157,7 @@ k86('d_eyes','v',null,null,'Their eyes',[
  N('The pupils are down to points. In that light they should be wide. You could not get a pin into them.'),
  N('You have looked into those eyes down the length of a lift, with a pistol under your chin. They were the quickest things you had ever seen. They went to your hand before your hand had moved.'),
  N('They come round to you now like something being wound. They arrive, and rest on your face, and there is nobody using them. Then they sharpen, by an effort that you can watch, and what they sharpen into is fear.'),
- K76V('(It is the only thing that gets through. Everything else in them is under the drip. The fear floats.)'),
+ K76V('(Fear gets through. Everything else in them is under the drip, and the fear floats on top of it.)'),
  N('You say the day of the week. You say that the door opens. You watch the words go in, late, and you watch them turn into something else on the way.'),
  K76V('(I am speaking to them through the bag. Nothing that I say comes out the other side as I said it.)')]);
 k86('d_chart','v',null,null,'Your own handwriting',[
@@ -205,7 +205,7 @@ k86('d_angel','v',null,null,'What they will remember',[
  K76V('No. Nor would I ask them to accept my account of it. I am the last person whose account they should be asked to accept.'),
  N('She puts the cup down.'),
  [AN,'That’s the worst thing I’ve ever heard. You could do everything right in that room and they’d walk out with a memory of you that isn’t you.'],
- K76V('I have written the hour of every time that I went in, and what I did. It is in the green book in the counter drawer. It is not for me. It is so that there is something they may check, if they should ever wish to, that they need not ask me for.')]);
+ K76V('I have written the hour of every time that I went in, and what I did. It is in the green book in the counter drawer, so that there is something they may check, if they should ever wish to, that they need not ask me for.')]);
 k86('d_taper','v',null,null,'The bag comes down',[
  N('On the third day it comes down. A smaller bag, a slower rate.'),
  N('It is not pleasant. They shake. The sheet is soaked by noon, and changed, and soaked again. They are sick twice, into the steel dish, and each time they look at you over the rim of it to see what it will cost them.'),
@@ -213,7 +213,7 @@ k86('d_taper','v',null,null,'The bag comes down',[
  N('You say it every hour. You cannot tell how much of it arrives.'),
  N('At about four the eyes change. It is as quick as a lamp. One moment they are on your hands, and the next they are on your face, and they are narrowed, and they know your name.'),
  K76MV('…ur honour?','…ur honour?','Your Honour?','Your Honour? Is that — what the fuck are you doing here?'),
- N('You find that you have sat down on the floor. You did not decide to. Your back is against the wall and your legs have gone.'),
+ N('You have sat down on the floor. You did not decide to. Your back is against the wall and your legs have gone.'),
  K76V('You are in my house. It is Thursday. The door opens from both sides.'),
  K76MV('u look like shit','you look like shit','You look like shit.','You look like shit. Have you been sitting there the whole time?'),
  K76V('(I have never been so glad to be insulted. I shall not tell them so. I shall not be able to tell them anything, for a minute or two.)')]);
@@ -247,7 +247,7 @@ function k91Green(){k77Go('#0b0c0a');k73Mark('e2l_green',1);const m=k76M(),f=S.f
    N(m?'You put your good hand flat on the cover. You do not open it.':'They put the good hand flat on the cover. They do not open it.'),
    K76MV('no. i don’t want urs. i want mine. even with holes in it','no. i don’t want yours. i want mine, even with holes in it','No. I don’t want yours. I want mine, even with holes in it.','No. I don’t want your version. I want mine, even if it’s got holes in it.'),
    K76V('Then it goes back in the drawer. It is there whenever you wish, and you need never tell me that you looked.'),
-   N(m?'He carries it down himself. You sit at the island with nine things that you will never be able to sort. They are yours. Nobody gave them to you, and nobody is going to tell you what is in them.':'You carry it down yourself and lay it in the drawer. They have chosen to keep nine things that they cannot sort, in preference to having them sorted by you. You find that you think the better of them for it, and that it does not make it any easier.')],hub)};
+   N(m?'He carries it down himself. You sit at the island with nine things that you will never be able to sort. They are yours. Nobody gave them to you, and nobody is going to tell you what is in them.':'You carry it down yourself and lay it in the drawer. They have chosen to keep nine things that they cannot sort, in preference to having them sorted by you. You think the better of them for it, and that does not make it any easier.')],hub)};
  say(L,()=>ask(K73Who(),m?'(Green cloth. His initials on the spine.)':'(They have not opened it.)',m?[
   {t:'Read it',sub:'his word, against your pieces',fn:read},{t:'Give it back unopened',sub:'keep your own, holes and all',fn:unread}]:[
   {t:'Offer to go out while they read',fn:read},{t:'Tell them that it is only your account, and wait',fn:unread}]))}

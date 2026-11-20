@@ -15,13 +15,13 @@ rlEv('rel_power',()=>tier()>=2,done=>say([
  ['','V’s house has its own generator, which does not come on, because nobody notices the lights are off for two hours. Misaki and V are on the kitchen floor with a candle, the hounds and a puzzle of a thousand pieces that are all sky.'],
  ['hitmeuppp',MV('is it dark out?','wait. is the whole city dark?','Wait. Is the whole city dark?','Wait, hang on. The whole city’s out? When did that happen? Huh. Anyway. This is an edge, I found an edge.')],
  ['K9','Since nine. I did not want to interrupt.'],
- ['','They finish the puzzle at four in the morning. The power comes back at five. Neither of them has looked out of a window.']],()=>{apply({aff:3});calm(3);done()}));
+ ['','They finish the puzzle at four in the morning. The power comes back at five. They have not looked out of a window all night.']],()=>{apply({aff:3});calm(3);done()}));
 rlEv('rel_roof',()=>S.pov==='v'&&frT('r')>=1,done=>say([
  ['','Four in the morning on the roof. Both of them came back from separate work tonight. Ronin is smoking. V does not smoke, and is holding a cup of tea he has not drunk.'],
  [RN,'You ever feel anythin’ for ’em. After.'],['K9','No.'],
  [RN,'Me neither. Feels good, don’t it.'],
- ['K9','It feels like nothing. That is what is good about it.'],
- ['','Ronin laughs, the big ugly laugh, and V almost does. Below them the city goes on with its sirens. Neither of them looks down.']],()=>{fr('r',3);apply({heart:-1});done()}));
+ ['K9','It feels like nothing. I like that.'],
+ ['','Ronin laughs, the big ugly laugh, and V almost does. Below them the city goes on with its sirens, and they do not look down.']],()=>{fr('r',3);apply({heart:-1});done()}));
 rlEv('rel_graves',()=>frT('a')>=1&&frT('r')>=1,done=>{const m=rM();say([
  ['','Angel and Ronin are having a picnic on a grave. Not one of theirs. It has a good tree. Forty metres away, somebody else’s funeral is going on.'],
  [AN,'they’re doing the bit with the dirt.'],[RN,'Sandwich.'],

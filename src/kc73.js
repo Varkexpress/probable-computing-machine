@@ -125,7 +125,7 @@ function k73Sab(){go(cutBg('#0c0a10'));k73Mark('e2l_sab');const m=k73M(),eye=S.f
  const L=(m?[
   ['','The foundation dinner is at the hotel by the river: a hundred and forty people in black tie clapping for a foundation that will not say whose it is. The man who owns it is at a back table by the kitchen doors, where nobody looks, and he cuts people up in his basement. Your contract is the man at table one, who sold the hospital fund’s debt to people who collect with pliers. Your rifle is on the roof of the car park across the street. '+(eye==='scope'?'The scope is Angel’s spare; she handed it over without a word and with a look you did not like.':'The scope is your own. His IOU is in your back pocket.')],
   ['','You have two names tonight. One of them is paying you. The other one is at the back table, pretending to be nobody.'],
-  ['','At seven he sent you a text that said only “Table one has been moved.” It has been moved four times since. Every time a waiter sets it down near a window, you put a round through the place card, from two hundred metres, so that he knows exactly how close you are.']]:[
+  ['','At seven he sent you a text that said only “Table one has been moved.” It has been moved four times since. Every time a waiter sets it down near a window, you put a round through the place card, from two hundred metres, so that he knows how close you are.']]:[
   ['','Your foundation’s dinner is at the hotel by the river. You are at a back table by the kitchen doors, an anonymous guest; the chair is giving the speech. The man at table one sold the hospital fund’s debt to people who collect with pliers, and after dessert Inspector Hale is taking him out through the kitchen with your papers in an envelope. Misaki has the same man on a contract. They are on the roof of the car park across the street, and they have sworn to kill you.'],
   ['','You have moved table one four times since seven. Every time a waiter sets it down near a window, a place card leaves it, very fast, and goes into the far wall. They are telling you they can see you.'],
   ['','At eight you sent the black hound and the old hound to the bottom of the car park stairwell. They are sitting there now, in the dark, waiting for anything to come down.']]).concat([
@@ -293,7 +293,7 @@ function k73After(){go(cutBg('#0e0c0a'));k73Mark('e2l_after');const m=k73M(),sab
    K73V('Practise.')],hub)};
  const soft=()=>{S.f.e2lAfter='soft';apply({aff:2});save();say([
    K73V('No.'),
-   ['',k73M()?'He sits down across the island and pushes the soup an inch nearer, carefully, and says nothing else. You watch your worst enemy be gentle with you, and you understand for the first time how bad it must have been.':'You sit down across the island and push the soup an inch nearer, and say nothing else. They watch you be careful for a long time, and something in their face shuts, and you understand that you have just told them how bad it was.'],
+   ['',k73M()?'He sits down across the island and pushes the soup an inch nearer, carefully, and says nothing else. You watch your worst enemy be gentle with you. So it was that bad.':'You sit down across the island and push the soup an inch nearer, and say nothing else. They watch you be careful for a long time, and then their face shuts. You have just told them how bad it was.'],
    K73MV('ok','ok. ok, v','Okay. Okay, V.','Okay. Okay. You win that one.')],hub)};
  say(L,()=>ask(K73Who(),m?'(He is looking at the cast.)':'(They mean it.)',m?[
   {t:'“we’re enemies. act like it”',fn:war},{t:'Let him be kind',fn:soft}]:[
@@ -368,12 +368,11 @@ function k73Spar(){go(cutBg('#100a0a'));k73Mark('e2l_spar');const m=k73M();
  const kiss=()=>{S.f.e2lSpar='kiss';apply({aff:6});save();say([
    m?null:K73V('If you are going to do it, do it.'),
    ['',k73M()?'You kiss him with the blade still under his chin. It is a terrible kiss; your teeth hit his. He kisses you back as if he is trying to win it, and he might be, and you put the knife down on the mat so that you can have both hands.':'They kiss you with the blade still under your chin. It is a terrible kiss, all teeth, and you kiss them back as though you could win it, and they put the knife down on the mat so that they can use both hands.'],
-   ['','When it stops, neither of you says anything for a while.'],
    K73MV('that doesn’t count','that doesn’t count. that was a tactic','That doesn’t count. That was a tactic.','That doesn’t count. That was a tactic. I was distracting you.'),
    K73V('Then you won by it. Three to one.'),
    K73MV('3 to 1','three to one. write it down','Three to one. Write it down.','Three to one. Write that down in your little book.')],hub)};
  const pin=()=>{S.f.e2lSpar='pin';apply({aff:3});save();say([
-   ['',k73M()?'He taps the mat twice, which is not the same as saying it. You know it, and he knows you know it.':'You tap the mat twice. It is not the same as saying it, and they know it.'],
+   ['',k73M()?'He taps the mat twice instead of saying it. You know it, and he knows you know it.':'You tap the mat twice instead of saying it, and they know it.'],
    ['',k73M()?'You get up and walk out with the practice knife and do not look back. You lie awake until four, and when you go past the study for water there is a light under his door.':'They get up and walk out with the knife and do not look back. You lie on the mat for some time. At four they come past the study for water, see the light under your door, stop, and go on.']],hub)};
  say(L,()=>ask(K73Who(),m?'(He is waiting.)':'(They are waiting.)',m?[
   {t:'Kiss him',fn:kiss},{t:'Get up and walk out',fn:pin}]:[
@@ -451,9 +450,9 @@ function k73Epi(){go(cutBg('#08060c'));k73Mark('e2l_epi');const f=S.f,lov=f.e2lE
   f.e2lTruce?['','Clause four of the bowling alley accords is still in force: once a week each of them has to say one true thing about the other in the server. These days the true things are mostly worse than the threats.']:null,
   K73MV('race u','race you','Race you. Loser cooks.','Race you. Loser cooks. Winner gets the scope and the glasses.'),
   K73V('Go.')]:[
-  ['','A year on, the anniversary of the bowling alley. The war has not stopped. It has only stopped being fought.'],
+  ['','A year on, the anniversary of the bowling alley. The war has not stopped.'],
   ['','They have not tried to kill each other since the Constance. They still could, and both of them know the exact distance at which they could, all the time. Their name is still in his ledger in fountain pen. His is still in their head.'],
-  ['','They work the same city under the truce. When they want the same mark they meet on a roof and settle it with a coin, and neither of them turns their back to the other to walk away, so they leave down the stairwell side by side, which Angel says is the most romantic thing she has ever seen and Ronin says is the most frightening.'],
+  ['','They work the same city under the truce. When they want the same mark they meet on a roof and settle it with a coin, and neither of them turns their back to the other to walk away, so they leave down the stairwell side by side, which Angel thinks is romantic and Ronin thinks is terrifying.'],
   ['','Once a year, on this night, a single bullet stands on its end on his pillow. He leaves it there until morning, and sleeps.'],
   f.e2lEye==='note'?['','The IOU is still in V’s wallet. He has never collected.']:null,
   f.e2lScar==='crooked'?['','He has a scar on his left forearm with a hook at the end of it. They look at it every time they meet, quickly, before they look at his hands.']:null,
@@ -489,7 +488,7 @@ txDef('tx_e2l_pool',{with:'a',prio:2,when:()=>E2L()&&S.phase==='normal'&&k73Done
    {t:k73M()?'“stay out of it, angel”':'“Stay out of it, Angel.”',reply:()=>['no ❤️','you’re both mine. that’s not a vote']}]}}});
 txDef('tx_e2l_a2m',{with:'v',pov:'m',prio:2,when:()=>E2L()&&S.phase==='act2'&&k73Done('e2l_stitch'),nodes:{
  start:{in:()=>['The stitches itch.','I would like to know whether that was deliberate.'],expire:3,
-  opts:()=>[{t:'“yes”',fx:()=>apply({aff:2}),reply:()=>['I thought so.','I am not scratching them. I am thinking about you instead. It is worse.']},
+  opts:()=>[{t:'“yes”',fx:()=>apply({aff:2}),reply:()=>['I thought so.','I think about you instead of scratching them. I would rather scratch.']},
    {t:'“scratch them and i redo the whole arm”',fx:()=>apply({aff:2}),reply:()=>['With your teeth?','I am in a board meeting. I have had to stop thinking about that.']}]}}});
 txDef('tx_e2l_a2v',{with:'m',pov:'v',prio:2,when:()=>E2L()&&S.phase==='act2'&&k73Done('e2l_stitch'),nodes:{
  start:{in:()=>['how’s the arm','not that i care','i care about my work. i do good work'],expire:3,

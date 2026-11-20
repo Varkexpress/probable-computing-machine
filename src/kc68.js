@@ -138,7 +138,7 @@ l68('vr68_pink',['laundro'],.4,()=>true,done=>say([
  ['K9','I have a board meeting at nine.'],
  [RN,'So go pink. Pink’s in. Angel wears pink, and Angel’s the scariest bitch in the city.']],()=>ask('K9','(He is holding up a shirt to the strip light, admiring it.)',[
  {t:'Wear it to the board.',fn:()=>{S.f.k68Pink='pink';fr('r',3);save();say([
-  ['','You wear it to the board. Nobody says anything for two hours. At the end of the meeting the finance director stops you by the lift, and asks, very carefully, where you buy your shirts.'],
+  ['','You wear it to the board. Nobody says anything for two hours. At the end of the meeting the finance director stops you by the lift, and asks, carefully, where you buy your shirts.'],
   ['K9','(text) The finance director likes the shirt.'],
   [RN,'(text) what’s his name. I wanna thank him personally'],
   ['K9','(text) No.']],done)}},

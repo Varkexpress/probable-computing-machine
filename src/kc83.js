@@ -74,7 +74,7 @@ function k83Study(){const n=k81Inc('study'),m=k76M();
   [['',m?'You do integrals on the back of his foundation’s annual report, with his pencil. He watches the pencil for some time.':'They do integrals on the back of the foundation’s annual report, with your pencil. You watch the pencil for some time. It is fast, and it does not cross out.'],
    K76V('What is that for?'),K76MV('nothing. it’s not for anything. that’s why i like it','nothing. it isn’t for anything. that’s why i like it','Nothing. It isn’t for anything. That’s why I like it.','Nothing. It’s not for anything at all. That’s why I like it.'),
    K76V('(I own nothing that is not for something. I had thought that a virtue.)')],
-  [['',m?'The fire has burned down. You have both been pretending to read for an hour, and neither of you has turned a page, and neither of you has left.':'The fire has burned down. Neither of you has turned a page in an hour. Neither of you has left.'],
+  [['',m?'The fire has burned down. You have both been pretending to read for an hour without turning a page, and nobody has left.':'The fire has burned down. Nobody has turned a page in an hour, and nobody has left.'],
    m?K76MV('(if i get up, it’s over. if he gets up, it’s over. so nobody gets up)','(if i get up it’s over. if he gets up it’s over. so nobody’s getting up)','(If I get up it’s over. If he gets up it’s over. So nobody’s getting up.)','(If I get up, it’s over. If he gets up, it’s over. So nobody is getting up.)'):K76V('(If either of us stands, the evening is finished. I have a great deal to do. I remain in the chair.)')]]),hub);
  say([
   ['',m?'His study, after dinner. There is a fire, and two armchairs, and he is in one of them with a book. The other one has never had anybody in it; you can tell from the cushion.':'The study, after dinner. You are in your chair with a book. They come in without knocking and stand looking at the second armchair, which nobody has sat in since you bought it.'],
@@ -89,7 +89,7 @@ function k83Study(){const n=k81Inc('study'),m=k76M();
    ['','You sit where it is. Four steps. You take the pistol out of your waistband and lay it on the arm of the chair, because sitting on it hurts the ribs, and he takes the scalpel out of his collar and lays it on the arm of his.'],
    ['','You read like that for two hours, armed, by a fire. It is the most peaceful evening you have had since you were about nine, and you would rather be shot than tell him.']],hub)}}]:[
   {t:'Say nothing when they move the chair',fn:()=>{S.f.e2lStudy='near';save();say([
-   ['','They drag it a step nearer the fire. It makes a terrible noise on the boards. You do not look up. You find that your hand has gone white on the book.'],
+   ['','They drag it a step nearer the fire. It makes a terrible noise on the boards. You do not look up. Your hand has gone white on the book.'],
    K76MV('it was cold over there','what. it was cold over there','What? It was cold over there.','What? It was cold over there. Don’t read into it.'),K76V('I have read nothing into it. I am reading my book.'),
    ['','It is some minutes before you observe that the book is upside down. They have observed it already, and said nothing, and you are not certain what you owe them for that.']],hub)}},
   {t:'Put the scalpel on the arm of your chair',sub:'where they can see it',fn:()=>{S.f.e2lStudy='far';save();say([
@@ -105,7 +105,7 @@ function k83Eve(){k77Go('#05060a');k73Mark('e2l_eve',1);const m=k76M(),f=S.f,lov
   K76V('It is efficient. Each of us is the better judge of the other’s work.'),
   K76MV('(one: he could die tomorrow. two: i just got him. three: life is so fucking—)','(one: he could die tomorrow. two: i only just got him. three: life is so fucking—)','(One: he could die tomorrow. Two: I only just got him. Three: life is so fucking—)','(One: he could die tomorrow. Two: I’ve only just got him. Three: life is so fucking—)'),
   m?K76V('I can hear you counting. Stop at two.'):K76V('(They are counting. I can hear it. I do not have a number system for this; I have only the one fact, and I have had it for two days, and I would like longer.)'),
-  ['',m?'You stop at two. He hands you the scope. You hand him the pistol. You do not say be careful, and he does not. Neither of you has ever been.':'You hand them the scope. They hand you the pistol. You do not say be careful, and they do not. Neither of you has ever been.']],hub);
+  ['',m?'You stop at two. He hands you the scope. You hand him the pistol. You do not say be careful, and he does not. You never have been, either of you.':'You hand them the scope. They hand you the pistol. You do not say be careful, and they do not. You never have been, either of you.']],hub);
  say([
   ['',m?'The night before the auction. Under the terms you prepare in separate rooms: you in the spare room with the rifle, him in the study with the knives, and the door between left open, so that each of you can hear what the other is doing.':'The night before the auction. Under the terms you prepare in separate rooms: they in the spare room with the rifle, you in the study with the knives, and the door between left open, so that each of you can hear the other.'],
   ['',m?'You hear every blade go across the stone. He must hear every round go into the magazine. You count his; he is certainly counting yours.':'You hear every round go into the magazine. They must hear every blade go across the stone. You count theirs. They are certainly counting yours.'],
@@ -114,7 +114,7 @@ function k83Eve(){k77Go('#05060a');k73Mark('e2l_eve',1);const m=k76M(),f=S.f,lov
   K76V('(through the door) Thank you.'),
   K76MV('(through the door) for what','(through the door) for what','(through the door) For what?','(through the door) For what? I didn’t do anything.'),
   K76V('(through the door) For that.'),
-  ['','That is the whole of what is said. Under the terms it is a great deal.']],hub)}
+  ['','Nothing more is said, and under the terms that is a great deal.']],hub)}
 (function(){try{if(typeof K73B==='undefined'||typeof k76Card!=='function')return;const at=id=>K73B.findIndex(b=>b.id===id);
  const b={id:'e2l_eve',t:()=>'The night before the auction',sub:()=>'costs time · neither of you is asleep',when:()=>S.phase==='act3'&&!!S.f.e2lEnd&&k73Done('e2l_boat')&&k73Fresh()&&(S.f.e2lEnd!=='rivals'||k73Done('e2l_book')),run:function(){return k76Card('e2l_eve',()=>k83Eve())}};
  const i=at('e2l_epi');K73B.splice(i<0?K73B.length:i,0,b)}catch(e){}})();
@@ -151,7 +151,7 @@ const K83E={
    K76MV('he’s fifteen','he’s fifteen now','He’s fifteen now.','He’s fifteen now. That’s old, for one that size.'),K76V('I know how old he is.'),
    K76MV('u going to be ok','are you going to be ok. when','Are you going to be okay? When.','Are you going to be okay, when it happens?'),
    K76V('No.'),
-   ['',m?'He says it like a weather report. Then he sits down on the floor by the bed, in his good trousers, with one hand on the hound’s ribs, and you get down there with him. There is nothing else in his whole house that you can shoot for him.':'You sit down on the floor by the bed, with one hand on the hound’s ribs. They get down beside you. Neither of you is any use to the other with this, and they stay regardless.']],
+   ['',m?'He says it like a weather report. Then he sits down on the floor by the bed, in his good trousers, with one hand on the hound’s ribs, and you get down there with him. There is nothing else in his whole house that you can shoot for him.':'You sit down on the floor by the bed, with one hand on the hound’s ribs. They get down beside you. You are no use to each other with this, and they stay anyway.']],
   riv:m=>[
    ['',m?'The old hound is at your trailer door at six in the morning. He has walked it, on that hip, from the house. It is four kilometres.':'The old hound is not in the kennel at six. On the gate camera he is going down the drive, alone, on that hip, in the direction of the trailer lot. It is four kilometres.'],
    ['',m?'You let him in. He gets up on your bed, which takes three tries, and lies down with a sigh you have counted before, through a door.':'You do not go after him. You sit in the car at the end of their lane for the whole morning, where the terms allow, and watch the trailer door, which stays shut with him behind it.'],
@@ -192,7 +192,7 @@ if(typeof K82_QV!=='undefined')K82_QV.push(
   K76MV('…bc nobody gets through it. i tried all week. if i couldn’t get in, they couldn’t','…because nobody gets through it. i tried all week. if i couldn’t, they couldn’t','…Because nobody gets through it. I tried all week. If I couldn’t, they couldn’t.','…Because nobody gets through it. I had tried all week. If I couldn’t get in, nobody could.'),
   K76V('You came to the one house in the city that you had found impregnable, because I had made it so against you.'),
   K76MV('yeah. don’t make it a thing','yeah. don’t make it a thing','Yeah. Don’t make it a thing.','Yes. Don’t make it into a thing.'),
-  K76V('(It is the only use that anybody has ever had for what I am.)')]},
+  K76V('(They found a use for what I am. I had not known that there was one.)')]},
  {q:'“Do you remember saying thank you?”',a:()=>[
   ['','You should not have asked it. You watch them go somewhere else behind the eyes, and then come back.'],
   K76MV('every one','every fucking one','Every fucking one.','Every one of them. Forty-one.'),

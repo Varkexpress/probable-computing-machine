@@ -18,7 +18,7 @@ const k28LeadN=()=>k28Lead()==='v'?'V':'Misaki';
    ['','After the job. Three in the morning. Ronin’s bathroom: a clawfoot tub he found in a church that was being demolished, candles he swears are not stolen, the gospel station on low.'],
    ['','The water goes the colour of weak tea, then the colour of something else. None of it is '+(m?'yours':'yours')+'.'],
    [RN,'Lean back, '+(m?'darlin’':'Vee')+'. I got you. Head back. There.'],
-   ['','He washes your hair with his big careful hands, sleeves pushed up, humming the hymn the radio is playing, a half-step flat on purpose. He is very gentle. He is gentle the way only someone who knows exactly how much force a skull can take is gentle.'],
+   ['','He washes your hair with his big careful hands, sleeves pushed up, humming the hymn the radio is playing, a half-step flat on purpose. He is gentle the way only someone who knows how much force a skull can take can be gentle.'],
    m?['','You slide under. All the way. When you come up he has his hand flat on the water where your face was, waiting, and he does not say anything about the four minutes. Ronin has seen you go under before. Ronin has made his peace with it, mostly by praying.']:['','You close your eyes. You do not need much sleep. You need this more.'],
    [RN,'There. Clean as a Sunday.']]
   :[
@@ -43,7 +43,7 @@ K22EV.push(
  {id:'k28_set2',when:()=>k28Ok()&&!!k28Partner()&&!!S.seen.k28_set1,run:done=>{const m=S.pov!=='v';
   say([['','You do not need to call each other. '+(m?'V':'Misaki')+' turns up on the nights you would have called, which is how it has always worked.'],
    ['','You finish each other’s sentences in front of people who find it unsettling. You know where the other one is in a room without looking. You share a toothbrush cup at V’s house and neither of you remembers deciding that.'],
-   ['','Nobody has ever asked either of you to choose. Your partners worked it out within a week: the two of you are not a couple, and you are not two people either. You are a package.']],()=>{apply({aff:2});done()})}});
+   ['','Nobody asks either of you to choose. Your partners worked it out within a week: the two of you are a package, and not a couple.']],()=>{apply({aff:2});done()})}});
 
 /* ---------- the other pairing ---------- */
 function k28Other(){const k=k28Partner();if(!k)return null;return k==='r'?'a':'r'}

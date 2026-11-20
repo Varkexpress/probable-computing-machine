@@ -40,7 +40,7 @@ const K82_QM=[
   K76V('A veterinary text, and eleven animals that did not live. I am better now. You have had the benefit of it.'),
   K76MV('u practised on DOGS','you practised on dogs','You practised on dogs.','You practised on dogs. To get good enough for people.'),
   K76V('I practised in order to save them. It is the only reason I have ever learned to do anything.'),
-  ['','He looks at your hand when he says it, and then, very deliberately, at the wall.']]},
+  ['','He looks at your hand when he says it, and then, deliberately, at the wall.']]},
  {q:'“would u have done it. in the trailer. if i hadn’t woken up”',a:()=>[
   K76V('Yes.'),
   K76MV('just yes','just “yes”','Just “yes”.','Just “yes”. No speech.'),
@@ -50,7 +50,7 @@ const K82_QM=[
  {q:'“what happens to the book when u die”',a:()=>[
   K76V('It goes into the furnace, unread. Angel has the instruction.'),
   K76MV('all of it? all those names','all of it? all those names?','All of it? All those names?','All of it? All those names, and not one person reads them?'),
-  K76V('It is not a record for anybody. It is how I know that I did not do any of it for nothing.'),
+  K76V('Nobody is meant to read it. It is how I know that I did none of it for nothing.'),
   K76MV('and my page','and my page goes in with them','And my page goes in with them.','And my page goes into the furnace with the card man.'),
   K76V('I am making other arrangements for your page.')]},
  {q:'“what do u want for dinner”',a:()=>[
@@ -75,7 +75,7 @@ const K82_QV=[
   K76V('There are three from the spare room.'),
   K76MV('i know. i counted. u put me in the one with three','i know. i counted. you put me in the one with three','I know. I counted. You put me in the one with three.','I know; I counted. You put me in the one room up there with three.'),
   K76V('Yes.'),
-  ['','They wait for you to say why. You find that you cannot do it without saying something else as well, and you say nothing.']]},
+  ['','They wait for you to say why. You cannot do it without saying something else as well, so you say nothing.']]},
  {q:'“What would you have been?”',a:()=>[
   K76MV('a pilot. don’t laugh','a pilot. don’t laugh','A pilot. Don’t laugh.','A pilot. Don’t you dare laugh.'),
   K76V('I do not laugh.'),
@@ -149,7 +149,7 @@ if(typeof l73==='function'){
   K76V('They have never done that.'),
   K76MV('they don’t know who to follow','they don’t know which one of us to follow','They don’t know which one of us to follow.','They don’t know which one of us to follow.'),
   K76V('They know. They are declining to choose.'),
-  ['',k76M()?'You both stand there. Neither of you is going to be the one who walks across.':'You both stand there. Neither of you is going to be the one who walks across.']],()=>{done()}))}
+  ['','You both stay where you are, on your own side of the hounds. Nobody walks across.']],()=>{done()}))}
 
 /* ===================================== THREADS ===================================== */
 if(typeof txDef==='function'){
@@ -171,10 +171,10 @@ const _me82=morningEvent;morningEvent=function(done){try{if(S&&K82()&&S.phase===
    ['','Through the wall, the kettle goes on. He is up; he is always up. He must have heard. He makes exactly as much noise as a man making tea, for exactly as long, and you lie there and hate him for the tact of it.']]:[
    ['','At five, through the wall of the spare room, they say thank you. They are asleep. It is the pleasant voice, from the infirmary, addressed to whoever is holding the keys in the dream.'],
    K76V('(I am in the dream, then. I have a fair idea in which capacity.)'),
-   ['','You put the kettle on, so that there will be an ordinary noise in the house when they wake. You make exactly as much of it as a man making tea. It is the only thing you can think of to do for them that they will not have to answer.']],()=>_me82(done))}}catch(e){}return _me82(done)};
+   ['','You put the kettle on, so that there will be an ordinary noise in the house when they wake. You make exactly as much of it as a man making tea. You cannot think of anything else to do for them that they will not have to answer.']],()=>_me82(done))}}catch(e){}return _me82(done)};
 
 /* ===================================== ENDINGS ===================================== */
 const _xe82=extraEnding;extraEnding=function(){const L=_xe82();try{if(!S||!S.f||S.f.e2l!==1||S.rom||S.vrom||S.f.k28pair)return L;const n=S.f.e2lAskd||0;
- if(n>=8)L.push('In V’s house they asked each other one thing a day, and got the truth every time. The one question neither of them asked was the one they both needed.');
+ if(n>=8)L.push('In V’s house they asked each other one thing a day, and got the truth every time. They never got round to the one they both needed to ask.');
  else if(n>=3)L.push('In V’s house they asked each other one thing a day, and got the truth every time. They got through '+n+' before the corridor.')}catch(e){}return L};
 /* ===KC82-END=== */

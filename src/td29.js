@@ -44,7 +44,7 @@ K22EV.push(
    [m?'hitmeuppp':'K9',m?MV('angel. that’s all of it','angel that’s ALL of it','Angel, that is all of it.','Angel. That is the whole quarter.'):'Angelic. That is the whole quarter.'],
    [AN,'i know. i don’t need it. i have my followers and my face and my rifle and u guys. that’s everything.'],
    [AN,'i never took a single job for me. not one. the day i do, i want somebody to take my rifle away. that’s the rule. ok? u’re my somebody.'],
-   ['','She says it the way she says everything: sweetly, with a smile, as if it is a skincare tip. You understand that it is the most serious thing she has ever asked you.']],()=>{fr('a',3);done()})}},
+   ['','She says it the way she says everything: sweetly, with a smile, as if it is a skincare tip. She has never asked you for anything more serious.']],()=>{fr('a',3);done()})}},
  /* V's distrust */
  {id:'k29_files',when:()=>k29Ok()&&frT('r')>=1&&frT('a')>=1&&tier()>=1&&S.day>=12,run:done=>{const m=k29M();
   say([['',m?'You find them on the ops deck by accident: four folders, one for each of you. Yours is the thickest.':'You leave the drawer open by accident. Misaki finds them: four folders, one for each of you, updated every January.'],
@@ -60,7 +60,7 @@ K22EV.push(
  /* Misaki draws the four of them */
  {id:'k29_drawing',when:()=>k29Ok()&&!!S.f.k22art&&frT('r')>=1&&frT('a')>=1,run:done=>{const m=k29M();const post=typeof k22Post==='function'&&k22Post();
   say(post?[['',m?'You open the tablet for the first time in weeks and draw the four of you, at V’s table, from behind: Ronin’s jacket, Angel’s hair, V’s shoulders, your own hood.':'Misaki shows you a drawing on their tablet: the four of you at your table, from behind. Ronin’s jacket, Angel’s hair, your shoulders, their hood.'],
-    ['','No faces. You can’t do faces any more. But anyone who knew you would know exactly who each of them was from the backs of their heads.'],
+    ['','No faces. You can’t do faces any more. But anyone who knew you would know each of them from the backs of their heads.'],
     [AN,'(server) can i print this. can i print this and frame it. i’m printing it.'],
     [RN,'(server) Looks like the back of a real nice album cover. Satan’s Greatest Hits.']]
    :[['',m?'You draw the four of you for fun, the way you used to draw commissions: chibi, huge eyes, Ronin with tiny horns, Angel with a halo and a rifle, V in his coat with the hounds drawn as four very small, very sinister clouds.':'Misaki draws the four of you the way they used to draw commissions: huge eyes, Ronin with tiny horns, Angel with a halo and a rifle, you in your coat with the hounds drawn as four very small, very sinister clouds.'],

@@ -167,7 +167,7 @@ function k72Va(cb){
     ['','She looks up. The sheet mask makes her face hard to read, because it is a panda.'],
     [AN,'V. yes. oh my god. give. hand flat. don’t move. all ten, and you’re wearing them to the board meeting.']],()=>k72VaSleep(cb))}}]))}
 function k72VaSleep(cb){
- say([['','It takes a long time. The ring light hums. The hounds lie in a row along the wall with their feet out to dry, and Angel narrates each one to her folder in Maria’s voice, very softly.'],
+ say([['','It takes a long time. The ring light hums. The hounds lie in a row along the wall with their feet out to dry, and Angel narrates each one to her folder in Maria’s voice, softly.'],
   ['','You lean your head back against the kennel wall to rest your eyes. She is saying “and that’s a lovely finish” about something, and you do not hear what.'],
   [AN,'(Maria’s voice, very soft) and he’s asleep, everyone. the scariest man in the city. shh. look at his little hands.']],
   ()=>k72Wake('va',cb))}

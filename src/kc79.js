@@ -53,7 +53,7 @@ function k79Cant(){k77Go('#060609');k73Mark('e2l_cant',1);const m=k76M(),f=S.f;
   ['','One line through it. They asked for that in the corridor. It would take less ink than a signature.'],
   K76V('(If I strike this name, I own a book in which names may be struck. The card man is in this book, and every aberration before him. Each of them died because what is written here is not open to appeal.)'),
   K76V('(If it is open to appeal for the one whom I happen to — )'),
-  ['','You do not finish the sentence. A drop of ink falls from the nib and lands beside their name. You blot it at once, very carefully, so that it will not look like the beginning of a line.'],
+  ['','You do not finish the sentence. A drop of ink falls from the nib and lands beside their name. You blot it at once, carefully, so that it will not look like the beginning of a line.'],
   K76V('(I can kill for this book. It appears that I can do nothing else for it.)')],
  ()=>ask('K9','(The nib has not moved.)',[
   {t:'Cap the pen',fn:()=>{f.e2lCant='capped';save();say([['','You cap the pen and lay it in the groove of the tray. Your hand is perfectly steady. You sit with it flat on the page, over their name, until the hounds begin to ask for the door.']],hub)}},
@@ -88,7 +88,7 @@ function k79Night(){k77Go('#030305');k73Mark('e2l_night');const m=k76M(),f=S.f;
    m?K76MV('don’t come in','don’t come in. don’t','Don’t come in.','Don’t come in. Please don’t come in.'):null,
    m?K76V('I will not.'):null,
    ['',m?'He does not. You hear him sit down on the step, in the rain. Every so often he tells you the day, and that the door opens from your side, in the voice he uses for reading out minutes.':'You sit down on their step, in the rain. Every so often you tell the door what day it is, and that it opens from their side. You use the voice in which you read out minutes, because it is the only one you have that does not shake.'],
-   ['',m?'At some point your hand opens. When it gets light the step is empty and wet, except for one dry patch the width of a man.':'Towards five the breathing behind the door evens out. You go before it is light, as they would wish. You leave a dry patch on the step, and you find that you resent the rain for the speed at which it will cover it.']],hub)};
+   ['',m?'At some point your hand opens. When it gets light the step is empty and wet, except for one dry patch the width of a man.':'Towards five the breathing behind the door evens out. You go before it is light, as they would wish. You leave a dry patch on the step, and you resent the rain for the speed at which it will cover it.']],hub)};
  say(L,()=>ask(K73Who(),m?'(Two bolts. They open from your side.)':'(Two bolts, on their side.)',m?[
   {t:'Open the door',sub:'it will take both hands',fn:opened},{t:'Keep it shut',sub:'he stays where he is',fn:shut}]:[
   {t:'Ask them to open the door',sub:'and stay four steps back',fn:opened},{t:'Sit down on the step',sub:'ask for nothing',fn:shut}]))}
@@ -101,7 +101,7 @@ function k79Dress(){k77Go('#0a080a');k73Mark('e2l_dress',1);const m=k76M(),f=S.f
   [AN,'I’ve been to both funerals in my head. I know what I’m reading at each one. I know which of you I never speak to again afterwards.'],
   [RN,'I’m carryin’ the box at both. Already picked the hole. Don’t look at me, she made me.'],
   [AN,'So one of you is going to tell me, right now, to my face, that I wasted my money.'],
-  ['','There is a silence. You look at each other across a dress rail, each waiting to hear it from the other one first, and Angel watches you both wait.']];
+  ['','You look at each other across a dress rail, each waiting to hear it from the other one first, and Angel watches you both wait.']];
  const said=()=>{f.e2lDress='said';save();say(m?[
    K76MV('u wasted ur money','you wasted your money, angel','You wasted your money, Angel.','You wasted your money, Angel. Both of them.'),
    [AN,'Thank you. Now say it to him.'],K76MV('…'),[AN,'Yeah. That’s what I thought.'],
@@ -126,10 +126,10 @@ function k79Last(){k77Go('#060508');k73Mark('e2l_last');const m=k76M(),f=S.f,lov
    ['','It is the trailer in the first week again: his head, your gun. He opens his eyes and does not move his hands.'],
    K76V('It happens.'),
    K76MV('(i love him. i’ve got a gun to his head. both. at once. life is so fucking unfair)','(i love him. i’ve got a gun to his head. both, at the same time. life is so fucking unfair)','(I love him. I’ve got a gun to his head. Both, at the same time. Life is so fucking unfair.)','(I love him, and I have a gun to his head. Both, at the same time, in his own bed. Life is so fucking unfair.)')]:[
-   ['','You turn over in your sleep, and wake with their pistol against your temple. Their eyes are open. They are not in this room. They are in the other building.'],
+   ['','You turn over in your sleep, and wake with their pistol against your temple. Their eyes are open, and they are in the other building.'],
    ['','It is their trailer in the first week again: your head, their gun. You do not move your hands.'],
    K76V('It happens.'),
-   K76V('(I swore once to put them down. I will lie under this for as long as it takes, on every night that it takes, and I will not reach for it. That is the whole of what I have to give them, and it is not enough, and I will go on giving it.)')];
+   K76V('(I swore once to put them down. I will lie under this for as long as it takes, on every night that it takes, and I will not reach for it.)')];
   const down=()=>{f.e2lPillow='down';apply({aff:2});save();say([
     ['',m?'It takes a while. The hand does not take orders at this hour. He waits. When the pistol is on the nightstand he slides it an inch nearer to you, so that you can reach it, and goes back to sleep on the side that faces it.':'It takes them a while. The hand does not take their orders at this hour. You wait. When the pistol is on the nightstand you slide it an inch nearer to them, so that they can reach it, and lie down again on the side that faces it.'],
     K76MV('sorry','…sorry','Sorry.','Sorry. I hate that I do that.'),K76V('Do not be. I earned that reflex. I would rather you kept it than lost it on my account.')],hub)};
@@ -143,7 +143,7 @@ function k79Last(){k77Go('#060508');k73Mark('e2l_last');const m=k76M(),f=S.f,lov
   K76MV('(one: i send it and he comes. two: he comes and i put the rifle down. three: then i’m the one who went first, and he never has to, and what if that’s what he’s waited a whole year for, what if—)','(one: i send it and he comes. two: he comes and i put the rifle down. three: then i’m the one who went first and he never has to, and what if that’s what he’s been waiting a whole year for, what if—)','(One: I send it and he comes. Two: he comes and I put the rifle down. Three: then I’m the one who went first and he never has to, and what if that’s what he’s been waiting a whole year for, what if—)','(One: I send it and he comes. Two: he comes and I put the rifle down. Three: then I’m the one who went first, and he never has to, and what if that’s what he’s waited a whole year for, what if—)'),
   ['','You delete it. In the scope he picks up his own phone, looks at it for a long time, and lays it face down on the blotter. You will never know what he had typed.']]:[
   ['','The anniversary. They are on the water tower. You have known the shape of them up there for a year. On your phone there is a message, typed and not sent, that says “Come down.”'],
-  K76V('(If I send it, I have asked. A person who kills for whoever pays will know exactly what a man who asks is worth.)'),
+  K76V('(If I send it, I have asked. A person who kills for whoever pays will know what a man who asks is worth.)'),
   K76V('(I do not believe that of them any longer. I act as though I do. It has kept us both alive, and I cannot find the day on which it stopped being a reason.)'),
   ['','You lay the phone face down on the blotter. You will never know whether they saw you do it.']];
  const bullet=()=>{f.e2lPillow='bullet';save();say(m?[

@@ -186,7 +186,7 @@ function k65maLive(){go(cutBg('#2a1428'));k65Mark('ma_live');
    {t:MV('misbehave','misbehave','Misbehave.','Misbehave. Carefully.'),fn:()=>{S.f.k65maLive='bad';fr('a',3);say([
      ['','You get off the daybed. You stay low, under the eyeline of the camera, and put one hand on her knee under the desk.'],
      [AN,'(maria) so for an evening routine i always start with a, with a cleansing balm—'],
-     ['',sugOn()?'You move the hand.':'You draw a small heart on her knee with one finger, very slowly, and then a skull.'],
+     ['',sugOn()?'You move the hand.':'You draw a small heart on her knee with one finger, slowly, and then a skull.'],
      [AN,'(maria) a BALM, sorry guys, i’m so tired today, um. okay.'],
      ['','The chat fills up with “maria are u ok” and “she’s flushed???” and a hundred thousand fire emojis. She ends the stream four minutes early, the first time in four years, with the smile still on.'],
      ...(sugOn()?[[AN,'(lowercase, not smiling) bedroom. now. you’re in so much trouble.']]

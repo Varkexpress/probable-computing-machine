@@ -12,13 +12,13 @@ const KD_NIGHT=[
  [['','They dream the van. Not the inside, only the door, the side door, sliding back on its track, over and over, the sound it makes.'],
   ['','They wake up with their good hand already round the drip stand and the needle out of their other hand, and blood on the sheet, and the room dark.'],
   ['','There is a voice on the other side of the door, ordinary, close to the floor: “Misaki. It is three in the morning. You are on sublevel two. Nobody is coming in. I am going to stay where I am.”'],
-  ['','They don’t answer. They put the stand down, very slowly, so it won’t clatter. After a long time they lie down on the floor themself, on their side of the door, with their back against it. They sleep like that, back to back through two inches of wood.']],
+  ['','They don’t answer. They put the stand down slowly so it won’t clatter. After a long time they lie down on the floor themself, on their side of the door, with their back against it. They sleep like that, back to back through two inches of wood.']],
  [['','Third night. They can’t sleep with the light off and they can’t sleep with it on. They turn it on and off fifty-one times. They count.'],
   ['','At the fifty-second the door opens a hand’s width, and something big comes through the gap low down and lies across their feet. It is warm and very heavy and it sighs.'],
   ['','The grey hound. They know it’s the grey hound because of the seam down the shoulder, under their palm, where V sewed her back together when she was a pup.'],
   ['hitmeuppp',MV('(...hi.)','(hi. ok. hi. you can stay.)','(Hi. You can stay. You can stay.)','(Hi, baby. Hi. You can stay. You can absolutely stay. I’ll leave the light however you want it.)')],
   ['','They sleep with their hand on the seam and the light off. It is the first time since the van that the dark has been just dark.']],
- [['','They wake at four with their face wet and doesn’t know why. They check the room in order, the way they check a roof: door, corners, bed, ceiling, their own hands.'],
+ [['','They wake at four with their face wet and don’t know why. They check the room in order, the way they check a roof: door, corners, bed, ceiling, their own hands.'],
   ['','It isn’t the cell. They know it isn’t. They cried anyway, in their sleep, about something they can’t reach, and they lie there furious about it, as though somebody had gone through their pockets.'],
   ['hitmeuppp',MV('(stupid.)','(stupid. nothing happened. it was a dream about nothing.)','(Stupid. It was a dream about nothing.)','(Crying in my sleep. Over what? Some dream I don’t even get to keep. If I’m going to cry I want to at least know what it was about. That’s the deal. That’s the bare minimum.)')]]];
 KD_NIGHT.push(

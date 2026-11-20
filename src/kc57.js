@@ -30,7 +30,7 @@ function k57rClock(){const m=k57M();go(cutBg('#120c0a'));k57Mark('r_clock');
   [m?'hitmeuppp':'K9',m?MV('and?','and then what','And then what happened?','And then what? You can’t stop a story at the good bit, that’s my move.'):'And then?'],
   [RN,'Then I got the belt, and then I got the front row for a year, so everybody could keep an eye on me. Front row’s where I met him. Devil sits up front, y’know. Best view of the priest.'],
   [RN,'Ain’t been late since. Not to a job, not to a dinner, not to the fuckin’ dentist. He likes a show that starts on time.'],
-  ['',m?'He’s right. In all the time you’ve known him, nobody has ever seen Ronin walk in a minute late. He shows up to Sunday dinner at the exact minute, every week, with a bottle and blood under one fingernail.':'V has a note in Ronin’s file to the same effect. In all the years V has known him, Ronin has never once been late. He arrives at Sunday dinner on the minute, every week, with a bottle and blood under one fingernail.']],
+  ['',m?'He’s right. In all the time you’ve known him, you have never seen Ronin walk in a minute late. He shows up to Sunday dinner at the exact minute, every week, with a bottle and blood under one fingernail.':'V has a note in Ronin’s file to the same effect. In all the years V has known him, Ronin has never once been late. He arrives at Sunday dinner on the minute, every week, with a bottle and blood under one fingernail.']],
   ()=>ask(RN,'(He has gone back to filing a crowbar. The clock says twenty to eleven.)',[
    {t:m?'Ask him why he kept it.':'Ask him why he kept it.',fn:()=>{S.f.k57rClock='asked';fr('r',2);say([
      [RN,'Kept it ’cause it’s right twice a day and wrong all the rest. Like me.'],
@@ -232,7 +232,7 @@ txDef('tx_k57a_code_v',{with:'a',pov:'v',prio:2,when:()=>false,nodes:{
 
 /* A1 · texture: where the names come from */
 k57Ev('k57a_tips',()=>['normal','after','act2'].includes(S.phase)&&frT('a')>=1&&S.day>=3,done=>{const m=k57M();say([
- ['',m?'Two in the morning on Angel’s daybed. She has her laptop on her knees and you have your head on her shoulder, and she is reading her DMs out loud in Maria’s voice, very softly.':'Two in the morning. Angel is on the daybed in V’s atrium with her laptop on her knees, reading her DMs out loud in Maria’s voice, very softly, to the hounds.'],
+ ['',m?'Two in the morning on Angel’s daybed. She has her laptop on her knees and you have your head on her shoulder, and she is reading her DMs out loud in Maria’s voice, softly.':'Two in the morning. Angel is on the daybed in V’s atrium with her laptop on her knees, reading her DMs out loud in Maria’s voice, softly, to the hounds.'],
  [AN,'“maria i think my landlord is the man from the news.” no he isn’t, babe, he’s just a landlord. “maria the guy at my gym.” no. “maria my stepdad.”'],
  [AN,'...oh. oh, hi.'],
  ['','She opens a spreadsheet. A name, an address, a second source, a third. A column headed HAD IT COMING with a dropdown that only says yes.'],
@@ -250,7 +250,7 @@ function k57aTip(){const m=k57M();go(cutBg('#100a10'));k57Mark('a_tip');
   [AN,'he has a folder. he has my one in his folder. he made me miss.'],
   [AN,'and he’s got it coming. look at him. he so has it coming.'],
   [AN,'i’d want it if he didn’t, though. i want it so bad my teeth hurt.'],
-  ['','She shuts the laptop very gently, smiles at you with Maria’s smile, and goes to bed at ten, which she never does.']],()=>{try{const id=m?'tx_k57a_rifle':'tx_k57a_rifle_v';const P=phS();if(!P.run[id])txStart(id)}catch(e){}hub()})}
+  ['','She shuts the laptop gently, smiles at you with Maria’s smile, and goes to bed at ten, which she never does.']],()=>{try{const id=m?'tx_k57a_rifle':'tx_k57a_rifle_v';const P=phS();if(!P.run[id])txStart(id)}catch(e){}hub()})}
 
 /* A2 · threads: three in the morning */
 const k57aRifleSet=v=>{S.f.k57aRifle=v};
@@ -279,7 +279,7 @@ function k57aNight(){const m=k57M(),r=S.f.k57aRifle;go(cutBg('#0c0a10'));k57Mark
  if(r==='went')return say([
   ['',m?'A roof across from his flat, in the rain. You’re on the spotting scope. She is flat on her stomach beside you in black, the boring black, with her chin on the stock.':'A roof across from his flat, in the rain. V is on the spotting scope. She is flat on her stomach beside him in black, the boring black, with her chin on the stock.'],
   ['','Through the glass the man is at a desk with three monitors. There is a folder of printouts pinned to the wall behind him. Faces. One of them is the man on the night buses who wasn’t.'],
-  [AN,'(very quietly, in her vlog voice) and she breathes in. and she isn’t sorry. and she isn’t doing it for anybody. not one person sent her.'],
+  [AN,'(barely a whisper, in her vlog voice) and she breathes in. and she isn’t sorry. and she isn’t doing it for anybody. not one person sent her.'],
   [AN,'cork.'],
   ['','The folder on the wall goes red. Then she rolls onto her back on the wet roof and laughs, really laughs, louder than you have ever heard her, with the rain going in her mouth.'],
   [AN,'oh my god. that was for me. that was all for me.'],
