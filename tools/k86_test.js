@@ -35,7 +35,7 @@ let runs=0,fails=0;const ok=(c,m)=>{runs++;if(!c){fails++;console.log('FAIL',m)}
  const A=[];
 
  const POOL=await ev(()=>K85S.map(e=>({id:e.id,pov:e.pov,mode:e.mode||null,st:e.st||null,when:!!e.when})));
- ok(POOL.length===208,'two hundred and eight scenes in the player-opened pool: '+POOL.length);ok(new Set(POOL.map(e=>e.id)).size===POOL.length,'ids are unique');
+ ok(POOL.length===219,'two hundred and nineteen scenes in the player-opened pool: '+POOL.length);ok(new Set(POOL.map(e=>e.id)).size===POOL.length,'ids are unique');
  const want=(mode,pov,st)=>POOL.filter(e=>!e.when&&e.pov===pov&&(!e.mode||e.mode===mode)&&(!e.st||e.st===st)).map(e=>e.id);
  let played=0;
  for(const mode of ['sa','inj'])for(const [pov,clar,st] of [['m',0,'cell'],['m',2,'clear'],['v',0,null]])for(const comp of (st==='cell'?[50,0]:[50])){
