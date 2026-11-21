@@ -28457,6 +28457,264 @@ const _xe108=extraEnding;extraEnding=function(){const L=_xe108();try{if(!S||!S.f
  if(S.seen.m108_bag)L.push('Misaki’s bags stood by V’s front door for eleven days. Neither of them would be the one to move them.')}catch(e){}return L};
 /* ===KC108-END=== */
 
+/* ===================== THE WAR: THE HOTEL, AND WHAT IS LEFT (kc109) =====================
+   At the author's direction. Needs kc73, kc76–kc108.
+   1. THE HOTEL, rewritten for the route. td25's k25_hotel (Ronin walks in on the red bath with a crowbar) is warm,
+      and on the route it was only held back for the war, then could play as written. On the route it now plays in
+      the war instead: the same target, the fourteenth floor, a fight in the suite, V holding Misaki under, Misaki
+      going still on purpose, Ronin with the crowbar. Then the call, and the text. Choices: S.f.e2lHotel
+      (m: still|fight; v: let|count). k25_bath stays as it was.
+   2. THE INFIRMARY. Twelve scenes in kc85's player-opened pool (now 274).
+        Misaki, cell:   d_cameby  d_laugh  d_nails  d_last
+        Misaki, clear:  d_list  d_lock  d_ronin2
+        V:              d_angelV  d_roninV  d_lastV  d_listV  d_lockV
+   3. MORNINGS (shared cap), upstairs: the sentence; the roof, when the cast comes off; the hotel, a year on.
+   Same text under both aftermath settings: nothing touches the hours, and the doctor does not appear.
+   Rules: unnamed city, hounds unnamed, no new named characters, V never contracts, Misaki via M2 and they/them. */
+const K109=()=>{try{return typeof K108==='function'&&K108()}catch(e){return false}};
+const k109F=()=>{const f=S.f;f.e2l109=f.e2l109||{};return f.e2l109};
+
+/* ===================================== 1 · THE HOTEL ===================================== */
+function k109Hotel(done){const m=S.pov!=='v';
+ const call=()=>say([
+  N(m?'The next day Ronin rings V. Not the server. Him. You know because V forwards you the recording an hour later with no message, which is the rudest thing anyone has ever sent you.':'The next day Ronin rings you. Not the server. You.'),
+  [RN,'Vee.'],
+  K76V('Ronin.'),
+  [RN,'I had it up. The crowbar. I had it up over your head, an’ I was gonna bring it down, an’ I want you to know I ain’t sorry.'],
+  K76V('You should have brought it down.'),
+  [RN,'Yeah? You wanna tell me why I didn’t?'],
+  K76V('Because they came up.'),
+  [RN,'Because they came up. ’Cause they’d been lyin’ there under the water lettin’ you think you done it. An’ you was kneelin’ there. You wasn’t holdin’ them no more. You was just kneelin’ there with your hands in the water.'],
+  N('A long silence on the line.'),
+  [RN,'I’ve seen you kill people, Vee. I seen you do it slow. I never seen your face like that.'],
+  K76V('That is not your concern.'),
+  [RN,'It is now. You two wanna do each other, fine, I’m runnin’ a book on it. But I ain’t walkin’ in on that again. Next time I bring it down. On whoever’s on top.'],
+  N('He hangs up.'),
+  N(m?'You listen to it four times. Then you text V.':'An hour later, a text.'),
+  M2('u let go','you let go'),
+  N(m?'Nothing for twenty minutes. Then:':'You look at it for twenty minutes. Then you answer.'),
+  K76V('You stopped breathing.'),
+  M2('i stopped breathing on PURPOSE. it’s called TECHNIQUE. u had me and u let go','i stopped breathing on purpose. it’s called technique. you had me and you let go'),
+  K76V('I did not have you. I had a body in a bath, and it was not the way it is written down. I will not be cheated of it by your lungs.'),
+  M2('ur insane','you’re insane'),
+  K76V('Next time, keep breathing.'),
+  N(m?'You throw the phone across the trailer. It hits the cactus. You go and pick it up and read it again.':'They do not answer. You read the thread until the screen goes dark, and then you wake it up and read it again.')],()=>{apply({tension:8});done()});
+ say(m?[
+  N('The hotel by the river. Fourteenth floor. The man in 1412 has sold the same orphanage twice, and two people have been paid for him: you, and the man you are at war with.'),
+  N('You get there first. You always get there first. He is in the bath when you come in through the connecting door, and he is done before the water has gone pink.'),
+  N('Then the other door opens and V is in the suite.'),
+  K76V('That was mine.'),
+  M2('it WAS. past tense. finders keepers ur honour','it was. past tense. finders keepers, your honour'),
+  N('He comes at you. Not with a gun. With his hands, across the room, faster than a man that tall has any right to be. You get one hit in, on the jaw, and then he has your collar and your belt and you are going backwards, over the edge of the bath, into the water with the man you just killed.'),
+  N('The water closes over you. Red. His hand is flat on your sternum, holding you down against the bottom of the tub, and his other hand is round your wrist so you cannot reach the knife.'),
+  N('You can see him through the water. Blurred, pink, kneeling over the bath with his sleeves soaked to the elbow. He is not even breathing hard.')]:[
+  N('The hotel by the river. Fourteenth floor. 1412 has sold the same orphanage twice. You have been on him a month.'),
+  N('When you come through the door the bath is running and he is in it, and Misaki is standing over him with the knife, and he is dead, and the water has gone pink.'),
+  K76V('That was mine.'),
+  N('They say finders keepers. They call you your honour.'),
+  N('You do not decide. You cross the room. They get one hit in, on the jaw, a good one, and then you have their collar and their belt and you put them over the edge of the bath into the water with him, and hold them there, one hand flat on the breastbone, one round the knife wrist.'),
+  N('They fight. You have never felt anybody fight like it. Then you feel the fight change, and you hold on.')],()=>ask(m?'hitmeuppp':'K9',m?'(He is holding you under.)':'(They are under the water. You are holding them there.)',m?[
+  {t:'Go still. Let him think he did it.',fn:()=>{S.f.e2lHotel='still';save();say([
+    N('You stop. You let your arms float. You let your eyes stay open and fixed, the way the eyes go. You let the last of the air out of your nose in a long string of bubbles, so he can see it go.'),
+    N('You can stay down a long time. You always could. He does not know that. Nobody knows that.'),
+    N('Twenty seconds. Thirty. His hand is still on you. Forty. Then it lifts, very slowly, as if the water had got heavy.'),
+    N('You stay down. Through the water you watch him kneel there with his hands in the bath, not holding anything, and you watch his face, and you have never seen it do that, and you are going to remember it for the rest of your life.'),
+    N('Then the door, and Ronin, with a bag, and a key card, and a crowbar coming up over V’s head.'),
+    N('You come up. You gasp, once, loud, and sit up in the red water with the dead man’s foot against your hip.'),
+    M2('hi ronin. he can’t even drown someone properly','hi ronin. he can’t even drown someone properly'),
+    N('Ronin does not lower the crowbar for a long time. V does not move at all. You climb out, dripping, and take the knife from the floor, and walk out of the suite past both of them, and leave red footprints all the way to the lift.')],call)}},
+  {t:'Fight. Get his hand off you.',fn:()=>{S.f.e2lHotel='fight';apply({tension:4});calm(-5);save();say([
+    N('You fight. You get a knee up into his ribs, and your teeth into the wrist that holds yours, and you twist, and the hand on your chest slips on the wet shirt.'),
+    N('You come up choking, pink water out of your nose and mouth, and he gets you again by the hair and puts you back under, and this time you get the knife hand free and put the blade through the meat of his forearm.'),
+    N('He lets go. You come up. You are both on the floor of the bathroom in the red water that is all over the tiles now, coughing, bleeding, staring at each other, and that is how Ronin finds you when he comes in with his key card and his crowbar.'),
+    [RN,'What the fuck. What the fuck is this.'],
+    M2('he started it','he started it'),
+    K76V('They had the kill.'),
+    [RN,'There’s a dead guy in the bath. There’s a dead guy in the bath an’ you two are on the floor.'],
+    N('Ronin stands in the door with the crowbar and looks at you both for a long time. Then he takes a towel off the rail and throws it at you, and another one at V, and goes and sits on the bed with his head in his hands.')],call)}}]:[
+  {t:'Let go.',fn:()=>{S.f.e2lHotel='let';save();say([
+    N('The fight stops. The arms float. The eyes stay open. A long string of bubbles comes out of the nose, and stops.'),
+    N('You hold on. Twenty seconds. Thirty. You have done this before, to men, and you know how long it takes, and it should not be this easy, and it is.'),
+    K76V('(Not like this. Not in a bath, in a hotel, over a man I did not get to.)'),
+    N('You let go. You kneel there with your hands in the water. You do not take them out. You do not know what you would do with them.'),
+    N('The door opens behind you. Ronin, with a bag, and a key card. You hear the crowbar come up. You do not turn round. You think, quite clearly, that it would be fair.'),
+    N('Then they sit up out of the water, gasping, with the dead man’s foot against their hip, and look at Ronin over your shoulder, and say that you cannot even drown someone properly.'),
+    N('They climb out and take the knife and walk out past both of you. Red footprints to the lift. Ronin does not lower the crowbar for a long time, and you do not get up off your knees until he does.')],call)}},
+  {t:'Hold on. Count to thirty first.',fn:()=>{S.f.e2lHotel='count';apply({tension:4});calm(-5);save();say([
+    N('You count. You make yourself. Ten. The arms float. Twenty. The bubbles stop. You know what this is; you know what a body does when it is giving up, and this is close, and it is not quite it.'),
+    N('Twenty-six. The knife hand twists out of yours and the blade goes through your forearm.'),
+    N('You let go. They come up choking. You are both on the floor in the red water, and it is everywhere now, and you are bleeding into it, and they are coughing it up, and Ronin is standing in the door with a crowbar.'),
+    [RN,'What the fuck is this.'],
+    K76V('They had the kill.'),
+    N('Ronin throws a towel at each of you and sits down on the bed with his head in his hands. You sit on the tiles with your arm across your knees. They sit against the bath and spit pink, and glare at you, and you glare back, and nobody says anything for a very long time.')],call)}}]))}
+(function(){const L=typeof K22EV!=='undefined'?K22EV:[];const e=L.find(x=>x.id==='k25_hotel');if(!e)return;
+ const w=e.when,r=e.run;
+ e.when=function(){try{if(typeof E2L==='function'&&E2L())return K109()&&S.phase==='normal'&&typeof k73Done==='function'&&(k73Done('e2l_eye')||k73Done('e2l_sab'))&&S.day>=4&&!S.f.e2lHotel}catch(x){return false}return w.apply(this,arguments)};
+ e.run=function(done){try{if(typeof E2L==='function'&&E2L())return k109Hotel(done)}catch(x){}return r.apply(this,arguments)}})();
+
+/* ===================================== 2 · MISAKI, CELL ===================================== */
+k86('d_cameby','m',null,'cell','Angel came by',[
+ N('He says it while he is checking the line, as if it were nothing. “Angel came by.”'),
+ N('You stop breathing.'),
+ N('Came by. That is what they say. That is what they said in the other building, about the girl before you: she came by. Then her things were in a bag by the door.'),
+ M2('(they got her. he got her. he’s telling me so i know)','(they got her. he got her. he is telling me so that i know)'),
+ N('You do not ask. If you ask, he will tell you how. You lie there with your face to the wall and see her in every way it could have gone: the car, the stairs, the long bag she carries the shotgun in, not fast enough. You see it forty ways. You cannot make it stop.'),
+ N('When he goes you put your face in the pillow and scream into it until your ribs give out. Then you lie there and start the list. Who is left. Ronin. Ronin is left. You say his name over and over, so they cannot have him too.')]);
+k86('d_laugh','m',null,'cell','Ronin, laughing',[
+ N('Voices in the corridor. One of them is Ronin’s.'),
+ N('You would know it anywhere. He is laughing. The big one, the one that goes up at the end.'),
+ N('He is laughing with K9.'),
+ M2('(no)','(no)'),
+ N('You sit up. You listen. They are talking. You cannot hear the words. You can hear the tone: easy, friendly, two men who know each other, outside the door of the room they are keeping you in.'),
+ M2('(he sold me. ronin sold me. how much. HOW MUCH)','(he sold me. ronin sold me. how much did they give him? how much?)'),
+ N('Ronin. Who taught you to drive. Who ran a book on whether you would kill K9 first and had you at six to four. You could survive anything in this room except that laugh, and there it goes again, out in the corridor, and they walk away together, and you hear a door, and then nothing.'),
+ N('You do not cry. You find you cannot. You sit with your back to the wall and your thumbs on your knees and you go cold all the way through, slowly, like a lake.')]);
+k86('d_nails','m',null,'cell','Your nails',[
+ N('You keep the days by your nails. It is the only clock in the room that they cannot get at.'),
+ N('In the other building you bit them to nothing. Now they have grown. You hold your good hand up to the green light and look at the white edge on each one.'),
+ N('A millimetre is ten days. You read it somewhere. There is a lot more than a millimetre.'),
+ M2('(weeks. it’s been WEEKS. nobody came for weeks)','(weeks. it has been weeks. nobody came for weeks)'),
+ N('It has been four days. Your nails are long because he trimmed them on the first night, to clean under them, and you did not know, and they have been growing since the other building, and you cannot do the arithmetic any more.'),
+ N('You lie and look at your nails, and at the weeks in them, and think about everybody you know getting on with their lives. Angel posting. Ronin at the butcher’s. The trailer rent going to the wrong man. Nobody looking. You believed somebody would look.')]);
+k86('d_last','m',null,'cell','What you were going to say',[
+ N('You always knew how it would end. A roof. Him on one, you on another. One shot. You had decided, years ago, what you would say if you got the time between his shot and the ground.'),
+ N('Good shot. That was it. Just that. Because it would have been.'),
+ N('Now it is going to be a bed. He is going to do it in a bed, with a needle, while you are asleep, and you will not get the roof, and you will not get to say it.'),
+ M2('(i had a whole thing planned. i was going to be COOL about it)','(i had it planned. i was going to be cool about it)'),
+ N('You are more upset about that than about dying. You know that is mad. You lie there crying with rage at a man who will not even let you lose properly.'),
+ N('When he comes in you say it anyway, to his back, while he changes the bag. “good shot.” He goes still. He does not turn round. He finishes the bag and goes, and you hear him stop outside, and stand there, and not move for a long time.')]);
+
+/* ===================================== MISAKI, CLEAR ===================================== */
+k86('d_list','m',null,'clear','Every time',[
+ M2('i want a list','i want a list'),
+ K76V('Of what?'),
+ M2('every time u touched me. while i didn’t know it was u. every single one. what u did and when','every time you touched me while i didn’t know it was you. every single one. what you did and when'),
+ N('He looks at you for a while. Then he takes the chart down and reads it to you. All of it. In order. In the voice he uses for the tax book.'),
+ N('Night one, 0410: lines in, both hands. 0430: wrist debrided. Night two, 0200: pins turned. 0300: cast split. 0600: finger checked. On and on. Dressings while you slept. Your hair washed while you slept. Your nails cut.'),
+ M2('stop','stop'),
+ K76V('You asked for every one.'),
+ M2('I SAID STOP','i said stop'),
+ N('He stops. You are shaking. You did not know your body had been that busy without you. You did not know it had been in his hands that often.'),
+ M2('u should’ve woken me','you should have woken me'),
+ K76V('I tried. Twice, each time. It is written down.'),
+ N('You snatch the chart out of his hands and tear it in half, and then in half again. He picks the pieces up off the floor, and goes, and comes back an hour later with a new chart, with every line copied out again, and hangs it on the nail.')]);
+k86('d_lock','m',null,'clear','A lock on your side',[
+ M2('i want a lock. on MY side of the door','i want a lock. on my side of the door'),
+ K76V('No.'),
+ M2('no? i’m not a prisoner. u keep saying i’m not a prisoner','no? i’m not a prisoner. you keep saying i’m not a prisoner'),
+ K76V('You had a fever of forty point six two nights ago. If it comes back I need to get to you in under a minute. No lock.'),
+ N('So that night you push the trolley against the door, and the chair on top of it, and the drip stand through the handle.'),
+ N('At three he tries the door. It does not open. You hear him stand there. Then you hear tools.'),
+ N('He takes the door off its hinges. The whole door. He lifts it out of the frame and leans it against the corridor wall and steps over your trolley.'),
+ K76V('I said no lock.'),
+ M2('GET OUT','get out'),
+ N('He takes your temperature. He writes it down. Then he goes out and leaves the doorway empty, with no door in it at all, for the rest of your time in that room. You lie and look at the black rectangle all night. It is worse than any lock.')]);
+k86('d_ronin2','m',null,'clear','Ronin was laughing',[
+ N('When Ronin comes in you do not let him get past the doorway.'),
+ M2('u were laughing','you were laughing'),
+ [RN,'What?'],
+ M2('in the corridor. with him. on wednesday. i heard u. i was in here and i thought he had me and u were out there LAUGHING with him','in the corridor. with him. on wednesday. i heard you. i was in here, and i thought he had me, and you were out there laughing with him'),
+ [RN,'He told me you’d eaten. Your first whole bowl. I laughed ’cause I was glad, you dumb—'],
+ M2('i thought u SOLD me','i thought you sold me'),
+ N('Ronin’s face goes very red and then very white.'),
+ [RN,'You thought I— I sat in a truck for nine days. Nine. I drove round every warehouse on the east side with a crowbar till my eyes bled. An’ you’re lyin’ in his bed thinkin’ I sold you.'],
+ M2('i didn’t KNOW','i didn’t know'),
+ [RN,'Yeah. Well. Now you do.'],
+ N('He puts the bag of oranges he brought on the floor, very carefully, and goes. You hear his truck start in the yard. V is in the corridor. He heard all of it. He does not say anything, which is the only thing that could have made it worse.')]);
+
+/* ===================================== V ===================================== */
+k86('d_angelV','v',null,null,'Angel came by',[
+ N('You tell them that Angel came by. You say it to fill the silence while you check the line, because they like Angel, and it is good news.'),
+ N('Their whole body goes rigid. Their face collapses in on itself.'),
+ K76V('(Came by. What did I say. What did that mean, in that building?)'),
+ N('You understand a second too late. You open your mouth to say that she is fine, that she brought oranges, that she cried in your hall and called you a monster. They have turned to the wall. They have their hands over their ears.'),
+ N('You say it anyway, to the back of their head, three times. Fine. Oranges. Fine. They do not hear it. You can see that they do not.'),
+ N('Outside you ring Angel and tell her to send a photograph, now, of her face, with today’s paper. She asks why. You do not tell her. You slide it under the door at four. In the morning it is still on the floor where it fell, face down.')]);
+k86('d_roninV','v',null,null,'Ronin laughs',[
+ N('Ronin is in the corridor. You tell him they ate a whole bowl. He laughs, the big one, and slaps your shoulder.'),
+ N('Through the door you hear a sound. Very small. “no.”'),
+ N('You walk Ronin away from the door fast, by the arm, and he asks what is wrong, and you do not have the words, so you shove him. Hard. Into the kennel wall.'),
+ [RN,'What the fuck, Vee.'],
+ K76V('Do not laugh outside that door. Do not ever laugh outside that door.'),
+ [RN,'I was happy. They ate.'],
+ K76V('They do not know that you are happy. They know that you are laughing with me. Think about what that sounds like from in there.'),
+ N('Ronin thinks about it. You watch it land on him. He goes out to his truck without a word and sits in it for an hour. You stand in the kennel with your hand on the wall where his shoulder hit it, and you are not sorry, and you are going to have to be.')]);
+k86('d_lastV','v',null,null,'Good shot',[
+ N('You are changing the bag with your back to them. They say, very quietly, “good shot.”'),
+ N('You stop.'),
+ K76V('(The roof. They think this is the end and they are saying what they would have said on the roof.)'),
+ N('You know because it is what you would have said. You decided it years ago. If they ever got you clean, from a long way off, with the wind wrong, you would say it, if you had the breath.'),
+ N('You finish the bag. You go out. You stand in the corridor with your hand on the wall and you cannot move, because they have just given you, in a bed, by mistake, the one thing you were saving for the roof.'),
+ N('You are so angry at the men who took the roof from both of you that you are frightened of what you would do if they were still alive.')]);
+k86('d_listV','v',null,null,'The chart, read aloud',[
+ N('They want every time you touched them while they did not know you. You read them the chart. You do not leave anything out, because they would know.'),
+ N('Partway through they start saying stop. You finish the line you are on.'),
+ K76V('(If I stop, they will think there is worse after it. There is not. There is only more of the same.)'),
+ N('They tear it up. Four pieces. You pick them up.'),
+ N('Upstairs at your desk you copy it all out again, every line, in order, from memory and the pieces. It takes an hour. You could do it in your sleep. You have done most of it in your sleep. You hang the new one on the nail, and they look at it, and at you, and you see that you have done exactly the wrong thing, and that there was no right one.')]);
+k86('d_lockV','v',null,null,'The door',[
+ N('Three in the morning. You try the door to check on them, as you have every hour, and it does not open.'),
+ N('Trolley. Chair. The drip stand through the handle; you can see its foot through the glass.'),
+ K76V('(Forty point six, two nights ago. If it comes back and I cannot get in, they will cook in there behind a barricade made out of my own furniture.)'),
+ N('You get the toolbox. You take the pins out of the hinges, one, two, three, and lift the door out of the frame, and stand it against the wall.'),
+ N('They are sitting up in bed with the scalpel you thought you had locked away. They scream at you to get out.'),
+ N('You take their temperature. Thirty-seven point nine. You write it down. You go. You do not put the door back. You lie awake upstairs and know exactly what you have done to them, and that you would do it again tonight, and you hate them, a little, for making you choose.')]);
+
+/* ===================================== 3 · MORNINGS (shared cap) ===================================== */
+const k109Up=()=>['after','act2'].includes(S.phase)&&typeof k73Done==='function'&&k73Done('e2l_door');
+const K109MORN=[
+ {id:'m109_sentence',when:k109Up,run:done=>say([
+  N(k76M()?'You put the ledger down in front of him at breakfast, open at your page. Sentence deferred. Reason: and the blank.':'They put the ledger down by your plate, open at their page. Sentence deferred. Reason: and the blank you left.'),
+  M2('fill it in','fill it in'),
+  K76V('No.'),
+  M2('u don’t leave things blank. u’ve never left a thing blank in ur life. fill it in or cross it out','you don’t leave things blank. you’ve never left anything blank in your life. fill it in or cross it out'),
+  K76V('If I cross it out, it is a pardon. You would rather I shot you.'),
+  M2('YES','yes'),
+  K76V('And if I fill it in, you will read the reason.'),
+  N('Silence.'),
+  M2('...what’s the reason','what is the reason?'),
+  N(k76M()?'He takes the pen out of his pocket and writes one word in the blank and turns the book round. Unfinished.':'You write one word in the blank and turn it round. Unfinished.'),
+  N(k76M()?'You stare at it. You want to throw the book at him. You want to ask unfinished by who. You close it instead and push it back across the island and go out, and slam the door so hard the hounds bark.':'They stare at it. Then they close the book and push it back to you and go out, and the door goes so hard the hounds all bark at once.')],()=>{apply({tension:5});done()})},
+ {id:'m109_roof',when:()=>k109Up()&&!!S.seen.m108_range,run:done=>say(k76M()?[
+  N('The cast is off. The terms say the war resumes in full. So you go to the roof.'),
+  N('Your roof. The water tower on Fourth, the one you have used on him since April. He knows it. You know he knows it. You set up at six and wait.'),
+  N('At six forty he comes out onto his. The roof across the river, the one he always uses on you. He lies down. You see the glint.'),
+  N('You have him. Clean. You have had him for a full minute, and the wind is nothing, and your finger is on it, and the hand is steady.'),
+  N('You do not fire.'),
+  N('Nor does he.'),
+  N('You lie there for an hour, the two of you, on your two roofs, with your scopes on each other, and nobody does anything. At seven forty he stands up and packs his rifle and goes in.'),
+  M2('(coward. COWARD. he had me. he had me the whole time)','(coward. he had me. he had me the whole time)'),
+  N('You throw the rifle case across the roof. You kick the water tower until your foot, the one he mended, starts to hurt again. Then you sit down with your back to the tank and you shake with rage until it is dark, and you do not know who at.')]:[
+  N('The cast came off yesterday. The terms say the war resumes in full. You go up onto the roof across the river at six forty, because you know where they will be.'),
+  N('The water tower on Fourth. You find them in the scope in under ten seconds. They have you already. You can see the end of their barrel, still as a nail.'),
+  N('You have them. Clean. The wind is nothing.'),
+  K76V('(Now. They chose this. It is the roof. It is how it was written. Now.)'),
+  N('You do not fire. They do not fire. You lie there for an hour with the crosshairs on each other, and nothing happens, and nothing happens, and at seven forty you get up and pack the rifle and go in, because one of you has to, and you will not have it said that they got up first.'),
+  N('In the kitchen you put the rifle on the island and look at it. Your hands are fine. That is the trouble. There was nothing wrong with your hands at all.')],()=>{apply({tension:6});calm(-4);done()})},
+ {id:'m109_hotel',when:()=>S.phase==='epilogue'&&!!S.f.e2lEnd&&!!S.f.e2lHotel,run:done=>say(S.f.e2lEnd==='lovers'?[
+  N(k76M()?'A year on. A job takes you back to the hotel by the river. Fourteenth floor. Different man, same suite.':'A year on, a job takes the two of you back to the hotel by the river. Fourteenth floor. The same suite.'),
+  N('You both stop in the bathroom door. The bath is very white. Nobody says anything.'),
+  M2('u held me under. right there','you held me under. right there'),
+  K76V('I did.'),
+  M2('would u have. if i hadn’t gone still','would you have, if i hadn’t gone still?'),
+  K76V('I have asked myself every night for a year. I do not know. I am not going to lie to you and say no.'),
+  N(k76M()?'You look at him for a long time. Then you turn the tap on, hot, and you both stand there and watch it fill, and neither of you leaves the room.':'They look at you for a long time. Then they turn the tap on, hot. You both stand and watch it fill. Neither of you leaves.')]:[
+  N('A year on. The hotel by the river has new carpet on the fourteenth floor. You know because you both took a job there the same week and passed each other in the corridor outside 1412.'),
+  N('Nobody said anything. You both kept walking. You both looked back at the same moment, at the door.'),
+  N(k76M()?'That night he sends you one line. “Keep breathing.” You send back a photograph of your middle finger.':'That night you send them one line: keep breathing. They send back a photograph of a middle finger. You keep it.')],done)}];
+const _me109=morningEvent;morningEvent=function(done){try{if(S&&K109()&&!(S.kd&&S.kd.med)&&!(typeof k101Pending==='function'&&k101Pending())&&S.f.e2lMornDay!==S.day&&S.f.e2lMorn109Day!==S.day&&typeof mbOk==='function'&&mbOk()){
+  const e=K109MORN.find(x=>!S.seen[x.id]&&x.when());if(e){S.seen[e.id]=1;S.f.e2lMorn109Day=S.day;S.f.e2lMornDay=S.day;mbUse();save();go(cutBg('#0a0a0d'));return e.run(()=>_me109(done))}}}catch(e){}return _me109(done)};
+
+/* ===================================== ENDINGS ===================================== */
+const _xe109=extraEnding;extraEnding=function(){const L=_xe109();try{if(!S||!S.f||S.f.e2l!==1||S.rom||S.vrom||S.f.k28pair)return L;const F=S.f.e2l85||{};
+ if(S.f.e2lHotel==='still'||S.f.e2lHotel==='let')L.push('In a hotel bath on the fourteenth floor V held Misaki under until they went still. They were faking it. He let go anyway. Ronin had the crowbar up.');
+ else if(S.f.e2lHotel)L.push('There is a knife scar through V’s forearm from a hotel bathroom on the fourteenth floor. Ronin threw them each a towel.');
+ if(F.d_last||F.d_lastV)L.push('Misaki said “good shot” to V in the infirmary, believing it was the end. It was what he had been saving for the roof.');
+ if(F.d_lock||F.d_lockV)L.push('The infirmary door is still leaning against the corridor wall. V never put it back.');
+ if(S.seen.m109_sentence)L.push('On Misaki’s page in V’s ledger: Sentence deferred. Reason: Unfinished.');
+ if(S.seen.m109_roof)L.push('The day the cast came off they lay on two roofs for an hour with their sights on each other. Neither fired.')}catch(e){}return L};
+/* ===KC109-END=== */
+
 /* ===================== kc99: last module — topic sync =====================
    Several modules push talk topics onto TDTOP_V/TDTOP_M only; the talk menu reads TOPICS_V/TOPICS_M.
    Copy any topic that is missing, keeping the menu's last entry (the "leave" row) last. */
