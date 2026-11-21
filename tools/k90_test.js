@@ -34,24 +34,8 @@ let runs=0,fails=0;const ok=(c,m)=>{runs++;if(!c){fails++;console.log('FAIL',m)}
 
  const med=(pov,o)=>ev(([pov,o])=>{__set(pov,'after',Object.assign({done:['e2l_door']},o||{}));S.kd.t0=S.day;S.kd.med={d:1,clar:(o&&o.clar)||0,run:0,sev:2};S.comp=(o&&o.comp)??50;S.slot=(o&&o.slot)||0;save()},[pov,o]);
 
- /* (a) the nights: delivered by hub in the late slot, one a night, in order, by setting and POV */
- const night=async(pick)=>{await ev(()=>{window.__cb=0;const s=k90Night();window.__got=!!s;if(s)s(()=>{window.__cb=1})});
-  for(let k=0,i=0;k<200;k++){const r=await ev(pk=>{for(let j=0;j<300&&dlg;j++)adv();if(window.__cb)return 'done';if(ctrl&&ctrl.box){const os=[...ctrl.box.querySelectorAll('.opt:not(.dis)')];if(os.length){os[Math.min(pk,os.length-1)].click();return 'c'}}return 'x'},pick);if(r==='done')return 'done';await p.waitForTimeout(4)}
-  return (await ev(()=>window.__got))?'timeout':'none'};
- for(const mode of ['sa','inj'])for(const pov of ['m','v'])for(const pick of [0,1]){await ev(mode=>{META.kdFull=mode==='sa'?1:0},mode);await med(pov,{clar:0});const d0=await ev(()=>S.kd.deny||0);
-  await ev(()=>{S.slot=2});ok(await night(pick)==='none',`${mode} ${pov} no night before the late slot`);
-  await ev(()=>{S.slot=3});ok(await night(pick)==='done'&&await ev(()=>S.f.e2l90N===1&&!!S.f.e2lN1),`${mode} ${pov} night I #${pick}: ${await ev(()=>S.f.e2lN1)}`);
-  ok(await night(pick)==='none',`${mode} ${pov} one a night`);
-  await ev(()=>{S.day++;S.slot=3});ok(await night(pick)==='done'&&await ev(()=>S.f.e2l90N===2&&!!S.f.e2lN2),`${mode} ${pov} night II #${pick}: ${await ev(()=>S.f.e2lN2)}`);
-  if(pov==='m')ok(await ev(([d0,sa])=>(S.kd.deny||0)===d0+(sa?1:0),[d0,mode==='sa']),`${mode} night II: ${mode==='sa'?'the pretence is a denial':'no denial'}`);
-  await ev(()=>{S.day++;S.slot=3});if(pov==='m'){ok(await night(pick)==='none',`${mode} night III waits until Misaki is clear`);await ev(()=>{S.kd.med.clar=2})}
-  ok(await night(pick)==='done'&&await ev(()=>S.f.e2l90N===3&&!!S.f.e2lN3),`${mode} ${pov} night III #${pick}: ${await ev(()=>S.f.e2lN3)}`);
-  await ev(()=>{S.day++;S.slot=3});ok(await night(pick)==='none',`${mode} ${pov} three nights, and no more`)}
- await ev(()=>{META.kdFull=1});
- await med('m',{e2l:0});await ev(()=>{S.slot=3});ok(await night(0)==='none','no nights off the route');
- await ev(()=>{__set('m','after',{done:['e2l_door']});S.slot=3});ok(await night(0)==='none','no nights outside the infirmary');
- /* this harness stubs hub(), so the wrapper is checked on the source */
- ok(/const _hub90=hub;hub=function\(\)\{[^}]*k90Night\(\)/.test(require('fs').readFileSync(path.join(ROOT,'src/kc90.js'),'utf8')),'hub is wrapped to deliver the night');
+ /* (a) the nights were withdrawn with the other in-between infirmary rounds (see docs/notes_kc106.md) */
+ await med('m',{clar:0});await ev(()=>{S.slot=3});ok(await ev(()=>k90Night()===null),'no nights any more');
  /* (b) the two beats */
  const B={e2l_bucket:{ph:'normal',done:['e2l_eye','e2l_show','e2l_lift','e2l_kennel'],fl:'e2lBucket',m:['fed','left'],v:['in','out']},
   e2l_table:{ph:'act2',done:['e2l_after','e2l_marks','e2l_rifle','e2l_fork','e2l_car','e2l_list','e2l_stitch','e2l_pair'],f:{e2lAfter:'war'},fl:'e2lTable',m:['lay','stood'],v:['lay','stood']}};
@@ -62,7 +46,7 @@ let runs=0,fails=0;const ok=(c,m)=>{runs++;if(!c){fails++;console.log('FAIL',m)}
  for(const pov of ['m','v']){await ev(pov=>__set(pov,'normal',{done:['e2l_eye','e2l_show','e2l_lift'],raw90:1}),pov);ok(await ev(()=>(k73Due()||{}).id)==='e2l_kennel',pov+' the bucket waits for the kennel');
   await ev(pov=>__set(pov,'act2',{done:['e2l_after','e2l_marks','e2l_rifle','e2l_fork','e2l_car','e2l_list','e2l_stitch','e2l_pair'],f:{e2lAfter:'war'},raw90:1}),pov);await ev(()=>{S.f.e2ld.e2l_table=1});ok(await ev(()=>(k73Due()||{}).id)==='e2l_spar',pov+' the mat follows the table')}
  /* (c) endings */
- for(const [f,rx] of [[{e2lN1:'yard'},/far wall/],[{e2lN1:'bowl'},/It was chicken/],[{e2lN3:'chain'},/chain on the door/],[{e2lN3:'ear'},/never told him/],[{e2lTable:'lay'},/He said please/],[{e2lBucket:'fed'},/still on his muzzle/]]){
+ for(const [f,rx] of [[{e2lTable:'lay'},/He said please/],[{e2lBucket:'fed'},/still on his muzzle/]]){
   const L=await ev(f=>{__set('m','epilogue',{f});return extraEnding().join(' | ')},f);ok(rx.test(L),'ending '+JSON.stringify(f));const L0=await ev(f=>{__set('m','epilogue',{f,e2l:0});return extraEnding().join(' | ')},f);ok(!rx.test(L0),'ending off the route '+JSON.stringify(f))}
  /* text checks */
  const all=await ev(()=>window.__all);const hounds=await ev(()=>Object.keys(S.dogs||{}).concat(['Biscuit','Sergeant','Mochi','Pancake']));

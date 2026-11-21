@@ -16,109 +16,13 @@ const K80=()=>{try{return typeof K79==='function'&&K79()}catch(e){return false}}
 const k80Gone=()=>{try{return typeof k73Gone==='function'&&k73Gone()}catch(e){return false}};
 
 /* ===================================== MISAKI: THE ROOM IS A CELL ===================================== */
-const K80_MC=[
- cb=>say([
-  ['','You have worked out the rules of this room, the way you worked out the rules of the other one.'],
-  K76MV('(one: he comes at eight, noon and six. two: four steps, door to bed. three: he never turns his back)','(one: he comes at eight, noon and six. two: four steps, door to bed. three: he never turns his back)','(One: he comes at eight, noon and six. Two: four steps, door to bed. Three: he never turns his back.)','(One: he comes at eight, noon and six. Two: four steps, from the door to the bed. Three: he never turns his back.)'),
-  ['','Nobody told you any of these. You got them by watching, as you would on a roof. A man with a routine is a man you can do.'],
-  ['','He comes in at noon with the tray. You watch him do all three, and you do not look away, and you let him see you counting. He stays by the door with his jaw set, like a man who has been insulted.']],
-  ()=>ask('hitmeuppp','(He is not looking away either.)',[
-   {t:'Ask him what he is waiting for',sub:'you do not ask the ones with the keys',dis:true,fn:()=>{}},
-   {t:'Stare him out',fn:()=>say([K76MV('what','what?','What?','What? See something you like?'),
-    ['','His hand closes on the door frame until the wood makes a sound. He goes out without a word, and shuts the door with so little noise that you have to listen for the latch.'],
-    K76MV('(ok. he doesn’t like being watched back. good. rule four: do it more)','(ok. he doesn’t like being watched back. good. rule four: do it more)','(Ok. He doesn’t like being watched back. Good. Rule four: do it more.)','(Ok. He doesn’t like being watched back. Good. Rule four: do it more.)')],cb)}])),
- cb=>{S.f.e2lMedAsk=1;save();say([
-  ['','In the afternoon the bag gives you two of him. One is the tall man with the tray. The other is K9, who is somewhere upstairs with a book, and has not been told that somebody else got to you first. It seems perfectly clear, and it gives you an idea.'],
-  K76MV('(k9 swore to kill me. k9 hates it when people touch his stuff. k9 pays for things)','(k9 swore to kill me. k9 hates it when people touch his stuff. k9 pays for things)','(K9 swore to kill me. K9 hates it when people touch his stuff. K9 pays for things.)','(K9 swore to kill me. K9 hates it when people touch his things. K9 pays for things.)'),
-  ['','He would be slow. Everybody knows he is slow. But he would tell you why, with dates, and it would be for something you actually did. You would give a great deal to be killed for something you actually did.'],
-  ['','When the tall one comes for the tray, you keep your eyes on his hands and put it to him as a job.'],
-  k80Gone()?['','You cannot get the voice to come. You write it with your finger on the blanket instead, K, 9, and point at the door, and at yourself.']:K76MV('get a message to k9. tell him he’s late. some river assholes got there first. he can have what’s left. tell him it’s OWED','get a message to k9. tell him he’s late. some river assholes got there first. he can have what’s left. tell him it’s owed','Get a message to K9. Tell him he’s late. Some river assholes got there first. He can have what’s left. Tell him it’s owed.','Get a message to K9. Tell him he’s late, and some river assholes got there first. He can have what’s left. Tell him it’s owed.'),
-  ['','The tall one puts the tray down slowly, as if it had got heavy.'],
-  K76V('I will tell him.'),
-  K76MV('(good. that’s a plan. at least HE’LL give reasons)','(good. that’s a plan. at least he’ll give reasons)','(Good. That’s a plan. At least he’ll give reasons.)','(Good. That’s a plan. At least he will give reasons.)')],cb)},
- cb=>say([
-  ['','There is a hound outside the door. You can see the grey of it in the gap at the bottom, and hear it breathe.'],
-  ['','Everybody in the city knows what the hounds are for. So this is how it is done here: they send the animal first and let you listen to it.'],
-  K76MV('(stay awake. if i’m awake i can at least see it. i want to see it)','(stay awake. if i’m awake i can at least see it coming. i want to see it)','(Stay awake. If I’m awake I can at least see it coming. I want to see it.)','(Stay awake. If I’m awake I can at least see it coming, and I want to see it.)'),
-  ['','It does not come in. It lies down across the door with a sigh, the way a big animal does when it means to stay. You count the sighs until morning. There are sixty-two.'],
-  ['','At some point in the night you notice that the gap under the door is warm, and that you have put your good hand flat on the floor beside it. You take it back.']],cb),
- cb=>say([
-  ['','The tall one stands at the foot of the bed with a sheet of paper and tells you to open your left hand.'],
-  ['','You try. You look at it and tell it, and it lies there on the blanket, shut, like something that belongs to somebody else.'],
-  K76MV('(he wants to know if the rifle hand’s done. he wants to know if i can still shoot)','(he wants to know whether the rifle hand is done. he wants to know whether i can still shoot)','(He wants to know whether the rifle hand is done. He wants to know whether I can still shoot.)','(He wants to know whether the rifle hand is done. He wants to know whether I can still shoot.)'),
-  k80Gone()?['','You lift the cast an inch and let it drop, and look at him: there you are.']:K76MV('it’s fucked. happy? that’s half ur job done','it’s fucked. happy? that’s half your job done','It’s fucked. Happy? That’s half your job done.','It’s fucked. Happy? That’s half your job done for you.'),
-  ['','He looks at the hand, and something goes out of his face, as if a lamp had been carried out of a room.'],
-  K76V((typeof kdSA==='function'&&!kdSA())?'It was for an exercise, for the hand. There is no penalty.':'It was for an exercise. The doctor left it. There is no penalty.'),
-  ['','An exercise. He wants it working. You file that with the soup and the pillows: he is putting you back together, and he has a use in mind for the finished article.']],cb)];
+const K80_MC=[];
 
 /* ===================================== MISAKI: CLEAR ===================================== */
-const K80_MX=[
- cb=>say([
-  ['','It comes back in pieces while you are eating toast, and you put the toast down.'],
-  K76MV('(oh my GOD. i asked him to tell k9 he could have me. i asked V to hand me over to V)','(oh my god. i asked him to tell k9 he could have me. i asked v to hand me over to v)','(Oh my God. I asked him to tell K9 he could have me. I asked V to hand me over to V.)','(Oh my God. I asked him to tell K9 that he could have me. I asked V, to his face, to hand me over to V.)'),
-  ['','You try laughing at it. It is funny. It is fucking hilarious. The laugh gets as far as your ribs and stops.'],
-  ['','He said “I will tell him.” You have gone over the three words a hundred times. He hates you. It is in his book. A man who hates you should have enjoyed that, and his voice did something else, and you do not have a word for what it did.'],
-  K76MV('(don’t. don’t make it into something. he’s got a table downstairs with straps on it)','(don’t. don’t make it into something. he’s got a table downstairs with straps on)','(Don’t. Don’t make it into something. He’s got a table downstairs with straps on it.)','(Don’t. Don’t make it into something. He has a table downstairs with straps on it, and my name in a book.)')],cb),
- cb=>say([
-  ['','You count the thank-yous. The trays, the dressing, the light, the water, the door. You get to forty-one.'],
-  ['','You have never thanked that man for anything in your life. You did it forty-one times for soup, in the good voice, and he took every one of them standing up. You would give a year of rent to have them back.'],
-  ['','He comes in with the tray at one. He puts it down and waits, with his eyes on the wall, and you understand that he is waiting for the forty-second.']],
-  ()=>ask('hitmeuppp','(He is waiting.)',[
-   {t:'“none of those count. the thank yous. that wasn’t me”',fn:()=>{S.f.e2lThanks='told';save();say([
-    K76V('I know. I did not keep them.'),
-    K76MV('u keep everything','you keep everything. you’ve got a BOOK','You keep everything. You’ve got a book.','You keep everything, V. You have a whole book for keeping things.'),
-    K76V('I did not keep those. They were not addressed to me.'),
-    ['','He goes out. You eat the soup, and you do not say anything to the door, and it is the best thing you have done in a week.']],cb)}},
-   {t:'“ur soup’s shit, by the way”',fn:()=>{S.f.e2lThanks='soup';save();say([
-    K76V((typeof kdSA==='function'&&!kdSA())?'It is Ronin’s soup. It is out of a can.':'It is the doctor’s soup.'),
-    (typeof kdSA==='function'&&!kdSA())?K76MV('then his is shit','then ronin’s soup is shit','Then Ronin’s soup is shit.','Then Ronin’s soup is shit, and you can tell him I said so.'):K76MV('then hers is shit','then the doctor’s soup is shit','Then the doctor’s soup is shit.','Then the doctor’s soup is shit, and you can tell her I said so.'),
-    ['','For about a second he looks like a man who has been set down somewhere safe. Then he has his own face again.'],
-    K76V((typeof kdSA==='function'&&!kdSA())?'I will convey it to him in those words.':'I will convey it to her in those words.')],cb)}}]))];
+const K80_MX=[];
 
 /* ===================================== V ===================================== */
-const K80_V=[
- cb=>{const asked=!!S.f.e2lMedAsk;say([
-  ['',asked?'They asked the tall one with the tray to carry a message to K9. He can have them. It is owed. He will pay you for it.':'This morning they asked the tall one with the tray, in the pleasant voice, whether anybody had told K9 where they were, because he would want to know, and he pays.'],
-  ['','You take it upstairs and sit down with it.'],
-  K76V('(They would sooner be given to me. To the man with the sheeting, who wrote SLOW. They have weighed me against whatever had them in that building, and I am the better death.)'),
-  K76V('(I intended to be the worst thing that ever happened to them. I have been outbid.)'),
-  ['','You go down to the cold room and stand beside the steel table for a long time. Then you take the straps off it, all six, and put them in the furnace.'],
-  ['','You will need them again; there is always somebody. You watch them burn anyway, until the buckles drop through the grate.']],cb)},
- cb=>say([
-  ['','You take your file on them down to the corridor and read it in the chair outside the door marked LAUNDRY. Forty pages. You read them the way a man re-reads a contract he has begun to doubt.'],
-  ['','The driver at the gala. The doorman who swapped a shift. The man on a Tuesday, in front of his daughter. All of it is still true. It does not do what it did.'],
-  ['',((typeof kdSA==='function'&&!kdSA())?'The films are on the lightbox. The hand, the ribs.':'The doctor has left the films on the light-box. The hand, the ribs.')+' Further up the long bones there are fine pale lines, one above another, where a child stopped growing for want of food and started again, several times.'],
-  K76V('(I have forty pages of what they have done. Nobody in this city kept one page of what was done to them.)'),
-  ['','You have begun one without meaning to, on the back of page forty, in pencil. You have written a date and the word “nine”. You stop, and put the cap on, and sit with the file shut on your knee until the tray is due.']],cb),
- cb=>say([
-  ['','The doctor has a form. She needs a name on it for whoever consents, if they cannot.'],
-  ['','They have no papers. They have never had papers. On the line for date of birth the doctor has written “March?”, because that is what they told her, in the pleasant voice.'],
-  K76V('I am the nearest thing that they have to anybody in this house. I have also sworn, in writing, to kill them. Which of those do you require on the form?'),
-  ['','The doctor has worked for you for eleven years. She holds out the pen and says nothing at all.'],
-  ['','You write: K9. Under “relationship” you write CREDITOR, and look at it, and it is exact, and you sign.']],cb),
- cb=>say([
-  ['',(typeof kdSA==='function'&&!kdSA())?'You asked them to open the left hand. It was for the exercise: ten times, on the hour.':'You asked them to open the left hand. It was for the doctor’s sheet: ten times, on the hour.'],
-  ['','They heard an order. When the hand would not obey it, they held the other one out to you instead, palm up, '+(k80Gone()?'without a word, and kept it there.':'and said, most courteously, that this one worked and you could use this one.')],
-  K76V('(They offered me the working hand, to be done with as I saw fit.)'),
-  K76V('(I have wanted them afraid of me. I wrote it down as an aim. I did not know what it would look like, and I had not thought that it would be polite.)'),
-  ['','You go out to the kennel and sit on the upturned bucket. The old hound comes and leans the whole of his weight against your knee.'],
-  ['','You tell him what day it is, and that there is no penalty. He is a hound. He knew both of those already.']],cb),
- cb=>say([
-  ['','At two in the morning Ronin is asleep in a kitchen chair in the kennel corridor, tipped back against the door marked LAUNDRY, with the crowbar across his knees.'],
-  [RN,'(not opening his eyes) No offence, Vee. Your book says what it says.'],
-  K76V('None is taken. I would have posted you there myself.'),
-  [RN,'You gonna?'],K76V('No.'),
-  [RN,'You know that, or you hopin’ it?'],
-  ['','You do not answer. He opens one eye, and looks at you for some time with it, and shuts it again.'],
-  [RN,'Yeah. Me too. Go get me a fuckin’ blanket.']],
-  ()=>ask('K9','(The infirmary key is on your ring.)',[
-   {t:'Give Ronin the key',sub:'so that it is not yours to use',fn:()=>{S.f.e2lMedKey='ronin';save();say([
-    ['','You bring the blanket. You take the infirmary key off your ring and put it in his hand, and close his fingers on it.'],
-    [RN,'You’re lockin’ yourself out your own basement.'],K76V('I am aware of what I am doing.'),
-    [RN,'Yeah. I know you are. That’s what’s freakin’ me out.']],()=>{fr('r',2);cb()})}},
-   {t:'Bring the blanket, and keep the key',fn:()=>{S.f.e2lMedKey='kept';save();say([
-    ['','You bring the blanket and put it over him. The key stays on your ring. You are aware of it in your pocket for the rest of the night, the way you are aware of a tooth.'],
-    [RN,'Night, Vee. I sleep light.'],K76V('I know that you do. It is why I can sleep at all.')],()=>{fr('r',1);cb()})}}]))];
+const K80_V=[];
 
 /* ===================================== DELIVERY ===================================== */
 function k80MedScene(){try{if(!S||!S.f||!K80()||dlg||typeof kdMed!=='function'||!kdMed())return null;

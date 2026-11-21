@@ -38,29 +38,14 @@ let runs=0,fails=0;const ok=(c,m)=>{runs++;if(!c){fails++;console.log('FAIL',m)}
  const play=async(pick)=>{await ev(()=>{window.__cb=0;const s=k80MedScene();window.__got=!!s;if(s)s(()=>{window.__cb=1})});
   for(let k=0;k<200;k++){const r=await ev(pk=>{for(let j=0;j<300&&dlg;j++)adv();if(window.__cb)return 'done';if(ctrl&&ctrl.box){const os=[...ctrl.box.querySelectorAll('.opt:not(.dis)')];if(os.length){os[Math.min(pk,os.length-1)].click();return 'c'}}return 'x'},pick);if(r==='done')return 'done';await p.waitForTimeout(4)}
   return (await ev(()=>window.__got))?'timeout':'none'};
- /* (a) the drip opens the stay, for both POVs and both settings; the choice and what it does to clarity */
- for(const mode of ['sa','inj'])for(const pov of ['m','v'])for(const pick of [0,1]){await ev(mode=>{META.kdFull=mode==='sa'?1:0},mode);await med(pov,{clar:0});
-  if(pov==='v')await ev(()=>{S.f.e2lVM=4;window.__k6=[k61Scene,k62Scene,k63Scene];k61Scene=k62Scene=k63Scene=()=>null});
-  const c0=await ev(()=>S.kd.med.clar);const r=await play(pick);const st=await ev(()=>({first:Object.keys(S.f.e2l84||{})[0],dose:S.f.e2lDose,clar:S.kd.med.clar}));
-  const want=pov==='m'?['kinked','left'][pick]:['cut','held'][pick];
-  ok(r==='done'&&st.first===(pov==='m'?'d_line':'d_dose')&&st.dose===want,`${mode} ${pov} #${pick}: the drip comes first: ${JSON.stringify(st)}`);
-  ok(st.clar===c0+(pick===0?1:0),`${mode} ${pov} #${pick}: clarity ${pick===0?'a day sooner':'unchanged'}: ${c0} → ${st.clar}`);
-  if(pick===0){await ev(()=>{k91Clear()});ok(await ev(c=>S.kd.med.clar===c,st.clar),`${mode} ${pov}: only once`)}
-  if(pov==='v')await ev(()=>{[k61Scene,k62Scene,k63Scene]=window.__k6})}
- await ev(()=>{META.kdFull=1});
  /* (b) the page says so */
  for(const pov of ['m','v']){await med(pov,{clar:0});ok(/drip|pain relief/.test(await ev(()=>k76Stand())),pov+' where it stands names the drip')}
  await med('m',{clar:2});ok(/off the worst of the drip/.test(await ev(()=>k76Stand())),'and that it is easing, once clear');
- /* (c) the cost scene reads the choice */
- for(const d of ['cut','kinked','held','left']){const t=await ev(d=>{__set('v','after',{done:['e2l_door'],f:{e2lDose:d}});window.__n0=window.__all.length;const e=K85S.find(e=>e.id==='d_cost');let c=0;e.run(()=>{c=1});for(let j=0;j<60&&dlg;j++)adv();return window.__all.slice(window.__n0).map(x=>x[1]).join(' ')},d);
-  ok((d==='cut'||d==='kinked')===/Seven hours/.test(t)&&(d==='kinked')===/crease in it/.test(t),'d_cost for '+d)}
  /* (d) the green book */
  for(const pov of ['m','v'])for(const o of [0,1]){await ev(pov=>__set(pov,'after',{done:['e2l_door','e2l_after','e2l_room'],raw:1}),pov);
   const r0=await ev(()=>{const b=k73Due();const x=b&&sideHub(false).find(x=>x.t==='⚔ '+b.t());if(!x)return 'none:'+(b&&b.id);x.fn();return b.id});const r=await drive([o]);
   const st=await ev(()=>({f:S.f.e2lGreen,last:S.f.e2lLast===S.day,pg:k76Line('e2l_green')}));ok(r0==='e2l_green'&&r==='hub'&&st.f===['read','unread'][o]&&!st.last&&st.pg.length>30,`green book ${pov} #${o}: ${r0} ${r} ${JSON.stringify(st).slice(0,150)}`)}
  /* (e) endings; no dose or drug name anywhere */
- for(const [f,rx] of [[{e2lDose:'cut'},/halved it/],[{e2lDose:'held'},/took him for a gaoler/],[{e2lDose:'kinked'},/lay on the drip line/],[{e2l85:{d_drugged:1}},/Like they did/]]){
-  const L=await ev(f=>{__set('m','epilogue',{f});return extraEnding().join(' | ')},f);ok(rx.test(L),'ending '+JSON.stringify(f));const L0=await ev(f=>{__set('m','epilogue',{f,e2l:0});return extraEnding().join(' | ')},f);ok(!rx.test(L0),'ending off the route '+JSON.stringify(f))}
  {const src=require('fs').readFileSync(path.join(ROOT,'src/kc91.js'),'utf8').replace(/\/\*[\s\S]*?\*\//g,'');ok(!/\b(morphine|fentanyl|ketamine|oxycodone|diazepam|midazolam|milligram|\d+\s?mg|\d+\s?ml)\b/i.test(src),'no drug names or quantities')}
  /* text checks */
  const all=await ev(()=>window.__all);const hounds=await ev(()=>Object.keys(S.dogs||{}).concat(['Biscuit','Sergeant','Mochi','Pancake']));

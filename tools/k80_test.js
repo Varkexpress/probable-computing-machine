@@ -40,30 +40,26 @@ let runs=0,fails=0;const ok=(c,m)=>{runs++;if(!c){fails++;console.log('FAIL',m)}
   for(let k=0,i=0;k<200;k++){const r=await ev(pk=>{for(let j=0;j<300&&dlg;j++)adv();if(window.__cb)return 'done';if(ctrl&&ctrl.box){const os=[...ctrl.box.querySelectorAll('.opt:not(.dis)')];if(os.length){os[Math.min(pk,os.length-1)].click();return 'c'}}return 'x'},(picks||[])[i]||0);if(r==='done')return 'done';if(r==='c')i++;await p.waitForTimeout(4)}
   return (await ev(()=>window.__got))?'timeout':'none'};
  /* (a) the infirmary: kc84's scheduler, by setting (full story / injuries only) */
- const ORD={sa:{mc:['d_line','ask','rules','s_clothes','hound','s_asks'],mx:['s_book','said','thanks','doctor'],v:['d_dose','message','s_table','file','form','s_voice','vhand','ronin','s_vent','laugh']},
-  inj:{mc:['d_line','ask','rules','i_wrists','hound','i_careful'],mx:['i_snob','said','thanks'],v:['d_dose','message','i_manner','file','i_third','vhand','ronin','i_scale','laugh']}};
+ const O6={mc:['b6_wake','b6_terms','b6_drip','b6_hounds'],mx:['b6_clear','b6_review','b6_contract'],v:['b6_river','b6_work','b6_ledger','b6_ronin','b6_angel']};const ORD={sa:O6,inj:O6};
  for(const mode of ['sa','inj'])for(const comp of [50,0]){await ev(mode=>{META.kdFull=mode==='sa'?1:0},mode);
   await med('m',{comp});const seq=[],slots=[];for(let d=0;d<3;d++)for(const slot of [0,1,2,3]){await ev(([d,slot])=>{S.slot=slot;if(slot===0&&d)S.day++;save()},[d,slot]);const r=await play([1]);if(r==='done')slots.push(slot);seq.push(r)}
-  const got=await ev(()=>Object.keys(S.f.e2l84||{}));ok(JSON.stringify(got)===JSON.stringify(ORD[mode].mc)&&!slots.includes(2),`${mode} Misaki cell scenes in order, never in kc73's slot (comp ${comp}): ${got} / slots ${slots}`);ok(await ev(()=>S.f.e2lMedAsk===1),'the message sets its flag');
+  const got=await ev(()=>Object.keys(S.f.e2l84||{}));ok(JSON.stringify(got)===JSON.stringify(ORD[mode].mc)&&!slots.includes(2),`${mode} Misaki cell scenes in order, never in kc73's slot (comp ${comp}): ${got} / slots ${slots}`);
   for(const o of [1,2]){await med('m',{clar:2,comp});const s2=[];for(let i=0;i<6;i++){await ev(i=>{S.slot=[0,1,3][i%3];if(i===3)S.day++;save()},i);s2.push(await play([o]))}
    const g2=await ev(()=>Object.keys(S.f.e2l84||{}));ok(JSON.stringify(g2)===JSON.stringify(ORD[mode].mx),`${mode} Misaki clear scenes #${o}: ${g2}`)}
   for(const o of [1,2]){await med('v',{f:o===2?{e2lMedAsk:1}:{}});await ev(()=>{S.f.e2lVM=4;save();window.__k6=[k61Scene,k62Scene,k63Scene];k61Scene=k62Scene=k63Scene=()=>null});for(let i=0;i<16;i++){await ev(i=>{S.slot=i%4;if(i&&i%4===0)S.day++;save()},i);await play([o])}
    const g3=await ev(()=>Object.keys(S.f.e2l84||{}));ok(JSON.stringify(g3)===JSON.stringify(ORD[mode].v),`${mode} V scenes #${o}: ${g3}`);await ev(()=>{[k61Scene,k62Scene,k63Scene]=window.__k6})}}
- ok(await ev(()=>{const all=new Set();['mc','mx','v'].forEach(k=>K84_POOLS[k].forEach(e=>all.add(e.id)));return all.size})===27,'twenty-seven infirmary scenes in the pools');
+ ok(await ev(()=>{const all=new Set();['mc','mx','v'].forEach(k=>K84_POOLS[k].forEach(e=>all.add(e.id)));return all.size})===12,'twelve scheduled infirmary scenes (kc106)');
  await ev(()=>{META.kdFull=1});
  await med('v',{slot:1});ok(await play([0])==='none','kc73 goes first in a slot it wants');
  await med('v');await ev(()=>{S.f.e2lVM=4;save();window.__k6=[k61Scene,k62Scene,k63Scene];k61Scene=k62Scene=k63Scene=()=>null});ok(await play([0])==='done'&&await play([0])==='none','one a slot');await ev(()=>{[k61Scene,k62Scene,k63Scene]=window.__k6});
  await ev(()=>__set('v','after',{done:['e2l_door']}));ok(await play([0])==='none','nothing outside the infirmary');
  await med('m',{e2l:0});ok(await play([0])==='none','nothing off the route');
- /* the greyed honest option, the denial count, and the two versions of the beat */
- {await med('m');const d0=await ev(()=>(S.kd.deny||0));await ev(()=>{S.f.e2l84={d_line:1,ask:1,rules:1};S.slot=0;save()});await ev(()=>{window.__cb=0;k80MedScene()(()=>{window.__cb=1})});
-  const o=await ev(()=>{for(let j=0;j<300&&dlg;j++)adv();return [...ctrl.box.querySelectorAll('.opt')].map(x=>(x.classList.contains('dis')?'[dis] ':'')+x.textContent)});ok(/^\[dis\] Finish the sum/.test(o[0])&&o.length===2,'the honest option is there, and greyed: '+o.join(' | '));
-  await ev(()=>{ctrl.box.querySelector('.opt:not(.dis)').click();for(let j=0;j<300&&dlg;j++)adv()});ok(await ev(d0=>(S.kd.deny||0)===d0+1&&window.__cb===1,d0),'a pretence counts as a denial')}
+ /* the two versions of the beat */
  for(const mode of ['sa','inj'])for(const pov of ['m','v'])for(const o of [0,1]){await ev(([mode,pov])=>{META.kdFull=mode==='sa'?1:0;__set(pov,'after',{done:['e2l_door','e2l_after','e2l_room','e2l_green'],raw:1})},[mode,pov]);
   const r0=await ev(()=>{const b=k73Due();const x=b&&sideHub(false).find(x=>x.t==='⚔ '+b.t());if(!x)return 'none:'+(b&&b.id);x.fn();return b.id});const r=await drive([o]);
   const st=await ev(()=>({f:S.f.e2lMarks,last:S.f.e2lLast===S.day,pg:k76Line('e2l_marks')}));
   ok(r0==='e2l_marks'&&r==='hub'&&st.f===(mode==='sa'?['boiler','towels']:['same','differ'])[o]&&!st.last&&st.pg.length>20,`marks ${mode} ${pov} #${o}: ${r0} ${r} ${JSON.stringify(st).slice(0,140)}`)}
- for(const [mode,f,rx] of [['sa',{e2l84:{s_table:1}},/burned his plan/],['sa',{e2lVent:'shut'},/boarded shut/],['sa',{e2l84:{s_book:1}},/recovered alive/],['inj',{e2l84:{i_manner:1}},/snob about it/],['inj',{e2l84:{i_third:1}},/never set/],['inj',{e2lMarks:'same'},/did not argue/]]){
+ for(const [mode,f,rx] of [['inj',{e2lMarks:'same'},/did not argue/]]){
   const L=await ev(([mode,f])=>{META.kdFull=mode==='sa'?1:0;__set('m','epilogue',{f});return extraEnding().join(' | ')},[mode,f]);ok(rx.test(L),'ending '+mode+' '+JSON.stringify(f));
   const L1=await ev(([mode,f])=>{META.kdFull=mode==='sa'?0:1;__set('m','epilogue',{f});return extraEnding().join(' | ')},[mode,f]);ok(!rx.test(L1),'ending not in the other setting '+JSON.stringify(f))}
  /* kc85–kc89's player-opened pool is covered by tools/k86_test.js */
@@ -129,7 +125,7 @@ let runs=0,fails=0;const ok=(c,m)=>{runs++;if(!c){fails++;console.log('FAIL',m)}
  const contr=/\b(?:can|won|don|isn|aren|wasn|weren|doesn|didn|couldn|wouldn|shouldn|hasn|haven|hadn)’t\b|\b(?:I|you|we|they|he|she|it|that|there|what|who|here|let)’(?:s|re|ve|ll|d|m)\b/i;
  const vbad=all.filter(x=>x[0]==='K9'&&contr.test(x[1].replace(/“[^”]*”/g,'')));ok(!vbad.length,'V contractions: '+vbad.slice(0,3).map(x=>x[1]).join(' || '));
  const hb=all.filter(x=>hounds.some(h=>new RegExp('\\b'+h+'\\b').test(x[1])));ok(!hb.length,'hound names: '+hb.slice(0,3).map(x=>x[1]).join(' || '));
- const SHE=/doctor|You tell her|She nods|She looks at you for a moment|She says that|She has asked you|cardigan|told her so|the grey hound|She says|She holds out|Angel|she will shoot me|then she’ll shoot|She has the shotgun|She looks at|she is to tell|she was to tell|pale hound|grey hound|She expects|She has lent|her ball|her whole attention|her flank|seen her lend|She means it|she’s gettin|she has finished/;const sb=all.filter(x=>/\b(she|herself)\b/i.test(x[1])&&!SHE.test(x[1])&&!/pawnshop|Tonight’s name|She has been waiting|She buys|She is on my list|she hunts|She keeps them|on my list for two years|what she did|she’s exactly as alive|she is exactly as alive|She is alive|while she |She knew your face|while she hunts|She stays on the line|She has no make-up|she made me|she says it is about/.test(x[1]));ok(!sb.length,'she/herself: '+sb.slice(0,3).map(x=>x[1]).join(' || '));
+ const SHE=/You look at her for a while, across the gate|doctor|You tell her|She nods|She looks at you for a moment|She says that|She has asked you|cardigan|told her so|the grey hound|She says|She holds out|Angel|she will shoot me|then she’ll shoot|She has the shotgun|She looks at|she is to tell|she was to tell|pale hound|grey hound|She expects|She has lent|her ball|her whole attention|her flank|seen her lend|She means it|she’s gettin|she has finished/;const sb=all.filter(x=>/\b(she|herself)\b/i.test(x[1])&&!SHE.test(x[1])&&!/pawnshop|Tonight’s name|She has been waiting|She buys|She is on my list|she hunts|She keeps them|on my list for two years|what she did|she’s exactly as alive|she is exactly as alive|She is alive|while she |She knew your face|while she hunts|She stays on the line|She has no make-up|she made me|she says it is about/.test(x[1]));ok(!sb.length,'she/herself: '+sb.slice(0,3).map(x=>x[1]).join(' || '));
  const ub=all.filter(x=>/undefined|NaN|\[object/.test(x[1]));ok(!ub.length,'undefined in text: '+ub.slice(0,3).map(x=>x[1]).join(' || '));
  ok(!pe.length,'page errors: '+pe.slice(0,5).join(' | '));
  console.log(`${all.length} lines checked · page errors: ${pe.length}`);console.log(`${runs-fails}/${runs} checks passed`);await b.close();process.exit(fails?1:0)})();
