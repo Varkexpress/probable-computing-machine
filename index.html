@@ -28235,6 +28235,228 @@ const _xe107=extraEnding;extraEnding=function(){const L=_xe107();try{if(!S||!S.f
  if(S.seen.m107_knife)L.push('V has a thin white line on his throat from a kitchen knife, one night upstairs. He did not stop them. He has told them, once, why.')}catch(e){}return L};
 /* ===KC107-END=== */
 
+/* ===================== THE WAR: TERMS (kc108) =====================
+   More of the fight, at the author's direction, written plainer: dialogue first, short narration, scenes that end
+   on what somebody does. Needs kc73, kc76–kc107.
+   1. THE INFIRMARY. Eleven scenes in kc85's player-opened pool (now 262).
+        Misaki, cell:   q_roof
+        Misaki, clear:  q_chart  q_phone  q_hound  q_page  q_terms
+        V:              q_roofV  q_chartV  q_houndV  q_pageV  q_termsV
+   2. MORNINGS (shared cap), upstairs: the margins; the range; through Ronin; Angel; the bag by the door.
+   Same text under both aftermath settings: nothing touches the hours, and the doctor does not appear.
+   Rules: unnamed city, hounds unnamed, no new named characters, V never contracts, Misaki via M2 and they/them. */
+const K108=()=>{try{return typeof K107==='function'&&K107()}catch(e){return false}};
+const k108F=()=>{const f=S.f;f.e2l108=f.e2l108||{};return f.e2l108};
+
+/* ===================================== MISAKI, CELL ===================================== */
+k86('q_roof','m',null,'cell','Make him a deal',[
+ N('He comes in with the tray. You have had all night to work out what to say.'),
+ M2('ok. k9. listen','okay. K9. listen'),
+ N('He stops by the door.'),
+ M2('i know how this ends. fine. but not here. not in a bed. u take me up on a roof and u give me a rifle with one in it and we do it properly','i know how this ends. fine. but not here. not in a bed. you take me up on a roof, you give me a rifle with one round in it, and we do it properly'),
+ K76V('Agreed.'),
+ N('He says it straight away. No pause. You had a whole second half of the argument ready.'),
+ M2('...u mean that','you mean that?'),
+ K76V('I would not have it any other way. Eat your soup.'),
+ N('You eat the soup. You eat all of it, glaring at him, because you need your hands steady for the roof. He watches you scrape the bowl and does not say anything, and when he picks up the tray his own hand is not steady at all.')]);
+
+/* ===================================== MISAKI, CLEAR ===================================== */
+k86('q_chart','m',null,'clear','Write on his chart',[
+ N('His pen is clipped to the chart by the door. Fountain pen, black, heavy. You take it down and add some notes of your own.'),
+ N('Under TEMPERATURE you write: hot. Under PIN SITES: ur fault. Under BEHAVIOUR, which he has filled in every day in tiny writing, you write: patient wants to go home. patient wants doctor to fuck off. patient is not ur pet.'),
+ N('You hang it back up and lie down and wait.'),
+ N('He reads it at six. He reads all of it. Then he takes the pen, which you left uncapped so the nib would dry out, licks it, and writes something underneath.'),
+ N('When he goes you get up and look. He has corrected “ur” to “your” in three places, and at the bottom, in the tiny writing: Patient is not my pet. A pet would be less trouble.'),
+ M2('(i’m going to kill him with this pen)','(i am going to kill him with this pen)'),
+ N('You put the pen in your pillowcase. In the morning there is a second pen on the clipboard, the same kind, already filled.')]);
+k86('q_phone','m',null,'clear','Show me your phone',[
+ M2('give me ur phone','give me your phone'),
+ K76V('Why?'),
+ M2('bc u had MINE for five days and u say u didn’t look. so show me urs. fair’s fair','because you had mine for five days and you say you didn’t look. so show me yours. fair is fair'),
+ N('He thinks about it for longer than you expected. Then he unlocks it and hands it over.'),
+ N('You go straight to the search history. You expect something. Your address. Ronin’s. A list.'),
+ N('3:04 am: rib fracture healing time adult. 3:19 am: is it normal to not eat for. 3:40 am: fever 40.6 how long before. 4:02 am: how to tell if someone. That one he never finished.'),
+ N('You scroll. Five nights of it. You hand it back.'),
+ M2('that’s so much worse','that is so much worse'),
+ K76V('I did say there was nothing worth seeing.'),
+ M2('u googled me. like a RASH','you googled me. like a rash'),
+ N('You turn over and face the wall. He stands there holding the phone for a while before he goes.')]);
+k86('q_hound','m',null,'clear','Turn his dog',[
+ N('The grey hound has been lying by the bed for three days. You have been feeding her off your tray, a bit of chicken at a time, under the blanket, where he cannot see.'),
+ N('On the fourth day you try it. He comes through the door, and you put your hand flat on her neck and say, very low, “who’s that. who’s that then.”'),
+ N('She lifts her lip at him. Just a little. A rumble in the chest.'),
+ N('He stops dead. You have never seen his face do that.'),
+ K76V('Out.'),
+ N('She does not move. She looks at you.'),
+ M2('she likes it here','she likes it here'),
+ K76V('You have had my dog for four days and you have taught her to growl at me.'),
+ M2('three and a half. she’s a fast learner. unlike some ppl','three and a half. she’s a fast learner. unlike some people'),
+ N('He goes out and shuts the door very carefully, which is how you know he wanted to slam it. The hound sighs and puts her chin back on your foot. You give her the rest of the chicken.')]);
+k86('q_page','m',null,'clear','Your page in the ledger',[
+ N('Two in the morning. You can walk now if you lean on things. You lean on things all the way up the stairs to his study.'),
+ N('The ledger is on the desk. Of course it is. He would never hide it; that would be beneath him.'),
+ N('Your page has your name at the top in capitals. Under it, everything. The job in April with the collateral. The man on the bridge. The bus driver you did not mean to hit. Dates, places, who paid. He has the price of two of them right.'),
+ N('At the bottom, in a different ink, newer: Sentence deferred. Reason: and then nothing. He has left it blank.'),
+ N('You take his pen and write on the facing page, in big letters, K9. Under it you start your own list. You get to the fourth line before the light goes on.')],
+ cb=>say([K76V('That is my book.'),
+  M2('and that’s MY page. u don’t get to have a book on me and i don’t get one on u','and that is my page. you do not get to keep a book on me if i don’t get one on you'),
+  K76V('I kill by the law. Your list is a list of people I killed.'),
+  M2('my list is a list of people u decided about. same as mine. u just do it in nicer ink','my list is people you decided about. same as mine. you just do it in nicer ink'),
+  N('He crosses the room and takes the pen out of your hand. You let him have it. You keep the page.')],()=>ask('hitmeuppp','(He is holding out his hand for the book.)',[
+  {t:'Tear your page out.',fn:()=>{k108F().page='tore';apply({tension:5});save();say([N('You tear it out. Right down the spine. He makes a sound like you have torn something off him.'),
+    M2('now u don’t have me','now you don’t have me'),
+    K76V('I have it by heart.'),
+    N('He says it so quietly that you believe him. You take the page anyway, back down the stairs, and sleep with it under the pillow.')],cb)}},
+  {t:'Hand it back. Keep your list in it.',fn:()=>{k108F().page='kept';apply({tension:3});save();say([N('You hand it back with your four lines still in it, facing his page on you.'),
+    K76V('You spelled “collateral” wrong.'),
+    M2('it’s ur collateral, spell it urself','it’s your collateral, spell it yourself'),
+    N('In the morning the four lines are still there. He has not crossed them out. He has numbered them.')],cb)}}])));
+k86('q_terms','m',null,'clear','Terms',[
+ N('You are going to be upstairs in two days. You want it in writing.'),
+ M2('terms. while i’m in ur house. one: no kneeling','terms. while i’m in your house. one: no kneeling'),
+ K76V('Agreed. Two: you do not go into my study.'),
+ M2('no. two: no careful voice','no. two: no careful voice'),
+ K76V('I do not have a careful voice.'),
+ N('You do the careful voice at him. You do it very well.'),
+ K76V('...Agreed. Three: you do not go into my study.'),
+ M2('three: u don’t shoot ur dogs at me','three: you don’t set your dogs on me'),
+ K76V('I have never once set a hound on anybody.'),
+ M2('u’ve fed ppl to them','you have fed people to them'),
+ K76V('Afterwards. It is not the same thing.'),
+ N('You argue about whether it is the same thing for twenty minutes. He writes it all down on the back of your chart. In the end there are nine terms. He has not got the study in. You have got a clause that says he cannot tell Ronin anything about the infirmary, ever, and one that says the war resumes in full the day the cast comes off.'),
+ N('He signs it. You sign it with your left hand, badly. He looks at the signature and says it would not hold up in court. You tell him to take you to court.')]);
+
+/* ===================================== V ===================================== */
+k86('q_roofV','v',null,null,'A roof, and one round',[
+ N('They do not know you yet. They think you are you, the old you, from April, holding them to finish them.'),
+ N('They make you an offer from the bed. Not here. A roof, a rifle, one round, properly.'),
+ K76V('Agreed.'),
+ N('You say it before you have thought, because it is true. It is exactly what you would have chosen. It is the only thing about the war you never had to argue about.'),
+ N('They look surprised, and then they eat the soup, all of it, because they want steady hands for it.'),
+ K76V('(They are eating so that they can kill me properly. It is the first meal they have finished.)'),
+ N('You take the tray out. In the kitchen you put it down too hard and the bowl cracks.')]);
+k86('q_chartV','v',null,null,'Notes on the chart',[
+ N('Your pen is missing. The chart has been annotated.'),
+ N('hot. ur fault. patient is not ur pet. patient wants doctor to fuck off.'),
+ N('You stand in the doorway and read it. They are lying very still with their eyes shut, which they do badly.'),
+ K76V('(I am a doctor, now. I have been promoted.)'),
+ N('You find the pen in your pocket, the spare, and correct the spelling, and add a line. You go out without a word.'),
+ N('From the corridor you hear the bed creak, and the clipboard come off the nail, and then a noise into the pillow that you are fairly sure is them screaming.')]);
+k86('q_houndV','v',null,null,'The grey one growls',[
+ N('You open the door and your own hound lifts her lip at you.'),
+ N('You have had her since she was a pup. You sewed her shoulder. She has never once growled at you, not when you set her leg, not when you took the stitches out.'),
+ N('They have their hand on her neck. They look delighted.'),
+ K76V('Out.'),
+ N('She does not go.'),
+ K76V('(Four days. Chicken off the tray. I saw the plate. I thought they were eating.)'),
+ N('You go out, and shut the door, and stand in the corridor and count to twenty. Then you go to the kennel and sit with the other three, who still like you, and you are angrier than the thing deserves, and you know it, and you stay angry anyway.')]);
+k86('q_pageV','v',null,null,'Two in the morning, in the study',[
+ N('The study light is off and there is somebody at your desk.'),
+ N('You put it on. They are in your chair in your shirt, with the cast propped on the ledger and your pen in their good hand, writing on the page facing theirs.'),
+ N('K9, in big letters. Four lines under it. You know every name.'),
+ K76V('That is my book.'),
+ N('They tell you it is their page. They tell you your list is people you decided about, the same as theirs, in nicer ink.'),
+ K76V('(The bus driver is on their page. I wrote him there in April. I did not write that they sent his widow money for two years, because I did not know until the films. I have not added it. I do not know which column it goes in.)'),
+ N('You take the pen out of their hand. You do not take the book. You stand there with the pen and they sit there with the book and neither of you moves until the boiler comes on at six.')]);
+k86('q_termsV','v',null,null,'Nine terms',[
+ N('They want terms. You write them down on the back of the chart, because otherwise they will remember them differently.'),
+ N('No kneeling. No careful voice; you did not know you had one until they did it at you. No hounds. A long fight about whether feeding a man to a hound afterwards counts.'),
+ N('You lose the study. You do not know how. You were going to hold out for the study.'),
+ N('The last term is theirs: the war resumes in full the day the cast comes off.'),
+ K76V('Agreed.'),
+ N('They sign with the wrong hand. It looks like a child did it. You fold the chart and put it in your breast pocket, and you carry it there every day after, and when the cast comes off you take it out and read the last line again before you go downstairs.')]);
+
+/* ===================================== MORNINGS (shared cap) ===================================== */
+const k108Up=()=>['after','act2'].includes(S.phase)&&typeof k73Done==='function'&&k73Done('e2l_door');
+const K108MORN=[
+ {id:'m108_margins',when:()=>k108Up()&&!!S.seen.m107_cup,run:done=>say(k76M()?[
+  N('Try again, the note said. So you try again.'),
+  N('While he is out with the hounds you go into the study and open the ledger to his page on you. You go through it line by line with a red biro. Wrong date. Wrong date. He wasn’t even there, that was Ronin. In the margin by the bus driver you write nothing. You leave that one.'),
+  N('By the price on the April job you write: lowball. i charged double. get it right if ur going to judge me.'),
+  N('Next morning the page is back on the desk, open. Every one of your corrections has a tick or a cross beside it, in black. Six ticks. Two crosses. At the bottom: 6/8. See me.'),
+  M2('he MARKED it. he marked my corrections like homework','he marked it. he marked my corrections like homework'),
+  N('You go and find him. He is in the kennel. You throw the biro at him and it bounces off his shoulder and he does not turn round.')]:[
+  N('Your page on them has been corrected. Red biro, fast, angry handwriting, all down the margin. Wrong date. Wrong date. That was Ronin.'),
+  N('You check each one against the files. Six of them are right. Two are not.'),
+  K76V('(The April price. They charged double. I had them down as cheap.)'),
+  N('You tick and cross in black and write the score at the bottom, and you add See me, because you know exactly what that will do.'),
+  N('It does. At ten a red biro hits you in the back of the shoulder in the kennel. You do not turn round. You keep filling the water bowls until you hear the door bang.')],()=>{apply({tension:4});done()})},
+ {id:'m108_range',when:()=>k108Up()&&k73Done('e2l_door'),run:done=>say([
+  N('The range at his place in the hills. First time out with the new grip. He comes too, because, he says, he is not letting a loaded rifle out of the house without knowing where it is pointed.'),
+  N(k76M()?'You put five into the paper at six hundred. Tight group. Not your old group.':'They put five into the paper at six hundred. A good group. Not their old group; you have the old ones in a file.'),
+  K76V('High left. The hand is pulling.'),
+  M2('the hand is FINE','the hand is fine'),
+  K76V('The hand is pulling. You flinch on the break. You never used to flinch.'),
+  N('They turn round with the rifle still in their hands. Not pointed at him. Not pointed anywhere in particular. Everybody on the range goes quiet.'),
+  M2('say it again','say it again'),
+  K76V('You flinch.'),
+  N(k76M()?'You turn back and put five more into the paper. You do not flinch on one of them. You can feel him watching the trigger finger the whole time. When you are done you take the target down and hand it to him without a word, and he looks at it, and folds it up, and puts it in his pocket.':'They turn back and fire five more. They do not flinch on one of them. You watch the finger the whole time. They hand you the target without a word, and you fold it and put it in your pocket, because it is the best group they have shot since the river and you are not going to tell them that.')],()=>{apply({tension:4,edge:2});done()})},
+ {id:'m108_ronin',when:()=>k108Up()&&typeof frT==='function'&&frT('r')>=1,run:done=>say([
+  N('Sunday at the island. You two have not spoken directly since Thursday.'),
+  M2('ronin can u ask his honour to pass the soy','ronin, could you ask his honour to pass the soy'),
+  [RN,'He’s right there.'],
+  M2('ronin','ronin'),
+  [RN,'...V. Soy.'],
+  K76V('Ronin, please inform the defendant that the soy is within their reach and always has been.'),
+  [RN,'Don’t do this t’me.'],
+  M2('tell him i’m not the defendant, i’m the plaintiff','tell him i am not the defendant. i am the plaintiff'),
+  K76V('Tell them the plaintiff is the one who brings the case.'),
+  M2('tell him I’M BRINGING IT','tell him i am bringing it'),
+  [RN,'Right.'],
+  N('Ronin stands up. He picks up the soy and puts it down very hard exactly halfway between you, so it splashes. He takes his plate.'),
+  [RN,'I’m eatin’ in the truck. When you two are done tryin’ t’kill each other through me, I’ll be in the truck. With the radio on. Loud.'],
+  N('He goes. You both look at the soy. Neither of you reaches for it. Dinner goes cold.')],()=>{fr('r',-1);apply({tension:3});done()})},
+ {id:'m108_angel',when:()=>k108Up()&&typeof frT==='function'&&frT('a')>=1,run:done=>say(k76M()?[
+  N('Angel corners you in his downstairs loo while you are washing your hands. She locks the door behind her.'),
+  [AN,'ok. what is going on with you and him'],
+  M2('nothing. war. same as always','nothing. the war. same as always'),
+  [AN,'babe you shot his coffee. he told ronin he’d feed you to his dogs. ronin says you threw a pen at him in the kennel'],
+  M2('it was a biro','it was a biro'),
+  [AN,'you’re living in his house'],
+  M2('temporarily. under TERMS. there’s nine','temporarily. under terms. there are nine of them'),
+  [AN,'misaki. he carried you out. i was there. i saw his face. you can’t keep'],
+  M2('don’t. stay out of it ange. i mean it. this is the one thing that’s mine','don’t. stay out of it, ange. i mean it. this is the one thing that’s mine'),
+  N('She looks at you for a long time in the mirror. Then she unlocks the door.'),
+  [AN,'fine. but if one of you actually kills the other one i’m doing a whole video about it and you’re both going to look terrible'],
+  N('She leaves the door open on her way out, so everyone in the kitchen can see you standing there with your hands still wet.')]:[
+  N('Angel finds you on the back step with a cigarette you are not smoking.'),
+  [AN,'they said you were feeding them to the dogs'],
+  K76V('I said that if they turned my hound against me once more I would feed them to the other three. It was a remark.'),
+  [AN,'v. it’s been three weeks. you sat outside a door for nine days. you have to'],
+  K76V('I do not have to anything. There are terms. There are nine of them. One of them is that nobody tells you anything about the infirmary, and I appear to have broken it by having a face.'),
+  [AN,'you’re both insane'],
+  K76V('Yes.'),
+  N('She takes the cigarette out of your hand, smokes it to the filter, and gives you back the stub. Then she goes in. Through the window you watch her sit down next to them at the island and say nothing at all, very pointedly, for ten minutes.')],()=>{fr('a',-1);done()})},
+ {id:'m108_bag',when:()=>k108Up()&&S.seen.m107_kitchen,run:done=>say(k76M()?[
+  N('You pack. Two bags. Everything of yours that came from the trailer and everything of his you have been wearing, which you leave folded on the bed.'),
+  N('You put the bags by the front door where he will see them on his way in.'),
+  N('He comes in. He sees them. He takes his coat off and hangs it up.'),
+  K76V('Go, then.'),
+  M2('i will','i will'),
+  K76V('The door is open.'),
+  M2('i KNOW the door is open','i know the door is open'),
+  N('Neither of you moves. You are not going to be the one who leaves because he said so. He is not going to be the one who asks you to stay. You stand in the hall on either side of the bags for about a minute.'),
+  K76V('I am going to make dinner. There will be enough for two. That is not a request.'),
+  N('He goes into the kitchen. You stand in the hall a while longer. Then you sit down on the bags, because your foot hurts, and you are still sitting on them when he calls you, and you go in and eat, and the bags stay by the door for eleven days.')]:[
+  N('Two bags by the front door when you come in. Theirs. Your shirts folded on the bed upstairs; you can see the stack through the banisters.'),
+  N('They are standing in the hall with their arms crossed, waiting for you to say something.'),
+  K76V('Go, then.'),
+  N('You hang up your coat. You are not going to ask them. They know you are not going to ask them. They are not going to leave because you told them to, and you know that too.'),
+  K76V('(This is the stupidest standoff of my life. I have held a roof for thirty hours with less at stake.)'),
+  N('You tell them you are making dinner, that there will be enough for two, and that it is not a request. You go and make it. When you call them they come in and sit at their end and eat, and say it is too salty, and it is not. The bags stay by the door for eleven days. You walk round them every morning.')],()=>{apply({tension:-2});done()})}];
+const _me108=morningEvent;morningEvent=function(done){try{if(S&&K108()&&!(S.kd&&S.kd.med)&&!(typeof k101Pending==='function'&&k101Pending())&&S.f.e2lMornDay!==S.day&&S.f.e2lMorn108Day!==S.day&&typeof mbOk==='function'&&mbOk()){
+  const e=K108MORN.find(x=>!S.seen[x.id]&&x.when());if(e){S.seen[e.id]=1;S.f.e2lMorn108Day=S.day;S.f.e2lMornDay=S.day;mbUse();save();go(cutBg('#0a0a0d'));return e.run(()=>_me108(done))}}}catch(e){}return _me108(done)};
+
+/* ===================================== ENDINGS ===================================== */
+const _xe108=extraEnding;extraEnding=function(){const L=_xe108();try{if(!S||!S.f||S.f.e2l!==1||S.rom||S.vrom||S.f.k28pair)return L;const F=S.f.e2l85||{},X=S.f.e2l108||{};
+ if(F.q_terms||F.q_termsV)L.push('V still carries the infirmary terms in his breast pocket. Nine of them. Misaki signed with the wrong hand.');
+ if(X.page==='tore')L.push('Misaki tore their page out of V’s ledger and keeps it. He says he has it by heart.');
+ else if(X.page==='kept')L.push('In V’s ledger, facing Misaki’s page, there is a page headed K9 in Misaki’s handwriting. He has numbered the lines.');
+ if(F.q_hound||F.q_houndV)L.push('The grey hound still lifts her lip at V, a little, if Misaki says “who’s that.” He has never forgiven either of them.');
+ if(S.seen.m108_ronin)L.push('Ronin eats in his truck with the radio on whenever the two of them start talking to each other through him.');
+ if(S.seen.m108_bag)L.push('Misaki’s bags stood by V’s front door for eleven days. Neither of them would be the one to move them.')}catch(e){}return L};
+/* ===KC108-END=== */
+
 /* ===================== kc99: last module — topic sync =====================
    Several modules push talk topics onto TDTOP_V/TDTOP_M only; the talk menu reads TOPICS_V/TOPICS_M.
    Copy any topic that is missing, keeping the menu's last entry (the "leave" row) last. */
