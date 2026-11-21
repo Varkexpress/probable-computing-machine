@@ -52,4 +52,4 @@ Playwright is installed globally (`require(execSync('npm root -g')+'/playwright'
 - Chapter 5 problems are original, modeled on Big Ideas style (the online textbook was unreachable).
 
 - index.html in this repo is now the live Killer Chat artifact (version 113, ~4.7 MB, single file, capability `downloads`), pulled from the artifact before editing. mirror-protocol.html is no longer published with it.
-- kc106 "The glass, and the long way back" (block just before kc99): more delusion and recovery angst on ordinary routes (skips the war route). Infirmary: one scene a day through the hub after kc61–kc63 (`k106Scene`; pools `KD106_MC/MK/VC/VK`, 16 scenes). After discharge: 13 aftermath events `kd106_*` in `KD_ORDER`. Ending lines via `extraEnding`.
+- kc106 "The war: the body" (block just before kc99): medical horror on the enemies-to-lovers route. 16 infirmary scenes `b_*` in kc85's pool `K85S` (Misaki cell 7, clear 3, V 6; pool now 235), 5 mornings `K106MORN` on the shared morning cap, ending lines. Gate `K106()` chains from `K105()`. Replaces an earlier kc106 for ordinary routes.

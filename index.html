@@ -27829,310 +27829,205 @@ const _xe105=extraEnding;extraEnding=function(){const L=_xe105();try{if(!S||!S.f
  if(F.u_rainV)L.push('On a night of rain V opened the infirmary vent so that Misaki could hear it.')}catch(e){}return L};
 /* ===KC105-END=== */
 
-/* ===================== THE GLASS, AND THE LONG WAY BACK (kc106) =====================
-   More delusion and more recovery angst, at the author's direction. Ordinary routes (not the war route, which has its own
-   pools in kc85–kc105). Needs kc46, kc54, kc55, kc61–kc63.
-   1. The infirmary, once a day through the hub, after kc61/kc62/kc63 have had their scene for the day:
-        Misaki, the room is a cell:  k106_eat  k106_ink  k106_stand  k106_steps  k106_price  k106_soup
-        Misaki, clear:               k106_soupK  k106_handsK  k106_sureK
-        V, they do not know him:     k106_eatV  k106_standV  k106_stepsV  k106_priceV  k106_soupV
-        V, they know him:            k106_stepsVK  k106_handsVK
-   2. After discharge, in the aftermath order (both POVs):
-        kd106_band  kd106_soup  kd106_chemist  kd106_trailer  kd106_good  kd106_stride  kd106_kneel  kd106_real
-        kd106_proof  kd106_back  kd106_wake  kd106_tall  kd106_month
-   Rules: unnamed city, hounds unnamed, no new named characters, V never contracts, Misaki they/them in V's scenes.
-   Nothing here touches the hours she cannot remember, and the doctor does not appear. */
+/* ===================== THE WAR: THE BODY (kc106) =====================
+   Medical horror in the infirmary and after it, at the author's direction. Needs kc73, kc76–kc105.
+   1. THE INFIRMARY. Sixteen scenes in kc85's player-opened pool (now 235). The body, handled by the man who swore
+      to kill them: the pins, the line, the smell under the cast, the ribbon in the wrist, the fever, the stitches
+      by the eye, the lungs. While the room is a cell, Misaki takes the tall one for K9 and does not warm to him (the
+      standing rule): every procedure reads as him keeping the body for later. V does it all himself, from the kennel.
+        Misaki, cell:   b_pins  b_line  b_smell  b_ribbon  b_fever  b_stitch  b_lungs
+        Misaki, clear:  b_pinsK  b_saw  b_chart
+        V:              b_pinsV  b_lineV  b_scale  b_finger  b_feverV  b_lungsV
+   2. MORNINGS (shared cap), after the infirmary: the stretch, the pins out, the kennel tablets, the kettle, the
+      scale; a year on, the back of his hand.
+   Same text under both aftermath settings: nothing touches the hours, and the doctor does not appear.
+   Rules: unnamed city, hounds unnamed, no new named characters, V never contracts, Misaki via M2 and they/them. */
+const K106=()=>{try{return typeof K105==='function'&&K105()}catch(e){return false}};
 const k106No=(t,sub)=>({t,sub,dis:true,fn:()=>{}});
-const k106Ok=()=>{try{return !!S&&!!S.f&&!isLone()&&!(typeof E2L==='function'&&E2L())}catch(e){return false}};
+const k106F=()=>{const f=S.f;f.e2l106=f.e2l106||{};return f.e2l106};
 
-/* ===================================== THE INFIRMARY: MISAKI, CELL ===================================== */
-const KD106_MC=[
- ['k106_eat',cb=>say([
-  ['','The tall one comes to the door at seven with a tray and says, without coming in: “Did you eat today?”'],
-  ['','You go cold all the way down.'],
-  ['','Those are his words. Seven, twelve, six, every day for two years, in a grey bubble at the top of your phone. Did you eat today? You have never once answered it properly. You have answered it with a photograph of a vending machine.'],
-  ['hitmeuppp',MV('(they have my phone.)','(they’ve got my phone. they read the thread.)','(They’ve got my phone. They’ve read the whole thread.)','(They’ve got my phone. They read it. All of it, two years of him, and now they’re wearing his words to get in the door. Which means they know about him. Which means they know where he lives.)')],
-  ['','He says it again at noon. You look at the wall. At six he says it a third time, quieter, and your face does something before you can stop it, and you see him see it.']],
-  ()=>ask('hitmeuppp','(Did you eat today?)',[
-   {t:'Give them nothing. Not him.',fn:()=>{S.f.k106Eat='no';calm(-3);save();say([['','You give them nothing. You lie with your face to the wall and make it a wall too.'],['','He stands in the door a long time. Then he says, as if to himself, “Tomorrow, then,” and goes, and tomorrow at seven he says it again.']],cb)}},
-   {t:'Answer it the way you always answer him.',fn:()=>{S.f.k106Eat='yes';calm(-1);apply({aff:1});save();say([['hitmeuppp',MV('...a bit.','...a bit.','A bit.','...A bit. A bit, okay? Stop asking.')],
-     ['','It is out before you can catch it. He shuts his eyes, standing in the door, like a man putting down something heavy.'],
-     ['','You lie there afterwards and go over it and over it. You confirmed it. You gave them the thread. You gave them the way you talk to him, and they will use it, and it was the only thing in your life that was only his.']],cb)}}]))],
- ['k106_ink',cb=>say([
-  ['','You study the tall one’s hands when he puts the tray down, because hands tell you who somebody works for.'],
-  ['','No watch. The others all wore the same cheap one. A thin white scar across the knuckle of the right forefinger. A grey dog hair on the cuff. And ink: blue-black, in the groove of the middle finger, where a fountain pen rests.'],
-  ['','You know a hand with fountain-pen ink on it. The thought comes all the way up to the front of your head, warm, and you put it down like a dog that bites.'],
-  ['hitmeuppp',MV('(lots of ppl have pens.)','(lots of people have pens. guards write reports.)','(Lots of people write with pens. Guards write reports.)','(Guards write reports. In the other building one of them wrote everything down. That’s all this is. He’s the one who writes things down. Of course he is. He’s been promoted.)')],
-  ['','After that you watch the ink instead of his face. Every time he writes on the clipboard by the door, you count the words by the movement of the pen, and file them, and you are more frightened of him than of anybody you have ever met.']],()=>{calm(-3);cb()})],
- ['k106_stand',cb=>say([
-  ['','The drip stand is steel, as tall as you, with a heavy five-legged base. You have been looking at it all morning.'],
-  ['','When the tall one kneels with the tray his head comes to the height of your knee. One swing, base first. You rehearse it the way you rehearse a shot: the grip, the turn of the hips, the follow-through. Forty times, in your head, until your shoulder knows it.'],
-  ['','At six he comes in and kneels. Your good hand is round the stand. He does not look up. He is putting the spoon straight on the tray, with great care, as if it mattered where the spoon went.']],
-  ()=>ask('hitmeuppp','(Now. His head is right there.)',[
-   k106No('Swing.','your hand will not'),
-   {t:'Let go of it.',fn:()=>{S.f.k106Stand=1;calm(-3);save();say([['','You let go of it. Your fingers open on their own, one at a time, and the stand rocks and is still.'],
-     ['','He goes out. You lie with your face in the pillow and shake.'],
-     ['hitmeuppp',MV('(weak.)','(they broke it. they broke the thing that does it.)','(They’ve broken it. Whatever it is in me that does the job, they broke it.)','(They broke it. The one thing I’ve always been able to do. Eleven years, and I had him on his knees in front of me, and my hand wouldn’t. That’s what they did to me in there. They made me soft.)')],
-     ['','It does not cross your mind, not once, that the part of you that would not swing might be the part that knew him.']],cb)}}]))],
- ['k106_steps',cb=>say([
-  ['','You count his steps from the bottom of the stair to the door. Fourteen. Every time, fourteen.'],
-  ['','In the other building it was eleven. You counted it every day. Eleven steps, the stair, the door, the bolt.'],
-  ['hitmeuppp',MV('(14. not 11.)','(fourteen. it’s a different corridor.)','(Fourteen. It’s a different corridor. They moved me.)','(Fourteen. It’s a different building. They moved me in the night, when I was under.)')],
-  ['','You lie there and work it out, the way you work out wind. If it is a different building, then nobody knows where it is. V would have found the first one by now. He finds everything. He will have got there and found the cot and the radio and nobody on it.'],
-  ['','He will think you left. He will think you got out and did not come to him.'],
-  ['','You turn your face into the pillow so that the tall one, fourteen steps away, will not hear you.']],()=>{calm(-4);cb()})],
- ['k106_price',cb=>say([
-  ['','You try to buy him. You do it properly, in the voice you use to price a job: calm, level, a little bored.'],
-  ['','The money in the tin. The account that nobody knows about. Every job for a year, free, any target he names. You say the number of the account out loud, all of it, so he knows you are serious.'],
-  ['','He has put his hands over his ears. He waits until you have finished. Then he says: “You do not have to pay me for anything.”'],
-  ['hitmeuppp',MV('(...)','(everybody gets paid.)','(Everybody gets paid. Everybody.)','(Everybody gets paid. If he won’t take money, he wants something else, and I don’t know what it is, and that is the worst thing he could possibly have said to me.)')],
-  ['','You do not sleep that night at all. You lie and make a list of the things you have that are not money, and every one of them is a person.']],()=>{calm(-3);cb()})],
- ['k106_soup',cb=>say([
-  ['','The soup tastes like his.'],
-  ['','Not like soup. Like his: miso, too much ginger, the spring onion cut on a slant, the way he makes it when you are ill and pretending not to be. You would know it blind. You have known it blind, with a fever, on his sofa.'],
-  ['','You put the spoon down very slowly.'],
-  ['hitmeuppp',MV('(they have him.)','(they’ve got him. he’s here.)','(They’ve got him. He’s in here somewhere.)','(They’ve got him too. He’s here, in this building, and they’re making him cook. They’re making him cook for me and then carrying it in so I’ll know.)')],
-  ['','You do not eat any more of it. You lie and listen for a kitchen. Once, very far off, you hear a pan, and you think: that’s him. That’s him, alive, somewhere under you, and you cannot get to him, and he does not know you are three floors away.']],
-  ()=>ask('hitmeuppp','(The soup.)',[
-   {t:'Eat it. All of it. For him.',fn:()=>{S.f.k106Soup='ate';calm(-1);apply({aff:1});save();say([['','You eat it all, every drop, cold, because he made it and if you eat it they might let him keep making it. You tip the bowl up to get the last of the ginger.'],['','When the tall one comes for the tray he stops and looks at the empty bowl for a long time, and you do not understand why his hands are shaking.']],cb)}},
-   {t:'Leave it. Don’t let them use him.',fn:()=>{S.f.k106Soup='left';calm(-3);save();say([['','You leave it. It goes cold on the tray and grows a skin. You can smell the ginger all night.']],cb)}}]))]];
+/* ===================================== MISAKI, CELL ===================================== */
+k86('b_pins','m',null,'cell','The pins',[
+ N('Two steel pins stand out of the back of your left hand, through the skin, into the bone. You can see the ends: cut flat, capped with little rubber balls, like something on a dartboard.'),
+ N('Every morning he comes with a steel dish and a bottle and cotton buds. He cleans round each pin where it goes into you. The skin there weeps. It makes a yellow crust overnight, and he lifts the crust off.'),
+ N('Then he turns the pin, a quarter turn, between finger and thumb, so that it will not stick. You feel it turn in the bone. Not pain, exactly. A grinding, very deep, that you hear more than feel, like a key in a lock on the far side of a wall.'),
+ M2('(he’s keeping it. he’s keeping the hand nice. for later. so it’s still there when he wants it)','(he’s keeping it. he’s keeping the hand in good order, for later, so that it is still there when he wants it)'),
+ N('You do not look away. You watch every turn, so that you will know exactly what he has done to you, and so that he will know that you know.'),
+ N('When he goes you lie with the hand on the blanket and stare at the two little rubber balls, and you can still feel the grinding, a quarter turn, over and over, long after he has gone.')]);
+k86('b_line','m',null,'cell','The hand goes cold',[
+ N('The back of your right hand, where the drip goes in, has gone white and fat and cold. The skin is shiny. When you press it the dent stays.'),
+ N('The drip has gone into the hand instead of the vein. It has been filling you up like a glove all night.'),
+ N('He sees it at once. He takes the line out and presses the hole and says that it will have to go in somewhere else. He ties a rubber strap round your upper arm and taps the inside of your elbow, looking for a vein, and there is nothing, and he moves to the wrist, and there is nothing there either, because there is nothing left anywhere, they used all of it in the other building.')],
+ cb=>ask(K73Who(),'(He has the needle.)',[
+  {t:'Hold still. Don’t give him the satisfaction.',fn:()=>{k106F().line='still';calm(-3);save();say([N('You hold still. The first try goes through and out the other side and blooms purple. The second blows. The third, in the side of your foot, goes in, and he tapes it down with his tongue between his teeth.'),
+    N('There is blood on his cuffs. Yours. Three spots. He does not notice them. You notice nothing else for the rest of the day.'),
+    M2('(three goes. he wanted three goes)','(three tries. he wanted three tries)')],cb)}},
+  {t:'Pull the arm away.',fn:()=>{k106F().line='fight';calm(-2);apply({tension:3});save();say([N('You pull it away. He lets go at once. He sits back on his heels with the needle held up and away from you, and waits, and does not say anything.'),
+    N('By the evening your mouth is dry as paper and your head is splitting, and you hold out the arm yourself, without looking at him, and hate him so much that your eyes water.')],cb)}}]));
+k86('b_smell','m',null,'cell','A smell under the cast',[
+ N('There is a smell. It comes from the cast, from in there, under the plaster, at the wrist end. Sweet. Not like a body. Like fruit left in a bag.'),
+ N('You know that smell. You smelled it once on a job, in a flat, from a man who had not been to a doctor about his foot. By the time you got to him there was not much foot.'),
+ M2('(he’s letting it go off. he’s letting it rot so it comes off)','(he’s letting it go bad. he’s letting it rot so that it comes off)'),
+ N('You lie with the cast held up off the blanket, as far from your face as your arm will go, and breathe through your mouth.'),
+ N('At night you can feel it under there. Hot. Throbbing in time with your heart. A second heart, in your wrist, that does not belong to you, getting bigger.')]);
+k86('b_ribbon','m',null,'cell','The ribbon',[
+ N('The sore on the inside of your right wrist, where the strap was, has opened. It goes down. It has a floor, and the floor is a colour that skin is not.'),
+ N('Every morning he takes the dressing off and pulls out the packing. It is a ribbon of gauze, yellow and pink, and it comes out of the hole in your wrist and keeps coming. He draws it out slowly, hand over hand, like a magician with scarves.'),
+ N('You count it. Eleven centimetres. Twelve. You did not know there was room for twelve centimetres in a wrist.'),
+ N('Then he packs it again, clean, feeding it in with a little steel probe, pushing it down into you, folding it in on itself so that it fills the hole from the bottom. You feel the probe find the floor.'),
+ M2('(he’s filling me. he’s stuffing me. like a bird for christmas)','(he is filling me. he is stuffing me, like a bird)'),
+ N('He tapes it shut. He writes on his clipboard. You lie and feel the ribbon inside your arm, and know that tomorrow he will pull it out again, and that there will be more of it.')]);
+k86('b_fever','m',null,'cell','Wet towels',[
+ N('The fever goes up in the night. You know because the walls start breathing: in, out, very slowly, the tiles bulging and flattening like the side of a hound asleep.'),
+ N('Then he is there with a bowl of ice and towels, and the towels are wet and freezing, and he is laying them on you. On your neck. Under your arms. Across your stomach.'),
+ N('You scream. You did not know you still could. It comes out of you like something tearing.'),
+ M2('(he’s drowning me. this is how. this is the way he picked)','(he is drowning me. this is how. this is the way he picked)'),
+ N('He does not stop. He keeps laying the towels on, wringing them out in the ice, laying them on again, saying a number under his breath, over and over, forty, forty point six, forty point four.'),
+ N('In the morning the walls are still. You are soaked and shaking and alive. There is a pile of wet towels on the floor the height of your knee. You do not understand why he did not finish it.')]);
+k86('b_stitch','m',null,'cell','Scissors by the eye',[
+ N('The stitches in your forehead, under the fringe, are ready to come out. He tells you so. He has a pair of scissors, small and curved, and a pair of tweezers.'),
+ N('The cut runs down into your eyebrow. The last stitch is a quarter of an inch from your left eye.'),
+ N('He holds your head still with the flat of one hand on the crown. Your enemy, kneeling over you, with a blade at your eye, and you have to keep still, because if you move it goes in.')],
+ cb=>ask(K73Who(),'(The scissors are at the last stitch.)',[
+  {t:'Keep your eyes open. Watch him.',fn:()=>{k106F().stitch='open';calm(-3);save();say([N('You keep your eye open. You watch the point of the scissors come down, huge, out of focus, and slide under the thread. Snip. The tweezers. A tug, deep in the skin, like a hair pulled from the root.'),
+    N('Nine stitches. You watch every one. When he is done your eye is streaming and you have not blinked for so long that you cannot see out of it at all.'),
+    M2('(i didn’t blink. he didn’t get that)','(i did not blink. he did not get that)')],cb)}},
+  {t:'Shut your eyes.',fn:()=>{k106F().stitch='shut';calm(-2);save();say([N('You shut them. That is worse. In the dark there is only the cold of the steel against your eyelid, and the snip, and his breath on your face, and nothing to tell you where the blade is.'),
+    N('Nine. You count them by the snips. After the ninth his hand stays on your head a moment too long, and then it is gone.')],cb)}}]));
+k86('b_lungs','m',null,'cell','You can hear your lungs',[
+ N('When you breathe in there is a sound at the bottom of it. A crackle, wet, like cellophane, on the right side, under the broken ribs.'),
+ N('He hears it too. He puts his ear to your back, which you allow because you cannot stop him, and listens for a long time.'),
+ N('Then he gives you a plastic thing with a mouthpiece and a ball in a tube, and tells you to breathe in until the ball goes up, ten times an hour, or the lungs will fill.'),
+ N('Every breath that far is the ribs. Three of them, broken, grating on each other at the bottom of the breath like teeth.'),
+ M2('(he wants me to break myself. he wants me to do it for him. ten times an hour)','(he wants me to do it to myself. he wants me to do it for him, ten times an hour)'),
+ N('You put the plastic thing under the pillow and breathe shallow, as shallow as you can, all day, and at night you lie awake and listen to the crackle getting louder.')]);
 
-/* ===================================== THE INFIRMARY: MISAKI, CLEAR ===================================== */
-const KD106_MK=[
- ['k106_soupK',cb=>say([
-  ['','You know where you are. You know who made the soup. You know it is miso and ginger and a spring onion cut on a slant, and that the man who cut it is sitting on the floor in the corridor reading about land tax.'],
-  ['','You eat it. It is very good. It tastes exactly like his because it is his.'],
-  ['','Ten minutes later you are on the tile with your back to the bed, being sick into the steel pan, because your body has not been told. Your body tasted that soup in a cell for two days and has decided what it means.'],
-  ['','He holds the pan. He holds your hair back with the other hand, which is shaking. Neither of you says anything about the soup.'],
-  ['hitmeuppp',MV('(sorry.)','(sorry. it was good. sorry.)','(It was good. It was really good. I’m sorry.)','(It was so good. It was the best thing anyone’s made me in weeks and my stomach thinks it’s evidence.)')]],()=>{calm(-2);cb()})],
- ['k106_handsK',cb=>say([
-  ['','The drip stand is just a drip stand now. You know exactly what you had planned for it.'],
-  ['','When he comes in you ask him, very politely, to stand where you can see his hands. You do not tell him why. '+(S.f.k106_stand?'You do not tell him about the forty swings, or the base, or the height of his head when he kneels.':'You do not tell him what you had worked out about the stand, or the height of his head when he kneels.')+''],
-  ['K9','Of course.'],
-  ['','He stands by the door with his hands in front of him, open, the way a man stands for a photograph he did not want taken. He stays like that the whole time he is in the room. He does it the next time, and the time after, without being asked again.'],
-  ['hitmeuppp',MV('(thank u.)','(he didn’t even ask why.)','(He didn’t ask why. He just did it.)','(He didn’t ask why. He stood there with his hands out like a hostage, in his own house, because the hostage asked him to.)')],
-  ['','You think: he would have let me. If I had swung it, he would have let me, and then he would have got up and put a dressing on my hand.']],()=>{calm(-1);apply({aff:1});cb()})],
- ['k106_sureK',cb=>say([
-  ['','You are sure. That is what frightens you.'],
-  ['','This is his house. That is V. The poster on the door says LAUNDRY. You are as sure of it as you have ever been of anything.'],
-  ['','You were exactly this sure the other way. Two days ago you would have staked your life that the tall one was a guard'+(S.f.k106_soup?', and the soup was a message':'')+(S.f.k106_steps?', and the fourteen steps were a different building':'')+'. It felt like this. It felt exactly like this, like knowing.'],
-  ['hitmeuppp',MV('(which one.)','(how do i know this is the right one.)','(How do I know this one’s the right one?)','(How do I know this is the right one? It feels true. The other one felt true. I don’t have anything to check it with except the thing that got it wrong.)')],
-  ['','You lie with your eyes open and do not trust a single thing you know, including that.']],()=>{calm(-3);cb()})]];
+/* ===================================== MISAKI, CLEAR ===================================== */
+k86('b_pinsK','m',null,'clear','Turn them yourself',[
+ N('You know whose hands those are now. You know why he turns the pins: so the skin does not grow onto the steel, so they will come out clean.'),
+ N('You ask him to show you how. You do not tell him why. He shows you: the bud, the saline, round and round the hole, lift the crust, a quarter turn.'),
+ N('You do it yourself after that, every morning, so that he will not have to touch the hand. The first time, the pin turns in the bone, and you feel the grinding from the inside, and you are sick over the side of the bed.'),
+ M2('(it was him the whole time. i watched him do this every day and thought he was saving it for later)','(it was him the whole time. i watched him do this every morning and i thought he was saving it for later)'),
+ N('He holds the steel dish under your chin. He does not offer to take over. He knows exactly why you asked.')]);
+k86('b_saw','m',null,'clear','The cast comes off',[
+ N('The cast saw screams. It is a little circular blade that does not spin, only shakes, very fast, and it cannot cut skin, he tells you, only plaster. You do not believe him. Nobody would.'),
+ N('He runs it down both sides. The plaster cracks open like a shell, and the smell comes out, all of it at once, sweet and sour and old, and he does not let his face change.'),
+ N('The hand inside is not yours.'),
+ N('It is thin, the bones of the back showing like the ribs of a fan. Yellow. Grey where the plaster lay. The skin is coming off it in white sheets. The fingers are stuck half closed, like a dead bird’s foot, and when you tell them to open they do not do anything at all.'),
+ M2('(that’s not my hand. that’s not my hand. where’s my hand)','(that is not my hand. that is not my hand. where is my hand)'),
+ N('He washes it in a bowl of warm water, very gently, and the dead skin floats off it in the water like rice paper. You watch. You cannot stop watching. It is the hand you shoot with.')]);
+k86('b_chart','m',null,'clear','Read his chart',[
+ N('The clipboard by the door has your name at the top, in fountain pen. Pages of it. You take it down while he is in the kennel.'),
+ N('Temperatures, every hour, in columns. 39.8. 40.1. 40.6, underlined twice. Line re-sited x3. Pin sites: purulent. Right wrist: undermined, 12 cm packing. Chest: crackles R base.'),
+ N('Then, on the second night, a line that has been written and crossed through with one stroke, so that you can still read it: L 5th digit, tip black. Consider removal at 0600 if no improvement.'),
+ N('And under it, at 0600, in a different pen: Pink. Leave.'),
+ M2('(he was going to take my finger. he was going to take it and i was asleep and i would never have known)','(he was going to take my finger. he was going to take it while i slept, and i would never have known)'),
+ N('You look at your little finger. It is there. The tip is a darker colour than the rest and always will be.'),
+ N('You put the clipboard back on its nail, exactly straight, and get back into bed, and when he comes in you cannot look at his hands.')]);
 
-/* ===================================== THE INFIRMARY: V ===================================== */
-const KD106_VC=[
- ['k106_eatV',cb=>say([
-  ['','He asks them, from the door, if they ate today. It is what he says. He has said it three times a day for two years.'],
-  ['','The third time he says it their face goes grey, and he understands at once and completely: they think the men have their phone. They think the men read the thread. He has turned his own words into evidence against himself.'],
-  ['K9','(Every kind thing I have ever said to them is in that phone. Every one of them is now a thing a guard could say.)']],
-  ()=>ask('K9','(Did you eat today?)',[
-   {t:'Stop saying it.',fn:()=>{S.f.k106EatV='stop';calm(-1);save();say([['','He stops. He puts the tray down and says the date instead, and the time, and nothing that has ever been in a text.'],['','It is the first day in two years that he has not asked. He notices it at seven, at noon, at six, three times, like a step that is not there.']],cb)}},
-   {t:'Keep saying it. Same words, same times.',fn:()=>{S.f.k106EatV='keep';calm(-2);apply({aff:1});save();say([['','He keeps saying it. Seven, noon, six, the same words, the same voice, so that when they come back they will find it was there the whole time.'],['','On the second evening, from the bed, so quietly he nearly misses it: “…a bit.”'],['','He shuts his eyes. He stands in the door like a man who has put something down.']],cb)}}]))],
- ['k106_standV',cb=>say([
-  ['','When he comes in at six they have their good hand round the drip stand. Their knuckles are white. They are looking at the back of his neck.'],
-  ['','He knows the look. He has seen it down a scope on a roof, on them, from behind.'],
-  ['K9','(If I stand up, they will be frightened, and they will do it anyway, badly, and tear the line out. If I kneel, my head is where they want it.)'],
-  ['','He kneels. He puts the tray down and straightens the spoon, and takes a long time over the spoon, and does not look up.'],
-  ['','After a while there is a small sound above him: fingers opening on steel, one at a time. The stand rocks and is still.'],
-  ['','He goes out. In the corridor he sits down, because his legs have decided to, and stays there until the hound comes and leans on him.']],()=>{calm(-2);cb()})],
- ['k106_stepsV',cb=>say([
-  ['','At night, through the door, he hears them say very quietly, to nobody: “he’s going to look in the wrong building.”'],
-  ['','He does not understand it until the next thing. “V’s going to get there and it’ll be empty. he’ll think i left.”'],
-  ['K9','(They think I am somewhere else, looking. They are lying in my house, fourteen steps from me, grieving that I cannot find them.)'],
-  ['','He puts his mouth to the gap at the edge of the door.'],
-  ['K9','He found you.'],
-  ['','A long silence.'],
-  ['hitmeuppp',MV('...that’s what u’d say.','that’s what you’d say.','That’s what you would say.','That’s exactly what you would say. That’s the first thing you’d say.')],
-  ['','He sits against the door until it gets light, not saying anything, because everything he could say is what he would say.']],()=>{calm(-3);cb()})],
- ['k106_priceV',cb=>say([
-  ['','They try to buy him. They are very good at it: calm, level, a little bored. Money. A year of work. Any name he likes.'],
-  ['','Then they start on the number of their account, the one nobody knows about, digit by digit.'],
-  ['','He puts his hands over his ears like a child.'],
-  ['K9','(If I hear it, it is mine. They would never forgive themself for having given it to me. I will not have it.)'],
-  ['','He keeps his hands there until their mouth stops moving. Then he says that they do not have to pay him for anything, and watches it land on them as the most frightening thing anybody has ever said.']],()=>{calm(-2);cb()})],
- ['k106_soupV',cb=>say([
-  ['','They push the bowl away and whisper, not to him, to the ceiling: “is he all right. the one cooking. is he all right.”'],
-  ['','It takes him a moment. They think the soup is his because he is here, a prisoner, three floors down, made to cook.'],
-  ['','He has never been asked a question he was less able to answer. Then he answers it.'],
-  ['K9','He is all right. He is not hurt. He is not frightened. He would like very much for you to eat.'],
-  ['','They look at him for a long time. Then they pull the bowl back and eat four spoonfuls, slowly, for the man downstairs.'],
-  ['','He takes the tray out and stands in the kitchen with it and cannot put it down.']],()=>{calm(-2);apply({aff:1});cb()})]];
-const KD106_VK=[
- ['k106_stepsVK',cb=>say([
-  ['','When they know him again he walks it once on his own: the bottom of the stair to the infirmary door.'],
-  ['','Fourteen. He has long legs and the corridor here is longer than the one in that building. '+(S.f.k106_stepsV?'Three extra steps, and they built a whole second building out of them, and put themself in it, and lay in it waiting for him to fail to come.':'Three more than that building. They counted every one of his, every day, and he did not know until now what they were counting against.')+''],
-  ['K9','(Three steps.)'],
-  ['','He walks it again, and again, and then he stops, because it is the same every time and that is the whole point.']],()=>{calm(-1);cb()})],
- ['k106_handsVK',cb=>say([
-  ['','They ask him to stand where they can see his hands. They ask nicely, and do not say why.'],
-  ['','He stands by the door with his hands in front of him, open. He does it the next time without being asked, and the next.'],
-  ['K9',S.f.k106_standV?'(I saw their hand on the stand. I do not need them to tell me why.)':'(I was the tall one. I do not need them to tell me why.)'],
-  ['','It turns out to be the easiest thing in the world to give them, and he has never minded giving anybody anything less, and he notices, upstairs that evening, that his hands are still held out in front of him at the kitchen island with nobody there.']],()=>{calm(-1);cb()})]];
+/* ===================================== V ===================================== */
+k86('b_pinsV','v',null,null,'Pin sites',[
+ N('Pin sites, every morning: saline, buds, a steel dish. You have done it for hounds after a fracture a hundred times. A hound does not watch you do it.'),
+ N('They watch. They watch every turn. Their eyes do not leave your fingers, and their face does not change, and their good hand is a fist in the blanket.'),
+ N('The skin round the second pin is red today, and hot, and when you press beside it something comes up out of the hole that should not.'),
+ K76V('(Infection. I will have to culture it from the kennel kit and dose them from the kennel cupboard. I will have to tell them, and they will think I am lying, and they will be right to think it, because I would.)'),
+ N('You turn the pin a quarter turn. You feel the bone take it. Their jaw goes tight and stays tight, and you know that they will feel that quarter turn all day, and that in their head it is a thing you are doing to them.')]);
+k86('b_lineV','v',null,null,'Re-site the line',[
+ N('The drip has tissued. The hand is white and swollen and cold, and the line has to come out and go back in.'),
+ N('You have put lines into hounds in the dark, by feel, a thousand times. You tie the strap round their arm and look for a vein and there is nothing. The elbow is bruised black. The wrist is a lattice of old holes, theirs, from the other building.'),
+ N('First try: through and out. Second: blown. They do not flinch. They do not make a sound. They watch the needle go in each time as if it were going into somebody else.'),
+ K76V('(A hound that does not flinch has been stuck too often. I know that. I have written it on a hound’s card. I never thought to write it on a person.)'),
+ N('Third, in the foot. It holds. You tape it down. There is blood on your cuff, three spots, and you leave the shirt on all day because changing it would be a thing they could see you do.')]);
+k86('b_scale','v',null,null,'The kennel cupboard',[
+ N('The antibiotics are in the kennel cupboard. You keep a pharmacy for the hounds that would shame a hospital. The doses are in milligrams per kilo, written on the inside of the door.'),
+ N('You need their weight. You carry them, at two in the morning, asleep and burning, down the corridor to the hound scale, because it is the only scale in the house that will take them lying down.'),
+ N('The display settles. You read it twice.'),
+ K76V('(They weigh what the grey one weighs. To the hundred grams. I am going to dose them out of her box.)'),
+ N('You draw it up from a vial with a hound’s card rubber-banded to it. You cross out the hound’s name on the card and write theirs. Then you carry them back and put it into the line, and stand there with the empty syringe, and find you cannot put it down.')]);
+k86('b_finger','v',null,null,'Six in the morning',[
+ N('At midnight the tip of their little finger is dark. By two it is black. The cast is too tight, or the swelling is too much, or the blood from the other building never came back to that finger at all.'),
+ N('You split the cast down one side to let it breathe. You raise the arm. You warm the hand between both of yours. At three it is still black.'),
+ N('At four you lay out the instruments on a clean towel on the steel trolley: the ones you would use on a hound’s dewclaw. You have done it forty times. It takes eleven minutes.'),
+ K76V('(If it is still black at six I will take it while they sleep. They will wake without it. They will believe that I took it because I could. They will be right about the second half.)'),
+ N('You sit beside the trolley with your hand round their wrist, feeling for the pulse, until six.'),
+ N('At six the tip is a dark plum colour, with pink under the nail. You write it down. Pink. Leave. Then you put every instrument back in its place, and go out to the kennel, and are sick in the drain, very quietly, so the hounds will not get up.')]);
+k86('b_feverV','v',null,null,'Forty point six',[
+ N('Forty point six at three in the morning. They are rigid, shaking so hard the bed moves, talking to the walls.'),
+ N('Ice from the kitchen in a mixing bowl. Towels. You wring them in the ice and lay them on: neck, armpits, groin, the big vessels, as you would for a hound in heatstroke.'),
+ N('They scream. It is a sound you have not heard from them, even on the films. They scream that you are drowning them. They get the good hand round your wrist and their nails go into you and they say, very clearly, “i knew it would be water.”'),
+ K76V('(If I stop, the fever will cook them. If I go on, I am the man drowning them. I go on.)'),
+ N('Forty point four. Forty point one. Thirty-nine point eight, at six, and they are asleep, and there are four half-moons in your wrist, bleeding a little. You do not dress them. You want to know they are there.')]);
+k86('b_lungsV','v',null,null,'Crackles',[
+ N('You put your ear to their back. Crackles, right base, under the broken ribs. They are not breathing deep enough because it hurts, and the bottom of the lung is filling.'),
+ N('You give them the spirometer and explain it. Ten an hour. They look at the plastic ball in its tube, and at you, as if you had handed them a knife and asked them to use it on themself.'),
+ N('In the morning the spirometer is under their pillow, and the crackles are louder.'),
+ K76V('(They would rather drown slowly than break their own ribs for me. I would do the same. I would do exactly the same.)'),
+ N('So you sit at the foot of the bed with the spirometer, every hour, all day, and blow into it yourself, ten times, so that they can see the ball go up and see that it is only a ball, and you do not ask them to do it once. At four in the afternoon, when you come back from the kennel, it is on the blanket, and the ball is still settling.')]);
 
-function k106Scene(){if(!S||!S.f||dlg||!k106Ok()||typeof kdMed!=='function'||!kdMed())return null;const m=S.kd.med;
- if(S.f.k106Day===S.day||(S.slot||0)<1)return null;
- try{if((typeof k61Scene==='function'&&k61Scene())||(typeof k62Scene==='function'&&k62Scene())||(typeof k63Scene==='function'&&k63Scene()))return null}catch(e){return null}
- const me=S.pov!=='v',clear=(m.clar||0)>=2;
- const pool=me?(clear?KD106_MK:KD106_MC):(clear?KD106_VK:KD106_VC);
- const x=pool.find(([id])=>!S.f[id]);if(!x)return null;
- return cb=>{S.f[x[0]]=1;S.f.k106Day=S.day;save();go(cutBg(clear?'#1c2422':'#0c0a08'));x[1](cb)}}
-const _hub106=hub;hub=function(){const a=arguments,self=this;try{const s=k106Scene();if(s)return s(()=>_hub106.apply(self,a))}catch(e){}return _hub106.apply(self,a)};
-
-/* ===================================== AFTER DISCHARGE ===================================== */
-const k106Ev=(id,when,run)=>kdEv(id,()=>!S.f[id]&&k106Ok()&&when(),done=>{S.f[id]=1;save();run(done)});
-k106Ev('kd106_band',()=>kdD()>=1&&S.f.k63Band,done=>{const me=S.pov!=='v';say(me?[
- ['','He cuts the wristband off on the stairs, with the little scissors from the kit, because you are going up into daylight and it is a hospital thing.'],
- ['','It goes in the bin in the kitchen. You make it as far as the sofa.'],
- ['','Then you are up and at the bin with your good hand in among the coffee grounds, and you find it, and you wipe it on your jeans, and it still says your name.'],
- ['hitmeuppp',MV('(mine.)','(it’s mine. it’s got my name on.)','(It’s mine. It has my name on it.)','(It’s mine. It’s the only thing in the world that says who I am that somebody else wrote down while I couldn’t.)')],
- ['','It lives in your wallet now, behind the driving licence that is in somebody else’s name. In public toilets, sometimes, you take it out and read it.']]:[
- ['','He cuts the wristband off on the stairs and drops it in the kitchen bin.'],
- ['','Ten minutes later he hears the bin lid. They are elbow-deep in it, one-handed, in his shirt, among the coffee grounds. They find it and wipe it on their jeans and read it.'],
- ['K9','(I wrote their name on it on the first night. It is the only true thing on any document they own.)'],
- ['','He takes the bin out to the yard that evening without a word, and does not mention, ever, that he saw.']],done)});
-k106Ev('kd106_soup',()=>kdD()>=2,done=>{const me=S.pov!=='v';say(me?[
- ['','He is making soup. You smell it from the hall: miso, ginger, spring onion.'],
- ['','You are in the cell. Not thinking about it. In it, the bulb, the tray, the skin on the bowl, three floors from a man you could not reach, for as long as it takes the smell to cross the hall.'],
- ['','When you can see again you are on the hall floor with your back to the coat rack. The kitchen has gone silent.'],
- ['','He comes and sits down on the floor opposite you, out of reach, and waits. Later you hear the pan go down the sink, all of it, and the window open.'],
- ['hitmeuppp',MV('(his soup.)','(that was his soup. that was MY soup.)','(That was his soup. That was the soup he makes when I’m ill.)','(That was mine. That was the one good thing, the one he makes when I’m ill and lying about it, and they took that too, and they weren’t even the ones who made it.)')]]:[
- ['','He makes soup, without thinking, because they are thin and it is what he makes.'],
- ['','He hears them in the hall: a sound, then nothing. He finds them on the floor with their back against the coat rack and their eyes somewhere else.'],
- ['','He sits down across from them, out of reach, and waits. When they come back they apologise, and he says there is nothing to apologise for, and they both know what it was.'],
- ['K9','(I made it every day in the infirmary. I made it so that something would be the same. It was the same. That is the trouble.)'],
- ['','He pours it down the sink and opens the window. That week he buys a book of recipes from a country neither of them has been to, and learns them one by one, so that nothing he cooks for them will ever have been in that room.']],()=>{calm(-3);done()})});
-k106Ev('kd106_chemist',()=>kdD()>=3,done=>{const me=S.pov!=='v';say(me?[
- ['','The chemist on the corner. Bright, ordinary, a queue of three. You are there for plasters.'],
- ['','The drinks fridge by the till has a compressor that hums. It hums on a note. The note is the jingle.'],
- ['','Then you are not in the chemist. The bulb. The cot frame. The breathing at the door. It is complete; there is nothing left over to tell you otherwise. You are not remembering it. You are in it, standing up, with a box of plasters.'],
- ['','The pharmacist is saying “are you all right” for what is clearly not the first time. You are holding the edge of the counter. There is a small crowd.'],
- ['hitmeuppp',MV('i’m fine. i was just leaving.','i’m fine. i was just leaving.','I’m fine. I was just leaving.','I’m fine. Sorry. I was just leaving.')],
- ['','You hear yourself say it, pleasantly, as if you had met them on the way out of a shop. You have said that sentence before. You said it to V, on a broken foot, holding a drip stand like a spear.'],
- ['','You sit in the truck outside for forty minutes, and then you text him three words.']]:[
- ['','At eleven in the morning his phone goes. Three words, no punctuation, from the car park of the chemist on the corner.'],
- ['hitmeuppp',MV('what day is it','what day is it','what day is it','what day is it')],
- ['','He answers in four seconds. The day, the date, the place, and that the grey one is asleep on the stairs.'],
- ['K9','(Daylight. A chemist. I had thought the nights were the worst of it, because the nights were where I could hear it.)'],
- ['','They come home an hour later with plasters and a bag of sweets they do not eat. They do not mention the text, and neither does he. He keeps it, though: the first message they ever sent him that was a question.']],()=>{calm(-3);done()})});
-k106Ev('kd106_trailer',()=>kdD()>=5,done=>{const me=S.pov!=='v';
- if(me)return say([
-  ['','The first night back in your own trailer. You wanted this. You have wanted it every day since you could stand: your bed, your tin roof, your door, your things in the order you left them.'],
-  ['','It rains. The roof is loud and perfect. You lie under it and wait to feel at home.'],
-  ['','At one you get up and check the door. At one-forty you check it again. At two you are sitting on the step inside it with the rifle across your knees and your back to the wall, facing the dark, listening to the rain for the sound of feet under it.'],
-  ['hitmeuppp',MV('(it’s my house.)','(it’s my house. it’s MY house.)','(It’s my house. This is supposed to be the safe one.)','(It’s my house. It’s the only place I ever chose. They found me two streets from it. They know where it is. It was never safe, I was just the only one who didn’t know.)')]],
-  ()=>ask('hitmeuppp','(Four in the morning. The rain has stopped.)',[
-   {t:'Stay. It’s your home.',fn:()=>{S.f.k106Trailer='stay';calm(-4);apply({energy:-10});save();say([['','You stay. You sit on the step until it is light, and then you go to bed in your boots, and sleep for an hour, and wake up with the rifle still in the bed with you.'],['','You tell everybody it was lovely to be home. You do the voice.']],done)}},
-   {t:'Drive to his.',fn:()=>{S.f.k106Trailer='drive';calm(-1);apply({aff:2});save();say([['','You drive to his at four, and let yourself into the garage, and you do not go up. You sleep in the truck, with the doors locked, in his garage, with the hounds breathing on the other side of the wall.'],
-     ['','At six there is a knock on the driver’s window. Coffee, in his good mug, held up to the glass. He does not ask what you are doing in his garage. He goes back up and leaves the door to the house open behind him.']],done)}}]));
- say([['','They go home to their trailer for the first time. They are cheerful about it. They say it will be lovely to be under the tin roof.'],
-  ['','At ten past four his phone shows the garage door opening. He watches it on the screen: their truck, in, the door down, the engine off. They do not get out.'],
-  ['K9','(They did not want to come in. They did not want to be at home either. They have driven to the one place between.)'],
-  ['','At six he takes coffee down in his good mug and knocks on the driver’s window. They are asleep sitting up, with the rifle across the passenger seat, and they jump, and then they see who it is, and something goes out of their shoulders.'],
-  ['','He does not ask. He leaves the door to the house open behind him. From then on he leaves the garage door code the same, though it is the first thing in the house he has ever not changed every month.']],()=>{S.f.k106Trailer='v';apply({aff:1});calm(-2);save();done()})});
-k106Ev('kd106_good',()=>kdD()>=6,done=>{const me=S.pov!=='v';
- if(me)return say([
-  ['','A good day. The first one. You notice it at four in the afternoon, which is how you know it was good: you did not notice it before.'],
-  ['','You slept until nine. You ate. You laughed at Ronin on the group chat. You did the crossword with V and got seven down before he did. For six hours you did not once think about the room.'],
-  ['','And then you think about it, and the floor goes.'],
-  ['hitmeuppp',MV('(they let me forget.)','(they let me think i was out. that’s the trick.)','(That’s how they do it. They let you think you’re out.)','(That’s how they do it. They let you think you’re out, and you relax, and you forget for six hours, and that’s when they take it back. I forgot. I let myself forget. Six whole hours with my back to the door.)')],
-  ['','That night you do not let yourself sleep. You sit up in his bed with the light on and keep yourself awake, as a punishment, as a lesson, so that it does not happen again.']],()=>{calm(-4);apply({energy:-8});done()});
- say([['','A good day. They sleep until nine. They eat. They get seven down before he does and are unbearable about it. For an afternoon he forgets to watch them.'],
-  ['','At four they go quiet in the middle of a sentence. He sees it happen: they remember, and then they remember that they had forgotten, and the second one is worse.'],
-  ['','That night their light is on until morning. They are sitting up in bed, keeping themself awake.'],
-  ['K9','(They are punishing themself for the good day. And I did not trust it either. I watched them laugh and I was counting the minutes until it ended. I am no better.)']],()=>{calm(-2);apply({heart:-1});done()})});
-k106Ev('kd106_stride',()=>kdD()>=6&&S.pov==='v',done=>say([
- ['','He notices that he has started to walk loudly.'],
- ['','Heels down on the stair. A cough at the top of the corridor. Their name, said at the corner, before he can be seen. He opens doors with the handle all the way down so the latch clicks, and he has stopped wearing the soft shoes altogether.'],
- ['','The hounds have learned it. They lift their heads at the cough now and settle again, because it means him.'],
- ['K9','(I spent thirty years learning to cross a room without a sound. It is the thing I am best at. I will spend the rest of my life undoing it in my own house, one step at a time, so that nobody I love ever has to hear me arrive late.)'],
- ['','He does not mind. He had not expected to find that he did not mind.']],done));
-k106Ev('kd106_kneel',()=>kdD()>=7,done=>{const me=S.pov!=='v';say(me?[
- ['','In the supermarket, a tall man in a grey coat drops a box of something and kneels to get it, right in front of you, at your eye level, close.'],
- ['','You do not move. You cannot move. He gets up and says sorry and goes, and you stand there in the aisle with the basket for a long time.'],
- ['','At home, at dinner, V kneels down by your chair to pick up the fork you dropped, the way he always does, lower than you, so his face is under yours.'],
- ['hitmeuppp',MV('don’t.','don’t. don’t do that.','Please don’t do that.','Don’t. Please. Don’t kneel. I know why you do it. I know it’s for me. I can’t— the tall one knelt.')],
- ['','He stops halfway down. He stands up. He hands you the fork standing, from his full height, very slowly, and it is the hardest thing you have ever watched anybody do for you.']]:[
- ['','He kneels to pick up the fork they dropped. He has knelt for them since the day they met: lower than them, so his face is under theirs. It is the one thing he is sure he got right.'],
- ['hitmeuppp',MV('don’t.','don’t. don’t do that.','Please don’t do that.','Don’t. Please. Don’t kneel. I know why you do it. I know it’s for me. I can’t— the tall one knelt.')],
- ['','He stops halfway down.'],
- ['K9','(The tall one knelt. I was the tall one. They have taken the one kind thing I knew how to do with my body and given it to the man who held them, and the man was me.)'],
- ['','He stands up. He hands them the fork from his full height, slowly, as if it were heavy. That night he sits on the edge of his bed and finds that he does not know what to do with his knees.']],()=>{S.f.k106Kneel=1;calm(-2);apply({aff:1});save();done()})});
-k106Ev('kd106_real',()=>kdD()>=8,done=>{const me=S.pov!=='v';
- if(me)return say([
-  ['','Three in the morning. You are awake, and you are not sure, and there is only one way to find out that you have not tried.'],
-  ['hitmeuppp',MV('v. is this real.','v. is this real.','V. Is this real?','V. Is this real. Don’t be nice about it. Just tell me.')],
-  ['K9','It is Thursday. It is my house. The grey one is on your feet. Yes.'],
-  ['','You lie there. You want to ask again. You are ashamed of wanting to ask again.'],
-  ['K9','Ask me as many times as you like. The answer will be the same each time. That is how you will know.']],
-  ()=>ask('hitmeuppp','(He’s waiting.)',[
-   {t:'Ask again.',fn:()=>{S.f.k106Real='again';calm(2);apply({aff:2});save();say([['','You ask again. He says it again: Thursday, his house, the grey one, yes. Same words. Same order.'],
-     ['','You ask eleven times. He answers eleven times, the same, not once tired, not once kind in a new way. Somewhere around the ninth it starts to work.'],['','You fall asleep before the twelfth. In the morning neither of you says anything, and at breakfast he writes on the back of the shopping list, in fountain pen: Thursday. My house. The grey one. Yes. And sticks it to the fridge.']],done)}},
-   {t:'Don’t. Pretend you’re asleep.',fn:()=>{S.f.k106Real='no';calm(-2);save();say([['','You shut your eyes and breathe slow, the way you did for the guards. He knows. He says it once more anyway, very quietly, into the dark: Thursday. My house. Yes.'],['','You lie awake until five, not asking.']],done)}}]));
- say([['','At three in the morning, in the dark, very small: “v. is this real.”'],
-  ['','He has been waiting weeks for them to ask. He has had the answer ready the whole time.'],
-  ['K9','It is Thursday. It is my house. The grey one is on your feet. Yes.'],
-  ['','They ask again. He says it again. They ask eleven times, and he answers eleven times in the same words, in the same order, and not once in a new voice, because the point is that it does not change.'],
-  ['K9','(It is the easiest thing anybody has ever asked of me. I would do it every night for the rest of my life. That is what frightens me.)'],
-  ['','In the morning he writes it on the back of the shopping list and sticks it to the fridge, and it stays there for a year, and goes yellow, and nobody takes it down.']],()=>{S.f.k106Real='v';calm(1);apply({aff:2});save();done()})});
-k106Ev('kd106_proof',()=>kdD()>=9&&frT('a')>=1,done=>{const me=S.pov!=='v';say([
- ['','Every morning at eight, Angel sends a photo. Her own hand, with the date written on the back of it in eyeliner, holding a coffee. No message. Just the date.'],
- ['','She started it the day Misaki came upstairs. She has never explained it. She has not missed a single morning, including the one she was on a plane.'],
- [AN,'proof of life babe. mine not yours. thought you’d want to know i’m still here'],
- ['',me?'You know what it is. It is not proof that she is alive. It is a date you can check against your phone, every morning, from somebody who is not in the room with you and cannot be a guard. You check it every morning. It has always matched. You have kept every single one.':'He sees them check it, every morning: the photograph, then the date on their phone, then the photograph again. Their shoulders go down a quarter of an inch. He had not thought of it. Angel had, on the first day, without being told anything.'],
- ['hitmeuppp',MV('(still matches.)','(still matches. she’s still here. i’m still here.)','(It still matches. We’re both still here.)','(It still matches. Every day, it matches. She worked it out before anyone and she’s never once said what it’s for.)')]],()=>{fr('a',3);calm(2);done()})});
-k106Ev('kd106_back',()=>kdD()>=10&&S.f.kd106_good,done=>{const me=S.pov!=='v';say(me?[
- ['','Two good weeks. You count them. You are sleeping five hours. You turned the light off for six minutes. You went to the chemist on your own and nothing hummed.'],
- ['','Then a Tuesday. Nothing happens on it. Nobody does anything. You wake up and the room is the room, and you know it is the room, and you cannot get out of the bed anyway, all day, and you do not know why.'],
- ['hitmeuppp',MV('(i was doing so well.)','(i was doing so well. i was doing SO well.)','(I was doing so well. What did I do wrong?)','(I was doing so well. Two weeks. I was nearly there. What did I do? Tell me what I did and I won’t do it again.)')],
- ['','He brings toast at noon and does not ask. He sits down on the floor by the bed with his back to the wall and reads the land tax book aloud, from the start, chapter one, in the same voice as the infirmary.'],
- ['','You hate that it helps. You hate that you need it. You lie and listen to the tax history of a county you will never visit, and at four you eat half of the toast, cold, and that is the whole of Tuesday.']]:[
- ['','Two good weeks. Then a Tuesday when they do not get out of bed, at all, and cannot say why, and keep asking him what they did wrong.'],
- ['','He does not have an answer. There is no column in his ledger for it. He sits down on the floor by the bed with his back to the wall and starts the land tax book again from chapter one, in the infirmary voice.'],
- ['K9','(I know this from the hounds. They get better, and better, and one morning they will not come out of the kennel, and nothing has happened, and it is not going backwards. It is only Tuesday. I have never been able to make a hound believe that either.)'],
- ['','At four they eat half the toast, cold. He writes it down: half. It is a number. It is better than none.']],()=>{calm(-3);done()})});
-k106Ev('kd106_wake',()=>kdD()>=11,done=>{const me=S.pov!=='v';say(me?[
- ['','The worst dream is not the room. You are used to the room.'],
- ['','The worst dream is the kitchen island. Everyone is there: Angel, Ronin, V, the hounds under the table. It is warm. Ronin is doing the priest joke and you remember the end. You are completely, simply happy.'],
- ['','Then you wake up in V’s bed, and the light is coming in, and the grey one is on your feet, and none of it feels real.'],
- ['','That is the worst part. The dream felt real and the waking doesn’t. You are lying in the actual, true place, safe, and it feels like a set somebody has built around you, very well, to keep you quiet.'],
- ['hitmeuppp',MV('(which one.)','(which one was the dream.)','(Which one was the dream?)','(Which one was the dream. I know the answer. I know it. I just can’t feel it, and I don’t know how long I can go on knowing a thing I can’t feel.)')],
- ['','You bite the inside of your cheek until it bleeds, to check. It hurts. That proves nothing. It hurt in there too.']]:[
- ['','They wake up beside him and look at the ceiling for a long time, and he can see that they do not believe it.'],
- ['','Later, in the kitchen, they tell him, lightly, as a joke, that they had a dream where everyone was at the island and it was lovely, and that waking up felt like the fake one.'],
- ['K9','(They are in the right place, and it does not feel like the right place, and I cannot make it feel like anything. I can only keep it the same until it does.)'],
- ['','He sets the island for four that evening, though it is only the two of them: four plates, the hounds under the table, the radio off. They look at it for a long time. Then they sit down at their end, with their back to the wall, and eat.']],()=>{calm(-3);done()})});
-k106Ev('kd106_tall',()=>kdD()>=12&&S.pov==='v'&&kdSev()>=3,done=>say([
- ['','Three in the morning. It has been weeks. He had stopped listening for it.'],
- ['','From their side of the bed, in their sleep, quite clearly: “please. tall one. please.”'],
- ['','He lies absolutely still.'],
- ['K9','(It had stopped. I had let myself think it had stopped. That is worse than if it had never stopped at all, because now I know that it can come back from nothing, on a good week, after a good day.)'],
- ['','He does not wake them. He says the day, and the place, and that the grey one is on their feet, in an ordinary voice, into the dark. Their breathing slows. His does not.'],
- ['','In the morning they are cheerful and remember nothing, and he makes the coffee, and does not tell them, and that is one more thing.']],()=>{apply({heart:-1});done()}));
-k106Ev('kd106_month',()=>kdD()>=14,done=>{const me=S.pov!=='v';say(me?[
- ['','A month. You did not mean to count, and you counted.'],
- ['','In the trailer, on the inside of the cupboard door where nobody will see it, you have made a mark for every day since you came upstairs, with the edge of a spoon. Thirty of them, in groups of five.'],
- ['','It is the same tally. Same spoon, same groups, same hand. In the room you made it to count how long you had been in. You realise, looking at it, that you do not know which way this one is counting.'],
- ['hitmeuppp',MV('(30.)','(thirty days out. that’s what it says.)','(Thirty days out. That’s what it’s counting.)','(Thirty days out. That’s what it says. That’s what I meant it to say. I don’t know why it looks exactly like the other one.)')],
- ['','You shut the cupboard. You open it again and add the thirty-first, because it is a new day, and it is yours, and you will count whichever way you like.']]:[
- ['','A month. He has the date in his book; he did not need it.'],
- ['','At the trailer, putting their mugs away, he opens the wrong cupboard and finds the inside of the door scratched with short lines in groups of five. Thirty. The same hand as the wall above the infirmary bed.'],
- ['K9','(Thirty days. They are counting out now. Or they are counting the same thing they were always counting. I cannot tell from the marks, and I do not think they can either.)'],
- ['','He shuts the cupboard quietly. He does not ask. That night, in his book, under the dates they were gone, where the page has been blank for a month, he writes one line at last: “30. Counting.”']],()=>{calm(1);done()})});
-(function(){if(typeof KD_ORDER==='undefined')return;const put=(id,after)=>{const i=KD_ORDER.indexOf(after);if(i<0)KD_ORDER.push(id);else KD_ORDER.splice(i+1,0,id)};
- put('kd106_band','kd61_home');put('kd106_soup','kd63_alarms');put('kd106_chemist','kd106_soup');put('kd106_trailer','kd106_chemist');put('kd106_good','kd106_trailer');put('kd106_stride','kd106_good');
- put('kd106_kneel','kd106_stride');put('kd106_real','kd106_kneel');put('kd106_proof','kd106_real');put('kd106_back','kd106_proof');put('kd106_wake','kd106_back');put('kd106_tall','kd106_wake');put('kd106_month','kd106_tall')})();
+/* ===================================== MORNINGS (shared cap) ===================================== */
+const k106After=()=>['after','act2'].includes(S.phase)&&typeof k73Done==='function'&&k73Done('e2l_door');
+const K106MORN=[
+ {id:'m106_stretch',when:k106After,run:done=>say(k76M()?[
+   N('The fingers will not straighten. Six weeks curled in a cast and the tendons have shortened, like a rope left wet. They are set half closed, and the hand looks like it is holding something that is not there.'),
+   N('Every morning he stretches them. One at a time. He takes the finger in his and bends it back, slowly, past where it wants to go, and holds it there, and counts to thirty.'),
+   N('It is the worst pain you have had since the river. It is worse than the river, because it is slow, and because it is his hands, and because you have to let him.'),
+   M2('(he’s hurting me on purpose. he’s doing it on purpose and i have to say thank you)','(he is hurting me on purpose. he is doing it on purpose, and i have to say thank you)'),
+   N('Twenty-eight. Twenty-nine. Thirty. He lets go. The finger creeps back, a little, not all the way. There is a millimetre in it that was not there yesterday. He writes it down. Then the next finger.')]:[
+   N('The fingers have contracted. Every morning you stretch them, one at a time, past where they want to go, and hold for thirty.'),
+   N('They do not make a sound. Their face goes grey and wet and very still, and their good hand grips the edge of the island until the knuckles go white.'),
+   K76V('(I am hurting them on purpose, every morning, with great care, and they have to let me. It is what I promised to do to them in April. I did not know that this was how it would be done.)'),
+   N('A millimetre, today, on the index finger. You write it down. Their hand is shaking in yours. You hold it a moment longer than the count, and they let you, and neither of you says what that was.')],()=>{calm(-3);done()})},
+ {id:'m106_pinsout',when:k106After,run:done=>say(k76M()?[
+   N('The pins come out at the kitchen island, on a Thursday, with a pair of pliers.'),
+   N('He says it is quick. He takes the rubber cap off the first one, grips the end, and pulls, in one straight movement, and you hear it. A wet, dry, sliding sound, of steel coming out of bone. Five centimetres of it. It was all inside you.'),
+   N('The second one sticks. He has to twist it as he pulls. You feel the thread let go of the bone a turn at a time.'),
+   M2('(that was in me. all of that was in me)','(that was in me. all of that was inside me)'),
+   N('He drops them in the steel dish. Clink. Clink. Two little holes in the back of your hand, which bleed a bead each and stop. Later you take the pins out of the dish and wash them and keep them, and you could not have said why.')]:[
+   N('You take the pins out at the island with pliers. Straight pull, the first; the second has to be turned. You feel the bone let go of it through the handles.'),
+   N('They watch the whole length come out of them. Five centimetres. Their pupils go huge, and stay that way.'),
+   K76V('(I put those in at four in the morning, on the first night, by hand, with the kennel drill. I have not told them that. I will not tell them that.)'),
+   N('You drop them in the dish. In the evening the dish is empty. You find the pins later on their bedside table, washed, side by side, like something a person keeps from a war.')],()=>{calm(-2);done()})},
+ {id:'m106_tablets',when:k106After,run:done=>say(k76M()?[
+   N('Three weeks of tablets, twice a day, for the thing that was in the pin site. Big blue ones, split in half with a knife.'),
+   N('They come out of a white box with a hound’s card rubber-banded to it. The hound’s name is crossed out, and your name is written over it in fountain pen.'),
+   N('You read the dosing on the inside of the box. Milligrams per kilo. The weight is written in. It is the grey one’s weight. You weigh what she weighs.'),
+   M2('(i’m on the dog pills. i’m on the DOG pills. i’m the same as the dog)','(i am on the dog’s tablets. i weigh what the dog weighs. i am the same size as the dog)'),
+   N('They make you sick every morning. You take them anyway, at the island, with water, while he watches you swallow, the way he watches a hound swallow, to make sure it goes down.')]:[
+   N('The tablets come from the kennel box with the card on it, the hound’s name crossed out, theirs written over it. Twice a day, at the island. You watch them swallow, the way you watch a hound, to see it go down.'),
+   N('On the fourth morning they read the card. They see the weight. They look at the grey one, asleep under the table.'),
+   K76V('(I carried them to the hound scale at two in the morning. They do not remember. I would rather they had never found out, and I would rather they find out from a card than from me.)'),
+   N('They take the tablet. They do not say anything. The grey one comes and puts her head on their knee, and they leave their hand on it, and you look out of the window for some time.')],()=>{calm(-2);done()})},
+ {id:'m106_kettle',when:k106After,run:done=>say(k76M()?[
+   N('Two fingers on the left hand do not feel anything now. The ring and the little. He says the nerve may come back, in a year, or not.'),
+   N('You lift the kettle with that hand. You pour. You put it down. Then you smell something cooking, sweet, like pork, and look, and the side of your little finger is stuck to the side of the kettle.'),
+   N('You pull it away. The skin stays on the kettle.'),
+   M2('(i didn’t feel it. i didn’t feel ANY of it)','(i did not feel it. i did not feel any of it)'),
+   N('He comes in at the smell. He runs the hand under the cold tap for twenty minutes and does not say anything, and you stand there and look at the white blister, on a part of you that has stopped telling you anything at all.')]:[
+   N('The smell reaches you in the study: burning, sweet, like pork. You know that smell from the kennel stove.'),
+   N('In the kitchen they are standing at the kettle, looking at the side of their little finger. There is skin on the kettle. They did not feel it. They are looking at it with interest, as if it were someone else’s.'),
+   K76V('(Two fingers dead. The nerve may come back. It may not. I put that on the chart in my own hand and I did not, until this moment, believe it.)'),
+   N('You hold the hand under the cold tap for twenty minutes. That night you go through the house and turn down every hot tap, and lag the kettle, and the stove rail, and never mention it.')],()=>{calm(-2);done()})},
+ {id:'m106_check',when:()=>S.phase==='epilogue'&&!!S.f.e2lEnd,run:done=>say(k76M()?[
+   N('A year on. You wake in the night, as you do, and lie still, and feel it: the back of his hand, laid flat against your forehead for a moment, then your neck, then gone.'),
+   N('Temperature. He is taking your temperature in his sleep, or nearly in his sleep. He has done it every night for a year. You have never told him that you know.'),
+   M2('(forty point six. he still hears it)','(forty point six. he still hears it)'),
+   N('You do not open your eyes. You lie there and let him check, and feel his hand stay a little longer on the side of your neck, where the pulse is, and then go.')]:[
+   N('A year on. Every night, once, without fully waking, you put the back of your hand against their forehead, then their neck. Then you sleep again.'),
+   N('You do not decide to. You find yourself doing it. Your hand knows forty point six by touch, and it is still looking for it.'),
+   K76V('(Normal. Normal. It is always normal now. I will check again tomorrow.)'),
+   N('Some nights, under your hand, you feel the pulse in their neck jump, and you know that they are awake, and letting you.')],done)}];
+const _me106=morningEvent;morningEvent=function(done){try{if(S&&K106()&&!(S.kd&&S.kd.med)&&!(typeof k101Pending==='function'&&k101Pending())&&S.f.e2lMornDay!==S.day&&S.f.e2lMorn106Day!==S.day&&typeof mbOk==='function'&&mbOk()){
+  const e=K106MORN.find(x=>!S.seen[x.id]&&x.when());if(e){S.seen[e.id]=1;S.f.e2lMorn106Day=S.day;S.f.e2lMornDay=S.day;mbUse();save();go(cutBg('#0a0a0d'));return e.run(()=>_me106(done))}}}catch(e){}return _me106(done)};
 
 /* ===================================== ENDINGS ===================================== */
-const _xe106=extraEnding;extraEnding=function(){const L=_xe106();try{if(!S||!S.f||!k106Ok())return L;const f=S.f;
- if(f.k106_stand||f.k106_standV)L.push('There is a drip stand in the corner of the infirmary that V has never moved. Misaki had their hand round it, once, looking at the back of his neck. He knelt anyway.');
- if(f.k106_steps||f.k106_stepsV)L.push('It is fourteen steps from the stair to the infirmary door. For a day Misaki believed it was a different building, and that V was searching an empty one.');
- if(f.kd106_band)L.push('Misaki keeps the infirmary wristband in their wallet, behind a licence in somebody else’s name. It is the only document they own with their real name on it.');
- if(f.kd106_soup)L.push('V does not make miso soup any more. He learned a whole book of recipes from a country neither of them has been to instead.');
- if(f.kd106_kneel)L.push('V does not kneel for anyone now. He hands things over from his full height, slowly, and has never once said what it costs.');
- if(f.kd106_real)L.push('On V’s fridge there is a shopping list, gone yellow, that says on the back: Thursday. My house. The grey one. Yes.');
- if(f.kd106_proof)L.push('Every morning at eight Angel sends a photograph of her hand with the date on it in eyeliner. Misaki has kept every one.');
- if(f.kd106_month)L.push('Inside a cupboard door in Misaki’s trailer there is a tally, in groups of five, made with a spoon. It is still growing. Nobody but V knows it is there, and he has never said.')}catch(e){}return L};
+const _xe106=extraEnding;extraEnding=function(){const L=_xe106();try{if(!S||!S.f||S.f.e2l!==1||S.rom||S.vrom||S.f.k28pair)return L;const F=S.f.e2l85||{};
+ if(F.b_finger||F.b_chart)L.push('On Misaki’s chart, on the second night in the infirmary, there is a line crossed through: consider removal at 0600. Under it: Pink. Leave.');
+ if(F.b_scale||S.seen.m106_tablets)L.push('In the kennel cupboard there is a box with a hound’s name crossed out and Misaki’s written over it. They weighed what the grey one weighs.');
+ if(F.b_fever||F.b_feverV)L.push('There are four small scars on the inside of V’s wrist, from a night at forty point six. He never dressed them.');
+ if(S.seen.m106_pinsout)L.push('Two steel pins, washed, lie side by side on Misaki’s bedside table.');
+ if(S.seen.m106_check)L.push('Every night V checks Misaki’s temperature with the back of his hand without waking. Some nights they are awake, and let him.')}catch(e){}return L};
 /* ===KC106-END=== */
+
 
 /* ===================== kc99: last module — topic sync =====================
    Several modules push talk topics onto TDTOP_V/TDTOP_M only; the talk menu reads TOPICS_V/TOPICS_M.
