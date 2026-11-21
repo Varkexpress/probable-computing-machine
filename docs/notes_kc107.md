@@ -1,7 +1,7 @@
 # Of course (kc107)
 
 `src/kc107.js`; tests `tools/k107_test.js` (42 checks) and `tools/k86_test.js` (the pool); reading copy
-`docs/kc107_text.md` (`node tools/room_dump.js 107`). Needs kc73 and kc76–kc106. About 3,600 words.
+`docs/kc107_text.md` (`node tools/room_dump.js 107`). Needs kc73 and kc76–kc106. About 4,500 words (22 heavier lines added on the author's request).
 
 ## The direction (author)
 

@@ -18,6 +18,12 @@ Reading copy. Misaki's lines show the fuller tier; ▸ marks a choice, struck th
 
 **Misaki:** (this is no different. this is no different)
 
+*You try the job anyway. You get as far as two. The hand that opens the door is his, and it is the only hand in the building, and it brings you soup.*
+
+**Misaki:** (three. three. what is three? three was the part where you win)
+
+*There is no three. You lie there with one and two and the bam-bam-bam, and nothing after it, for an hour, which is the longest you have ever gone without a plan.*
+
 *It is different. You lie there with your one hand flat on the blanket and know it. On every other job you were the one with the rifle.*
 
 ### Life can be so unfair  (p7_unfair · Misaki · either setting · cell)
@@ -31,6 +37,10 @@ Reading copy. Misaki's lines show the fuller tier; ▸ marks a choice, struck th
 *You can do pain. What gets you is that nobody in that building gave a single shit what you had done. They did not read your file. They did not have a reason.*
 
 *He has a reason. He has a whole ledger of reasons. Of all the people who could have ended up with you, you got the one man who will read the charges out first.*
+
+*You think about the man on his step on a Tuesday, with his daughter holding his hand. He did not know why either. You never told him. You never told any of them.*
+
+**Misaki:** (so that’s what it is like. ok. ok. that’s what i did to them. i was the van)
 
 **Misaki:** (lucky me. totally. that’s me, the luckiest person in the city. gets to know why)
 
@@ -48,6 +58,10 @@ Reading copy. Misaki's lines show the fuller tier; ▸ marks a choice, struck th
 
 **Misaki:** (oh. oh, that’s me. i’m the thing on the table. i am the aberration in his little story)
 
+*You think of the things he says it to. You have seen the pictures; Ronin had one on his phone, and passed it round, and you looked. Cubes. Neat. A man who had kept children in a container.*
+
+**Misaki:** (i’m in the same column as him. the container man. that’s the column i’m in)
+
 *He picks up the tray and goes. You lie there and try to laugh at it the way you laughed at the bowling alley, and what comes out is not a laugh.*
 
 ### Tell him he is insane  (p7_kind · Misaki · either setting · cell)
@@ -62,6 +76,8 @@ Reading copy. Misaki's lines show the fuller tier; ▸ marks a choice, struck th
 
 **Misaki:** (my kind. i’m a kind now. i have been sorted. there is a whole kind, and i’m in it, and they all end up the same)
 
+*He says it without any heat at all, the way a clerk says a file number.*
+
 *You have been a lot of things to a lot of people. Contractor. Kid. Scalper. Babe, once, to somebody, for about a month. You have never been a kind. You lie there being one, and it is the loneliest thing that has ever been said to you.*
 
 ### “Now, shall we get to work?”  (p7_work · Misaki · either setting · cell)
@@ -74,7 +90,11 @@ Reading copy. Misaki's lines show the fuller tier; ▸ marks a choice, struck th
 
 **Misaki:** (one: don’t scream. two: don’t scream. three: oh, fuck. oh, fuck. he said the line. he said the line)
 
+*Everything you have ever heard about him comes up at once, in Ronin’s voice, doing the impression, and the bowling alley laughing, and you laughing loudest.*
+
 *Your whole body goes flat to the mattress. You stop breathing. You look at the scissors.*
+
+**Misaki:** (this is it. this is it. it’s the hand first. it’s always the hand first, ronin said)
 
 *He does the dressings. The wrists, the hand, the strapping, in order, quick and exact. Then he takes the gloves off and goes. You lie there for an hour waiting for the rest of the sentence, and it never comes, and that does not help at all.*
 
@@ -87,6 +107,8 @@ Reading copy. Misaki's lines show the fuller tier; ▸ marks a choice, struck th
 **Misaki:** (eighteen kilos, maybe, of anything worth cubing. that’s what, two days for four dogs? three, if they’re dainty. they are not dainty)
 
 *You are going to be two days of dog food. That is the total. You were going to be a pilot once. You were third at regionals. You are going to be stacked on a plate in pretty pieces and the old hound is going to eat you on a Thursday and lick the bowl.*
+
+*Nobody will know. That is the part that sits on your chest. There will not be a body. There will not be a funeral, or a stone, or a line in the paper. Angel will never find out which Thursday.*
 
 **Misaki:** (at least he’ll be careful with the cuts. at least it’ll be neat. great. that is what i wanted out of life. to be neat)
 
@@ -108,6 +130,10 @@ Reading copy. Misaki's lines show the fuller tier; ▸ marks a choice, struck th
 
 **Misaki:** (no. no. that’s angel. she wouldn’t. she — she totally would. that is the whole thing about angel. she totally would, if you had it coming)
 
+*You think of her at the bowling alley with your hand in hers, doing the nails, black, and blowing on them. You think of every time she said “babe”.*
+
+**Misaki:** (she was counting. she was counting the whole time. i would have counted too)
+
 *You lie there all night going through every time you were rude to her. There are a lot. You never once thought that she was counting.*
 
 ### “This one’s mine”  (p7_mine · Misaki · either setting · cell)
@@ -119,6 +145,8 @@ Reading copy. Misaki's lines show the fuller tier; ▸ marks a choice, struck th
 *Your heart goes. Bam-bam-bam. You have heard him say that before. In a warehouse, about a man with a crowbar round his neck. He said it close, so close that the man was the only one who heard it.*
 
 **Misaki:** (he’s here for me. he’s fighting k9 for the right to do me. that’s so — that’s so ronin. i am being fought over)
+
+*Then it stops being funny. Ronin is the one who would come. Ronin was the whole plan. If Ronin is out there arguing for a turn, there is nobody left in the city on your side of the door.*
 
 *You lie there and do not know whether to be insulted or flattered. You go back and forth all night. Both of them want you dead, and they are arguing about whose.*
 
@@ -133,6 +161,8 @@ Reading copy. Misaki's lines show the fuller tier; ▸ marks a choice, struck th
 **Misaki:** (angel. maybe. if she isn’t on his side. ronin. if he isn’t fighting for a turn. nobody else. there was never really an anybody else)
 
 *You were always the one who came. That was the job. Somebody you liked got stuck, and you went in shot-for-shot and chopped the long limp body up and undid the knots, and they laughed, and you laughed.*
+
+*You lie and think about the last person you said it to. They left. Everybody does, after about a month; you have never minded. You mind now. You mind so much that you have to put the good hand over your mouth.*
 
 *Nobody is coming to undo your knots. Nobody is going to call you anything at all. You lie there, nobody’s sugar honey dumpling, and say it to the ceiling once, in your own voice, just to hear it.*
 
@@ -150,6 +180,8 @@ Reading copy. Misaki's lines show the fuller tier; ▸ marks a choice, struck th
 
 **Misaki:** (come on. you have been cool in front of a man with a nail gun. you can be cool for a rich man in shirtsleeves)
 
+*Because it is not whatever. That is the problem. You are twenty-something and you have a truck and a cactus and a list of things you were going to do, and none of it is whatever, and you cannot make your voice pretend that it is.*
+
 *You practise until three in the morning. You cannot get through the one word without your voice going. In the end you lie there with your mouth shut, because that is the only way you can make sure that nothing comes out of it that is not cool.*
 
 ### Merely a room  (v7_table · V · either setting)
@@ -163,6 +195,8 @@ Reading copy. Misaki's lines show the fuller tier; ▸ marks a choice, struck th
 **V:** (Merely made of metal. Crude, but serviceable. Equipped with straps and drains.)
 
 *The bed has rails. You chose them; a fevered thing falls. The floor has a drain; you chose that too; things are spilled. You built this room with the same hand, the same eye, the same small pride in a thing that does its job.*
+
+**V:** (I took pride in it. I stood in the door on the first night and was pleased with the lamp.)
 
 *Inside it, a person who knows what you are lies on their side and watches the door. You see the room for a moment as they see it: exactly the same as the other one, with a bed where the table should be. You do not have an answer for them. You built it.*
 
@@ -180,6 +214,8 @@ Reading copy. Misaki's lines show the fuller tier; ▸ marks a choice, struck th
 
 **V:** (It was habit. I gave them my last word for the wicked, with my last face for the wicked, because they asked in the words that the wicked use.)
 
+*They do not look away. They look at the smile until it has gone, as if to remember it, and then they turn their face to the wall, slowly, as the things on the table never can.*
+
 *You pick up the tray and go. In the passage you put your hand over your mouth, to feel what it is doing, and it has stopped, and you are not sure that you can trust it again.*
 
 ### “Your kind”  (v7_kind · V · either setting)
@@ -193,6 +229,8 @@ Reading copy. Misaki's lines show the fuller tier; ▸ marks a choice, struck th
 *You look round. It is them, on their back, with the drip in their arm, tapping their temple at you.*
 
 **V:** (I have sorted them. Into the kind. With the man who kept children in a container and the man who sold cut medicine. I did it without thinking, as one sorts post.)
+
+*They do not answer you. They take their hand down from their temple and put it under the blanket, and lie still, and you understand that they have just been filed, and that they know it, and that you did it in your table voice.*
 
 *You finish with the drip. You go up to the study and open their page, MISAKI, WANTON, COLLATERAL: SEVERAL, and look at it until the lamp hums, and do not know what kind they are, and that is the first time in eleven years that the ledger has not been able to tell you.*
 
@@ -208,6 +246,8 @@ Reading copy. Misaki's lines show the fuller tier; ▸ marks a choice, struck th
 
 *You do the dressings. Quickly, exactly, in order, and you say nothing else, because anything else would be the second half of that sentence.*
 
+*When you take the gloves off, their eyes follow your hands all the way to the bin, and stay on the bin, as if the gloves might come back.*
+
 *Afterwards you stand in the scullery with the gloves still on. You have said those words before every piece of work you have ever done. You will need new words, for everything, now. You cannot think of any.*
 
 ### The four, cubed  (v7_platter · V · either setting)
@@ -219,6 +259,8 @@ Reading copy. Misaki's lines show the fuller tier; ▸ marks a choice, struck th
 **V:** (A quick death is merciful. It puts a dark thing down. Some do not deserve one. Some deaths must be long, in proportion to the hurt.)
 
 *You have the four pages ready. The bald one first: he laughed. You know how long that will take, and what he will say at the end, because they always say it, and what you will say back. Then there will be a fine platter, and the hounds will have deserved it.*
+
+**V:** (It is beef. I could tell them so. In that room it would be the most frightening sentence I have ever said.)
 
 *Through the floor you hear them breathing, quick, the way they breathe at feeding time. They think the platter is them. They have thought so all week.*
 
@@ -237,6 +279,8 @@ Reading copy. Misaki's lines show the fuller tier; ▸ marks a choice, struck th
 **V:** None.
 
 **Angel:** none. because none of them knew who i was talking about. just “my friend”. they didn’t even get a name.
+
+*Angel goes home at four without her coat. You find it on the chair in the morning. In the pocket there is a list of every hospital in the city with a line through each, and at the bottom, in eyeliner, because she had no pen: “not dead. not dead. not dead.”*
 
 *You know what is downstairs, lying awake, sure that nobody is looking. You cannot tell them about the forty thousand. In that room it would be one more thing that the man with the tray says.*
 
