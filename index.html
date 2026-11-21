@@ -27831,7 +27831,7 @@ const _xe105=extraEnding;extraEnding=function(){const L=_xe105();try{if(!S||!S.f
 
 /* ===================== THE WAR: THE BODY (kc106) =====================
    Medical horror in the infirmary and after it, at the author's direction. Needs kc73, kc76–kc105.
-   1. THE INFIRMARY. Sixteen scenes in kc85's player-opened pool (now 235). The body, handled by the man who swore
+   1. THE INFIRMARY. Sixteen scenes in kc85's player-opened pool (now 237). The body, handled by the man who swore
       to kill them: the pins, the line, the smell under the cast, the ribbon in the wrist, the fever, the stitches
       by the eye, the lungs. While the room is a cell, Misaki takes the tall one for K9 and does not warm to him (the
       standing rule): every procedure reads as him keeping the body for later. V does it all himself, from the kennel.
@@ -28028,6 +28028,212 @@ const _xe106=extraEnding;extraEnding=function(){const L=_xe106();try{if(!S||!S.f
  if(S.seen.m106_check)L.push('Every night V checks Misaki’s temperature with the back of his hand without waking. Some nights they are awake, and let him.')}catch(e){}return L};
 /* ===KC106-END=== */
 
+
+/* ===================== THE WAR: TEETH (kc107) =====================
+   More horror in the delusion, and the fight between them with nothing taken off it, at the author's direction:
+   real fear and real anger, both ways. Needs kc73, kc76–kc106.
+   1. THE INFIRMARY. Sixteen scenes in kc85's player-opened pool (now 251).
+        Misaki, cell:   t_face  t_voices  t_bite  t_dark  t_doit  t_eyes  t_refuse
+        Misaki, clear:  t_owe  t_films  t_blade
+        V:              t_biteV  t_doitV  t_faceV  t_refuseV  t_bladeV  t_oweV
+      While the room is a cell, Misaki takes the tall one for K9, who holds them and means to kill them; they do not
+      warm to him (the standing rule). Once clear, they still hate him, and now they owe him, which is worse.
+      V is not gentle inside. He is furious: at the men, at being looked at as one of them, and at them.
+   2. MORNINGS (shared cap), upstairs: the cup; the kitchen; the knife in the dark.
+   Same text under both aftermath settings: nothing touches the hours, and the doctor does not appear.
+   Rules: unnamed city, hounds unnamed, no new named characters, V never contracts, Misaki via M2 and they/them. */
+const K107=()=>{try{return typeof K106==='function'&&K106()}catch(e){return false}};
+const k107F=()=>{const f=S.f;f.e2l107=f.e2l107||{};return f.e2l107};
+
+/* ===================================== MISAKI, CELL ===================================== */
+k86('t_face','m',null,'cell','His face will not stay still',[
+ N('The tall one kneels with the tray, and his face slides.'),
+ N('It is his, long and pale, the glasses. Then for a second it is the one with the cheap watch. Then the one who wrote things down. Then his again, looking at you, waiting, as if nothing had happened.'),
+ N('It happens again when he leans in to check the line. The jaw goes wide. The mouth goes wet. Back.'),
+ M2('STOP IT. stop doing that with ur face','STOP IT. stop doing that with your face'),
+ N('He stops moving entirely. He does not know what you mean. That is worse, because if he does not know, then it is not him doing it. It is the room. It is your head. It is happening on its own, and it can happen to anyone who comes through that door.'),
+ N('You shut your eyes and keep them shut while he is in the room. Behind your eyelids the faces keep changing anyway. You can hear him breathing. You do not know whose breathing it is.')]);
+k86('t_voices','m',null,'cell','Voices through the door',[
+ N('Voices in the corridor. His, and one other, low. You put your ear to the wall.'),
+ N('“…when it is done.” His voice. “…the ledger. All of it.” A word you miss. “…they are worth more whole.”'),
+ N('You slide down the wall to the floor. You hold your knees. It is all there in your head, finished, as if you had read the contract: he is selling you on. He mended you to sell you. Whole is worth more.'),
+ M2('(he’s going to put me back. he’s going to sell me back to them)','(he is going to put me back. he is going to sell me back to them)'),
+ N('You did not know a body could be this frightened and still be awake. Your teeth are chattering and it is not cold. Your bladder lets go a little and you do not care.'),
+ N('Then the anger comes up through the fear, all at once, like a flare: white, total. If he opens that door you will go for his eyes. You will take one of them with you. You sit facing the door with your thumbs ready, all night, and hum, so he will hear that you are not asleep.'),
+ N('(In the corridor, the other voice was the radio in his study, a programme about tax. The ledger was the hounds’ feed accounts. You never find that out.)')]);
+k86('t_bite','m',null,'cell','You bite him',[
+ N('He is changing the dressing on your wrist. His hand is right there, by your face, the side of it, the meat under the little finger.'),
+ N('You do not decide. You bite. All the way, as hard as your jaw goes, the way a dog bites, and you feel the skin go and then something under it that gives with a sound, and there is hot salt in your mouth.'),
+ N('He does not pull away.'),
+ N('That is what makes your heart stop. Anyone pulls away. He kneels there with your teeth in his hand and the blood running down his wrist into his cuff, and he holds absolutely still, and he looks at you, and waits.')],
+ cb=>ask(K73Who(),'(Your teeth are in his hand.)',[
+  {t:'Hold on. Make him do something.',fn:()=>{k107F().bite='hold';calm(-4);apply({tension:4});save();say([N('You hold on. Your jaw cramps. Your eyes are streaming. He does nothing, for a minute that goes on for ever, and then very quietly he says the date.'),
+    N('You let go because you cannot hold any longer, not because he said it. You spit his blood on the floor between you. He gets up and finishes the dressing with the other hand, dripping on the sheet.'),
+    M2('(why didn’t he hit me. why didn’t he HIT me)','(why did he not hit me? why did he not hit me?)'),
+    N('You lie awake all night with the taste of him in your mouth, more afraid of a man who does not hit back than of anyone who ever did.')],cb)}},
+  {t:'Let go. Get into the corner.',fn:()=>{k107F().bite='let';calm(-3);save();say([N('You let go and get into the corner with your back to the tiles and your mouth full of him. He looks at his hand. The bite has gone to the bone; you can see something white.'),
+    N('He finishes your dressing first. Then he wraps his own hand in a towel and goes. Through the door you hear the tap run for a long time.')],cb)}}]));
+k86('t_dark','m',null,'cell','The bulb goes',[
+ N('The bulb goes out. Not off. Out, with a tick, and a smell of burnt dust.'),
+ N('Total dark. The cell is complete now. There is nothing to argue with it.'),
+ N('Then you hear it: breathing, in the room. Slow, close, on your left. Somebody is in here with you. Somebody has been in here with you, and you did not hear the door.'),
+ M2('(they’re here. they’re in the room. it’s happening again it’s happening again)','(they are here. they are in the room. it is happening again)'),
+ N('You get the drip stand by feel and swing it at the breathing, with everything you have, and it hits the wall, and the breathing stops, and then it starts again, faster, and you realise it is coming out of your own mouth.'),
+ N('When the torch comes through the door you are on the floor in the broken glass of the bulb with the stand across your body like a bar. He sees the blood on your feet. He says your name. You scream at him to get out, get out, get out, until he does, and leaves the torch on the floor, pointing at the ceiling, so there will be light.')]);
+k86('t_doit','m',null,'cell','Do it, then',[
+ N('Something breaks in you on the third day, and what comes out is not fear. It is rage.'),
+ M2('DO IT THEN. do it. ur honour. u’ve got the book. u’ve got me in a bed. what are u WAITING for','DO IT, THEN. do it, your honour. you’ve got the book. you’ve got me in a bed. what are you waiting for?'),
+ N('You tear the tape off the line and pull it out of your foot and throw it at him. It hits his chest and drips.'),
+ M2('u want me to watch. u want me to get better so it MEANS something. u sick fuck. u’re worse than them. at least they didn’t pretend','you want me to watch. you want me better so that it means something. you sick fuck. you’re worse than them. at least they didn’t pretend'),
+ N('He stands there and takes it. He does not raise his voice. His face has gone a colour you have never seen on it, and his hands are fists at his sides, and he does not move them.'),
+ N('You spit at him. It lands on his glasses. He takes them off and cleans them on his shirt, slowly, and puts them back, and kneels down, and puts the line back in your foot while you hit him in the head with your good hand, again and again, until you are too tired to lift it.')]);
+k86('t_eyes','m',null,'cell','Eyes in the dark',[
+ N('At night the hounds come and lie outside the door. You can see them through the gap: their eyes, catching the corridor light, green, close to the floor.'),
+ N('Two. Four. Six. Then more than there are hounds. Eyes all along the gap, low down, and then higher, eyes at the height of a man kneeling, and they do not blink.'),
+ M2('(he’s watching. he’s got them all watching)','(he is watching. he has them all watching)'),
+ N('You pull the blanket over your head. You can feel them through it. You can feel the exact place on the back of your neck that they are looking at.'),
+ N('In the morning there is one hound at the door, the grey one, asleep. You stare at her for an hour, trying to work out where she put the rest of her eyes.')]);
+k86('t_refuse','m',null,'cell','The one thing he cannot have',[
+ N('You work it out at four in the morning, very clearly, the way you work out a shot. He wants you whole. He wants you well, so that it means something when he does it.'),
+ N('There is one thing in this room he cannot take from you, and it is whether you are there for it.'),
+ N('You stop eating. You stop drinking. You pour the water into the mattress so he will think you drank it. When he brings the soup you look him in the eye and tip it slowly onto the floor.'),
+ M2('(u don’t get the ending. that’s mine. i’ll be gone before u get it)','(you do not get the ending. that is mine. i will be gone before you get it)'),
+ N('It is the best you have felt in days. It is the only thing you have felt in days that is yours. You lie there, light-headed, lips cracking, with the empty cup, and grin at the door.')]);
+
+/* ===================================== MISAKI, CLEAR ===================================== */
+k86('t_owe','m',null,'clear','You should have let me',[
+ N('You know where you are. You know who carried you. You know how many nights he sat outside that door. And that is the trouble.'),
+ M2('u should’ve left me in the river','you should have left me in the river'),
+ K76V('Very likely.'),
+ M2('i mean it. it was CLEAN. u’d have won. it would’ve been over. now what. now i owe u my LIFE. do u know what that does. to someone like me','i mean it. it was clean. you’d have won and it would have been over. now what? now i owe you my life. do you know what that does, to someone like me?'),
+ K76V('Yes. That is why I did not want you to know who carried you.'),
+ M2('i HATE u. i hate u more than i did. i didn’t know i could','i hate you. i hate you more than i did before. i didn’t know i could'),
+ K76V('Good. Keep it. The ledger stands. I have not crossed anything out.'),
+ N('You throw the tray at him. It misses, because of the hand, and hits the wall, and the bowl breaks, and he looks at the mess and then at you, and you see it, for one second, in his face: he is as angry as you are. He is shaking with it.'),
+ N('He goes without picking up the bowl. You lie there and cry with rage, and the worst part is that it is the first thing in days that has felt like the war.')]);
+k86('t_films','m',null,'clear','He watched them',[
+ N('He lets it slip. Something about your ribs, the third one, and how it was broken, and when, and in what order.'),
+ N('He could only know that one way.'),
+ M2('u watched them','you watched them'),
+ K76V('I had to know what to mend.'),
+ M2('u WATCHED them. all of it. u sat in ur study with ur nice lamp and u WATCHED','you watched them. all of it. you sat in your study under your nice lamp and you watched'),
+ K76V('Every minute. Twice. I made notes.'),
+ N('You are out of the bed before you know it, on the broken foot, and you have his collar in your good hand, and you are screaming in his face, words that are not words, spit and noise, and he lets you, he lets you shake him, he stands there and lets you.'),
+ M2('NOBODY. nobody was supposed to see. that was MINE. that was the one thing nobody else had','nobody. nobody was supposed to see it. that was mine. that was the one thing nobody else had'),
+ K76V('I know.'),
+ N('You let go of him. The foot gives out. He catches you, and you hit him for that too, and he puts you back in the bed, and goes, and you hear him being sick in the kennel drain. You are glad. You are so glad. You hope it was every minute.')]);
+k86('t_blade','m',null,'clear','The scalpel',[
+ N('There is a scalpel on the steel trolley. He left it. He never leaves anything. You have it up your sleeve before he turns round.'),
+ N('He kneels to check the foot. His throat is right there, the pulse going under the jaw, where you would put it.'),
+ N('You put it there. The point, just touching. A bead comes up.')],
+ cb=>say([K76V('Not like this.'),
+  M2('give me one reason','give me one reason'),
+  K76V('You would never forgive yourself. Not for killing me. For doing it in a bed, in my shirt, on my thread. It would be the worst work you ever did.'),
+  N('He is right. You hate him for being right more than you have ever hated anybody. Your hand is shaking so hard that the point is opening the cut wider.')],()=>ask('hitmeuppp','(The point is in his neck.)',[
+  {t:'Do it anyway.',dis:true,sub:'he is right, and you know it',fn:()=>{}},
+  {t:'Drop it.',fn:()=>{k107F().blade='drop';calm(-3);apply({tension:3});save();say([N('You drop it. It rings on the tile. He picks it up, and wipes it, and puts it back on the trolley, exactly where it was.'),
+    K76V('When you are well. On a roof. Properly.'),
+    M2('i will. i swear to god i will','i will. i swear to god i will'),
+    K76V('I am counting on it.'),
+    N('He goes out with his hand against his neck, and the blood between his fingers, and leaves the scalpel on the trolley. That night you lie awake, staring at it, shaking, and do not touch it.')],cb)}}])));
+
+/* ===================================== V ===================================== */
+k86('t_biteV','v',null,null,'Teeth',[
+ N('They bite you. The side of the hand, under the little finger, to the bone. You feel the tendon go.'),
+ N('You do not pull away. If you pull, you take their teeth with you, or you take the dressing, and the wound under it opens.'),
+ K76V('(Hold still. They are not biting me. They are biting the men. I am only where the men were.)'),
+ N('Then, under that, something you did not expect: rage. Pure, hot, filling your chest. Not at them. At the fact that this is what they think of you. That after April, the roofs, the car park, the eye, the whole war, they look at you and see one of them. You hold still with their teeth in you and you are angrier than you have been since your mother.'),
+ N('You stitch your own hand in the kennel afterwards, without anything for the pain, because you want it to hurt, and you are not sure who you are punishing.')]);
+k86('t_doitV','v',null,null,'Mine',[
+ N('They tear the line out and throw it at you and tell you to do it. Do it then. They call you a sick fuck. They say you are worse than the men.'),
+ N('You stand there and let it hit you. You have decided that you will let all of it hit you.'),
+ N('Then they say: “just do it. like they would. what’s the difference.”'),
+ N('And you hear yourself say it. Not loud. Worse than loud.'),
+ K76V('The difference is that you are mine. Not theirs. Mine. In the book, in my hand, since April. They had no right to you. They had no right to lay one finger on what was mine to end.'),
+ N('The room goes completely silent. They are staring at you. You have frightened them. You meant to. For one second you meant to.'),
+ N('In the corridor you hit the wall. Twice. The second time something in your hand goes. You set the knuckle yourself, at the kennel bench, and look at it, and think: that is what is in me. That is what they saw.')]);
+k86('t_faceV','v',null,null,'Your face',[
+ N('They scream at you to stop doing that with your face. You are not doing anything with your face.'),
+ N('After that, every time you come in, they shut their eyes and whimper. Not cry. Whimper, high, through the nose, like the black hound at the surgery door.'),
+ K76V('(I cannot take my face off. It is the one thing I cannot leave in the corridor.)'),
+ N('So you do the dressings from behind. You stand behind the head of the bed where they cannot see you, and reach over, and work by feel, upside down, the way you have only ever worked on a hound that would take your face off.'),
+ N('It takes twice as long. Your shoulders burn. Halfway through they stop whimpering. You realise that you have made yourself into something with no face at all, and that it is the only version of you that they can bear.')]);
+k86('t_refuseV','v',null,null,'Soup on the floor',[
+ N('They look you in the eye and tip the soup onto the floor. They have been pouring the water into the mattress. Their lips are split. Their pulse is fast and thin.'),
+ N('You understand what they are doing. It is the only move left on their board, and it is a good one, and it is aimed at you.'),
+ K76V('(They will not let me have it. They will die in my house to spite me. They would. They are the only person I have ever met who would.)'),
+ N('You are so angry that the room goes narrow. You kneel and put your face level with theirs, close, closer than you have ever been.'),
+ K76V('Listen to me. If you die in this room, they did it. Not you. Not me. The men. They get the last one. Is that what you want? To give it to them?'),
+ N('They stare at you. For a long time nothing happens. Then their hand comes out, shaking, and takes the cup, and they drink, glaring at you over the rim, every swallow a curse.'),
+ N('You clean the soup off the floor on your knees. Your hands are not steady. You do not know if it is the anger or the other thing.')]);
+k86('t_bladeV','v',null,null,'The scalpel',[
+ N('You leave the scalpel on the trolley. You tell yourself it is an accident. You have never left an instrument out in your life.'),
+ N('When you kneel, the point comes to your throat. Exactly where you knew it would go, because it is where you would put it.'),
+ K76V('(If they do it, it is theirs. Clean. The war ends the way it was meant to. Is that why I left it?)'),
+ N('You talk them out of it. You know exactly which words, because you know them. The bed. The shirt. The worst work they ever did.'),
+ N('They drop it. You go out holding your neck. In the corridor you stand against the wall with the blood running into your collar, and you are shaking, and it is not fear. It is the most alive you have felt since the river, and that is the most frightening thing that has happened in this house.')]);
+k86('t_oweV','v',null,null,'The tray',[
+ N('They tell you that you should have left them in the river. They mean it. They tell you they hate you more now, because they owe you.'),
+ K76V('Good. Keep it. The ledger stands.'),
+ N('The tray hits the wall beside your head. The bowl breaks.'),
+ N('And for a second you let them see it: the anger. All of it. That you carried them out of that building with their blood in your mouth from the stairs; that you have not slept; that they lie there and want to have died, as if it were theirs to want, as if you had not paid for every breath of it on your knees.'),
+ K76V('(Do not say it. If you say it, it is a debt, and they will never stop paying.)'),
+ N('You do not say it. You walk out and leave the bowl. You stand in the kennel with the hounds pressing round your legs and you shout, once, a sound with no words in it, so loud the hounds scatter. Then you go back and pick up the pieces.')]);
+
+/* ===================================== MORNINGS (shared cap) ===================================== */
+const k107Up=()=>['after','act2'].includes(S.phase)&&typeof k73Done==='function'&&k73Done('e2l_door');
+const K107MORN=[
+ {id:'m107_cup',when:k107Up,run:done=>say(k76M()?[
+  N('The first morning you can hold the rifle steady, you go up onto the roof across the street from his house at six, and wait.'),
+  N('He comes into the kitchen at seven. He pours coffee. He lifts the cup.'),
+  N('You put a round through it. Through the cup, an inch from his mouth, through the window behind, into the wall. Coffee and china all down his shirt.'),
+  M2('(that’s for the river. now we’re even. now i don’t owe u anything)','(that is for the river. now we are even. now i owe you nothing)'),
+  N('He does not duck. He stands there in the glass, dripping, and looks straight at your roof, at you, as if he can see through the scope. Then he sets down the handle, which is all that is left, and walks out of the room.'),
+  N('That evening there is a note under your trailer door. Fountain pen. “That was not even. That was a cup. Try again.”'),
+  N('You read it nine times. Your hands are shaking with fury. You are grinning so hard your face hurts.')]:[
+  N('Seven in the morning. You lift the coffee, and it explodes in your hand.'),
+  N('An inch from your mouth. China, coffee, the window behind you, all at once. You do not duck. You know the roof; you know the angle; you know exactly who.'),
+  K76V('(Their first shot since. Steady. An inch. They wanted me to know they could. They wanted me to know they chose not to.)'),
+  N('You should feel relief: the hand is back. What you feel is rage, so pure it is almost joy. They think a cup settles it. They think they can buy their way out of the river with a cup.'),
+  N('You write the note that evening and put it under their door yourself. “That was not even. That was a cup. Try again.” You do not sweep up the glass for three days.')],()=>{apply({tension:6});done()})},
+ {id:'m107_kitchen',when:k107Up,run:done=>say([
+  N('It starts over nothing. A door left open. It is not about the door.'),
+  K76V('You looked at me as if I were them.'),
+  N(k76M()?'He says it. Not you: him. It is the wrong way round, and you are so angry you cannot see.':'You say it. You had not known you were going to. It is the wrong way round from how they will hear it, and you see it land.'),
+  M2('YOU ARE THEM. u want the exact same thing. me, in a room, with nobody coming. u just want it to be u','you ARE them. you want the exact same thing. me, in a room, with nobody coming. you just want it to be you'),
+  K76V('Yes.'),
+  N('Silence. The kind that has a shape. The hounds have left the kitchen.'),
+  K76V('Yes. I want it to be me. I have wanted it to be me since April. And they took you from me, and they broke you, and they gave you back to me in pieces, and you look at me as if I had done it. I did not do it. I would have done it properly.'),
+  M2('that’s supposed to make it BETTER?','that is supposed to make it better?'),
+  K76V('No. It is supposed to be true.'),
+  N(k76M()?'You walk out. You drive to the trailer and break every plate you own, one by one, against the sink, and then sit on the floor in them and shake until it is dark.':'They walk out. You hear the truck. You stand in the kitchen with your hands flat on the island until they stop shaking, and they do not stop, and at midnight you are still standing there.')],()=>{apply({tension:8});calm(-4);done()})},
+ {id:'m107_knife',when:k107Up,run:done=>say(k76M()?[
+  N('You wake up with a knife in your hand and a man under you.'),
+  N('It is dark. You are on top of him, knees on his arms, the kitchen knife at his throat. The cell is all round you: the bulb, the radio, the breathing. You know exactly where you are. You are getting out.'),
+  N('Then a voice, from under the knife, completely level: “It is Tuesday. It is my house. You are upstairs.”'),
+  N('The cell comes apart. It is his bedroom. It is his throat. You do not remember getting the knife, or coming down the hall, or getting onto the bed.'),
+  M2('(i nearly. i was going to. i didn’t even KNOW)','(i nearly did. i was going to. i did not even know)'),
+  N('You get off him. You put the knife down on the floor and back away from it, as if it might come after you. He sits up and does not touch his neck, though it is bleeding.'),
+  M2('u should’ve stopped me. u could’ve stopped me. why didn’t u STOP me','you should have stopped me. you could have. why didn’t you stop me?'),
+  K76V('Because you would have woken fighting, in the dark, with a knife. I would have had to hurt you. I am not going to hurt you. Not like that. Not ever like that.'),
+  N('You leave the house at four in the morning in bare feet. You are not frightened of him. For the first time since the river, you are frightened of yourself, and there is nowhere to drive to that you are not.')]:[
+  N('You wake with a blade on your throat and their knees on your arms.'),
+  N('Dark. Their weight. The kitchen knife; you know its edge. Their eyes are open and they are not seeing you. They are seeing the room.'),
+  K76V('(I could have them off me in under a second. Wrist, hip, over. In the dark, with the knife between us, one of us would be cut, and it would not be me.)'),
+  N('You do not move. You say the day, and the house, and that they are upstairs, in the voice you use for the hounds.'),
+  N('You watch it come back into their face. You watch them see what is in their hand. You have seen a great many faces at the moment they understood what they had done. You have never seen one like that.'),
+  N('They ask why you did not stop them. You tell them. They leave at four, barefoot. You sit on the edge of the bed with the cut on your neck and the knife on the floor, and you are not afraid, and you are so angry you could tear the house down, and there is nobody in the world to be angry at who is not already dead.')],()=>{apply({tension:5});calm(-6);done()})}];
+const _me107=morningEvent;morningEvent=function(done){try{if(S&&K107()&&!(S.kd&&S.kd.med)&&!(typeof k101Pending==='function'&&k101Pending())&&S.f.e2lMornDay!==S.day&&S.f.e2lMorn107Day!==S.day&&typeof mbOk==='function'&&mbOk()){
+  const e=K107MORN.find(x=>!S.seen[x.id]&&x.when());if(e){S.seen[e.id]=1;S.f.e2lMorn107Day=S.day;S.f.e2lMornDay=S.day;mbUse();save();go(cutBg('#0a0a0d'));return e.run(()=>_me107(done))}}}catch(e){}return _me107(done)};
+
+/* ===================================== ENDINGS ===================================== */
+const _xe107=extraEnding;extraEnding=function(){const L=_xe107();try{if(!S||!S.f||S.f.e2l!==1||S.rom||S.vrom||S.f.k28pair)return L;const F=S.f.e2l85||{};
+ if(F.t_bite||F.t_biteV)L.push('There is a crescent of scar on the side of V’s hand, to the bone, in the shape of Misaki’s teeth. He stitched it himself, without anything for the pain.');
+ if(F.t_blade||F.t_bladeV)L.push('V once left a scalpel on the trolley by Misaki’s bed. He has never left an instrument out before or since, and has never decided why he did.');
+ if(F.t_doitV)L.push('In the infirmary V told Misaki that they were his, and his alone to end. Neither of them has ever repeated it. Neither has taken it back.');
+ if(S.seen.m107_cup)L.push('Under Misaki’s trailer door, once, a note in fountain pen: “That was not even. That was a cup. Try again.” They kept it.');
+ if(S.seen.m107_knife)L.push('V has a thin white line on his throat from a kitchen knife, one night upstairs. He did not stop them. He has told them, once, why.')}catch(e){}return L};
+/* ===KC107-END=== */
 
 /* ===================== kc99: last module — topic sync =====================
    Several modules push talk topics onto TDTOP_V/TDTOP_M only; the talk menu reads TOPICS_V/TOPICS_M.
