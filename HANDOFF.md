@@ -51,4 +51,5 @@ Playwright is installed globally (`require(execSync('npm root -g')+'/playwright'
 - Page references a `downloads` capability that is not declared (export button won’t work in the artifact).
 - Chapter 5 problems are original, modeled on Big Ideas style (the online textbook was unreachable).
 
-- The Killer Chat artifact was republished from another session (larger index.html, downloads capability declared, mirror-protocol.html removed). This session did not overwrite it; merge before republishing.
+- index.html in this repo is now the live Killer Chat artifact (version 113, ~4.7 MB, single file, capability `downloads`), pulled from the artifact before editing. mirror-protocol.html is no longer published with it.
+- kc106 "The glass, and the long way back" (block just before kc99): more delusion and recovery angst on ordinary routes (skips the war route). Infirmary: one scene a day through the hub after kc61–kc63 (`k106Scene`; pools `KD106_MC/MK/VC/VK`, 16 scenes). After discharge: 13 aftermath events `kd106_*` in `KD_ORDER`. Ending lines via `extraEnding`.
